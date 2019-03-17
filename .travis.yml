@@ -1,0 +1,23 @@
+language: java
+
+matrix:
+  fast_finish: true
+  include:
+    - os: linux
+      jdk: oraclejdk8
+
+script:
+  - "./gradlew check jacocoTestReport --stacktrace"
+
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
+cache:
+  directories:
+    - "$HOME/.gradle/caches/"
+    - "$HOME/.gradle/wrapper/"
+
+notifications:
+  slack:
+    secure: nGbKsK3X6TmljgYdpfG0v3d5uNrv3eKT6hLhyZJjf4T3UV3czfsLj+5i4Ty4jQYGboLAFkBRNu+ydYOqEH7icYb30UGb/zT/az8YMDrdKp7QCo0ciOLrZDHFwtZjR+KIvkhHuwUSplBz1pGmzNQbB1XrFMWpBeAdYuZ7Cyju5id3fIMWS1gKE9Cq2zVz/fH/utQmUZ/3IJksF6TVpZzBBqbf6zk6YOwhPDE+Yr1O3T++thVR7HkdXs/fatG40AN4nwo+RwTnBGgQQmyA1u86ZFAY+NJ+tCl8rKlsKe/P9WFjVlCzsnw8x3kv30Cbc1uZb0/DGbzM5OrmMm4Kx9lJRoO75cU1JoBhGGT+lNAfyYeINnl30ohZb0oWF+KorP/ljFKZs4Zwi9qlhban2W8YWdGBLo2R+NODFb97kQwB4tFv8q5i8ZtI8jS8LdqX0FRiiS9wMfJ0dAtA1FhOXucUoZNY10XBjn8KytWOEMNDowHvSC2N5zLu8Ulbjwix7qd8k10/draXt4aKcAA2zX2cNMZNWExxn7Pn8uQsc+DHXqyS4j85tLgV0L2NosSHtIJXTVqlAKo34p1xX+mlpH604bqOLnBfzrQ1mmPqT9oh+mdPlkwRPZRpLZYjtzDNQMsCiHTRCs2HkU4IM93rcpGL6ClA8BM9gIcHIavYLf+tbWA=
