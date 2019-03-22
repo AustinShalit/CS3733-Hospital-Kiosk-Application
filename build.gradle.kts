@@ -6,9 +6,9 @@ plugins {
     application
     jacoco
     checkstyle
-    id("com.github.spotbugs") version "1.7.0"
+    id("com.github.spotbugs") version "1.7.1"
     pmd
-    id("com.diffplug.gradle.spotless") version "3.19.0"
+    id("com.diffplug.gradle.spotless") version "3.20.0"
     id("com.gradle.build-scan") version "2.2.1"
     idea
 }
@@ -21,7 +21,7 @@ repositories {
 }
 
 dependencies {
-    fun junitJupiter(name: String, version: String = "5.2.0") =
+    fun junitJupiter(name: String, version: String = "5.4.1") =
             create(group = "org.junit.jupiter", name = name, version = version)
     testImplementation(junitJupiter(name = "junit-jupiter-api"))
     testImplementation(junitJupiter(name = "junit-jupiter-engine"))
@@ -42,7 +42,7 @@ tasks.withType<Test> {
 }
 
 jacoco {
-    toolVersion = "0.8.2"
+    toolVersion = "0.8.3"
 }
 
 tasks.withType<JacocoReport>().configureEach {
@@ -147,6 +147,6 @@ spotless {
 }
 
 tasks.withType<Wrapper>().configureEach {
-    gradleVersion = "5.2.1"
+    gradleVersion = "5.3"
     distributionType = Wrapper.DistributionType.ALL
 }
