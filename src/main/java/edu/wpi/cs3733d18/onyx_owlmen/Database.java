@@ -36,4 +36,8 @@ public class Database {
     void updateNode(String nodeId, Node newNode) {
         //
     }
+
+    void deleteNode(String nodeId) {
+        //
+    }
 }
