@@ -21,6 +21,12 @@ repositories {
 }
 
 dependencies {
+    fun derby(name: String, version: String = "10.14.2.0") =
+            create(group = "org.apache.derby", name = name, version = version)
+    implementation(derby(name = "derby"))
+    implementation(derby(name = "derbyclient"))
+    implementation(derby(name = "derbytools"))
+
     fun junitJupiter(name: String, version: String = "5.4.1") =
             create(group = "org.junit.jupiter", name = name, version = version)
     testImplementation(junitJupiter(name = "junit-jupiter-api"))
