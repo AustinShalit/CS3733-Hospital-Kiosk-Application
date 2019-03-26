@@ -1,7 +1,8 @@
 package edu.wpi.cs3733d18.onyx_owlmen;
 
-import edu.wpi.cs3733d18.onyx_owlmen.databasePrototype.DatabasePrototype;
 import javafx.application.Application;
+
+import edu.wpi.cs3733d18.onyx_owlmen.database_prototype.DatabasePrototype;
 
 public final class Main {
 
