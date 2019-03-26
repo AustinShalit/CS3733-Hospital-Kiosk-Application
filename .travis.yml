@@ -3,20 +3,32 @@ language: java
 matrix:
   fast_finish: true
   include:
-    - os: linux
-      jdk: oraclejdk8
+  - os: linux
+    jdk: oraclejdk8
 
 script:
-  - "./gradlew check jacocoTestReport --stacktrace"
+- "./gradlew check jacocoTestReport --stacktrace"
+- "./gradlew shadowJar"
+
+deploy:
+  provider: releases
+  api_key:
+    secure: OBF3C7f8v4jfUEstAFSLHZsf+6y+n4i8R8U/z3mDv9ImFl51eABQU8auoOQobFop2BNQK9oQKVQAq47H4Xcd5Asi58oeg0VPZAAcZwnFKnX13d+WxTlenTERPNfkCLf/z2VstJ0bXqhKwKVpTxe7AsmlXkepLoUjZUSLl7q92nkSDZZYuyq810G/rrmhuIkDk7CpBxlQXD9cGTmk373sm4/G/z142UUDvfMMsYUYFGFCt9RcNBfF9F6dMVUz2GQyX5W1nTrO8gAPJ246vt21206759/3WOIsnGnFqQE+bLKfidJTityVn8clqResvEx14z1DGk1GW3nSOEOoPskmJ8K2AYZAnSdU2W+m2O5A+hGG0yTFGCmHMjp/ZsfbgmqzpGe8AmSoEaAkoiXpxIrqRgET72gvE1lJ9rBqqVKqFUhzH16CcUI6nBn/HUeo7bdDPTBhGT5VodqDQHdq2ZsBQgX+K5SGEOL6u3z+VcnC51KFA2HJ1tkjuN4TkDSqsBi9t3jTahI8Nrz1xbgJGKgxAK6DVz4X5iEMazrvYVuLGaP6f1YawUyIwxD/EE2tEy0+XvNl2qgDci+VFW/QH+IFXazUDZw6YCulbqXZjic0ypYqXUchXg0JQoF5scvC9f/wdMREsYx0b5JFfciouysYHhLvU0Gu20rEzBbeBpn/9Po=
+  file_glob: true
+  file: build/libs/*
+  skip_cleanup: true
+  on:
+    tags: true
+    repo: AustinShalit/CS3733-D19-Team-O-Project
 
 before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 
 cache:
   directories:
-    - "$HOME/.gradle/caches/"
-    - "$HOME/.gradle/wrapper/"
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
 
 notifications:
   slack:

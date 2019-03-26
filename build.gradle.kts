@@ -9,6 +9,7 @@ plugins {
     id("com.github.spotbugs") version "1.7.1"
     pmd
     id("com.diffplug.gradle.spotless") version "3.20.0"
+    id("com.github.johnrengelman.shadow") version "5.0.0"
     id("com.gradle.build-scan") version "2.2.1"
     idea
 }
@@ -40,7 +41,7 @@ java {
 }
 
 application {
-    mainClassName = "edu.wpi.cs3733d18.onyx_owlmen.Main"
+    mainClassName = "edu.wpi.cs3733d18.onyx_owlmen.database_prototype.DatabasePrototype"
 }
 
 tasks.withType<Test> {
