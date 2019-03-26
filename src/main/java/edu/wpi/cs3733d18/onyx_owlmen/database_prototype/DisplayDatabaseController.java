@@ -47,7 +47,6 @@ public class DisplayDatabaseController extends DatabaseController implements Ini
   private TableColumn<Node, String> shortName;
 
 
-
   @FXML
   private Button addDataButton;
 

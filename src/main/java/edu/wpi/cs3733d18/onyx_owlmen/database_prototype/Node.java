@@ -1,5 +1,11 @@
 package edu.wpi.cs3733d18.onyx_owlmen.database_prototype;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public class Node {
   String nodeID;
   int xcoord;
@@ -11,18 +17,18 @@ public class Node {
   String shortName;
 
   public Node() {
-
   }
 
   /**
    * Constructor for the node class.
-   * @param nodeID The unique identifier for the node
-   * @param xcoord The X coordinate for the node
-   * @param ycoord The Y coordinate for the node
-   * @param floor The floor of the node
-   * @param building The building address of the Node
-   * @param nodeType The type of node
-   * @param longName The name of the node
+   *
+   * @param nodeID    The unique identifier for the node
+   * @param xcoord    The X coordinate for the node
+   * @param ycoord    The Y coordinate for the node
+   * @param floor     The floor of the node
+   * @param building  The building address of the Node
+   * @param nodeType  The type of node
+   * @param longName  The name of the node
    * @param shortName A shorter name of the node
    */
   public Node(String nodeID,
@@ -45,39 +51,39 @@ public class Node {
 
 
   /**
-   * These getters are called by PropertyValueFactory when populating the
-   * table with data. I am looking for a more elegant solution.
-   * @return
+   * These methods are called automatically by PropertyValueFactory
+   * when populating the table with data.
+   *
    */
-  public String getNodeID() {
-    return nodeID;
+  public StringProperty nodeIDProperty() {
+    return new SimpleStringProperty(nodeID);
   }
 
-  public int getXcoord() {
-    return xcoord;
+  public IntegerProperty xcoordProperty() {
+    return new SimpleIntegerProperty(xcoord);
   }
 
-  public int getYcoord() {
-    return ycoord;
+  public IntegerProperty ycoordProperty() {
+    return new SimpleIntegerProperty(ycoord);
   }
 
-  public int getFloor() {
-    return floor;
+  public IntegerProperty floorProperty() {
+    return new SimpleIntegerProperty(floor);
   }
 
-  public String getBuilding() {
-    return building;
+  public StringProperty buildingProperty() {
+    return new SimpleStringProperty(building);
   }
 
-  public NodeType getNodeType() {
-    return nodeType;
+  public SimpleObjectProperty<NodeType> nodeTypeProperty() {
+    return new SimpleObjectProperty<>(nodeType);
   }
 
-  public String getLongName() {
-    return longName;
+  public StringProperty longNameProperty() {
+    return new SimpleStringProperty(longName);
   }
 
-  public String getShortName() {
-    return shortName;
+  public StringProperty shortNameProperty() {
+    return new SimpleStringProperty(shortName);
   }
 }
