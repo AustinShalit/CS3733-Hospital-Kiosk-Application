@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.control.Button;
 
 public class Node {
   String nodeID;
@@ -15,6 +16,9 @@ public class Node {
   NodeType nodeType;
   String longName;
   String shortName;
+
+  Button editButton;
+  Button deleteButton;
 
   public Node() {
   }
@@ -47,13 +51,15 @@ public class Node {
     this.nodeType = nodeType;
     this.longName = longName;
     this.shortName = shortName;
+    this.editButton = new Button("Edit");
+    this.deleteButton = new Button("Delete");
+
   }
 
 
   /**
    * These methods are called automatically by PropertyValueFactory
    * when populating the table with data.
-   *
    */
   public StringProperty nodeIDProperty() {
     return new SimpleStringProperty(nodeID);
@@ -85,5 +91,13 @@ public class Node {
 
   public StringProperty shortNameProperty() {
     return new SimpleStringProperty(shortName);
+  }
+
+  public SimpleObjectProperty<Button> editButtonProperty() {
+    return new SimpleObjectProperty<>(editButton);
+  }
+
+  public SimpleObjectProperty<Button> deleteButtonProperty() {
+    return new SimpleObjectProperty<>(deleteButton);
   }
 }
