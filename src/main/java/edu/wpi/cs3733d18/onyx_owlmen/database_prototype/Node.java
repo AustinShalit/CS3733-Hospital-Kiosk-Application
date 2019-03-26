@@ -10,6 +10,10 @@ public class Node {
   String longName;
   String shortName;
 
+  public Node() {
+
+  }
+
   /**
    * Constructor for the node class.
    * @param nodeID The unique identifier for the node
@@ -37,5 +41,43 @@ public class Node {
     this.nodeType = nodeType;
     this.longName = longName;
     this.shortName = shortName;
+  }
+
+
+  /**
+   * These getters are called by PropertyValueFactory when populating the
+   * table with data. I am looking for a more elegant solution.
+   * @return
+   */
+  public String getNodeID() {
+    return nodeID;
+  }
+
+  public int getXcoord() {
+    return xcoord;
+  }
+
+  public int getYcoord() {
+    return ycoord;
+  }
+
+  public int getFloor() {
+    return floor;
+  }
+
+  public String getBuilding() {
+    return building;
+  }
+
+  public NodeType getNodeType() {
+    return nodeType;
+  }
+
+  public String getLongName() {
+    return longName;
+  }
+
+  public String getShortName() {
+    return shortName;
   }
 }
