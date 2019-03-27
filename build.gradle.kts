@@ -32,6 +32,12 @@ dependencies {
     testImplementation(junitJupiter(name = "junit-jupiter-api"))
     testImplementation(junitJupiter(name = "junit-jupiter-engine"))
     testImplementation(junitJupiter(name = "junit-jupiter-params"))
+
+    fun testFx(name: String, version: String = "4.0.15-alpha") =
+            create(group = "org.testfx", name = name, version = version)
+    testImplementation(testFx(name = "testfx-core"))
+    testImplementation(testFx(name = "testfx-junit5"))
+    testRuntime(testFx(name = "openjfx-monocle", version = "8u76-b04"))
 }
 
 java {
@@ -44,7 +50,20 @@ application {
 }
 
 tasks.withType<Test> {
-    useJUnitPlatform()
+    useJUnitPlatform {
+        if (project.hasProperty("skipUI")) {
+            excludeTags("UI")
+        }
+    }
+    if (!project.hasProperty("visibleUiTests")) {
+        jvmArgs = listOf(
+                "-Djava.awt.headless=true",
+                "-Dtestfx.robot=glass",
+                "-Dtestfx.headless=true",
+                "-Dprism.order=sw",
+                "-Dprism.text=t2k"
+        )
+    }
 }
 
 jacoco {

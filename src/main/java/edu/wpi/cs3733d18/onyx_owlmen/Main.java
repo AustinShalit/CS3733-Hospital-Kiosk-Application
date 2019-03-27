@@ -1,5 +1,7 @@
 package edu.wpi.cs3733d18.onyx_owlmen;
 
+import javafx.application.Application;
+
 public final class Main {
 
   private Main() {
@@ -7,6 +9,6 @@ public final class Main {
   }
 
   public static void main(String... args) {
-    System.out.println("Hello, World");
+    Application.launch(Project.class, args);
   }
 }
