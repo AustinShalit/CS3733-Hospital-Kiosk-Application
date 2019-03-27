@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,11 +12,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.util.Callback;
 
 public class DisplayDatabaseController extends DatabaseController implements Initializable {
 
@@ -84,22 +88,27 @@ public class DisplayDatabaseController extends DatabaseController implements Ini
     longName.setCellValueFactory(new PropertyValueFactory<>("longName"));
     shortName.setCellValueFactory(new PropertyValueFactory<>("shortName"));
 
-    // now we need to create edit buttons in each row
-    editColumn.setCellValueFactory(new PropertyValueFactory<>("editButton"));
-    deleteColumn.setCellValueFactory(new PropertyValueFactory<>("deleteButton"));
+    // Add the edit/delete buttons in each row
+    addColumnsWithButtons();
 
     table.setItems(list);
   }
 
+
   // this method should open addData and then prefill the fields
-  void editButtonAction() throws IOException {
-    Stage stage = (Stage) addDataButton.getScene().getWindow();
-    Parent root = FXMLLoader.load(getClass().getResource("addData.fxml"));
+  void editButtonAction(Button editDataButton, Node nodeToEdit) throws IOException {
 
+    EditDataController edc = new EditDataController(nodeToEdit);
 
-    popupWindow(stage, root);
+    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editData.fxml"));
+    fxmlLoader.setController(edc);
+    Parent root = fxmlLoader.load();
 
-
+    Stage dialog = new Stage();
+    dialog.initStyle(StageStyle.UTILITY);
+    Scene scene = new Scene(root);
+    dialog.setScene(scene);
+    dialog.show();
   }
 
   @FXML
@@ -118,4 +127,60 @@ public class DisplayDatabaseController extends DatabaseController implements Ini
       downloadButton.setText("Button not configured yet");
     }
   }
+
+  /**
+   * Add the edit and delete columns, then fill each row with an
+   * edit and delete button.
+   */
+  private void addColumnsWithButtons() {
+    TableColumn<Node, Void> column = new TableColumn("modify");
+
+    Callback<TableColumn<Node, Void>, TableCell<Node, Void>> cellFactory =
+        new Callback<TableColumn<Node, Void>, TableCell<Node, Void>>() {
+          @Override
+          public TableCell<Node, Void> call(final TableColumn<Node, Void> param) {
+            final TableCell<Node, Void> cell = new TableCell<Node, Void>() {
+
+              private final Button editButton = new Button("edit");
+              private final Button deleteButton = new Button("delete");
+              private final HBox pane = new HBox(editButton, deleteButton);
+
+              {
+                editButton.setOnAction((ActionEvent event) -> {
+                  Node node = getTableView().getItems().get(getIndex());
+                  System.out.println("edit: " + node);
+
+                  try {
+                    editButtonAction(editButton, node);
+                  } catch (IOException e) {
+                    e.printStackTrace();
+                  }
+                });
+
+                deleteButton.setOnAction((ActionEvent event) -> {
+                  Node node = getTableView().getItems().get(getIndex());
+                  System.out.println("delete: " + node);
+                });
+              }
+
+              @Override
+              public void updateItem(Void item, boolean empty) {
+
+                super.updateItem(item, empty);
+                if (empty) {
+                  setGraphic(null);
+                } else {
+                  setGraphic(pane);
+                }
+              }
+            };
+            return cell;
+          }
+        };
+
+    column.setCellFactory(cellFactory);
+
+    table.getColumns().add(column);
+  }
+
 }

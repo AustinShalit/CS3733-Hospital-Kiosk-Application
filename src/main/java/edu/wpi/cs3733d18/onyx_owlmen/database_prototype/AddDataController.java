@@ -1,30 +1,5 @@
 package edu.wpi.cs3733d18.onyx_owlmen.database_prototype;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.stage.Stage;
+public class AddDataController extends ModifyDataController {
 
-public class AddDataController extends DatabaseController {
-
-  @FXML
-  private Button saveButton;
-
-  @FXML
-  private Button cancelButton;
-
-  @FXML
-  void saveButtonAction(ActionEvent event) {
-    if (event.getSource() == saveButton) {
-      saveButton.setText("Button not configured yet");
-    }
-  }
-
-  @FXML
-  void cancelButtonAction(ActionEvent event) {
-    if (event.getSource() == cancelButton) {
-      Stage stage = (Stage) cancelButton.getScene().getWindow();
-      stage.close();
-    }
-  }
 }
