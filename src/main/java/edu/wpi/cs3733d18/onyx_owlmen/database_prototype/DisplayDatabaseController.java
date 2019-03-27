@@ -119,13 +119,15 @@ public class DisplayDatabaseController extends DatabaseController implements Ini
 
   @FXML
   void addDataButtonAction(ActionEvent event) throws IOException {
+    // Commented this out because addData.fxml is not in version control
+    /*
     if (event.getSource() == addDataButton) {
-      // Commented this out because addData.fxml is not in version control
-      //Stage stage = (Stage) addDataButton.getScene().getWindow();
-      //Parent root = FXMLLoader.load(getClass().getResource("addData.fxml"));
+      Stage stage = (Stage) addDataButton.getScene().getWindow();
+      Parent root = FXMLLoader.load(getClass().getResource("addData.fxml"));
 
-      //popupWindow(stage, root);
+      popupWindow(stage, root);
     }
+    */
   }
 
   @FXML
