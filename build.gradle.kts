@@ -41,7 +41,7 @@ java {
 }
 
 application {
-    mainClassName = "edu.wpi.cs3733d18.onyx_owlmen.Main"
+    mainClassName = "edu.wpi.cs3733d18.onyx_owlmen.database_prototype.DatabasePrototype"
 }
 
 tasks.withType<Test> {
