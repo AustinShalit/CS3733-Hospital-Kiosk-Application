@@ -1,18 +1,41 @@
 package edu.wpi.cs3733d18.onyx_owlmen.database_prototype;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
-public class EditDataController extends ModifyDataController {
-  private Node nodeToEdit;
+public class EditDataController {
 
-  public EditDataController(Node nodeToEdit) {
-    this.nodeToEdit = nodeToEdit;
+  @FXML
+  private ModifyDataControl modifyData;
+
+  @FXML
+  private Button saveButton;
+
+  @FXML
+  private Button cancelButton;
+
+  @FXML
+  void saveButtonAction(ActionEvent event) {
+    if (event.getSource() == saveButton) {
+      saveButton.setText("Button not configured yet");
+    }
   }
 
   @FXML
-  void initialize() {
-    nodeIDField.setText(nodeToEdit.nodeID);
+  void cancelButtonAction(ActionEvent event) {
+    if (event.getSource() == cancelButton) {
+      Stage stage = (Stage) cancelButton.getScene().getWindow();
+      stage.close();
+    }
+  }
 
+  void setNode(final Node node) {
+    modifyData.setNode(node);
+  }
 
+  Node getNode() {
+    return modifyData.getNode();
   }
 }

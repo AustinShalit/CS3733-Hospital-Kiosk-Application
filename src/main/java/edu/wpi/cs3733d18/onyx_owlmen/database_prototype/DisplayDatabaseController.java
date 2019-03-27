@@ -97,12 +97,10 @@ public class DisplayDatabaseController extends DatabaseController implements Ini
 
   // this method should open addData and then prefill the fields
   void editButtonAction(Button editDataButton, Node nodeToEdit) throws IOException {
-
-    EditDataController edc = new EditDataController(nodeToEdit);
-
-    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editData.fxml"));
-    fxmlLoader.setController(edc);
+    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EditData.fxml"));
     Parent root = fxmlLoader.load();
+    EditDataController controller = fxmlLoader.getController();
+    controller.setNode(nodeToEdit);
 
     Stage dialog = new Stage();
     dialog.initStyle(StageStyle.UTILITY);
