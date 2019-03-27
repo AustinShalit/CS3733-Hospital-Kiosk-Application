@@ -11,11 +11,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.util.Callback;
 
 public class DisplayDatabaseController extends DatabaseController implements Initializable {
 
@@ -86,31 +91,40 @@ public class DisplayDatabaseController extends DatabaseController implements Ini
     longName.setCellValueFactory(new PropertyValueFactory<>("longName"));
     shortName.setCellValueFactory(new PropertyValueFactory<>("shortName"));
 
-    // now we need to create edit buttons in each row
-    editColumn.setCellValueFactory(new PropertyValueFactory<>("editButton"));
-    deleteColumn.setCellValueFactory(new PropertyValueFactory<>("deleteButton"));
+    // Add the edit/delete buttons in each row
+    addColumnsWithButtons();
 
     table.setItems(list);
   }
 
+
   // this method should open addData and then prefill the fields
-  void editButtonAction() throws IOException {
-    Stage stage = (Stage) addDataButton.getScene().getWindow();
-    Parent root = FXMLLoader.load(getClass().getResource("addData.fxml"));
+  void editButtonAction(Button editDataButton, UINode nodeToEdit) throws IOException {
+    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EditData.fxml"));
+    Parent root = fxmlLoader.load();
+    EditDataController controller = fxmlLoader.getController();
+    controller.setNode(nodeToEdit);
 
+    Stage dialog = new Stage();
+    dialog.initStyle(StageStyle.UTILITY);
+    Scene scene = new Scene(root);
+    dialog.setScene(scene);
+    dialog.show();
+  }
 
-    popupWindow(stage, root);
-
-
+  void deleteButtonAction(UINode uiNodeToDelete) {
+    Database db = new Database();
+    db.deleteNode(uiNodeToDelete.node.nodeID);
   }
 
   @FXML
   void addDataButtonAction(ActionEvent event) throws IOException {
     if (event.getSource() == addDataButton) {
-      Stage stage = (Stage) addDataButton.getScene().getWindow();
-      Parent root = FXMLLoader.load(getClass().getResource("addData.fxml"));
+      // Commented this out because addData.fxml is not in version control
+      //Stage stage = (Stage) addDataButton.getScene().getWindow();
+      //Parent root = FXMLLoader.load(getClass().getResource("addData.fxml"));
 
-      popupWindow(stage, root);
+      //popupWindow(stage, root);
     }
   }
 
@@ -120,4 +134,63 @@ public class DisplayDatabaseController extends DatabaseController implements Ini
       downloadButton.setText("Button not configured yet");
     }
   }
+
+  /**
+   * Add the edit and delete columns, then fill each row with an
+   * edit and delete button.
+   */
+  @SuppressWarnings("PMD.NonStaticInitializer")
+  private void addColumnsWithButtons() {
+    TableColumn<UINode, Void> column = new TableColumn<>("modify");
+
+    Callback<TableColumn<UINode, Void>, TableCell<UINode, Void>> cellFactory =
+        new Callback<TableColumn<UINode, Void>, TableCell<UINode, Void>>() {
+          @Override
+          public TableCell<UINode, Void> call(final TableColumn<UINode, Void> param) {
+            final TableCell<UINode, Void> cell = new TableCell<UINode, Void>() {
+
+              private final Button editButton = new Button("edit");
+              private final Button deleteButton = new Button("delete");
+              private final HBox pane = new HBox(editButton, deleteButton);
+
+              {
+                editButton.setOnAction((ActionEvent event) -> {
+                  UINode node = getTableView().getItems().get(getIndex());
+                  System.out.println("edit: " + node);
+
+                  try {
+                    editButtonAction(editButton, node);
+                  } catch (IOException ex) {
+                    ex.printStackTrace();
+                  }
+                });
+
+                deleteButton.setOnAction((ActionEvent event) -> {
+                  UINode node = getTableView().getItems().get(getIndex());
+                  System.out.println("delete: " + node);
+
+                  deleteButtonAction(node);
+                });
+              }
+
+              @Override
+              public void updateItem(Void item, boolean empty) {
+
+                super.updateItem(item, empty);
+                if (empty) {
+                  setGraphic(null);
+                } else {
+                  setGraphic(pane);
+                }
+              }
+            };
+            return cell;
+          }
+        };
+
+    column.setCellFactory(cellFactory);
+
+    table.getColumns().add(column);
+  }
+
 }

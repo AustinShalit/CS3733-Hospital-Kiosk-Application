@@ -5,7 +5,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class AddDataController extends DatabaseController {
+public class EditDataController {
+
+  @FXML
+  private ModifyDataControl modifyData;
 
   @FXML
   private Button saveButton;
@@ -26,5 +29,13 @@ public class AddDataController extends DatabaseController {
       Stage stage = (Stage) cancelButton.getScene().getWindow();
       stage.close();
     }
+  }
+
+  Node getNode() {
+    return modifyData.getNode();
+  }
+
+  void setNode(final UINode node) {
+    modifyData.setNode(node);
   }
 }

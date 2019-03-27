@@ -30,6 +30,7 @@ class CSVReader {
         }
       }
     } catch (FileNotFoundException exception) {
+      System.out.println("Failed to read from PrototypeNodes.csv, returning two hardcoded nodes.");
       nodes.add(new Node(
           "BCONF00102",
           2150,
@@ -71,7 +72,7 @@ class CSVReader {
       scanner.close();
 
     } catch (IOException exception) {
-      exception.printStackTrace();
+      //exception.printStackTrace();
       throw new FileNotFoundException();
     }
 

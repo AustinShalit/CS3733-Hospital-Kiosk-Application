@@ -17,7 +17,7 @@ public class Node {
     assert fields.length == 8;
 
     NodeType nodeType = null;
-    switch (str.toLowerCase(Locale.ENGLISH)) {
+    switch (fields[5].toLowerCase(Locale.ENGLISH)) {
       case "conf":
         nodeType = NodeType.CONF;
         break;
@@ -71,14 +71,14 @@ public class Node {
    * @param longName  The name of the node
    * @param shortName A shorter name of the node
    */
-  public Node(String nodeID,
-              int xcoord,
-              int ycoord,
-              int floor,
-              String building,
-              NodeType nodeType,
-              String longName,
-              String shortName) {
+  Node(String nodeID,
+       int xcoord,
+       int ycoord,
+       int floor,
+       String building,
+       NodeType nodeType,
+       String longName,
+       String shortName) {
     this.nodeID = nodeID;
     this.xcoord = xcoord;
     this.ycoord = ycoord;

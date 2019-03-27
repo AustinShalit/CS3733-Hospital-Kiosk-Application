@@ -10,7 +10,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="527.0" prefWidth="828.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733d18.onyx_owlmen.database_prototype.DisplayDatabaseController">
    <children>
       <Button fx:id="downloadButton" layoutX="404.0" layoutY="456.0" mnemonicParsing="false" onAction="#downloadButtonAction" prefHeight="49.0" prefWidth="129.0" text="Download" />
-      <TableView fx:id="table" layoutX="14.0" layoutY="49.0" prefHeight="399.0" prefWidth="749.0">
+      <TableView fx:id="table" layoutX="14.0" layoutY="49.0" prefHeight="377.0" prefWidth="715.0">
         <columns>
           <TableColumn fx:id="nodeID" prefWidth="75.0" text="nodeID" />
           <TableColumn prefWidth="75.0" text="xcoord" fx:id="xcoord" />
@@ -20,8 +20,6 @@
             <TableColumn fx:id="nodeType" prefWidth="75.0" text="nodeType" />
             <TableColumn fx:id="longName" prefWidth="75.0" text="longName" />
             <TableColumn fx:id="shortName" prefWidth="75.0" text="shortName" />
-            <TableColumn fx:id="editColumn" prefWidth="75.0" text="edit" />
-            <TableColumn fx:id="deleteColumn" prefWidth="75.0" text="delete" />
         </columns>
       </TableView>
       <Button fx:id="addDataButton" layoutX="95.0" layoutY="456.0" mnemonicParsing="false" onAction="#addDataButtonAction" prefHeight="49.0" prefWidth="129.0" text="Add Data" />
