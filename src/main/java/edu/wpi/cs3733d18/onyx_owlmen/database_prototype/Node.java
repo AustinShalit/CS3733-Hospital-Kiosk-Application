@@ -1,5 +1,7 @@
 package edu.wpi.cs3733d18.onyx_owlmen.database_prototype;
 
+import java.util.Locale;
+
 public class Node {
   String nodeID;
   int xcoord;
@@ -10,8 +12,51 @@ public class Node {
   String longName;
   String shortName;
 
-  public Node() {
+  static Node parseNode(String str) {
+    String[] fields = str.split(",");
+    assert fields.length == 8;
 
+    NodeType nodeType = null;
+    switch (str.toLowerCase(Locale.ENGLISH)) {
+      case "conf":
+        nodeType = NodeType.CONF;
+        break;
+      case "hall":
+        nodeType = NodeType.HALL;
+        break;
+      case "dept":
+        nodeType = NodeType.DEPT;
+        break;
+      case "info":
+        nodeType = NodeType.INFO;
+        break;
+      case "labs":
+        nodeType = NodeType.LABS;
+        break;
+      case "rest":
+        nodeType = NodeType.REST;
+        break;
+      case "serv":
+        nodeType = NodeType.SERV;
+        break;
+      case "stai":
+        nodeType = NodeType.STAI;
+        break;
+      default:
+        break;
+    }
+    assert nodeType != null;
+
+    return new Node(
+        fields[0],
+        Integer.parseInt(fields[1]),
+        Integer.parseInt(fields[2]),
+        Integer.parseInt(fields[3]),
+        fields[4],
+        nodeType,
+        fields[6],
+        fields[7]
+    );
   }
 
   /**
