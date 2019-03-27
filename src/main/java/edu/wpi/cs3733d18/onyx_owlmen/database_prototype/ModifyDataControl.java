@@ -48,7 +48,13 @@ public class ModifyDataControl extends Pane {
 
   void setNode(final Node node) {
     nodeIDField.setText(node.nodeID);
-  }
+    xcoordField.setText(Integer.toString(node.xcoord));
+    ycoordField.setText(Integer.toString(node.ycoord));
+    floorField.setText(Integer.toString(node.floor));
+    buildingField.setText(node.building);
+    nodeTypeField.setText(node.nodeType.name());
+    longNameField.setText(node.longName);
+    shortNameField.setText(node.shortName);  }
 
   Node getNode() {
     return null;

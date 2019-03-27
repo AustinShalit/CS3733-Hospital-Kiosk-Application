@@ -8,20 +8,17 @@ import javafx.beans.property.StringProperty;
 import javafx.scene.control.Button;
 
 public class Node {
-  String nodeID;
-  int xcoord;
-  int ycoord;
-  int floor;
-  String building;
-  NodeType nodeType;
-  String longName;
-  String shortName;
+  final String nodeID;
+  final int xcoord;
+  final int ycoord;
+  final int floor;
+  final String building;
+  final NodeType nodeType;
+  final String longName;
+  final String shortName;
 
   Button editButton;
   Button deleteButton;
-
-  public Node() {
-  }
 
   /**
    * Constructor for the node class.
@@ -35,7 +32,7 @@ public class Node {
    * @param longName  The name of the node
    * @param shortName A shorter name of the node
    */
-  public Node(String nodeID,
+  Node(String nodeID,
               int xcoord,
               int ycoord,
               int floor,

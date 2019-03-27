@@ -109,6 +109,11 @@ public class DisplayDatabaseController extends DatabaseController implements Ini
     dialog.show();
   }
 
+  void deleteButtonAction(Node nodeToDelete) {
+    Database db = new Database();
+    db.deleteNode(nodeToDelete.nodeID);
+  }
+
   @FXML
   void addDataButtonAction(ActionEvent event) throws IOException {
     if (event.getSource() == addDataButton) {
@@ -158,6 +163,8 @@ public class DisplayDatabaseController extends DatabaseController implements Ini
                 deleteButton.setOnAction((ActionEvent event) -> {
                   Node node = getTableView().getItems().get(getIndex());
                   System.out.println("delete: " + node);
+
+                  deleteButtonAction(node);
                 });
               }
 
