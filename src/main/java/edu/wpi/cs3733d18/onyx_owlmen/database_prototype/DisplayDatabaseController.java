@@ -95,13 +95,11 @@ public class DisplayDatabaseController extends DatabaseController implements Ini
   }
 
 
-  // this method should open addData and then prefill the fields
   void editButtonAction(Button editDataButton, Node nodeToEdit) throws IOException {
-
-    EditDataController edc = new EditDataController(nodeToEdit);
+    ModifyDataController mdc = new ModifyDataController(nodeToEdit);
 
     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("editData.fxml"));
-    fxmlLoader.setController(edc);
+    fxmlLoader.setController(mdc);
     Parent root = fxmlLoader.load();
 
     Stage dialog = new Stage();
@@ -109,6 +107,11 @@ public class DisplayDatabaseController extends DatabaseController implements Ini
     Scene scene = new Scene(root);
     dialog.setScene(scene);
     dialog.show();
+  }
+
+  void deleteButtonAction(Node nodeToDelete) {
+    Database db = new Database();
+    db.deleteNode(nodeToDelete.nodeID);
   }
 
   @FXML
@@ -160,6 +163,8 @@ public class DisplayDatabaseController extends DatabaseController implements Ini
                 deleteButton.setOnAction((ActionEvent event) -> {
                   Node node = getTableView().getItems().get(getIndex());
                   System.out.println("delete: " + node);
+
+                  deleteButtonAction(node);
                 });
               }
 

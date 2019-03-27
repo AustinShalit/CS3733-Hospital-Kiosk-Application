@@ -40,17 +40,17 @@
             <Label text="nodeType" GridPane.rowIndex="5" />
             <Label text="longName" GridPane.rowIndex="6" />
             <Label text="shortName" GridPane.rowIndex="7" />
-            <TextField fx:id="nodeIDField" prefHeight="17.0" prefWidth="153.0" promptText="temp" text="HELLO" GridPane.columnIndex="1" />
-            <TextField prefHeight="27.0" prefWidth="114.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="nodeIDField" prefHeight="17.0" prefWidth="153.0" GridPane.columnIndex="1" />
+            <TextField prefHeight="27.0" prefWidth="114.0" GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="xcoordField" />
+            <TextField fx:id="ycoordField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="floorField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="buildingField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="nodeTypeField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="longNameField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="shortNameField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
          </children>
       </GridPane>
-      <Button fx:id="cancelButton" cancelButton="true" layoutX="314.0" layoutY="323.0" mnemonicParsing="false" onAction="#cancelButtonAction" prefHeight="27.0" prefWidth="100.0" text="Cancel" />
-      <Button fx:id="saveButton" layoutX="203.0" layoutY="323.0" mnemonicParsing="false" onAction="#saveButtonAction" prefHeight="27.0" prefWidth="100.0" text="Save" />
+      <Button fx:id="cancelButton" cancelButton="true" layoutX="324.0" layoutY="333.0" mnemonicParsing="false" onAction="#cancelButtonAction" prefHeight="27.0" prefWidth="100.0" text="Cancel" />
+      <Button fx:id="saveButton" layoutX="213.0" layoutY="333.0" mnemonicParsing="false" onAction="#saveButtonAction" prefHeight="27.0" prefWidth="100.0" text="Save" />
    </children>
 </AnchorPane>
