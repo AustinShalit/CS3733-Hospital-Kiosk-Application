@@ -20,37 +20,37 @@ import javafx.stage.Stage;
 public class DisplayDatabaseController extends DatabaseController implements Initializable {
 
   @FXML
-  private TableView<Node> table;
+  private TableView<UINode> table;
 
   @FXML
-  private TableColumn<Node, String> nodeID;
+  private TableColumn<UINode, String> nodeID;
 
   @FXML
-  private TableColumn<Node, Integer> xcoord;
+  private TableColumn<UINode, Integer> xcoord;
 
   @FXML
-  private TableColumn<Node, Integer> ycoord;
+  private TableColumn<UINode, Integer> ycoord;
 
   @FXML
-  private TableColumn<Node, Integer> floor;
+  private TableColumn<UINode, Integer> floor;
 
   @FXML
-  private TableColumn<Node, String> building;
+  private TableColumn<UINode, String> building;
 
   @FXML
-  private TableColumn<Node, NodeType> nodeType;
+  private TableColumn<UINode, NodeType> nodeType;
 
   @FXML
-  private TableColumn<Node, String> longName;
+  private TableColumn<UINode, String> longName;
 
   @FXML
-  private TableColumn<Node, String> shortName;
+  private TableColumn<UINode, String> shortName;
 
   @FXML
-  private TableColumn<Node, Button> editColumn;
+  private TableColumn<UINode, Button> editColumn;
 
   @FXML
-  private TableColumn<Node, Button> deleteColumn;
+  private TableColumn<UINode, Button> deleteColumn;
 
   @FXML
   private Button addDataButton;
@@ -71,8 +71,10 @@ public class DisplayDatabaseController extends DatabaseController implements Ini
     Database db = new Database();
 
     // Create a list of data to put in our table
-    ObservableList<Node> list = FXCollections.observableArrayList();
-    list.addAll(db.getNodes());
+    ObservableList<UINode> list = FXCollections.observableArrayList();
+    for (Node n : db.getNodes()) {
+      list.add(n.asUINode());
+    }
 
     // Link to the data values
     nodeID.setCellValueFactory(new PropertyValueFactory<>("nodeID"));
