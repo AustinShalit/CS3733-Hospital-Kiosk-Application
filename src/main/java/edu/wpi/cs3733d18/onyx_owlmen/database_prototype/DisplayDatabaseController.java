@@ -46,7 +46,11 @@ public class DisplayDatabaseController extends DatabaseController implements Ini
   @FXML
   private TableColumn<Node, String> shortName;
 
+  @FXML
+  private TableColumn<Node, Button> editColumn;
 
+  @FXML
+  private TableColumn<Node, Button> deleteColumn;
 
   @FXML
   private Button addDataButton;
@@ -61,6 +65,7 @@ public class DisplayDatabaseController extends DatabaseController implements Ini
 
   /**
    * Fetch and display data to the table.
+   * Also handles displaying edit and delete button.
    */
   void populateTableView() {
     Database db = new Database();
@@ -79,7 +84,22 @@ public class DisplayDatabaseController extends DatabaseController implements Ini
     longName.setCellValueFactory(new PropertyValueFactory<>("longName"));
     shortName.setCellValueFactory(new PropertyValueFactory<>("shortName"));
 
+    // now we need to create edit buttons in each row
+    editColumn.setCellValueFactory(new PropertyValueFactory<>("editButton"));
+    deleteColumn.setCellValueFactory(new PropertyValueFactory<>("deleteButton"));
+
     table.setItems(list);
+  }
+
+  // this method should open addData and then prefill the fields
+  void editButtonAction() throws IOException {
+    Stage stage = (Stage) addDataButton.getScene().getWindow();
+    Parent root = FXMLLoader.load(getClass().getResource("addData.fxml"));
+
+
+    popupWindow(stage, root);
+
+
   }
 
   @FXML
