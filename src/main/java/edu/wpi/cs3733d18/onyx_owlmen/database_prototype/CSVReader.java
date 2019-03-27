@@ -1,6 +1,7 @@
 package edu.wpi.cs3733d18.onyx_owlmen.database_prototype;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,19 +19,42 @@ class CSVReader {
   }
 
   List<Node> getNodesInCSV() {
-    List<String> lines = getFile();
-
     LinkedList<Node> nodes = new LinkedList<>();
+    try {
+      List<String> lines = getFile();
 
-    for (int i = 0; i < lines.size(); i++) {
-      if (i > 0) {
-        nodes.add(Node.parseNode(lines.get(i)));
+
+      for (int i = 0; i < lines.size(); i++) {
+        if (i > 0) {
+          nodes.add(Node.parseNode(lines.get(i)));
+        }
       }
+    } catch (FileNotFoundException exception) {
+      nodes.add(new Node(
+          "BCONF00102",
+          2150,
+          1025,
+          2,
+          "45 Francis",
+          NodeType.CONF,
+          "Duncan Reid Conference Room",
+          "Conf B0102"
+      ));
+      nodes.add(new Node(
+          "BHALL03802",
+          2279,
+          786,
+          2,
+          "45 Francis",
+          NodeType.HALL,
+          "Hallway Intersection 38 Level 2",
+          "Hallway B3802"
+      ));
     }
     return nodes;
   }
 
-  private List<String> getFile() {
+  private List<String> getFile() throws FileNotFoundException {
     LinkedList<String> lines = new LinkedList<>();
 
     //Get file from resources folder
@@ -48,6 +72,7 @@ class CSVReader {
 
     } catch (IOException exception) {
       exception.printStackTrace();
+      throw new FileNotFoundException();
     }
 
     return lines;
