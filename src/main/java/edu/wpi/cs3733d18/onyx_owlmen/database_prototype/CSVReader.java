@@ -72,7 +72,7 @@ class CSVReader {
       scanner.close();
 
     } catch (IOException exception) {
-      exception.printStackTrace();
+      // exception.printStackTrace();
       throw new FileNotFoundException(); //NOPMD
     }
 
