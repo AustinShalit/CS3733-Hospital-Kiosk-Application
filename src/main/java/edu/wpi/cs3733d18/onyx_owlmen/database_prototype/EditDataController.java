@@ -31,11 +31,11 @@ public class EditDataController {
     }
   }
 
-  void setNode(final Node node) {
-    modifyData.setNode(node);
-  }
-
   Node getNode() {
     return modifyData.getNode();
+  }
+
+  void setNode(final Node node) {
+    modifyData.setNode(node);
   }
 }

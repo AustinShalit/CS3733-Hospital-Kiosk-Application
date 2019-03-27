@@ -33,17 +33,20 @@ public class ModifyDataControl extends Pane {
   @FXML
   private TextField shortNameField;
 
-  public ModifyDataControl() {
+  /**
+   * Create a new instance of a Modify Data Control.
+   */
+  public ModifyDataControl() throws IOException {
     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
         "ModifyData.fxml"));
     fxmlLoader.setRoot(this);
     fxmlLoader.setController(this);
 
-    try {
-      fxmlLoader.load();
-    } catch (IOException exception) {
-      throw new RuntimeException(exception);
-    }
+    fxmlLoader.load();
+  }
+
+  Node getNode() {
+    return null;
   }
 
   void setNode(final Node node) {
@@ -54,9 +57,6 @@ public class ModifyDataControl extends Pane {
     buildingField.setText(node.building);
     nodeTypeField.setText(node.nodeType.name());
     longNameField.setText(node.longName);
-    shortNameField.setText(node.shortName);  }
-
-  Node getNode() {
-    return null;
+    shortNameField.setText(node.shortName);
   }
 }
