@@ -4,6 +4,7 @@ import java.nio.file.FileAlreadyExistsException;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
@@ -68,6 +69,7 @@ public class Database {
       sqlException.printStackTrace();
       System.out.println("connection failed");
     }
+    /*
     try {
       addNode(new Node(
           "BCONF00102",
@@ -81,8 +83,18 @@ public class Database {
       ));
       //deleteNode("BCONF00102");
     } catch (FileAlreadyExistsException exc) {
-      //
+      updateNode("BCONF00102", new Node(
+          "BCONF00102",
+          1,
+          2,
+          2,
+          "building",
+          NodeType.CONF,
+          "longN",
+          "shortN"
+      ));
     }
+    */
   }
 
 
@@ -110,7 +122,24 @@ public class Database {
   }
 
   void updateNode(String nodeId, Node newNode) {
-    //
+    try {
+      PreparedStatement p = connection.prepareStatement("UPDATE nodes "
+      + "SET xcoord = (?), "
+      + "ycoord = (?), floor = (?), building = (?), "
+      + "nodeType = (?), longName = (?), shortName = (?)"
+      + "WHERE nodeID = (?)");
+      p.setInt(1, newNode.xcoord);
+      p.setInt(2, newNode.ycoord);
+      p.setInt(3, newNode.floor);
+      p.setString(4, newNode.building);
+      p.setString(5, newNode.nodeType.getShortName());
+      p.setString(6, newNode.longName);
+      p.setString(7, newNode.shortName);
+      p.setString(8, nodeId);
+      p.executeUpdate();
+    } catch (SQLException sqlException) {
+      sqlException.printStackTrace();
+    }
   }
 
   void addNode(Node newNode) throws FileAlreadyExistsException {
