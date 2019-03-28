@@ -68,7 +68,6 @@ public class Database {
       sqlException.printStackTrace();
       System.out.println("connection failed");
     }
-    /*
     try {
       addNode(new Node(
           "BCONF00102",
@@ -80,10 +79,10 @@ public class Database {
           "Duncan Reid Conference Room",
           "Conf B0102"
       ));
+      //deleteNode("BCONF00102");
     } catch (FileAlreadyExistsException exc) {
       //
     }
-    */
   }
 
 
@@ -141,7 +140,7 @@ public class Database {
     // Yes this is vulnerable to an SQL Injection attack.
     // Will refactor later
     try {
-      connection.createStatement().executeUpdate("DELETE FROM nodes WHERE nodeID = '" + nodeId + "'");
+      connection.prepareStatement(String.format("DELETE FROM nodes WHERE nodeID='%s'", nodeId)).executeUpdate();
     } catch (SQLException sqlException) {
       sqlException.printStackTrace();
     }
