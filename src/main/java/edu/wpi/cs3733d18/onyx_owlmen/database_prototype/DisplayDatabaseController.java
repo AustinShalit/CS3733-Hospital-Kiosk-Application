@@ -190,21 +190,26 @@ public class DisplayDatabaseController {
   void downloadButtonAction(ActionEvent event) throws IOException {
     if (event.getSource() == downloadButton) {
 
-      //      writeToCSV(table.getItems());
-      String fileName = "./prototypeNodesSaved.csv";
-      writeToCSV(table.getItems(), fileName);
+      FileChooser fileChooser = new FileChooser();
+      String path = fileChooser.showSaveDialog(table.getScene().getWindow()).getPath();
+      if ("".equals(path)) {
+        return;
+      }
 
-      Alert alert = new Alert(Alert.AlertType.INFORMATION);
-      alert.setTitle("Save Dialog");
-      alert.setHeaderText("Data was saved to the directory as  " + fileName);
+      List<Node> nodeList = new CsvToBeanBuilder<Node>(new FileReader(path))
+          .withType(Node.class).build().parse();
+      nodeList.forEach(node -> {
+        Database.getInstance().addNode(node);
+        table.getItems().add(node);
+      });
 
-      alert.showAndWait();
     }
   }
 
   /**
    * Try to write data to a csv of the given file name.
-   * @param data The data to be written
+   *
+   * @param data     The data to be written
    * @param fileName The filename of the csv
    * @throws IOException Throws an IOException
    */
@@ -239,7 +244,7 @@ public class DisplayDatabaseController {
         toWrite[2] = Integer.toString(node.ycoord);
         toWrite[3] = Integer.toString(node.floor);
         toWrite[4] = node.building;
-        toWrite[5] = node.nodeType.name();
+        // toWrite[5] = node.nodeType.name();
         toWrite[6] = node.longName;
         toWrite[7] = node.shortName;
 

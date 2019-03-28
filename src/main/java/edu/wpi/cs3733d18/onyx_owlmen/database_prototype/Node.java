@@ -44,13 +44,13 @@ public class Node {
    * @param shortName A shorter name of the node
    */
   public Node(String nodeID,
-       int xcoord,
-       int ycoord,
-       int floor,
-       String building,
-       String nodeType,
-       String longName,
-       String shortName) {
+              int xcoord,
+              int ycoord,
+              int floor,
+              String building,
+              String nodeType,
+              String longName,
+              String shortName) {
     this.nodeID = nodeID;
     this.xcoord = xcoord;
     this.ycoord = ycoord;
