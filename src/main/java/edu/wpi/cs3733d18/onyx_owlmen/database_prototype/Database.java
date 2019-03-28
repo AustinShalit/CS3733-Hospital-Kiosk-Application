@@ -95,7 +95,7 @@ public class Database implements AutoCloseable {
             resultSet.getInt("ycoord"),
             resultSet.getInt("floor"),
             resultSet.getString("building"),
-            NodeType.get(resultSet.getString("nodeType")),
+            resultSet.getString("nodeType"),
             resultSet.getString("longName"),
             resultSet.getString("shortName")
         ));
@@ -117,7 +117,7 @@ public class Database implements AutoCloseable {
       preparedStatement.setInt(2, newNode.ycoord);
       preparedStatement.setInt(3, newNode.floor);
       preparedStatement.setString(4, newNode.building);
-      preparedStatement.setString(5, newNode.nodeType.name());
+      preparedStatement.setString(5, newNode.nodeType);
       preparedStatement.setString(6, newNode.longName);
       preparedStatement.setString(7, newNode.shortName);
       preparedStatement.setString(8, nodeId);
@@ -127,7 +127,7 @@ public class Database implements AutoCloseable {
     }
   }
 
-  void addNode(Node newNode) throws FileAlreadyExistsException {
+  void addNode(Node newNode) {
     try {
       connection.createStatement().executeUpdate(
           String.format("INSERT INTO nodes VALUES ('%s', %d, %d, %d, '%s', '%s', '%s', '%s')",
@@ -136,7 +136,7 @@ public class Database implements AutoCloseable {
               newNode.ycoord,
               newNode.floor,
               newNode.building,
-              newNode.nodeType.name(),
+              newNode.nodeType,
               newNode.longName,
               newNode.shortName)
       );

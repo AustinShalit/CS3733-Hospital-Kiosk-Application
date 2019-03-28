@@ -1,6 +1,5 @@
 package edu.wpi.cs3733d18.onyx_owlmen;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 class Node {
@@ -10,7 +9,7 @@ class Node {
 
     Node(String nodeID) {
         this.nodeID = nodeID;
-        this.adj = new LinkedList<Node>();
+        this.adj = new LinkedList<>();
     }
 
     String getNodeID() {

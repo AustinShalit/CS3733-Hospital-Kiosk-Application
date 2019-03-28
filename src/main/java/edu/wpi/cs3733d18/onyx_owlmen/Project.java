@@ -41,11 +41,6 @@ public class Project extends Application {
 
     System.out.println(result);
 
-
-
-
-
-
     FXMLLoader loader = new FXMLLoader(getClass().getResource("MainWindow.fxml"));
     Pane mainWindow = loader.load();
 
