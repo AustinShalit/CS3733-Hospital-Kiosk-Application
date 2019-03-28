@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 
@@ -25,7 +26,7 @@ public class ModifyDataControl extends Pane {
   private TextField buildingField;
 
   @FXML
-  private TextField nodeTypeField;
+  private ComboBox<NodeType> nodeTypeField;
 
   @FXML
   private TextField longNameField;
@@ -33,20 +34,32 @@ public class ModifyDataControl extends Pane {
   @FXML
   private TextField shortNameField;
 
+  @FXML
+  void initialize() {
+    nodeTypeField.getItems().setAll(NodeType.values());
+  }
+
   /**
    * Create a new instance of a Modify Data Control.
    */
   public ModifyDataControl() throws IOException {
-    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
-        "ModifyData.fxml"));
+    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ModifyData.fxml"));
     fxmlLoader.setRoot(this);
     fxmlLoader.setController(this);
 
     fxmlLoader.load();
   }
 
+  // Todo this needs to check if valid type is entered
   Node getNode() {
-    return null;
+    return new Node(nodeIDField.getText(),
+        Integer.parseInt(xcoordField.getText()),
+        Integer.parseInt(ycoordField.getText()),
+        Integer.parseInt(floorField.getText()),
+        buildingField.getText(),
+        nodeTypeField.getSelectionModel().getSelectedItem(),
+        longNameField.getText(),
+        shortNameField.getText());
   }
 
   void setNode(final Node node) {
@@ -55,7 +68,7 @@ public class ModifyDataControl extends Pane {
     ycoordField.setText(Integer.toString(node.ycoord));
     floorField.setText(Integer.toString(node.floor));
     buildingField.setText(node.building);
-    nodeTypeField.setText(node.nodeType.name());
+    nodeTypeField.getSelectionModel().select(node.nodeType);
     longNameField.setText(node.longName);
     shortNameField.setText(node.shortName);
   }

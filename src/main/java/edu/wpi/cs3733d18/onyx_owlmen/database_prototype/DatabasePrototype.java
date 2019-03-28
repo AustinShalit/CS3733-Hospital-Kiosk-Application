@@ -10,7 +10,7 @@ public class DatabasePrototype extends Application {
 
   @Override
   public void start(Stage primaryStage) throws Exception {
-    Parent root = FXMLLoader.load(getClass().getResource("displayDatabase.fxml"));
+    Parent root = FXMLLoader.load(getClass().getResource("DisplayDatabase.fxml"));
     primaryStage.setTitle("Database Prototype");
     primaryStage.setScene(new Scene(root));
     primaryStage.show();

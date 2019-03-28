@@ -2,27 +2,26 @@ package edu.wpi.cs3733d18.onyx_owlmen.database_prototype;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Callback;
 
-public class DisplayDatabaseController extends DatabaseController implements Initializable {
+public class DisplayDatabaseController implements Initializable {
 
   @FXML
   private TableView<Node> table;
@@ -52,32 +51,27 @@ public class DisplayDatabaseController extends DatabaseController implements Ini
   private TableColumn<Node, String> shortName;
 
   @FXML
-  private TableColumn<Node, Button> editColumn;
-
-  @FXML
-  private TableColumn<Node, Button> deleteColumn;
-
-  @FXML
   private Button addDataButton;
 
   @FXML
   private Button downloadButton;
 
+
+  private final Database database = Database.getInstance();
+
   @Override
   public void initialize(URL url, ResourceBundle rb) {
     populateTableView();
+    addColumnsWithButtons();
   }
 
   /**
    * Fetch and display data to the table.
-   * Also handles displaying edit and delete button.
    */
   void populateTableView() {
-    Database db = new Database();
-
     // Create a list of data to put in our table
     ObservableList<Node> list = FXCollections.observableArrayList();
-    list.addAll(db.getNodes());
+    list.addAll(database.getNodes());
 
     // Link to the data values
     nodeID.setCellValueFactory(new PropertyValueFactory<>("nodeID"));
@@ -89,40 +83,85 @@ public class DisplayDatabaseController extends DatabaseController implements Ini
     longName.setCellValueFactory(new PropertyValueFactory<>("longName"));
     shortName.setCellValueFactory(new PropertyValueFactory<>("shortName"));
 
-    // Add the edit/delete buttons in each row
-    addColumnsWithButtons();
-
     table.setItems(list);
   }
 
+  /**
+   * Runs when the edit button is clicked. Prompts the user to enter new values for the
+   * entry. Updates the table and database with the new value if save is clicked.
+   *
+   * @param nodeToEdit The node the user wants to edit
+   * @throws IOException Throws an IOException
+   */
+  void editButtonAction(Node nodeToEdit) throws IOException {
+    Dialog<ButtonType> dialog = new Dialog<>();
+    dialog.setTitle("Edit node");
+    dialog.getDialogPane().setHeaderText("Edit node");
+    dialog.getDialogPane().getButtonTypes().addAll(ButtonType.APPLY, ButtonType.CANCEL);
 
-  // this method should open addData and then prefill the fields
-  void editButtonAction(Button editDataButton, Node nodeToEdit) throws IOException {
-    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EditData.fxml"));
-    Parent root = fxmlLoader.load();
-    EditDataController controller = fxmlLoader.getController();
-    controller.setNode(nodeToEdit);
+    ModifyDataControl mdc = new ModifyDataControl();
+    mdc.setNode(nodeToEdit);
 
-    Stage dialog = new Stage();
-    dialog.initStyle(StageStyle.UTILITY);
-    Scene scene = new Scene(root);
-    dialog.setScene(scene);
-    dialog.show();
+    dialog.getDialogPane().setContent(mdc); // add our content
+
+    // Wait for the dialog box to close
+    Optional<ButtonType> result = dialog.showAndWait();
+
+    result.ifPresent(event -> {
+      if (!event.getButtonData().isCancelButton()) {
+        // Update entry in the database
+        database.updateNode(nodeToEdit.nodeID, nodeToEdit);
+
+        Node modifiedNode = mdc.getNode();
+
+        // Get the index of this node in the table
+        int index = 0;
+        for (Node n : table.getItems()) {
+          if (n.nodeID.equals(nodeToEdit.nodeID)) {
+            break;
+          }
+          index++;
+        }
+
+        // Update the table with the new node
+        table.getItems().set(index, modifiedNode);
+        table.refresh();
+
+      }
+    });
   }
 
+  /**
+   * Runs when the delete button is pressed. Prompts the user to confirm, if they do,
+   * the node is deleted from the table and database.
+   *
+   * @param nodeToDelete The node the user wants to delete
+   */
   void deleteButtonAction(Node nodeToDelete) {
-    Database db = new Database();
-    db.deleteNode(nodeToDelete.nodeID);
+    database.deleteNode(nodeToDelete.nodeID);
+
+    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    alert.setTitle("Are you sure?");
+    alert.setHeaderText("Are you sure you want to delete this node");
+
+    // Wait for the dialog box to close
+    Optional<ButtonType> result = alert.showAndWait();
+
+    if (result.get() == ButtonType.OK) {
+      // Delete from the database
+      database.deleteNode(nodeToDelete.nodeID);
+
+      // Update the table
+      table.getItems().remove(nodeToDelete);
+      table.refresh();
+    }
   }
 
   @FXML
   void addDataButtonAction(ActionEvent event) throws IOException {
-    if (event.getSource() == addDataButton) {
-      Stage stage = (Stage) addDataButton.getScene().getWindow();
-      Parent root = FXMLLoader.load(getClass().getResource("addData.fxml"));
-
-      popupWindow(stage, root);
-    }
+    //    if (event.getSource() == addDataButton) {
+    //
+    //    }
   }
 
   @FXML
@@ -153,10 +192,9 @@ public class DisplayDatabaseController extends DatabaseController implements Ini
               {
                 editButton.setOnAction((ActionEvent event) -> {
                   Node node = getTableView().getItems().get(getIndex());
-                  System.out.println("edit: " + node);
 
                   try {
-                    editButtonAction(editButton, node);
+                    editButtonAction(node);
                   } catch (IOException ex) {
                     ex.printStackTrace();
                   }
@@ -164,7 +202,6 @@ public class DisplayDatabaseController extends DatabaseController implements Ini
 
                 deleteButton.setOnAction((ActionEvent event) -> {
                   Node node = getTableView().getItems().get(getIndex());
-                  System.out.println("delete: " + node);
 
                   deleteButtonAction(node);
                 });

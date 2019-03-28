@@ -3,9 +3,19 @@ package edu.wpi.cs3733d18.onyx_owlmen.database_prototype;
 import java.util.Collection;
 import java.util.LinkedList;
 
-public class Database {
-  public Database() {
+final class Database {
 
+  private static Database instance;
+
+  private Database() {
+  }
+
+  //synchronized method to control simultaneous access
+  static synchronized Database getInstance() {
+    if (instance == null) {
+      instance = new Database();
+    }
+    return instance;
   }
 
 

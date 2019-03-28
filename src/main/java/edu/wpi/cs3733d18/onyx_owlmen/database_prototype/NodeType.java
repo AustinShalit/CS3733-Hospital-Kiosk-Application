@@ -16,7 +16,11 @@ public enum NodeType {
     this.name = name;
   }
 
-  public String getPrintableName() {
+  @Override
+  public String toString() {
     return name;
   }
+
+
 }
+
