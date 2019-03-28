@@ -1,25 +1,23 @@
 package edu.wpi.cs3733d18.onyx_owlmen.database_prototype;
 
+import java.nio.file.FileAlreadyExistsException;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
 public class Database {
-  List<Node> ll;
-
+  Connection connection;
   /**
    * The class containing all interaction implementations with the database.
    */
   public Database() {
-    CSVReader csvReader = new CSVReader();
-    ll = csvReader.getNodesInCSV();
-
     try {
       Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
     } catch (ClassNotFoundException ex) {
@@ -27,7 +25,7 @@ public class Database {
       ex.printStackTrace();
     }
 
-    Connection connection = null;  // NOPMD
+    connection = null;  // NOPMD
 
     try {
       // Establish Connection
@@ -70,19 +68,83 @@ public class Database {
       sqlException.printStackTrace();
       System.out.println("connection failed");
     }
+    /*
+    try {
+      addNode(new Node(
+          "BCONF00102",
+          2150,
+          1025,
+          2,
+          "45 Francis",
+          NodeType.CONF,
+          "Duncan Reid Conference Room",
+          "Conf B0102"
+      ));
+    } catch (FileAlreadyExistsException exc) {
+      //
+    }
+    */
   }
 
 
   List<Node> getNodes() {
-    return ll;
+    LinkedList<Node> ret = new LinkedList<>();
+    try {
+      ResultSet resultSet = connection.prepareStatement("SELECT * from nodes").executeQuery();
+      while (resultSet.next()) {
+        Node newNode = new Node(
+            resultSet.getString("nodeID"),
+            resultSet.getInt("xcoord"),
+            resultSet.getInt("ycoord"),
+            resultSet.getInt("floor"),
+            resultSet.getString("building"),
+            resultSet.getString("nodeType"),
+            resultSet.getString("longName"),
+            resultSet.getString("shortName")
+        );
+        ret.add(newNode);
+      }
+    } catch (SQLException sqlException) {
+      sqlException.printStackTrace();
+    }
+    return ret;
   }
 
   void updateNode(String nodeId, Node newNode) {
     //
   }
 
+  void addNode(Node newNode) throws FileAlreadyExistsException {
+    try {
+      connection.createStatement().executeUpdate(
+          String.format("INSERT INTO nodes VALUES ('%s', %d, %d, %d, '%s', '%s', '%s', '%s')",
+              newNode.nodeID,
+              newNode.xcoord,
+              newNode.ycoord,
+              newNode.floor,
+              newNode.building,
+              newNode.nodeType.getShortName(),
+              newNode.longName,
+              newNode.shortName)
+      );
+    } catch (SQLException sqlException) {
+      if (sqlException.getErrorCode() == 30000) {
+        System.out.println("Duplicate primary key");
+        throw new FileAlreadyExistsException(null);
+      } else {
+        sqlException.printStackTrace();
+      }
+    }
+  }
+
   void deleteNode(String nodeId) {
-    //
+    // Yes this is vulnerable to an SQL Injection attack.
+    // Will refactor later
+    try {
+      connection.createStatement().executeUpdate("DELETE FROM nodes WHERE nodeID = '" + nodeId + "'");
+    } catch (SQLException sqlException) {
+      sqlException.printStackTrace();
+    }
   }
 
   private Set<String> getDBTables(Connection targetDBConn) throws SQLException {

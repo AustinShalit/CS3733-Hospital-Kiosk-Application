@@ -89,6 +89,66 @@ public class Node {
     this.shortName = shortName;
   }
 
+  /**
+   * Constructor for the node class.
+   *
+   * @param nodeID    The unique identifier for the node
+   * @param xcoord    The X coordinate for the node
+   * @param ycoord    The Y coordinate for the node
+   * @param floor     The floor of the node
+   * @param building  The building address of the Node
+   * @param nodeType  The type of node
+   * @param longName  The name of the node
+   * @param shortName A shorter name of the node
+   */
+  Node(String nodeID,
+       int xcoord,
+       int ycoord,
+       int floor,
+       String building,
+       String nodeType,
+       String longName,
+       String shortName) {
+    this.nodeID = nodeID;
+    this.xcoord = xcoord;
+    this.ycoord = ycoord;
+    this.floor = floor;
+    this.building = building;
+    this.longName = longName;
+    this.shortName = shortName;
+
+    switch (nodeType) {
+      case "conf":
+        this.nodeType = NodeType.CONF;
+        break;
+      case "hall":
+        this.nodeType = NodeType.HALL;
+        break;
+      case "dept":
+        this.nodeType = NodeType.DEPT;
+        break;
+      case "info":
+        this.nodeType = NodeType.INFO;
+        break;
+      case "labs":
+        this.nodeType = NodeType.LABS;
+        break;
+      case "rest":
+        this.nodeType = NodeType.REST;
+        break;
+      case "serv":
+        this.nodeType = NodeType.SERV;
+        break;
+      case "stai":
+        this.nodeType = NodeType.STAI;
+        break;
+      default:
+        System.out.println("Did not match given NodeType, setting to NodeType.CONF as temp fix?");
+        this.nodeType = NodeType.CONF;
+        break;
+    }
+  }
+
   public UINode asUINode() {
     return new UINode(this);
   }
