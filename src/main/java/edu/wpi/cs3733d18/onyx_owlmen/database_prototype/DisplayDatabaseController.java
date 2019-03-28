@@ -196,13 +196,7 @@ public class DisplayDatabaseController {
         return;
       }
 
-      List<Node> nodeList = new CsvToBeanBuilder<Node>(new FileReader(path))
-          .withType(Node.class).build().parse();
-      nodeList.forEach(node -> {
-        Database.getInstance().addNode(node);
-        table.getItems().add(node);
-      });
-
+      writeToCSV(table.getItems(), path);
     }
   }
 
