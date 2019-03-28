@@ -30,16 +30,17 @@ class DFS_Checker {
         for (Node aNode: newNodeList){
             this.createAdjList(aNode);
         }
+        this.allNodes = newNodeList;
 
     }
 
     private void createAdjList(Node aNode){
         LinkedList<Node> adj = new LinkedList<Node>();
         for (EdgeCSV aEdgeCSV: allEdgeCSV){
-            if (aNode.getNodeID() == aEdgeCSV.getStartNode()){
+            if (aNode.getNodeID().equals(aEdgeCSV.getStartNode())){
                 adj.add(NodeIDHash.get(aEdgeCSV.getEndNode()));
             }
-            else if (aNode.getNodeID() == aEdgeCSV.getEndNode()){
+            else if (aNode.getNodeID().equals(aEdgeCSV.getEndNode())){
                 adj.add(NodeIDHash.get(aEdgeCSV.getStartNode()));
             }
         }
