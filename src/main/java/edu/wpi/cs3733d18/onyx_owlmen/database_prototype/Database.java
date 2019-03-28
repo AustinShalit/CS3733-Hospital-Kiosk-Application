@@ -1,13 +1,21 @@
 package edu.wpi.cs3733d18.onyx_owlmen.database_prototype;
 
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.List;
-import java.sql.*;
+import java.util.Locale;
 import java.util.Set;
 
 public class Database {
   List<Node> ll;
 
+  /**
+   * The class containing all interaction implementations with the database.
+   */
   public Database() {
     CSVReader csvReader = new CSVReader();
     ll = csvReader.getNodesInCSV();
@@ -19,7 +27,7 @@ public class Database {
       ex.printStackTrace();
     }
 
-    Connection connection = null;
+    Connection connection = null;  // NOPMD
 
     try {
       // Establish Connection
@@ -37,32 +45,29 @@ public class Database {
 
       if (!tables.contains("nodes")) {
         System.out.println("nodes table not in database, creating table");
-        connection.createStatement().executeUpdate(""
-        + "create table nodes\n" +
-            "        (\n" +
-            "          nodeID varchar(100) not null,\n" +
-            "          xcoord int,\n" +
-            "          ycoord int,\n" +
-            "          floor int,\n" +
-            "          building varchar(100),\n" +
-            "          nodeType varchar(100),\n" +
-            "          longName varchar(100),\n" +
-            "          shortName varchar(100)\n" +
-            "        )");
+        connection.createStatement().executeUpdate("create table nodes\n"
+            + "        (\n"
+            + "          nodeID varchar(100) not null,\n"
+            + "          xcoord int,\n"
+            + "          ycoord int,\n"
+            + "          floor int,\n"
+            + "          building varchar(100),\n"
+            + "          nodeType varchar(100),\n"
+            + "          longName varchar(100),\n"
+            + "          shortName varchar(100)\n"
+            + "        )");
 
-        connection.createStatement().executeUpdate(""
-        + "create unique index nodes_nodeID_uindex\n" +
-            "          on nodes (nodeID)");
+        connection.createStatement().executeUpdate("create unique index nodes_nodeID_uindex\n"
+            + "          on nodes (nodeID)");
 
-        connection.createStatement().executeUpdate(""
-        + "alter table nodes\n" +
-            "          add constraint nodes_pk\n" +
-            "            primary key (nodeID)");
+        connection.createStatement().executeUpdate("alter table nodes\n"
+            + "          add constraint nodes_pk\n"
+            + "            primary key (nodeID)");
       } else {
         System.out.println("nodes table already exists in database.");
       }
-    } catch (SQLException sql_exception) {
-      sql_exception.printStackTrace();
+    } catch (SQLException sqlException) {
+      sqlException.printStackTrace();
       System.out.println("connection failed");
     }
   }
@@ -88,12 +93,20 @@ public class Database {
     return set;
   }
 
-  private void readDBTable(Set<String> set, DatabaseMetaData dbmeta, String searchCriteria, String schema) throws SQLException {
-    ResultSet rs = dbmeta.getTables(null, schema, null, new String[]
-        { searchCriteria });
-    while (rs.next())
-    {
-      set.add(rs.getString("TABLE_NAME").toLowerCase());
+  private void readDBTable(
+      Set<String> set,
+      DatabaseMetaData dbmeta,
+      String searchCriteria,
+      String schema) throws SQLException {
+    ResultSet rs = dbmeta.getTables( // NOPMD
+        null,
+              schema,
+        null,
+        new String[] {
+            searchCriteria
+        });
+    while (rs.next()) {
+      set.add(rs.getString("TABLE_NAME").toLowerCase(Locale.ENGLISH));
     }
   }
 }
