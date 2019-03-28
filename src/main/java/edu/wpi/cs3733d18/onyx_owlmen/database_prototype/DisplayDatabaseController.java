@@ -1,12 +1,17 @@
 package edu.wpi.cs3733d18.onyx_owlmen.database_prototype;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.Writer;
 import java.net.URL;
+import java.util.List;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+import com.opencsv.bean.CsvToBeanBuilder;
 
 import com.opencsv.CSVWriter;
 
@@ -24,9 +29,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
 import javafx.util.Callback;
 
-public class DisplayDatabaseController implements Initializable {
+import edu.wpi.cs3733d18.onyx_owlmen.NodeCSV;
+
+public class DisplayDatabaseController {
 
   @FXML
   private TableView<Node> table;
@@ -64,8 +72,8 @@ public class DisplayDatabaseController implements Initializable {
 
   private final Database database = Database.getInstance();
 
-  @Override
-  public void initialize(URL url, ResourceBundle rb) {
+  @FXML
+  void initialize() {
     populateTableView();
     addColumnsWithButtons();
   }
@@ -163,10 +171,19 @@ public class DisplayDatabaseController implements Initializable {
   }
 
   @FXML
-  void addDataButtonAction(ActionEvent event) throws IOException {
-    //    if (event.getSource() == addDataButton) {
-    //
-    //    }
+  void addDataButtonAction(ActionEvent event) throws FileNotFoundException {
+    FileChooser fileChooser = new FileChooser();
+    String path = fileChooser.showOpenDialog(table.getScene().getWindow()).getPath();
+    if ("".equals(path)) {
+      return;
+    }
+
+    List<Node> nodeList = new CsvToBeanBuilder<Node>(new FileReader(path))
+        .withType(Node.class).build().parse();
+    nodeList.forEach(node -> {
+      Database.getInstance().addNode(node);
+      table.getItems().add(node);
+    });
   }
 
   @FXML

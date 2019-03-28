@@ -58,7 +58,7 @@ public class ModifyDataControl extends Pane {
         Integer.parseInt(ycoordField.getText()),
         Integer.parseInt(floorField.getText()),
         buildingField.getText(),
-        nodeTypeField.getSelectionModel().getSelectedItem(),
+        nodeTypeField.getSelectionModel().getSelectedItem().name(),
         longNameField.getText(),
         shortNameField.getText());
   }
@@ -69,7 +69,7 @@ public class ModifyDataControl extends Pane {
     ycoordField.setText(Integer.toString(node.ycoord));
     floorField.setText(Integer.toString(node.floor));
     buildingField.setText(node.building);
-    nodeTypeField.getSelectionModel().select(node.nodeType);
+    nodeTypeField.getSelectionModel().select(NodeType.get(node.nodeType));
     longNameField.setText(node.longName);
     shortNameField.setText(node.shortName);
   }

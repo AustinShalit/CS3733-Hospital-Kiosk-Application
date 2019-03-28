@@ -1,5 +1,7 @@
 package edu.wpi.cs3733d18.onyx_owlmen.database_prototype;
 
+import com.opencsv.bean.CsvBindByName;
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -8,17 +10,26 @@ import javafx.beans.property.StringProperty;
 import javafx.scene.control.Button;
 
 public class Node {
-  final String nodeID;
-  final int xcoord;
-  final int ycoord;
-  final int floor;
-  final String building;
-  final NodeType nodeType;
-  final String longName;
-  final String shortName;
+  @CsvBindByName
+  String nodeID;
+  @CsvBindByName
+  int xcoord;
+  @CsvBindByName
+  int ycoord;
+  @CsvBindByName
+  int floor;
+  @CsvBindByName
+  String building;
+  @CsvBindByName
+  String nodeType;
+  @CsvBindByName
+  String longName;
+  @CsvBindByName
+  String shortName;
 
-  Button editButton;
-  Button deleteButton;
+  public Node() {
+
+  }
 
   /**
    * Constructor for the node class.
@@ -32,12 +43,12 @@ public class Node {
    * @param longName  The name of the node
    * @param shortName A shorter name of the node
    */
-  Node(String nodeID,
+  public Node(String nodeID,
        int xcoord,
        int ycoord,
        int floor,
        String building,
-       NodeType nodeType,
+       String nodeType,
        String longName,
        String shortName) {
     this.nodeID = nodeID;
@@ -48,9 +59,6 @@ public class Node {
     this.nodeType = nodeType;
     this.longName = longName;
     this.shortName = shortName;
-    this.editButton = new Button("Edit");
-    this.deleteButton = new Button("Delete");
-
   }
 
 
@@ -79,7 +87,7 @@ public class Node {
   }
 
   public SimpleObjectProperty<NodeType> nodeTypeProperty() {
-    return new SimpleObjectProperty<>(nodeType);
+    return new SimpleObjectProperty<>(NodeType.get(nodeType));
   }
 
   public StringProperty longNameProperty() {
@@ -90,11 +98,11 @@ public class Node {
     return new SimpleStringProperty(shortName);
   }
 
-  public SimpleObjectProperty<Button> editButtonProperty() {
-    return new SimpleObjectProperty<>(editButton);
-  }
-
-  public SimpleObjectProperty<Button> deleteButtonProperty() {
-    return new SimpleObjectProperty<>(deleteButton);
-  }
+//  public SimpleObjectProperty<Button> editButtonProperty() {
+//    return new SimpleObjectProperty<>(editButton);
+//  }
+//
+//  public SimpleObjectProperty<Button> deleteButtonProperty() {
+//    return new SimpleObjectProperty<>(deleteButton);
+//  }
 }

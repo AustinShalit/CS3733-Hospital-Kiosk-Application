@@ -1,5 +1,8 @@
 package edu.wpi.cs3733d18.onyx_owlmen.database_prototype;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 public enum NodeType {
   CONF("Conference"),
   HALL("Hall"),
@@ -8,7 +11,15 @@ public enum NodeType {
   LABS("Lab"),
   REST("Restroom"),
   SERV("Service"),
-  STAI("Stai");
+  STAI("Stair Case");
+
+  private static final Map<String, NodeType> lookup = new ConcurrentHashMap<>();
+
+  static {
+    for (NodeType type : values()) {
+      lookup.put(type.name(), type);
+    }
+  }
 
   private final String name;
 
@@ -21,6 +32,8 @@ public enum NodeType {
     return name;
   }
 
-
+  public static NodeType get(String name) {
+    return lookup.get(name);
+  }
 }
 
