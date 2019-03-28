@@ -22,7 +22,10 @@ public class Project extends Application {
 
     List<NodeCSV> nodeCSVList = new CsvToBeanBuilder<NodeCSV>(new FileReader(fileChooser.showOpenDialog(primaryStage).getPath()))
             .withType(NodeCSV.class).build().parse();
-    System.out.println(nodeCSVList);
+
+    List<EdgeCSV> edgeCSVList = new CsvToBeanBuilder<EdgeCSV>(new FileReader(fileChooser.showOpenDialog(primaryStage).getPath()))
+            .withType(EdgeCSV.class).build().parse();
+
 
     FXMLLoader loader = new FXMLLoader(getClass().getResource("MainWindow.fxml"));
     Pane mainWindow = loader.load();
