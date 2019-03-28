@@ -52,6 +52,7 @@ public class ModifyDataControl extends Pane {
 
   // Todo this needs to check if valid type is entered
   Node getNode() {
+
     return new Node(nodeIDField.getText(),
         Integer.parseInt(xcoordField.getText()),
         Integer.parseInt(ycoordField.getText()),

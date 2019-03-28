@@ -1,9 +1,14 @@
 package edu.wpi.cs3733d18.onyx_owlmen.database_prototype;
 
 import java.io.IOException;
+import java.io.Writer;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+import com.opencsv.CSVWriter;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -165,9 +170,65 @@ public class DisplayDatabaseController implements Initializable {
   }
 
   @FXML
-  void downloadButtonAction(ActionEvent event) {
+  void downloadButtonAction(ActionEvent event) throws IOException {
     if (event.getSource() == downloadButton) {
-      downloadButton.setText("Button not configured yet");
+
+      //      writeToCSV(table.getItems());
+      String fileName = "./prototypeNodesSaved.csv";
+      writeToCSV(table.getItems(), fileName);
+
+      Alert alert = new Alert(Alert.AlertType.INFORMATION);
+      alert.setTitle("Save Dialog");
+      alert.setHeaderText("Data was saved to the directory as  " + fileName);
+
+      alert.showAndWait();
+    }
+  }
+
+  /**
+   * Try to write data to a csv of the given file name.
+   * @param data The data to be written
+   * @param fileName The filename of the csv
+   * @throws IOException Throws an IOException
+   */
+  private void writeToCSV(ObservableList<Node> data, String fileName) throws IOException {
+    String path = fileName;
+
+    try (
+        Writer writer = Files.newBufferedWriter(Paths.get(path));
+
+        CSVWriter csvWriter = new CSVWriter(writer,
+            CSVWriter.DEFAULT_SEPARATOR,
+            CSVWriter.NO_QUOTE_CHARACTER,
+            CSVWriter.DEFAULT_ESCAPE_CHARACTER,
+            CSVWriter.DEFAULT_LINE_END);
+    ) {
+      String[] headerRecord = {"nodeID",
+          "xcoord",
+          "ycoord",
+          "floor",
+          "building",
+          "nodeType",
+          "longName",
+          "shortName"};
+
+      csvWriter.writeNext(headerRecord);
+
+      String[] toWrite = new String[8];
+
+      for (Node node : data) {
+        toWrite[0] = node.nodeID;
+        toWrite[1] = Integer.toString(node.xcoord);
+        toWrite[2] = Integer.toString(node.ycoord);
+        toWrite[3] = Integer.toString(node.floor);
+        toWrite[4] = node.building;
+        toWrite[5] = node.nodeType.name();
+        toWrite[6] = node.longName;
+        toWrite[7] = node.shortName;
+
+        csvWriter.writeNext(toWrite);
+
+      }
     }
   }
 
