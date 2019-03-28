@@ -4,18 +4,20 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-public class DFS_Checker {
+class DFS_Checker {
     private LinkedList<Node> allNodes;
     private List<NodeCSV> allNodeCSV;
     private List<EdgeCSV> allEdgeCSV;
     private HashMap<String,Node> NodeIDHash;
 
-    public DFS_Checker(List<NodeCSV> allNodeCSV, List<EdgeCSV> allEdgeCSV) {
+    DFS_Checker(List<NodeCSV> allNodeCSV, List<EdgeCSV> allEdgeCSV) {
         this.allNodeCSV = allNodeCSV;
         this.allEdgeCSV = allEdgeCSV;
+        this.NodeIDHash = new HashMap<String, Node>();
+        this.allNodes = new LinkedList<Node>();
     }
 
-    public void createAllNodes() {
+    void createAllNodes() {
 
         LinkedList<Node> newNodeList = new LinkedList<Node>();
         for (NodeCSV aNodeCSV : allNodeCSV) {
@@ -31,7 +33,7 @@ public class DFS_Checker {
 
     }
 
-    public void createAdjList(Node aNode){
+    private void createAdjList(Node aNode){
         LinkedList<Node> adj = new LinkedList<Node>();
         for (EdgeCSV aEdgeCSV: allEdgeCSV){
             if (aNode.getNodeID() == aEdgeCSV.getStartNode()){
@@ -44,5 +46,32 @@ public class DFS_Checker {
         aNode.setAdj(adj);
     }
 
+    void runDFS(String rootID){
+        Node root = NodeIDHash.get(rootID);
+        root.setColor('g');
+
+        for (Node aNode: root.getAdj()){
+            if (aNode.getColor() == 'w'){
+                this.runDFS(aNode.getNodeID());
+            }
+        }
+        root.setColor('b');
+    }
+
+    boolean checkDFS(){
+        int wrongCount = 0;
+        for (Node aNode: this.allNodes){
+            if(aNode.getColor() != 'b'){
+                System.out.println(aNode);
+                wrongCount++;
+            }
+        }
+        if (wrongCount != 0){
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
 
 }

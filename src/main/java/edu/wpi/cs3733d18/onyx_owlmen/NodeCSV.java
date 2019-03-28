@@ -20,35 +20,35 @@ public class NodeCSV {
     @CsvBindByName
     private String shortName;
 
-    public String getNodeID() {
+    String getNodeID() {
         return nodeID;
     }
 
-    public int getXcoord() {
+    int getXcoord() {
         return xcoord;
     }
 
-    public int getYcoord() {
+    int getYcoord() {
         return ycoord;
     }
 
-    public String getFloor() {
+    String getFloor() {
         return floor;
     }
 
-    public String getBuilding() {
+    String getBuilding() {
         return building;
     }
 
-    public String getNodeType() {
+    String getNodeType() {
         return nodeType;
     }
 
-    public String getLongName() {
+    String getLongName() {
         return longName;
     }
 
-    public String getShortName() {
+    String getShortName() {
         return shortName;
     }
 

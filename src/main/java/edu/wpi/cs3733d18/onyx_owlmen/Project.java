@@ -20,11 +20,30 @@ public class Project extends Application {
     FileChooser fileChooser = new FileChooser();
 
 
+
     List<NodeCSV> nodeCSVList = new CsvToBeanBuilder<NodeCSV>(new FileReader(fileChooser.showOpenDialog(primaryStage).getPath()))
             .withType(NodeCSV.class).build().parse();
 
+    System.out.println("finish Nodes");
+
     List<EdgeCSV> edgeCSVList = new CsvToBeanBuilder<EdgeCSV>(new FileReader(fileChooser.showOpenDialog(primaryStage).getPath()))
             .withType(EdgeCSV.class).build().parse();
+
+    System.out.println("finish edges");
+
+    DFS_Checker aChecker = new DFS_Checker(nodeCSVList,edgeCSVList);
+
+    aChecker.createAllNodes();
+
+    aChecker.runDFS("FHALL00101");
+
+    boolean result = aChecker.checkDFS();
+
+    System.out.println(result);
+
+
+
+
 
 
     FXMLLoader loader = new FXMLLoader(getClass().getResource("MainWindow.fxml"));

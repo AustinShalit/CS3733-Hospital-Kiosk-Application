@@ -3,33 +3,33 @@ package edu.wpi.cs3733d18.onyx_owlmen;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class Node {
+class Node {
     private String nodeID;
     private char color = 'w';
     private LinkedList<Node> adj;
 
-    public Node(String nodeID) {
+    Node(String nodeID) {
         this.nodeID = nodeID;
-        this.adj = adj;
+        this.adj = new LinkedList<Node>();
     }
 
-    public String getNodeID() {
+    String getNodeID() {
         return nodeID;
     }
 
-    public char getColor() {
+    char getColor() {
         return color;
     }
 
-    public LinkedList<Node> getAdj() {
+    LinkedList<Node> getAdj() {
         return adj;
     }
 
-    public void setColor(char color) {
+    void setColor(char color) {
         this.color = color;
     }
 
-    public void setAdj(LinkedList<Node> adj) {
+    void setAdj(LinkedList<Node> adj) {
         this.adj = adj;
     }
 }

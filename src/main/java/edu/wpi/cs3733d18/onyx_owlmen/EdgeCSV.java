@@ -10,15 +10,15 @@ public class EdgeCSV {
     @CsvBindByName
     private String endNode;
 
-    public String getEdgeID() {
+    String getEdgeID() {
         return edgeID;
     }
 
-    public String getStartNode() {
+    String getStartNode() {
         return startNode;
     }
 
-    public String getEndNode() {
+    String getEndNode() {
         return endNode;
     }
 
