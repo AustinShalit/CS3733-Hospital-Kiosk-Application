@@ -158,17 +158,14 @@ public class DisplayDatabaseController implements Initializable {
   }
 
   @FXML
-  void addDataButtonAction(ActionEvent event) throws IOException {
-    //    if (event.getSource() == addDataButton) {
-    //
-    //    }
+  void addDataButtonAction(ActionEvent event) {
+
+    Database.getInstance().addNode();
   }
 
   @FXML
   void downloadButtonAction(ActionEvent event) {
-    if (event.getSource() == downloadButton) {
-      downloadButton.setText("Button not configured yet");
-    }
+    downloadButton.setText("Button not configured yet");
   }
 
   /**
