@@ -222,6 +222,7 @@
         </module>
         <module name="OverloadMethodsDeclarationOrder" />
         <module name="VariableDeclarationUsageDistance" />
+        <module name="FinalClass" />
         <module name="MethodParamPad" />
         <module name="TypecastParenPad" />
         <module name="OperatorWrap">
