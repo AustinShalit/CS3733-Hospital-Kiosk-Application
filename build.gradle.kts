@@ -22,6 +22,8 @@ repositories {
 }
 
 dependencies {
+    implementation(group = "com.jfoenix", name = "jfoenix", version = "8.0.8")
+
     fun derby(name: String, version: String = "10.14.2.0") =
             create(group = "org.apache.derby", name = name, version = version)
     implementation(derby(name = "derby"))
