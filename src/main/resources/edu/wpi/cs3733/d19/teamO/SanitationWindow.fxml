@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.ui_prototype.SanitationWindowController">
+   <children>
+      <HBox layoutX="200.0" layoutY="7.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Button fx:id="btnback" mnemonicParsing="false" text="Go Back" />
+               </children>
+            </VBox>
+            <Label fx:id="lbltitle" maxWidth="-Infinity" minWidth="-Infinity" text="Add Sanitation Request">
+               <HBox.margin>
+                  <Insets top="40.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+      <VBox layoutY="100.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+         <children>
+            <ComboBox fx:id="combolocation" prefWidth="150.0" promptText="Select Location" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets left="220.0" top="10.0" />
+               </VBox.margin>
+            </ComboBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Label fx:id="lbldescription" text="Description:">
+                     <VBox.margin>
+                        <Insets left="245.0" top="20.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextArea fx:id="txtdescription" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="250.0">
+                     <VBox.margin>
+                        <Insets left="170.0" top="10.0" />
+                     </VBox.margin>
+                  </TextArea>
+               </children>
+            </VBox>
+            <Button fx:id="btnsubmit" mnemonicParsing="false" text="Submit" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="260.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
