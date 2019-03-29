@@ -23,6 +23,7 @@ repositories {
 
 dependencies {
     implementation(group = "com.jfoenix", name = "jfoenix", version = "8.0.8")
+    implementation(group = "com.opencsv", name = "opencsv", version = "4.5")
 
     fun derby(name: String, version: String = "10.14.2.0") =
             create(group = "org.apache.derby", name = name, version = version)
