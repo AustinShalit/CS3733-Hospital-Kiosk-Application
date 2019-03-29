@@ -7,6 +7,6 @@
             prefWidth="600.0"
             xmlns="http://javafx.com/javafx/8.0.171"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="edu.wpi.cs3733d18.onyx_owlmen.MainWindowController">
+            fx:controller="edu.wpi.cs3733.d19.teamO.MainWindowController">
 
 </BorderPane>
