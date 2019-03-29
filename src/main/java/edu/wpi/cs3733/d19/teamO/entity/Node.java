@@ -35,7 +35,7 @@ class Node {
       return name;
     }
 
-    public static NodeType get(String name) {
+    public static NodeType get(final String name) {
       return lookup.get(name);
     }
   }
@@ -49,8 +49,10 @@ class Node {
   private final String longName;
   private final String shortName;
 
-  Node(String nodeId, int xcoord, int ycoord, int floor, String building, NodeType nodeType,
-       String longName, String shortName) {
+
+  Node(final String nodeId, final int xcoord, final int ycoord, final int floor,
+       final String building, final NodeType nodeType, final String longName,
+       final String shortName) {
     this.nodeId = nodeId;
     this.xcoord = xcoord;
     this.ycoord = ycoord;
@@ -94,7 +96,7 @@ class Node {
   }
 
   @Override
-  public boolean equals(Object o) {
+  public boolean equals(final Object o) {
     if (this == o) {
       return true;
     }

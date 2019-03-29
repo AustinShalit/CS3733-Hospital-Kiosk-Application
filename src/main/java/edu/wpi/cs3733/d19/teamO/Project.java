@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 public class Project extends Application {
 
   @Override
-  public void start(Stage primaryStage) throws IOException {
+  public void start(final Stage primaryStage) throws IOException {
     FXMLLoader loader = new FXMLLoader(getClass().getResource("MainWindow.fxml"));
     Pane mainWindow = loader.load();
 

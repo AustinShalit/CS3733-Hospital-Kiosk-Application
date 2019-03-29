@@ -30,7 +30,7 @@ class NodeDaoDb implements NodeDao {
   }
 
   @Override
-  public Optional<Node> get(String id) {
+  public Optional<Node> get(final String id) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement
           = connection.prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE NODEID=?");
@@ -65,7 +65,7 @@ class NodeDaoDb implements NodeDao {
   }
 
   @Override
-  public boolean insert(Node node) {
+  public boolean insert(final Node node) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement("INSERT INTO " + TABLE_NAME
           + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
@@ -85,7 +85,7 @@ class NodeDaoDb implements NodeDao {
   }
 
   @Override
-  public boolean update(Node node) {
+  public boolean update(final Node node) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement("UPDATE " + TABLE_NAME + " "
           + "SET XCOORD=?, "
@@ -108,7 +108,7 @@ class NodeDaoDb implements NodeDao {
   }
 
   @Override
-  public boolean delete(Node node) {
+  public boolean delete(final Node node) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement
           = connection.prepareStatement("DELETE FROM " + TABLE_NAME + " WHERE NODEID=?");
