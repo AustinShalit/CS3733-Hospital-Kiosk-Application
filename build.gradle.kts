@@ -22,6 +22,7 @@ repositories {
 }
 
 dependencies {
+    implementation(group = "com.google.guava", name = "guava", version = "27.1-jre")
     implementation(group = "com.opencsv", name = "opencsv", version = "4.5")
 
     fun derby(name: String, version: String = "10.14.2.0") =
@@ -67,6 +68,7 @@ tasks.withType<Test> {
                 "-Dprism.text=t2k"
         )
     }
+    finalizedBy("jacocoTestReport")
 }
 
 jacoco {

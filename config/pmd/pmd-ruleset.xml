@@ -14,6 +14,7 @@
         <exclude name="AccessorMethodGeneration" />
         <exclude name="AvoidPrintStackTrace" />
         <exclude name="AvoidReassigningParameters" />
+        <exclude name="GuardLogStatement"/>
         <exclude name="JUnitAssertionsShouldIncludeMessage" />
         <exclude name="JUnitTestContainsTooManyAsserts" />
         <exclude name="JUnit4TestShouldUseAfterAnnotation" />
