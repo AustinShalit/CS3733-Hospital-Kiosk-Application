@@ -7,7 +7,7 @@ matrix:
     jdk: oraclejdk8
 
 script:
-- "./gradlew check jacocoTestReport --stacktrace"
+- "./gradlew check --stacktrace"
 - "./gradlew shadowJar"
 
 deploy:
