@@ -37,7 +37,7 @@ final class LogManager {
         = DateTimeFormatter.ofPattern("YYYY-MM-dd-HH.mm.ss",
             Locale.getDefault()).format(LocalDateTime.now());
     final Handler fileHandler
-        = new FileHandler(FileManager.APP_DIRECTORY + "/kiosk." + time + ".log");
+        = new FileHandler(FileManager.LOG_DIRECTORY + "/kiosk." + time + ".log");
 
     fileHandler.setLevel(Level.INFO);    // Only log INFO and above to disk
     globalLogger.setLevel(Level.CONFIG); // Log CONFIG and higher

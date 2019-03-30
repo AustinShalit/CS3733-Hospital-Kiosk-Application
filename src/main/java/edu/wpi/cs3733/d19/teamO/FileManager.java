@@ -14,6 +14,7 @@ public final class FileManager {
   private static final String DIRECTORY_NAME = "Onyx Owlmen Kiosk";
 
   public static final File APP_DIRECTORY;
+  public static final File LOG_DIRECTORY;
 
   static {
     if (isWindows()) {
@@ -21,20 +22,30 @@ public final class FileManager {
           = new File(System.getenv("APPDATA")
           + File.separator
           + DIRECTORY_NAME);
+      LOG_DIRECTORY = APP_DIRECTORY;
     } else if (isMac()) {
       APP_DIRECTORY
           = new File(System.getProperty("user.home")
           + File.separator
           + "/Library/"
           + DIRECTORY_NAME);
+      LOG_DIRECTORY
+          = new File(System.getProperty("user.home")
+          + File.separator
+          + "/Library/Logs/"
+          + DIRECTORY_NAME);
     } else {
       APP_DIRECTORY
           = new File(System.getProperty("user.home")
           + File.separator
           + DIRECTORY_NAME);
+      LOG_DIRECTORY = APP_DIRECTORY;
     }
     if (!APP_DIRECTORY.mkdirs()) {
       logger.warning("Unable to create application directory: " + APP_DIRECTORY.getAbsolutePath());
+    }
+    if (!LOG_DIRECTORY.mkdirs()) {
+      logger.warning("Unable to create log directory: " + LOG_DIRECTORY.getAbsolutePath());
     }
   }
 
