@@ -19,9 +19,7 @@ public class MainWindowController extends Controller {
 
   @FXML
   void navigationButtonAction(ActionEvent event) {
-    if (event.getSource() == navigationButton) {
-      navigationButton.setText("Not yet implemented");
-    }
+    this.switchScenes("NavigationWindow.fxml", navigationButton.getScene().getWindow());
   }
 
   @FXML
