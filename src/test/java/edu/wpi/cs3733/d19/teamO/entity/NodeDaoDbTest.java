@@ -45,7 +45,7 @@ class NodeDaoDbTest {
   void setup(TestInfo testInfo) throws SQLException {
     DatabaseConnectionFactory dcf
         = new DatabaseConnectionFactoryImpl(DatabaseConnectionFactoryImpl.MEMORY_PROTOCOL,
-          testInfo.getDisplayName());
+        testInfo.getDisplayName());
     dao = new NodeDaoDb(dcf);
   }
 
