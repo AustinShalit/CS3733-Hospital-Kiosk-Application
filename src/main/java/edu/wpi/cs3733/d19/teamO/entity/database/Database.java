@@ -8,7 +8,7 @@ import edu.wpi.cs3733.d19.teamO.entity.Node;
 
 public class Database {
 
-  private NodeDaoDb nodeDaoDb;
+  private final NodeDaoDb nodeDaoDb;
 
   Database(DatabaseConnectionFactoryImpl dcf) throws SQLException {
     this.nodeDaoDb = new NodeDaoDb(dcf);
