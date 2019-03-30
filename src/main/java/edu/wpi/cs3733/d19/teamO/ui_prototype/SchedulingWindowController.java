@@ -1,31 +1,33 @@
 package edu.wpi.cs3733.d19.teamO.ui_prototype;
 
+import java.sql.Time;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 
-import java.sql.Time;
+public class SchedulingWindowController extends Controller {
 
-public class SchedulingWindowController {
+  @FXML
+  private Button backButton;
+  @FXML
+  private Button submitButton;
+  @FXML
+  private ComboBox<String> roomComboBox;
+  @FXML
+  private ChoiceBox<Time> startChoiceBox;
+  @FXML
+  private ChoiceBox<Time> endChoiceBox;
+  @FXML
+  private DatePicker datePicker;
 
-    @FXML
-    private Button back;
-
-    @FXML
-    private Button submit;
-
-    @FXML
-    ComboBox<String> roomComboBox;
-
-    @FXML
-    ChoiceBox<Time> startChoiceBox;
-
-    @FXML
-    ChoiceBox<Time> endChoiceBox;
-
-    @FXML
-    DatePicker datePicker;
-
+  @FXML
+  void onBackButtonAction(ActionEvent event) {
+    if (event.getSource() == backButton) {
+      switchScenes("MainWindow.fxml", backButton.getScene().getWindow());
+    }
+  }
 }

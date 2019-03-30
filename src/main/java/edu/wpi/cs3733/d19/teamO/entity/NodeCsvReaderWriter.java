@@ -110,7 +110,7 @@ class NodeCsvReaderWriter {
   /**
    * Write provided nodes to file.
    *
-   * @param csv The file to write to
+   * @param csv   The file to write to
    * @param nodes The nodes to write
    */
   void writeNodes(final File csv, final Collection<Node> nodes) throws IOException,
@@ -120,7 +120,7 @@ class NodeCsvReaderWriter {
 
     StatefulBeanToCsv<NodeVo> beanToCsv
         = new StatefulBeanToCsvBuilder<NodeVo>(Files.newBufferedWriter(csv.toPath(),
-            Charset.forName("UTF-8"))).build();
+        Charset.forName("UTF-8"))).build();
     beanToCsv.write(nodes.stream().map(NodeVo::fromNode).collect(Collectors.toList()));
   }
 }
