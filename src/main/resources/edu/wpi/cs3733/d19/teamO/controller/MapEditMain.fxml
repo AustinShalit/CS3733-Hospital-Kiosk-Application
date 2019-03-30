@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.MapEditController">
+    <children>
+        <VBox alignment="TOP_CENTER" layoutX="397.0" layoutY="98.0" spacing="20.0">
+            <children>
+                <JFXButton fx:id="Add" buttonType="RAISED" layoutX="131.0" layoutY="157.0" onAction="#MainButtonAction" ripplerFill="BLUE" text="Add Node" textFill="#0900ff">
+                    <font>
+                        <Font name="Calibri Bold" size="22.0" />
+                    </font>
+                </JFXButton>
+                <JFXButton fx:id="Delete" layoutX="131.0" layoutY="200.0" onAction="#MainButtonAction" text="Delete Node" textFill="#0900ff">
+                    <font>
+                        <Font name="Calibri Bold" size="22.0" />
+                    </font>
+                </JFXButton>
+                <JFXButton fx:id="Connect" layoutX="131.0" layoutY="223.0" onAction="#MainButtonAction" text="Connect Node" textFill="#0900ff">
+                    <font>
+                        <Font name="Calibri Bold" size="22.0" />
+                    </font>
+                </JFXButton>
+                <JFXButton fx:id="Update" layoutX="138.0" layoutY="261.0" onAction="#MainButtonAction" text="Update Node" textFill="#0900ff">
+                    <font>
+                        <Font name="Calibri Bold" size="22.0" />
+                    </font>
+                </JFXButton>
+            </children>
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+        </VBox>
+        <JFXButton fx:id="backButton" layoutY="3.0" onAction="#onBackButtonAction" text="Back">
+            <font>
+                <Font name="System Bold" size="12.0" />
+            </font>
+        </JFXButton>
+    </children>
+</AnchorPane>
