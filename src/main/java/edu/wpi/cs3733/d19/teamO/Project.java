@@ -12,10 +12,10 @@ public class Project extends Application {
 
   @Override
   public void start(final Stage primaryStage) throws IOException {
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("MainWindow.fxml"));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("controller/MainWindow.fxml"));
     Pane mainWindow = loader.load();
 
-    primaryStage.setTitle("Project Title");
+    primaryStage.setTitle("Team O Kiosk Application");
     primaryStage.setScene(new Scene(mainWindow));
     primaryStage.show();
   }

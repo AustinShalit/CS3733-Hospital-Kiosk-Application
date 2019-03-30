@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.d19.teamO.entity;
+package edu.wpi.cs3733.d19.teamO.entity.csv;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,6 +15,8 @@ import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
+
+import edu.wpi.cs3733.d19.teamO.entity.Node;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -110,7 +112,7 @@ class NodeCsvReaderWriter {
   /**
    * Write provided nodes to file.
    *
-   * @param csv The file to write to
+   * @param csv   The file to write to
    * @param nodes The nodes to write
    */
   void writeNodes(final File csv, final Collection<Node> nodes) throws IOException,
@@ -120,7 +122,7 @@ class NodeCsvReaderWriter {
 
     StatefulBeanToCsv<NodeVo> beanToCsv
         = new StatefulBeanToCsvBuilder<NodeVo>(Files.newBufferedWriter(csv.toPath(),
-            Charset.forName("UTF-8"))).build();
+        Charset.forName("UTF-8"))).build();
     beanToCsv.write(nodes.stream().map(NodeVo::fromNode).collect(Collectors.toList()));
   }
 }

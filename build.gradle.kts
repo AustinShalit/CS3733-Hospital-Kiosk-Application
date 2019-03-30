@@ -178,6 +178,6 @@ spotless {
 }
 
 tasks.withType<Wrapper>().configureEach {
-    gradleVersion = "5.3"
+    gradleVersion = "5.3.1"
     distributionType = Wrapper.DistributionType.ALL
 }

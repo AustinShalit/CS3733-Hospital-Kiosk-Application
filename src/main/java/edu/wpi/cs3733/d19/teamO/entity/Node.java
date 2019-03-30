@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
-class Node {
+public class Node {
 
   public enum NodeType {
     CONF("Conference"),
@@ -50,9 +50,12 @@ class Node {
   private final String shortName;
 
 
-  Node(final String nodeId, final int xcoord, final int ycoord, final int floor,
-       final String building, final NodeType nodeType, final String longName,
-       final String shortName) {
+  /**
+   * Create a node.
+   */
+  public Node(final String nodeId, final int xcoord, final int ycoord, final int floor,
+              final String building, final NodeType nodeType, final String longName,
+              final String shortName) {
     this.nodeId = nodeId;
     this.xcoord = xcoord;
     this.ycoord = ycoord;
