@@ -37,7 +37,7 @@
                   <Insets bottom="5.0" top="5.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="sanitationRequestButton" mnemonicParsing="false" text="Sanitation Request">
+            <Button fx:id="sanitationRequestButton" mnemonicParsing="false" onAction="#sanitationRequestButtonAction" text="Sanitation Request">
                <VBox.margin>
                   <Insets bottom="5.0" top="5.0" />
                </VBox.margin>
