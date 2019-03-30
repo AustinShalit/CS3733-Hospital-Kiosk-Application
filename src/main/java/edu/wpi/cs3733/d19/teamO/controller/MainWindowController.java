@@ -34,7 +34,7 @@ public class MainWindowController extends Controller {
   @FXML
   void sanitationRequestButtonAction(ActionEvent event) {
     if (event.getSource() == sanitationRequestButton) {
-      switchScenes("SanitationWindow.fxml", sanitationRequestButton.getScene().getWindow());
+      switchScenes("MainSanitationWindow.fxml", sanitationRequestButton.getScene().getWindow());
     }
   }
 

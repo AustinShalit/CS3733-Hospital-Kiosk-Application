@@ -5,10 +5,19 @@ import java.time.LocalDateTime;
 public class SanitationRequest extends ServiceRequest {
 
   public enum SanitationRequestType {
-    SPILL,
-    VOMIT,
-    BEDDING,
-    OTHERS;
+    SPILL("Spill"),
+    VOMIT("Vomit"),
+    BEDDING("Bedding"),
+    OTHERS("Others");
+
+    private final String name;
+
+    SanitationRequestType(final String name) {
+      this.name = name;
+    }
+
+    @Override
+    public String toString() { return name; }
   }
 
   private final SanitationRequestType type;
@@ -23,4 +32,8 @@ public class SanitationRequest extends ServiceRequest {
   public SanitationRequestType getType() {
     return type;
   }
+
+
 }
+
+
