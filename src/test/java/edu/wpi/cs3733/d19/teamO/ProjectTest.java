@@ -28,6 +28,6 @@ class ProjectTest extends ApplicationTest {
 
   @Test
   void titleTest() {
-    assertEquals("Project Title", stage.getTitle());
+    assertEquals("Team O Kiosk Application", stage.getTitle());
   }
 }
