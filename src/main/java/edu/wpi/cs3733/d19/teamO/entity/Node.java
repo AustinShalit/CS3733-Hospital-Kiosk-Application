@@ -49,7 +49,6 @@ public class Node {
   private final String longName;
   private final String shortName;
 
-
   /**
    * Create a node.
    */
