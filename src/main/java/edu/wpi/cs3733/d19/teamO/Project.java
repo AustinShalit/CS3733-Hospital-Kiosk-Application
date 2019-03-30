@@ -19,5 +19,4 @@ public class Project extends Application {
     primaryStage.setScene(new Scene(mainWindow));
     primaryStage.show();
   }
-
 }

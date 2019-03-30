@@ -13,7 +13,7 @@ final class DatabaseConnectionFactoryImpl implements DatabaseConnectionFactory {
   private static final Logger kLogger
       = Logger.getLogger(DatabaseConnectionFactoryImpl.class.getName());
 
-  private static final String EMBEDDED_PROTOCOL = "jdbc:derby:";
+  static final String EMBEDDED_PROTOCOL = "jdbc:derby:";
   static final String MEMORY_PROTOCOL = EMBEDDED_PROTOCOL + "memory:";
 
   private final String protocol;

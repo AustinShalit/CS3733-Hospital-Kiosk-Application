@@ -5,5 +5,5 @@ import edu.wpi.cs3733.d19.teamO.entity.Node;
 /**
  * Database access object for {@link Node}s.
  */
-interface NodeDao extends Dao<Node> {
+interface NodeDao extends Dao<String, Node> {
 }
