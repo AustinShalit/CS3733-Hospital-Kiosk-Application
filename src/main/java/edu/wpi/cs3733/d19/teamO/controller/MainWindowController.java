@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.d19.teamO.ui_prototype;
+package edu.wpi.cs3733.d19.teamO.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

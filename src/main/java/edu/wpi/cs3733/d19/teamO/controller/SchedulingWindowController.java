@@ -1,26 +1,28 @@
-package edu.wpi.cs3733.d19.teamO.ui_prototype;
+package edu.wpi.cs3733.d19.teamO.controller;
+
+import java.sql.Time;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.DatePicker;
 
-public class SanitationWindowController extends Controller {
+public class SchedulingWindowController extends Controller {
 
   @FXML
   private Button backButton;
   @FXML
   private Button submitButton;
   @FXML
-  private Label titleLabel;
+  private ComboBox<String> roomComboBox;
   @FXML
-  private Label descriptionLabel;
+  private ChoiceBox<Time> startChoiceBox;
   @FXML
-  private TextArea descriptionTextArea;
+  private ChoiceBox<Time> endChoiceBox;
   @FXML
-  private ComboBox locationComboBox;
+  private DatePicker datePicker;
 
   @FXML
   void onBackButtonAction(ActionEvent event) {

@@ -8,7 +8,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="edu.wpi.cs3733.d19.teamO.ui_prototype.SchedulingWindowController">
+            fx:controller="edu.wpi.cs3733.d19.teamO.controller.SchedulingWindowController">
     <children>
         <ComboBox fx:id="roomComboBox" layoutX="94.0" layoutY="118.0" prefWidth="150.0" promptText="enter a room"/>
         <Button fx:id="backButton" layoutX="43.0" layoutY="34.0" mnemonicParsing="false" onAction="#onBackButtonAction"
