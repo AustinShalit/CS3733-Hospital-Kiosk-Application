@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.d19.teamO.entity;
+package edu.wpi.cs3733.d19.teamO.entity.database;
 
 import java.sql.SQLException;
 
@@ -6,6 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
+
+import edu.wpi.cs3733.d19.teamO.entity.Node;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;

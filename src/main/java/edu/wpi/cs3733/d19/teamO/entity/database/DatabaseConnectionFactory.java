@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.d19.teamO.entity;
+package edu.wpi.cs3733.d19.teamO.entity.database;
 
 import java.sql.Connection;
 import java.sql.SQLException;

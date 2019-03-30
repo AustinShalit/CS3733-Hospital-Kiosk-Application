@@ -6,7 +6,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="edu.wpi.cs3733.d19.teamO.controller.MainWindowController">
@@ -29,13 +28,15 @@
                         <Font size="22.0"/>
                     </font>
                 </Label>
-                <Button fx:id="navigationButton" mnemonicParsing="false" onAction="#navigationButtonAction"
+                <Button fx:id="navigationButton" mnemonicParsing="false"
+                        onAction="#navigationButtonAction"
                         text="Navigation">
                     <VBox.margin>
                         <Insets bottom="5.0" top="5.0"/>
                     </VBox.margin>
                 </Button>
-                <Button fx:id="mapToolButton" mnemonicParsing="false" onAction="#mapToolButtonAction" text="Map Tool">
+                <Button fx:id="mapToolButton" mnemonicParsing="false"
+                        onAction="#mapToolButtonAction" text="Map Tool">
                     <VBox.margin>
                         <Insets bottom="5.0" top="5.0"/>
                     </VBox.margin>
@@ -46,13 +47,15 @@
                         <Insets bottom="5.0" top="5.0"/>
                     </VBox.margin>
                 </Button>
-                <Button fx:id="securityRequestButton" mnemonicParsing="false" onAction="#securityRequestButtonAction"
+                <Button fx:id="securityRequestButton" mnemonicParsing="false"
+                        onAction="#securityRequestButtonAction"
                         text="Security Request">
                     <VBox.margin>
                         <Insets bottom="5.0" top="5.0"/>
                     </VBox.margin>
                 </Button>
-                <Button fx:id="schedulingButton" mnemonicParsing="false" onAction="#schedulingButtonButtonAction"
+                <Button fx:id="schedulingButton" mnemonicParsing="false"
+                        onAction="#schedulingButtonButtonAction"
                         text="Scheduling">
                     <VBox.margin>
                         <Insets bottom="5.0" top="5.0"/>
