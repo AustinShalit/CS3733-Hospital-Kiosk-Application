@@ -51,7 +51,7 @@ java {
 }
 
 application {
-    mainClassName = "edu.wpi.cs3733d18.onyx_owlmen.Main"
+    mainClassName = "edu.wpi.cs3733.d19.teamO.Main"
 }
 
 tasks.withType<Test> {
