@@ -35,10 +35,11 @@ class EdgeDaoDb implements EdgeDao {
   }
 
   private DatabaseConnectionFactory dcf;
+  private NodeDaoDb nodeDaoDb;
 
   EdgeDaoDb(final DatabaseConnectionFactory dcf) throws SQLException {
     this.dcf = dcf;
-    new NodeDaoDb(dcf); // Create Node table
+    nodeDaoDb = new NodeDaoDb(dcf);
     createTable();
   }
 
@@ -122,13 +123,35 @@ class EdgeDaoDb implements EdgeDao {
     return false;
   }
 
+  @Override
+  public Set<Edge> getEdgesFor(final Node node) {
+    try (Connection connection = dcf.getConnection()) {
+      PreparedStatement statement
+          = connection.prepareStatement(queries.getProperty("edge.get_edges_for"));
+      statement.setString(1, node.getNodeId());
+      statement.setString(2, node.getNodeId());
+      try (ResultSet resultSet = statement.executeQuery()) {
+        Set<Edge> nodes = new HashSet<>();
+        while (resultSet.next()) {
+          nodes.add(extractEdgeFromResultSet(resultSet));
+        }
+        return nodes;
+      }
+    } catch (SQLException ex) {
+      logger.log(Level.WARNING, "Failed to get Edges", ex);
+    }
+    return Collections.emptySet();
+  }
+
   private Edge extractEdgeFromResultSet(final ResultSet resultSet) throws SQLException {
-    Node startNode = null;
-    Node endNode = null;
     return new Edge(
         resultSet.getString("id"),
-        startNode,
-        endNode
+        nodeDaoDb.get(resultSet
+            .getString("start_node"))
+            .orElseThrow(() -> new SQLException("Could not get node for edge")),
+        nodeDaoDb.get(resultSet
+            .getString("end_node"))
+            .orElseThrow(() -> new SQLException("Could not get node for edge"))
     );
   }
 

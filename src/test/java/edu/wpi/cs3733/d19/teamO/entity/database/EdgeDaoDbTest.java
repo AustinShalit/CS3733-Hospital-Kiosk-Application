@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d19.teamO.entity.database;
 
 import java.sql.SQLException;
+import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -10,6 +11,7 @@ import org.junit.jupiter.api.TestInfo;
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -56,8 +58,8 @@ class EdgeDaoDbTest {
   void setup(TestInfo testInfo) throws SQLException {
     DatabaseConnectionFactory dcf
         = new DatabaseConnectionFactoryImpl(DatabaseConnectionFactoryImpl.MEMORY_PROTOCOL,
-        testInfo.getTestClass().get().getName() +
-            testInfo.getDisplayName());
+        testInfo.getTestClass().get().getName()
+            + testInfo.getDisplayName());
     NodeDaoDb nodeDaoDb = new NodeDaoDb(dcf);
     nodeDaoDb.insert(NODE_A);
     nodeDaoDb.insert(NODE_B);
@@ -136,5 +138,19 @@ class EdgeDaoDbTest {
   @Test
   void getAllEmptyTest() {
     assertTrue(dao.getAll().isEmpty());
+  }
+
+  @Test
+  void getForNodeTest() {
+    dao.insert(EDGE_AB);
+    dao.insert(EDGE_BC);
+    dao.insert(EDGE_CA);
+
+    Set<Edge> result = dao.getEdgesFor(NODE_A);
+    assertAll(
+        () -> assertTrue(result.contains(EDGE_AB)),
+        () -> assertTrue(result.contains(EDGE_CA)),
+        () -> assertEquals(2, result.size())
+    );
   }
 }

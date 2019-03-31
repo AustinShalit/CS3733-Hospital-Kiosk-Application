@@ -15,12 +15,12 @@ public class Edge {
    */
   public Edge(String edgeId, Node startNode, Node endNode) {
     this.edgeId = checkNotNull(edgeId);
-    this.startNode = startNode;//checkNotNull(startNode);
-    this.endNode = endNode;//checkNotNull(endNode);
+    this.startNode = checkNotNull(startNode);
+    this.endNode = checkNotNull(endNode);
 
-//    if (startNode.equals(endNode)) {
-//      throw new IllegalArgumentException("The start and end nodes must be different");
-//    }
+    if (startNode.equals(endNode)) {
+      throw new IllegalArgumentException("The start and end nodes must be different");
+    }
   }
 
   public String getEdgeId() {
@@ -44,9 +44,9 @@ public class Edge {
       return false;
     }
     Edge edge = (Edge) o;
-    return Objects.equals(edgeId, edge.edgeId);
-        //&& Objects.equals(startNode, edge.startNode)
-        //&& Objects.equals(endNode, edge.endNode);
+    return Objects.equals(edgeId, edge.edgeId)
+        && Objects.equals(startNode, edge.startNode)
+        && Objects.equals(endNode, edge.endNode);
   }
 
   @Override
