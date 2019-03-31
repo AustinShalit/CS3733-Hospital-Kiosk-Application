@@ -2,6 +2,8 @@ package edu.wpi.cs3733.d19.teamO.entity;
 
 import java.util.Objects;
 
+import com.google.common.base.MoreObjects;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class Edge {
@@ -33,6 +35,15 @@ public class Edge {
 
   public Node getEndNode() {
     return endNode;
+  }
+
+  @Override
+  public String toString() {
+    return MoreObjects.toStringHelper(this)
+        .add("edgeId", edgeId)
+        .add("startNode", startNode)
+        .add("endNode", endNode)
+        .toString();
   }
 
   @Override
