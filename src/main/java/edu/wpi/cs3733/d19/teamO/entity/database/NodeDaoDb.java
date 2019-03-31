@@ -18,7 +18,7 @@ class NodeDaoDb implements NodeDao {
   private static final Logger logger
       = Logger.getLogger(NodeDaoDb.class.getName());
 
-  private static final String TABLE_NAME = "node";
+  private static final String TABLE_NAME = "NODE";
 
   private DatabaseConnectionFactory dcf;
 
@@ -35,7 +35,7 @@ class NodeDaoDb implements NodeDao {
   public Optional<Node> get(final String id) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement
-          = connection.prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE node_id=?");
+          = connection.prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE id=?");
       statement.setString(1, id);
       try (ResultSet resultSet = statement.executeQuery()) {
         if (resultSet.next()) {
@@ -90,10 +90,10 @@ class NodeDaoDb implements NodeDao {
   public boolean update(final Node node) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement("UPDATE " + TABLE_NAME + " "
-          + "SET x_coord=?, "
-          + "y_coord=?, floor=?, building=?, "
-          + "node_type=?, long_name=?, short_name=?"
-          + "WHERE node_id=?");
+          + "SET x=?, "
+          + "y=?, floor=?, building=?, "
+          + "type=?, long_name=?, short_name=?"
+          + "WHERE id=?");
       statement.setInt(1, node.getXcoord());
       statement.setInt(2, node.getYcoord());
       statement.setInt(3, node.getFloor());
@@ -113,7 +113,7 @@ class NodeDaoDb implements NodeDao {
   public boolean delete(final Node node) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement
-          = connection.prepareStatement("DELETE FROM " + TABLE_NAME + " WHERE node_id=?");
+          = connection.prepareStatement("DELETE FROM " + TABLE_NAME + " WHERE id=?");
       statement.setString(1, node.getNodeId());
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
@@ -124,12 +124,12 @@ class NodeDaoDb implements NodeDao {
 
   private Node extractNodeFromResultSet(final ResultSet resultSet) throws SQLException {
     return new Node(
-        resultSet.getString("node_id"),
-        resultSet.getInt("xcoord"),
-        resultSet.getInt("ycoord"),
+        resultSet.getString("id"),
+        resultSet.getInt("x"),
+        resultSet.getInt("y"),
         resultSet.getInt("floor"),
         resultSet.getString("building"),
-        Node.NodeType.get(resultSet.getString("node_type")),
+        Node.NodeType.get(resultSet.getString("type")),
         resultSet.getString("long_name"),
         resultSet.getString("short_name")
     );
@@ -141,12 +141,12 @@ class NodeDaoDb implements NodeDao {
       if (!resultSet.next()) {
         logger.info("Table " + TABLE_NAME + " does not exist. Creating");
         PreparedStatement statement = connection.prepareStatement("CREATE TABLE " + TABLE_NAME
-            + "(node_id VARCHAR(100) PRIMARY KEY,"
-            + "xcoord INT,"
-            + "yoord INT,"
+            + "(id VARCHAR(100) PRIMARY KEY,"
+            + "x INT,"
+            + "y INT,"
             + "floor INT,"
             + "building VARCHAR(100),"
-            + "node_type VARCHAR(100),"
+            + "type VARCHAR(100),"
             + "long_name VARCHAR(100),"
             + "short_name VARCHAR(100))");
         statement.executeUpdate();
