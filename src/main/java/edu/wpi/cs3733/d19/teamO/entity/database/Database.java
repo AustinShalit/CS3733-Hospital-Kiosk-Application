@@ -6,15 +6,18 @@ import java.util.Set;
 
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
+import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
 
 public class Database {
 
   private final NodeDaoDb nodeDaoDb;
   private final EdgeDaoDb edgeDaoDb;
+  private final SecurityRequestDaoDb securityRequestDaoDb;
 
   Database(DatabaseConnectionFactoryEmbedded dcf) throws SQLException {
     this.nodeDaoDb = new NodeDaoDb(dcf);
     this.edgeDaoDb = new EdgeDaoDb(dcf);
+    this.securityRequestDaoDb = new SecurityRequestDaoDb(dcf);
   }
 
   /**
@@ -90,6 +93,26 @@ public class Database {
   /*
    * Security
    */
+
+  public Optional<SecurityRequest> getSecurityRequest(Integer id) {
+    return securityRequestDaoDb.get(id);
+  }
+
+  public Set<SecurityRequest> getAllSecurityRequests() {
+    return securityRequestDaoDb.getAll();
+  }
+
+  public boolean insertSecurityRequest(SecurityRequest securityRequest) {
+    return securityRequestDaoDb.insert(securityRequest);
+  }
+
+  public boolean deleteSecurityRequest(SecurityRequest securityRequest) {
+    return securityRequestDaoDb.delete(securityRequest);
+  }
+
+  public boolean updateSecurity(SecurityRequest securityRequest) {
+    return securityRequestDaoDb.update(securityRequest);
+  }
 
 
   /*

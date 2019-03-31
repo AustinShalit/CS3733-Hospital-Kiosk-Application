@@ -40,10 +40,7 @@ public class MainWindowController extends Controller {
 
   @FXML
   void securityRequestButtonAction(ActionEvent event) {
-    if (event.getSource() == securityRequestButton) {
-//      securityRequestButton.setText("Not yet implemented");
-      switchScenes("SecurityWindow.fxml", securityRequestButton.getScene().getWindow());
-    }
+    switchScenes("SecurityWindow.fxml", securityRequestButton.getScene().getWindow());
   }
 
   @FXML

@@ -14,9 +14,10 @@ public class SanitationRequest extends ServiceRequest {
   private final SanitationRequestType type;
 
   // constructor
-  SanitationRequest(LocalDateTime timeRequested, LocalDateTime timeCompleted, String whoCompleted,
-                    String description, Node node, SanitationRequestType type) {
-    super(timeRequested, timeCompleted, whoCompleted, description, node);
+  SanitationRequest(int id, LocalDateTime timeRequested, LocalDateTime timeCompleted,
+                    String whoCompleted, String description, Node node,
+                    SanitationRequestType type) {
+    super(id, timeRequested, timeCompleted, whoCompleted, description, node);
     this.type = type;
   }
 

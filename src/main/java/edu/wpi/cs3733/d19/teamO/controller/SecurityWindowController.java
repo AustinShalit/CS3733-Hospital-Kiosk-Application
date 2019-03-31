@@ -1,11 +1,10 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextField;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
 import javafx.scene.text.Text;
 
 public class SecurityWindowController extends Controller {
@@ -17,13 +16,18 @@ public class SecurityWindowController extends Controller {
   private Button alertbutton;
 
   @FXML
-  private JFXTextField insertLocationTextArea;
+  private Button getnodesbutton;
 
   @FXML
   private Text securityTitle;
 
   @FXML
   private JFXComboBox insertlocationdropdown;
+
+  @FXML
+  void chooseLocation(ActionEvent event) {
+
+  }
 
   @FXML
   void initialize() {
@@ -42,15 +46,6 @@ public class SecurityWindowController extends Controller {
       switchScenes("MainWindow.fxml", backButton.getScene().getWindow());
     }
   }
-
-
-
-
-
-
-
-
-
 
 
 }

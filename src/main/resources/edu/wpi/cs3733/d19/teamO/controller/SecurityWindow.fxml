@@ -15,7 +15,8 @@
                 <Font size="44.0" />
             </font>
         </Text>
-      <JFXComboBox fx:id="insertlocationdropdown" layoutX="221.0" layoutY="178.0" prefHeight="44.0" prefWidth="159.0" />
+      <JFXComboBox fx:id="insertlocationdropdown" layoutX="300.0" layoutY="178.0" prefHeight="44.0" prefWidth="159.0" />
+      <Button fx:id="getnodesbutton" layoutX="162.0" layoutY="188.0" mnemonicParsing="false" text="Get Nodes" />
     </children>
 
 </AnchorPane>

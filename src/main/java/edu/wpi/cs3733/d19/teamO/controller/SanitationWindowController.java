@@ -23,7 +23,6 @@ public class SanitationWindowController extends Controller {
   private ComboBox locationComboBox;
 
 
-
   @FXML
   void onBackButtonAction(ActionEvent event) {
     if (event.getSource() == backButton) {
