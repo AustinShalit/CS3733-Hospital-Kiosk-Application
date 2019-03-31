@@ -5,33 +5,33 @@ import java.time.LocalDateTime;
 class ServiceRequest {
 
   private final int id;
-  private final Node node;
+  private final Node locationNode;
   private final LocalDateTime timeReceived;
   private final LocalDateTime timeCompleted;
 
   // constructor
-  ServiceRequest(int id, LocalDateTime timeReceived, LocalDateTime timeCompleted, Node node) {
+  ServiceRequest(int id, LocalDateTime timeReceived, LocalDateTime timeCompleted, Node locationNode) {
     this.id = id;
-    this.node = node;
+    this.locationNode = locationNode;
     this.timeReceived = timeReceived;
     this.timeCompleted = timeCompleted;
   }
 
   // getters and setters
   public int getId() {
-    return id;
+    return this.id;
   }
 
-  public LocalDateTime getTimetimeReceived() {
-    return timeReceived;
+  public LocalDateTime getTimeReceived() {
+    return this.timeReceived;
   }
 
   public LocalDateTime getTimeCompleted() {
-    return timeCompleted;
+    return this.timeCompleted;
   }
 
   // functions
   public Node getLocationNode() {
-    return node;
+    return this.locationNode;
   }
 }

@@ -121,4 +121,18 @@ public class Node {
   public int hashCode() {
     return Objects.hash(nodeId, xcoord, ycoord, floor, building, nodeType, longName, shortName);
   }
+
+  @Override
+  public String toString() {
+    return "Node{" +
+        "nodeId='" + nodeId + '\'' +
+        ", xcoord=" + xcoord +
+        ", ycoord=" + ycoord +
+        ", floor=" + floor +
+        ", building='" + building + '\'' +
+        ", nodeType=" + nodeType +
+        ", longName='" + longName + '\'' +
+        ", shortName='" + shortName + '\'' +
+        '}';
+  }
 }
