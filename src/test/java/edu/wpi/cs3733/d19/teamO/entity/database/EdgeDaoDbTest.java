@@ -36,7 +36,7 @@ class EdgeDaoDbTest {
     @Test
     void createTableTest(TestInfo testInfo) {
       DatabaseConnectionFactory dcf
-          = new DatabaseConnectionFactoryImpl(DatabaseConnectionFactoryImpl.MEMORY_PROTOCOL,
+          = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
           testInfo.getDisplayName());
 
       assertDoesNotThrow(() -> new EdgeDaoDb(dcf));
@@ -45,7 +45,7 @@ class EdgeDaoDbTest {
     @Test
     void existingTableTest(TestInfo testInfo) {
       DatabaseConnectionFactory dcf
-          = new DatabaseConnectionFactoryImpl(DatabaseConnectionFactoryImpl.MEMORY_PROTOCOL,
+          = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
           testInfo.getDisplayName());
       assertDoesNotThrow(() -> new EdgeDaoDb(dcf));
       assertDoesNotThrow(() -> new EdgeDaoDb(dcf));
@@ -57,7 +57,7 @@ class EdgeDaoDbTest {
   @BeforeEach
   void setup(TestInfo testInfo) throws SQLException {
     DatabaseConnectionFactory dcf
-        = new DatabaseConnectionFactoryImpl(DatabaseConnectionFactoryImpl.MEMORY_PROTOCOL,
+        = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
         testInfo.getTestClass().get().getName()
             + testInfo.getDisplayName());
     NodeDaoDb nodeDaoDb = new NodeDaoDb(dcf);

@@ -44,7 +44,7 @@ class EdgeDaoDb implements EdgeDao {
   }
 
   EdgeDaoDb() throws SQLException {
-    this(new DatabaseConnectionFactoryImpl());
+    this(new DatabaseConnectionFactoryEmbedded());
   }
 
   @Override
