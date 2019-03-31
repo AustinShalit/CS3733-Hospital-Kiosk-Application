@@ -10,49 +10,60 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.SanitationViewWindowController">
-   <children>
-      <HBox layoutX="-4.0" layoutY="-7.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-         <children>
-            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
-               <children>
-                  <Button fx:id="goBackButton" mnemonicParsing="false" onAction="#goBackButtonAction" text="Go Back" />
-               </children></VBox>
-            <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
-               <children>
-                  <Label fx:id="titleLabel" alignment="CENTER" text="Station Requests">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="15.0" />
-                     </VBox.margin>
-                  </Label>
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS" />
-         </children>
-      </HBox>
-      <HBox layoutX="66.0" layoutY="203.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
-         <children>
-            <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-            <VBox prefHeight="300.0" prefWidth="435.0">
-               <children>
-                  <TableView fx:id="requestsTableView" prefHeight="200.0" prefWidth="200.0">
-                    <columns>
-                      <TableColumn fx:id="idTableCol" editable="false" maxWidth="117.0" minWidth="12.0" prefWidth="71.0" text="ID" />
-                      <TableColumn fx:id="locationTableCol" editable="false" prefWidth="151.0" text="Location" />
-                        <TableColumn fx:id="categoryTableCol" editable="false" minWidth="0.0" prefWidth="134.0" text="Category" />
-                    </columns>
-                  </TableView>
-               </children>
-            </VBox>
-            <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-         </children>
-      </HBox>
-   </children>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="edu.wpi.cs3733.d19.teamO.controller.SanitationViewWindowController">
+    <children>
+        <HBox layoutX="-4.0" layoutY="-7.0" prefHeight="100.0" prefWidth="200.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <children>
+                <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0"
+                      HBox.hgrow="ALWAYS">
+                    <children>
+                        <Button fx:id="goBackButton" mnemonicParsing="false"
+                                onAction="#goBackButtonAction" text="Go Back"/>
+                    </children>
+                </VBox>
+                <VBox alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0"
+                      HBox.hgrow="ALWAYS">
+                    <children>
+                        <Label fx:id="titleLabel" alignment="CENTER" text="Station Requests">
+                            <font>
+                                <Font size="25.0"/>
+                            </font>
+                            <VBox.margin>
+                                <Insets bottom="15.0"/>
+                            </VBox.margin>
+                        </Label>
+                    </children>
+                    <opaqueInsets>
+                        <Insets/>
+                    </opaqueInsets>
+                </VBox>
+                <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS"/>
+            </children>
+        </HBox>
+        <HBox layoutX="66.0" layoutY="203.0" prefHeight="100.0" prefWidth="200.0"
+              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="100.0">
+            <children>
+                <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS"/>
+                <VBox prefHeight="300.0" prefWidth="435.0">
+                    <children>
+                        <TableView fx:id="requestsTableView" prefHeight="200.0" prefWidth="200.0">
+                            <columns>
+                                <TableColumn fx:id="idTableCol" editable="false" maxWidth="117.0"
+                                             minWidth="12.0" prefWidth="71.0" text="ID"/>
+                                <TableColumn fx:id="locationTableCol" editable="false"
+                                             prefWidth="151.0" text="Location"/>
+                                <TableColumn fx:id="categoryTableCol" editable="false"
+                                             minWidth="0.0" prefWidth="134.0" text="Category"/>
+                            </columns>
+                        </TableView>
+                    </children>
+                </VBox>
+                <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS"/>
+            </children>
+        </HBox>
+    </children>
 </AnchorPane>

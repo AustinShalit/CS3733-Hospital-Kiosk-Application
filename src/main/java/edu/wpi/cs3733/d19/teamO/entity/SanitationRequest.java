@@ -17,7 +17,9 @@ public class SanitationRequest extends ServiceRequest {
     }
 
     @Override
-    public String toString() { return name; }
+    public String toString() {
+      return name;
+    }
   }
 
   private final SanitationRequestType type;

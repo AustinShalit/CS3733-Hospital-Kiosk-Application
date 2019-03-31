@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
-import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
+import java.util.HashSet;
+import java.util.Set;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -8,12 +10,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
 
 
-public class SanitationViewWindowController extends Controller{
+public class SanitationViewWindowController extends Controller {
 
   @FXML
   private Button goBackButton;

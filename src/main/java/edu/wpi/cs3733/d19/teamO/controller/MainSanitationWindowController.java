@@ -4,7 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-public class MainSanitationWindowController extends Controller{
+public class MainSanitationWindowController extends Controller {
 
   @FXML
   private Button addSanitationButton;
@@ -22,7 +22,7 @@ public class MainSanitationWindowController extends Controller{
 
   @FXML
   void viewSanitationButtonAction(ActionEvent event) {
-    if(event.getSource() == viewSanitationButton) {
+    if (event.getSource() == viewSanitationButton) {
       switchScenes("SanitationViewWindow.fxml", viewSanitationButton.getScene().getWindow());
     }
   }
