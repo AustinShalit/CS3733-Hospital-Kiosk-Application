@@ -1,13 +1,14 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTimePicker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.*;
 
 public class SchedulingWindowController extends Controller {
 
@@ -18,11 +19,15 @@ public class SchedulingWindowController extends Controller {
   @FXML
   private ComboBox<String> roomComboBox;
   @FXML
-  private ChoiceBox<Time> startChoiceBox;
+  private TextField nameBox;
   @FXML
-  private ChoiceBox<Time> endChoiceBox;
+  private JFXTimePicker startChoiceBox;
   @FXML
-  private DatePicker datePicker;
+  private JFXTimePicker endChoiceBox;
+  @FXML
+  private JFXDatePicker datePicker;
+
+  protected List<String> nodeList = new ArrayList<>();
 
   @FXML
   void onBackButtonAction(ActionEvent event) {
