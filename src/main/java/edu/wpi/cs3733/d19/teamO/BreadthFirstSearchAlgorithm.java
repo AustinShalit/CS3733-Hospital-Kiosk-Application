@@ -18,11 +18,11 @@ public class BreadthFirstSearchAlgorithm {
   private Set<Node> neighbors(Node aNode) {
     Set<Node> neighbors = new HashSet<>();
 
+    //search edges and add nodes connected to aNode
     neighbors.add(aNode);
 
     return neighbors;
   }
-
 
   private Stack<Node> makePath(Map<Node, Node> cameFrom, Node goal) {
     Stack<Node> path = new Stack<>();
