@@ -141,14 +141,14 @@ class NodeDaoDb implements NodeDao {
       if (!resultSet.next()) {
         logger.info("Table " + TABLE_NAME + " does not exist. Creating");
         PreparedStatement statement = connection.prepareStatement("CREATE TABLE " + TABLE_NAME
-            + "(id VARCHAR(100) PRIMARY KEY,"
+            + "(id VARCHAR(255) PRIMARY KEY,"
             + "x INT,"
             + "y INT,"
             + "floor INT,"
-            + "building VARCHAR(100),"
-            + "type VARCHAR(100),"
-            + "long_name VARCHAR(100),"
-            + "short_name VARCHAR(100))");
+            + "building VARCHAR(255),"
+            + "type VARCHAR(255),"
+            + "long_name VARCHAR(255),"
+            + "short_name VARCHAR(255))");
         statement.executeUpdate();
         logger.info("Table " + TABLE_NAME + " created");
       } else {
