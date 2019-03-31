@@ -26,12 +26,10 @@ public final class FileManager {
     } else if (isMac()) {
       APP_DIRECTORY
           = new File(System.getProperty("user.home")
-          + File.separator
           + "/Library/"
           + DIRECTORY_NAME);
       LOG_DIRECTORY
           = new File(System.getProperty("user.home")
-          + File.separator
           + "/Library/Logs/"
           + DIRECTORY_NAME);
     } else {
