@@ -10,7 +10,8 @@ class DatabaseConnectionFactoryTest {
 
   @Test
   void getConnectionTest() throws SQLException {
-    assertNotNull(new DatabaseConnectionFactoryImpl(DatabaseConnectionFactoryImpl.MEMORY_PROTOCOL,
+    assertNotNull(
+        new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
         "Test").getConnection());
   }
 }

@@ -3,15 +3,18 @@ package edu.wpi.cs3733.d19.teamO.entity.database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import edu.wpi.cs3733.d19.teamO.FileManager;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 
-final class DatabaseConnectionFactoryImpl implements DatabaseConnectionFactory {
+final class DatabaseConnectionFactoryEmbedded implements DatabaseConnectionFactory {
 
   private static final Logger kLogger
-      = Logger.getLogger(DatabaseConnectionFactoryImpl.class.getName());
+      = Logger.getLogger(DatabaseConnectionFactoryEmbedded.class.getName());
 
   private static final String EMBEDDED_PROTOCOL = "jdbc:derby:";
   static final String MEMORY_PROTOCOL = EMBEDDED_PROTOCOL + "memory:";
@@ -19,9 +22,12 @@ final class DatabaseConnectionFactoryImpl implements DatabaseConnectionFactory {
   private final String protocol;
   private final String name;
 
-  DatabaseConnectionFactoryImpl(final String protocol, final String name) {
+  DatabaseConnectionFactoryEmbedded(final String protocol, final String name) {
     this.protocol = checkNotNull(protocol);
     this.name = checkNotNull(name);
+
+    Properties properties = System.getProperties();
+    properties.setProperty("derby.system.home", FileManager.APP_DIRECTORY.getAbsolutePath());
 
     try {
       Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
@@ -30,8 +36,8 @@ final class DatabaseConnectionFactoryImpl implements DatabaseConnectionFactory {
     }
   }
 
-  DatabaseConnectionFactoryImpl() {
-    this(EMBEDDED_PROTOCOL, "ProjectDb");
+  DatabaseConnectionFactoryEmbedded() {
+    this(EMBEDDED_PROTOCOL, "database");
   }
 
   @Override
