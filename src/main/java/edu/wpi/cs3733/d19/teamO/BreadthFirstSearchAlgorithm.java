@@ -19,6 +19,7 @@ public class BreadthFirstSearchAlgorithm {
     Set<Node> neighbors = new HashSet<>();
 
     //search edges and add nodes connected to aNode
+    neighbors.add(aNode);
 
     return neighbors;
   }
@@ -34,7 +35,12 @@ public class BreadthFirstSearchAlgorithm {
     return path;
   }
 
-
+  /**
+   * This returns a path from the start node to the goal.
+   * @param start the node the user starts at.
+   * @param goal the node the user wants to end at.
+   * @return a stack containg the path to be traveled.
+   */
   public Stack<Node> getPath(Node start, Node goal) {
     Queue<Node> frontier = new LinkedList<>();
     frontier.add(start);
