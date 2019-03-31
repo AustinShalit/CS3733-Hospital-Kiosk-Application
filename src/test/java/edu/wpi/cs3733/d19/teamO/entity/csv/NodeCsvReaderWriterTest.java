@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d19.teamO.entity.csv;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -22,8 +23,17 @@ class NodeCsvReaderWriterTest {
   private static final Node NODE_C = new Node("C", 5, 6, 0, "B", Node.NodeType.HALL,
       "CL", "CS");
 
-  private static final Path TEST_DATA_FILE
-      = Paths.get(NodeCsvReaderWriterTest.class.getResource("test_nodes.csv").getPath());
+  private static Path TEST_DATA_FILE;
+
+  static {
+    try {
+      TEST_DATA_FILE
+          = Paths.get(EdgeCsvReaderWriterTest.class.getResource("test_nodes.csv")
+          .toURI().getPath());
+    } catch (URISyntaxException ex) {
+      ex.printStackTrace();
+    }
+  }
 
   @Test
   void readNodesTest() throws IOException {
