@@ -82,7 +82,7 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
           Timestamp.valueOf(sanitationRequest.getTimetimeReceived()));
       statement.setTimestamp(3,
           Timestamp.valueOf(sanitationRequest.getTimeCompleted()));
-      statement.setInt(4, sanitationRequest.getId());
+      statement.setString(4, sanitationRequest.getLocationNode().getNodeId());
       statement.setString(5, sanitationRequest.getType().name());
       statement.setString(6, sanitationRequest.getDescription());
       return statement.executeUpdate() == 1;

@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import edu.wpi.cs3733.d19.teamO.entity.Node;
+import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
 
 public class Database {
 
@@ -57,6 +58,13 @@ public class Database {
   /*
    * Sanitation
    */
+  public Optional<SanitationRequest> getSanitationRequest(int id) {
+    return sanitationRequestDaoDb.get(id);
+  }
+
+  public boolean insertSanitationRequest(SanitationRequest sanitationRequest) {
+    return sanitationRequestDaoDb.insert(sanitationRequest);
+  }
 
 
   /*
