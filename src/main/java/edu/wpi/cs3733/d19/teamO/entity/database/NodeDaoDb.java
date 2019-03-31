@@ -35,7 +35,7 @@ class NodeDaoDb implements NodeDao {
   public Optional<Node> get(final String id) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement
-          = connection.prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE NODEID=?");
+          = connection.prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE id=?");
       statement.setString(1, id);
       try (ResultSet resultSet = statement.executeQuery()) {
         if (resultSet.next()) {
@@ -90,10 +90,10 @@ class NodeDaoDb implements NodeDao {
   public boolean update(final Node node) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement("UPDATE " + TABLE_NAME + " "
-          + "SET XCOORD=?, "
-          + "YCOORD=?, FLOOR=?, BUILDING=?, "
-          + "NODETYPE=?, LONGNAME=?, SHORTNAME=?"
-          + "WHERE NODEID=?");
+          + "SET x=?, "
+          + "y=?, floor=?, building=?, "
+          + "type=?, long_name=?, short_name=?"
+          + "WHERE id=?");
       statement.setInt(1, node.getXcoord());
       statement.setInt(2, node.getYcoord());
       statement.setInt(3, node.getFloor());
@@ -113,7 +113,7 @@ class NodeDaoDb implements NodeDao {
   public boolean delete(final Node node) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement
-          = connection.prepareStatement("DELETE FROM " + TABLE_NAME + " WHERE NODEID=?");
+          = connection.prepareStatement("DELETE FROM " + TABLE_NAME + " WHERE id=?");
       statement.setString(1, node.getNodeId());
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
@@ -124,14 +124,14 @@ class NodeDaoDb implements NodeDao {
 
   private Node extractNodeFromResultSet(final ResultSet resultSet) throws SQLException {
     return new Node(
-        resultSet.getString("NODEID"),
-        resultSet.getInt("XCOORD"),
-        resultSet.getInt("YCOORD"),
-        resultSet.getInt("FLOOR"),
-        resultSet.getString("BUILDING"),
-        Node.NodeType.get(resultSet.getString("NODETYPE")),
-        resultSet.getString("LONGNAME"),
-        resultSet.getString("SHORTNAME")
+        resultSet.getString("id"),
+        resultSet.getInt("x"),
+        resultSet.getInt("y"),
+        resultSet.getInt("floor"),
+        resultSet.getString("building"),
+        Node.NodeType.get(resultSet.getString("type")),
+        resultSet.getString("long_name"),
+        resultSet.getString("short_name")
     );
   }
 
@@ -141,14 +141,14 @@ class NodeDaoDb implements NodeDao {
       if (!resultSet.next()) {
         logger.info("Table " + TABLE_NAME + " does not exist. Creating");
         PreparedStatement statement = connection.prepareStatement("CREATE TABLE " + TABLE_NAME
-            + "(NODEID VARCHAR(100) PRIMARY KEY,"
-            + "XCOORD INT,"
-            + "YCOORD INT,"
-            + "FLOOR INT,"
-            + "BUILDING VARCHAR(100),"
-            + "NODETYPE VARCHAR(100),"
-            + "LONGNAME VARCHAR(100),"
-            + "SHORTNAME VARCHAR(100))");
+            + "(id VARCHAR(255) PRIMARY KEY,"
+            + "x INT,"
+            + "y INT,"
+            + "floor INT,"
+            + "building VARCHAR(255),"
+            + "type VARCHAR(255),"
+            + "long_name VARCHAR(255),"
+            + "short_name VARCHAR(255))");
         statement.executeUpdate();
         logger.info("Table " + TABLE_NAME + " created");
       } else {
