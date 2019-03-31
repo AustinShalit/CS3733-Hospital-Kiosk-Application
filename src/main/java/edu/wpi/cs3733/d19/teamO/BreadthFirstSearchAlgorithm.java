@@ -8,18 +8,31 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
 
-import javax.xml.soap.Node;
 
-public class BreadthFirstSearchAlgorithm {
+import edu.wpi.cs3733.d19.teamO.entity.Edge;
+import edu.wpi.cs3733.d19.teamO.entity.Node;
+import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
-  public BreadthFirstSearchAlgorithm() {
+class BreadthFirstSearchAlgorithm {
+  private final Database database;
+
+  BreadthFirstSearchAlgorithm(Database database) {
+    this.database = database;
   }
 
   private Set<Node> neighbors(Node aNode) {
     Set<Node> neighbors = new HashSet<>();
 
-    //search edges and add nodes connected to aNode
-    neighbors.add(aNode);
+
+    Set<Edge> edges = database.getEdgesFor(aNode);
+
+    for (Edge edge: edges) {
+      if (edge.getStartNode().equals(aNode)) {
+        neighbors.add(edge.getEndNode());
+      } else if (edge.getEndNode().equals(aNode)) {
+        neighbors.add(edge.getStartNode());
+      }
+    }
 
     return neighbors;
   }
@@ -41,7 +54,7 @@ public class BreadthFirstSearchAlgorithm {
    * @param goal the node the user wants to end at.
    * @return a stack containg the path to be traveled.
    */
-  public Stack<Node> getPath(Node start, Node goal) {
+  Stack<Node> getPath(Node start, Node goal) {
     Queue<Node> frontier = new LinkedList<>();
     frontier.add(start);
     Map<Node, Node> cameFrom = new HashMap<>();
