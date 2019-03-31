@@ -1,10 +1,10 @@
-package edu.wpi.cs3733.d19.teamO.entity;
+package edu.wpi.cs3733.d19.teamO.entity.csv;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,14 +16,17 @@ import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
+import edu.wpi.cs3733.d19.teamO.entity.Node;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Read and write a CSV file of Nodes.
  */
-class NodeCsvReaderWriter {
+public class NodeCsvReaderWriter {
 
-  private static final class NodeVo {
+  // MUST be public for reflection to work
+  public static final class NodeVo {
     @CsvBindByName(column = "nodeID")
     private String nodeId;
     @CsvBindByName
@@ -41,7 +44,8 @@ class NodeCsvReaderWriter {
     @CsvBindByName
     private String shortName;
 
-    private NodeVo() {
+    // MUST be public for reflection to work
+    public NodeVo() {
 
     }
 
@@ -95,10 +99,10 @@ class NodeCsvReaderWriter {
    * @return A list of Nodes in the CSV file
    * @throws FileNotFoundException If the file does not exist
    */
-  List<Node> readNodes(final File csv) throws IOException {
+  public List<Node> readNodes(final Path csv) throws IOException {
     checkNotNull(csv);
 
-    return new CsvToBeanBuilder<NodeVo>(Files.newBufferedReader(csv.toPath()))
+    return new CsvToBeanBuilder<NodeVo>(Files.newBufferedReader(csv))
         .withType(NodeVo.class)
         .build()
         .parse()
@@ -113,13 +117,13 @@ class NodeCsvReaderWriter {
    * @param csv   The file to write to
    * @param nodes The nodes to write
    */
-  void writeNodes(final File csv, final Collection<Node> nodes) throws IOException,
+  public void writeNodes(final Path csv, final Collection<Node> nodes) throws IOException,
       CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
     checkNotNull(csv);
     checkNotNull(nodes);
 
     StatefulBeanToCsv<NodeVo> beanToCsv
-        = new StatefulBeanToCsvBuilder<NodeVo>(Files.newBufferedWriter(csv.toPath(),
+        = new StatefulBeanToCsvBuilder<NodeVo>(Files.newBufferedWriter(csv,
         Charset.forName("UTF-8"))).build();
     beanToCsv.write(nodes.stream().map(NodeVo::fromNode).collect(Collectors.toList()));
   }

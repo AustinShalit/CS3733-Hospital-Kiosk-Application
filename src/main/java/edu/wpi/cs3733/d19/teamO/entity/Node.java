@@ -4,15 +4,20 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
-class Node {
+import com.google.common.base.MoreObjects;
+
+public class Node {
 
   public enum NodeType {
     CONF("Conference"),
+    ELEV("Elevator"),
+    EXIT("Exit"),
     HALL("Hall"),
     DEPT("Department"),
     INFO("Information"),
     LABS("Lab"),
     REST("Restroom"),
+    RETL("Retail"),
     SERV("Service"),
     STAI("Stair Case");
 
@@ -35,8 +40,15 @@ class Node {
       return name;
     }
 
+    /**
+     * Get the NodeType for the given string.
+     */
     public static NodeType get(final String name) {
-      return lookup.get(name);
+      NodeType type = lookup.get(name);
+      if (type == null) {
+        throw new IllegalArgumentException("Unknown node type: " + name);
+      }
+      return type;
     }
   }
 
@@ -49,9 +61,12 @@ class Node {
   private final String longName;
   private final String shortName;
 
-  Node(final String nodeId, final int xcoord, final int ycoord, final int floor,
-       final String building, final NodeType nodeType, final String longName,
-       final String shortName) {
+  /**
+   * Create a node.
+   */
+  public Node(final String nodeId, final int xcoord, final int ycoord, final int floor,
+              final String building, final NodeType nodeType, final String longName,
+              final String shortName) {
     this.nodeId = nodeId;
     this.xcoord = xcoord;
     this.ycoord = ycoord;
@@ -92,6 +107,20 @@ class Node {
 
   public String getShortName() {
     return shortName;
+  }
+
+  @Override
+  public String toString() {
+    return MoreObjects.toStringHelper(this)
+        .add("nodeId", nodeId)
+        .add("xcoord", xcoord)
+        .add("ycoord", ycoord)
+        .add("floor", floor)
+        .add("building", building)
+        .add("nodeType", nodeType)
+        .add("longName", longName)
+        .add("shortName", shortName)
+        .toString();
   }
 
   @Override

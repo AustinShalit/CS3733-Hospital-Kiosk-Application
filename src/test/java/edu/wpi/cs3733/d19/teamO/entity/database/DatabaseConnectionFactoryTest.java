@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.d19.teamO.entity;
+package edu.wpi.cs3733.d19.teamO.entity.database;
 
 import java.sql.SQLException;
 
@@ -10,7 +10,8 @@ class DatabaseConnectionFactoryTest {
 
   @Test
   void getConnectionTest() throws SQLException {
-    assertNotNull(new DatabaseConnectionFactoryImpl(DatabaseConnectionFactoryImpl.MEMORY_PROTOCOL,
+    assertNotNull(
+        new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
         "Test").getConnection());
   }
 }
