@@ -15,7 +15,7 @@ import edu.wpi.cs3733.d19.teamO.entity.Node;
 
 class NodeDaoDb implements NodeDao {
 
-  private static final Logger kLogger
+  private static final Logger logger
       = Logger.getLogger(NodeDaoDb.class.getName());
 
   private static final String TABLE_NAME = "NODE";
@@ -28,7 +28,7 @@ class NodeDaoDb implements NodeDao {
   }
 
   NodeDaoDb() throws SQLException {
-    this(new DatabaseConnectionFactoryImpl());
+    this(new DatabaseConnectionFactoryEmbedded());
   }
 
   @Override
@@ -43,7 +43,7 @@ class NodeDaoDb implements NodeDao {
         }
       }
     } catch (SQLException ex) {
-      kLogger.log(Level.WARNING, "Failed to get Node", ex);
+      logger.log(Level.WARNING, "Failed to get Node", ex);
     }
     return Optional.empty();
   }
@@ -61,7 +61,7 @@ class NodeDaoDb implements NodeDao {
         return nodes;
       }
     } catch (SQLException ex) {
-      kLogger.log(Level.WARNING, "Failed to get Nodes", ex);
+      logger.log(Level.WARNING, "Failed to get Nodes", ex);
     }
     return Collections.emptySet();
   }
@@ -81,7 +81,7 @@ class NodeDaoDb implements NodeDao {
       statement.setString(8, node.getShortName());
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
-      kLogger.log(Level.WARNING, "Failed to insert Node", ex);
+      logger.log(Level.WARNING, "Failed to insert Node", ex);
     }
     return false;
   }
@@ -104,7 +104,7 @@ class NodeDaoDb implements NodeDao {
       statement.setString(8, node.getNodeId());
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
-      kLogger.log(Level.WARNING, "Failed to update Node", ex);
+      logger.log(Level.WARNING, "Failed to update Node", ex);
     }
     return false;
   }
@@ -117,7 +117,7 @@ class NodeDaoDb implements NodeDao {
       statement.setString(1, node.getNodeId());
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
-      kLogger.log(Level.WARNING, "Failed to delete Node", ex);
+      logger.log(Level.WARNING, "Failed to delete Node", ex);
     }
     return false;
   }
@@ -139,7 +139,7 @@ class NodeDaoDb implements NodeDao {
     try (Connection connection = dcf.getConnection();
          ResultSet resultSet = connection.getMetaData().getTables(null, null, TABLE_NAME, null)) {
       if (!resultSet.next()) {
-        kLogger.info("Table " + TABLE_NAME + " does not exist. Creating");
+        logger.info("Table " + TABLE_NAME + " does not exist. Creating");
         PreparedStatement statement = connection.prepareStatement("CREATE TABLE " + TABLE_NAME
             + "(NODEID VARCHAR(100) PRIMARY KEY,"
             + "XCOORD INT,"
@@ -150,12 +150,12 @@ class NodeDaoDb implements NodeDao {
             + "LONGNAME VARCHAR(100),"
             + "SHORTNAME VARCHAR(100))");
         statement.executeUpdate();
-        kLogger.info("Table " + TABLE_NAME + " created");
+        logger.info("Table " + TABLE_NAME + " created");
       } else {
-        kLogger.info("Table " + TABLE_NAME + " exists");
+        logger.info("Table " + TABLE_NAME + " exists");
       }
     } catch (SQLException ex) {
-      kLogger.log(Level.WARNING, "Failed to create table", ex);
+      logger.log(Level.WARNING, "Failed to create table", ex);
       throw ex;
     }
   }

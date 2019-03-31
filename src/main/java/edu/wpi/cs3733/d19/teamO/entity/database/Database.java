@@ -10,23 +10,18 @@ public class Database {
 
   private final NodeDaoDb nodeDaoDb;
 
-  Database(DatabaseConnectionFactoryImpl dcf) throws SQLException {
+  Database(DatabaseConnectionFactoryEmbedded dcf) throws SQLException {
     this.nodeDaoDb = new NodeDaoDb(dcf);
   }
 
   public Database() throws SQLException {
-    this(new DatabaseConnectionFactoryImpl());
+    this(new DatabaseConnectionFactoryEmbedded());
   }
 
   /*
    * Node methods
    */
 
-  /**
-   * Node methods.
-   *
-   * @see NodeDaoDb
-   */
   public Optional<Node> getNode(String id) {
     return nodeDaoDb.get(id);
   }

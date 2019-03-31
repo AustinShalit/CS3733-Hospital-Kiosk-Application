@@ -25,7 +25,7 @@ class NodeDaoDbTest {
     @Test
     void createTableTest(TestInfo testInfo) {
       DatabaseConnectionFactory dcf
-          = new DatabaseConnectionFactoryImpl(DatabaseConnectionFactoryImpl.MEMORY_PROTOCOL,
+          = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
           testInfo.getDisplayName());
 
       assertDoesNotThrow(() -> new NodeDaoDb(dcf));
@@ -34,7 +34,7 @@ class NodeDaoDbTest {
     @Test
     void existingTableTest(TestInfo testInfo) {
       DatabaseConnectionFactory dcf
-          = new DatabaseConnectionFactoryImpl(DatabaseConnectionFactoryImpl.MEMORY_PROTOCOL,
+          = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
           testInfo.getDisplayName());
       assertDoesNotThrow(() -> new NodeDaoDb(dcf));
       assertDoesNotThrow(() -> new NodeDaoDb(dcf));
@@ -46,7 +46,7 @@ class NodeDaoDbTest {
   @BeforeEach
   void setup(TestInfo testInfo) throws SQLException {
     DatabaseConnectionFactory dcf
-        = new DatabaseConnectionFactoryImpl(DatabaseConnectionFactoryImpl.MEMORY_PROTOCOL,
+        = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
         testInfo.getDisplayName());
     dao = new NodeDaoDb(dcf);
   }
