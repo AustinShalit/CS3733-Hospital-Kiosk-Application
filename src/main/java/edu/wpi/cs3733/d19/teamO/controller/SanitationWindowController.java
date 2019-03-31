@@ -2,7 +2,6 @@ package edu.wpi.cs3733.d19.teamO.controller;
 
 import java.sql.SQLException;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -34,16 +33,12 @@ public class SanitationWindowController extends Controller {
 
 
   @FXML
-  void onBackButtonAction(ActionEvent event) {
-    if (event.getSource() == backButton) {
-      switchScenes("MainSanitationWindow.fxml", backButton.getScene().getWindow());
-    }
+  void onBackButtonAction() {
+    switchScenes("MainSanitationWindow.fxml", backButton.getScene().getWindow());
   }
 
   @FXML
-  void onSubmitButtonAction(ActionEvent event) {
-    if (event.getSource() == submitButton) {
-      submitButton.setText("Not yet implemented");
-    }
+  void onSubmitButtonAction() {
+    submitButton.setText("Not yet implemented");
   }
 }

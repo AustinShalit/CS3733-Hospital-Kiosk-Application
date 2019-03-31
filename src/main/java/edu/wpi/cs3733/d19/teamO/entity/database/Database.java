@@ -11,13 +11,13 @@ public class Database {
   private final NodeDaoDb nodeDaoDb;
   final SanitationRequestDaoDb sanitationRequestDaoDb;
 
-  Database(DatabaseConnectionFactoryEmbedded dcf) throws SQLException {
+  Database(DatabaseConnectionFactory dcf) throws SQLException {
     this.nodeDaoDb = new NodeDaoDb(dcf);
     this.sanitationRequestDaoDb = new SanitationRequestDaoDb(dcf);
   }
 
   public Database() throws SQLException {
-    this(new DatabaseConnectionFactoryEmbedded());
+    this(new DatabaseConnectionFactoryImpl());
   }
 
   /*

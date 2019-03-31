@@ -28,7 +28,7 @@ class NodeDaoDb implements NodeDao {
   }
 
   NodeDaoDb() throws SQLException {
-    this(new DatabaseConnectionFactoryEmbedded());
+    this(new DatabaseConnectionFactoryImpl());
   }
 
   @Override
