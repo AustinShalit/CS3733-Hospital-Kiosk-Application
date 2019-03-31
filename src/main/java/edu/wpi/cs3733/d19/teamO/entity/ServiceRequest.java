@@ -4,37 +4,30 @@ import java.time.LocalDateTime;
 
 class ServiceRequest {
 
-  private final LocalDateTime timeRequested;
-  private final LocalDateTime timeCompleted;
-  private final String whoCompleted;
-  private final String description;
+  private final int id;
   private final Node node;
+  private final LocalDateTime timeReceived;
+  private final LocalDateTime timeCompleted;
 
   // constructor
-  ServiceRequest(LocalDateTime timeRequested, LocalDateTime timeCompleted, String whoCompleted,
-                 String description, Node node) {
-    this.timeRequested = timeRequested;
-    this.timeCompleted = timeCompleted;
-    this.whoCompleted = whoCompleted;
-    this.description = description;
+  ServiceRequest(int id, LocalDateTime timeReceived, LocalDateTime timeCompleted, Node node) {
+    this.id = id;
     this.node = node;
+    this.timeReceived = timeReceived;
+    this.timeCompleted = timeCompleted;
   }
 
   // getters and setters
-  public LocalDateTime getTimeRequested() {
-    return timeRequested;
+  public int getId() {
+    return id;
+  }
+
+  public LocalDateTime getTimetimeReceived() {
+    return timeReceived;
   }
 
   public LocalDateTime getTimeCompleted() {
     return timeCompleted;
-  }
-
-  public String getWhoCompleted() {
-    return whoCompleted;
-  }
-
-  public String getDescription() {
-    return description;
   }
 
   // functions
