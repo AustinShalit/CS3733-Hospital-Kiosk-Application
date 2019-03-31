@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d19.teamO.entity.csv;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
@@ -29,8 +30,17 @@ class EdgeCsvReaderWriterTest {
   private static final Edge EDGE_BC = new Edge("BC", NODE_B, NODE_C);
   private static final Edge EDGE_CA = new Edge("CA", NODE_C, NODE_A);
 
-  private static final Path TEST_DATA_FILE
-      = Paths.get(EdgeCsvReaderWriterTest.class.getResource("test_edges.csv").getPath());
+  private static Path TEST_DATA_FILE;
+
+  static {
+    try {
+      TEST_DATA_FILE
+          = Paths.get(EdgeCsvReaderWriterTest.class.getResource("test_edges.csv")
+              .toURI().getPath());
+    } catch (URISyntaxException ex) {
+      ex.printStackTrace();
+    }
+  }
 
   private static Database database;
 
