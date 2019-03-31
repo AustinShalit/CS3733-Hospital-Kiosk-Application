@@ -74,7 +74,7 @@ class NodeDaoDb implements NodeDao {
       statement.setString(1, node.getNodeId());
       statement.setInt(2, node.getXcoord());
       statement.setInt(3, node.getYcoord());
-      statement.setInt(4, node.getFloor());
+      statement.setString(4, node.getFloor());
       statement.setString(5, node.getBuilding());
       statement.setString(6, node.getNodeType().name());
       statement.setString(7, node.getLongName());
@@ -96,7 +96,7 @@ class NodeDaoDb implements NodeDao {
           + "WHERE id=?");
       statement.setInt(1, node.getXcoord());
       statement.setInt(2, node.getYcoord());
-      statement.setInt(3, node.getFloor());
+      statement.setString(3, node.getFloor());
       statement.setString(4, node.getBuilding());
       statement.setString(5, node.getNodeType().name());
       statement.setString(6, node.getLongName());
@@ -127,7 +127,7 @@ class NodeDaoDb implements NodeDao {
         resultSet.getString("id"),
         resultSet.getInt("x"),
         resultSet.getInt("y"),
-        resultSet.getInt("floor"),
+        resultSet.getString("floor"),
         resultSet.getString("building"),
         Node.NodeType.get(resultSet.getString("type")),
         resultSet.getString("long_name"),
