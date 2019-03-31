@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXRadioButton;
 
 import javafx.event.ActionEvent;
@@ -24,10 +23,9 @@ public class NagivationWindowController extends Controller {
 
   @FXML
   void onSelectLocRadioAction(ActionEvent event) {
-    if(selectLocJFXRadio.isPressed()) {
+    if (selectLocJFXRadio.isPressed()) {
       selectLocJFXCombo.setDisable(false);
-    }
-    else {
+    } else {
       selectLocJFXCombo.setDisable(true);
     }
   }
