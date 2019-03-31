@@ -5,13 +5,16 @@ import java.util.Optional;
 import java.util.Set;
 
 import edu.wpi.cs3733.d19.teamO.entity.Node;
+import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
 
 public class Database {
 
   private final NodeDaoDb nodeDaoDb;
+  final SanitationRequestDaoDb sanitationRequestDaoDb;
 
   Database(DatabaseConnectionFactoryImpl dcf) throws SQLException {
     this.nodeDaoDb = new NodeDaoDb(dcf);
+    this.sanitationRequestDaoDb = new SanitationRequestDaoDb(dcf);
   }
 
   public Database() throws SQLException {
@@ -55,8 +58,25 @@ public class Database {
   /*
    * Sanitation
    */
+  public boolean insertSanitationRequest(SanitationRequest sanitationRequest) {
+    return sanitationRequestDaoDb.insert(sanitationRequest);
+  }
 
+  public Optional<SanitationRequest> getSanitationRequest(int id) {
+    return sanitationRequestDaoDb.get(id);
+  }
 
+  public boolean deleteSanitationRequest(SanitationRequest sanitationRequest) {
+    return sanitationRequestDaoDb.delete(sanitationRequest);
+  }
+
+  public boolean updateSanitationRequest(SanitationRequest sanitationRequest) {
+    return sanitationRequestDaoDb.update(sanitationRequest);
+  }
+
+  public Set<SanitationRequest> getAllSanitationRequest() {
+    return sanitationRequestDaoDb.getAll();
+  }
   /*
    * Security
    */

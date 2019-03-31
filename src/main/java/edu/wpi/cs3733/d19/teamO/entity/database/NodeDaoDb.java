@@ -18,7 +18,7 @@ class NodeDaoDb implements NodeDao {
   private static final Logger kLogger
       = Logger.getLogger(NodeDaoDb.class.getName());
 
-  private static final String TABLE_NAME = "NODE";
+  static final String TABLE_NAME = "NODE";
 
   private DatabaseConnectionFactory dcf;
 
@@ -141,14 +141,14 @@ class NodeDaoDb implements NodeDao {
       if (!resultSet.next()) {
         kLogger.info("Table " + TABLE_NAME + " does not exist. Creating");
         PreparedStatement statement = connection.prepareStatement("CREATE TABLE " + TABLE_NAME
-            + "(NODEID VARCHAR(100) PRIMARY KEY,"
+            + "(NODEID VARCHAR(255) PRIMARY KEY,"
             + "XCOORD INT,"
             + "YCOORD INT,"
             + "FLOOR INT,"
-            + "BUILDING VARCHAR(100),"
-            + "NODETYPE VARCHAR(100),"
-            + "LONGNAME VARCHAR(100),"
-            + "SHORTNAME VARCHAR(100))");
+            + "BUILDING VARCHAR(255),"
+            + "NODETYPE VARCHAR(255),"
+            + "LONGNAME VARCHAR(255),"
+            + "SHORTNAME VARCHAR(255))");
         statement.executeUpdate();
         kLogger.info("Table " + TABLE_NAME + " created");
       } else {
