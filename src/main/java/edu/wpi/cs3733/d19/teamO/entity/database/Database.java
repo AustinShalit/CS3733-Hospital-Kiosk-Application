@@ -9,9 +9,11 @@ import edu.wpi.cs3733.d19.teamO.entity.Node;
 public class Database {
 
   private final NodeDaoDb nodeDaoDb;
+  final SanitationRequestDaoDb sanitationRequestDaoDb;
 
   Database(DatabaseConnectionFactoryImpl dcf) throws SQLException {
     this.nodeDaoDb = new NodeDaoDb(dcf);
+    this.sanitationRequestDaoDb = new SanitationRequestDaoDb(dcf);
   }
 
   public Database() throws SQLException {

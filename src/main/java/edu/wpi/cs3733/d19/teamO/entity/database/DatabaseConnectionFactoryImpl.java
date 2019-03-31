@@ -31,7 +31,7 @@ final class DatabaseConnectionFactoryImpl implements DatabaseConnectionFactory {
   }
 
   DatabaseConnectionFactoryImpl() {
-    this(EMBEDDED_PROTOCOL, "ProjectDb");
+    this(MEMORY_PROTOCOL, "ProjectDb");
   }
 
   @Override

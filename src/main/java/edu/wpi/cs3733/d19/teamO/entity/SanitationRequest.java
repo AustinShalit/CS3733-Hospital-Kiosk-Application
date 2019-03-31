@@ -12,7 +12,8 @@ public class SanitationRequest extends ServiceRequest {
     BEDDING("Bedding"),
     OTHERS("Others");
 
-    private static final Map<String, SanitationRequest.SanitationRequestType> lookup = new ConcurrentHashMap<>();
+    private static final Map<String, SanitationRequest.SanitationRequestType> lookup
+        = new ConcurrentHashMap<>();
 
     static {
       for (SanitationRequest.SanitationRequestType type : values()) {
@@ -39,7 +40,11 @@ public class SanitationRequest extends ServiceRequest {
   private final SanitationRequestType type;
   private final String description;
 
-  public SanitationRequest(int id, LocalDateTime timeRequested, LocalDateTime timeCompleted, Node node,
+  /**
+   * Create a SanitationRequest.
+   */
+  public SanitationRequest(int id, LocalDateTime timeRequested, LocalDateTime timeCompleted,
+                           Node node,
                            SanitationRequestType type, String description) {
     super(id, timeRequested, timeCompleted, node);
     this.type = type;
