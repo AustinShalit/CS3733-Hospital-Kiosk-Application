@@ -78,6 +78,10 @@ public class Database {
     return edgeDaoDb.update(edge);
   }
 
+  public Set<Edge> getEdgesFor(Node node) {
+    return edgeDaoDb.getEdgesFor(node);
+  }
+
   /*
    * Sanitation
    */
