@@ -27,4 +27,15 @@ public class Project extends Application {
     logger.config("Startup complete");
   }
 
+  /**
+   * The version of this build.
+   * @return String representing the version
+   */
+  public static String getVersion() {
+    String version = Project.class.getPackage().getImplementationVersion();
+    if (version == null) {
+      return "Development";
+    }
+    return version;
+  }
 }

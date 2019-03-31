@@ -56,9 +56,9 @@ final class LogManager {
 
     globalLogger.addHandler(sh);
     globalLogger.addHandler(fileHandler);
-    fileHandler.setFormatter(new SimpleFormatter()); //log in text, not xml
+    fileHandler.setFormatter(new SimpleFormatter()); // Log in text, not xml
 
-    globalLogger.config("Configuration done."); //Log that we are done setting up the logger
-    globalLogger.config("Kiosk Version: " + Main.class.getPackage().getImplementationVersion());
+    globalLogger.config("Configuration done."); // Log that we are done setting up the logger
+    globalLogger.config("Kiosk Version: " + Project.getVersion());
   }
 }
