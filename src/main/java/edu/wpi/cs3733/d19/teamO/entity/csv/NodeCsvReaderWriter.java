@@ -25,6 +25,42 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class NodeCsvReaderWriter {
 
+  /**
+   * Read in the provided file as a List of Nodes.
+   *
+   * @param csv The file to read from
+   * @return A list of Nodes in the CSV file
+   * @throws FileNotFoundException If the file does not exist
+   */
+  public List<Node> readNodes(final Path csv) throws IOException {
+    checkNotNull(csv);
+
+    return new CsvToBeanBuilder<NodeVo>(Files.newBufferedReader(csv))
+        .withType(NodeVo.class)
+        .build()
+        .parse()
+        .stream()
+        .map(NodeVo::toNode)
+        .collect(Collectors.toList());
+  }
+
+  /**
+   * Write provided nodes to file.
+   *
+   * @param csv   The file to write to
+   * @param nodes The nodes to write
+   */
+  public void writeNodes(final Path csv, final Collection<Node> nodes) throws IOException,
+      CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
+    checkNotNull(csv);
+    checkNotNull(nodes);
+
+    StatefulBeanToCsv<NodeVo> beanToCsv
+        = new StatefulBeanToCsvBuilder<NodeVo>(Files.newBufferedWriter(csv,
+        Charset.forName("UTF-8"))).build();
+    beanToCsv.write(nodes.stream().map(NodeVo::fromNode).collect(Collectors.toList()));
+  }
+
   // MUST be public for reflection to work
   public static final class NodeVo {
     @CsvBindByName(column = "nodeID")
@@ -90,41 +126,5 @@ public class NodeCsvReaderWriter {
       );
     }
 
-  }
-
-  /**
-   * Read in the provided file as a List of Nodes.
-   *
-   * @param csv The file to read from
-   * @return A list of Nodes in the CSV file
-   * @throws FileNotFoundException If the file does not exist
-   */
-  public List<Node> readNodes(final Path csv) throws IOException {
-    checkNotNull(csv);
-
-    return new CsvToBeanBuilder<NodeVo>(Files.newBufferedReader(csv))
-        .withType(NodeVo.class)
-        .build()
-        .parse()
-        .stream()
-        .map(NodeVo::toNode)
-        .collect(Collectors.toList());
-  }
-
-  /**
-   * Write provided nodes to file.
-   *
-   * @param csv   The file to write to
-   * @param nodes The nodes to write
-   */
-  public void writeNodes(final Path csv, final Collection<Node> nodes) throws IOException,
-      CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
-    checkNotNull(csv);
-    checkNotNull(nodes);
-
-    StatefulBeanToCsv<NodeVo> beanToCsv
-        = new StatefulBeanToCsvBuilder<NodeVo>(Files.newBufferedWriter(csv,
-        Charset.forName("UTF-8"))).build();
-    beanToCsv.write(nodes.stream().map(NodeVo::fromNode).collect(Collectors.toList()));
   }
 }

@@ -4,13 +4,6 @@ import java.time.LocalDateTime;
 
 public class SanitationRequest extends ServiceRequest {
 
-  public enum SanitationRequestType {
-    SPILL,
-    VOMIT,
-    BEDDING,
-    OTHERS;
-  }
-
   private final SanitationRequestType type;
 
   // constructor
@@ -22,5 +15,12 @@ public class SanitationRequest extends ServiceRequest {
 
   public SanitationRequestType getType() {
     return type;
+  }
+
+  public enum SanitationRequestType {
+    SPILL,
+    VOMIT,
+    BEDDING,
+    OTHERS;
   }
 }
