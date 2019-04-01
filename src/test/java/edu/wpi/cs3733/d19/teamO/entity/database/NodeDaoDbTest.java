@@ -17,8 +17,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class NodeDaoDbTest {
 
-  private static final Node TEST_NODE = new Node("TEST", 0, 0, 0, "Building", Node.NodeType.CONF,
-      "Long Name", "Short Name");
+  private static final Node TEST_NODE = new Node("TEST", 0, 0, "0", "B", Node.NodeType.CONF,
+      "LN", "SN");
 
   @Nested
   class Creation {
@@ -97,7 +97,7 @@ class NodeDaoDbTest {
   @Test
   void updateTest() {
     dao.insert(TEST_NODE);
-    Node update = new Node(TEST_NODE.getNodeId(), 1, 2, 3, "Shack", Node.NodeType.HALL,
+    Node update = new Node(TEST_NODE.getNodeId(), 1, 2, "3", "Shack", Node.NodeType.HALL,
         "Looong Name", "s.name");
     assertTrue(dao.update(update));
   }
