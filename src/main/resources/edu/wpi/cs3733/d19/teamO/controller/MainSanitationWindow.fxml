@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="edu.wpi.cs3733.d19.teamO.controller.MainSanitationWindowController">
+    <children>
+        <VBox layoutX="6.0" prefHeight="400.0" prefWidth="215.0" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.rightAnchor="379.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Button fx:id="goBackButton" mnemonicParsing="false" onAction="#goBackButtonAction"
+                        text="Go Back">
+                    <VBox.margin>
+                        <Insets top="50.0"/>
+                    </VBox.margin>
+                </Button>
+                <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS"/>
+                <Button fx:id="addSanitationButton" mnemonicParsing="false"
+                        onAction="#addSanitationButtonAction" text="Add Sanitation Request"/>
+                <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS"/>
+                <Button fx:id="viewSanitationButton" mnemonicParsing="false"
+                        onAction="#viewSanitationButtonAction" text="View Current Requests">
+                    <VBox.margin>
+                        <Insets bottom="50.0"/>
+                    </VBox.margin>
+                </Button>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

@@ -9,6 +9,7 @@ import com.google.common.base.MoreObjects;
 public class Node {
 
   public enum NodeType {
+    BATH("Bathroom"),
     CONF("Conference"),
     ELEV("Elevator"),
     EXIT("Exit"),
@@ -55,7 +56,7 @@ public class Node {
   private final String nodeId;
   private final int xcoord;
   private final int ycoord;
-  private final int floor;
+  private final String floor;
   private final String building;
   private final NodeType nodeType;
   private final String longName;
@@ -64,7 +65,7 @@ public class Node {
   /**
    * Create a node.
    */
-  public Node(final String nodeId, final int xcoord, final int ycoord, final int floor,
+  public Node(final String nodeId, final int xcoord, final int ycoord, final String floor,
               final String building, final NodeType nodeType, final String longName,
               final String shortName) {
     this.nodeId = nodeId;
@@ -89,7 +90,7 @@ public class Node {
     return ycoord;
   }
 
-  public int getFloor() {
+  public String getFloor() {
     return floor;
   }
 
@@ -135,7 +136,7 @@ public class Node {
     Node node = (Node) o;
     return xcoord == node.xcoord
         && ycoord == node.ycoord
-        && floor == node.floor
+        && floor.equals(node.floor)
         && nodeId.equals(node.nodeId)
         && building.equals(node.building)
         && nodeType == node.nodeType
