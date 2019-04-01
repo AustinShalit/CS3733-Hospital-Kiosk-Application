@@ -8,6 +8,50 @@ import com.google.common.base.MoreObjects;
 
 public class Node {
 
+  public enum NodeType {
+    CONF("Conference"),
+    ELEV("Elevator"),
+    EXIT("Exit"),
+    HALL("Hall"),
+    DEPT("Department"),
+    INFO("Information"),
+    LABS("Lab"),
+    REST("Restroom"),
+    RETL("Retail"),
+    SERV("Service"),
+    STAI("Stair Case");
+
+    private static final Map<String, NodeType> lookup = new ConcurrentHashMap<>();
+
+    static {
+      for (NodeType type : values()) {
+        lookup.put(type.name(), type);
+      }
+    }
+
+    private final String name;
+
+    NodeType(final String name) {
+      this.name = name;
+    }
+
+    @Override
+    public String toString() {
+      return name;
+    }
+
+    /**
+     * Get the NodeType for the given string.
+     */
+    public static NodeType get(final String name) {
+      NodeType type = lookup.get(name);
+      if (type == null) {
+        throw new IllegalArgumentException("Unknown node type: " + name);
+      }
+      return type;
+    }
+  }
+
   private final String nodeId;
   private final int xcoord;
   private final int ycoord;
@@ -16,10 +60,10 @@ public class Node {
   private final NodeType nodeType;
   private final String longName;
   private final String shortName;
+
   /**
    * Create a node.
    */
-
   public Node(final String nodeId, final int xcoord, final int ycoord, final int floor,
               final String building, final NodeType nodeType, final String longName,
               final String shortName) {
@@ -102,49 +146,5 @@ public class Node {
   @Override
   public int hashCode() {
     return Objects.hash(nodeId, xcoord, ycoord, floor, building, nodeType, longName, shortName);
-  }
-
-  public enum NodeType {
-    CONF("Conference"),
-    ELEV("Elevator"),
-    EXIT("Exit"),
-    HALL("Hall"),
-    DEPT("Department"),
-    INFO("Information"),
-    LABS("Lab"),
-    REST("Restroom"),
-    RETL("Retail"),
-    SERV("Service"),
-    STAI("Stair Case");
-
-    private static final Map<String, NodeType> lookup = new ConcurrentHashMap<>();
-
-    static {
-      for (NodeType type : values()) {
-        lookup.put(type.name(), type);
-      }
-    }
-
-    private final String name;
-
-    NodeType(final String name) {
-      this.name = name;
-    }
-
-    /**
-     * Get the NodeType for the given string.
-     */
-    public static NodeType get(final String name) {
-      NodeType type = lookup.get(name);
-      if (type == null) {
-        throw new IllegalArgumentException("Unknown node type: " + name);
-      }
-      return type;
-    }
-
-    @Override
-    public String toString() {
-      return name;
-    }
   }
 }

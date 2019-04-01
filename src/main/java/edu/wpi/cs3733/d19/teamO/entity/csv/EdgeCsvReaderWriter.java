@@ -26,48 +26,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class EdgeCsvReaderWriter {
 
-  private final Database database;
-
-  public EdgeCsvReaderWriter(Database database) {
-    this.database = database;
-  }
-
-  /**
-   * Read in the provided file as a List of Edges into the database.
-   *
-   * @param csv The file to read from
-   * @return A list of Edges in the CSV file
-   * @throws FileNotFoundException If the file does not exist
-   */
-  public List<Edge> readEdges(final Path csv) throws IOException {
-    checkNotNull(csv);
-
-    return new CsvToBeanBuilder<EdgeVo>(Files.newBufferedReader(csv))
-        .withType(EdgeVo.class)
-        .build()
-        .parse()
-        .stream()
-        .map(vo -> EdgeVo.toEdge(vo, database))
-        .collect(Collectors.toList());
-  }
-
-  /**
-   * Write provided nodes to file.
-   *
-   * @param csv   The file to write to
-   * @param edges The edges to write
-   */
-  public void writeNodes(final Path csv, final Collection<Edge> edges) throws IOException,
-      CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
-    checkNotNull(csv);
-    checkNotNull(edges);
-
-    StatefulBeanToCsv<EdgeVo> beanToCsv
-        = new StatefulBeanToCsvBuilder<EdgeVo>(Files.newBufferedWriter(csv,
-        Charset.forName("UTF-8"))).build();
-    beanToCsv.write(edges.stream().map(EdgeVo::fromEdge).collect(Collectors.toList()));
-  }
-
   // MUST be public for reflection to work
   public static final class EdgeVo {
     @CsvBindByName(column = "edgeID")
@@ -110,5 +68,47 @@ public class EdgeCsvReaderWriter {
           edge.getEndNode().getNodeId()
       );
     }
+  }
+
+  private final Database database;
+
+  public EdgeCsvReaderWriter(Database database) {
+    this.database = database;
+  }
+
+  /**
+   * Read in the provided file as a List of Edges into the database.
+   *
+   * @param csv The file to read from
+   * @return A list of Edges in the CSV file
+   * @throws FileNotFoundException If the file does not exist
+   */
+  public List<Edge> readEdges(final Path csv) throws IOException {
+    checkNotNull(csv);
+
+    return new CsvToBeanBuilder<EdgeVo>(Files.newBufferedReader(csv))
+        .withType(EdgeVo.class)
+        .build()
+        .parse()
+        .stream()
+        .map(vo -> EdgeVo.toEdge(vo, database))
+        .collect(Collectors.toList());
+  }
+
+  /**
+   * Write provided nodes to file.
+   *
+   * @param csv   The file to write to
+   * @param edges The edges to write
+   */
+  public void writeNodes(final Path csv, final Collection<Edge> edges) throws IOException,
+      CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
+    checkNotNull(csv);
+    checkNotNull(edges);
+
+    StatefulBeanToCsv<EdgeVo> beanToCsv
+        = new StatefulBeanToCsvBuilder<EdgeVo>(Files.newBufferedWriter(csv,
+        Charset.forName("UTF-8"))).build();
+    beanToCsv.write(edges.stream().map(EdgeVo::fromEdge).collect(Collectors.toList()));
   }
 }

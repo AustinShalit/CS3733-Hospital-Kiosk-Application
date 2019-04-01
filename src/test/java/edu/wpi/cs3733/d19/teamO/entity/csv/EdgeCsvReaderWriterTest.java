@@ -31,17 +31,18 @@ class EdgeCsvReaderWriterTest {
   private static final Edge EDGE_CA = new Edge("CA", NODE_C, NODE_A);
 
   private static Path TEST_DATA_FILE;
-  private static Database database;
 
   static {
     try {
       TEST_DATA_FILE
           = Paths.get(EdgeCsvReaderWriterTest.class.getResource("test_edges.csv")
-          .toURI().getPath());
+              .toURI().getPath());
     } catch (URISyntaxException ex) {
       ex.printStackTrace();
     }
   }
+
+  private static Database database;
 
   @BeforeAll
   static void setup() throws SQLException {

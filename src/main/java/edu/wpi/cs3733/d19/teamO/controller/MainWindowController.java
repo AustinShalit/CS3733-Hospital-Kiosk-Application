@@ -26,9 +26,8 @@ public class MainWindowController extends Controller {
 
   @FXML
   void mapToolButtonAction(ActionEvent event) {
-    //mapToolButton.setText("Not yet implemented");
     if (event.getSource() == mapToolButton) {
-      switchScenes("MapEditMain.fxml", mapToolButton.getScene().getWindow());
+      mapToolButton.setText("Not yet implemented");
     }
   }
 

@@ -25,7 +25,7 @@ public class SanitationWindowController extends Controller {
   @FXML
   void onBackButtonAction(ActionEvent event) {
     if (event.getSource() == backButton) {
-      switchtoMain(backButton.getScene().getWindow());
+      switchScenes("MainWindow.fxml", backButton.getScene().getWindow());
     }
   }
 }

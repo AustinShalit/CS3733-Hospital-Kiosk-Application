@@ -9,8 +9,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0"
-            xmlns="http://javafx.com/javafx/8.0.171"
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="edu.wpi.cs3733.d19.teamO.controller.SanitationWindowController">
     <children>
         <HBox layoutX="200.0" layoutY="7.0" maxHeight="1.7976931348623157E308"

@@ -12,6 +12,6 @@ class DatabaseConnectionFactoryTest {
   void getConnectionTest() throws SQLException {
     assertNotNull(
         new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
-            "Test").getConnection());
+        "Test").getConnection());
   }
 }

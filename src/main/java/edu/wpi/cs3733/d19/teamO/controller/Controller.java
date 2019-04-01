@@ -29,9 +29,4 @@ class Controller {
     stage.setScene(scene);
     stage.show();
   }
-
-  protected void switchtoMain(Window currentWindow) {
-    switchScenes("MainWindow.fxml", currentWindow.getScene().getWindow());
-  }
-
 }

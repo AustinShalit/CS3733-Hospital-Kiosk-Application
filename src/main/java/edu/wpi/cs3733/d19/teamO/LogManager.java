@@ -35,7 +35,7 @@ final class LogManager {
 
     String time
         = DateTimeFormatter.ofPattern("YYYY-MM-dd-HH.mm.ss",
-        Locale.getDefault()).format(LocalDateTime.now());
+            Locale.getDefault()).format(LocalDateTime.now());
     final Handler fileHandler
         = new FileHandler(FileManager.LOG_DIRECTORY + "/kiosk." + time + ".log");
 
