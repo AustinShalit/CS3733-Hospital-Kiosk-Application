@@ -50,12 +50,12 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
   }
 
   @Override
-  public Set<SanitationRequest> getAll() { // todo need Ken to check
+  public Set<SanitationRequest> getAll() {
     try (Connection connection = dcf.getConnection()) {
-      PreparedStatement statement
-          = connection.prepareStatement("SELECT * FROM " + TABLE_NAME
-          + " INNER JOIN " + NodeDaoDb.TABLE_NAME + " ON " + TABLE_NAME + ".LOCATION" + "="
-          + NodeDaoDb.TABLE_NAME + ".NODEID");
+      PreparedStatement statement = connection.prepareStatement("SELECT * FROM " + TABLE_NAME
+          + " INNER JOIN " + NodeDaoDb.TABLE_NAME
+          + " ON " + TABLE_NAME + ".LOCATIONNODEID" + "=" + NodeDaoDb.TABLE_NAME + ".NODEID"
+      );
       try (ResultSet resultSet = statement.executeQuery()) {
         Set<SanitationRequest> sanitationRequest = new HashSet<>();
         while (resultSet.next()) {
@@ -82,7 +82,7 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
 
     return new SanitationRequest(
         resultSet.getInt("ID"),
-        resultSet.getTimestamp("TIMERECIEVED").toLocalDateTime(),
+        resultSet.getTimestamp("TIMEREQUESTED").toLocalDateTime(),
         resultSet.getTimestamp("TIMECOMPLETED").toLocalDateTime(),
         node,
         SanitationRequest.SanitationRequestType.get(
@@ -119,7 +119,7 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
         kLogger.info("Table " + TABLE_NAME + " does not exist. Creating");
         PreparedStatement statement = connection.prepareStatement("CREATE TABLE " + TABLE_NAME
             + "(ID INT PRIMARY KEY,"
-            + "TIMERECIEVED TIMESTAMP,"
+            + "TIMEREQUESTED TIMESTAMP,"
             + "TIMECOMPLETED TIMESTAMP,"
             + "LOCATIONNODEID VARCHAR(255),"
             + "SANITATIONTYPE VARCHAR(255),"
@@ -137,10 +137,10 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
   }
 
   @Override
-  public boolean update(SanitationRequest sanitationRequest) {  // todo need Ken to check
+  public boolean update(SanitationRequest sanitationRequest) {
     try (Connection connection = dcf.getConnection()) {
-      PreparedStatement statement = connection.prepareStatement("UPDATE " + TABLE_NAME + " "
-          + "SET TIMERECIEVED=?,"
+      PreparedStatement statement = connection.prepareStatement("UPDATE " + TABLE_NAME
+          + " SET TIMEREQUESTED=?,"
           + "TIMECOMPLETED=?,"
           + "LOCATIONNODEID=?,"
           + "SANITATIONTYPE=?,"
@@ -150,7 +150,6 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
           Timestamp.valueOf(sanitationRequest.getTimeRequested()));
       statement.setTimestamp(2,
           Timestamp.valueOf(sanitationRequest.getTimeCompleted()));
-      // todo how to getLocation
       statement.setString(3, sanitationRequest.getLocationNode().getNodeId());
       statement.setString(4, sanitationRequest.getType().name());
       statement.setString(5, sanitationRequest.getDescription());
@@ -163,7 +162,7 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
   }
 
   @Override
-  public boolean delete(SanitationRequest sanitationRequest) {  // todo need Ken to check
+  public boolean delete(SanitationRequest sanitationRequest) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement("DELETE FROM " + TABLE_NAME
           + " WHERE ID=?");

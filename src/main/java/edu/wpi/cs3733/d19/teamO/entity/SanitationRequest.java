@@ -45,9 +45,9 @@ public class SanitationRequest extends ServiceRequest {
    * Create a SanitationRequest.
    */
   public SanitationRequest(int id, LocalDateTime timeRequested, LocalDateTime timeCompleted,
-                           Node locationNodeID,
+                           Node locationNode,
                            SanitationRequestType type, String description) {
-    super(id, timeRequested, timeCompleted, locationNodeID);
+    super(id, timeRequested, timeCompleted, locationNode);
     this.type = type;
     this.description = description;
   }
@@ -84,7 +84,7 @@ public class SanitationRequest extends ServiceRequest {
         "id=" + getId() +
         ", timeRequested=" + getTimeRequested() +
         ", timeCompleted=" + getTimeCompleted() +
-        ", locationNodeID=" + getLocationNode().getNodeId() +
+        ", locationNode=" + getLocationNode().toString() +
         ", type=" + type +
         ", description='" + description + '\'' +
         '}';
