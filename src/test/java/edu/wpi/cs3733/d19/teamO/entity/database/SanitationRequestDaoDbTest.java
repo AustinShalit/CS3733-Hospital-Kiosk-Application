@@ -23,17 +23,21 @@ class SanitationRequestDaoDbTest {
   private static final int id2 = 1234;
 
   private static final Node testNode1 = new Node(Integer.toString(id1), 0, 0,
-      0, "Central", Node.NodeType.CONF, "LONGNAME", "SHORTNAME");
+      "FL2", "Central", Node.NodeType.CONF, "LONGNAME",
+      "SHORTNAME");
 
   private static final Node testNode2 = new Node(Integer.toString(id2), 1, 1,
-      0, "Central", Node.NodeType.DEPT, "LONGNAME", "SHORTNAME");
+      "FL3", "Central", Node.NodeType.DEPT, "LONGNAME",
+      "SHORTNAME");
 
   private static final SanitationRequest testSanitationRequest1 =
-      new SanitationRequest(id1, LocalDateTime.now(), LocalDateTime.now(), testNode1,
-          SanitationRequest.SanitationRequestType.BEDDING, "This is a description");
+      new SanitationRequest(12345, LocalDateTime.now(), LocalDateTime.now(), testNode1,
+          "Bob", SanitationRequest.SanitationRequestType.BEDDING,
+          "This is a description");
 
   private static final SanitationRequest testSanitationRequest2 =
-      new SanitationRequest(id2, LocalDateTime.now(), LocalDateTime.now(), testNode2,
+      new SanitationRequest(123456, LocalDateTime.now(), LocalDateTime.now(), testNode2,
+          "Bill",
           SanitationRequest.SanitationRequestType.BEDDING, "This is a description");
 
   @Nested
@@ -41,7 +45,7 @@ class SanitationRequestDaoDbTest {
     @Test
     void createTableTest(TestInfo testInfo) {
       DatabaseConnectionFactory dcf
-          = new DatabaseConnectionFactoryImpl(DatabaseConnectionFactoryImpl.MEMORY_PROTOCOL,
+          = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
           testInfo.getDisplayName());
 
       assertDoesNotThrow(() -> new NodeDaoDb(dcf));
@@ -51,7 +55,7 @@ class SanitationRequestDaoDbTest {
     @Test
     void existingTableTest(TestInfo testInfo) {
       DatabaseConnectionFactory dcf
-          = new DatabaseConnectionFactoryImpl(DatabaseConnectionFactoryImpl.MEMORY_PROTOCOL,
+          = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
           testInfo.getDisplayName());
 
       assertDoesNotThrow(() -> new NodeDaoDb(dcf));
@@ -67,7 +71,7 @@ class SanitationRequestDaoDbTest {
   @BeforeEach
   void setup(TestInfo testInfo) throws SQLException {
     DatabaseConnectionFactory dcf
-        = new DatabaseConnectionFactoryImpl(DatabaseConnectionFactoryImpl.MEMORY_PROTOCOL,
+        = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
         testInfo.getTestClass().get().getName()
             + testInfo.getDisplayName());
 
@@ -100,12 +104,19 @@ class SanitationRequestDaoDbTest {
   void checkEqual() {
     sanitationDao.insert(testSanitationRequest1);
 
+    System.out.println();
+    System.out.println("1");
+    System.out.println(testSanitationRequest1);
+    System.out.println(sanitationDao.get(testSanitationRequest1.getId()).get());
+    System.out.println("2");
+    System.out.println();
+
     assertEquals(testSanitationRequest1, sanitationDao.get(testSanitationRequest1.getId()).get());
   }
 
   @Test
   void getNotExistingTest() {
-    assertFalse(sanitationDao.get(12345).isPresent());
+    assertFalse(sanitationDao.get(987).isPresent());
   }
 
   @Test
@@ -129,8 +140,8 @@ class SanitationRequestDaoDbTest {
 
   @Test
   void deleteNotExistingTest() {
-    assertFalse(sanitationDao.delete(new SanitationRequest(123345667, null,
-        null, null, null, null)));
+    assertFalse(sanitationDao.delete(new SanitationRequest(987, null,
+        null, null, null, null, null)));
   }
 
   @Test
@@ -139,7 +150,7 @@ class SanitationRequestDaoDbTest {
 
     SanitationRequest update = new SanitationRequest(testSanitationRequest1.getId(),
         LocalDateTime.now(), LocalDateTime.now(),
-        testNode1,
+        testNode1, "Fred",
         SanitationRequest.SanitationRequestType.OTHERS,
         "A different description");
 
@@ -149,11 +160,11 @@ class SanitationRequestDaoDbTest {
 
   @Test
   void updateNotExistingTest() {
-    Node newNode = new Node("9876", 0, 0, 0, "",
+    Node newNode = new Node("9876", 0, 0, "2", "Fuller",
         Node.NodeType.DEPT, "longname", "shortname");
-    assertFalse(sanitationDao.update(new SanitationRequest(9876, LocalDateTime.now(),
-        LocalDateTime.now(), newNode, SanitationRequest.SanitationRequestType.SPILL,
-        "This request doesnt exist")));
+    assertFalse(sanitationDao.update(new SanitationRequest(987, LocalDateTime.now(),
+        LocalDateTime.now(), newNode, "Jane",
+        SanitationRequest.SanitationRequestType.SPILL, "This request doesnt exist")));
   }
 
   @Test

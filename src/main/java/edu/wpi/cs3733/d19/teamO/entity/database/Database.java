@@ -6,8 +6,8 @@ import java.util.Set;
 
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
-import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
+import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
 
 public class Database {
 
@@ -40,7 +40,6 @@ public class Database {
   /*
    * Node methods
    */
-
   public Optional<Node> getNode(String id) {
     return nodeDaoDb.get(id);
   }
@@ -114,7 +113,6 @@ public class Database {
   /*
    * Security
    */
-
   public Optional<SecurityRequest> getSecurityRequest(Integer id) {
     return securityRequestDaoDb.get(id);
   }

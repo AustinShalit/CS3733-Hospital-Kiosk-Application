@@ -34,8 +34,8 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement("SELECT * FROM " + TABLE_NAME
           + " INNER JOIN " + NodeDaoDb.TABLE_NAME
-          + " ON " + TABLE_NAME + ".LOCATIONNODEID" + "=" + NodeDaoDb.TABLE_NAME + ".NODEID"
-          + " WHERE ID=?");
+          + " ON " + TABLE_NAME + ".LOCATIONNODEID" + "=" + NodeDaoDb.TABLE_NAME + ".id"
+          + " WHERE " + TABLE_NAME + ".sr_id=?");
       statement.setInt(1, id);
 
       try (ResultSet resultSet = statement.executeQuery()) {
@@ -54,7 +54,7 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement("SELECT * FROM " + TABLE_NAME
           + " INNER JOIN " + NodeDaoDb.TABLE_NAME
-          + " ON " + TABLE_NAME + ".LOCATIONNODEID" + "=" + NodeDaoDb.TABLE_NAME + ".NODEID"
+          + " ON " + TABLE_NAME + ".LOCATIONNODEID" + "=" + NodeDaoDb.TABLE_NAME + ".id"
       );
       try (ResultSet resultSet = statement.executeQuery()) {
         Set<SanitationRequest> sanitationRequest = new HashSet<>();
@@ -71,20 +71,21 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
 
   private SanitationRequest extractSanitationRequestFromResultSet(final ResultSet resultSet)
       throws SQLException {
-    Node node = new Node(resultSet.getString("NODEID"),
+    Node node = new Node(resultSet.getString("id"),
         resultSet.getInt("x"),
         resultSet.getInt("y"),
-        resultSet.getInt("floor"),
+        resultSet.getString("floor"),
         resultSet.getString("building"),
         Node.NodeType.get(resultSet.getString("type")),
         resultSet.getString("long_name"),
         resultSet.getString("short_name"));
 
     return new SanitationRequest(
-        resultSet.getInt("ID"),
+        resultSet.getInt("sr_id"),
         resultSet.getTimestamp("TIMEREQUESTED").toLocalDateTime(),
         resultSet.getTimestamp("TIMECOMPLETED").toLocalDateTime(),
         node,
+        resultSet.getString("WHOCOMPLETED"),
         SanitationRequest.SanitationRequestType.get(
             resultSet.getString("SANITATIONTYPE")),
         resultSet.getString("DESCRIPTION")
@@ -95,16 +96,17 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
   public boolean insert(final SanitationRequest sanitationRequest) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement("INSERT INTO " + TABLE_NAME
-          + " VALUES (?, ?, ?, ?, ?, ?)");
+          + " VALUES (?, ?, ?, ?, ?, ?, ?)");
 
       statement.setInt(1, sanitationRequest.getId());
       statement.setTimestamp(2,
           Timestamp.valueOf(sanitationRequest.getTimeRequested()));
       statement.setTimestamp(3,
           Timestamp.valueOf(sanitationRequest.getTimeCompleted()));
-      statement.setString(4, sanitationRequest.getLocationNode().getNodeId());
-      statement.setString(5, sanitationRequest.getType().name());
-      statement.setString(6, sanitationRequest.getDescription());
+      statement.setString(4, sanitationRequest.getWhoCompleted());
+      statement.setString(5, sanitationRequest.getLocationNode().getNodeId());
+      statement.setString(6, sanitationRequest.getType().name());
+      statement.setString(7, sanitationRequest.getDescription());
       return statement.executeUpdate() == 1;
     } catch (SQLException exception) {
       kLogger.log(Level.WARNING, "Failed to insert SanitationRequest", exception);
@@ -118,13 +120,14 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
       if (!resultSet.next()) {
         kLogger.info("Table " + TABLE_NAME + " does not exist. Creating");
         PreparedStatement statement = connection.prepareStatement("CREATE TABLE " + TABLE_NAME
-            + "(ID INT PRIMARY KEY,"
+            + "(sr_id INT PRIMARY KEY,"
             + "TIMEREQUESTED TIMESTAMP,"
             + "TIMECOMPLETED TIMESTAMP,"
+            + "WHOCOMPLETED VARCHAR(255),"
             + "LOCATIONNODEID VARCHAR(255),"
             + "SANITATIONTYPE VARCHAR(255),"
             + "DESCRIPTION VARCHAR(255),"
-            + "FOREIGN KEY (LOCATIONNODEID) REFERENCES NODE(NODEID))");
+            + "FOREIGN KEY (LOCATIONNODEID) REFERENCES NODE(id))");
         statement.executeUpdate();
         kLogger.info("Table " + TABLE_NAME + " created");
       } else {
@@ -142,18 +145,20 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
       PreparedStatement statement = connection.prepareStatement("UPDATE " + TABLE_NAME
           + " SET TIMEREQUESTED=?,"
           + "TIMECOMPLETED=?,"
+          + "WHOCOMPLETED=?,"
           + "LOCATIONNODEID=?,"
           + "SANITATIONTYPE=?,"
           + "DESCRIPTION=?"
-          + "WHERE ID=?");
+          + "WHERE sr_id=?");
       statement.setTimestamp(1,
           Timestamp.valueOf(sanitationRequest.getTimeRequested()));
       statement.setTimestamp(2,
           Timestamp.valueOf(sanitationRequest.getTimeCompleted()));
-      statement.setString(3, sanitationRequest.getLocationNode().getNodeId());
-      statement.setString(4, sanitationRequest.getType().name());
-      statement.setString(5, sanitationRequest.getDescription());
-      statement.setInt(6, sanitationRequest.getId());
+      statement.setString(3, sanitationRequest.getWhoCompleted());
+      statement.setString(4, sanitationRequest.getLocationNode().getNodeId());
+      statement.setString(5, sanitationRequest.getType().name());
+      statement.setString(6, sanitationRequest.getDescription());
+      statement.setInt(7, sanitationRequest.getId());
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
       kLogger.log(Level.WARNING, "Failed to update SanitationRequest", ex);
@@ -165,7 +170,7 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
   public boolean delete(SanitationRequest sanitationRequest) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement("DELETE FROM " + TABLE_NAME
-          + " WHERE ID=?");
+          + " WHERE sr_id=?");
       statement.setInt(1, sanitationRequest.getId());
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {

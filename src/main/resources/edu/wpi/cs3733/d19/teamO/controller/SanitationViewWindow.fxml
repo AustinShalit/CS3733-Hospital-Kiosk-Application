@@ -48,17 +48,25 @@
               AnchorPane.topAnchor="100.0">
             <children>
                 <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS"/>
-                <VBox prefHeight="300.0" prefWidth="435.0">
+                <VBox prefHeight="300.0" prefWidth="509.0">
                     <children>
                         <TableView fx:id="requestsTableView" minWidth="465.0" prefHeight="246.0"
                                    prefWidth="500.0">
                             <columns>
                                 <TableColumn fx:id="idTableCol" editable="false" maxWidth="117.0"
-                                             minWidth="12.0" prefWidth="71.0" text="ID"/>
+                                             minWidth="12.0" prefWidth="70.0" text="ID"/>
+                                <TableColumn fx:id="timeRequestedCol" editable="false"
+                                             prefWidth="70.0" text="TimeRequested"/>
+                                <TableColumn fx:id="timeCompletedCol" editable="false"
+                                             minWidth="0.0" prefWidth="70.0" text="TimeCompleted"/>
+                                <TableColumn fx:id="whoCompletedCol" editable="false" minWidth="0.0"
+                                             prefWidth="70.0" text="WhoCompleted"/>
                                 <TableColumn fx:id="locationTableCol" editable="false"
-                                             prefWidth="193.0" text="Location"/>
+                                             minWidth="0.0" prefWidth="70.0" text="LocationNodeID"/>
                                 <TableColumn fx:id="categoryTableCol" editable="false"
-                                             minWidth="0.0" prefWidth="200.0" text="Category"/>
+                                             minWidth="0.0" prefWidth="70.0" text="SanitationType"/>
+                                <TableColumn fx:id="descriptionCol" editable="false" minWidth="0.0"
+                                             prefWidth="70.0" text="Description"/>
                             </columns>
                         </TableView>
                     </children>

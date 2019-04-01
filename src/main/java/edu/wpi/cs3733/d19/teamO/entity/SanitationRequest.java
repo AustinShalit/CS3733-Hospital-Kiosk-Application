@@ -39,26 +39,21 @@ public class SanitationRequest extends ServiceRequest {
   }
 
   private final SanitationRequestType type;
-  private final String description;
 
   /**
    * Create a SanitationRequest.
    */
   public SanitationRequest(int id, LocalDateTime timeRequested, LocalDateTime timeCompleted,
-                           Node locationNode,
+                           Node locationNode, String whoCompleted,
                            SanitationRequestType type, String description) {
-    super(id, timeRequested, timeCompleted, locationNode);
+    super(id, timeRequested, timeCompleted, whoCompleted, description, locationNode);
     this.type = type;
-    this.description = description;
   }
 
   public SanitationRequestType getType() {
     return type;
   }
 
-  public String getDescription() {
-    return description;
-  }
 
   @Override
   public boolean equals(Object o) {
@@ -73,14 +68,15 @@ public class SanitationRequest extends ServiceRequest {
         && getTimeRequested().equals(that.getTimeRequested())
         && getTimeCompleted().equals(that.getTimeCompleted())
         && getLocationNode().equals(that.getLocationNode())
+        && getWhoCompleted().equals(that.getWhoCompleted())
         && type == that.type
-        && description.equals(that.description);
+        && getDescription().equals(that.getDescription());
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(getId(), getTimeRequested(), getTimeCompleted(), getLocationNode(),
-        type, description);
+        getWhoCompleted(), type, getDescription());
   }
 
   @Override
@@ -90,8 +86,9 @@ public class SanitationRequest extends ServiceRequest {
         + ", timeRequested=" + getTimeRequested()
         + ", timeCompleted=" + getTimeCompleted()
         + ", locationNode=" + getLocationNode().toString()
+        + ", whoCompleted=" + getWhoCompleted()
         + ", type=" + type
-        + ", description='" + description + '\''
+        + ", description='" + getDescription() + '\''
         + '}';
   }
 }
