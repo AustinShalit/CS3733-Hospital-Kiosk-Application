@@ -44,9 +44,9 @@ public class SanitationRequest extends ServiceRequest {
    * Create a SanitationRequest.
    */
   public SanitationRequest(int id, LocalDateTime timeRequested, LocalDateTime timeCompleted,
-                           Node locationNode, String whoCompleted,
+                           Node location, String whoCompleted,
                            SanitationRequestType type, String description) {
-    super(id, timeRequested, timeCompleted, whoCompleted, description, locationNode);
+    super(id, timeRequested, timeCompleted, whoCompleted, description, location);
     this.type = type;
   }
 

@@ -38,7 +38,7 @@ public class SanitationViewWindowController extends Controller {
   @FXML
   private TableColumn<SanitationRequest, String> descriptionCol;
 
-  Database db;
+  private Database db;
 
   @FXML
   void initialize() throws SQLException {

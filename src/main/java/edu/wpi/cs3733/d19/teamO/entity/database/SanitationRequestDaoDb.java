@@ -16,7 +16,9 @@ import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
 
 public class SanitationRequestDaoDb implements SanitationRequestDao {
-  private static final Logger kLogger = Logger.getLogger(SanitationRequestDaoDb.class.getName());
+
+  private static final Logger logger = Logger.getLogger(SanitationRequestDaoDb.class.getName());
+
   private static final String TABLE_NAME = "SANITATION";
   private DatabaseConnectionFactory dcf;
 
@@ -44,7 +46,7 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
         }
       }
     } catch (SQLException exception) {
-      kLogger.log(Level.WARNING, "Failed to get SanitationRequest", exception);
+      logger.log(Level.WARNING, "Failed to get SanitationRequest", exception);
     }
     return Optional.empty();
   }
@@ -64,7 +66,7 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
         return sanitationRequest;
       }
     } catch (SQLException ex) {
-      kLogger.log(Level.WARNING, "Failed to get SanitationRequests", ex);
+      logger.log(Level.WARNING, "Failed to get SanitationRequests", ex);
     }
     return Collections.emptySet();
   }
@@ -109,7 +111,7 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
       statement.setString(7, sanitationRequest.getDescription());
       return statement.executeUpdate() == 1;
     } catch (SQLException exception) {
-      kLogger.log(Level.WARNING, "Failed to insert SanitationRequest", exception);
+      logger.log(Level.WARNING, "Failed to insert SanitationRequest", exception);
     }
     return false;
   }
@@ -118,7 +120,7 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
     try (Connection connection = dcf.getConnection();
          ResultSet resultSet = connection.getMetaData().getTables(null, null, TABLE_NAME, null)) {
       if (!resultSet.next()) {
-        kLogger.info("Table " + TABLE_NAME + " does not exist. Creating");
+        logger.info("Table " + TABLE_NAME + " does not exist. Creating");
         PreparedStatement statement = connection.prepareStatement("CREATE TABLE " + TABLE_NAME
             + "(sr_id INT PRIMARY KEY,"
             + "TIMEREQUESTED TIMESTAMP,"
@@ -129,12 +131,12 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
             + "DESCRIPTION VARCHAR(255),"
             + "FOREIGN KEY (LOCATIONNODEID) REFERENCES NODE(id))");
         statement.executeUpdate();
-        kLogger.info("Table " + TABLE_NAME + " created");
+        logger.info("Table " + TABLE_NAME + " created");
       } else {
-        kLogger.info("Table " + TABLE_NAME + " exists");
+        logger.info("Table " + TABLE_NAME + " exists");
       }
     } catch (SQLException exception) {
-      kLogger.log(Level.WARNING, "Failed to create table", exception);
+      logger.log(Level.WARNING, "Failed to create table", exception);
       throw exception;
     }
   }
@@ -161,7 +163,7 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
       statement.setInt(7, sanitationRequest.getId());
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
-      kLogger.log(Level.WARNING, "Failed to update SanitationRequest", ex);
+      logger.log(Level.WARNING, "Failed to update SanitationRequest", ex);
     }
     return false;
   }
@@ -174,7 +176,7 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
       statement.setInt(1, sanitationRequest.getId());
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
-      kLogger.log(Level.WARNING, "FAILED to delete SanitationRequest");
+      logger.log(Level.WARNING, "FAILED to delete SanitationRequest");
     }
     return false;
   }

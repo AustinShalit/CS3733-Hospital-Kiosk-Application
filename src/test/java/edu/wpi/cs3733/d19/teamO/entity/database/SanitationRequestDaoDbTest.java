@@ -104,13 +104,6 @@ class SanitationRequestDaoDbTest {
   void checkEqual() {
     sanitationDao.insert(testSanitationRequest1);
 
-    System.out.println();
-    System.out.println("1");
-    System.out.println(testSanitationRequest1);
-    System.out.println(sanitationDao.get(testSanitationRequest1.getId()).get());
-    System.out.println("2");
-    System.out.println();
-
     assertEquals(testSanitationRequest1, sanitationDao.get(testSanitationRequest1.getId()).get());
   }
 

@@ -9,12 +9,13 @@ import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
 
+@SuppressWarnings("PMD.TooManyMethods")
 public class Database {
 
   private final NodeDaoDb nodeDaoDb;
   private final EdgeDaoDb edgeDaoDb;
   private final SecurityRequestDaoDb securityRequestDaoDb;
-  final SanitationRequestDaoDb sanitationRequestDaoDb;
+  private final SanitationRequestDaoDb sanitationRequestDaoDb;
 
   Database(DatabaseConnectionFactory dcf) throws SQLException {
     this.nodeDaoDb = new NodeDaoDb(dcf);
