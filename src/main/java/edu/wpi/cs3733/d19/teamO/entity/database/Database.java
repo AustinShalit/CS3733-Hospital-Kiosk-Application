@@ -6,18 +6,23 @@ import java.util.Set;
 
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
+import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
 
+@SuppressWarnings("PMD.TooManyMethods")
 public class Database {
 
-  private final NodeDaoDb nodeDaoDb;
-  private final EdgeDaoDb edgeDaoDb;
-  private final SecurityRequestDaoDb securityRequestDaoDb;
+  private final NodeDao nodeDao;
+  private final EdgeDao edgeDao;
+  private final SecurityRequestDao securityRequestDao;
+  private final SanitationRequestDao sanitationRequestDao;
+
 
   Database(DatabaseConnectionFactory dcf) throws SQLException {
-    this.nodeDaoDb = new NodeDaoDb(dcf);
-    this.edgeDaoDb = new EdgeDaoDb(dcf);
-    this.securityRequestDaoDb = new SecurityRequestDaoDb(dcf);
+    this.nodeDao = new NodeDaoDb(dcf);
+    this.edgeDao = new EdgeDaoDb(dcf);
+    this.securityRequestDao = new SecurityRequestDaoDb(dcf);
+    this.sanitationRequestDao = new SanitationRequestDaoDb(dcf);
   }
 
   /**
@@ -37,81 +42,97 @@ public class Database {
   /*
    * Node methods
    */
-
   public Optional<Node> getNode(String id) {
-    return nodeDaoDb.get(id);
+    return nodeDao.get(id);
   }
 
   public Set<Node> getAllNodes() {
-    return nodeDaoDb.getAll();
+    return nodeDao.getAll();
   }
 
   public boolean insertNode(Node node) {
-    return nodeDaoDb.insert(node);
+    return nodeDao.insert(node);
   }
 
   public boolean deleteNode(Node node) {
-    return nodeDaoDb.delete(node);
+    return nodeDao.delete(node);
   }
 
   public boolean updateNode(Node node) {
-    return nodeDaoDb.update(node);
+    return nodeDao.update(node);
   }
 
   /*
    * Edge
    */
   public Optional<Edge> getEdge(String id) {
-    return edgeDaoDb.get(id);
+    return edgeDao.get(id);
   }
 
   public Set<Edge> getAllEdges() {
-    return edgeDaoDb.getAll();
+    return edgeDao.getAll();
   }
 
   public boolean insertEdge(Edge edge) {
-    return edgeDaoDb.insert(edge);
+    return edgeDao.insert(edge);
   }
 
   public boolean deleteEdge(Edge edge) {
-    return edgeDaoDb.delete(edge);
+    return edgeDao.delete(edge);
   }
 
   public boolean updateEdge(Edge edge) {
-    return edgeDaoDb.update(edge);
+    return edgeDao.update(edge);
   }
 
   public Set<Edge> getEdgesFor(Node node) {
-    return edgeDaoDb.getEdgesFor(node);
+    return edgeDao.getEdgesFor(node);
   }
 
   /*
    * Sanitation
    */
+  public Optional<SanitationRequest> getSanitationRequest(int id) {
+    return sanitationRequestDao.get(id);
+  }
 
+  public Set<SanitationRequest> getAllSanitationRequests() {
+    return sanitationRequestDao.getAll();
+  }
+
+  public boolean insertSanitationRequest(SanitationRequest sanitationRequest) {
+    return sanitationRequestDao.insert(sanitationRequest);
+  }
+
+  public boolean deleteSanitationRequest(SanitationRequest sanitationRequest) {
+    return sanitationRequestDao.delete(sanitationRequest);
+  }
+
+  public boolean updateSanitationRequest(SanitationRequest sanitationRequest) {
+    return sanitationRequestDao.update(sanitationRequest);
+  }
 
   /*
    * Security
    */
-
-  public Optional<SecurityRequest> getSecurityRequest(Integer id) {
-    return securityRequestDaoDb.get(id);
+  public Optional<SecurityRequest> getSecurityRequest(int id) {
+    return securityRequestDao.get(id);
   }
 
   public Set<SecurityRequest> getAllSecurityRequests() {
-    return securityRequestDaoDb.getAll();
+    return securityRequestDao.getAll();
   }
 
   public boolean insertSecurityRequest(SecurityRequest securityRequest) {
-    return securityRequestDaoDb.insert(securityRequest);
+    return securityRequestDao.insert(securityRequest);
   }
 
   public boolean deleteSecurityRequest(SecurityRequest securityRequest) {
-    return securityRequestDaoDb.delete(securityRequest);
+    return securityRequestDao.delete(securityRequest);
   }
 
   public boolean updateSecurity(SecurityRequest securityRequest) {
-    return securityRequestDaoDb.update(securityRequest);
+    return securityRequestDao.update(securityRequest);
   }
 
 

@@ -28,7 +28,7 @@ public class SanitationWindowController extends Controller {
   @FXML
   void initialize() throws SQLException {
     categoryComboBox.getItems().setAll(SanitationRequest.SanitationRequestType.values());
-    //locationComboBox.getItems().setAll(database.getAllNodes());
+    //    locationComboBox.getItems().setAll(db.getAllSanitationRequests());
   }
 
 
