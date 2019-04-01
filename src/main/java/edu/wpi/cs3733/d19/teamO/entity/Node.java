@@ -124,15 +124,15 @@ public class Node {
 
   @Override
   public String toString() {
-    return "Node{" +
-        "nodeId='" + nodeId + '\'' +
-        ", xcoord=" + xcoord +
-        ", ycoord=" + ycoord +
-        ", floor=" + floor +
-        ", building='" + building + '\'' +
-        ", nodeType=" + nodeType +
-        ", longName='" + longName + '\'' +
-        ", shortName='" + shortName + '\'' +
-        '}';
+    return "Node{"
+        + "nodeId='" + nodeId + '\''
+        + ", xcoord=" + xcoord
+        + ", ycoord=" + ycoord
+        + ", floor=" + floor
+        + ", building='" + building + '\''
+        + ", nodeType=" + nodeType
+        + ", longName='" + longName + '\''
+        + ", shortName='" + shortName + '\''
+        + '}';
   }
 }

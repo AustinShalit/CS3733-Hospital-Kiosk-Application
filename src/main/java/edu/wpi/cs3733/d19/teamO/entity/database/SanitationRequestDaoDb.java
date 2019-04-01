@@ -33,13 +33,13 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
   public Optional<SanitationRequest> get(final Integer id) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement("SELECT * FROM " + TABLE_NAME
-      + " INNER JOIN " + NodeDaoDb.TABLE_NAME
-      + " ON " + TABLE_NAME + ".LOCATIONNODEID" + "=" + NodeDaoDb.TABLE_NAME + ".NODEID"
-      + " WHERE ID=?");
+          + " INNER JOIN " + NodeDaoDb.TABLE_NAME
+          + " ON " + TABLE_NAME + ".LOCATIONNODEID" + "=" + NodeDaoDb.TABLE_NAME + ".NODEID"
+          + " WHERE ID=?");
       statement.setInt(1, id);
 
       try (ResultSet resultSet = statement.executeQuery()) {
-        if(resultSet.next()) {
+        if (resultSet.next()) {
           return Optional.of(extractSanitationRequestFromResultSet(resultSet));
         }
       }

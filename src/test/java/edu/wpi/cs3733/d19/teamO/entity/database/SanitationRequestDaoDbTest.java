@@ -19,17 +19,22 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class SanitationRequestDaoDbTest {
-  int id = 123;
-  int id2 = 1234;
+  private static final int id1 = 123;
+  private static final int id2 = 1234;
 
-  Node TEST_NODE = new Node(id + "", 0, 0, 0, "Central", Node.NodeType.CONF, "LONGNAME", "SHORTNAME");
-  Node TEST_NODE2 = new Node(id2 + "", 1, 1, 0, "Central", Node.NodeType.DEPT, "LONGNAME", "SHORTNAME");
+  private static final Node testNode1 = new Node(Integer.toString(id1), 0, 0,
+      0, "Central", Node.NodeType.CONF, "LONGNAME", "SHORTNAME");
 
-  SanitationRequest TEST_SANITATION_REQUEST = new SanitationRequest(id, LocalDateTime.now(), LocalDateTime.now(),
-      TEST_NODE, SanitationRequest.SanitationRequestType.BEDDING, "This is a description");
+  private static final Node testNode2 = new Node(Integer.toString(id2), 1, 1,
+      0, "Central", Node.NodeType.DEPT, "LONGNAME", "SHORTNAME");
 
-  SanitationRequest TEST_SANITATION_REQUEST2 = new SanitationRequest(id2, LocalDateTime.now(), LocalDateTime.now(),
-      TEST_NODE2, SanitationRequest.SanitationRequestType.BEDDING, "This is a description");
+  private static final SanitationRequest testSanitationRequest1 =
+      new SanitationRequest(id1, LocalDateTime.now(), LocalDateTime.now(), testNode1,
+          SanitationRequest.SanitationRequestType.BEDDING, "This is a description");
+
+  private static final SanitationRequest testSanitationRequest2 =
+      new SanitationRequest(id2, LocalDateTime.now(), LocalDateTime.now(), testNode2,
+          SanitationRequest.SanitationRequestType.BEDDING, "This is a description");
 
   @Nested
   class Creation {
@@ -69,8 +74,8 @@ class SanitationRequestDaoDbTest {
     nodeDao = new NodeDaoDb(dcf);
     SanitationRequestDaoDb sanitationRequestDaoDb = new SanitationRequestDaoDb(dcf);
 
-    nodeDao.insert(TEST_NODE);
-    sanitationRequestDaoDb.insert(TEST_SANITATION_REQUEST);
+    nodeDao.insert(testNode1);
+    sanitationRequestDaoDb.insert(testSanitationRequest1);
 
 
     sanitationDao = new SanitationRequestDaoDb(dcf);
@@ -78,24 +83,24 @@ class SanitationRequestDaoDbTest {
 
   @Test
   void getTest() {
-    sanitationDao.insert(TEST_SANITATION_REQUEST);
+    sanitationDao.insert(testSanitationRequest1);
 
-    assertTrue(sanitationDao.get(TEST_SANITATION_REQUEST.getId()).isPresent());
+    assertTrue(sanitationDao.get(testSanitationRequest1.getId()).isPresent());
   }
 
   @Test
   void getDifferentObjectTest() {
-    sanitationDao.insert(TEST_SANITATION_REQUEST);
+    sanitationDao.insert(testSanitationRequest1);
 
-    assertNotSame(TEST_SANITATION_REQUEST,
-        sanitationDao.get(TEST_SANITATION_REQUEST.getId()).orElseThrow(IllegalStateException::new));
+    assertNotSame(testSanitationRequest1,
+        sanitationDao.get(testSanitationRequest1.getId()).orElseThrow(IllegalStateException::new));
   }
 
   @Test
-  void assertEquals() {
-    sanitationDao.insert(TEST_SANITATION_REQUEST);
+  void checkEqual() {
+    sanitationDao.insert(testSanitationRequest1);
 
-    assertTrue(TEST_SANITATION_REQUEST.equals(sanitationDao.get(TEST_SANITATION_REQUEST.getId()).get()));
+    assertEquals(testSanitationRequest1, sanitationDao.get(testSanitationRequest1.getId()).get());
   }
 
   @Test
@@ -105,21 +110,21 @@ class SanitationRequestDaoDbTest {
 
   @Test
   void insertTest() {
-    nodeDao.insert(TEST_NODE2);
+    nodeDao.insert(testNode2);
 
-    assertTrue(sanitationDao.insert(TEST_SANITATION_REQUEST2));
+    assertTrue(sanitationDao.insert(testSanitationRequest2));
   }
 
   @Test
   void insertTwiceTest() {
-    sanitationDao.insert(TEST_SANITATION_REQUEST);
-    assertFalse(sanitationDao.insert(TEST_SANITATION_REQUEST));
+    sanitationDao.insert(testSanitationRequest1);
+    assertFalse(sanitationDao.insert(testSanitationRequest1));
   }
 
   @Test
   void deleteTest() {
-    sanitationDao.insert(TEST_SANITATION_REQUEST);
-    assertTrue(sanitationDao.delete(TEST_SANITATION_REQUEST));
+    sanitationDao.insert(testSanitationRequest1);
+    assertTrue(sanitationDao.delete(testSanitationRequest1));
   }
 
   @Test
@@ -130,16 +135,16 @@ class SanitationRequestDaoDbTest {
 
   @Test
   void updateTest() {
-    sanitationDao.insert(TEST_SANITATION_REQUEST);
+    sanitationDao.insert(testSanitationRequest1);
 
-    SanitationRequest update = new SanitationRequest(TEST_SANITATION_REQUEST.getId(),
+    SanitationRequest update = new SanitationRequest(testSanitationRequest1.getId(),
         LocalDateTime.now(), LocalDateTime.now(),
-        TEST_NODE,
+        testNode1,
         SanitationRequest.SanitationRequestType.OTHERS,
         "A different description");
 
     assertTrue(sanitationDao.update(update));
-    assertFalse(TEST_SANITATION_REQUEST.equals(sanitationDao.get(TEST_SANITATION_REQUEST.getId())));
+    assertNotEquals(testSanitationRequest1, sanitationDao.get(testSanitationRequest1.getId()));
   }
 
   @Test
@@ -153,22 +158,22 @@ class SanitationRequestDaoDbTest {
 
   @Test
   void getAllTest() {
-    nodeDao.insert(TEST_NODE2);
-    sanitationDao.insert(TEST_SANITATION_REQUEST2);
+    nodeDao.insert(testNode2);
+    sanitationDao.insert(testSanitationRequest2);
 
-    assertTrue(2 == sanitationDao.getAll().size());
+    assertEquals(2, sanitationDao.getAll().size());
   }
 
   @Test
   void getAllResultSameTest() {
-    sanitationDao.insert(TEST_SANITATION_REQUEST);
+    sanitationDao.insert(testSanitationRequest1);
 
-    assertTrue(TEST_SANITATION_REQUEST.equals(sanitationDao.getAll().toArray()[0]));
+    assertEquals(testSanitationRequest1, sanitationDao.getAll().toArray()[0]);
   }
 
   @Test
   void getAllEmptyTest() {
-    sanitationDao.delete(TEST_SANITATION_REQUEST);
+    sanitationDao.delete(testSanitationRequest1);
 
     assertTrue(sanitationDao.getAll().isEmpty());
   }

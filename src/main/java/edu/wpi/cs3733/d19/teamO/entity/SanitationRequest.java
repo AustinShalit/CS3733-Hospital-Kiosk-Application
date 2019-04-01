@@ -62,31 +62,36 @@ public class SanitationRequest extends ServiceRequest {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (!(o instanceof SanitationRequest)) return false;
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof SanitationRequest)) {
+      return false;
+    }
     SanitationRequest that = (SanitationRequest) o;
-    return getId() == that.getId() &&
-        getTimeRequested().equals(that.getTimeRequested()) &&
-        getTimeCompleted().equals(that.getTimeCompleted()) &&
-        getLocationNode().equals(that.getLocationNode()) &&
-        type == that.type &&
-        description.equals(that.description);
+    return getId() == that.getId()
+        && getTimeRequested().equals(that.getTimeRequested())
+        && getTimeCompleted().equals(that.getTimeCompleted())
+        && getLocationNode().equals(that.getLocationNode())
+        && type == that.type
+        && description.equals(that.description);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(getId(), getTimeRequested(), getTimeCompleted(), getLocationNode(), type, description);
+    return Objects.hash(getId(), getTimeRequested(), getTimeCompleted(), getLocationNode(),
+        type, description);
   }
 
   @Override
   public String toString() {
-    return "SanitationRequest{" +
-        "id=" + getId() +
-        ", timeRequested=" + getTimeRequested() +
-        ", timeCompleted=" + getTimeCompleted() +
-        ", locationNode=" + getLocationNode().toString() +
-        ", type=" + type +
-        ", description='" + description + '\'' +
-        '}';
+    return "SanitationRequest{"
+        + "id=" + getId()
+        + ", timeRequested=" + getTimeRequested()
+        + ", timeCompleted=" + getTimeCompleted()
+        + ", locationNode=" + getLocationNode().toString()
+        + ", type=" + type
+        + ", description='" + description + '\''
+        + '}';
   }
 }

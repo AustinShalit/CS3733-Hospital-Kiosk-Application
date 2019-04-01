@@ -10,7 +10,8 @@ class ServiceRequest {
   private final LocalDateTime timeCompleted;
 
   // constructor
-  ServiceRequest(int id, LocalDateTime timeRequested, LocalDateTime timeCompleted, Node locationNode) {
+  ServiceRequest(int id, LocalDateTime timeRequested, LocalDateTime timeCompleted,
+                 Node locationNode) {
     this.id = id;
     this.locationNode = locationNode;
     this.timeRequested = timeRequested;
