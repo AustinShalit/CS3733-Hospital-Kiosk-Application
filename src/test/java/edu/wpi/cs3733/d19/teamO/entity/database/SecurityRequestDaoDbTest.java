@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d19.teamO.entity.database;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 
 import edu.wpi.cs3733.d19.teamO.entity.Node;
+import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,10 +17,14 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class NodeDaoDbTest {
+class SecurityRequestDaoDbTest {
 
-  private static final Node TEST_NODE = new Node("TEST", 0, 0, "0", "B", Node.NodeType.CONF,
-      "LN", "SN");
+  private static final Node NODE_A = new Node("A", 1, 2, "0", "B", Node.NodeType.HALL,
+      "AL", "AS");
+
+  private static final SecurityRequest SECURITY_REQUEST
+      = new SecurityRequest(1, LocalDateTime.now(),
+      LocalDateTime.now(), "A", "D", NODE_A);
 
   @Nested
   class Creation {
@@ -28,7 +34,7 @@ class NodeDaoDbTest {
           = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
           testInfo.getDisplayName());
 
-      assertDoesNotThrow(() -> new NodeDaoDb(dcf));
+      assertDoesNotThrow(() -> new SecurityRequestDaoDb(dcf));
     }
 
     @Test
@@ -36,12 +42,12 @@ class NodeDaoDbTest {
       DatabaseConnectionFactory dcf
           = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
           testInfo.getDisplayName());
-      assertDoesNotThrow(() -> new NodeDaoDb(dcf));
-      assertDoesNotThrow(() -> new NodeDaoDb(dcf));
+      assertDoesNotThrow(() -> new SecurityRequestDaoDb(dcf));
+      assertDoesNotThrow(() -> new SecurityRequestDaoDb(dcf));
     }
   }
 
-  private NodeDao dao;
+  private SecurityRequestDaoDb dao;
 
   @BeforeEach
   void setup(TestInfo testInfo) throws SQLException {
@@ -49,80 +55,83 @@ class NodeDaoDbTest {
         = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
         testInfo.getTestClass().get().getName()
             + testInfo.getDisplayName());
-    dao = new NodeDaoDb(dcf);
+    NodeDaoDb nodeDaoDb = new NodeDaoDb(dcf);
+    nodeDaoDb.insert(NODE_A);
+    dao = new SecurityRequestDaoDb(dcf);
   }
 
   @Test
   void getTest() {
-    dao.insert(TEST_NODE);
+    dao.insert(SECURITY_REQUEST);
 
-    assertTrue(dao.get(TEST_NODE.getNodeId()).isPresent());
+    assertTrue(dao.get(SECURITY_REQUEST.getId()).isPresent());
   }
 
   @Test
   void getDifferentObjectTest() {
-    dao.insert(TEST_NODE);
+    dao.insert(SECURITY_REQUEST);
 
-    assertNotSame(TEST_NODE,
-        dao.get(TEST_NODE.getNodeId()).orElseThrow(IllegalStateException::new));
+    assertNotSame(SECURITY_REQUEST,
+        dao.get(SECURITY_REQUEST.getId()).orElseThrow(IllegalStateException::new));
   }
 
   @Test
   void getNotExistingTest() {
-    assertFalse(dao.get(TEST_NODE.getNodeId()).isPresent());
+    assertFalse(dao.get(SECURITY_REQUEST.getId()).isPresent());
   }
 
   @Test
   void insertTest() {
-    assertTrue(dao.insert(TEST_NODE));
+    assertTrue(dao.insert(SECURITY_REQUEST));
   }
 
   @Test
   void insertTwiceTest() {
-    dao.insert(TEST_NODE);
-    assertFalse(dao.insert(TEST_NODE));
+    dao.insert(SECURITY_REQUEST);
+    assertFalse(dao.insert(SECURITY_REQUEST));
   }
 
   @Test
   void deleteTest() {
-    dao.insert(TEST_NODE);
-    assertTrue(dao.delete(TEST_NODE));
+    dao.insert(SECURITY_REQUEST);
+    assertTrue(dao.delete(SECURITY_REQUEST));
   }
 
   @Test
   void deleteNotExistingTest() {
-    assertFalse(dao.delete(TEST_NODE));
+    assertFalse(dao.delete(SECURITY_REQUEST));
   }
 
   @Test
   void updateTest() {
-    dao.insert(TEST_NODE);
-    Node update = new Node(TEST_NODE.getNodeId(), 1, 2, "3", "Shack", Node.NodeType.HALL,
-        "Looong Name", "s.name");
+    dao.insert(SECURITY_REQUEST);
+    SecurityRequest update = new SecurityRequest(SECURITY_REQUEST.getId(),
+        LocalDateTime.now(), LocalDateTime.now(), "A", "D", NODE_A);
     assertTrue(dao.update(update));
   }
 
   @Test
   void updateNotExistingTest() {
-    assertFalse(dao.update(TEST_NODE));
+    assertFalse(dao.update(SECURITY_REQUEST));
   }
 
   @Test
   void getAllTest() {
-    dao.insert(TEST_NODE);
+    dao.insert(SECURITY_REQUEST);
 
     assertEquals(1, dao.getAll().size());
   }
 
   @Test
   void getAllResultSameTest() {
-    dao.insert(TEST_NODE);
+    dao.insert(SECURITY_REQUEST);
 
-    assertEquals(TEST_NODE, dao.getAll().toArray()[0]);
+    assertEquals(SECURITY_REQUEST, dao.getAll().toArray()[0]);
   }
 
   @Test
   void getAllEmptyTest() {
     assertTrue(dao.getAll().isEmpty());
   }
+
 }

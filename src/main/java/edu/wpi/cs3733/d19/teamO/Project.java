@@ -29,6 +29,7 @@ public class Project extends Application {
 
   /**
    * The version of this build.
+   *
    * @return String representing the version
    */
   public static String getVersion() {
