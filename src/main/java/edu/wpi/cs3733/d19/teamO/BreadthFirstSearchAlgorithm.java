@@ -8,7 +8,6 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
 
-
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
@@ -26,7 +25,7 @@ class BreadthFirstSearchAlgorithm {
 
     Set<Edge> edges = database.getEdgesFor(aNode);
 
-    for (Edge edge: edges) {
+    for (Edge edge : edges) {
       if (edge.getStartNode().equals(aNode)) {
         neighbors.add(edge.getEndNode());
       } else if (edge.getEndNode().equals(aNode)) {
@@ -50,8 +49,9 @@ class BreadthFirstSearchAlgorithm {
 
   /**
    * This returns a path from the start node to the goal.
+   *
    * @param start the node the user starts at.
-   * @param goal the node the user wants to end at.
+   * @param goal  the node the user wants to end at.
    * @return a stack containg the path to be traveled.
    */
   Stack<Node> getPath(Node start, Node goal) {

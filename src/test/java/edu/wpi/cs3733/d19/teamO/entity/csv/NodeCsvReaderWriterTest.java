@@ -16,11 +16,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class NodeCsvReaderWriterTest {
 
-  private static final Node NODE_A = new Node("A", 1, 2, 0, "B", Node.NodeType.HALL,
+  private static final Node NODE_A = new Node("A", 1, 2, "0", "B", Node.NodeType.HALL,
       "AL", "AS");
-  private static final Node NODE_B = new Node("B", 3, 4, 0, "B", Node.NodeType.HALL,
+  private static final Node NODE_B = new Node("B", 3, 4, "0", "B", Node.NodeType.HALL,
       "BL", "BS");
-  private static final Node NODE_C = new Node("C", 5, 6, 0, "B", Node.NodeType.HALL,
+  private static final Node NODE_C = new Node("C", 5, 6, "0", "B", Node.NodeType.HALL,
       "CL", "CS");
 
   private static Path TEST_DATA_FILE;

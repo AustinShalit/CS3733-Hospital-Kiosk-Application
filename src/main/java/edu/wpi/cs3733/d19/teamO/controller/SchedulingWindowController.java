@@ -1,26 +1,24 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
-import edu.wpi.cs3733.d19.teamO.entity.Node;
-import edu.wpi.cs3733.d19.teamO.entity.csv.NodeCsvReaderWriter;
-import edu.wpi.cs3733.d19.teamO.entity.database.Database;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import edu.wpi.cs3733.d19.teamO.entity.Node;
+import edu.wpi.cs3733.d19.teamO.entity.csv.NodeCsvReaderWriter;
+import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 public class SchedulingWindowController extends Controller {
 
@@ -70,7 +68,7 @@ public class SchedulingWindowController extends Controller {
 
   @FXML
   public void initialize() throws SQLException {
-        database = new Database();
+    database = new Database();
 
   }
 }

@@ -144,7 +144,7 @@ class NodeDaoDb implements NodeDao {
             + "(id VARCHAR(255) PRIMARY KEY,"
             + "x INT,"
             + "y INT,"
-            + "floor INT,"
+            + "floor VARCHAR(255),"
             + "building VARCHAR(255),"
             + "type VARCHAR(255),"
             + "long_name VARCHAR(255),"

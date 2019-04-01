@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class SecurityRequestDaoDbTest {
 
-  private static final Node NODE_A = new Node("A", 1, 2, 0, "B", Node.NodeType.HALL,
+  private static final Node NODE_A = new Node("A", 1, 2, "0", "B", Node.NodeType.HALL,
       "AL", "AS");
 
   private static final SecurityRequest SECURITY_REQUEST

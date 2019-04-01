@@ -136,7 +136,7 @@ public class Node {
     Node node = (Node) o;
     return xcoord == node.xcoord
         && ycoord == node.ycoord
-        && floor == node.floor
+        && floor.equals(node.floor)
         && nodeId.equals(node.nodeId)
         && building.equals(node.building)
         && nodeType == node.nodeType

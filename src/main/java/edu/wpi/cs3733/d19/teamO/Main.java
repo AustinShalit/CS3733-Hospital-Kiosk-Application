@@ -1,10 +1,7 @@
 package edu.wpi.cs3733.d19.teamO;
 
 import java.io.IOException;
-import java.nio.file.FileSystem;
-import java.nio.file.FileSystems;
 
-import edu.wpi.cs3733.d19.teamO.entity.csv.NodeCsvReaderWriter;
 import javafx.application.Application;
 
 public final class Main {
