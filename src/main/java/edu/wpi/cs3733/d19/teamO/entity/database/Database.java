@@ -6,18 +6,22 @@ import java.util.Set;
 
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
+import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
 
+@SuppressWarnings("PMD.TooManyMethods")
 public class Database {
 
   private final NodeDaoDb nodeDaoDb;
   private final EdgeDaoDb edgeDaoDb;
   private final SecurityRequestDaoDb securityRequestDaoDb;
+  private final SanitationRequestDaoDb sanitationRequestDaoDb;
 
   Database(DatabaseConnectionFactory dcf) throws SQLException {
     this.nodeDaoDb = new NodeDaoDb(dcf);
     this.edgeDaoDb = new EdgeDaoDb(dcf);
     this.securityRequestDaoDb = new SecurityRequestDaoDb(dcf);
+    this.sanitationRequestDaoDb = new SanitationRequestDaoDb(dcf);
   }
 
   /**
@@ -37,7 +41,6 @@ public class Database {
   /*
    * Node methods
    */
-
   public Optional<Node> getNode(String id) {
     return nodeDaoDb.get(id);
   }
@@ -88,12 +91,29 @@ public class Database {
   /*
    * Sanitation
    */
+  public Optional<SanitationRequest> getSanitationRequest(int id) {
+    return sanitationRequestDaoDb.get(id);
+  }
 
+  public Set<SanitationRequest> getAllSanitationRequests() {
+    return sanitationRequestDaoDb.getAll();
+  }
+
+  public boolean insertSanitationRequest(SanitationRequest sanitationRequest) {
+    return sanitationRequestDaoDb.insert(sanitationRequest);
+  }
+
+  public boolean deleteSanitationRequest(SanitationRequest sanitationRequest) {
+    return sanitationRequestDaoDb.delete(sanitationRequest);
+  }
+
+  public boolean updateSanitationRequest(SanitationRequest sanitationRequest) {
+    return sanitationRequestDaoDb.update(sanitationRequest);
+  }
 
   /*
    * Security
    */
-
   public Optional<SecurityRequest> getSecurityRequest(Integer id) {
     return securityRequestDaoDb.get(id);
   }

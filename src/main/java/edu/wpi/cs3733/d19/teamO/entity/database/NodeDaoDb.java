@@ -18,7 +18,7 @@ class NodeDaoDb implements NodeDao {
   private static final Logger logger
       = Logger.getLogger(NodeDaoDb.class.getName());
 
-  private static final String TABLE_NAME = "NODE";
+  static final String TABLE_NAME = "NODE";
 
   private DatabaseConnectionFactory dcf;
 
