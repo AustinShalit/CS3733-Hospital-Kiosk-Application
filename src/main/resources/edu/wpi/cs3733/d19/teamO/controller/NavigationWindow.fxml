@@ -6,26 +6,32 @@
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.NagivationWindowController">
-   <children>
-      <VBox alignment="CENTER_RIGHT" layoutX="262.0" layoutY="119.0">
-         <children>
-            <JFXRadioButton fx:id="currLocJFXRadio" onAction="#onCurrLocRadioAction" prefWidth="190.0" text="Current Location">
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-               <toggleGroup>
-                  <ToggleGroup fx:id="locationToggle" />
-               </toggleGroup>
-            </JFXRadioButton>
-            <JFXRadioButton fx:id="selectLocJFXRadio" onAction="#onSelectLocRadioAction" prefWidth="190.0" text="Select a Location" toggleGroup="$locationToggle">
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </JFXRadioButton>
-            <JFXComboBox fx:id="selectLocJFXCombo" disable="true" editable="true" promptText="Room # or Name" />
-         </children>
-      </VBox>
-   </children>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="edu.wpi.cs3733.d19.teamO.controller.NagivationWindowController">
+    <children>
+        <VBox alignment="CENTER_RIGHT" layoutX="262.0" layoutY="119.0">
+            <children>
+                <JFXRadioButton fx:id="currLocJFXRadio" onAction="#onCurrLocRadioAction"
+                                prefWidth="190.0" text="Current Location">
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </padding>
+                    <toggleGroup>
+                        <ToggleGroup fx:id="locationToggle"/>
+                    </toggleGroup>
+                </JFXRadioButton>
+                <JFXRadioButton fx:id="selectLocJFXRadio" onAction="#onSelectLocRadioAction"
+                                prefWidth="190.0" text="Select a Location"
+                                toggleGroup="$locationToggle">
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </padding>
+                </JFXRadioButton>
+                <JFXComboBox fx:id="selectLocJFXCombo" disable="true" editable="true"
+                             promptText="Room # or Name"/>
+            </children>
+        </VBox>
+    </children>
 </Pane>

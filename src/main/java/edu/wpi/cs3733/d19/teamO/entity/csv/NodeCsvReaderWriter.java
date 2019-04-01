@@ -34,7 +34,7 @@ public class NodeCsvReaderWriter {
     @CsvBindByName
     private int ycoord;
     @CsvBindByName
-    private int floor;
+    private String floor;
     @CsvBindByName
     private String building;
     @CsvBindByName
@@ -49,7 +49,7 @@ public class NodeCsvReaderWriter {
 
     }
 
-    private NodeVo(final String nodeId, final int xcoord, final int ycoord, final int floor,
+    private NodeVo(final String nodeId, final int xcoord, final int ycoord, final String floor,
                    final String building, final String nodeType, final String longName,
                    final String shortName) {
       this();
