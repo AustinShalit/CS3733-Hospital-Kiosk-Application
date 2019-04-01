@@ -4,10 +4,7 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.Set;
 
-import edu.wpi.cs3733.d19.teamO.entity.Edge;
-import edu.wpi.cs3733.d19.teamO.entity.Node;
-import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
-import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
+import edu.wpi.cs3733.d19.teamO.entity.*;
 
 @SuppressWarnings("PMD.TooManyMethods")
 public class Database {
@@ -16,6 +13,7 @@ public class Database {
   private final EdgeDao edgeDao;
   private final SecurityRequestDao securityRequestDao;
   private final SanitationRequestDao sanitationRequestDao;
+  private final SchedulingRequestDao schedulingRequestDao;
 
 
   Database(DatabaseConnectionFactory dcf) throws SQLException {
@@ -23,6 +21,7 @@ public class Database {
     this.edgeDao = new EdgeDaoDb(dcf);
     this.securityRequestDao = new SecurityRequestDaoDb(dcf);
     this.sanitationRequestDao = new SanitationRequestDaoDb(dcf);
+    this.schedulingRequestDao = new SchedulingRequestDaoDb(dcf);
   }
 
   /**
@@ -139,5 +138,24 @@ public class Database {
   /*
    * Scheduling
    */
+  public Optional<SchedulingRequest> getSchedulingRequest(int id) {
+    return schedulingRequestDao.get(id);
+  }
+
+  public Set<SchedulingRequest> getAllSchedulingRequests() {
+    return schedulingRequestDao.getAll();
+  }
+
+  public boolean insertSchedulingrequest(SchedulingRequest schedulingRequest) {
+    return schedulingRequestDao.insert(schedulingRequest);
+  }
+
+  public boolean deleteSchedulingRequest(SchedulingRequest schedulingRequest) {
+    return schedulingRequestDao.delete(schedulingRequest);
+  }
+
+  public boolean updateScheduling(SchedulingRequest schedulingRequest) {
+    return schedulingRequestDao.update(schedulingRequest);
+  }
 
 }

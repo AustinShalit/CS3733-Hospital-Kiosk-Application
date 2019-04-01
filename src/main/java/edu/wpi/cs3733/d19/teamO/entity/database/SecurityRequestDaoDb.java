@@ -149,18 +149,18 @@ class SecurityRequestDaoDb implements SecurityRequestDao {
   private void createTable() throws SQLException {
     try (Connection connection = dcf.getConnection();
          ResultSet resultSet = connection.getMetaData().getTables(null, null,
-             queries.getProperty("security_request.table_name"), null)) {
+             queries.getProperty("scheduling_request.table_name"), null)) {
       if (!resultSet.next()) {
         logger.info("Table "
-            + queries.getProperty("security_request.table_name")
+            + queries.getProperty("scheduling_request.table_name")
             + " does not exist. Creating");
         PreparedStatement statement
             = connection.prepareStatement(queries.getProperty("security_request.create_table"));
         statement.executeUpdate();
-        logger.info("Table " + queries.getProperty("security_request.table_name")
+        logger.info("Table " + queries.getProperty("scheduling_request.table_name")
             + " created");
       } else {
-        logger.info("Table " + queries.getProperty("security_request.table_name") + " exists");
+        logger.info("Table " + queries.getProperty("scheduling_request.table_name") + " exists");
       }
     } catch (SQLException ex) {
       logger.log(Level.WARNING, "Failed to create table", ex);
