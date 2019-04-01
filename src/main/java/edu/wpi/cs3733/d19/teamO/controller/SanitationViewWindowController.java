@@ -10,7 +10,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
@@ -38,7 +37,7 @@ public class SanitationViewWindowController extends Controller {
   @FXML
   private TableColumn<SanitationRequest, String> descriptionCol;
 
-  private Database db;
+  Database db;
 
   @FXML
   void initialize() throws SQLException {
@@ -48,34 +47,10 @@ public class SanitationViewWindowController extends Controller {
     timeRequestedCol.setCellValueFactory(new PropertyValueFactory<>("timeRequested"));
     timeCompletedCol.setCellValueFactory(new PropertyValueFactory<>("timeCompleted"));
     whoCompletedCol.setCellValueFactory(new PropertyValueFactory<>("whoCompleted"));
-
-    // todo get just the node id
+    // todo get just the node id, not the entire node object
     locationTableCol.setCellValueFactory(new PropertyValueFactory<>("locationNode"));
-
     categoryTableCol.setCellValueFactory(new PropertyValueFactory<>("type"));
     descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
-
-
-    /**
-     * todo
-     * i am insertting test data using this method. we need to move the insert code to
-     * SanitationWindowController, in onSubmitButtonAction().
-     * We need to somehow pass the data between windows
-     */
-    insertTestData();
-  }
-
-  void insertTestData() {
-    Node testNode = new Node("123", 0, 1, "3", "Fuller",
-        Node.NodeType.DEPT, "yolo", "swagger");
-    db.insertNode(testNode);
-
-    SanitationRequest testSR = new SanitationRequest(12345, LocalDateTime.now(),
-        LocalDateTime.now(), testNode, "Jill",
-        SanitationRequest.SanitationRequestType.BEDDING,
-        "These sheets is messed up");
-
-    db.insertSanitationRequest(testSR);
 
     requestsTableView.getItems().setAll(db.getAllSanitationRequests());
   }
