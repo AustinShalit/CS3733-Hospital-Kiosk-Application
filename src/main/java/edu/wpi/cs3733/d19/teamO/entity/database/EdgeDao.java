@@ -8,7 +8,7 @@ import edu.wpi.cs3733.d19.teamO.entity.Node;
 /**
  * Database access object for {@link Edge}s.
  */
-interface EdgeDao extends Dao<Edge> {
+interface EdgeDao extends Dao<String, Edge> {
   /**
    * Get all the edges that a provided node is a part of.
    *
