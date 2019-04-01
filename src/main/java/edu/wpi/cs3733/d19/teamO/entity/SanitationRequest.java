@@ -38,24 +38,18 @@ public class SanitationRequest extends ServiceRequest {
   }
 
   private final SanitationRequestType type;
-  private final String description;
 
   /**
    * Create a SanitationRequest.
    */
   public SanitationRequest(int id, LocalDateTime timeRequested, LocalDateTime timeCompleted,
-                           Node node,
-                           SanitationRequestType type, String description) {
-    super(id, timeRequested, timeCompleted, node);
+                           String whoCompleted, String description, Node node,
+                           SanitationRequestType type) {
+    super(id, timeRequested, timeCompleted, whoCompleted, description, node);
     this.type = type;
-    this.description = description;
   }
 
   public SanitationRequestType getType() {
     return type;
-  }
-
-  public String getDescription() {
-    return description;
   }
 }

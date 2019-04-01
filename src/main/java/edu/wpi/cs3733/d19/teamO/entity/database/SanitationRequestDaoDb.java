@@ -25,15 +25,15 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
   }
 
   SanitationRequestDaoDb() throws SQLException {
-    this(new DatabaseConnectionFactoryImpl());
+    this(new DatabaseConnectionFactoryEmbedded());
   }
 
   @Override
   public Optional<SanitationRequest> get(final Integer id) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement("SELECT * FROM " + TABLE_NAME
-          + ", INNER JOIN + " + NodeDaoDb.TABLE_NAME + " WHERE id=? AND " + TABLE_NAME + ".?="
-          + NodeDaoDb.TABLE_NAME + ".?");
+          + ", JOIN NODE WHERE id=? AND " + TABLE_NAME + ".?="
+          + "NODE.?");
       statement.setInt(1, id);
       statement.setInt(2, id);
       statement.setString(3, Integer.toString(id));
@@ -59,17 +59,18 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
         resultSet.getInt("ID"),
         resultSet.getTimestamp("TIMERECIEVED").toLocalDateTime(),
         resultSet.getTimestamp("TIMECOMPLETED").toLocalDateTime(),
-        new Node(resultSet.getString("NODEID"),
-            resultSet.getInt("XCOORD"),
-            resultSet.getInt("YCOORD"),
-            resultSet.getInt("FLOOR"),
-            resultSet.getString("BUILDING"),
-            Node.NodeType.get(resultSet.getString("NODETYPE")),
-            resultSet.getString("LONGNAME"),
-            resultSet.getString("SHORTNAME")),
+        "",
+        resultSet.getString("DESCRIPTION"),
+        new Node(resultSet.getString("id"),
+            resultSet.getInt("x"),
+            resultSet.getInt("y"),
+            resultSet.getString("floor"),
+            resultSet.getString("building"),
+            Node.NodeType.get(resultSet.getString("type")),
+            resultSet.getString("long_name"),
+            resultSet.getString("short_name")),
         SanitationRequest.SanitationRequestType.get(
-            resultSet.getString("SANITATIONTYPE")),
-        resultSet.getString("DESCRIPTION"));
+            resultSet.getString("SANITATIONTYPE")));
   }
 
   @Override
@@ -79,7 +80,7 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
           + " VALUES (?, ?, ?, ?, ?, ?)");
       statement.setInt(1, sanitationRequest.getId());
       statement.setTimestamp(2,
-          Timestamp.valueOf(sanitationRequest.getTimetimeReceived()));
+          Timestamp.valueOf(sanitationRequest.getTimeRequested()));
       statement.setTimestamp(3,
           Timestamp.valueOf(sanitationRequest.getTimeCompleted()));
       statement.setInt(4, sanitationRequest.getId());
@@ -104,7 +105,7 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
             + "LOCATION VARCHAR(255),"
             + "SANITATIONTYPE VARCHAR(255),"
             + "DESCRIPTION VARCHAR(255),"
-            + "FOREIGN KEY (LOCATION) REFERENCES NODE(NODEID))");
+            + "FOREIGN KEY (LOCATION) REFERENCES NODE(id))");
         //        statement.setString(1, NodeDaoDb.TABLE_NAME);
         statement.executeUpdate();
         kLogger.info("Table " + TABLE_NAME + " created");

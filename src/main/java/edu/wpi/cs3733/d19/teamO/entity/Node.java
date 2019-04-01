@@ -4,15 +4,21 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.google.common.base.MoreObjects;
+
 public class Node {
 
   public enum NodeType {
+    BATH("Bathroom"),
     CONF("Conference"),
+    ELEV("Elevator"),
+    EXIT("Exit"),
     HALL("Hall"),
     DEPT("Department"),
     INFO("Information"),
     LABS("Lab"),
     REST("Restroom"),
+    RETL("Retail"),
     SERV("Service"),
     STAI("Stair Case");
 
@@ -35,15 +41,22 @@ public class Node {
       return name;
     }
 
+    /**
+     * Get the NodeType for the given string.
+     */
     public static NodeType get(final String name) {
-      return lookup.get(name);
+      NodeType type = lookup.get(name);
+      if (type == null) {
+        throw new IllegalArgumentException("Unknown node type: " + name);
+      }
+      return type;
     }
   }
 
   private final String nodeId;
   private final int xcoord;
   private final int ycoord;
-  private final int floor;
+  private final String floor;
   private final String building;
   private final NodeType nodeType;
   private final String longName;
@@ -52,7 +65,7 @@ public class Node {
   /**
    * Create a node.
    */
-  public Node(final String nodeId, final int xcoord, final int ycoord, final int floor,
+  public Node(final String nodeId, final int xcoord, final int ycoord, final String floor,
               final String building, final NodeType nodeType, final String longName,
               final String shortName) {
     this.nodeId = nodeId;
@@ -77,7 +90,7 @@ public class Node {
     return ycoord;
   }
 
-  public int getFloor() {
+  public String getFloor() {
     return floor;
   }
 
@@ -98,6 +111,20 @@ public class Node {
   }
 
   @Override
+  public String toString() {
+    return MoreObjects.toStringHelper(this)
+        .add("nodeId", nodeId)
+        .add("xcoord", xcoord)
+        .add("ycoord", ycoord)
+        .add("floor", floor)
+        .add("building", building)
+        .add("nodeType", nodeType)
+        .add("longName", longName)
+        .add("shortName", shortName)
+        .toString();
+  }
+
+  @Override
   public boolean equals(final Object o) {
     if (this == o) {
       return true;
@@ -109,7 +136,7 @@ public class Node {
     Node node = (Node) o;
     return xcoord == node.xcoord
         && ycoord == node.ycoord
-        && floor == node.floor
+        && floor.equals(node.floor)
         && nodeId.equals(node.nodeId)
         && building.equals(node.building)
         && nodeType == node.nodeType

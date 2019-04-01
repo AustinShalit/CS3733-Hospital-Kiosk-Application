@@ -37,6 +37,7 @@ public class SanitationWindowController extends Controller {
     switchScenes("MainSanitationWindow.fxml", backButton.getScene().getWindow());
   }
 
+
   @FXML
   void onSubmitButtonAction() {
     submitButton.setText("Not yet implemented");
