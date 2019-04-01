@@ -39,10 +39,10 @@ public final class FileManager {
           + DIRECTORY_NAME);
       LOG_DIRECTORY = APP_DIRECTORY;
     }
-    if (!APP_DIRECTORY.mkdirs()) {
+    if (!APP_DIRECTORY.exists() && !APP_DIRECTORY.mkdirs()) {
       logger.warning("Unable to create application directory: " + APP_DIRECTORY.getAbsolutePath());
     }
-    if (!LOG_DIRECTORY.mkdirs()) {
+    if (!APP_DIRECTORY.exists() && !LOG_DIRECTORY.mkdirs()) {
       logger.warning("Unable to create log directory: " + LOG_DIRECTORY.getAbsolutePath());
     }
   }
