@@ -40,3 +40,23 @@ class SanitationRequestDaoDbTest {
     assertEquals(db.getSanitationRequest(id).get(), TEST_SANITATION_REQUEST);
   }
 }
+  void getTest() {
+    assertTrue(db.getSanitationRequest(123).isPresent());
+  }
+
+  @Test
+  void deleteTest() {
+    assertTrue(db.deleteSanitationRequest(TEST_Sanitation_Request));
+  }
+
+  @Test
+  void updateTest() {
+    assertTrue(db.updateSanitationRequest(Update_Sanitation_Request));
+  }
+
+  @Test
+  void getAllTest() {
+    db.insertSanitationRequest(TEST_Sanitation_Request2);
+    assertEquals(2, db.sanitationRequestDaoDb.getAll().size());
+  }
+}

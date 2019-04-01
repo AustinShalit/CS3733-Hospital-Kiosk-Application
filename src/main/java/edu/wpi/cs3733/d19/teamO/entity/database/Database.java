@@ -62,10 +62,21 @@ public class Database {
     return sanitationRequestDaoDb.get(id);
   }
 
+  public Set<SanitationRequest> getAllSanitationRequests() {
+    return sanitationRequestDaoDb.getAll();
+  }
+
   public boolean insertSanitationRequest(SanitationRequest sanitationRequest) {
     return sanitationRequestDaoDb.insert(sanitationRequest);
   }
 
+  public boolean deleteSanitationRequest(SanitationRequest sanitationRequest) {
+    return sanitationRequestDaoDb.delete(sanitationRequest);
+  }
+
+  public boolean updateSanitationRequest(SanitationRequest sanitationRequest) {
+    return sanitationRequestDaoDb.update(sanitationRequest);
+  }
 
   /*
    * Security

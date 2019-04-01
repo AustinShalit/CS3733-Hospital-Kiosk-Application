@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -47,9 +48,23 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
   }
 
   @Override
-  public Set<SanitationRequest> getAll() {
-    // todo
-    return new HashSet<>();
+  public Set<SanitationRequest> getAll() { // todo need Ken to check
+    try (Connection connection = dcf.getConnection()) {
+      PreparedStatement statement
+          = connection.prepareStatement("SELECT * FROM " + TABLE_NAME
+          + " INNER JOIN " + NodeDaoDb.TABLE_NAME + " ON " + TABLE_NAME + ".LOCATION" + "="
+          + NodeDaoDb.TABLE_NAME + ".NODEID");
+      try (ResultSet resultSet = statement.executeQuery()) {
+        Set<SanitationRequest> sanitationRequest = new HashSet<>();
+        while (resultSet.next()) {
+          sanitationRequest.add(extractSanitationRequestFromResultSet(resultSet));
+        }
+        return sanitationRequest;
+      }
+    } catch (SQLException ex) {
+      kLogger.log(Level.WARNING, "Failed to get SanitationRequests", ex);
+    }
+    return Collections.emptySet();
   }
 
   private SanitationRequest extractSanitationRequestFromResultSet(final ResultSet resultSet)
@@ -119,16 +134,41 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
   }
 
   @Override
-  public boolean update(SanitationRequest sanitationRequest) {
-    //todo
+  public boolean update(SanitationRequest sanitationRequest) {  // todo need Ken to check
+    try (Connection connection = dcf.getConnection()) {
+      PreparedStatement statement = connection.prepareStatement("UPDATE " + TABLE_NAME + " "
+          + "SET TIMERECIEVED=?,"
+          + "TIMECOMPLETED=?,"
+          + "LOCATION=?,"
+          + "SANITATIONTYPE=?,"
+          + "DESCRIPTION=?"
+          + "WHERE ID=?");
+      statement.setTimestamp(1,
+          Timestamp.valueOf(sanitationRequest.getTimetimeReceived()));
+      statement.setTimestamp(2,
+          Timestamp.valueOf(sanitationRequest.getTimeCompleted()));
+      // todo how to getLocation
+      statement.setString(3, sanitationRequest.getLocationNode().getNodeId());
+      statement.setString(4, sanitationRequest.getType().name());
+      statement.setString(5, sanitationRequest.getDescription());
+      statement.setInt(6, sanitationRequest.getId());
+      return statement.executeUpdate() == 1;
+    } catch (SQLException ex) {
+      kLogger.log(Level.WARNING, "Failed to update SanitationRequest", ex);
+    }
     return false;
   }
 
   @Override
-  public boolean delete(SanitationRequest sanitationRequest) {
-    // todo
+  public boolean delete(SanitationRequest sanitationRequest) {  // todo need Ken to check
+    try (Connection connection = dcf.getConnection()) {
+      PreparedStatement statement = connection.prepareStatement("DELETE FROM " + TABLE_NAME
+          + " WHERE ID=?");
+      statement.setInt(1, sanitationRequest.getId());
+      return statement.executeUpdate() == 1;
+    } catch (SQLException ex) {
+      kLogger.log(Level.WARNING, "FAILED to delete SanitationRequest");
+    }
     return false;
   }
-
-
 }
