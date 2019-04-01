@@ -34,7 +34,9 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement("SELECT * FROM " + TABLE_NAME
       + " INNER JOIN " + NodeDaoDb.TABLE_NAME
-      + " ON " + TABLE_NAME + ".ID" + "=" + NodeDaoDb.TABLE_NAME + ".NODEID");
+      + " ON " + TABLE_NAME + ".LOCATIONNODEID" + "=" + NodeDaoDb.TABLE_NAME + ".NODEID"
+      + " WHERE ID=?");
+      statement.setInt(1, id);
 
       try (ResultSet resultSet = statement.executeQuery()) {
         if(resultSet.next()) {
@@ -94,9 +96,10 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement("INSERT INTO " + TABLE_NAME
           + " VALUES (?, ?, ?, ?, ?, ?)");
+
       statement.setInt(1, sanitationRequest.getId());
       statement.setTimestamp(2,
-          Timestamp.valueOf(sanitationRequest.getTimeReceived()));
+          Timestamp.valueOf(sanitationRequest.getTimeRequested()));
       statement.setTimestamp(3,
           Timestamp.valueOf(sanitationRequest.getTimeCompleted()));
       statement.setString(4, sanitationRequest.getLocationNode().getNodeId());
@@ -115,7 +118,7 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
       if (!resultSet.next()) {
         kLogger.info("Table " + TABLE_NAME + " does not exist. Creating");
         PreparedStatement statement = connection.prepareStatement("CREATE TABLE " + TABLE_NAME
-            + "(ID VARCHAR(255) PRIMARY KEY,"
+            + "(ID INT PRIMARY KEY,"
             + "TIMERECIEVED TIMESTAMP,"
             + "TIMECOMPLETED TIMESTAMP,"
             + "LOCATIONNODEID VARCHAR(255),"
@@ -139,12 +142,12 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
       PreparedStatement statement = connection.prepareStatement("UPDATE " + TABLE_NAME + " "
           + "SET TIMERECIEVED=?,"
           + "TIMECOMPLETED=?,"
-          + "LOCATION=?,"
+          + "LOCATIONNODEID=?,"
           + "SANITATIONTYPE=?,"
           + "DESCRIPTION=?"
           + "WHERE ID=?");
       statement.setTimestamp(1,
-          Timestamp.valueOf(sanitationRequest.getTimetimeReceived()));
+          Timestamp.valueOf(sanitationRequest.getTimeRequested()));
       statement.setTimestamp(2,
           Timestamp.valueOf(sanitationRequest.getTimeCompleted()));
       // todo how to getLocation

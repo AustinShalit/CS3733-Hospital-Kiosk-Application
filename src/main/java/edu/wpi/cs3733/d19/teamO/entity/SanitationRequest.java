@@ -66,7 +66,7 @@ public class SanitationRequest extends ServiceRequest {
     if (!(o instanceof SanitationRequest)) return false;
     SanitationRequest that = (SanitationRequest) o;
     return getId() == that.getId() &&
-        getTimeReceived().equals(that.getTimeReceived()) &&
+        getTimeRequested().equals(that.getTimeRequested()) &&
         getTimeCompleted().equals(that.getTimeCompleted()) &&
         getLocationNode().equals(that.getLocationNode()) &&
         type == that.type &&
@@ -75,7 +75,18 @@ public class SanitationRequest extends ServiceRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(getId(), getTimeReceived(), getTimeCompleted(), getLocationNode(), type, description);
+    return Objects.hash(getId(), getTimeRequested(), getTimeCompleted(), getLocationNode(), type, description);
   }
 
+  @Override
+  public String toString() {
+    return "SanitationRequest{" +
+        "id=" + getId() +
+        ", timeRequested=" + getTimeRequested() +
+        ", timeCompleted=" + getTimeCompleted() +
+        ", locationNodeID=" + getLocationNode().getNodeId() +
+        ", type=" + type +
+        ", description='" + description + '\'' +
+        '}';
+  }
 }

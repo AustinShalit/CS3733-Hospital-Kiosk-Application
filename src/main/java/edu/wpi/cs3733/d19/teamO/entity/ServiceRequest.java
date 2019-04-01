@@ -6,14 +6,14 @@ class ServiceRequest {
 
   private final int id;
   private final Node locationNode;
-  private final LocalDateTime timeReceived;
+  private final LocalDateTime timeRequested;
   private final LocalDateTime timeCompleted;
 
   // constructor
-  ServiceRequest(int id, LocalDateTime timeReceived, LocalDateTime timeCompleted, Node locationNode) {
+  ServiceRequest(int id, LocalDateTime timeRequested, LocalDateTime timeCompleted, Node locationNode) {
     this.id = id;
     this.locationNode = locationNode;
-    this.timeReceived = timeReceived;
+    this.timeRequested = timeRequested;
     this.timeCompleted = timeCompleted;
   }
 
@@ -22,8 +22,8 @@ class ServiceRequest {
     return this.id;
   }
 
-  public LocalDateTime getTimeReceived() {
-    return this.timeReceived;
+  public LocalDateTime getTimeRequested() {
+    return this.timeRequested;
   }
 
   public LocalDateTime getTimeCompleted() {
