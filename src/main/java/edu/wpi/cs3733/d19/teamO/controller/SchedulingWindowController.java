@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d19.teamO.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -56,7 +57,7 @@ public class SchedulingWindowController extends Controller {
       chooser.setTitle("Choose CSV File");
       File file = chooser.showOpenDialog(new Stage());
 
-      List<Node> nodes = ncrw.readNodes(file.toPath());
+      List<Node> nodes = ncrw.readNodes(Files.newBufferedReader(file.toPath()));
       System.out.println(nodes);
       for (Node node : nodes) {
         database.insertNode(node);
