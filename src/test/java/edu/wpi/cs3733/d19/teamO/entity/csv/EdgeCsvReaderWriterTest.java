@@ -20,11 +20,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class EdgeCsvReaderWriterTest {
 
-  private static final Node NODE_A = new Node("A", 1, 2, 0, "B", Node.NodeType.HALL,
+  private static final Node NODE_A = new Node("A", 1, 2, "0", "B", Node.NodeType.HALL,
       "AL", "AS");
-  private static final Node NODE_B = new Node("B", 3, 4, 0, "B", Node.NodeType.HALL,
+  private static final Node NODE_B = new Node("B", 3, 4, "0", "B", Node.NodeType.HALL,
       "BL", "BS");
-  private static final Node NODE_C = new Node("C", 5, 6, 0, "B", Node.NodeType.HALL,
+  private static final Node NODE_C = new Node("C", 5, 6, "0", "B", Node.NodeType.HALL,
       "CL", "CS");
   private static final Edge EDGE_AB = new Edge("AB", NODE_A, NODE_B);
   private static final Edge EDGE_BC = new Edge("BC", NODE_B, NODE_C);
@@ -36,7 +36,7 @@ class EdgeCsvReaderWriterTest {
     try {
       TEST_DATA_FILE
           = Paths.get(EdgeCsvReaderWriterTest.class.getResource("test_edges.csv")
-              .toURI().getPath());
+          .toURI().getPath());
     } catch (URISyntaxException ex) {
       ex.printStackTrace();
     }

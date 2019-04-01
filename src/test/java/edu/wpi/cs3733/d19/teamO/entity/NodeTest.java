@@ -6,9 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class NodeTest {
 
-  private static final Node TEST_NODE1 = new Node("TEST", 0, 0, 0, "Building", Node.NodeType.CONF,
+  private static final Node TEST_NODE1 = new Node("TEST", 0, 0, "0", "Building", Node.NodeType.CONF,
       "Long Name", "Short Name");
-  private static final Node TEST_NODE2 = new Node("TEST", 0, 0, 0, "Building", Node.NodeType.CONF,
+  private static final Node TEST_NODE2 = new Node("TEST", 0, 0, "0", "Building", Node.NodeType.CONF,
       "Long Name", "Short Name");
 
   @Test

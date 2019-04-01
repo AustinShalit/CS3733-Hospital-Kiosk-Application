@@ -14,7 +14,7 @@ public class Database {
   private final EdgeDaoDb edgeDaoDb;
   private final SecurityRequestDaoDb securityRequestDaoDb;
 
-  Database(DatabaseConnectionFactoryEmbedded dcf) throws SQLException {
+  Database(DatabaseConnectionFactory dcf) throws SQLException {
     this.nodeDaoDb = new NodeDaoDb(dcf);
     this.edgeDaoDb = new EdgeDaoDb(dcf);
     this.securityRequestDaoDb = new SecurityRequestDaoDb(dcf);
