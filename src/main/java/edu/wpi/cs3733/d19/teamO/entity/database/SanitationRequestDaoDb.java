@@ -26,7 +26,7 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
   }
 
   SanitationRequestDaoDb() throws SQLException {
-    this(new DatabaseConnectionFactoryImpl());
+    this(new DatabaseConnectionFactoryEmbedded());
   }
 
   @Override
@@ -72,13 +72,13 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
   private SanitationRequest extractSanitationRequestFromResultSet(final ResultSet resultSet)
       throws SQLException {
     Node node = new Node(resultSet.getString("NODEID"),
-        resultSet.getInt("XCOORD"),
-        resultSet.getInt("YCOORD"),
-        resultSet.getInt("FLOOR"),
-        resultSet.getString("BUILDING"),
-        Node.NodeType.get(resultSet.getString("NODETYPE")),
-        resultSet.getString("LONGNAME"),
-        resultSet.getString("SHORTNAME"));
+        resultSet.getInt("x"),
+        resultSet.getInt("y"),
+        resultSet.getInt("floor"),
+        resultSet.getString("building"),
+        Node.NodeType.get(resultSet.getString("type")),
+        resultSet.getString("long_name"),
+        resultSet.getString("short_name"));
 
     return new SanitationRequest(
         resultSet.getInt("ID"),

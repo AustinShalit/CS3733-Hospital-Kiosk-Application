@@ -8,10 +8,10 @@ import java.util.logging.Logger;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-final class DatabaseConnectionFactoryImpl implements DatabaseConnectionFactory {
+final class DatabaseConnectionFactoryEmbedded implements DatabaseConnectionFactory {
 
   private static final Logger kLogger
-      = Logger.getLogger(DatabaseConnectionFactoryImpl.class.getName());
+      = Logger.getLogger(DatabaseConnectionFactoryEmbedded.class.getName());
 
   static final String EMBEDDED_PROTOCOL = "jdbc:derby:";
   static final String MEMORY_PROTOCOL = EMBEDDED_PROTOCOL + "memory:";
@@ -19,7 +19,7 @@ final class DatabaseConnectionFactoryImpl implements DatabaseConnectionFactory {
   private final String protocol;
   private final String name;
 
-  DatabaseConnectionFactoryImpl(final String protocol, final String name) {
+  DatabaseConnectionFactoryEmbedded(final String protocol, final String name) {
     this.protocol = checkNotNull(protocol);
     this.name = checkNotNull(name);
 
@@ -30,7 +30,7 @@ final class DatabaseConnectionFactoryImpl implements DatabaseConnectionFactory {
     }
   }
 
-  DatabaseConnectionFactoryImpl() {
+  DatabaseConnectionFactoryEmbedded() {
     this(MEMORY_PROTOCOL, "ProjectDb");
   }
 
