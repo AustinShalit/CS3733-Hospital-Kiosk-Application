@@ -15,7 +15,7 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 public class BreadthFirstSearchAlgorithm {
   private final Database database;
 
-  BreadthFirstSearchAlgorithm(Database database) {
+  public BreadthFirstSearchAlgorithm(Database database) {
     this.database = database;
   }
 
