@@ -6,7 +6,7 @@ import java.util.Objects;
 import com.google.common.base.MoreObjects;
 
 class ServiceRequest {
-  private int id;
+  private Integer id;
   private final LocalDateTime timeRequested;
   private final LocalDateTime timeCompleted;
   private final String whoCompleted;
@@ -14,7 +14,7 @@ class ServiceRequest {
   private final Node location;
 
   // constructor
-  ServiceRequest(int id, LocalDateTime timeRequested, LocalDateTime timeCompleted,
+  ServiceRequest(Integer id, LocalDateTime timeRequested, LocalDateTime timeCompleted,
                  String whoCompleted, String description, Node location) {
     this.id = id;
     this.timeRequested = timeRequested;
@@ -30,7 +30,7 @@ class ServiceRequest {
     this.id = id;
   }
 
-  public int getId() {
+  public Integer getId() {
     return id;
   }
 

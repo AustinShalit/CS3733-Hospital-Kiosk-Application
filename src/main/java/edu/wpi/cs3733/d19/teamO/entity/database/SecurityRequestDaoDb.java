@@ -85,14 +85,29 @@ class SecurityRequestDaoDb implements SecurityRequestDao {
   @Override
   public boolean insert(final SecurityRequest securityRequest) {
     try (Connection connection = dcf.getConnection()) {
-      PreparedStatement statement = connection.prepareStatement(
-          queries.getProperty("security_request.insert"));
-      statement.setInt(1, securityRequest.getId());
-      statement.setTimestamp(2, Timestamp.valueOf(securityRequest.getTimeRequested()));
-      statement.setTimestamp(3, Timestamp.valueOf(securityRequest.getTimeCompleted()));
-      statement.setString(4, securityRequest.getWhoCompleted());
-      statement.setString(5, securityRequest.getDescription());
-      statement.setString(6, securityRequest.getLocationNode().getNodeId());
+      PreparedStatement statement;
+      if (securityRequest.getId() == null) {
+        statement = connection.prepareStatement(
+            queries.getProperty("security_request.insert_implicit_id"));
+      } else {
+        statement = connection.prepareStatement(
+            queries.getProperty("security_request.insert"));
+      }
+      int offset = securityRequest.getId() == null ? 0 : 1;
+      if (securityRequest.getId() != null) {
+        statement.setInt(1 + offset, securityRequest.getId());
+      }
+      statement.setTimestamp(
+          1 + offset,
+          Timestamp.valueOf(securityRequest.getTimeRequested())
+      );
+      statement.setTimestamp(
+          2 + offset,
+          securityRequest.getTimeCompleted() != null
+              ? Timestamp.valueOf(securityRequest.getTimeCompleted()) : null);
+      statement.setString(3 + offset, securityRequest.getWhoCompleted());
+      statement.setString(4 + offset, securityRequest.getDescription());
+      statement.setString(5 + offset, securityRequest.getLocationNode().getNodeId());
 
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
@@ -137,7 +152,8 @@ class SecurityRequestDaoDb implements SecurityRequestDao {
     return new SecurityRequest(
         resultSet.getInt("id"),
         resultSet.getTimestamp("time_requested").toLocalDateTime(),
-        resultSet.getTimestamp("time_completed").toLocalDateTime(),
+        resultSet.getTimestamp("time_completed") != null
+            ? resultSet.getTimestamp("time_completed").toLocalDateTime() : null,
         resultSet.getString("who_completed"),
         resultSet.getString("description"),
         nodeDaoDb.get(resultSet
