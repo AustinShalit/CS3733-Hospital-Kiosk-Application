@@ -11,7 +11,6 @@ import com.jfoenix.controls.JFXTimePicker;
 
 import edu.wpi.cs3733.d19.teamO.entity.SchedulingRequest;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
-import edu.wpi.cs3733.d19.teamO.entity.database.NodeDaoDb;
 import edu.wpi.cs3733.d19.teamO.entity.database.SchedulingRequestDaoDb;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

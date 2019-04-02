@@ -3,7 +3,7 @@ package edu.wpi.cs3733.d19.teamO.controller;
 import com.jfoenix.controls.JFXComboBox;
 
 import edu.wpi.cs3733.d19.teamO.entity.Node;
-import edu.wpi.cs3733.d19.teamO.entity.database.NodeDaoDb;
+import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -17,7 +17,7 @@ import java.sql.SQLException;
 
 public class SecurityWindowController extends Controller {
 
-  private NodeDaoDb nodeDao;
+  private Database database;
 
   @FXML
   private Button backButton;
@@ -49,8 +49,8 @@ public class SecurityWindowController extends Controller {
         "Place 4"
     );
     */
-    nodeDao = new NodeDaoDb();
-    insertlocationdropdown.getItems().setAll(nodeDao.getAll());
+    database = new Database();
+    insertlocationdropdown.getItems().setAll(database.getAllNodes());
     insertlocationdropdown.setCellFactory(new Callback<ListView<Node>, ListCell<Node>>() {
       @Override
       public ListCell<Node> call(ListView<Node> param) {

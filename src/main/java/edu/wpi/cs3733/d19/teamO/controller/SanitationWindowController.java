@@ -4,7 +4,6 @@ import java.sql.SQLException;
 
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
-import edu.wpi.cs3733.d19.teamO.entity.database.NodeDaoDb;
 import javafx.fxml.FXML;
 
 

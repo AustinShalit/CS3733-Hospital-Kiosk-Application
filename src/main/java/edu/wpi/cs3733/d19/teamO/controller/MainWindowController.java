@@ -1,7 +1,10 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
 import com.jfoenix.controls.JFXProgressBar;
+
+import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
+import edu.wpi.cs3733.d19.teamO.entity.csv.EdgeCsvReaderWriter;
 import edu.wpi.cs3733.d19.teamO.entity.csv.NodeCsvReaderWriter;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 import javafx.event.ActionEvent;
@@ -34,6 +37,8 @@ public class MainWindowController extends Controller {
   @FXML
   private Button nodeImportButton;
   @FXML
+  private Button edgeImportButton;
+  @FXML
   private Label nodeImportInProgress;
 
   private Database database;
@@ -65,28 +70,48 @@ public class MainWindowController extends Controller {
 
   @FXML
   void nodeImportButtonAction(ActionEvent e) throws IOException {
-    if (e.getSource() == nodeImportButton) {
+    // Create and configure file chooser
+    final FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Choose Node CSV File");
+    fileChooser.setInitialDirectory(
+        new File(System.getProperty("user.home"))
+    );
+    fileChooser.getExtensionFilters().addAll(
+        new FileChooser.ExtensionFilter("CSV", "*.csv")
+    );
 
-      // Create and configure file chooser
-      final FileChooser fileChooser = new FileChooser();
-      fileChooser.setTitle("Choose CSV File");
-      fileChooser.setInitialDirectory(
-              new File(System.getProperty("user.home"))
-      );
-      fileChooser.getExtensionFilters().addAll(
-              new FileChooser.ExtensionFilter("CSV", "*.csv")
-      );
+    NodeCsvReaderWriter ncrw = new NodeCsvReaderWriter();
+    File file = fileChooser.showOpenDialog(new Stage());
 
-      NodeCsvReaderWriter ncrw = new NodeCsvReaderWriter();
-      File file = fileChooser.showOpenDialog(new Stage());
+    List<Node> nodes = ncrw.readNodes(Files.newBufferedReader(file.toPath()));
 
-      List<Node> nodes = ncrw.readNodes(Files.newBufferedReader(file.toPath()));
-
-      for (Node node : nodes) {
-        database.insertNode(node);
-      }
-      nodeImportInProgress.setText("Nodes Imported");
+    for (Node node : nodes) {
+      database.insertNode(node);
     }
+    nodeImportInProgress.setText("Nodes Imported");
+
+  }
+
+  @FXML
+  void edgeImportButtonAction(ActionEvent e) throws IOException {
+    // Create and configure file chooser
+    final FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Choose Edge CSV File");
+    fileChooser.setInitialDirectory(
+        new File(System.getProperty("user.home"))
+    );
+    fileChooser.getExtensionFilters().addAll(
+        new FileChooser.ExtensionFilter("CSV", "*.csv")
+    );
+
+    EdgeCsvReaderWriter ecrw = new EdgeCsvReaderWriter(database);
+    File file = fileChooser.showOpenDialog(new Stage());
+    List<Edge> edges = ecrw.readEdges(Files.newBufferedReader(file.toPath()));
+
+    for (Edge edge : edges) {
+      database.insertEdge(edge);
+    }
+    nodeImportInProgress.setText("Edges Imported");
   }
 
   @FXML

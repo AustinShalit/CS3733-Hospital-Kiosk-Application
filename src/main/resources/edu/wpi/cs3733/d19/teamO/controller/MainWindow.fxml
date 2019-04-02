@@ -60,8 +60,9 @@
         </VBox>
       <Pane layoutX="380.0" prefHeight="400.0" prefWidth="218.0">
          <children>
-            <Button fx:id="nodeImportButton" layoutX="53.0" layoutY="136.0" mnemonicParsing="false" onAction="#nodeImportButtonAction" text="Get Nodes" />
-            <Label fx:id="nodeImportInProgress" layoutX="44.0" layoutY="179.0" prefHeight="21.0" prefWidth="130.0" />
+            <Button fx:id="nodeImportButton" layoutX="14.0" layoutY="135.0" mnemonicParsing="false" onAction="#nodeImportButtonAction" text="Get Nodes" />
+            <Label fx:id="nodeImportInProgress" contentDisplay="CENTER" layoutX="16.0" layoutY="179.0" prefHeight="21.0" prefWidth="180.0" />
+            <Button fx:id="edgeImportButton" layoutX="109.0" layoutY="135.0" mnemonicParsing="false" onAction="#edgeImportButtonAction" text="Get Edges" />
          </children>
       </Pane>
     </children>
