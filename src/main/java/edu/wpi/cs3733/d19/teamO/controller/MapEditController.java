@@ -83,6 +83,7 @@ public class MapEditController extends Controller {
       stage.initModality(Modality.APPLICATION_MODAL);
       stage.initOwner(delete.getScene().getWindow());
       stage.showAndWait();
+      map.addNodesToPane(database.getAllNodes());
     } else if (event.getSource() == connect) {
       stage = new Stage();
       root = FXMLLoader.load(getClass().getResource("MapEditConnect.fxml"));
@@ -99,6 +100,7 @@ public class MapEditController extends Controller {
       stage.initModality(Modality.APPLICATION_MODAL);
       stage.initOwner(update.getScene().getWindow());
       stage.showAndWait();
+      map.addNodesToPane(database.getAllNodes());
     }
   }
 
