@@ -1,19 +1,14 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
 import java.sql.SQLException;
-import java.util.Set;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXRadioButton;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ToggleGroup;
-import javafx.util.StringConverter;
 
-import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 public class NavigationWindowController extends Controller {
