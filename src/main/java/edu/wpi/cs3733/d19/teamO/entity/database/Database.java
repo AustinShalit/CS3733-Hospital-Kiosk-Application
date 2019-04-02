@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
+import edu.wpi.cs3733.d19.teamO.entity.Login;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
@@ -16,6 +17,7 @@ public class Database {
   private final EdgeDao edgeDao;
   private final SecurityRequestDao securityRequestDao;
   private final SanitationRequestDao sanitationRequestDao;
+  private final LoginDao loginDao;
 
 
   Database(DatabaseConnectionFactory dcf) throws SQLException {
@@ -23,6 +25,7 @@ public class Database {
     this.edgeDao = new EdgeDaoDb(dcf);
     this.securityRequestDao = new SecurityRequestDaoDb(dcf);
     this.sanitationRequestDao = new SanitationRequestDaoDb(dcf);
+    this.loginDao = new LoginDaoDb(dcf);
   }
 
   /**
@@ -135,6 +138,28 @@ public class Database {
     return securityRequestDao.update(securityRequest);
   }
 
+  /*
+   * Login
+   */
+  public Optional<Login> getLogin(String username) {
+    return loginDao.get(username);
+  }
+
+  public Set<Login> getAllLogin() {
+    return loginDao.getAll();
+  }
+
+  public boolean insertLogin(Login login) {
+    return loginDao.insert(login);
+  }
+
+  public boolean deleteLogin(Login login) {
+    return loginDao.delete(login);
+  }
+
+  public boolean updateLogin(Login login) {
+    return loginDao.update(login);
+  }
 
   /*
    * Scheduling

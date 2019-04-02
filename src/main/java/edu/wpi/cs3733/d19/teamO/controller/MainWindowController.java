@@ -16,6 +16,8 @@ public class MainWindowController extends Controller {
   private Button securityRequestButton;
   @FXML
   private Button schedulingButton;
+  @FXML
+  private Button logoutButton;
 
   @FXML
   void navigationButtonAction(ActionEvent event) {
@@ -44,5 +46,10 @@ public class MainWindowController extends Controller {
     if (event.getSource() == schedulingButton) {
       switchScenes("SchedulingWindow.fxml", schedulingButton.getScene().getWindow());
     }
+  }
+
+  @FXML
+  void logoutButtonAction() {
+    switchScenes("LoginWindow.fxml", schedulingButton.getScene().getWindow());
   }
 }

@@ -5,6 +5,7 @@ import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -28,5 +29,29 @@ class Controller {
     Scene scene = new Scene(root);
     stage.setScene(scene);
     stage.show();
+  }
+
+  /**
+   * Show an information alert, and wait for user to close it.
+   */
+  protected void showInformationAlert(String titleText, String contentText) {
+    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    alert.setTitle(titleText);
+    alert.setHeaderText(null);
+    alert.setContentText(contentText);
+
+    alert.showAndWait();
+  }
+
+  /**
+   * Show an error alert, and wait for user to close it.
+   */
+  protected void showErrorAlert(String titleText, String headerText) {
+    Alert alert = new Alert(Alert.AlertType.ERROR);
+    alert.setTitle(titleText);
+    alert.setHeaderText(headerText);
+    alert.setContentText(null);
+
+    alert.showAndWait();
   }
 }
