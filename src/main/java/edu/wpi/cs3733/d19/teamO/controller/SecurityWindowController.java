@@ -1,11 +1,7 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.List;
 
 import com.jfoenix.controls.JFXComboBox;
 
@@ -16,12 +12,9 @@ import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
-import edu.wpi.cs3733.d19.teamO.entity.csv.NodeCsvReaderWriter;
 import javafx.util.Callback;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
@@ -101,24 +94,6 @@ public class SecurityWindowController extends Controller {
   }
 
   @FXML
-  void pickFile(ActionEvent e) throws IOException {
-    if (e.getSource() == filePicker) {
-      FileChooser chooser = new FileChooser();
-      NodeCsvReaderWriter ncrw = new NodeCsvReaderWriter();
-      chooser.setTitle("Choose CSV File");
-      File file = chooser.showOpenDialog(new Stage());
-
-      List<Node> nodes = ncrw.readNodes(Files.newBufferedReader(file.toPath()));
-      System.out.println(nodes);
-      for (Node node : nodes) {
-        database.insertNode(node);
-        System.out.println(node.getLongName());
-      }
-
-    }
-  }
-
-  @FXML
   void sendAlert(ActionEvent e) {
     if (e.getSource() == alertbutton) {
       Node node = database.getNode(insertlocationdropdown.getValue().toString()).get();
@@ -132,6 +107,5 @@ public class SecurityWindowController extends Controller {
           ));
     }
   }
-
 
 }
