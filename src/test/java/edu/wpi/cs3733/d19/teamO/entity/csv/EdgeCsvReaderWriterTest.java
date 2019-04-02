@@ -1,9 +1,9 @@
 package edu.wpi.cs3733.d19.teamO.entity.csv;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.Files;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -30,13 +30,12 @@ class EdgeCsvReaderWriterTest {
   private static final Edge EDGE_BC = new Edge("BC", NODE_B, NODE_C);
   private static final Edge EDGE_CA = new Edge("CA", NODE_C, NODE_A);
 
-  private static Path TEST_DATA_FILE;
+  private static File TEST_DATA_FILE;
 
   static {
     try {
       TEST_DATA_FILE
-          = Paths.get(EdgeCsvReaderWriterTest.class.getResource("test_edges.csv")
-          .toURI().getPath());
+          = new File(EdgeCsvReaderWriterTest.class.getResource("test_edges.csv").toURI());
     } catch (URISyntaxException ex) {
       ex.printStackTrace();
     }
@@ -55,7 +54,8 @@ class EdgeCsvReaderWriterTest {
   @Test
   void readEdgesTest() throws IOException {
     EdgeCsvReaderWriter edgeCsvReaderWriter = new EdgeCsvReaderWriter(database);
-    List<Edge> edges = edgeCsvReaderWriter.readEdges(TEST_DATA_FILE);
+    List<Edge> edges
+        = edgeCsvReaderWriter.readEdges(Files.newBufferedReader(TEST_DATA_FILE.toPath()));
 
     assertAll(
         () -> assertEquals(3, edges.size()),

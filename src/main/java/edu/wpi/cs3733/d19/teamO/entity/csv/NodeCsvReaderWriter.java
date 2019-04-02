@@ -1,10 +1,7 @@
 package edu.wpi.cs3733.d19.teamO.entity.csv;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.Reader;
+import java.io.Writer;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -95,14 +92,13 @@ public class NodeCsvReaderWriter {
   /**
    * Read in the provided file as a List of Nodes.
    *
-   * @param csv The file to read from
+   * @param reader The input stream to read from
    * @return A list of Nodes in the CSV file
-   * @throws FileNotFoundException If the file does not exist
    */
-  public List<Node> readNodes(final Path csv) throws IOException {
-    checkNotNull(csv);
+  public List<Node> readNodes(final Reader reader) {
+    checkNotNull(reader);
 
-    return new CsvToBeanBuilder<NodeVo>(Files.newBufferedReader(csv))
+    return new CsvToBeanBuilder<NodeVo>(reader)
         .withType(NodeVo.class)
         .build()
         .parse()
@@ -114,17 +110,16 @@ public class NodeCsvReaderWriter {
   /**
    * Write provided nodes to file.
    *
-   * @param csv   The file to write to
-   * @param nodes The nodes to write
+   * @param writer The output stream to write to
+   * @param nodes  The nodes to write
    */
-  public void writeNodes(final Path csv, final Collection<Node> nodes) throws IOException,
-      CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
-    checkNotNull(csv);
+  public void writeNodes(final Writer writer, final Collection<Node> nodes)
+      throws CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
+    checkNotNull(writer);
     checkNotNull(nodes);
 
     StatefulBeanToCsv<NodeVo> beanToCsv
-        = new StatefulBeanToCsvBuilder<NodeVo>(Files.newBufferedWriter(csv,
-        Charset.forName("UTF-8"))).build();
+        = new StatefulBeanToCsvBuilder<NodeVo>(writer).build();
     beanToCsv.write(nodes.stream().map(NodeVo::fromNode).collect(Collectors.toList()));
   }
 }

@@ -1,10 +1,7 @@
 package edu.wpi.cs3733.d19.teamO.entity.csv;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.Reader;
+import java.io.Writer;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -79,14 +76,13 @@ public class EdgeCsvReaderWriter {
   /**
    * Read in the provided file as a List of Edges into the database.
    *
-   * @param csv The file to read from
+   * @param reader The input stream to read from
    * @return A list of Edges in the CSV file
-   * @throws FileNotFoundException If the file does not exist
    */
-  public List<Edge> readEdges(final Path csv) throws IOException {
-    checkNotNull(csv);
+  public List<Edge> readEdges(final Reader reader) {
+    checkNotNull(reader);
 
-    return new CsvToBeanBuilder<EdgeVo>(Files.newBufferedReader(csv))
+    return new CsvToBeanBuilder<EdgeVo>(reader)
         .withType(EdgeVo.class)
         .build()
         .parse()
@@ -98,17 +94,16 @@ public class EdgeCsvReaderWriter {
   /**
    * Write provided nodes to file.
    *
-   * @param csv   The file to write to
+   * @param writer The output stream to write to
    * @param edges The edges to write
    */
-  public void writeNodes(final Path csv, final Collection<Edge> edges) throws IOException,
-      CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
-    checkNotNull(csv);
+  public void writeNodes(final Writer writer, final Collection<Edge> edges)
+      throws CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
+    checkNotNull(writer);
     checkNotNull(edges);
 
     StatefulBeanToCsv<EdgeVo> beanToCsv
-        = new StatefulBeanToCsvBuilder<EdgeVo>(Files.newBufferedWriter(csv,
-        Charset.forName("UTF-8"))).build();
+        = new StatefulBeanToCsvBuilder<EdgeVo>(writer).build();
     beanToCsv.write(edges.stream().map(EdgeVo::fromEdge).collect(Collectors.toList()));
   }
 }
