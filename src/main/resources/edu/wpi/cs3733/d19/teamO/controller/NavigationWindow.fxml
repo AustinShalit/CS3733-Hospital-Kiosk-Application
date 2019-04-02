@@ -15,7 +15,7 @@
     <children>
         <JFXButton fx:id="addAStopButton" alignment="CENTER" disable="true" layoutX="446.0" layoutY="159.0" ripplerFill="#d4d2d136" style="-fx-border-color: #d4d2d1;" text="Add a Stop" textAlignment="CENTER" />
         <JFXButton fx:id="backButton" layoutX="14.0" layoutY="14.0" onAction="#onBackButtonAction" ripplerFill="#d4d2d136" style="-fx-border-color: #d4d2d1;" text="Back" />
-        <JFXButton fx:id="genPathButton" layoutX="439.0" layoutY="340.0" ripplerFill="#b5b5b536" style="-fx-background-color: e4e4e4;" text="Generate Path" />
+        <JFXButton fx:id="genPathButton" layoutX="439.0" layoutY="340.0" onAction="#onGenPathButtonAction" ripplerFill="#b5b5b536" style="-fx-background-color: e4e4e4;" text="Generate Path" />
         <JFXClippedPane layoutX="386.0" layoutY="41.0" style="-fx-border-color: #d4d2d1;">
             <children>
                 <VBox alignment="CENTER_RIGHT">

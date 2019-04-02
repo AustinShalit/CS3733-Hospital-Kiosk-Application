@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ToggleGroup;
 import javafx.util.StringConverter;
 
+import edu.wpi.cs3733.d19.teamO.BreadthFirstSearchAlgorithm;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
@@ -69,6 +70,11 @@ public class NavigationWindowController extends Controller {
 
       @Override
       public Node fromString(String string) {
+        for(Node node: nodeSet) {
+          if(node.getShortName().equals(string)) {
+            return node;
+          }
+        }
         return null;
       }
     };
@@ -117,9 +123,9 @@ public class NavigationWindowController extends Controller {
   }
 
   @FXML
-  void setGenPathButtonAction() {
-    //BreadthFirstSearchAlgorithm bfsAlgorithm = new BreadthFirstSearchAlgorithm(new Database());
-    // bfsAlgorithm.getPath();
+  void onGenPathButtonAction() throws SQLException {
+    BreadthFirstSearchAlgorithm bfsAlgorithm = new BreadthFirstSearchAlgorithm(new Database());
+    bfsAlgorithm.getPath(((Node) startSelLocJFXCombo.getValue()), ((Node) endSelLocJFXCombo.getValue()));
   }
 
   void validateGenButton() {
