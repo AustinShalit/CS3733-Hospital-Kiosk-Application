@@ -17,6 +17,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import edu.wpi.cs3733.d19.teamO.entity.Node;
+import javafx.scene.text.Text;
+import javafx.util.Callback;
 
 public class SchedulingWindowController extends Controller {
 
@@ -70,6 +72,27 @@ public class SchedulingWindowController extends Controller {
   public void initialize() throws SQLException {
     nodeDao = new NodeDaoDb();
     roomComboBox.getItems().addAll(nodeDao.getAll());
+    roomComboBox.setCellFactory(new Callback<ListView<Node>, ListCell<Node>>() {
+      @Override
+      public ListCell<Node> call(ListView<Node> param) {
+        return new ListCell<Node>() {
+          private final Text text; {
+            setContentDisplay(ContentDisplay.CENTER);
+            text = new Text();
+          }
+          @Override
+          protected void updateItem(Node item, boolean empty) {
+            super.updateItem(item, empty);
+            if (item == null || empty) {
+              setGraphic(null);
+            } else {
+              text.setText(item.getLongName());
+              setGraphic(text);
+            }
+          }
+        };
+      }
+    });
 
   }
 
