@@ -45,10 +45,9 @@ public class SanitationViewWindowController extends Controller {
 
     idTableCol.setCellValueFactory(new PropertyValueFactory<>("id"));
     timeRequestedCol.setCellValueFactory(new PropertyValueFactory<>("timeRequested"));
-    timeCompletedCol.setCellValueFactory(new PropertyValueFactory<>("timeCompleted"));
+    timeCompletedCol.setCellValueFactory(new PropertyValueFactory<>("timeCompletedString"));
     whoCompletedCol.setCellValueFactory(new PropertyValueFactory<>("whoCompleted"));
-    // todo get just the node id, not the entire node object
-    locationTableCol.setCellValueFactory(new PropertyValueFactory<>("locationNode"));
+    locationTableCol.setCellValueFactory(new PropertyValueFactory<>("locationNodeString"));
     categoryTableCol.setCellValueFactory(new PropertyValueFactory<>("type"));
     descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
 

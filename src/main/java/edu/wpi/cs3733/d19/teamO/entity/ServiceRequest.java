@@ -12,8 +12,11 @@ class ServiceRequest {
   private final String whoCompleted;
   private final String description;
   private final Node location;
+  private final String locationNodeId;
 
-  // constructor
+  private final LocalDateTime defaultTime = LocalDateTime.of(1, 1, 1, 1, 1);
+
+  // constructors
   ServiceRequest(int id, LocalDateTime timeRequested, LocalDateTime timeCompleted,
                  String whoCompleted, String description, Node location) {
     this.id = id;
@@ -22,6 +25,29 @@ class ServiceRequest {
     this.whoCompleted = whoCompleted;
     this.description = description;
     this.location = location;
+    this.locationNodeId = location.getNodeId();
+  }
+
+  ServiceRequest(int id, LocalDateTime timeRequested, String description, Node locationNode) {
+    this.id = id;
+    this.timeRequested = timeRequested;
+    this.description = description;
+    this.location = locationNode;
+
+    this.timeCompleted = defaultTime;
+    this.whoCompleted = "";
+    this.locationNodeId = location.getNodeId();
+  }
+
+  ServiceRequest(LocalDateTime timeRequested, String description, Node locationNode) {
+    this.timeRequested = timeRequested;
+    this.description = description;
+    this.location = locationNode;
+
+    this.id = -1;
+    this.timeCompleted = defaultTime;
+    this.whoCompleted = "";
+    this.locationNodeId = location.getNodeId();
   }
 
   // getters and setters
@@ -42,6 +68,18 @@ class ServiceRequest {
     return timeCompleted;
   }
 
+  /**
+   * Return the time completed represented as a string, unless it equals
+   * the default time defined for this project.
+   */
+  public String getTimeCompletedString() {
+    if (timeCompleted.equals(defaultTime)) {
+      return "";
+    } else {
+      return timeCompleted.toString();
+    }
+  }
+
   public String getWhoCompleted() {
     return whoCompleted;
   }
@@ -50,11 +88,19 @@ class ServiceRequest {
     return description;
   }
 
-  // functions
   public Node getLocationNode() {
     return location;
   }
 
+  public String getLocationNodeString() {
+    return location.getNodeId();
+  }
+
+  public String getLocationNodeId() {
+    return locationNodeId;
+  }
+
+  // functions
   @Override
   public String toString() {
     return MoreObjects.toStringHelper(this)

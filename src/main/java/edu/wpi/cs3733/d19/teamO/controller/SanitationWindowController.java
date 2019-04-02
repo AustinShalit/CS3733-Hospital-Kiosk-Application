@@ -1,7 +1,10 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Locale;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -31,9 +34,18 @@ public class SanitationWindowController extends Controller {
   Database db;
 
   @FXML
-  void initialize() throws SQLException {
-    categoryComboBox.getItems().setAll(SanitationRequest.SanitationRequestType.values());
+  void initialize() throws SQLException, IOException {
     db = new Database();
+    //    Set<Node> nodes = db.getAllNodes();
+
+    // read from file for now, until database is populated
+    List<Node> nodes = getNodesFromFile();
+    for (Node n : nodes) {
+      locationComboBox.getItems().add(n.getNodeId());
+      db.insertNode(n);
+    }
+
+    categoryComboBox.getItems().setAll(SanitationRequest.SanitationRequestType.values());
   }
 
 
@@ -45,24 +57,26 @@ public class SanitationWindowController extends Controller {
 
   @FXML
   void onSubmitButtonAction() {
-    SanitationRequest sr = parseUserSanitationRequest();
+    SanitationRequest sr = parseUserSanitationRequestTest();
     db.insertSanitationRequest(sr);
   }
 
   /**
-   * Todo this method should parse data from user input. Right now it is using test data
-   * @return
+   * Parse input the user has inputted for the sanitation request.
+   *
+   * @return A SanitationRequest representing the users input.
    */
-  private SanitationRequest parseUserSanitationRequest() {
-    Node testNode = new Node("123", 0, 1, "3", "Fuller",
-        Node.NodeType.DEPT, "yolo", "swagger");
-    db.insertNode(testNode);
+  private SanitationRequest parseUserSanitationRequestTest() {
+    LocalDateTime now = LocalDateTime.now();
+    String nodeId = locationComboBox.getValue().toString();
+    Node node = db.getNode(nodeId).get();
 
-    SanitationRequest testSR = new SanitationRequest(12345, LocalDateTime.now(),
-        LocalDateTime.now(), testNode, "Jill",
-        SanitationRequest.SanitationRequestType.BEDDING,
-        "These sheets is messed up");
+    String type = categoryComboBox.getValue().toString().toUpperCase(new Locale("EN"));
+    SanitationRequest.SanitationRequestType srt =
+        SanitationRequest.SanitationRequestType.valueOf(type);
 
-    return testSR;
+    String description = descriptionTextArea.getText();
+
+    return new SanitationRequest(now, node, srt, description);
   }
 }

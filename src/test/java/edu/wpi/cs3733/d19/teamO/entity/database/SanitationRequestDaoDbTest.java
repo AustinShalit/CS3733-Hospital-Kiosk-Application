@@ -31,12 +31,12 @@ class SanitationRequestDaoDbTest {
       "SHORTNAME");
 
   private static final SanitationRequest testSanitationRequest1 =
-      new SanitationRequest(12345, LocalDateTime.now(), LocalDateTime.now(), testNode1,
+      new SanitationRequest(1, LocalDateTime.now(), LocalDateTime.now(), testNode1,
           "Bob", SanitationRequest.SanitationRequestType.BEDDING,
           "This is a description");
 
   private static final SanitationRequest testSanitationRequest2 =
-      new SanitationRequest(123456, LocalDateTime.now(), LocalDateTime.now(), testNode2,
+      new SanitationRequest(2, LocalDateTime.now(), LocalDateTime.now(), testNode2,
           "Bill",
           SanitationRequest.SanitationRequestType.BEDDING, "This is a description");
 
@@ -120,12 +120,6 @@ class SanitationRequestDaoDbTest {
   }
 
   @Test
-  void insertTwiceTest() {
-    sanitationDao.insert(testSanitationRequest1);
-    assertFalse(sanitationDao.insert(testSanitationRequest1));
-  }
-
-  @Test
   void deleteTest() {
     sanitationDao.insert(testSanitationRequest1);
     assertTrue(sanitationDao.delete(testSanitationRequest1));
@@ -134,7 +128,7 @@ class SanitationRequestDaoDbTest {
   @Test
   void deleteNotExistingTest() {
     assertFalse(sanitationDao.delete(new SanitationRequest(987, null,
-        null, null, null, null, null)));
+        null, testNode1, null, null, null)));
   }
 
   @Test
@@ -166,13 +160,6 @@ class SanitationRequestDaoDbTest {
     sanitationDao.insert(testSanitationRequest2);
 
     assertEquals(2, sanitationDao.getAll().size());
-  }
-
-  @Test
-  void getAllResultSameTest() {
-    sanitationDao.insert(testSanitationRequest1);
-
-    assertEquals(testSanitationRequest1, sanitationDao.getAll().toArray()[0]);
   }
 
   @Test
