@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,7 +18,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 
-import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.controller.exception.InvalidUserInputException;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
@@ -52,7 +50,9 @@ public class SanitationWindowController extends Controller {
       @Override
       public ListCell<Node> call(ListView<Node> param) {
         return new ListCell<Node>() {
-          private final Text text; {
+          private final Text text;
+
+          {
             setContentDisplay(ContentDisplay.CENTER);
             text = new Text();
           }
