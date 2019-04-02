@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -83,10 +84,16 @@ public class MapEditController extends Controller {
   private AnchorPane tower1;
   @FXML
   private ComboBox<Node.NodeType> nodeType;
+  @FXML
+  private  MapViewController mapController;
 
   public MapEditController() throws SQLException {
   }
 
+  @FXML
+  void initialize() throws IOException {
+    mapController.setMapImage(new Image(MapEditController.class.getResource("01_thefirstfloor.png").openStream()));
+  }
 
   @FXML
   private void comboBox() {
@@ -98,10 +105,10 @@ public class MapEditController extends Controller {
     Stage stage;
     Parent root;
     if (event.getSource() == add) {
-
       stage = new Stage();
       root = FXMLLoader.load(getClass().getResource("MapEditAdd.fxml"));
       stage.setScene(new Scene(root));
+      stage.setTitle("Team O Kiosk Application");
       stage.initModality(Modality.APPLICATION_MODAL);
       stage.initOwner(add.getScene().getWindow());
       stage.showAndWait();
@@ -110,7 +117,7 @@ public class MapEditController extends Controller {
       stage = new Stage();
       root = FXMLLoader.load(getClass().getResource("MapEditDelete.fxml"));
       stage.setScene(new Scene(root));
-      stage.setTitle("My modal window");
+      stage.setTitle("Team O Kiosk Application");
       stage.initModality(Modality.APPLICATION_MODAL);
       stage.initOwner(delete.getScene().getWindow());
       stage.showAndWait();
@@ -118,7 +125,7 @@ public class MapEditController extends Controller {
       stage = new Stage();
       root = FXMLLoader.load(getClass().getResource("MapEditConnect.fxml"));
       stage.setScene(new Scene(root));
-      stage.setTitle("My modal window");
+      stage.setTitle("Team O Kiosk Application");
       stage.initModality(Modality.APPLICATION_MODAL);
       stage.initOwner(connect.getScene().getWindow());
       stage.showAndWait();
@@ -126,7 +133,7 @@ public class MapEditController extends Controller {
       stage = new Stage();
       root = FXMLLoader.load(getClass().getResource("MapEditUpdate.fxml"));
       stage.setScene(new Scene(root));
-      stage.setTitle("My modal window");
+      stage.setTitle("Team O Kiosk Application");
       stage.initModality(Modality.APPLICATION_MODAL);
       stage.initOwner(update.getScene().getWindow());
       stage.showAndWait();

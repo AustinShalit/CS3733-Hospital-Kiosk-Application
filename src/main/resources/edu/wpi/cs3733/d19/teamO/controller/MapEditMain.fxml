@@ -3,73 +3,57 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0"
-            xmlns="http://javafx.com/javafx/8.0.171"
-            fx:controller="edu.wpi.cs3733.d19.teamO.controller.MapEditController">
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.MapEditController">
     <children>
         <VBox alignment="TOP_CENTER" layoutX="414.0" layoutY="77.0" spacing="20.0">
             <children>
-                <JFXButton fx:id="add" buttonType="RAISED" layoutX="131.0" layoutY="157.0"
-                           onAction="#mainButtonAction" ripplerFill="BLUE" text="Add Node"
-                           textFill="#0900ff">
+                <JFXButton fx:id="add" buttonType="RAISED" layoutX="131.0" layoutY="157.0" onAction="#mainButtonAction" ripplerFill="BLUE" text="Add Node" textFill="#0900ff">
                     <font>
-                        <Font name="Calibri Bold" size="22.0"/>
+                        <Font name="Calibri Bold" size="22.0" />
                     </font>
                 </JFXButton>
-                <JFXButton fx:id="delete" layoutX="131.0" layoutY="200.0"
-                           onAction="#mainButtonAction" text="Delete Node" textFill="#0900ff">
+                <JFXButton fx:id="delete" layoutX="131.0" layoutY="200.0" onAction="#mainButtonAction" text="Delete Node" textFill="#0900ff">
                     <font>
-                        <Font name="Calibri Bold" size="22.0"/>
+                        <Font name="Calibri Bold" size="22.0" />
                     </font>
                 </JFXButton>
-                <JFXButton fx:id="connect" layoutX="131.0" layoutY="223.0"
-                           onAction="#mainButtonAction" text="Connect Node" textFill="#0900ff">
+                <JFXButton fx:id="connect" layoutX="131.0" layoutY="223.0" onAction="#mainButtonAction" text="Connect Node" textFill="#0900ff">
                     <font>
-                        <Font name="Calibri Bold" size="22.0"/>
+                        <Font name="Calibri Bold" size="22.0" />
                     </font>
                 </JFXButton>
-                <JFXButton fx:id="update" layoutX="138.0" layoutY="261.0"
-                           onAction="#mainButtonAction" text="Update Node" textFill="#0900ff">
+                <JFXButton fx:id="update" layoutX="138.0" layoutY="261.0" onAction="#mainButtonAction" text="Update Node" textFill="#0900ff">
                     <font>
-                        <Font name="Calibri Bold" size="22.0"/>
+                        <Font name="Calibri Bold" size="22.0" />
                     </font>
                 </JFXButton>
             </children>
             <opaqueInsets>
-                <Insets/>
+                <Insets />
             </opaqueInsets>
         </VBox>
         <JFXButton fx:id="backButton" layoutY="3.0" onAction="#onBackButtonAction" text="Back">
             <font>
-                <Font name="System Bold" size="12.0"/>
+                <Font name="System Bold" size="12.0" />
             </font>
         </JFXButton>
         <Label fx:id="coordX" layoutX="170.0" layoutY="336.0" text="Xcoord">
             <font>
-                <Font size="25.0"/>
+                <Font size="25.0" />
             </font>
         </Label>
         <Label fx:id="coordY" layoutX="265.0" layoutY="336.0" text="Ycoord">
             <font>
-                <Font size="25.0"/>
+                <Font size="25.0" />
             </font>
         </Label>
-        <StackPane layoutX="7.0" layoutY="56.0" prefHeight="269.0" prefWidth="396.0">
-            <children>
-                <AnchorPane prefHeight="200.0" prefWidth="200.0"/>
-                <ImageView fitHeight="279.0" fitWidth="396.0" onMouseClicked="#tower1Action"
-                           pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../../../../../../maps/00_thelowerlevel1.png"/>
-                    </image>
-                </ImageView>
-            </children>
-        </StackPane>
+      <StackPane layoutX="23.0" layoutY="50.0" prefHeight="150.0" prefWidth="200.0" >
+          <fx:include fx:id="map" source="MapView.fxml"/>
+      </StackPane>
     </children>
 </AnchorPane>
