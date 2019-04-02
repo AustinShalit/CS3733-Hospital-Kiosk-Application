@@ -12,7 +12,7 @@ import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
-class BreadthFirstSearchAlgorithm {
+public class BreadthFirstSearchAlgorithm {
   private final Database database;
 
   BreadthFirstSearchAlgorithm(Database database) {
@@ -54,7 +54,7 @@ class BreadthFirstSearchAlgorithm {
    * @param goal  the node the user wants to end at.
    * @return a stack containg the path to be traveled.
    */
-  Stack<Node> getPath(Node start, Node goal) {
+  public Stack<Node> getPath(Node start, Node goal) {
     Queue<Node> frontier = new LinkedList<>();
     frontier.add(start);
     Map<Node, Node> cameFrom = new HashMap<>();
