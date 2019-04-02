@@ -11,15 +11,24 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
+import javafx.scene.text.Text;
+import javafx.util.Callback;
 
+import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.controller.exception.InvalidUserInputException;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
+@SuppressWarnings("PMD")
 public class SanitationWindowController extends Controller {
+
+  private Database database;
 
   @FXML
   private Button backButton;
@@ -30,21 +39,39 @@ public class SanitationWindowController extends Controller {
   @FXML
   private TextArea descriptionTextArea;
   @FXML
-  private ComboBox locationComboBox;
+  private ComboBox<Node> locationComboBox;
   @FXML
   private ComboBox<SanitationRequest.SanitationRequestType> categoryComboBox;
 
-  private Database db;
-
   @FXML
   void initialize() throws SQLException {
-    db = new Database();
-    Set<Node> nodes = db.getAllNodes();
+    database = new Database();
+    locationComboBox.getItems().setAll(database.getAllNodes());
+    // Super verbose, but makes it so that just the long name for each node is displayed
+    locationComboBox.setCellFactory(new Callback<ListView<Node>, ListCell<Node>>() {
+      @Override
+      public ListCell<Node> call(ListView<Node> param) {
+        return new ListCell<Node>() {
+          private final Text text; {
+            setContentDisplay(ContentDisplay.CENTER);
+            text = new Text();
+          }
 
-    for (Node n : nodes) {
-      locationComboBox.getItems().add(n.getNodeId());
-    }
+          @Override
+          protected void updateItem(Node item, boolean empty) {
 
+            super.updateItem(item, empty);
+
+            if (item == null || empty) {
+              setGraphic(null);
+            } else {
+              text.setText(item.getLongName());
+              setGraphic(text);
+            }
+          }
+        };
+      }
+    });
     categoryComboBox.getItems().setAll(SanitationRequest.SanitationRequestType.values());
   }
 
@@ -59,7 +86,7 @@ public class SanitationWindowController extends Controller {
   void onSubmitButtonAction() {
     try {
       SanitationRequest sr = parseUserSanitationRequestTest();
-      if (db.insertSanitationRequest(sr)) {
+      if (database.insertSanitationRequest(sr)) {
         String message = "Successfully submitted sanitation request.";
         showInformationAlert("Success!", message);
       } else {
@@ -84,7 +111,7 @@ public class SanitationWindowController extends Controller {
 
       LocalDateTime now = LocalDateTime.now();
       String nodeId = locationComboBox.getValue().toString();
-      Node node = db.getNode(nodeId).get();
+      Node node = database.getNode(nodeId).get();
 
       String type = categoryComboBox.getValue().toString().toUpperCase(new Locale("EN"));
       SanitationRequest.SanitationRequestType srt =

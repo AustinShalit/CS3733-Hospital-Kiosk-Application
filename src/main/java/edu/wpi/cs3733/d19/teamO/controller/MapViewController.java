@@ -57,4 +57,5 @@ public class MapViewController {
         .map(node -> new Circle(node.getXcoord(), node.getYcoord(), 5, Color.RED))
         .forEach(nodeGroup.getChildren()::add);
   }
+
 }
