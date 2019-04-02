@@ -83,31 +83,56 @@ class SecurityRequestDaoDb implements SecurityRequestDao {
   }
 
   @Override
-  public boolean insert(final SecurityRequest securityRequest) {
+  public boolean insertExplicitId(final SecurityRequest securityRequest) {
+    if (securityRequest.getId() == null) {
+      return insert(securityRequest);
+    }
+
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement;
-      if (securityRequest.getId() == null) {
-        statement = connection.prepareStatement(
-            queries.getProperty("security_request.insert_implicit_id"));
-      } else {
-        statement = connection.prepareStatement(
+      statement = connection.prepareStatement(
             queries.getProperty("security_request.insert"));
-      }
-      int offset = securityRequest.getId() == null ? 0 : 1;
-      if (securityRequest.getId() != null) {
-        statement.setInt(1 + offset, securityRequest.getId());
-      }
+      statement.setInt(1, securityRequest.getId());
       statement.setTimestamp(
-          1 + offset,
+          2,
           Timestamp.valueOf(securityRequest.getTimeRequested())
       );
       statement.setTimestamp(
-          2 + offset,
+          3,
           securityRequest.getTimeCompleted() != null
               ? Timestamp.valueOf(securityRequest.getTimeCompleted()) : null);
-      statement.setString(3 + offset, securityRequest.getWhoCompleted());
-      statement.setString(4 + offset, securityRequest.getDescription());
-      statement.setString(5 + offset, securityRequest.getLocationNode().getNodeId());
+      statement.setString(4, securityRequest.getWhoCompleted());
+      statement.setString(5, securityRequest.getDescription());
+      statement.setString(6, securityRequest.getLocationNode().getNodeId());
+
+      return statement.executeUpdate() == 1;
+    } catch (SQLException ex) {
+      logger.log(Level.WARNING, "Failed to insert Security Request", ex);
+    }
+    return false;
+  }
+
+  @Override
+  public boolean insert(final SecurityRequest securityRequest) {
+    if (securityRequest.getId() != null) {
+      return insertExplicitId(securityRequest);
+    }
+
+    try (Connection connection = dcf.getConnection()) {
+      PreparedStatement statement;
+      statement = connection.prepareStatement(
+            queries.getProperty("security_request.insert_implicit_id"));
+      statement.setTimestamp(
+          1,
+          Timestamp.valueOf(securityRequest.getTimeRequested())
+      );
+      statement.setTimestamp(
+          2,
+          securityRequest.getTimeCompleted() != null
+              ? Timestamp.valueOf(securityRequest.getTimeCompleted()) : null);
+      statement.setString(3, securityRequest.getWhoCompleted());
+      statement.setString(4, securityRequest.getDescription());
+      statement.setString(5, securityRequest.getLocationNode().getNodeId());
 
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {

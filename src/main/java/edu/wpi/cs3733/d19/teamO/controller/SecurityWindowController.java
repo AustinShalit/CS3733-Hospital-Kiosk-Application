@@ -1,12 +1,5 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
-import com.jfoenix.controls.JFXComboBox;
-
-import edu.wpi.cs3733.d19.teamO.entity.Node;
-import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
-import edu.wpi.cs3733.d19.teamO.entity.csv.NodeCsvReaderWriter;
-import edu.wpi.cs3733.d19.teamO.entity.database.Database;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -15,12 +8,19 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.jfoenix.controls.JFXComboBox;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import edu.wpi.cs3733.d19.teamO.entity.Node;
+import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
+import edu.wpi.cs3733.d19.teamO.entity.csv.NodeCsvReaderWriter;
+import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 public class SecurityWindowController extends Controller {
 
