@@ -53,8 +53,6 @@
                 <Font size="25.0" />
             </font>
         </Label>
-      <StackPane layoutX="23.0" layoutY="50.0" prefHeight="150.0" prefWidth="200.0" >
-          <MapView fx:id="map" />
-      </StackPane>
+      <MapView fx:id="map" layoutX="23.0" layoutY="50.0" prefHeight="283.0" prefWidth="399.0" style="-fx-background-color: RED;"/>
     </children>
 </AnchorPane>

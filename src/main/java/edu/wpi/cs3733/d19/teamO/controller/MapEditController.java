@@ -93,7 +93,10 @@ public class MapEditController extends Controller {
 
   @FXML
   void initialize() throws IOException {
-    map.setMapImage(new Image(MapEditController.class.getResource("01_thefirstfloor.png").openStream()));
+    if (map != null) {
+      Image image = new Image(getClass().getResource("01_thefirstfloor.png").openStream());
+      map.setMapImage(image);
+    }
   }
 
   @FXML

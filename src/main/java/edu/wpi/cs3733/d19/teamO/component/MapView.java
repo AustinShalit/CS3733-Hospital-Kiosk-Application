@@ -41,6 +41,7 @@ public class MapView extends StackPane {
 
   @FXML
   void initialize() {
+    gesturePane.setMinScale(0.1);
     gesturePane.setOnMouseClicked(e -> {
       if (e.getButton() == MouseButton.PRIMARY && e.getClickCount() == 2) {
         Point2D pivotOnTarget = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
@@ -55,6 +56,7 @@ public class MapView extends StackPane {
 
   public void setMapImage(final Image image) {
     backgroundImage.setImage(image);
+    gesturePane.zoomTo(0.1, new Point2D(backgroundImage.getImage().getWidth() / 2, backgroundImage.getImage().getHeight() / 2));
   }
 
   public void addNodesToPane(final Collection<Node> nodes) {
