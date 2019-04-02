@@ -99,8 +99,8 @@ class SecurityRequestDaoDb implements SecurityRequestDao {
       );
       statement.setTimestamp(
           3,
-          securityRequest.getTimeCompleted() != null
-              ? Timestamp.valueOf(securityRequest.getTimeCompleted()) : null);
+          Timestamp.valueOf(securityRequest.getTimeCompleted())
+      );
       statement.setString(4, securityRequest.getWhoCompleted());
       statement.setString(5, securityRequest.getDescription());
       statement.setString(6, securityRequest.getLocationNode().getNodeId());
@@ -128,8 +128,8 @@ class SecurityRequestDaoDb implements SecurityRequestDao {
       );
       statement.setTimestamp(
           2,
-          securityRequest.getTimeCompleted() != null
-              ? Timestamp.valueOf(securityRequest.getTimeCompleted()) : null);
+          Timestamp.valueOf(securityRequest.getTimeCompleted())
+      );
       statement.setString(3, securityRequest.getWhoCompleted());
       statement.setString(4, securityRequest.getDescription());
       statement.setString(5, securityRequest.getLocationNode().getNodeId());

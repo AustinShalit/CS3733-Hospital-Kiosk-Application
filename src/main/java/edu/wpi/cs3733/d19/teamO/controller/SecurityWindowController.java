@@ -13,6 +13,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
 
+import edu.wpi.cs3733.d19.teamO.Globals;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
 import javafx.util.Callback;
@@ -90,19 +91,20 @@ public class SecurityWindowController extends Controller {
   void onBackButtonAction(ActionEvent event) {
     if (event.getSource() == backButton) {
       switchScenes("MainWindow.fxml", backButton.getScene().getWindow());
+      System.out.println(database.getAllSecurityRequests().size());
     }
   }
 
   @FXML
   void sendAlert(ActionEvent e) {
     if (e.getSource() == alertbutton) {
-      Node node = database.getNode(insertlocationdropdown.getValue().toString()).get();
+      Node node = (Node) insertlocationdropdown.getValue();
       database.insertSecurityRequest(
           new SecurityRequest(
               LocalDateTime.now(),
+              Globals.defaultTime(),
               null,
-              null,
-              null,
+              "",
               node
           ));
     }
