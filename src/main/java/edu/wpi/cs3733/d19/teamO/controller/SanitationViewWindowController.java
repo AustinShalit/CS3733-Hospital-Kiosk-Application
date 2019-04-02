@@ -52,6 +52,9 @@ public class SanitationViewWindowController extends Controller {
 
     requestsTableView.getItems().setAll(db.getAllSanitationRequests());
 
+    // sort by id
+    requestsTableView.getSortOrder().add(idTableCol);
+
     // make columns auto-resize
     requestsTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     for (TableColumn column : requestsTableView.getColumns()) {
