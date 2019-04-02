@@ -6,13 +6,15 @@ import java.nio.file.Files;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.jfoenix.controls.JFXComboBox;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -20,8 +22,10 @@ import javafx.stage.Stage;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
 import edu.wpi.cs3733.d19.teamO.entity.csv.NodeCsvReaderWriter;
+import javafx.util.Callback;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
+@SuppressWarnings("PMD")
 public class SecurityWindowController extends Controller {
 
   private Database database;
@@ -46,9 +50,12 @@ public class SecurityWindowController extends Controller {
 
   }
 
+
   @FXML
   void initialize() throws SQLException {
     database = new Database();
+
+    /*
     insertlocationdropdown
         .getItems()
         .addAll(
@@ -58,6 +65,31 @@ public class SecurityWindowController extends Controller {
                 .map(Node::getNodeId)
                 .collect(Collectors.toList())
       );
+    */
+
+    insertlocationdropdown.getItems().setAll(database.getAllNodes());
+    insertlocationdropdown.setCellFactory(new Callback<ListView<Node>, ListCell<Node>>() {
+      @Override
+      public ListCell<Node> call(ListView<Node> param) {
+        return new ListCell<Node>() {
+          private final Text text; {
+            setContentDisplay(ContentDisplay.CENTER);
+            text = new Text();
+          }
+
+          @Override
+          protected void updateItem(Node item, boolean empty) {
+            super.updateItem(item, empty);
+            if (item == null || empty) {
+              setGraphic(null);
+            } else {
+              text.setText(item.getLongName());
+              setGraphic(text);
+            }
+          }
+        };
+      }
+    });
   }
 
 
