@@ -47,34 +47,8 @@ public class NavigationWindowController extends Controller {
   @FXML
   void initialize() throws SQLException {
     Database database = new Database();
-    Set<Node> nodeSet = database.getAllNodes();
-
-    ObservableList<Node> locations = FXCollections.observableArrayList();
-    for (Node node : nodeSet) {
-      locations.add(node);
-    }
-    for (Node node : locations) {
-      startSelLocJFXCombo.getItems().add(node);
-      endSelLocJFXCombo.getItems().add(node);
-    }
-
-    StringConverter<Node> str = new StringConverter<Node>() {
-      @Override
-      public String toString(Node object) {
-        if (object != null) {
-          return object.getShortName();
-        }
-        return null;
-      }
-
-      @Override
-      public Node fromString(String string) {
-        return null;
-      }
-    };
-
-    startSelLocJFXCombo.setConverter(str);
-    endSelLocJFXCombo.setConverter(str);
+    populateComboBox(database, startSelLocJFXCombo);
+    populateComboBox(database, endSelLocJFXCombo);
   }
 
   @FXML
