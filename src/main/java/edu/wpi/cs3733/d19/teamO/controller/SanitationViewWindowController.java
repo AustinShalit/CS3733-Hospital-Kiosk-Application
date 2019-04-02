@@ -46,7 +46,7 @@ public class SanitationViewWindowController extends Controller {
     timeRequestedCol.setCellValueFactory(new PropertyValueFactory<>("timeRequested"));
     timeCompletedCol.setCellValueFactory(new PropertyValueFactory<>("timeCompletedString"));
     whoCompletedCol.setCellValueFactory(new PropertyValueFactory<>("whoCompleted"));
-    locationTableCol.setCellValueFactory(new PropertyValueFactory<>("locationNodeString"));
+    locationTableCol.setCellValueFactory(new PropertyValueFactory<>("locationNodeIdString"));
     categoryTableCol.setCellValueFactory(new PropertyValueFactory<>("type"));
     descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
 

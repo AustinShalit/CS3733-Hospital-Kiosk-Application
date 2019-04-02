@@ -43,7 +43,9 @@ final class DatabaseConnectionFactoryEmbedded implements DatabaseConnectionFacto
   @Override
   public Connection getConnection() throws SQLException {
     try {
-      return DriverManager.getConnection(protocol + name + ";derby.language.sequence.preallocator=1;create=true"); //;shutdown=true
+      return DriverManager.getConnection(protocol
+          + name
+          + ";derby.language.sequence.preallocator=1;create=true");
     } catch (SQLException ex) {
       kLogger.log(Level.SEVERE, "Exception getting connection to database", ex);
       throw ex;

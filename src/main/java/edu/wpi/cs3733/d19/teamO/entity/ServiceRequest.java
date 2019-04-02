@@ -92,8 +92,12 @@ class ServiceRequest {
     return location;
   }
 
-  public String getLocationNodeString() {
+  public String getLocationNodeIdString() {
     return location.getNodeId();
+  }
+
+  public String getLocationNodeLongName() {
+    return location.getLongName();
   }
 
   public String getLocationNodeId() {

@@ -2,7 +2,6 @@ package edu.wpi.cs3733.d19.teamO.entity.database;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -173,12 +172,12 @@ class SanitationRequestDaoDbTest {
 
   @Test
   void autoIncrementTest() {
-    for(int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++) {
       sanitationDao.insert(testSanitationRequest1);
     }
 
     Set<SanitationRequest> sanitationRequestSet = sanitationDao.getAll();
-    for(SanitationRequest sr : sanitationRequestSet) {
+    for (SanitationRequest sr : sanitationRequestSet) {
       // make sure the id is in the correct range
       assertTrue(sr.getId() < 11 || sr.getId() > 1);
     }
