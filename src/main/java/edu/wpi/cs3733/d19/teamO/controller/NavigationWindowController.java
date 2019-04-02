@@ -1,7 +1,9 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Set;
+import java.util.Stack;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -11,9 +13,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
 import javafx.util.StringConverter;
 
 import edu.wpi.cs3733.d19.teamO.BreadthFirstSearchAlgorithm;
+import edu.wpi.cs3733.d19.teamO.component.MapView;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
@@ -46,9 +50,16 @@ public class NavigationWindowController extends Controller {
   private ToggleGroup endLocationToggle;
 
   @FXML
-  void initialize() throws SQLException {
+  private MapView map;
+
+  @FXML
+  void initialize() throws SQLException, IOException {
     Database database = new Database();
     Set<Node> nodeSet = database.getAllNodes();
+
+    Image image = new Image(getClass().getResource("01_thefirstfloor.png").openStream());
+    map.setMapImage(image);
+    map.addNodesToPane(database.getAllNodes());
 
     ObservableList<Node> locations = FXCollections.observableArrayList();
     for (Node node : nodeSet) {
@@ -63,7 +74,7 @@ public class NavigationWindowController extends Controller {
       @Override
       public String toString(Node object) {
         if (object != null) {
-          return object.getShortName();
+          return object.getLongName();
         }
         return null;
       }
@@ -71,7 +82,7 @@ public class NavigationWindowController extends Controller {
       @Override
       public Node fromString(String string) {
         for(Node node: nodeSet) {
-          if(node.getShortName().equals(string)) {
+          if(node.getLongName().equals(string)) {
             return node;
           }
         }
@@ -125,7 +136,10 @@ public class NavigationWindowController extends Controller {
   @FXML
   void onGenPathButtonAction() throws SQLException {
     BreadthFirstSearchAlgorithm bfsAlgorithm = new BreadthFirstSearchAlgorithm(new Database());
-    bfsAlgorithm.getPath(((Node) startSelLocJFXCombo.getValue()), ((Node) endSelLocJFXCombo.getValue()));
+    Stack<Node> path = bfsAlgorithm.getPath(((Node) startSelLocJFXCombo.getValue()), ((Node) endSelLocJFXCombo.getValue()));
+    for (Node node: path) {
+      System.out.println(node);
+    }
   }
 
   void validateGenButton() {
