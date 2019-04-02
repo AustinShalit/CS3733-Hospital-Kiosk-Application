@@ -1,9 +1,11 @@
-package edu.wpi.cs3733.d19.teamO.controller;
+package edu.wpi.cs3733.d19.teamO.component;
 
+import java.io.IOException;
 import java.util.Collection;
 
 import javafx.animation.Interpolator;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
@@ -17,11 +19,7 @@ import net.kurobako.gesturefx.GesturePane;
 
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 
-public class MapViewController {
-
-  @FXML
-  private StackPane root;
-
+public class MapView extends StackPane {
   @FXML
   private GesturePane gesturePane;
 
@@ -33,6 +31,13 @@ public class MapViewController {
 
   @FXML
   private Group edges;
+
+  public MapView() throws IOException {
+    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MapView.fxml"));
+    fxmlLoader.setRoot(this);
+    fxmlLoader.setController(this);
+    fxmlLoader.load();
+  }
 
   @FXML
   void initialize() {
@@ -48,11 +53,11 @@ public class MapViewController {
     });
   }
 
-  void setMapImage(final Image image) {
+  public void setMapImage(final Image image) {
     backgroundImage.setImage(image);
   }
 
-  void addNodesToPane(final Collection<Node> nodes) {
+  public void addNodesToPane(final Collection<Node> nodes) {
     nodes.stream()
         .map(node -> new Circle(node.getXcoord(), node.getYcoord(), 5, Color.RED))
         .forEach(nodeGroup.getChildren()::add);

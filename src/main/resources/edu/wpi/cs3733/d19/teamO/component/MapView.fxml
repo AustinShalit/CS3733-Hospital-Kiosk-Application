@@ -5,10 +5,10 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import net.kurobako.gesturefx.GesturePane?>
-<StackPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+<fx:root type="javafx.scene.layout.StackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
            minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.171"
            xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="edu.wpi.cs3733.d19.teamO.controller.MapViewController">
+           fx:controller="edu.wpi.cs3733.d19.teamO.component.MapView">
     <GesturePane fx:id="gesturePane">
         <StackPane>
             <ImageView fx:id="backgroundImage" pickOnBounds="true" preserveRatio="true">
@@ -19,4 +19,4 @@
             </Pane>
         </StackPane>
     </GesturePane>
-</StackPane>
+</fx:root>
