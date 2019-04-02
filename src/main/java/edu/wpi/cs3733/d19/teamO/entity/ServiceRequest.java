@@ -73,7 +73,7 @@ class ServiceRequest {
    * the default time defined for this project.
    */
   public String getTimeCompletedString() {
-    if (timeCompleted.equals(defaultTime)) {
+    if (defaultTime.equals(timeCompleted)) {
       return "";
     } else {
       return timeCompleted.toString();

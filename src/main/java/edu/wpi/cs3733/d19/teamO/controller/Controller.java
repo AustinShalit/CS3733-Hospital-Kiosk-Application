@@ -12,7 +12,6 @@ import javafx.stage.Window;
 
 class Controller {
 
-  final LocalDateTime defaultTime = LocalDateTime.of(1, 1, 1, 1, 1);
 
   /**
    * Try to switch scenes to the fxml file.

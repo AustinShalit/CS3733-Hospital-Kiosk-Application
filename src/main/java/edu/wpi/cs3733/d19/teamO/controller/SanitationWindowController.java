@@ -40,7 +40,7 @@ public class SanitationWindowController extends Controller {
   @FXML
   private ComboBox<SanitationRequest.SanitationRequestType> categoryComboBox;
 
-  Database db;
+  private Database db;
 
   @FXML
   void initialize() throws SQLException, IOException {
