@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="233.0" prefWidth="546.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.MapEditController">
+<AnchorPane prefHeight="233.0" prefWidth="546.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.MapEditConnectController">
    <children>
       <HBox layoutX="87.0" layoutY="41.0" spacing="15.0">
          <children>
@@ -57,7 +57,7 @@
             <Font size="14.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="cancel" layoutX="470.0" layoutY="190.0" onAction="#mainButtonAction" text="Cancel">
+      <JFXButton fx:id="cancel" layoutX="470.0" layoutY="190.0" onAction="#cancelButtonAction" text="Cancel">
          <font>
             <Font size="14.0" />
          </font>
