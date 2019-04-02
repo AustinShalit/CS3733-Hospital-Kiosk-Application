@@ -6,15 +6,25 @@ import java.util.Objects;
 import com.google.common.base.MoreObjects;
 
 class ServiceRequest {
-  private Integer id;
+  private int id;
   private final LocalDateTime timeRequested;
   private final LocalDateTime timeCompleted;
   private final String whoCompleted;
   private final String description;
   private final Node location;
 
-  // constructor
-  ServiceRequest(Integer id, LocalDateTime timeRequested, LocalDateTime timeCompleted,
+
+  /**
+   * The constructor for the service request class.
+   * @param id This primary key for the ServiceRequest. -1 if ServiceRequest not in Database, and
+   *           you wish the database to generate the id.
+   * @param timeRequested
+   * @param timeCompleted
+   * @param whoCompleted
+   * @param description
+   * @param location
+   */
+  ServiceRequest(int id, LocalDateTime timeRequested, LocalDateTime timeCompleted,
                  String whoCompleted, String description, Node location) {
     this.id = id;
     this.timeRequested = timeRequested;
@@ -30,7 +40,7 @@ class ServiceRequest {
     this.id = id;
   }
 
-  public Integer getId() {
+  public int getId() {
     return id;
   }
 

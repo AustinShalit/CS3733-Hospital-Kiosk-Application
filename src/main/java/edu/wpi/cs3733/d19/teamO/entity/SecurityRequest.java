@@ -12,7 +12,7 @@ public class SecurityRequest extends ServiceRequest {
 
   public SecurityRequest(LocalDateTime timeRequested, LocalDateTime timeCompleted,
                          String whoCompleted, String description, Node node) {
-    super(null, timeRequested, timeCompleted, whoCompleted, description, node);
+    super(-1, timeRequested, timeCompleted, whoCompleted, description, node);
   }
 }
 

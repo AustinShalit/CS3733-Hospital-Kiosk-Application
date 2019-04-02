@@ -84,7 +84,7 @@ class SecurityRequestDaoDb implements SecurityRequestDao {
 
   @Override
   public boolean insertExplicitId(final SecurityRequest securityRequest) {
-    if (securityRequest.getId() == null) {
+    if (securityRequest.getId() == -1) {
       return insert(securityRequest);
     }
 
@@ -114,7 +114,7 @@ class SecurityRequestDaoDb implements SecurityRequestDao {
 
   @Override
   public boolean insert(final SecurityRequest securityRequest) {
-    if (securityRequest.getId() != null) {
+    if (securityRequest.getId() != -1) {
       return insertExplicitId(securityRequest);
     }
 

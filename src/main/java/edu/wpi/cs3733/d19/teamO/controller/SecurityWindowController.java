@@ -91,7 +91,6 @@ public class SecurityWindowController extends Controller {
   void onBackButtonAction(ActionEvent event) {
     if (event.getSource() == backButton) {
       switchScenes("MainWindow.fxml", backButton.getScene().getWindow());
-      System.out.println(database.getAllSecurityRequests().size());
     }
   }
 
