@@ -43,11 +43,11 @@
                 <Font name="System Bold" size="12.0" />
             </font>
         </JFXButton>
-        <Label fx:id="coordX" layoutX="170.0" layoutY="336.0" text="Xcoord">
+        <JFXButton fx:id="refresh" layoutY="170.0" onAction="#onRefreshButtonAction" text="Refresh">
             <font>
-                <Font size="25.0" />
+                <Font name="System Bold" size="12.0" />
             </font>
-        </Label>
+        </JFXButton>
         <Label fx:id="coordY" layoutX="265.0" layoutY="336.0" text="Ycoord">
             <font>
                 <Font size="25.0" />

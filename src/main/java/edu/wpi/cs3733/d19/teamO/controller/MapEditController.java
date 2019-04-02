@@ -42,45 +42,13 @@ public class MapEditController extends Controller {
   @FXML
   private Button cancel;
   @FXML
+  private Button refresh;
+  @FXML
   private StackPane cover;
   @FXML
   private Label coordX;
   @FXML
   private Label coordY;
-  @FXML
-  private Label deleteError;
-  @FXML
-  private Label addLabel;
-  @FXML
-  private TextField addNodeID;
-  @FXML
-  private TextField addX;
-  @FXML
-  private TextField addY;
-  @FXML
-  private TextField addBuilding;
-  @FXML
-  private TextField addFloor;
-  @FXML
-  private TextField addNodeType;
-  @FXML
-  private TextField shortName;
-  @FXML
-  private TextField longName;
-  @FXML
-  private TextField deleteNodeID;
-  @FXML
-  private TextField updateNodeID;
-  @FXML
-  private TextField connectNodeID1;
-  @FXML
-  private TextField connectNodeID2;
-  @FXML
-  private TextField updateX;
-  @FXML
-  private TextField updateY;
-  @FXML
-  private TextField edgeID;
   @FXML
   private AnchorPane tower1;
   @FXML
@@ -96,6 +64,7 @@ public class MapEditController extends Controller {
     if (map != null) {
       Image image = new Image(getClass().getResource("01_thefirstfloor.png").openStream());
       map.setMapImage(image);
+      map.addNodesToPane(database.getAllNodes());
     }
   }
 
@@ -116,7 +85,8 @@ public class MapEditController extends Controller {
       stage.initModality(Modality.APPLICATION_MODAL);
       stage.initOwner(add.getScene().getWindow());
       stage.showAndWait();
-
+      map.addNodesToPane(database.getAllNodes());
+      coordY.setText("123");
     } else if (event.getSource() == delete) {
       stage = new Stage();
       root = FXMLLoader.load(getClass().getResource("MapEditDelete.fxml"));
@@ -141,11 +111,14 @@ public class MapEditController extends Controller {
       stage.initModality(Modality.APPLICATION_MODAL);
       stage.initOwner(update.getScene().getWindow());
       stage.showAndWait();
-    } else {
-      stage = (Stage) cancel.getScene().getWindow();
-      stage.close();
     }
   }
+
+  @FXML
+  void onRefreshButtonAction(){
+    map.addNodesToPane(database.getAllNodes());
+  }
+
 
   @FXML
   void onBackButtonAction(ActionEvent event) {
@@ -162,72 +135,12 @@ public class MapEditController extends Controller {
     coordY.setText(Double.toString(event.getSceneY()));
     // }
   }
-
   @FXML
-  void addNodeAction(ActionEvent event) {
-    Node newNode = new Node(addNodeID.getText(),
-        Integer.parseInt(addX.getText()),
-        Integer.parseInt(addY.getText()),
-        addFloor.getText(),
-        addBuilding.getText(),
-        nodeType.getValue(),
-        longName.getText(),
-        shortName.getText());
-    database.insertNode(newNode);
-    addLabel.setText("Succeed!");
+  void cancelButtonAction(){
+    Stage stage = (Stage) cancel.getScene().getWindow();
+    stage.close();
+
   }
 
-  @FXML
-  void deleteNodeAcion(ActionEvent event) {
-    String delNodeID = deleteNodeID.getText();
-    Node deleteNode = null;
-    for (Node node : database.getAllNodes()) {
-      if (delNodeID.equals(node.getNodeId())) {
-        deleteNode = node;
-        database.deleteNode(deleteNode);
-        break;
-      }
-    }
-    if (deleteNode == null) {
-      deleteError.setText("ERROR: InvalidNodeID");
-    }
-  }
 
-  @FXML
-  void connectNodeAcion(ActionEvent event) {
-    String connect1 = connectNodeID1.getText();
-    String connect2 = connectNodeID2.getText();
-    Node connectN1 = null;
-    Node connectN2 = null;
-    for (Node node : database.getAllNodes()) {
-      if (connect1.equals(node.getNodeId())) {
-        connectN1 = node;
-      } else if (connect2.equals(node.getNodeId())) {
-        connectN2 = node;
-      }
-    }
-    if (connectN1 != null && connectN2 != null) {
-      Edge newEdge = new Edge(edgeID.getText(), connectN1, connectN2);
-      database.insertEdge(newEdge);
-    }
-  }
-
-  @FXML
-  void updateNodeAcion(ActionEvent event) {
-    String udNodeID = updateNodeID.getText();
-    for (Node node : database.getAllNodes()) {
-      if (udNodeID.equals(node.getNodeId())) {
-        Node updateNode = new Node(node.getNodeId(),
-            Integer.parseInt(updateX.getText()),
-            Integer.parseInt(updateY.getText()),
-            node.getFloor(),
-            node.getBuilding(),
-            node.getNodeType(),
-            node.getLongName(),
-            node.getShortName());
-        database.updateNode(updateNode);
-        break;
-      }
-    }
-  }
 }
