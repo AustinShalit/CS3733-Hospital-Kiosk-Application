@@ -21,7 +21,7 @@ class SchedulingRequestDaoDbTest {
   private static final LocalDateTime aRequest = LocalDateTime.now();
   private static final LocalDateTime aComplete = LocalDateTime.now();
 
-  private static final SchedulingRequest schedulingRequest = new SchedulingRequest(1, aStart, aEnd, aRequest, aComplete,
+  private static final SchedulingRequest schedulingRequest = new SchedulingRequest(aStart, aEnd, aRequest, aComplete,
           "Dr. Owlman", nodeA);
 
   @Nested
@@ -109,7 +109,7 @@ class SchedulingRequestDaoDbTest {
   @Test
   void updateTest() {
     schedulingDao.insert(schedulingRequest);
-    SchedulingRequest update = new SchedulingRequest(schedulingRequest.getId(), aStart, aEnd,
+    SchedulingRequest update = new SchedulingRequest(aStart, aEnd,
         LocalDateTime.now(), LocalDateTime.now(),"Dr. Owlman", nodeA);
     assertTrue(schedulingDao.update(update));
   }
