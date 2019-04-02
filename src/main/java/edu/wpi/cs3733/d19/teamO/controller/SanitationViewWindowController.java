@@ -52,6 +52,12 @@ public class SanitationViewWindowController extends Controller {
     descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
 
     requestsTableView.getItems().setAll(db.getAllSanitationRequests());
+
+    // make columns auto-resize
+    requestsTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+    for (TableColumn column : requestsTableView.getColumns()) {
+      column.setPrefWidth(1000); // must be a value larger than the starting window size
+    }
   }
 
   @FXML

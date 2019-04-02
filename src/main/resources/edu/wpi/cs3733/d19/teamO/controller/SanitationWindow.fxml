@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -17,32 +16,23 @@
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="edu.wpi.cs3733.d19.teamO.controller.SanitationWindowController">
     <children>
-        <HBox layoutX="200.0" layoutY="7.0" maxHeight="1.7976931348623157E308"
-              maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="200.0"
-              AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="0.0"
-              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Button fx:id="backButton" alignment="CENTER" mnemonicParsing="false"
+                onAction="#onBackButtonAction" text="Back" AnchorPane.leftAnchor="5.0"
+                AnchorPane.topAnchor="5.0"/>
+        <Label fx:id="titleLabel" alignment="CENTER" contentDisplay="CENTER"
+               text="Add Sanitation Request" AnchorPane.leftAnchor="56.0"
+               AnchorPane.rightAnchor="56.0" AnchorPane.topAnchor="0.0">
+            <font>
+                <Font size="32.0"/>
+            </font>
+            <padding>
+                <Insets top="5.0"/>
+            </padding>
+        </Label>
+        <VBox layoutY="71.0" prefHeight="329.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="71.0">
             <children>
-                <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
-                    <children>
-                        <Button fx:id="backButton" mnemonicParsing="false"
-                                onAction="#onBackButtonAction" text="Go Back"/>
-                    </children>
-                </VBox>
-                <Label fx:id="titleLabel" maxWidth="-Infinity" minWidth="-Infinity"
-                       text="Add Sanitation Request">
-                    <HBox.margin>
-                        <Insets top="40.0"/>
-                    </HBox.margin>
-                    <font>
-                        <Font name="Constantia Bold" size="32.0"/>
-                    </font>
-                </Label>
-                <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS"/>
-            </children>
-        </HBox>
-        <VBox layoutY="100.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0"
-              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
-            <children>
+                <Separator prefWidth="200.0"/>
                 <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
                     <children>
                         <GridPane maxHeight="1.7976931348623157E308"
@@ -75,12 +65,12 @@
                             <children>
                                 <TextArea fx:id="descriptionTextArea" maxHeight="-Infinity"
                                           maxWidth="-Infinity" minHeight="-Infinity"
-                                          minWidth="-Infinity" prefHeight="120.0" prefWidth="250.0"
+                                          minWidth="-Infinity" prefHeight="166.0" prefWidth="250.0"
                                           promptText="Add a Description"
                                           style="-fx-background-radius: 5;" GridPane.columnSpan="2"
-                                          GridPane.halignment="CENTER" GridPane.rowIndex="4">
+                                          GridPane.halignment="CENTER" GridPane.rowIndex="5">
                                     <GridPane.margin>
-                                        <Insets top="45.0"/>
+                                        <Insets/>
                                     </GridPane.margin>
                                 </TextArea>
                                 <Button fx:id="submitButton" mnemonicParsing="false"
@@ -88,7 +78,7 @@
                                         GridPane.columnSpan="2" GridPane.halignment="CENTER"
                                         GridPane.rowIndex="8">
                                     <GridPane.margin>
-                                        <Insets bottom="20.0"/>
+                                        <Insets/>
                                     </GridPane.margin>
                                 </Button>
                                 <JFXComboBox fx:id="categoryComboBox" promptText="Pick Category"
@@ -104,13 +94,6 @@
                                 <JFXComboBox fx:id="locationComboBox" promptText="Insert Location"
                                              GridPane.columnSpan="2" GridPane.halignment="CENTER"
                                              GridPane.rowIndex="1"/>
-                                <Separator prefWidth="200.0"
-                                           style="-fx-border-style: solid; -fx-background-color: #000000;"
-                                           GridPane.columnSpan="2" GridPane.halignment="CENTER">
-                                    <GridPane.margin>
-                                        <Insets bottom="10.0"/>
-                                    </GridPane.margin>
-                                </Separator>
                             </children>
                         </GridPane>
                     </children>

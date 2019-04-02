@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -16,6 +19,7 @@ import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import edu.wpi.cs3733.d19.teamO.controller.exception.InvalidUserInputException;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.csv.NodeCsvReaderWriter;
@@ -65,8 +69,18 @@ public class SanitationWindowController extends Controller {
 
   @FXML
   void onSubmitButtonAction() {
-    SanitationRequest sr = parseUserSanitationRequestTest();
-    db.insertSanitationRequest(sr);
+    try {
+      SanitationRequest sr = parseUserSanitationRequestTest();
+      if (db.insertSanitationRequest(sr)) {
+        String message = "Successfully submitted sanitation request.";
+        showInformationAlert("Success!", message);
+      } else {
+        showErrorAlert("Error.", "Unable to submit sanitation request.");
+      }
+    } catch (InvalidUserInputException ex) {
+      Logger logger = Logger.getLogger(SanitationWindowController.class.getName());
+      logger.log(Level.WARNING, "Unable to parse Sanitation Request.", ex);
+    }
   }
 
   /**
@@ -74,17 +88,28 @@ public class SanitationWindowController extends Controller {
    *
    * @return A SanitationRequest representing the users input.
    */
-  private SanitationRequest parseUserSanitationRequestTest() {
-    LocalDateTime now = LocalDateTime.now();
-    String nodeId = locationComboBox.getValue().toString();
-    Node node = db.getNode(nodeId).get();
+  private SanitationRequest parseUserSanitationRequestTest() throws InvalidUserInputException {
+    // if input is valid, parse it and return a new SanitationRequest
+    if (!descriptionTextArea.getText().isEmpty()
+        && Objects.nonNull(locationComboBox.getValue())
+        && Objects.nonNull(categoryComboBox.getValue())) {
 
-    String type = categoryComboBox.getValue().toString().toUpperCase(new Locale("EN"));
-    SanitationRequest.SanitationRequestType srt =
-        SanitationRequest.SanitationRequestType.valueOf(type);
+      LocalDateTime now = LocalDateTime.now();
+      String nodeId = locationComboBox.getValue().toString();
+      Node node = db.getNode(nodeId).get();
 
-    String description = descriptionTextArea.getText();
+      String type = categoryComboBox.getValue().toString().toUpperCase(new Locale("EN"));
+      SanitationRequest.SanitationRequestType srt =
+          SanitationRequest.SanitationRequestType.valueOf(type);
 
-    return new SanitationRequest(now, node, srt, description);
+      String description = descriptionTextArea.getText();
+
+      return new SanitationRequest(now, node, srt, description);
+    }
+
+    // otherwise, some input was invalid
+    showErrorAlert("Error.", "Please make sure all fields are filled out.");
+    throw new InvalidUserInputException("Unable to parse Sanitation Request.");
   }
+
 }
