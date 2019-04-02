@@ -41,17 +41,6 @@ public class MapEditController extends Controller {
   private Button backButton;
   @FXML
   private Button cancel;
-  @FXML
-  private Button refresh;
-  @FXML
-  private StackPane cover;
-  @FXML
-  private Label coordX;
-  @FXML
-  private Label coordY;
-  @FXML
-  private AnchorPane tower1;
-  @FXML
   private ComboBox<Node.NodeType> nodeType;
   @FXML
   private MapView map;
@@ -86,7 +75,6 @@ public class MapEditController extends Controller {
       stage.initOwner(add.getScene().getWindow());
       stage.showAndWait();
       map.addNodesToPane(database.getAllNodes());
-      coordY.setText("123");
     } else if (event.getSource() == delete) {
       stage = new Stage();
       root = FXMLLoader.load(getClass().getResource("MapEditDelete.fxml"));
@@ -125,16 +113,6 @@ public class MapEditController extends Controller {
     switchScenes("MainWindow.fxml", backButton.getScene().getWindow());
   }
 
-  @FXML
-  void tower1Action(MouseEvent event) {
-    //if(event.getSource()==tower1){
-    //tower1.onc
-    //  coord.setText("gg");
-    // event.getSource().
-    coordX.setText(Double.toString(event.getSceneX()));
-    coordY.setText(Double.toString(event.getSceneY()));
-    // }
-  }
   @FXML
   void cancelButtonAction(){
     Stage stage = (Stage) cancel.getScene().getWindow();

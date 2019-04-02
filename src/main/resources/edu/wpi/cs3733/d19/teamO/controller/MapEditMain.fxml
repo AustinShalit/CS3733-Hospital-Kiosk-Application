@@ -43,16 +43,6 @@
                 <Font name="System Bold" size="12.0" />
             </font>
         </JFXButton>
-        <JFXButton fx:id="refresh" layoutY="170.0" onAction="#onRefreshButtonAction" text="Refresh">
-            <font>
-                <Font name="System Bold" size="12.0" />
-            </font>
-        </JFXButton>
-        <Label fx:id="coordY" layoutX="265.0" layoutY="336.0" text="Ycoord">
-            <font>
-                <Font size="25.0" />
-            </font>
-        </Label>
       <MapView fx:id="map" layoutX="23.0" layoutY="50.0" prefHeight="283.0" prefWidth="399.0" style="-fx-background-color: RED;"/>
     </children>
 </AnchorPane>
