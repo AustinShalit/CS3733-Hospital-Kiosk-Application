@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import edu.wpi.cs3733.d19.teamO.component.MapView?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.MapEditController">
     <children>
         <VBox alignment="TOP_CENTER" layoutX="414.0" layoutY="77.0" spacing="20.0">
@@ -53,7 +54,7 @@
             </font>
         </Label>
       <StackPane layoutX="23.0" layoutY="50.0" prefHeight="150.0" prefWidth="200.0" >
-          <fx:include fx:id="map" source="MapView.fxml"/>
+          <MapView fx:id="map" />
       </StackPane>
     </children>
 </AnchorPane>

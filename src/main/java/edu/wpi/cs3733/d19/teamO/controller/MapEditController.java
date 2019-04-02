@@ -19,6 +19,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import edu.wpi.cs3733.d19.teamO.component.MapView;
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
@@ -85,14 +86,14 @@ public class MapEditController extends Controller {
   @FXML
   private ComboBox<Node.NodeType> nodeType;
   @FXML
-  private  MapViewController mapController;
+  private MapView map;
 
   public MapEditController() throws SQLException {
   }
 
   @FXML
   void initialize() throws IOException {
-    mapController.setMapImage(new Image(MapEditController.class.getResource("01_thefirstfloor.png").openStream()));
+    map.setMapImage(new Image(MapEditController.class.getResource("01_thefirstfloor.png").openStream()));
   }
 
   @FXML
