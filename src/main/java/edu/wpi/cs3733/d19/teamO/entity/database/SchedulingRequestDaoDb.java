@@ -9,7 +9,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-class SchedulingRequestDaoDb implements SchedulingRequestDao {
+public class SchedulingRequestDaoDb implements SchedulingRequestDao {
 
   private static final String QUERY_FILE_NAME = "scheduling_request_queries.properties";
 
@@ -29,13 +29,13 @@ class SchedulingRequestDaoDb implements SchedulingRequestDao {
   private DatabaseConnectionFactory dcf;
   private NodeDaoDb nodeDaoDb;
 
-  SchedulingRequestDaoDb(final DatabaseConnectionFactory dcf) throws SQLException {
+  public SchedulingRequestDaoDb(final DatabaseConnectionFactory dcf) throws SQLException {
     this.dcf = dcf;
     nodeDaoDb = new NodeDaoDb(dcf);
     createTable();
   }
 
-  SchedulingRequestDaoDb() throws SQLException {
+  public SchedulingRequestDaoDb() throws SQLException {
     this(new DatabaseConnectionFactoryEmbedded());
   }
 

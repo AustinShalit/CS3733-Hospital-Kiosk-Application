@@ -10,26 +10,24 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
 
 import edu.wpi.cs3733.d19.teamO.entity.SchedulingRequest;
+import edu.wpi.cs3733.d19.teamO.entity.database.NodeDaoDb;
+import edu.wpi.cs3733.d19.teamO.entity.database.SchedulingRequestDaoDb;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 import edu.wpi.cs3733.d19.teamO.entity.Node;
-import edu.wpi.cs3733.d19.teamO.entity.csv.NodeCsvReaderWriter;
-import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 public class SchedulingWindowController extends Controller {
 
-  private Database database;
+  private NodeDaoDb nodeDao;
 
   @FXML
   private Button backButton;
   @FXML
   private Button submitButton;
   @FXML
-  private ComboBox<String> roomComboBox;
+  private ComboBox<Node> roomComboBox;
   @FXML
   private TextField nameBox;
   @FXML
@@ -38,8 +36,6 @@ public class SchedulingWindowController extends Controller {
   private JFXTimePicker endChoiceBox;
   @FXML
   private JFXDatePicker datePicker;
-  @FXML
-  private Button filePicker;
   @FXML
   private Label submitStatus;
 
@@ -68,34 +64,13 @@ public class SchedulingWindowController extends Controller {
       submitStatus.setText("Make sure all fields are filled in.");
     }
 
-
-
-  }
-
-  /**
-   * Picks a CSV file to read in location nodes from
-   * @param e Action Event from File Picker button
-   * @throws IOException
-   */
-  @FXML
-  void pickFile(ActionEvent e) throws IOException {
-    if (e.getSource() == filePicker) {
-      FileChooser chooser = new FileChooser();
-      NodeCsvReaderWriter ncrw = new NodeCsvReaderWriter();
-      chooser.setTitle("Choose CSV File");
-      File file = chooser.showOpenDialog(new Stage());
-
-      List<Node> nodes = ncrw.readNodes(Files.newBufferedReader(file.toPath()));
-      for (Node node : nodes) {
-        database.insertNode(node);
-        roomComboBox.getItems().add(node.getLongName());
-      }
-    }
   }
 
   @FXML
   public void initialize() throws SQLException {
-    database = new Database();
+    nodeDao = new NodeDaoDb();
+    roomComboBox.getItems().addAll(nodeDao.getAll());
 
   }
+
 }

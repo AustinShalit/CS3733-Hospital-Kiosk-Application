@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 
-class NodeDaoDb implements NodeDao {
+public class NodeDaoDb implements NodeDao {
 
   private static final Logger logger
       = Logger.getLogger(NodeDaoDb.class.getName());
@@ -22,12 +22,12 @@ class NodeDaoDb implements NodeDao {
 
   private DatabaseConnectionFactory dcf;
 
-  NodeDaoDb(final DatabaseConnectionFactory dcf) throws SQLException {
+  public NodeDaoDb(final DatabaseConnectionFactory dcf) throws SQLException {
     this.dcf = dcf;
     createTable();
   }
 
-  NodeDaoDb() throws SQLException {
+  public NodeDaoDb() throws SQLException {
     this(new DatabaseConnectionFactoryEmbedded());
   }
 
