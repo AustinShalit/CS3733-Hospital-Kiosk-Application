@@ -37,11 +37,10 @@ public class SanitationViewWindowController extends Controller {
   @FXML
   private TableColumn<SanitationRequest, String> descriptionCol;
 
-  private Database db;
 
   @FXML
   void initialize() throws SQLException {
-    db = new Database();
+    final Database db = new Database();
 
     idTableCol.setCellValueFactory(new PropertyValueFactory<>("id"));
     timeRequestedCol.setCellValueFactory(new PropertyValueFactory<>("timeRequested"));
