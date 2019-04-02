@@ -36,41 +36,31 @@ public class MainWindowController extends Controller {
   @FXML
   private Label nodeImportInProgress;
 
-  Database database;
+  private Database database;
 
   @FXML
   void navigationButtonAction(ActionEvent event) {
-    if (event.getSource() == navigationButton) {
-      this.switchScenes("NavigationWindow.fxml", navigationButton.getScene().getWindow());
-    }
+    switchScenes("NavigationWindow.fxml", navigationButton.getScene().getWindow());
   }
 
   @FXML
   void mapToolButtonAction(ActionEvent event) {
-    if (event.getSource() == mapToolButton) {
-      switchScenes("MapEditMain.fxml", mapToolButton.getScene().getWindow());
-    }
+    switchScenes("MapEditMain.fxml", mapToolButton.getScene().getWindow());
   }
 
   @FXML
   void sanitationRequestButtonAction(ActionEvent event) {
-    if (event.getSource() == sanitationRequestButton) {
-      switchScenes("MainSanitationWindow.fxml", sanitationRequestButton.getScene().getWindow());
-    }
+    switchScenes("MainSanitationWindow.fxml", sanitationRequestButton.getScene().getWindow());
   }
 
   @FXML
   void securityRequestButtonAction(ActionEvent event) {
-    if (event.getSource() == securityRequestButton) {
-      switchScenes("SecurityWindow.fxml", securityRequestButton.getScene().getWindow());
-    }
+    switchScenes("SecurityWindow.fxml", securityRequestButton.getScene().getWindow());
   }
 
   @FXML
   void schedulingButtonButtonAction(ActionEvent event) {
-    if (event.getSource() == schedulingButton) {
-      switchScenes("SchedulingWindow.fxml", schedulingButton.getScene().getWindow());
-    }
+    switchScenes("SchedulingWindow.fxml", schedulingButton.getScene().getWindow());
   }
 
   @FXML

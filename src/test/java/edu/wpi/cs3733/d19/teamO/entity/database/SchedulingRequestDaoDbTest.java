@@ -68,7 +68,7 @@ class SchedulingRequestDaoDbTest {
   void getTest() {
     schedulingDao.insert(schedulingRequest);
 
-    assertTrue(schedulingDao.get(schedulingRequest.getID()).isPresent());
+    assertTrue(schedulingDao.get(schedulingRequest.getId()).isPresent());
   }
 
   @Test
@@ -76,12 +76,12 @@ class SchedulingRequestDaoDbTest {
     schedulingDao.insert(schedulingRequest);
 
     assertNotSame(schedulingRequest,
-        schedulingDao.get(schedulingRequest.getID()).orElseThrow(IllegalStateException::new));
+        schedulingDao.get(schedulingRequest.getId()).orElseThrow(IllegalStateException::new));
   }
 
   @Test
   void getNotExistingTest() {
-    assertFalse(schedulingDao.get(schedulingRequest.getID()).isPresent());
+    assertFalse(schedulingDao.get(schedulingRequest.getId()).isPresent());
   }
 
   @Test
@@ -109,7 +109,7 @@ class SchedulingRequestDaoDbTest {
   @Test
   void updateTest() {
     schedulingDao.insert(schedulingRequest);
-    SchedulingRequest update = new SchedulingRequest(schedulingRequest.getID(), aStart, aEnd,
+    SchedulingRequest update = new SchedulingRequest(schedulingRequest.getId(), aStart, aEnd,
         LocalDateTime.now(), LocalDateTime.now(),"Dr. Owlman", nodeA);
     assertTrue(schedulingDao.update(update));
   }

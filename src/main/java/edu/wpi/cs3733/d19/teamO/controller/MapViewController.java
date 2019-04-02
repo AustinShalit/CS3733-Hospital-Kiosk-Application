@@ -13,7 +13,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
-/*
 import net.kurobako.gesturefx.GesturePane;
 
 import edu.wpi.cs3733.d19.teamO.entity.Node;
@@ -59,4 +58,4 @@ public class MapViewController {
         .forEach(nodeGroup.getChildren()::add);
   }
 
-}*/
+}

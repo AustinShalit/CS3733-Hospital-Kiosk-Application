@@ -3,17 +3,26 @@ package edu.wpi.cs3733.d19.teamO.controller;
 import java.sql.SQLException;
 
 import edu.wpi.cs3733.d19.teamO.entity.Node;
+import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 import edu.wpi.cs3733.d19.teamO.entity.database.NodeDaoDb;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+
 
 import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
+
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 
 public class SanitationWindowController extends Controller {
 
-  private NodeDaoDb nodeDao;
+  private Database database;
 
   @FXML
   private Button backButton;
@@ -30,8 +39,8 @@ public class SanitationWindowController extends Controller {
 
   @FXML
   void initialize() throws SQLException {
-    nodeDao = new NodeDaoDb();
-    locationComboBox.getItems().setAll(nodeDao.getAll());
+    database = new Database();
+    locationComboBox.getItems().setAll(database.getAllNodes());
     // Super verbose, but makes it so that just the long name for each node is displayed
     locationComboBox.setCellFactory(new Callback<ListView<Node>, ListCell<Node>>() {
       @Override

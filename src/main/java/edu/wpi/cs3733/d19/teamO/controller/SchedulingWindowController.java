@@ -10,6 +10,7 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
 
 import edu.wpi.cs3733.d19.teamO.entity.SchedulingRequest;
+import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 import edu.wpi.cs3733.d19.teamO.entity.database.NodeDaoDb;
 import edu.wpi.cs3733.d19.teamO.entity.database.SchedulingRequestDaoDb;
 import javafx.event.ActionEvent;
@@ -22,7 +23,7 @@ import javafx.util.Callback;
 
 public class SchedulingWindowController extends Controller {
 
-  private NodeDaoDb nodeDao;
+  private Database database;
 
   @FXML
   private Button backButton;
@@ -70,8 +71,8 @@ public class SchedulingWindowController extends Controller {
 
   @FXML
   public void initialize() throws SQLException {
-    nodeDao = new NodeDaoDb();
-    roomComboBox.getItems().addAll(nodeDao.getAll());
+    database = new Database();
+    roomComboBox.getItems().addAll(database.getAllNodes());
     roomComboBox.setCellFactory(new Callback<ListView<Node>, ListCell<Node>>() {
       @Override
       public ListCell<Node> call(ListView<Node> param) {

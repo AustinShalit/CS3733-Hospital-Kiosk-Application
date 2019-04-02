@@ -79,7 +79,7 @@ public class SchedulingRequestDaoDb implements SchedulingRequestDao {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement(
           queries.getProperty("scheduling_request.insert"), Statement.RETURN_GENERATED_KEYS);
-      //statement.setInt(1, schedulingRequest.getID());
+      //statement.setInt(1, schedulingRequest.getId());
       statement.setTimestamp(2, Timestamp.valueOf(schedulingRequest.getStartTime()));
       statement.setTimestamp(3, Timestamp.valueOf(schedulingRequest.getEndTime()));
       statement.setTimestamp(4, Timestamp.valueOf(schedulingRequest.getTimeRequested()));
@@ -105,7 +105,7 @@ public class SchedulingRequestDaoDb implements SchedulingRequestDao {
       statement.setTimestamp(4, Timestamp.valueOf(schedulingRequest.getTimeCompleted()));
       statement.setString(5, schedulingRequest.getWhoReserved());
       statement.setString(6, schedulingRequest.getRoom().getNodeId());
-      statement.setInt(1, schedulingRequest.getID());
+      statement.setInt(1, schedulingRequest.getId());
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
       logger.log(Level.WARNING, "Failed to update Scheduling Request", ex);
@@ -118,7 +118,7 @@ public class SchedulingRequestDaoDb implements SchedulingRequestDao {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement
           = connection.prepareStatement(queries.getProperty("scheduling_request.delete"));
-      statement.setInt(1, schedulingRequest.getID());
+      statement.setInt(1, schedulingRequest.getId());
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
       logger.log(Level.WARNING, "Failed to delete Scheduling Request", ex);

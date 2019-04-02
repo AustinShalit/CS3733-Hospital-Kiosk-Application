@@ -8,12 +8,12 @@ import java.util.Objects;
 public class SchedulingRequest {
 
   private int id;
-  private LocalDateTime startTime;
-  private LocalDateTime endTime;
-  private LocalDateTime timeRequested;
-  private LocalDateTime timeCompleted;
-  private String whoReserved;
-  private Node room;
+  private final LocalDateTime startTime;
+  private final LocalDateTime endTime;
+  private final LocalDateTime timeRequested;
+  private final LocalDateTime timeCompleted;
+  private final String whoReserved;
+  private final Node room;
 
   // Constructors
   public SchedulingRequest(LocalDateTime startTime, LocalDateTime endTime, LocalDateTime timeRequested,
@@ -37,7 +37,7 @@ public class SchedulingRequest {
   }
 
   // Getters and Setters
-  public int getID() {
+  public int getId() {
     return this.id;
   }
 
@@ -65,34 +65,9 @@ public class SchedulingRequest {
     return room;
   }
 
-  public void setID(int id) {
+  public void setId(int id) {
     this.id = id;
   }
-
-  public void setStartTime(LocalDateTime startTime) {
-    this.startTime = startTime;
-  }
-
-  public void setEndTime(LocalDateTime endTime) {
-    this.endTime = endTime;
-  }
-
-  public void setTimeRequested(LocalDateTime timeRequested) {
-    this.timeRequested = timeRequested;
-  }
-
-  public void setTimeCompleted(LocalDateTime timeCompleted) {
-    this.timeCompleted = timeCompleted;
-  }
-
-  public void setWhoReserved(String name) {
-    this.whoReserved = name;
-  }
-
-  public void setRoom(Node room) {
-    this.room = room;
-  }
-
 
   /**
    * Check equality
@@ -108,7 +83,7 @@ public class SchedulingRequest {
       return false;
     }
     SchedulingRequest that = (SchedulingRequest) o;
-    return getID() == that.getID()
+    return getId() == that.getId()
             && getStartTime().equals(that.getStartTime())
             && getEndTime().equals(that.getEndTime())
             && getTimeRequested().equals(that.getTimeRequested())
@@ -123,7 +98,7 @@ public class SchedulingRequest {
    */
   @Override
   public int hashCode() {
-    return Objects.hash(getID(), getStartTime(), getEndTime(), getTimeRequested(), getTimeCompleted(), getRoom(),
+    return Objects.hash(getId(), getStartTime(), getEndTime(), getTimeRequested(), getTimeCompleted(), getRoom(),
             getWhoReserved());
   }
 
@@ -134,7 +109,7 @@ public class SchedulingRequest {
   @Override
   public String toString() {
     return "SanitationRequest{"
-            + "id=" + getID()
+            + "id=" + getId()
             + ", startTime=" + getStartTime()
             + ", endTime=" + getEndTime()
             + ", locationNode=" + getRoom().toString()
