@@ -9,11 +9,10 @@ import java.util.List;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
 
+import edu.wpi.cs3733.d19.teamO.entity.SchedulingRequest;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -41,6 +40,9 @@ public class SchedulingWindowController extends Controller {
   private JFXDatePicker datePicker;
   @FXML
   private Button filePicker;
+  @FXML
+  private Label submitStatus;
+
 
   @FXML
   void onBackButtonAction(ActionEvent event) {
@@ -49,6 +51,32 @@ public class SchedulingWindowController extends Controller {
     }
   }
 
+  /**
+   * Check to make sure Scheduling Request is valid
+   * @param e Action Event from Submit button
+   */
+  @FXML
+  void onSubmitButtonAction(ActionEvent e) {
+    if (e.getSource() == submitButton
+        && nameBox != null
+        && startChoiceBox.getValue() != null
+        && endChoiceBox.getValue() != null
+        && datePicker.getValue() != null
+        && roomComboBox.getValue() != null) {
+      submitStatus.setText("All fields are filled. Nice!");
+    } else {
+      submitStatus.setText("Make sure all fields are filled in.");
+    }
+
+
+
+  }
+
+  /**
+   * Picks a CSV file to read in location nodes from
+   * @param e Action Event from File Picker button
+   * @throws IOException
+   */
   @FXML
   void pickFile(ActionEvent e) throws IOException {
     if (e.getSource() == filePicker) {
@@ -58,11 +86,9 @@ public class SchedulingWindowController extends Controller {
       File file = chooser.showOpenDialog(new Stage());
 
       List<Node> nodes = ncrw.readNodes(Files.newBufferedReader(file.toPath()));
-      System.out.println(nodes);
       for (Node node : nodes) {
         database.insertNode(node);
         roomComboBox.getItems().add(node.getLongName());
-        System.out.println(node.getLongName());
       }
     }
   }

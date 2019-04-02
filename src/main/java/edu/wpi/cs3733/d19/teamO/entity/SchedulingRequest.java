@@ -3,6 +3,7 @@ package edu.wpi.cs3733.d19.teamO.entity;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Objects;
 
 public class SchedulingRequest {
 
@@ -15,9 +16,8 @@ public class SchedulingRequest {
   private Node room;
 
   // Constructors
-  public SchedulingRequest(int id, LocalDateTime startTime, LocalDateTime endTime, LocalDateTime timeRequested,
+  public SchedulingRequest(LocalDateTime startTime, LocalDateTime endTime, LocalDateTime timeRequested,
                     LocalDateTime timeCompleted, String name, Node room) {
-    this.id = id;
     this.startTime = startTime;
     this.endTime = endTime;
     this.timeRequested = timeRequested;
@@ -26,9 +26,8 @@ public class SchedulingRequest {
     this.room = room;
   }
 
-  SchedulingRequest(int id, LocalTime startTime, LocalTime endTime, LocalDate date, LocalDateTime timeRequested,
+  public SchedulingRequest(LocalTime startTime, LocalTime endTime, LocalDate date, LocalDateTime timeRequested,
                     LocalDateTime timeCompleted, String whoReserved, Node room) {
-    this.id = id;
     this.startTime = LocalDateTime.of(date, startTime);
     this.endTime = LocalDateTime.of(date, endTime);
     this.timeRequested = timeRequested;
@@ -94,6 +93,12 @@ public class SchedulingRequest {
     this.room = room;
   }
 
+
+  /**
+   * Check equality
+   * @param o Other SchedulingRequest to compare
+   * @return true if all parameters are equal, false if not
+   */
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -110,6 +115,31 @@ public class SchedulingRequest {
             && getTimeCompleted().equals(that.getTimeCompleted())
             && getRoom().equals(that.getRoom())
             && getWhoReserved().equals(that.getWhoReserved());
+  }
+
+  /**
+   * Generates HashCode I guess?
+   * @return integer Hash Code
+   */
+  @Override
+  public int hashCode() {
+    return Objects.hash(getID(), getStartTime(), getEndTime(), getTimeRequested(), getTimeCompleted(), getRoom(),
+            getWhoReserved());
+  }
+
+  /**
+   * Informational String Maker
+   * @return Informational String with parameters of this Scheduling Request
+   */
+  @Override
+  public String toString() {
+    return "SanitationRequest{"
+            + "id=" + getID()
+            + ", startTime=" + getStartTime()
+            + ", endTime=" + getEndTime()
+            + ", locationNode=" + getRoom().toString()
+            + ", whoReserved=" + getWhoReserved()
+            + '}';
   }
 
 }

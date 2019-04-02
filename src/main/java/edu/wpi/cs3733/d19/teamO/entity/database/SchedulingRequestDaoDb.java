@@ -62,14 +62,14 @@ class SchedulingRequestDaoDb implements SchedulingRequestDao {
       PreparedStatement statement
           = connection.prepareStatement(queries.getProperty("scheduling_request.select_all"));
       try (ResultSet resultSet = statement.executeQuery()) {
-        Set<SchedulingRequest> schedulingRequests = new HashSet<>();
+        Set<SchedulingRequest> nodes = new HashSet<>();
         while (resultSet.next()) {
-          schedulingRequests.add(extractSchedulingRequestFromResultSet(resultSet));
+          nodes.add(extractSchedulingRequestFromResultSet(resultSet));
         }
-        return schedulingRequests;
+        return nodes;
       }
     } catch (SQLException ex) {
-      logger.log(Level.WARNING, "Failed to get Scheduling Requests", ex);
+      logger.log(Level.WARNING, "Failed to get Scheduling Request", ex);
     }
     return Collections.emptySet();
   }
@@ -78,8 +78,8 @@ class SchedulingRequestDaoDb implements SchedulingRequestDao {
   public boolean insert(final SchedulingRequest schedulingRequest) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement(
-          queries.getProperty("scheduling_request.insert"));
-      statement.setInt(1, schedulingRequest.getID());
+          queries.getProperty("scheduling_request.insert"), Statement.RETURN_GENERATED_KEYS);
+      //statement.setInt(1, schedulingRequest.getID());
       statement.setTimestamp(2, Timestamp.valueOf(schedulingRequest.getStartTime()));
       statement.setTimestamp(3, Timestamp.valueOf(schedulingRequest.getEndTime()));
       statement.setTimestamp(4, Timestamp.valueOf(schedulingRequest.getTimeRequested()));
@@ -105,7 +105,7 @@ class SchedulingRequestDaoDb implements SchedulingRequestDao {
       statement.setTimestamp(4, Timestamp.valueOf(schedulingRequest.getTimeCompleted()));
       statement.setString(5, schedulingRequest.getWhoReserved());
       statement.setString(6, schedulingRequest.getRoom().getNodeId());
-      statement.setInt(7, schedulingRequest.getID());
+      statement.setInt(1, schedulingRequest.getID());
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
       logger.log(Level.WARNING, "Failed to update Scheduling Request", ex);
@@ -129,13 +129,14 @@ class SchedulingRequestDaoDb implements SchedulingRequestDao {
   private SchedulingRequest extractSchedulingRequestFromResultSet(final ResultSet resultSet)
       throws SQLException {
     return new SchedulingRequest(
-        resultSet.getInt("id"),
+        // resultSet.getInt("id"),
         resultSet.getTimestamp("start_time").toLocalDateTime(),
         resultSet.getTimestamp("end_time").toLocalDateTime(),
         resultSet.getTimestamp("time_requested").toLocalDateTime(),
         resultSet.getTimestamp("time_completed").toLocalDateTime(),
         resultSet.getString("who_requested"),
-        nodeDaoDb.get(resultSet.getString("location"))
+        nodeDaoDb.get(resultSet
+            .getString("location"))
             .orElseThrow(() -> new SQLException("Could not get node for scheduling request"))
     );
   }
