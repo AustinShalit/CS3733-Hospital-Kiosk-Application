@@ -1,28 +1,35 @@
 package edu.wpi.cs3733.d19.teamO.entity.database;
 
-import edu.wpi.cs3733.d19.teamO.entity.Node;
-import edu.wpi.cs3733.d19.teamO.entity.SchedulingRequest;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 
-import java.sql.SQLException;
-import java.time.LocalDateTime;
+import edu.wpi.cs3733.d19.teamO.entity.Node;
+import edu.wpi.cs3733.d19.teamO.entity.SchedulingRequest;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class SchedulingRequestDaoDbTest {
 
-  private static final Node nodeA = new Node("A", 1, 2, "0", "B", Node.NodeType.HALL,
-      "AL", "AS");
-  private static final LocalDateTime aStart = LocalDateTime.of(2019,4,1,3,30);
-  private static final LocalDateTime aEnd = LocalDateTime.of(2019,4,1,4,30);
+  private static final Node nodeA = new Node("A", 1, 2, "0", "B",
+      Node.NodeType.HALL, "AL", "AS");
+  private static final LocalDateTime aStart = LocalDateTime.of(2019, 4, 1,
+      3, 30);
+  private static final LocalDateTime aEnd = LocalDateTime.of(2019, 4, 1,
+      4, 30);
   private static final LocalDateTime aRequest = LocalDateTime.now();
   private static final LocalDateTime aComplete = LocalDateTime.now();
 
-  private static final SchedulingRequest schedulingRequest = new SchedulingRequest(aStart, aEnd, aRequest, aComplete,
-          "Dr. Owlman", nodeA);
+  private static final SchedulingRequest schedulingRequest = new SchedulingRequest(12, aStart, aEnd,
+      aRequest, aComplete, "Dr. Owlman", nodeA);
 
   @Nested
   class Creation {
@@ -46,7 +53,6 @@ class SchedulingRequestDaoDbTest {
   }
 
   private SchedulingRequestDaoDb schedulingDao;
-  private NodeDao nodeDao;
 
   @BeforeEach
   void setup(TestInfo testInfo) throws SQLException {
@@ -55,11 +61,9 @@ class SchedulingRequestDaoDbTest {
         testInfo.getTestClass().get().getName()
             + testInfo.getDisplayName());
 
-    nodeDao = new NodeDaoDb(dcf);
-    SchedulingRequestDaoDb schedulingRequestDaoDb = new SchedulingRequestDaoDb(dcf);
+    NodeDao nodeDao = new NodeDaoDb(dcf);
 
     nodeDao.insert(nodeA);
-    //schedulingRequestDaoDb.insert(schedulingRequest);
 
     schedulingDao = new SchedulingRequestDaoDb(dcf);
   }
@@ -109,8 +113,9 @@ class SchedulingRequestDaoDbTest {
   @Test
   void updateTest() {
     schedulingDao.insert(schedulingRequest);
-    SchedulingRequest update = new SchedulingRequest(aStart, aEnd,
-        LocalDateTime.now(), LocalDateTime.now(),"Dr. Owlman", nodeA);
+
+    SchedulingRequest update = new SchedulingRequest(12, aStart, aEnd,
+        LocalDateTime.now(), LocalDateTime.now(), "Dr. Owlman", nodeA);
     assertTrue(schedulingDao.update(update));
   }
 

@@ -1,25 +1,26 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.sql.SQLException;
-import java.util.List;
 
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
 
-import edu.wpi.cs3733.d19.teamO.entity.SchedulingRequest;
-import edu.wpi.cs3733.d19.teamO.entity.database.Database;
-import edu.wpi.cs3733.d19.teamO.entity.database.SchedulingRequestDaoDb;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-
-import edu.wpi.cs3733.d19.teamO.entity.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 
+import edu.wpi.cs3733.d19.teamO.entity.Node;
+import edu.wpi.cs3733.d19.teamO.entity.database.Database;
+
+@SuppressWarnings("PMD")
 public class SchedulingWindowController extends Controller {
 
   private Database database;
@@ -50,7 +51,7 @@ public class SchedulingWindowController extends Controller {
   }
 
   /**
-   * Check to make sure Scheduling Request is valid
+   * Check to make sure Scheduling Request is valid.
    * @param e Action Event from Submit button
    */
   @FXML
@@ -68,6 +69,10 @@ public class SchedulingWindowController extends Controller {
 
   }
 
+  /**
+   * Populate the Room selection ComboBox.
+   * @throws SQLException When stuff goes wrong.
+   */
   @FXML
   public void initialize() throws SQLException {
     database = new Database();
@@ -80,6 +85,7 @@ public class SchedulingWindowController extends Controller {
             setContentDisplay(ContentDisplay.CENTER);
             text = new Text();
           }
+
           @Override
           protected void updateItem(Node item, boolean empty) {
             super.updateItem(item, empty);

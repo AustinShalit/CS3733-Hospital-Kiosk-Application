@@ -4,7 +4,12 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.Set;
 
-import edu.wpi.cs3733.d19.teamO.entity.*;
+import edu.wpi.cs3733.d19.teamO.entity.Edge;
+import edu.wpi.cs3733.d19.teamO.entity.Node;
+import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
+import edu.wpi.cs3733.d19.teamO.entity.SchedulingRequest;
+import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
+
 
 @SuppressWarnings("PMD.TooManyMethods")
 public class Database {

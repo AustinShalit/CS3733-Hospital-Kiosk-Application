@@ -1,26 +1,23 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
-import com.jfoenix.controls.JFXProgressBar;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.sql.SQLException;
+import java.util.List;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.csv.EdgeCsvReaderWriter;
 import edu.wpi.cs3733.d19.teamO.entity.csv.NodeCsvReaderWriter;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.sql.SQLException;
-import java.util.Date;
-import java.util.List;
 
 public class MainWindowController extends Controller {
 

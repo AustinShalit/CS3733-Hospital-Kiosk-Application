@@ -1,9 +1,9 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
+import java.sql.SQLException;
+
 import com.jfoenix.controls.JFXComboBox;
 
-import edu.wpi.cs3733.d19.teamO.entity.Node;
-import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -13,11 +13,11 @@ import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 
-import java.sql.SQLException;
+import edu.wpi.cs3733.d19.teamO.entity.Node;
+import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
+@SuppressWarnings("PMD")
 public class SecurityWindowController extends Controller {
-
-  private Database database;
 
   @FXML
   private Button backButton;
@@ -39,6 +39,8 @@ public class SecurityWindowController extends Controller {
 
   }
 
+  private Database database;
+
   @FXML
   void initialize() throws SQLException {
     /*
@@ -50,6 +52,7 @@ public class SecurityWindowController extends Controller {
     );
     */
     database = new Database();
+
     insertlocationdropdown.getItems().setAll(database.getAllNodes());
     insertlocationdropdown.setCellFactory(new Callback<ListView<Node>, ListCell<Node>>() {
       @Override
@@ -59,6 +62,7 @@ public class SecurityWindowController extends Controller {
             setContentDisplay(ContentDisplay.CENTER);
             text = new Text();
           }
+
           @Override
           protected void updateItem(Node item, boolean empty) {
             super.updateItem(item, empty);
@@ -74,6 +78,9 @@ public class SecurityWindowController extends Controller {
     });
   }
 
+  static {
+
+  }
 
   @FXML
   void onBackButtonAction(ActionEvent event) {

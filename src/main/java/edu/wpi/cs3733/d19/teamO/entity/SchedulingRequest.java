@@ -1,13 +1,11 @@
 package edu.wpi.cs3733.d19.teamO.entity;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Objects;
 
 public class SchedulingRequest {
 
-  private int id;
+  private Integer id;
   private final LocalDateTime startTime;
   private final LocalDateTime endTime;
   private final LocalDateTime timeRequested;
@@ -15,9 +13,20 @@ public class SchedulingRequest {
   private final String whoReserved;
   private final Node room;
 
-  // Constructors
-  public SchedulingRequest(LocalDateTime startTime, LocalDateTime endTime, LocalDateTime timeRequested,
-                    LocalDateTime timeCompleted, String name, Node room) {
+  /**
+   * Constructor with id and full start and end times specified.
+   * @param id ID
+   * @param startTime Start time
+   * @param endTime End Time
+   * @param timeRequested Time Request opened
+   * @param timeCompleted Time Request approved
+   * @param name Who requested the room
+   * @param room  Which room to reserve
+   */
+  public SchedulingRequest(Integer id, LocalDateTime startTime, LocalDateTime endTime,
+                           LocalDateTime timeRequested, LocalDateTime timeCompleted,
+                           String name, Node room) {
+    this.id = id;
     this.startTime = startTime;
     this.endTime = endTime;
     this.timeRequested = timeRequested;
@@ -25,16 +34,18 @@ public class SchedulingRequest {
     this.whoReserved = name;
     this.room = room;
   }
-
-  public SchedulingRequest(LocalTime startTime, LocalTime endTime, LocalDate date, LocalDateTime timeRequested,
-                    LocalDateTime timeCompleted, String whoReserved, Node room) {
+  /*
+  public SchedulingRequest(LocalTime startTime, LocalTime endTime, LocalDate date,
+                           LocalDateTime timeRequested, LocalDateTime timeCompleted,
+                           String whoReserved, Node room) {
+    this.id = 0;
     this.startTime = LocalDateTime.of(date, startTime);
     this.endTime = LocalDateTime.of(date, endTime);
     this.timeRequested = timeRequested;
     this.timeCompleted = timeCompleted;
     this.whoReserved = whoReserved;
     this.room = room;
-  }
+  }*/
 
   // Getters and Setters
   public int getId() {
@@ -69,11 +80,6 @@ public class SchedulingRequest {
     this.id = id;
   }
 
-  /**
-   * Check equality
-   * @param o Other SchedulingRequest to compare
-   * @return true if all parameters are equal, false if not
-   */
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -92,20 +98,12 @@ public class SchedulingRequest {
             && getWhoReserved().equals(that.getWhoReserved());
   }
 
-  /**
-   * Generates HashCode I guess?
-   * @return integer Hash Code
-   */
   @Override
   public int hashCode() {
-    return Objects.hash(getId(), getStartTime(), getEndTime(), getTimeRequested(), getTimeCompleted(), getRoom(),
-            getWhoReserved());
+    return Objects.hash(getId(), getStartTime(), getEndTime(), getTimeRequested(),
+        getTimeCompleted(), getRoom(), getWhoReserved());
   }
 
-  /**
-   * Informational String Maker
-   * @return Informational String with parameters of this Scheduling Request
-   */
   @Override
   public String toString() {
     return "SanitationRequest{"

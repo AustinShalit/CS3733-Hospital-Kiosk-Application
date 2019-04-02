@@ -2,13 +2,7 @@ package edu.wpi.cs3733.d19.teamO.controller;
 
 import java.sql.SQLException;
 
-import edu.wpi.cs3733.d19.teamO.entity.Node;
-import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 import javafx.fxml.FXML;
-
-
-import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContentDisplay;
@@ -19,6 +13,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 
+import edu.wpi.cs3733.d19.teamO.entity.Node;
+import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
+import edu.wpi.cs3733.d19.teamO.entity.database.Database;
+
+@SuppressWarnings("PMD")
 public class SanitationWindowController extends Controller {
 
   private Database database;
@@ -49,9 +48,12 @@ public class SanitationWindowController extends Controller {
             setContentDisplay(ContentDisplay.CENTER);
             text = new Text();
           }
+
           @Override
           protected void updateItem(Node item, boolean empty) {
+
             super.updateItem(item, empty);
+
             if (item == null || empty) {
               setGraphic(null);
             } else {
