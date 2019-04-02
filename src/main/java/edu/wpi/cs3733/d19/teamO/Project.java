@@ -5,8 +5,8 @@ import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class Project extends Application {
@@ -19,7 +19,7 @@ public class Project extends Application {
     logger.config("Starting application");
 
     FXMLLoader loader = new FXMLLoader(getClass().getResource("controller/MainWindow.fxml"));
-    Pane mainWindow = loader.load();
+    Parent mainWindow = loader.load();
 
     primaryStage.setTitle("Team O Kiosk Application");
     primaryStage.setScene(new Scene(mainWindow));
