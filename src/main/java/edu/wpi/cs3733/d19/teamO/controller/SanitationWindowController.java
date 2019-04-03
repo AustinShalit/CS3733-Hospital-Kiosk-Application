@@ -35,7 +35,6 @@ public class SanitationWindowController extends Controller {
     database = new Database();
     populateComboBox(database, locationComboBox);
     categoryComboBox.getItems().setAll(SanitationRequest.SanitationRequestType.values());
-    //    locationComboBox.getItems().setAll(db.getAllSanitationRequests());
   }
 
 
