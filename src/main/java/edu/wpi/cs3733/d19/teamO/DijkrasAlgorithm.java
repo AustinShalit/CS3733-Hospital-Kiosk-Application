@@ -49,10 +49,10 @@ public class DijkrasAlgorithm extends SearchAlgorithm {
       for (Node next : neighbors(current)) {
         Double newCost = costSoFar.get(current) + current.getCost(next);
         if (!cameFrom.containsKey(next) || newCost < costSoFar.get(next)) {
-          Pair nextPair = new Pair(next, current.getCost(next));
+          Double priority = newCost;
+          Pair nextPair = new Pair(next, priority);
           frontier.add(nextPair);
           costSoFar.put(next,newCost);
-          Double priority = newCost;
           cameFrom.put(next, current);
         }
       }
