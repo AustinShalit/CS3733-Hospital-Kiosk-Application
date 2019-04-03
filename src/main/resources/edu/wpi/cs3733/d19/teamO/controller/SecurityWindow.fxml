@@ -8,7 +8,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.SecurityWindowController">
     <children>
-        <Button fx:id="alertbutton" layoutX="365.0" layoutY="314.0" mnemonicParsing="false" text="Alert Them" />
+        <Button fx:id="alertbutton" layoutX="365.0" layoutY="314.0" mnemonicParsing="false" onAction="#onAlertAction" text="Alert Them" />
         <Button fx:id="backButton" layoutX="8.0" layoutY="8.0" mnemonicParsing="false" onAction="#onBackButtonAction" text="Back" />
         <Text fx:id="securityTitle" layoutX="188.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Security " textAlignment="CENTER" wrappingWidth="223.17449808120728">
             <font>
@@ -17,6 +17,7 @@
         </Text>
       <JFXComboBox fx:id="insertlocationdropdown" layoutX="300.0" layoutY="178.0" prefHeight="44.0" prefWidth="159.0" />
       <Button fx:id="getnodesbutton" layoutX="162.0" layoutY="188.0" mnemonicParsing="false" text="Get Nodes" />
+      <Button fx:id="viewSecurityRequestButton" layoutX="111.0" layoutY="314.0" mnemonicParsing="false" onAction="#onViewSecurityAction" text="View Security Requests" />
     </children>
 
 </AnchorPane>
