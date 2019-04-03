@@ -12,12 +12,9 @@ class ServiceRequest {
   private final String whoCompleted;
   private final String description;
   private final Node location;
-  private final String locationNodeId;
 
-  // constructors
   public static LocalDateTime defaultTime() {
-    return LocalDateTime.of(1,
-        1, 1, 1, 1);
+    return LocalDateTime.of(1, 1, 1, 1, 1);
   }
 
 
@@ -25,13 +22,13 @@ class ServiceRequest {
    * The constructor for the service request class.
    *
    * @param id This primary key for the ServiceRequest. -1 if ServiceRequest not in Database, and
-   *                      you wish the database to generate the id.
+   *           you wish the database to generate the id.
    * @param timeRequested The time the service request was first requested.
    * @param timeCompleted The time the service request was completed.
    *                      Use Globals.defaultTime() instead of null
-   * @param whoCompleted  A string representation of whoever completed the Service Request.
-   * @param description   A description.
-   * @param location      A reference to the Node.
+   * @param whoCompleted A string representation of whoever completed the Service Request.
+   * @param description A description.
+   * @param location A reference to the Node.
    */
   ServiceRequest(int id, LocalDateTime timeRequested, LocalDateTime timeCompleted,
                  String whoCompleted, String description, Node location) {
@@ -41,7 +38,6 @@ class ServiceRequest {
     this.whoCompleted = whoCompleted;
     this.description = description;
     this.location = location;
-    this.locationNodeId = location.getNodeId();
   }
 
   ServiceRequest(int id, LocalDateTime timeRequested, String description, Node locationNode) {
@@ -52,7 +48,6 @@ class ServiceRequest {
 
     this.timeCompleted = defaultTime();
     this.whoCompleted = "";
-    this.locationNodeId = location.getNodeId();
   }
 
   ServiceRequest(LocalDateTime timeRequested, String description, Node locationNode) {
@@ -63,7 +58,6 @@ class ServiceRequest {
     this.id = -1;
     this.timeCompleted = defaultTime();
     this.whoCompleted = "";
-    this.locationNodeId = location.getNodeId();
   }
 
   // getters and setters
@@ -116,11 +110,6 @@ class ServiceRequest {
     return location.getLongName();
   }
 
-  public String getLocationNodeId() {
-    return locationNodeId;
-  }
-
-  // functions
   @Override
   public String toString() {
     return MoreObjects.toStringHelper(this)

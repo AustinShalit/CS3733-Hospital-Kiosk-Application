@@ -115,5 +115,4 @@ public class SchedulingRequest {
         + ", whoReserved=" + getWhoReserved()
         + '}';
   }
-
 }

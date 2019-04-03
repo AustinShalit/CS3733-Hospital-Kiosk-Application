@@ -2,13 +2,10 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import edu.wpi.cs3733.d19.teamO.component.MapView?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0"
             xmlns="http://javafx.com/javafx/8.0.171"
             fx:controller="edu.wpi.cs3733.d19.teamO.controller.MapEditController">
@@ -50,26 +47,7 @@
                 <Font name="System Bold" size="12.0"/>
             </font>
         </JFXButton>
-        <Label fx:id="coordX" layoutX="170.0" layoutY="336.0" text="Xcoord">
-            <font>
-                <Font size="25.0"/>
-            </font>
-        </Label>
-        <Label fx:id="coordY" layoutX="265.0" layoutY="336.0" text="Ycoord">
-            <font>
-                <Font size="25.0"/>
-            </font>
-        </Label>
-        <StackPane layoutX="7.0" layoutY="56.0" prefHeight="269.0" prefWidth="396.0">
-            <children>
-                <AnchorPane prefHeight="200.0" prefWidth="200.0"/>
-                <ImageView fitHeight="279.0" fitWidth="396.0" onMouseClicked="#tower1Action"
-                           pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../../../../../../maps/00_thelowerlevel1.png"/>
-                    </image>
-                </ImageView>
-            </children>
-        </StackPane>
+        <MapView fx:id="map" layoutX="23.0" layoutY="50.0" prefHeight="283.0" prefWidth="399.0"
+                 style="-fx-background-color: RED;"/>
     </children>
 </AnchorPane>

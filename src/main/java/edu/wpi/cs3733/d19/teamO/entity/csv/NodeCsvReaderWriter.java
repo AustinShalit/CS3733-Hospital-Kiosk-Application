@@ -22,6 +22,40 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class NodeCsvReaderWriter {
 
+  /**
+   * Read in the provided file as a List of Nodes.
+   *
+   * @param reader The input stream to read from
+   * @return A list of Nodes in the CSV file
+   */
+  public List<Node> readNodes(final Reader reader) {
+    checkNotNull(reader);
+
+    return new CsvToBeanBuilder<NodeVo>(reader)
+        .withType(NodeVo.class)
+        .build()
+        .parse()
+        .stream()
+        .map(NodeVo::toNode)
+        .collect(Collectors.toList());
+  }
+
+  /**
+   * Write provided nodes to file.
+   *
+   * @param writer The output stream to write to
+   * @param nodes  The nodes to write
+   */
+  public void writeNodes(final Writer writer, final Collection<Node> nodes)
+      throws CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
+    checkNotNull(writer);
+    checkNotNull(nodes);
+
+    StatefulBeanToCsv<NodeVo> beanToCsv
+        = new StatefulBeanToCsvBuilder<NodeVo>(writer).build();
+    beanToCsv.write(nodes.stream().map(NodeVo::fromNode).collect(Collectors.toList()));
+  }
+
   // MUST be public for reflection to work
   public static final class NodeVo {
     @CsvBindByName(column = "nodeID")
@@ -87,39 +121,5 @@ public class NodeCsvReaderWriter {
       );
     }
 
-  }
-
-  /**
-   * Read in the provided file as a List of Nodes.
-   *
-   * @param reader The input stream to read from
-   * @return A list of Nodes in the CSV file
-   */
-  public List<Node> readNodes(final Reader reader) {
-    checkNotNull(reader);
-
-    return new CsvToBeanBuilder<NodeVo>(reader)
-        .withType(NodeVo.class)
-        .build()
-        .parse()
-        .stream()
-        .map(NodeVo::toNode)
-        .collect(Collectors.toList());
-  }
-
-  /**
-   * Write provided nodes to file.
-   *
-   * @param writer The output stream to write to
-   * @param nodes  The nodes to write
-   */
-  public void writeNodes(final Writer writer, final Collection<Node> nodes)
-      throws CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
-    checkNotNull(writer);
-    checkNotNull(nodes);
-
-    StatefulBeanToCsv<NodeVo> beanToCsv
-        = new StatefulBeanToCsvBuilder<NodeVo>(writer).build();
-    beanToCsv.write(nodes.stream().map(NodeVo::fromNode).collect(Collectors.toList()));
   }
 }
