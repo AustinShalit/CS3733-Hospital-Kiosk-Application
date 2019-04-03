@@ -7,13 +7,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 public class MapEditAddController extends MapEditController {
-  private Database database = new Database();
+  private final Database database = new Database();
   @FXML
   private Label addLabel;
   @FXML
@@ -37,7 +36,7 @@ public class MapEditAddController extends MapEditController {
   }
 
   @FXML
-  private void comboBox() {
+  void comboBox() {
     nodeType.getItems().addAll(Node.NodeType.values());
   }
 
@@ -54,10 +53,6 @@ public class MapEditAddController extends MapEditController {
     database.insertNode(newNode);
     addLabel.setText("Succeed!");
   }
-
-
-
-
 
 
 }

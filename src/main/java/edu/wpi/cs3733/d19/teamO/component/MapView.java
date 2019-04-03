@@ -3,6 +3,7 @@ package edu.wpi.cs3733.d19.teamO.component;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javafx.animation.Interpolator;
 import javafx.fxml.FXML;
@@ -35,12 +36,15 @@ public class MapView extends StackPane {
   @FXML
   private Group edges;
 
-  private ArrayList<Line> lines;
+  private List<Line> lines;
 
-  public ArrayList<Line> getLines() {
+  public List<Line> getLines() {
     return lines;
   }
 
+  /**
+   * Create new MapView.
+   */
   public MapView() throws IOException {
     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MapView.fxml"));
     fxmlLoader.setRoot(this);
@@ -64,11 +68,22 @@ public class MapView extends StackPane {
     });
   }
 
+  /**
+   * Set and scale the given image to the current MapView.
+   *
+   * @param image The image to be displayed.
+   */
   public void setMapImage(final Image image) {
     backgroundImage.setImage(image);
-    gesturePane.zoomTo(0.1, new Point2D(backgroundImage.getImage().getWidth() / 2, backgroundImage.getImage().getHeight() / 2));
+    gesturePane.zoomTo(0.1, new Point2D(backgroundImage.getImage().getWidth() / 2,
+        backgroundImage.getImage().getHeight() / 2));
   }
 
+  /**
+   * Add nodes to display on map.
+   *
+   * @param nodes The nodes to be displayed.
+   */
   public void addNodesToPane(final Collection<Node> nodes) {
     nodes.stream()
         .map(node -> new Circle(node.getXcoord(), node.getYcoord(), 5, Color.PURPLE))
@@ -79,19 +94,28 @@ public class MapView extends StackPane {
     this.edges = edges;
   }
 
+  /**
+   * Get the edges field of this MapView.
+   *
+   * @return The edges Group field of this MapView.
+   */
   public Group getEdges() {
     return edges;
   }
 
+  /**
+   * Adds all edges to display on the map.
+   *
+   * @param edgeCollection The edges to be displayed.
+   */
+  @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
   public void addEdgesToPane(final Collection<Edge> edgeCollection) {
-
-    for(Edge edge: edgeCollection) {
-      Line line = new Line(edge.getStartNode().getXcoord(), edge.getStartNode().getYcoord(), edge.getEndNode().getXcoord(), edge.getEndNode().getYcoord());
+    for (Edge edge : edgeCollection) {
+      Line line = new Line(edge.getStartNode().getXcoord(), edge.getStartNode().getYcoord(),
+          edge.getEndNode().getXcoord(), edge.getEndNode().getYcoord());
       lines.add(line);
       edges.getChildren().add(line);
     }
-
-    edges.getChildren().forEach(s -> s.setVisible(false));
   }
 
 }

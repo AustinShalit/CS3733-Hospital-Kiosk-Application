@@ -11,7 +11,7 @@ import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 public class MapEditDeleteController extends MapEditController {
-  private Database database = new Database();
+  private final Database database = new Database();
   @FXML
   private Label deleteError;
   @FXML

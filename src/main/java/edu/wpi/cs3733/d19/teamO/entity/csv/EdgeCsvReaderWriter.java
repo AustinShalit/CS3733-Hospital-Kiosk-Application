@@ -95,7 +95,7 @@ public class EdgeCsvReaderWriter {
    * Write provided nodes to file.
    *
    * @param writer The output stream to write to
-   * @param edges The edges to write
+   * @param edges  The edges to write
    */
   public void writeNodes(final Writer writer, final Collection<Edge> edges)
       throws CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {

@@ -44,7 +44,9 @@ public class SanitationWindowController extends Controller {
       @Override
       public ListCell<Node> call(ListView<Node> param) {
         return new ListCell<Node>() {
-          private final Text text; {
+          private final Text text;
+
+          {
             setContentDisplay(ContentDisplay.CENTER);
             text = new Text();
           }

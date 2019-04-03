@@ -9,8 +9,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXRadioButton;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.ToggleGroup;
@@ -18,16 +16,15 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.util.StringConverter;
 
 import edu.wpi.cs3733.d19.teamO.BreadthFirstSearchAlgorithm;
 import edu.wpi.cs3733.d19.teamO.component.MapView;
-import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
+@SuppressWarnings("PMD.GodClass")
 public class NavigationWindowController extends Controller {
 
   @FXML
@@ -47,9 +44,9 @@ public class NavigationWindowController extends Controller {
   private JFXRadioButton endSelLocJFXRadio;
 
   @FXML
-  private JFXComboBox startSelLocJFXCombo;
+  private JFXComboBox<Node> startSelLocJFXCombo;
   @FXML
-  private JFXComboBox endSelLocJFXCombo;
+  private JFXComboBox<Node> endSelLocJFXCombo;
 
   @FXML
   private ToggleGroup startLocationToggle;
@@ -61,28 +58,28 @@ public class NavigationWindowController extends Controller {
 
   private Set<Node> nodeSet;
 
-  private Group BFSpath;
+  private Group bfsPath;
 
   @FXML
   void initialize() throws SQLException, IOException {
     Database database = new Database();
     nodeSet = database.getAllNodes();
 
-    BFSpath = new Group();
+    bfsPath = new Group();
 
     Image image = new Image(getClass().getResource("01_thefirstfloor.png").openStream());
     map.setMapImage(image);
     map.addNodesToPane(database.getAllNodes());
     //map.addEdgesToPane(database.getAllEdges());
 
-    ObservableList<Node> locations = FXCollections.observableArrayList();
+    //    ObservableList<Node> locations = FXCollections.observableArrayList();
     for (Node node : nodeSet) {
-      locations.add(node);
-    }
-    for (Node node : locations) {
       startSelLocJFXCombo.getItems().add(node);
       endSelLocJFXCombo.getItems().add(node);
     }
+    //    for (Node node : locations) {
+    //
+    //    }
 
     StringConverter<Node> str = new StringConverter<Node>() {
       @Override
@@ -95,8 +92,8 @@ public class NavigationWindowController extends Controller {
 
       @Override
       public Node fromString(String string) {
-        for(Node node: nodeSet) {
-          if(node.getLongName().equals(string)) {
+        for (Node node : nodeSet) {
+          if (node.getLongName().equals(string)) {
             return node;
           }
         }
@@ -148,36 +145,36 @@ public class NavigationWindowController extends Controller {
   }
 
   @FXML
+  @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
   void onGenPathButtonAction() throws SQLException {
 
-    map.getEdges().getChildren().removeAll(BFSpath);
-    System.out.println("Before: " + map.getEdges().getChildren().size());
+    map.getEdges().getChildren().removeAll(bfsPath);
 
     BreadthFirstSearchAlgorithm bfsAlgorithm = new BreadthFirstSearchAlgorithm(new Database());
-    Stack<Node> path = bfsAlgorithm.getPath(((Node) startSelLocJFXCombo.getValue()), ((Node) endSelLocJFXCombo.getValue()));
+    Stack<Node> path = bfsAlgorithm.getPath((Node) startSelLocJFXCombo.getValue(),
+        (Node) endSelLocJFXCombo.getValue());
 
-    BFSpath = new Group();
+    bfsPath = new Group();
 
     Node lastNode = null;
-    for(Node node: path) {
-      if(lastNode != null) {
-        BFSpath.getChildren().add(new Line(node.getXcoord(), node.getYcoord(), lastNode.getXcoord(), lastNode.getYcoord()));
-      }
-      else {
-        Rectangle s = new Rectangle((node.getXcoord() - 8), (node.getYcoord() - 8), 16, 16);
-        s.setFill(Color.RED);
-        s.setStroke(Color.BLACK);
-        BFSpath.getChildren().add(s);
+    for (Node node : path) {
+      if (lastNode != null) {
+        bfsPath.getChildren().add(new Line(node.getXcoord(), node.getYcoord(),
+            lastNode.getXcoord(), lastNode.getYcoord()));
+      } else {
+        Rectangle rectangle = new Rectangle(node.getXcoord() - 8, node.getYcoord() - 8, 16, 16);
+        rectangle.setFill(Color.RED);
+        rectangle.setStroke(Color.BLACK);
+        bfsPath.getChildren().add(rectangle);
       }
       lastNode = node;
     }
 
-    Circle r = new Circle(lastNode.getXcoord(), lastNode.getYcoord(), 8, Color.GREEN);
-    r.setStroke(Color.BLACK);
-    BFSpath.getChildren().add(r);
+    Circle circle = new Circle(lastNode.getXcoord(), lastNode.getYcoord(), 8, Color.GREEN);
+    circle.setStroke(Color.BLACK);
+    bfsPath.getChildren().add(circle);
 
-    map.getEdges().getChildren().addAll(BFSpath);
-    System.out.println("After: " + map.getEdges().getChildren().size());
+    map.getEdges().getChildren().addAll(bfsPath);
   }
 
   void validateGenButton() {
@@ -185,31 +182,6 @@ public class NavigationWindowController extends Controller {
       genPathButton.setDisable(false);
     } else {
       genPathButton.setDisable(true);
-    }
-  }
-
-  void checkLine(Line line, Stack<Node> nodes) {
-    boolean found = false;
-
-    for(Node node: nodes) {
-      if(nodes.peek() != null) {
-        if(line.getStartX() == node.getXcoord()
-            && line.getStartY() == node.getYcoord()
-            && nodes.peek().getXcoord() == line.getEndX()
-            && nodes.peek().getYcoord() == line.getEndY()) {
-          found = true;
-        }
-        else if(line.getEndX() == node.getXcoord()
-            && line.getEndY() == node.getYcoord()
-            && line.getStartX() == nodes.peek().getXcoord()
-            && line.getStartY() == nodes.peek().getYcoord()) {
-          found = true;
-        }
-      }
-
-    }
-    if(found) {
-      line.setVisible(true);
     }
   }
 }

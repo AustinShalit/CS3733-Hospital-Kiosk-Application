@@ -40,6 +40,7 @@ public class SchedulingRequestDaoDb implements SchedulingRequestDao {
 
   /**
    * Constructor.
+   *
    * @param dcf New database connection factory
    * @throws SQLException When stuff goes wrong
    */

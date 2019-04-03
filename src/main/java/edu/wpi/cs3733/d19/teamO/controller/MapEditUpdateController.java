@@ -10,7 +10,7 @@ import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 public class MapEditUpdateController extends MapEditController {
-  private Database database = new Database();
+  private final Database database = new Database();
   @FXML
   private TextField updateNodeID;
   @FXML
@@ -22,10 +22,12 @@ public class MapEditUpdateController extends MapEditController {
   }
 
   @FXML
+  @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
   void updateNodeAcion(ActionEvent event) {
     String udNodeID = updateNodeID.getText();
     for (Node node : database.getAllNodes()) {
       if (udNodeID.equals(node.getNodeId())) {
+
         Node updateNode = new Node(node.getNodeId(),
             Integer.parseInt(updateX.getText()),
             Integer.parseInt(updateY.getText()),

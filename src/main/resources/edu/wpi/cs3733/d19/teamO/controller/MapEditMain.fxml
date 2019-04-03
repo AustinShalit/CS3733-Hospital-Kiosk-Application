@@ -2,47 +2,52 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 <?import edu.wpi.cs3733.d19.teamO.component.MapView?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.MapEditController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="edu.wpi.cs3733.d19.teamO.controller.MapEditController">
     <children>
         <VBox alignment="TOP_CENTER" layoutX="414.0" layoutY="77.0" spacing="20.0">
             <children>
-                <JFXButton fx:id="add" buttonType="RAISED" layoutX="131.0" layoutY="157.0" onAction="#mainButtonAction" ripplerFill="BLUE" text="Add Node" textFill="#0900ff">
+                <JFXButton fx:id="add" buttonType="RAISED" layoutX="131.0" layoutY="157.0"
+                           onAction="#mainButtonAction" ripplerFill="BLUE" text="Add Node"
+                           textFill="#0900ff">
                     <font>
-                        <Font name="Calibri Bold" size="22.0" />
+                        <Font name="Calibri Bold" size="22.0"/>
                     </font>
                 </JFXButton>
-                <JFXButton fx:id="delete" layoutX="131.0" layoutY="200.0" onAction="#mainButtonAction" text="Delete Node" textFill="#0900ff">
+                <JFXButton fx:id="delete" layoutX="131.0" layoutY="200.0"
+                           onAction="#mainButtonAction" text="Delete Node" textFill="#0900ff">
                     <font>
-                        <Font name="Calibri Bold" size="22.0" />
+                        <Font name="Calibri Bold" size="22.0"/>
                     </font>
                 </JFXButton>
-                <JFXButton fx:id="connect" layoutX="131.0" layoutY="223.0" onAction="#mainButtonAction" text="Connect Node" textFill="#0900ff">
+                <JFXButton fx:id="connect" layoutX="131.0" layoutY="223.0"
+                           onAction="#mainButtonAction" text="Connect Node" textFill="#0900ff">
                     <font>
-                        <Font name="Calibri Bold" size="22.0" />
+                        <Font name="Calibri Bold" size="22.0"/>
                     </font>
                 </JFXButton>
-                <JFXButton fx:id="update" layoutX="138.0" layoutY="261.0" onAction="#mainButtonAction" text="Update Node" textFill="#0900ff">
+                <JFXButton fx:id="update" layoutX="138.0" layoutY="261.0"
+                           onAction="#mainButtonAction" text="Update Node" textFill="#0900ff">
                     <font>
-                        <Font name="Calibri Bold" size="22.0" />
+                        <Font name="Calibri Bold" size="22.0"/>
                     </font>
                 </JFXButton>
             </children>
             <opaqueInsets>
-                <Insets />
+                <Insets/>
             </opaqueInsets>
         </VBox>
         <JFXButton fx:id="backButton" layoutY="3.0" onAction="#onBackButtonAction" text="Back">
             <font>
-                <Font name="System Bold" size="12.0" />
+                <Font name="System Bold" size="12.0"/>
             </font>
         </JFXButton>
-      <MapView fx:id="map" layoutX="23.0" layoutY="50.0" prefHeight="283.0" prefWidth="399.0" style="-fx-background-color: RED;"/>
+        <MapView fx:id="map" layoutX="23.0" layoutY="50.0" prefHeight="283.0" prefWidth="399.0"
+                 style="-fx-background-color: RED;"/>
     </children>
 </AnchorPane>

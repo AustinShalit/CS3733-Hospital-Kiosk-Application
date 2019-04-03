@@ -52,6 +52,7 @@ public class SchedulingWindowController extends Controller {
 
   /**
    * Check to make sure Scheduling Request is valid.
+   *
    * @param e Action Event from Submit button
    */
   @FXML
@@ -71,6 +72,7 @@ public class SchedulingWindowController extends Controller {
 
   /**
    * Populate the Room selection ComboBox.
+   *
    * @throws SQLException When stuff goes wrong.
    */
   @FXML
@@ -81,7 +83,9 @@ public class SchedulingWindowController extends Controller {
       @Override
       public ListCell<Node> call(ListView<Node> param) {
         return new ListCell<Node>() {
-          private final Text text; {
+          private final Text text;
+
+          {
             setContentDisplay(ContentDisplay.CENTER);
             text = new Text();
           }
