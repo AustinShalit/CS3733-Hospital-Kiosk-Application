@@ -31,6 +31,7 @@ class EdgeCsvReaderWriterTest {
   private static final Edge EDGE_CA = new Edge("CA", NODE_C, NODE_A);
 
   private static File TEST_DATA_FILE;
+  private static Database database;
 
   static {
     try {
@@ -40,8 +41,6 @@ class EdgeCsvReaderWriterTest {
       ex.printStackTrace();
     }
   }
-
-  private static Database database;
 
   @BeforeAll
   static void setup() throws SQLException {

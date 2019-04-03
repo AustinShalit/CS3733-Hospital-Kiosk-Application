@@ -19,28 +19,6 @@ class NodeDaoDbTest {
 
   private static final Node TEST_NODE = new Node("TEST", 0, 0, "0", "B", Node.NodeType.CONF,
       "LN", "SN");
-
-  @Nested
-  class Creation {
-    @Test
-    void createTableTest(TestInfo testInfo) {
-      DatabaseConnectionFactory dcf
-          = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
-          testInfo.getDisplayName());
-
-      assertDoesNotThrow(() -> new NodeDaoDb(dcf));
-    }
-
-    @Test
-    void existingTableTest(TestInfo testInfo) {
-      DatabaseConnectionFactory dcf
-          = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
-          testInfo.getDisplayName());
-      assertDoesNotThrow(() -> new NodeDaoDb(dcf));
-      assertDoesNotThrow(() -> new NodeDaoDb(dcf));
-    }
-  }
-
   private NodeDao dao;
 
   @BeforeEach
@@ -124,5 +102,26 @@ class NodeDaoDbTest {
   @Test
   void getAllEmptyTest() {
     assertTrue(dao.getAll().isEmpty());
+  }
+
+  @Nested
+  class Creation {
+    @Test
+    void createTableTest(TestInfo testInfo) {
+      DatabaseConnectionFactory dcf
+          = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
+          testInfo.getDisplayName());
+
+      assertDoesNotThrow(() -> new NodeDaoDb(dcf));
+    }
+
+    @Test
+    void existingTableTest(TestInfo testInfo) {
+      DatabaseConnectionFactory dcf
+          = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
+          testInfo.getDisplayName());
+      assertDoesNotThrow(() -> new NodeDaoDb(dcf));
+      assertDoesNotThrow(() -> new NodeDaoDb(dcf));
+    }
   }
 }
