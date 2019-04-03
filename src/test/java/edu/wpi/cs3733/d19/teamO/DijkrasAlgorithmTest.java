@@ -1,29 +1,29 @@
+
 package edu.wpi.cs3733.d19.teamO;
 
 import java.sql.SQLException;
 import java.util.Stack;
 
-import org.assertj.core.api.Fail;
 import org.junit.jupiter.api.Test;
 
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DijkrasAlgorithmTest {
 
 
-  private static final Node NODE_A = new Node("A", 0, 0, 0, "B", Node.NodeType.HALL,
+  private static final Node NODE_A = new Node("A", 0, 0, "0", "B", Node.NodeType.HALL,
       "AL", "AS");
-  private static final Node NODE_B = new Node("B", 6, 0, 0, "B", Node.NodeType.HALL,
+  private static final Node NODE_B = new Node("B", 6, 0, "0", "B", Node.NodeType.HALL,
       "BL", "BS");
-  private static final Node NODE_C = new Node("C", 10, 7, 0, "B", Node.NodeType.HALL,
+  private static final Node NODE_C = new Node("C", 10, 7, "0", "B", Node.NodeType.HALL,
       "CL", "CS");
-  private static final Node NODE_D = new Node("D", 9, -2, 0, "B", Node.NodeType.HALL,
+  private static final Node NODE_D = new Node("D", 9, -2, "0", "B", Node.NodeType.HALL,
       "CL", "CS");
-  private static final Node NODE_E = new Node("E", 11, 0, 0, "B", Node.NodeType.HALL,
+  private static final Node NODE_E = new Node("E", 11, 0, "0", "B", Node.NodeType.HALL,
       "CL", "CS");
   private static final Edge EDGE_AB = new Edge("AB", NODE_A, NODE_B);
   private static final Edge EDGE_BC = new Edge("BC", NODE_B, NODE_C);
@@ -48,7 +48,8 @@ class DijkrasAlgorithmTest {
 
     DijkrasAlgorithm dij = new DijkrasAlgorithm(database);
 
-    Stack<Node> path = dij.getPath(NODE_A, NODE_E);
+    Stack<Node> path;
+    path = dij.getPath(NODE_A, NODE_E);
 
     Stack<Node> correctPath = new Stack<Node>();
 

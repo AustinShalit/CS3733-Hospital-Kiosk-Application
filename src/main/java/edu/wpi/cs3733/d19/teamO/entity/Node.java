@@ -161,9 +161,14 @@ public class Node implements Comparator<Node> {
     return 0;
   }
 
-
+  /**
+   * the function gets the distance between two nodes.
+   * @param node the end node.
+   * @return the distance between the this and the given node.
+   */
   public double getCost(Node node) {
-    double dist = Math.sqrt(Math.pow(this.xcoord - node.xcoord, 2) + Math.pow(this.ycoord - node.ycoord, 2));
+    double dist = Math.sqrt(Math.pow(this.xcoord - node.xcoord, 2)
+        + Math.pow(this.ycoord - node.ycoord, 2));
     return dist;
   }
 

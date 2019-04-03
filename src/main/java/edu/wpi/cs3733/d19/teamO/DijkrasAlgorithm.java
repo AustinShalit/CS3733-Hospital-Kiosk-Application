@@ -1,3 +1,4 @@
+
 package edu.wpi.cs3733.d19.teamO;
 
 import java.util.HashMap;
@@ -23,10 +24,20 @@ public class DijkrasAlgorithm extends SearchAlgorithm {
       this.pairCost = pairCost;
     }
 
+    public void setPairNode(Node pairNode) {
+      this.pairNode = pairNode;
+    }
+
+    public void setPairCost(double pairCost) {
+      this.pairCost = pairCost;
+    }
+
     @Override
     public int compareTo(Pair pair) {
       return Double.compare(pairCost, pair.pairCost);
     }
+
+
   }
 
   Stack<Node> getPath(Node start, Node goal) {
@@ -39,6 +50,8 @@ public class DijkrasAlgorithm extends SearchAlgorithm {
     frontier.add(newPair);
     costSoFar.put(start, 0.0);
 
+    Pair nextPair = new Pair(start, 0.0);
+
     while (!frontier.isEmpty()) {
       Node current = frontier.poll().pairNode;
 
@@ -46,13 +59,15 @@ public class DijkrasAlgorithm extends SearchAlgorithm {
         break;
       }
 
+
       for (Node next : neighbors(current)) {
         Double newCost = costSoFar.get(current) + current.getCost(next);
         if (!cameFrom.containsKey(next) || newCost < costSoFar.get(next)) {
-          Double priority = newCost;
-          Pair nextPair = new Pair(next, priority);
+          double priority = newCost;
+          nextPair.setPairNode(next);
+          nextPair.setPairCost(priority);
           frontier.add(nextPair);
-          costSoFar.put(next,newCost);
+          costSoFar.put(next, newCost);
           cameFrom.put(next, current);
         }
       }
