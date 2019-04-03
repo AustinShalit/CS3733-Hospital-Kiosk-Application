@@ -17,23 +17,12 @@ public class SchedulingRequest {
   // Constructors
 
   /**
-<<<<<<< HEAD
-   * Constructor for scheduling requests not yet added to the scheduling_request table.
-   * @param startTime start time of reservation
-   * @param endTime end time of reservation
-   * @param name name of the person requesting
-   * @param room room being requested
-=======
    * Constructor with id and full start and end times specified.
    *
-   * @param id            ID
    * @param startTime     Start time
    * @param endTime       End Time
-   * @param timeRequested Time Request opened
-   * @param timeCompleted Time Request approved
    * @param name          Who requested the room
    * @param room          Which room to reserve
->>>>>>> master
    */
   public SchedulingRequest(final LocalDateTime startTime, final LocalDateTime endTime,
                            final String name, final Node room) {
@@ -123,17 +112,9 @@ public class SchedulingRequest {
       return false;
     }
     SchedulingRequest that = (SchedulingRequest) o;
-<<<<<<< HEAD
     return getID() == that.getID()
         && getStartTime().equals(that.getStartTime())
         && getEndTime().equals(that.getEndTime())
-=======
-    return getId() == that.getId()
-        && getStartTime().equals(that.getStartTime())
-        && getEndTime().equals(that.getEndTime())
-        && getTimeRequested().equals(that.getTimeRequested())
-        && getTimeCompleted().equals(that.getTimeCompleted())
->>>>>>> master
         && getRoom().equals(that.getRoom())
         && getWhoReserved().equals(that.getWhoReserved());
   }
@@ -157,11 +138,7 @@ public class SchedulingRequest {
   @Override
   public String toString() {
     return "SanitationRequest{"
-<<<<<<< HEAD
         + "id=" + getID()
-=======
-        + "id=" + getId()
->>>>>>> master
         + ", startTime=" + getStartTime()
         + ", endTime=" + getEndTime()
         + ", locationNode=" + getRoom().toString()
