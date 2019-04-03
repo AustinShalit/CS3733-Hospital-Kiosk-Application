@@ -8,11 +8,13 @@ import java.util.logging.Logger;
  */
 public final class FileManager {
 
-  public static final File APP_DIRECTORY;
-  public static final File LOG_DIRECTORY;
   private static final Logger logger
       = Logger.getLogger(FileManager.class.getName());
+
   private static final String DIRECTORY_NAME = "Onyx Owlmen Kiosk";
+
+  public static final File APP_DIRECTORY;
+  public static final File LOG_DIRECTORY;
 
   static {
     if (isWindows()) {
@@ -45,15 +47,15 @@ public final class FileManager {
     }
   }
 
-  private FileManager() {
-    throw new UnsupportedOperationException("This is a utility class!");
-  }
-
   private static boolean isWindows() {
     return System.getProperty("os.name").startsWith("Windows");
   }
 
   private static boolean isMac() {
     return System.getProperty("os.name").startsWith("Mac");
+  }
+
+  private FileManager() {
+    throw new UnsupportedOperationException("This is a utility class!");
   }
 }

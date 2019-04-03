@@ -14,19 +14,6 @@ public class Project extends Application {
   private static final Logger logger
       = Logger.getLogger(Project.class.getName());
 
-  /**
-   * The version of this build.
-   *
-   * @return String representing the version
-   */
-  public static String getVersion() {
-    String version = Project.class.getPackage().getImplementationVersion();
-    if (version == null) {
-      return "Development";
-    }
-    return version;
-  }
-
   @Override
   public void start(final Stage primaryStage) throws IOException {
     logger.config("Starting application");
@@ -38,5 +25,18 @@ public class Project extends Application {
     primaryStage.setScene(new Scene(mainWindow));
     primaryStage.show();
     logger.config("Startup complete");
+  }
+
+  /**
+   * The version of this build.
+   *
+   * @return String representing the version
+   */
+  public static String getVersion() {
+    String version = Project.class.getPackage().getImplementationVersion();
+    if (version == null) {
+      return "Development";
+    }
+    return version;
   }
 }
