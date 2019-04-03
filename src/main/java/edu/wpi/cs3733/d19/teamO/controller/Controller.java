@@ -6,10 +6,10 @@ import java.sql.SQLException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Callback;
@@ -67,22 +67,22 @@ class Controller {
     comboBox.getItems().addAll(database.getAllNodes());
     Callback<ListView<Node>, ListCell<Node>> cellFactory =
         new Callback<ListView<Node>, ListCell<Node>>() {
-      @Override
-      public ListCell<Node> call(ListView<Node> param) {
-        return new ListCell<Node>() {
-
           @Override
-          protected void updateItem(Node item, boolean empty) {
-            super.updateItem(item, empty);
-            if (item == null || empty) {
-              setGraphic(null);
-            } else {
-              setText(item.getLongName());
-            }
+          public ListCell<Node> call(ListView<Node> param) {
+            return new ListCell<Node>() {
+
+              @Override
+              protected void updateItem(Node item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || empty) {
+                  setGraphic(null);
+                } else {
+                  setText(item.getLongName());
+                }
+              }
+            };
           }
         };
-      }
-    };
     comboBox.setCellFactory(cellFactory);
     comboBox.setButtonCell(cellFactory.call(null));
   }

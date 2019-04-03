@@ -114,12 +114,13 @@ public class MainWindowController extends Controller {
   }
 
   @FXML
-  public void initialize() throws SQLException {
-    database = new Database();
-  }
-
-  @FXML
   void logoutButtonAction() {
     switchScenes("LoginWindow.fxml", schedulingButton.getScene().getWindow());
   }
+
+  @FXML
+  public void initialize() throws SQLException {
+    database = new Database();
+  }
 }
+
