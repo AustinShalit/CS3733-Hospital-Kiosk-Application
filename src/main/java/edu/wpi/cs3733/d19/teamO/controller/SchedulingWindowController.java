@@ -77,13 +77,14 @@ public class SchedulingWindowController extends Controller {
                 datePicker.valueProperty(),
                 roomComboBox.valueProperty());
       }
+
       @Override
       protected boolean computeValue() {
         return nameBox.getText() == null
-        || startChoiceBox.getValue() == null
-        || endChoiceBox.getValue() == null
-        || datePicker.getValue() == null
-        || roomComboBox.getValue() == null;
+          || startChoiceBox.getValue() == null
+          || endChoiceBox.getValue() == null
+          || datePicker.getValue() == null
+          || roomComboBox.getValue() == null;
       }
     });
   }
