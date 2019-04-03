@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d19.teamO.component;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javafx.animation.Interpolator;
@@ -14,9 +15,11 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.util.Duration;
 import net.kurobako.gesturefx.GesturePane;
 
+import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 
 public class MapView extends StackPane {
@@ -32,6 +35,12 @@ public class MapView extends StackPane {
   @FXML
   private Group edges;
 
+  private ArrayList<Line> lines;
+
+  public ArrayList<Line> getLines() {
+    return lines;
+  }
+
   public MapView() throws IOException {
     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MapView.fxml"));
     fxmlLoader.setRoot(this);
@@ -41,6 +50,7 @@ public class MapView extends StackPane {
 
   @FXML
   void initialize() {
+    lines = new ArrayList<>();
     gesturePane.setMinScale(0.1);
     gesturePane.setOnMouseClicked(e -> {
       if (e.getButton() == MouseButton.PRIMARY && e.getClickCount() == 2) {
@@ -61,8 +71,27 @@ public class MapView extends StackPane {
 
   public void addNodesToPane(final Collection<Node> nodes) {
     nodes.stream()
-        .map(node -> new Circle(node.getXcoord(), node.getYcoord(), 5, Color.RED))
+        .map(node -> new Circle(node.getXcoord(), node.getYcoord(), 5, Color.PURPLE))
         .forEach(nodeGroup.getChildren()::add);
+  }
+
+  public void setEdges(Group edges) {
+    this.edges = edges;
+  }
+
+  public Group getEdges() {
+    return edges;
+  }
+
+  public void addEdgesToPane(final Collection<Edge> edgeCollection) {
+
+    for(Edge edge: edgeCollection) {
+      Line line = new Line(edge.getStartNode().getXcoord(), edge.getStartNode().getYcoord(), edge.getEndNode().getXcoord(), edge.getEndNode().getYcoord());
+      lines.add(line);
+      edges.getChildren().add(line);
+    }
+
+    edges.getChildren().forEach(s -> s.setVisible(false));
   }
 
 }

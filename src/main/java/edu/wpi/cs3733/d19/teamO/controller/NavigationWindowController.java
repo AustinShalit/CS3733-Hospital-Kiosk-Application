@@ -12,12 +12,19 @@ import com.jfoenix.controls.JFXRadioButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
 import javafx.util.StringConverter;
 
 import edu.wpi.cs3733.d19.teamO.BreadthFirstSearchAlgorithm;
 import edu.wpi.cs3733.d19.teamO.component.MapView;
+import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
@@ -52,14 +59,21 @@ public class NavigationWindowController extends Controller {
   @FXML
   private MapView map;
 
+  private Set<Node> nodeSet;
+
+  private Group BFSpath;
+
   @FXML
   void initialize() throws SQLException, IOException {
     Database database = new Database();
-    Set<Node> nodeSet = database.getAllNodes();
+    nodeSet = database.getAllNodes();
+
+    BFSpath = new Group();
 
     Image image = new Image(getClass().getResource("01_thefirstfloor.png").openStream());
     map.setMapImage(image);
     map.addNodesToPane(database.getAllNodes());
+    //map.addEdgesToPane(database.getAllEdges());
 
     ObservableList<Node> locations = FXCollections.observableArrayList();
     for (Node node : nodeSet) {
@@ -135,11 +149,35 @@ public class NavigationWindowController extends Controller {
 
   @FXML
   void onGenPathButtonAction() throws SQLException {
+
+    map.getEdges().getChildren().removeAll(BFSpath);
+    System.out.println("Before: " + map.getEdges().getChildren().size());
+
     BreadthFirstSearchAlgorithm bfsAlgorithm = new BreadthFirstSearchAlgorithm(new Database());
     Stack<Node> path = bfsAlgorithm.getPath(((Node) startSelLocJFXCombo.getValue()), ((Node) endSelLocJFXCombo.getValue()));
-    for (Node node: path) {
-      System.out.println(node);
+
+    BFSpath = new Group();
+
+    Node lastNode = null;
+    for(Node node: path) {
+      if(lastNode != null) {
+        BFSpath.getChildren().add(new Line(node.getXcoord(), node.getYcoord(), lastNode.getXcoord(), lastNode.getYcoord()));
+      }
+      else {
+        Rectangle s = new Rectangle((node.getXcoord() - 8), (node.getYcoord() - 8), 16, 16);
+        s.setFill(Color.RED);
+        s.setStroke(Color.BLACK);
+        BFSpath.getChildren().add(s);
+      }
+      lastNode = node;
     }
+
+    Circle r = new Circle(lastNode.getXcoord(), lastNode.getYcoord(), 8, Color.GREEN);
+    r.setStroke(Color.BLACK);
+    BFSpath.getChildren().add(r);
+
+    map.getEdges().getChildren().addAll(BFSpath);
+    System.out.println("After: " + map.getEdges().getChildren().size());
   }
 
   void validateGenButton() {
@@ -147,6 +185,31 @@ public class NavigationWindowController extends Controller {
       genPathButton.setDisable(false);
     } else {
       genPathButton.setDisable(true);
+    }
+  }
+
+  void checkLine(Line line, Stack<Node> nodes) {
+    boolean found = false;
+
+    for(Node node: nodes) {
+      if(nodes.peek() != null) {
+        if(line.getStartX() == node.getXcoord()
+            && line.getStartY() == node.getYcoord()
+            && nodes.peek().getXcoord() == line.getEndX()
+            && nodes.peek().getYcoord() == line.getEndY()) {
+          found = true;
+        }
+        else if(line.getEndX() == node.getXcoord()
+            && line.getEndY() == node.getYcoord()
+            && line.getStartX() == nodes.peek().getXcoord()
+            && line.getStartY() == nodes.peek().getYcoord()) {
+          found = true;
+        }
+      }
+
+    }
+    if(found) {
+      line.setVisible(true);
     }
   }
 }
