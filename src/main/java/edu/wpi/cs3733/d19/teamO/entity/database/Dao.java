@@ -8,6 +8,7 @@ import java.util.Set;
  * layer from the persistence layer.  Can perform CRUD operations (Create, Retrieve, Update,
  * Delete).
  *
+ * @param <K> The type of the primary key.
  * @param <T> The type of data being accessed
  */
 interface Dao<K, T> {

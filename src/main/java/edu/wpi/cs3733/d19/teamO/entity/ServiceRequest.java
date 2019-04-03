@@ -13,7 +13,23 @@ class ServiceRequest {
   private final String description;
   private final Node location;
 
-  // constructor
+  public static LocalDateTime defaultTime() {
+    return LocalDateTime.of(1, 1, 1, 1, 1);
+  }
+
+
+  /**
+   * The constructor for the service request class.
+   *
+   * @param id This primary key for the ServiceRequest. -1 if ServiceRequest not in Database, and
+   *           you wish the database to generate the id.
+   * @param timeRequested The time the service request was first requested.
+   * @param timeCompleted The time the service request was completed.
+   *                      Use Globals.defaultTime() instead of null
+   * @param whoCompleted A string representation of whoever completed the Service Request.
+   * @param description A description.
+   * @param location A reference to the Node.
+   */
   ServiceRequest(int id, LocalDateTime timeRequested, LocalDateTime timeCompleted,
                  String whoCompleted, String description, Node location) {
     this.id = id;
@@ -22,6 +38,26 @@ class ServiceRequest {
     this.whoCompleted = whoCompleted;
     this.description = description;
     this.location = location;
+  }
+
+  ServiceRequest(int id, LocalDateTime timeRequested, String description, Node locationNode) {
+    this.id = id;
+    this.timeRequested = timeRequested;
+    this.description = description;
+    this.location = locationNode;
+
+    this.timeCompleted = defaultTime();
+    this.whoCompleted = "";
+  }
+
+  ServiceRequest(LocalDateTime timeRequested, String description, Node locationNode) {
+    this.timeRequested = timeRequested;
+    this.description = description;
+    this.location = locationNode;
+
+    this.id = -1;
+    this.timeCompleted = defaultTime();
+    this.whoCompleted = "";
   }
 
   // getters and setters
@@ -42,6 +78,18 @@ class ServiceRequest {
     return timeCompleted;
   }
 
+  /**
+   * Return the time completed represented as a string, unless it equals
+   * the default time defined for this project.
+   */
+  public String getTimeCompletedString() {
+    if (defaultTime().equals(timeCompleted)) {
+      return "";
+    } else {
+      return timeCompleted.toString();
+    }
+  }
+
   public String getWhoCompleted() {
     return whoCompleted;
   }
@@ -50,9 +98,16 @@ class ServiceRequest {
     return description;
   }
 
-  // functions
   public Node getLocationNode() {
     return location;
+  }
+
+  public String getLocationNodeIdString() {
+    return location.getNodeId();
+  }
+
+  public String getLocationNodeLongName() {
+    return location.getLongName();
   }
 
   @Override

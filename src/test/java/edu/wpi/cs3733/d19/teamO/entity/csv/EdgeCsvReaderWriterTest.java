@@ -1,9 +1,9 @@
 package edu.wpi.cs3733.d19.teamO.entity.csv;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.Files;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -20,29 +20,27 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class EdgeCsvReaderWriterTest {
 
-  private static final Node NODE_A = new Node("A", 1, 2, 0, "B", Node.NodeType.HALL,
+  private static final Node NODE_A = new Node("A", 1, 2, "0", "B", Node.NodeType.HALL,
       "AL", "AS");
-  private static final Node NODE_B = new Node("B", 3, 4, 0, "B", Node.NodeType.HALL,
+  private static final Node NODE_B = new Node("B", 3, 4, "0", "B", Node.NodeType.HALL,
       "BL", "BS");
-  private static final Node NODE_C = new Node("C", 5, 6, 0, "B", Node.NodeType.HALL,
+  private static final Node NODE_C = new Node("C", 5, 6, "0", "B", Node.NodeType.HALL,
       "CL", "CS");
   private static final Edge EDGE_AB = new Edge("AB", NODE_A, NODE_B);
   private static final Edge EDGE_BC = new Edge("BC", NODE_B, NODE_C);
   private static final Edge EDGE_CA = new Edge("CA", NODE_C, NODE_A);
 
-  private static Path TEST_DATA_FILE;
+  private static File TEST_DATA_FILE;
+  private static Database database;
 
   static {
     try {
       TEST_DATA_FILE
-          = Paths.get(EdgeCsvReaderWriterTest.class.getResource("test_edges.csv")
-              .toURI().getPath());
+          = new File(EdgeCsvReaderWriterTest.class.getResource("test_edges.csv").toURI());
     } catch (URISyntaxException ex) {
       ex.printStackTrace();
     }
   }
-
-  private static Database database;
 
   @BeforeAll
   static void setup() throws SQLException {
@@ -55,7 +53,8 @@ class EdgeCsvReaderWriterTest {
   @Test
   void readEdgesTest() throws IOException {
     EdgeCsvReaderWriter edgeCsvReaderWriter = new EdgeCsvReaderWriter(database);
-    List<Edge> edges = edgeCsvReaderWriter.readEdges(TEST_DATA_FILE);
+    List<Edge> edges
+        = edgeCsvReaderWriter.readEdges(Files.newBufferedReader(TEST_DATA_FILE.toPath()));
 
     assertAll(
         () -> assertEquals(3, edges.size()),
