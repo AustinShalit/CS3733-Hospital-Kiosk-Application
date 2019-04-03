@@ -13,5 +13,6 @@ public final class Main {
   public static void main(final String... args) throws IOException {
     LogManager.setupLoggers();
     Application.launch(Project.class, args);
+
   }
 }
