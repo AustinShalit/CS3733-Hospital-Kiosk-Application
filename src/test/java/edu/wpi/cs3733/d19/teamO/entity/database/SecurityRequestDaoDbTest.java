@@ -64,12 +64,6 @@ class SecurityRequestDaoDbTest {
   }
 
   @Test
-  void insertTwiceTest() {
-    dao.insert(SECURITY_REQUEST);
-    assertFalse(dao.insert(SECURITY_REQUEST));
-  }
-
-  @Test
   void deleteTest() {
     dao.insert(SECURITY_REQUEST);
     assertTrue(dao.delete(SECURITY_REQUEST));

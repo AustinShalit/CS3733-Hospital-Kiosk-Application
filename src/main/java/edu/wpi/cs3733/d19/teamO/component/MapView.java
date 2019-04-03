@@ -81,6 +81,4 @@ public class MapView extends StackPane {
   public void clearNodes() {
     nodeGroup.getChildren().clear();
   }
-
-
 }

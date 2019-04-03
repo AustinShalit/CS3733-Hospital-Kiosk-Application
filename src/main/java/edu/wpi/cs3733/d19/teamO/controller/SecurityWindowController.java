@@ -1,5 +1,8 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+
 import com.jfoenix.controls.JFXComboBox;
 
 import javafx.event.ActionEvent;
@@ -7,7 +10,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 
+import edu.wpi.cs3733.d19.teamO.entity.Node;
+import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
+import edu.wpi.cs3733.d19.teamO.entity.database.Database;
+
+@SuppressWarnings("PMD")
 public class SecurityWindowController extends Controller {
+
+  private Database database;
 
   @FXML
   private Button backButton;
@@ -16,7 +26,7 @@ public class SecurityWindowController extends Controller {
   private Button alertbutton;
 
   @FXML
-  private Button getnodesbutton;
+  private Button filePicker;
 
   @FXML
   private Text securityTitle;
@@ -29,16 +39,12 @@ public class SecurityWindowController extends Controller {
 
   }
 
-  @FXML
-  void initialize() {
-    insertlocationdropdown.getItems().addAll(
-        "Place 1",
-        "Place 2",
-        "Place 3",
-        "Place 4"
-    );
-  }
 
+  @FXML
+  void initialize() throws SQLException {
+    database = new Database();
+    populateComboBox(database, insertlocationdropdown);
+  }
 
   @FXML
   void onBackButtonAction(ActionEvent event) {
@@ -47,5 +53,19 @@ public class SecurityWindowController extends Controller {
     }
   }
 
+  @FXML
+  void sendAlert(ActionEvent e) {
+    if (e.getSource() == alertbutton) {
+      Node node = (Node) insertlocationdropdown.getValue();
+      database.insertSecurityRequest(
+          new SecurityRequest(
+              LocalDateTime.now(),
+              SecurityRequest.defaultTime(),
+              null,
+              "",
+              node
+          ));
+    }
+  }
 
 }
