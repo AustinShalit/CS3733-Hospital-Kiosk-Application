@@ -14,9 +14,11 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.util.Duration;
 import net.kurobako.gesturefx.GesturePane;
 
+import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 
 public class MapView extends StackPane {
@@ -80,5 +82,33 @@ public class MapView extends StackPane {
 
   public void clearNodes() {
     nodeGroup.getChildren().clear();
+  }
+
+
+  public void setEdges(Group edges) {
+    this.edges = edges;
+  }
+
+  /**
+   * Get the edges field of this MapView.
+   *
+   * @return The edges Group field of this MapView.
+   */
+  public Group getEdges() {
+    return edges;
+  }
+
+  /**
+   * Adds all edges to display on the map.
+   *
+   * @param edgeCollection The edges to be displayed.
+   */
+  @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
+  public void addEdgesToPane(final Collection<Edge> edgeCollection) {
+    for (Edge edge : edgeCollection) {
+      Line line = new Line(edge.getStartNode().getXcoord(), edge.getStartNode().getYcoord(),
+          edge.getEndNode().getXcoord(), edge.getEndNode().getYcoord());
+      edges.getChildren().add(line);
+    }
   }
 }
