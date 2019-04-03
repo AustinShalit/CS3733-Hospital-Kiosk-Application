@@ -1,16 +1,30 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Set;
+import java.util.Stack;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXRadioButton;
 
 import javafx.fxml.FXML;
+import javafx.scene.Group;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
+import javafx.util.StringConverter;
 
+import edu.wpi.cs3733.d19.teamO.BreadthFirstSearchAlgorithm;
+import edu.wpi.cs3733.d19.teamO.component.MapView;
+import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
+@SuppressWarnings("PMD.GodClass")
 public class NavigationWindowController extends Controller {
 
   @FXML
@@ -30,9 +44,9 @@ public class NavigationWindowController extends Controller {
   private JFXRadioButton endSelLocJFXRadio;
 
   @FXML
-  private JFXComboBox startSelLocJFXCombo;
+  private JFXComboBox<Node> startSelLocJFXCombo;
   @FXML
-  private JFXComboBox endSelLocJFXCombo;
+  private JFXComboBox<Node> endSelLocJFXCombo;
 
   @FXML
   private ToggleGroup startLocationToggle;
@@ -40,10 +54,55 @@ public class NavigationWindowController extends Controller {
   private ToggleGroup endLocationToggle;
 
   @FXML
-  void initialize() throws SQLException {
+  private MapView map;
+
+  private Set<Node> nodeSet;
+
+  private Group bfsPath;
+
+  @FXML
+  void initialize() throws SQLException, IOException {
     Database database = new Database();
-    populateComboBox(database, startSelLocJFXCombo);
-    populateComboBox(database, endSelLocJFXCombo);
+    nodeSet = database.getAllNodes();
+
+    bfsPath = new Group();
+
+    Image image = new Image(getClass().getResource("01_thefirstfloor.png").openStream());
+    map.setMapImage(image);
+    map.addNodesToPane(database.getAllNodes());
+    //map.addEdgesToPane(database.getAllEdges());
+
+    //    ObservableList<Node> locations = FXCollections.observableArrayList();
+    for (Node node : nodeSet) {
+      startSelLocJFXCombo.getItems().add(node);
+      endSelLocJFXCombo.getItems().add(node);
+    }
+    //    for (Node node : locations) {
+    //
+    //    }
+
+    StringConverter<Node> str = new StringConverter<Node>() {
+      @Override
+      public String toString(Node object) {
+        if (object != null) {
+          return object.getLongName();
+        }
+        return null;
+      }
+
+      @Override
+      public Node fromString(String string) {
+        for (Node node : nodeSet) {
+          if (node.getLongName().equals(string)) {
+            return node;
+          }
+        }
+        return null;
+      }
+    };
+
+    startSelLocJFXCombo.setConverter(str);
+    endSelLocJFXCombo.setConverter(str);
   }
 
   @FXML
@@ -86,9 +145,35 @@ public class NavigationWindowController extends Controller {
   }
 
   @FXML
-  void setGenPathButtonAction() {
-    //BreadthFirstSearchAlgorithm bfsAlgorithm = new BreadthFirstSearchAlgorithm(new Database());
-    // bfsAlgorithm.getPath();
+  @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
+  void onGenPathButtonAction() throws SQLException {
+    map.getEdges().getChildren().removeAll(bfsPath);
+
+    BreadthFirstSearchAlgorithm bfsAlgorithm = new BreadthFirstSearchAlgorithm(new Database());
+    Stack<Node> path = bfsAlgorithm.getPath((Node) startSelLocJFXCombo.getValue(),
+        (Node) endSelLocJFXCombo.getValue());
+
+    bfsPath = new Group();
+
+    Node lastNode = null;
+    for (Node node : path) {
+      if (lastNode != null) {
+        bfsPath.getChildren().add(new Line(node.getXcoord(), node.getYcoord(),
+            lastNode.getXcoord(), lastNode.getYcoord()));
+      } else {
+        Rectangle rectangle = new Rectangle(node.getXcoord() - 8, node.getYcoord() - 8, 16, 16);
+        rectangle.setFill(Color.RED);
+        rectangle.setStroke(Color.BLACK);
+        bfsPath.getChildren().add(rectangle);
+      }
+      lastNode = node;
+    }
+
+    Circle circle = new Circle(lastNode.getXcoord(), lastNode.getYcoord(), 8, Color.GREEN);
+    circle.setStroke(Color.BLACK);
+    bfsPath.getChildren().add(circle);
+
+    map.getEdges().getChildren().addAll(bfsPath);
   }
 
   void validateGenButton() {
