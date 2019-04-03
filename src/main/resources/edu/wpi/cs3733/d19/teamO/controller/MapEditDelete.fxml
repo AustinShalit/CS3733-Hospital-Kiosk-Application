@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="233.0" prefWidth="546.0"
-            xmlns="http://javafx.com/javafx/8.0.171"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="233.0" prefWidth="546.0" xmlns="http://javafx.com/javafx/8.0.171"
             fx:controller="edu.wpi.cs3733.d19.teamO.controller.MapEditDeleteController">
     <children>
         <HBox layoutX="112.0" layoutY="92.0" spacing="15.0">
@@ -25,8 +24,7 @@
                 <VBox layoutX="227.0" layoutY="148.0" spacing="10.0">
                     <children>
                         <JFXTextField fx:id="deleteNodeID" layoutX="277.0" layoutY="148.0"
-                                      onKeyReleased="#validateButton">
-                            <font>
+                            onKeyReleased="#validateButton"><font>
                                 <Font size="18.0"/>
                             </font>
                         </JFXTextField>
@@ -46,8 +44,8 @@
                 <Font size="14.0"/>
             </font>
         </JFXButton>
-        <Label fx:id="status" layoutX="168.0" layoutY="128.0" prefHeight="52.0" prefWidth="242.0"
-               text=" " textFill="RED">
+        <Label fx:id="status" layoutX="168.0" layoutY="128.0" prefHeight="52.0"
+               prefWidth="242.0" text=" " textFill="RED">
             <font>
                 <Font size="13.0"/>
             </font>

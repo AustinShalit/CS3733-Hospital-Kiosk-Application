@@ -46,6 +46,7 @@ public class SchedulingWindowController extends Controller {
 
   /**
    * Check to make sure Scheduling Request is valid.
+   *
    * @param e Action Event from Submit button
    */
   @FXML
@@ -65,6 +66,7 @@ public class SchedulingWindowController extends Controller {
 
   /**
    * Populate the Room selection ComboBox.
+   *
    * @throws SQLException When stuff goes wrong.
    */
   @FXML

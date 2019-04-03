@@ -134,7 +134,7 @@ class SchedulingRequestDaoDbTest {
   @Test
   void getAllResultSameTest() {
     schedulingDao.insert(schedulingRequest);
-    
+
     assertEquals(schedulingRequest, schedulingDao.getAll().toArray()[0]);
   }
 

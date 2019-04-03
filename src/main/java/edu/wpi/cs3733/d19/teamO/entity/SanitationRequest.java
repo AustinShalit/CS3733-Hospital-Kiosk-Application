@@ -50,6 +50,18 @@ public class SanitationRequest extends ServiceRequest {
     this.type = type;
   }
 
+  public SanitationRequest(int id, LocalDateTime timeRequested, Node locationNode,
+                           SanitationRequestType type, String description) {
+    super(id, timeRequested, description, locationNode);
+    this.type = type;
+  }
+
+  public SanitationRequest(LocalDateTime timeRequested, Node locationNode,
+                           SanitationRequestType type, String description) {
+    super(timeRequested, description, locationNode);
+    this.type = type;
+  }
+
   public SanitationRequestType getType() {
     return type;
   }

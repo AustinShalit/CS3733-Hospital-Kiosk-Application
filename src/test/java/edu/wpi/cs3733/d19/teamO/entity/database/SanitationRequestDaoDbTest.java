@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d19.teamO.entity.database;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -31,12 +32,12 @@ class SanitationRequestDaoDbTest {
       "SHORTNAME");
 
   private static final SanitationRequest testSanitationRequest1 =
-      new SanitationRequest(12345, LocalDateTime.now(), LocalDateTime.now(), testNode1,
+      new SanitationRequest(1, LocalDateTime.now(), LocalDateTime.now(), testNode1,
           "Bob", SanitationRequest.SanitationRequestType.BEDDING,
           "This is a description");
 
   private static final SanitationRequest testSanitationRequest2 =
-      new SanitationRequest(123456, LocalDateTime.now(), LocalDateTime.now(), testNode2,
+      new SanitationRequest(2, LocalDateTime.now(), LocalDateTime.now(), testNode2,
           "Bill",
           SanitationRequest.SanitationRequestType.BEDDING, "This is a description");
   private SanitationRequestDaoDb sanitationDao;
@@ -94,12 +95,6 @@ class SanitationRequestDaoDbTest {
   }
 
   @Test
-  void insertTwiceTest() {
-    sanitationDao.insert(testSanitationRequest1);
-    assertFalse(sanitationDao.insert(testSanitationRequest1));
-  }
-
-  @Test
   void deleteTest() {
     sanitationDao.insert(testSanitationRequest1);
     assertTrue(sanitationDao.delete(testSanitationRequest1));
@@ -108,7 +103,7 @@ class SanitationRequestDaoDbTest {
   @Test
   void deleteNotExistingTest() {
     assertFalse(sanitationDao.delete(new SanitationRequest(987, null,
-        null, null, null, null, null)));
+        null, testNode1, null, null, null)));
   }
 
   @Test
@@ -143,17 +138,23 @@ class SanitationRequestDaoDbTest {
   }
 
   @Test
-  void getAllResultSameTest() {
-    sanitationDao.insert(testSanitationRequest1);
-
-    assertEquals(testSanitationRequest1, sanitationDao.getAll().toArray()[0]);
-  }
-
-  @Test
   void getAllEmptyTest() {
     sanitationDao.delete(testSanitationRequest1);
 
     assertTrue(sanitationDao.getAll().isEmpty());
+  }
+
+  @Test
+  void autoIncrementTest() {
+    for (int i = 0; i < 10; i++) {
+      sanitationDao.insert(testSanitationRequest1);
+    }
+
+    Set<SanitationRequest> sanitationRequestSet = sanitationDao.getAll();
+    for (SanitationRequest sr : sanitationRequestSet) {
+      // make sure the id is in the correct range
+      assertTrue(sr.getId() < 11 || sr.getId() > 1);
+    }
   }
 
   @Nested
