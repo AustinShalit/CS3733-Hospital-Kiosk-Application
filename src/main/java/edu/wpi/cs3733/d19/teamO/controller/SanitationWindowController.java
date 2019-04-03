@@ -78,8 +78,7 @@ public class SanitationWindowController extends Controller {
         && Objects.nonNull(categoryComboBox.getValue())) {
 
       LocalDateTime now = LocalDateTime.now();
-      String nodeId = locationComboBox.getValue().toString();
-      Node node = database.getNode(nodeId).get();
+      Node node = locationComboBox.getValue();
 
       String type = categoryComboBox.getValue().toString().toUpperCase(new Locale("EN"));
       SanitationRequest.SanitationRequestType srt =

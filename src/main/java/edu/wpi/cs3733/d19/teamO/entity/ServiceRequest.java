@@ -14,24 +14,24 @@ class ServiceRequest {
   private final Node location;
   private final String locationNodeId;
 
-  private final LocalDateTime defaultTime = LocalDateTime.of(1, 1, 1, 1, 1);
-
   // constructors
   public static LocalDateTime defaultTime() {
-    return LocalDateTime.of(1, 1, 1, 1, 1);
+    return LocalDateTime.of(1,
+        1, 1, 1, 1);
   }
 
 
   /**
    * The constructor for the service request class.
+   *
    * @param id This primary key for the ServiceRequest. -1 if ServiceRequest not in Database, and
-   *           you wish the database to generate the id.
+   *                      you wish the database to generate the id.
    * @param timeRequested The time the service request was first requested.
    * @param timeCompleted The time the service request was completed.
    *                      Use Globals.defaultTime() instead of null
-   * @param whoCompleted A string representation of whoever completed the Service Request.
-   * @param description A description.
-   * @param location A reference to the Node.
+   * @param whoCompleted  A string representation of whoever completed the Service Request.
+   * @param description   A description.
+   * @param location      A reference to the Node.
    */
   ServiceRequest(int id, LocalDateTime timeRequested, LocalDateTime timeCompleted,
                  String whoCompleted, String description, Node location) {
@@ -50,7 +50,7 @@ class ServiceRequest {
     this.description = description;
     this.location = locationNode;
 
-    this.timeCompleted = defaultTime;
+    this.timeCompleted = defaultTime();
     this.whoCompleted = "";
     this.locationNodeId = location.getNodeId();
   }
@@ -61,7 +61,7 @@ class ServiceRequest {
     this.location = locationNode;
 
     this.id = -1;
-    this.timeCompleted = defaultTime;
+    this.timeCompleted = defaultTime();
     this.whoCompleted = "";
     this.locationNodeId = location.getNodeId();
   }
@@ -89,7 +89,7 @@ class ServiceRequest {
    * the default time defined for this project.
    */
   public String getTimeCompletedString() {
-    if (defaultTime.equals(timeCompleted)) {
+    if (defaultTime().equals(timeCompleted)) {
       return "";
     } else {
       return timeCompleted.toString();
