@@ -3,83 +3,105 @@ package edu.wpi.cs3733.d19.teamO.entity;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+/**
+ * A ScheduleRequest with a request ID, start time, end time, name of who reserved, and a room ID.
+ */
 public class SchedulingRequest {
-
-  private Integer id;
+  private static int idCount;
+  private int id;
   private final LocalDateTime startTime;
   private final LocalDateTime endTime;
-  private final LocalDateTime timeRequested;
-  private final LocalDateTime timeCompleted;
   private final String whoReserved;
   private final Node room;
 
+  // Constructors
+
   /**
-   * Constructor with id and full start and end times specified.
-   * @param id ID
-   * @param startTime Start time
-   * @param endTime End Time
-   * @param timeRequested Time Request opened
-   * @param timeCompleted Time Request approved
-   * @param name Who requested the room
-   * @param room  Which room to reserve
+   * Constructor for scheduling requests not yet added to the scheduling_request table.
+   * @param startTime start time of reservation
+   * @param endTime end time of reservation
+   * @param name name of the person requesting
+   * @param room room being requested
    */
-  public SchedulingRequest(Integer id, LocalDateTime startTime, LocalDateTime endTime,
-                           LocalDateTime timeRequested, LocalDateTime timeCompleted,
-                           String name, Node room) {
-    this.id = id;
+  public SchedulingRequest(final LocalDateTime startTime, final LocalDateTime endTime,
+                           final String name, final Node room) {
+    this.id = idCount++; // not added to table yet
     this.startTime = startTime;
     this.endTime = endTime;
-    this.timeRequested = timeRequested;
-    this.timeCompleted = timeCompleted;
     this.whoReserved = name;
     this.room = room;
   }
-  /*
-  public SchedulingRequest(LocalTime startTime, LocalTime endTime, LocalDate date,
-                           LocalDateTime timeRequested, LocalDateTime timeCompleted,
-                           String whoReserved, Node room) {
-    this.id = 0;
-    this.startTime = LocalDateTime.of(date, startTime);
-    this.endTime = LocalDateTime.of(date, endTime);
-    this.timeRequested = timeRequested;
-    this.timeCompleted = timeCompleted;
-    this.whoReserved = whoReserved;
+
+  /**
+   * Constructor for retrieving info from existing scheduling requests.
+   * @param startTime start time of reservation
+   * @param endTime end time of reservation
+   * @param name name of the person requesting
+   * @param room room being requested
+   */
+  public SchedulingRequest(int id, final LocalDateTime startTime, final LocalDateTime endTime,
+                           final String name, final Node room) {
+    this.id = id;
+    this.startTime = startTime;
+    this.endTime = endTime;
+    this.whoReserved = name;
     this.room = room;
-  }*/
-
-  // Getters and Setters
-  public int getId() {
-    return this.id;
   }
 
-  public LocalDateTime getStartTime() {
-    return this.startTime;
+  /**
+   * Get the id number of the current request.
+   * @return the id of current request
+   */
+  public int getID() {
+    return id;
   }
 
-  public LocalDateTime getEndTime() {
-    return this.endTime;
-  }
-
-  public LocalDateTime getTimeRequested() {
-    return timeRequested;
-  }
-
-  public LocalDateTime getTimeCompleted() {
-    return timeCompleted;
-  }
-
-  public String getWhoReserved() {
-    return this.whoReserved;
-  }
-
-  public Node getRoom() {
-    return room;
-  }
-
+  /**
+   * Set the Id of the the current request.
+   * @param id the id to be set
+   */
   public void setId(int id) {
     this.id = id;
   }
 
+  /**
+   * Get the start time of the current request.
+   * @return the startTime
+   */
+  public LocalDateTime getStartTime() {
+    return startTime;
+  }
+
+  /**
+   * Get the end time of the current request.
+   * @return the endTime
+   */
+  public LocalDateTime getEndTime() {
+    return endTime;
+  }
+
+  /**
+   * Get the name of who reserved the room.
+   * @return name of whoReserved
+   */
+  public String getWhoReserved() {
+    return whoReserved;
+  }
+
+  /**
+   * Get the room to be reserved.
+   * @return the roomId
+   */
+  public Node getRoom() {
+    return room;
+  }
+
+  /**
+   * Check equality of a given request against the current request.
+   *
+   * @param o Other SchedulingRequest to compare
+   * @return true if all parameters are equal, false if not
+   */
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -89,30 +111,38 @@ public class SchedulingRequest {
       return false;
     }
     SchedulingRequest that = (SchedulingRequest) o;
-    return getId() == that.getId()
-            && getStartTime().equals(that.getStartTime())
-            && getEndTime().equals(that.getEndTime())
-            && getTimeRequested().equals(that.getTimeRequested())
-            && getTimeCompleted().equals(that.getTimeCompleted())
-            && getRoom().equals(that.getRoom())
-            && getWhoReserved().equals(that.getWhoReserved());
+    return getID() == that.getID()
+        && getStartTime().equals(that.getStartTime())
+        && getEndTime().equals(that.getEndTime())
+        && getRoom().equals(that.getRoom())
+        && getWhoReserved().equals(that.getWhoReserved());
   }
 
+  /**
+   * Generates HashCode for current request.
+   *
+   * @return integer Hash Code
+   */
   @Override
   public int hashCode() {
-    return Objects.hash(getId(), getStartTime(), getEndTime(), getTimeRequested(),
-        getTimeCompleted(), getRoom(), getWhoReserved());
+    return Objects.hash(getID(), getStartTime(), getEndTime(), getRoom(),
+        getWhoReserved());
   }
 
+  /**
+   * Informational String Maker.
+   *
+   * @return Informational String with parameters of this Scheduling Request
+   */
   @Override
   public String toString() {
     return "SanitationRequest{"
-            + "id=" + getId()
-            + ", startTime=" + getStartTime()
-            + ", endTime=" + getEndTime()
-            + ", locationNode=" + getRoom().toString()
-            + ", whoReserved=" + getWhoReserved()
-            + '}';
+        + "id=" + getID()
+        + ", startTime=" + getStartTime()
+        + ", endTime=" + getEndTime()
+        + ", locationNode=" + getRoom().toString()
+        + ", whoReserved=" + getWhoReserved()
+        + '}';
   }
 
 }

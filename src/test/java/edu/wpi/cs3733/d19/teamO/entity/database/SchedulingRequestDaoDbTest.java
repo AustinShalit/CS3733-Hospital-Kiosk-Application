@@ -25,11 +25,9 @@ class SchedulingRequestDaoDbTest {
       3, 30);
   private static final LocalDateTime aEnd = LocalDateTime.of(2019, 4, 1,
       4, 30);
-  private static final LocalDateTime aRequest = LocalDateTime.now();
-  private static final LocalDateTime aComplete = LocalDateTime.now();
 
-  private static final SchedulingRequest schedulingRequest = new SchedulingRequest(12, aStart, aEnd,
-      aRequest, aComplete, "Dr. Owlman", nodeA);
+  private static final SchedulingRequest schedulingRequest = new SchedulingRequest(12, aStart,
+      aEnd, "Dr. Owlman", nodeA);
 
   @Nested
   class Creation {
@@ -72,7 +70,7 @@ class SchedulingRequestDaoDbTest {
   void getTest() {
     schedulingDao.insert(schedulingRequest);
 
-    assertTrue(schedulingDao.get(schedulingRequest.getId()).isPresent());
+    assertTrue(schedulingDao.get(schedulingRequest.getID()).isPresent());
   }
 
   @Test
@@ -80,12 +78,12 @@ class SchedulingRequestDaoDbTest {
     schedulingDao.insert(schedulingRequest);
 
     assertNotSame(schedulingRequest,
-        schedulingDao.get(schedulingRequest.getId()).orElseThrow(IllegalStateException::new));
+        schedulingDao.get(schedulingRequest.getID()).orElseThrow(IllegalStateException::new));
   }
 
   @Test
   void getNotExistingTest() {
-    assertFalse(schedulingDao.get(schedulingRequest.getId()).isPresent());
+    assertFalse(schedulingDao.get(schedulingRequest.getID()).isPresent());
   }
 
   @Test
@@ -115,7 +113,7 @@ class SchedulingRequestDaoDbTest {
     schedulingDao.insert(schedulingRequest);
 
     SchedulingRequest update = new SchedulingRequest(12, aStart, aEnd,
-        LocalDateTime.now(), LocalDateTime.now(), "Dr. Owlman", nodeA);
+        "Dr. Owlman", nodeA);
     assertTrue(schedulingDao.update(update));
   }
 
@@ -134,8 +132,8 @@ class SchedulingRequestDaoDbTest {
   @Test
   void getAllResultSameTest() {
     schedulingDao.insert(schedulingRequest);
-    
-    assertEquals(schedulingRequest, schedulingDao.getAll().toArray()[0]);
+    assertTrue(schedulingDao.getAll().contains(schedulingRequest));
+    //assertEquals(schedulingRequest, schedulingDao.getAll().toArray()[0]);
   }
 
   @Test

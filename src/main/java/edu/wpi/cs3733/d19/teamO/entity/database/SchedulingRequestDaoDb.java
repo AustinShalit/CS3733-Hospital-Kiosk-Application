@@ -40,6 +40,7 @@ public class SchedulingRequestDaoDb implements SchedulingRequestDao {
 
   /**
    * Constructor.
+   *
    * @param dcf New database connection factory
    * @throws SQLException When stuff goes wrong
    */
@@ -93,16 +94,16 @@ public class SchedulingRequestDaoDb implements SchedulingRequestDao {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement(
           queries.getProperty("scheduling_request.insert"), Statement.RETURN_GENERATED_KEYS);
-      statement.setInt(1, schedulingRequest.getId());
-      statement.setTimestamp(2, Timestamp.valueOf(schedulingRequest.getStartTime()));
-      statement.setTimestamp(3, Timestamp.valueOf(schedulingRequest.getEndTime()));
-      statement.setTimestamp(4, Timestamp.valueOf(schedulingRequest.getTimeRequested()));
-      statement.setTimestamp(5, Timestamp.valueOf(schedulingRequest.getTimeCompleted()));
-      statement.setString(6, schedulingRequest.getWhoReserved());
-      statement.setString(7, schedulingRequest.getRoom().getNodeId());
+      statement.setTimestamp(1, Timestamp.valueOf(schedulingRequest.getStartTime()));
+      statement.setTimestamp(2, Timestamp.valueOf(schedulingRequest.getEndTime()));
+      statement.setString(3, schedulingRequest.getWhoReserved());
+      statement.setString(4, schedulingRequest.getRoom().getNodeId());
 
+      ResultSet keys = statement.getGeneratedKeys();  // NOPMD
+      keys.next();
+      schedulingRequest.setId(keys.getInt(1));
+      logger.info("INSERT SUCCESS");
       int success = statement.executeUpdate();
-
       return success == 1;
     } catch (SQLException ex) {
       logger.log(Level.WARNING, "Failed to insert Scheduling Request", ex);
@@ -117,11 +118,9 @@ public class SchedulingRequestDaoDb implements SchedulingRequestDao {
           queries.getProperty("scheduling_request.update"));
       statement.setTimestamp(1, Timestamp.valueOf(schedulingRequest.getStartTime()));
       statement.setTimestamp(2, Timestamp.valueOf(schedulingRequest.getEndTime()));
-      statement.setTimestamp(3, Timestamp.valueOf(schedulingRequest.getTimeRequested()));
-      statement.setTimestamp(4, Timestamp.valueOf(schedulingRequest.getTimeCompleted()));
-      statement.setString(5, schedulingRequest.getWhoReserved());
-      statement.setString(6, schedulingRequest.getRoom().getNodeId());
-      statement.setInt(7, schedulingRequest.getId());
+      statement.setString(3, schedulingRequest.getWhoReserved());
+      statement.setString(4, schedulingRequest.getRoom().getNodeId());
+      statement.setInt(5, schedulingRequest.getID());
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
       logger.log(Level.WARNING, "Failed to update Scheduling Request", ex);
@@ -134,10 +133,25 @@ public class SchedulingRequestDaoDb implements SchedulingRequestDao {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement
           = connection.prepareStatement(queries.getProperty("scheduling_request.delete"));
-      statement.setInt(1, schedulingRequest.getId());
+      statement.setInt(1, schedulingRequest.getID());
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
       logger.log(Level.WARNING, "Failed to delete Scheduling Request", ex);
+    }
+    return false;
+  }
+
+  /**
+   * Delete all elements in the scheduling_request table.
+   * @return true if successful, false otherwise
+   */
+  public boolean delete_all() {
+    try (Connection connection = dcf.getConnection()) {
+      PreparedStatement statement
+          = connection.prepareStatement(queries.getProperty("scheduling_request.delete_all"));
+      return statement.executeUpdate() == 1;
+    } catch (SQLException ex) {
+      logger.log(Level.WARNING, "Failed to clear Scheduling_Request table", ex);
     }
     return false;
   }
@@ -148,8 +162,6 @@ public class SchedulingRequestDaoDb implements SchedulingRequestDao {
         resultSet.getInt("id"),
         resultSet.getTimestamp("start_time").toLocalDateTime(),
         resultSet.getTimestamp("end_time").toLocalDateTime(),
-        resultSet.getTimestamp("time_requested").toLocalDateTime(),
-        resultSet.getTimestamp("time_completed").toLocalDateTime(),
         resultSet.getString("who_requested"),
         nodeDaoDb.get(resultSet
             .getString("location"))
