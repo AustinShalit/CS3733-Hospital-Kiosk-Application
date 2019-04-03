@@ -87,7 +87,7 @@ class SecurityRequestDaoDb implements SecurityRequestDao {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement;
       statement = connection.prepareStatement(
-            queries.getProperty("security_request.insert"));
+          queries.getProperty("security_request.insert"));
       statement.setTimestamp(
           1,
           Timestamp.valueOf(securityRequest.getTimeRequested())

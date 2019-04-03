@@ -7,62 +7,76 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.MainWindowController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="edu.wpi.cs3733.d19.teamO.controller.MainWindowController">
     <children>
         <VBox prefHeight="400.0" prefWidth="380.0">
             <children>
                 <Label text="Team O Kiosk Application">
                     <VBox.margin>
-                        <Insets bottom="5.0" top="5.0" />
+                        <Insets bottom="5.0" top="5.0"/>
                     </VBox.margin>
                     <font>
-                        <Font size="32.0" />
+                        <Font size="32.0"/>
                     </font>
                 </Label>
                 <Label text="Please select from the following:">
                     <VBox.margin>
-                        <Insets bottom="5.0" top="5.0" />
+                        <Insets bottom="5.0" top="5.0"/>
                     </VBox.margin>
                     <font>
-                        <Font size="22.0" />
+                        <Font size="22.0"/>
                     </font>
                 </Label>
-                <Button fx:id="navigationButton" mnemonicParsing="false" onAction="#navigationButtonAction" text="Navigation">
+                <Button fx:id="navigationButton" mnemonicParsing="false"
+                        onAction="#navigationButtonAction" text="Navigation">
                     <VBox.margin>
-                        <Insets bottom="5.0" top="5.0" />
+                        <Insets bottom="5.0" top="5.0"/>
                     </VBox.margin>
                 </Button>
-                <Button fx:id="mapToolButton" mnemonicParsing="false" onAction="#mapToolButtonAction" text="Map Tool">
+                <Button fx:id="mapToolButton" mnemonicParsing="false"
+                        onAction="#mapToolButtonAction" text="Map Tool">
                     <VBox.margin>
-                        <Insets bottom="5.0" top="5.0" />
+                        <Insets bottom="5.0" top="5.0"/>
                     </VBox.margin>
                 </Button>
-                <Button fx:id="sanitationRequestButton" mnemonicParsing="false" onAction="#sanitationRequestButtonAction" text="Sanitation Request">
+                <Button fx:id="sanitationRequestButton" mnemonicParsing="false"
+                        onAction="#sanitationRequestButtonAction" text="Sanitation Request">
                     <VBox.margin>
-                        <Insets bottom="5.0" top="5.0" />
+                        <Insets bottom="5.0" top="5.0"/>
                     </VBox.margin>
                 </Button>
-                <Button fx:id="securityRequestButton" mnemonicParsing="false" onAction="#securityRequestButtonAction" text="Security Request">
+                <Button fx:id="securityRequestButton" mnemonicParsing="false"
+                        onAction="#securityRequestButtonAction" text="Security Request">
                     <VBox.margin>
-                        <Insets bottom="5.0" top="5.0" />
+                        <Insets bottom="5.0" top="5.0"/>
                     </VBox.margin>
                 </Button>
-                <Button fx:id="schedulingButton" mnemonicParsing="false" onAction="#schedulingButtonButtonAction" text="Scheduling">
+                <Button fx:id="schedulingButton" mnemonicParsing="false"
+                        onAction="#schedulingButtonButtonAction" text="Scheduling">
                     <VBox.margin>
-                        <Insets bottom="5.0" top="5.0" />
+                        <Insets bottom="5.0" top="5.0"/>
                     </VBox.margin>
                 </Button>
+                <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#logoutButtonAction"
+                        text="Log Out"/>
             </children>
             <padding>
-                <Insets left="5.0" />
+                <Insets left="5.0"/>
             </padding>
         </VBox>
-      <Pane layoutX="380.0" prefHeight="400.0" prefWidth="218.0">
-         <children>
-            <Button fx:id="nodeImportButton" layoutX="14.0" layoutY="135.0" mnemonicParsing="false" onAction="#nodeImportButtonAction" text="Get Nodes" />
-            <Label fx:id="nodeImportInProgress" contentDisplay="CENTER" layoutX="16.0" layoutY="179.0" prefHeight="21.0" prefWidth="180.0" />
-            <Button fx:id="edgeImportButton" layoutX="109.0" layoutY="135.0" mnemonicParsing="false" onAction="#edgeImportButtonAction" text="Get Edges" />
-         </children>
-      </Pane>
+        <Pane layoutX="380.0" prefHeight="400.0" prefWidth="218.0">
+            <children>
+                <Button fx:id="nodeImportButton" layoutX="14.0" layoutY="135.0"
+                        mnemonicParsing="false" onAction="#nodeImportButtonAction"
+                        text="Get Nodes"/>
+                <Label fx:id="nodeImportInProgress" contentDisplay="CENTER" layoutX="16.0"
+                       layoutY="179.0" prefHeight="21.0" prefWidth="180.0"/>
+                <Button fx:id="edgeImportButton" layoutX="109.0" layoutY="135.0"
+                        mnemonicParsing="false" onAction="#edgeImportButtonAction"
+                        text="Get Edges"/>
+            </children>
+        </Pane>
     </children>
 </AnchorPane>
