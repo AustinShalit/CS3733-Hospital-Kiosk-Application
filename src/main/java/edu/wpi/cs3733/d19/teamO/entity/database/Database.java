@@ -8,6 +8,7 @@ import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Login;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
+import edu.wpi.cs3733.d19.teamO.entity.SchedulingRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
 
 @SuppressWarnings("PMD.TooManyMethods")
@@ -17,6 +18,7 @@ public class Database {
   private final EdgeDao edgeDao;
   private final SecurityRequestDao securityRequestDao;
   private final SanitationRequestDao sanitationRequestDao;
+  private final SchedulingRequestDao schedulingRequestDao;
   private final LoginDao loginDao;
 
 
@@ -26,6 +28,7 @@ public class Database {
     this.securityRequestDao = new SecurityRequestDaoDb(dcf);
     this.sanitationRequestDao = new SanitationRequestDaoDb(dcf);
     this.loginDao = new LoginDaoDb(dcf);
+    this.schedulingRequestDao = new SchedulingRequestDaoDb(dcf);
   }
 
   /**
@@ -164,5 +167,24 @@ public class Database {
   /*
    * Scheduling
    */
+  public Optional<SchedulingRequest> getSchedulingRequest(int id) {
+    return schedulingRequestDao.get(id);
+  }
+
+  public Set<SchedulingRequest> getAllSchedulingRequests() {
+    return schedulingRequestDao.getAll();
+  }
+
+  public boolean insertSchedulingrequest(SchedulingRequest schedulingRequest) {
+    return schedulingRequestDao.insert(schedulingRequest);
+  }
+
+  public boolean deleteSchedulingRequest(SchedulingRequest schedulingRequest) {
+    return schedulingRequestDao.delete(schedulingRequest);
+  }
+
+  public boolean updateScheduling(SchedulingRequest schedulingRequest) {
+    return schedulingRequestDao.update(schedulingRequest);
+  }
 
 }

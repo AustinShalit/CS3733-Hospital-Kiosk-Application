@@ -1,10 +1,6 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.sql.SQLException;
-import java.util.List;
 
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
@@ -13,24 +9,21 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 import edu.wpi.cs3733.d19.teamO.entity.Node;
-import edu.wpi.cs3733.d19.teamO.entity.csv.NodeCsvReaderWriter;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
+@SuppressWarnings("PMD")
 public class SchedulingWindowController extends Controller {
-
-  private Database database;
 
   @FXML
   private Button backButton;
   @FXML
   private Button submitButton;
   @FXML
-  private ComboBox<String> roomComboBox;
+  private ComboBox<Node> roomComboBox;
   @FXML
   private TextField nameBox;
   @FXML
@@ -40,7 +33,9 @@ public class SchedulingWindowController extends Controller {
   @FXML
   private JFXDatePicker datePicker;
   @FXML
-  private Button filePicker;
+  private Label submitStatus;
+
+  private Database database;
 
   @FXML
   void onBackButtonAction(ActionEvent event) {
@@ -49,27 +44,33 @@ public class SchedulingWindowController extends Controller {
     }
   }
 
+  /**
+   * Check to make sure Scheduling Request is valid.
+   * @param e Action Event from Submit button
+   */
   @FXML
-  void pickFile(ActionEvent e) throws IOException {
-    if (e.getSource() == filePicker) {
-      FileChooser chooser = new FileChooser();
-      NodeCsvReaderWriter ncrw = new NodeCsvReaderWriter();
-      chooser.setTitle("Choose CSV File");
-      File file = chooser.showOpenDialog(new Stage());
-
-      List<Node> nodes = ncrw.readNodes(Files.newBufferedReader(file.toPath()));
-      System.out.println(nodes);
-      for (Node node : nodes) {
-        database.insertNode(node);
-        roomComboBox.getItems().add(node.getLongName());
-        System.out.println(node.getLongName());
-      }
+  void onSubmitButtonAction(ActionEvent e) {
+    if (e.getSource() == submitButton
+        && nameBox != null
+        && startChoiceBox.getValue() != null
+        && endChoiceBox.getValue() != null
+        && datePicker.getValue() != null
+        && roomComboBox.getValue() != null) {
+      submitStatus.setText("All fields are filled. Nice!");
+    } else {
+      submitStatus.setText("Make sure all fields are filled in.");
     }
+
   }
 
+  /**
+   * Populate the Room selection ComboBox.
+   * @throws SQLException When stuff goes wrong.
+   */
   @FXML
   public void initialize() throws SQLException {
     database = new Database();
-
+    populateComboBox(database, roomComboBox);
   }
+
 }
