@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
 import java.sql.SQLException;
+import java.util.Optional;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -40,26 +41,21 @@ public class MapEditUpdateController extends MapEditController {
   @FXML
   void updateNodeAction() {
     String udNodeID = updateNodeID.getText();
-    Node updateNode = null;
-    for (Node node : database.getAllNodes()) {
-      if (udNodeID.equals(node.getNodeId())) {
-        updateNode = new Node(node.getNodeId(),
-            Integer.parseInt(updateX.getText()),
-            Integer.parseInt(updateY.getText()),
-            node.getFloor(),
-            node.getBuilding(),
-            node.getNodeType(),
-            node.getLongName(),
-            node.getShortName());
-        database.updateNode(updateNode);
-        break;
-      }
-    }
-    if (updateNode == null) {
+    Optional<Node> nodeFromDB = database.getNode(udNodeID);
+    if (!nodeFromDB.isPresent()) {
       status.setText("ERROR: InvalidNodeID");
     } else {
+      Node node = nodeFromDB.get();
+      Node updateNode = new Node(node.getNodeId(),
+          Integer.parseInt(updateX.getText()),
+          Integer.parseInt(updateY.getText()),
+          node.getFloor(),
+          node.getBuilding(),
+          node.getNodeType(),
+          node.getLongName(),
+          node.getShortName());
+      database.updateNode(updateNode);
       status.setText("Succeed!");
     }
-
   }
 }

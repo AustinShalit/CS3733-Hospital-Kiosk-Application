@@ -37,7 +37,7 @@ public class MapEditAddController extends MapEditController {
   }
 
   @FXML
-  private void comboBoxAction() {
+  private void comboBoxAction() { // NOPMD
     nodeType.getItems().addAll(Node.NodeType.values());
   }
 

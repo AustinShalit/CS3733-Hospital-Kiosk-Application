@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
 import java.sql.SQLException;
+import java.util.Optional;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -35,17 +36,12 @@ public class MapEditDeleteController extends MapEditController {
   @FXML
   void deleteNodeAction() {
     String delNodeID = deleteNodeID.getText();
-    Node deleteNode = null;
-    for (Node node : database.getAllNodes()) {
-      if (delNodeID.equals(node.getNodeId())) {
-        deleteNode = node;
-        database.deleteNode(deleteNode);
-        break;
-      }
-    }
-    if (deleteNode == null) {
+    Optional<Node> opt = database.getNode(delNodeID);
+    if (!opt.isPresent()) {
       status.setText("ERROR: InvalidNodeID");
     } else {
+      Node deleteNode = opt.get();
+      database.deleteNode(deleteNode);
       status.setText("Succeed!");
     }
   }
