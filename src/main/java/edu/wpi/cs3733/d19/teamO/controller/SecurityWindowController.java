@@ -12,11 +12,11 @@ import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
+import javafx.util.Callback;
 
 import edu.wpi.cs3733.d19.teamO.Globals;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
-import javafx.util.Callback;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 @SuppressWarnings("PMD")
