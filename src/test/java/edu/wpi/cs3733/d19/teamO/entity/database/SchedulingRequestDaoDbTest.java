@@ -125,7 +125,6 @@ class SchedulingRequestDaoDbTest {
   void getAllResultSameTest() {
     schedulingDao.insert(schedulingRequest);
     assertTrue(schedulingDao.getAll().contains(schedulingRequest));
-    assertEquals(schedulingRequest, schedulingDao.getAll().toArray()[0]);
   }
 
   @Test
