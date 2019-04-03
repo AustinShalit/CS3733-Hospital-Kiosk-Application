@@ -11,10 +11,10 @@
       <TableView fx:id="securityRequestTableView" layoutX="46.0" layoutY="100.0" prefHeight="209.0" prefWidth="432.0">
         <columns>
           <TableColumn fx:id="securityRequestTableColumn" minWidth="0.0" prefWidth="223.33331298828125" text="Security Requests" />
-            <TableColumn fx:id="securityRequestTableColumn1" prefWidth="207.66668701171875" text="Employee Name" />
+            <TableColumn fx:id="assignedEmployee" prefWidth="207.66668701171875" text="Employee Name" />
         </columns>
       </TableView>
-      <Button fx:id="assignButton" layoutX="506.0" layoutY="117.0" mnemonicParsing="false" text="Assign" />
+      <Button fx:id="assignButton" layoutX="506.0" layoutY="117.0" mnemonicParsing="false" onAction="#onAssignButtonAction" text="Assign" />
       <Button fx:id="completedButton" layoutX="494.0" layoutY="164.0" mnemonicParsing="false" text="Completed" />
    </children>
 </AnchorPane>

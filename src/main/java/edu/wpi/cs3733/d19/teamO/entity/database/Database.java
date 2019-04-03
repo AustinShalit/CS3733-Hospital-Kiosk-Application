@@ -139,26 +139,6 @@ public class Database {
     return securityRequestDao.update(securityRequest);
   }
 
-  public Optional<SecurityRequest> getSecurityRequest(Integer id) {
-    return securityRequestDaoDb.get(id);
-  }
-
-  public Set<SecurityRequest> getAllSecurityRequests() {
-    return securityRequestDaoDb.getAll();
-  }
-
-  public boolean insertSecurityRequest(SecurityRequest securityRequest) {
-    return securityRequestDaoDb.insert(securityRequest);
-  }
-
-  public boolean deleteSecurityRequest(SecurityRequest securityRequest) {
-    return securityRequestDaoDb.delete(securityRequest);
-  }
-
-  public boolean updateSecurity(SecurityRequest securityRequest) {
-    return securityRequestDaoDb.update(securityRequest);
-  }
-
 
   /*
    * Scheduling

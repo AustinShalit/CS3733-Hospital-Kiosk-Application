@@ -5,11 +5,15 @@ import java.util.Objects;
 
 import com.google.common.base.MoreObjects;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.fxml.FXML;
+
 class ServiceRequest {
   private int id;
   private final LocalDateTime timeRequested;
   private final LocalDateTime timeCompleted;
-  private final String whoCompleted;
+  private String whoCompleted;
   private final String description;
   private final Node location;
 
@@ -21,14 +25,14 @@ class ServiceRequest {
   /**
    * The constructor for the service request class.
    *
-   * @param id This primary key for the ServiceRequest. -1 if ServiceRequest not in Database, and
-   *           you wish the database to generate the id.
+   * @param id            This primary key for the ServiceRequest. -1 if ServiceRequest not in
+   *                      Database, and you wish the database to generate the id.
    * @param timeRequested The time the service request was first requested.
    * @param timeCompleted The time the service request was completed.
    *                      Use Globals.defaultTime() instead of null
-   * @param whoCompleted A string representation of whoever completed the Service Request.
-   * @param description A description.
-   * @param location A reference to the Node.
+   * @param whoCompleted  A string representation of whoever completed the Service Request.
+   * @param description   A description.
+   * @param location      A reference to the Node.
    */
   ServiceRequest(int id, LocalDateTime timeRequested, LocalDateTime timeCompleted,
                  String whoCompleted, String description, Node location) {
@@ -66,6 +70,10 @@ class ServiceRequest {
     this.id = id;
   }
 
+  public void setWhoCompleted(String whoCompleted) {
+    this.whoCompleted = whoCompleted;
+  }
+
   public int getId() {
     return id;
   }
@@ -89,6 +97,9 @@ class ServiceRequest {
       return timeCompleted.toString();
     }
   }
+
+  @FXML
+  public StringProperty whoCompletedProperty() { return new SimpleStringProperty((String) whoCompleted); }
 
   public String getWhoCompleted() {
     return whoCompleted;

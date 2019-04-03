@@ -7,7 +7,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="233.0" prefWidth="546.0" xmlns="http://javafx.com/javafx/8.0.171"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="233.0" prefWidth="546.0"
+            xmlns="http://javafx.com/javafx/8.0.171"
             fx:controller="edu.wpi.cs3733.d19.teamO.controller.MapEditConnectController">
     <children>
         <HBox layoutX="87.0" layoutY="41.0" spacing="15.0">
@@ -39,7 +40,8 @@
                             </font>
                         </JFXTextField>
                         <JFXTextField fx:id="connectNodeID1" layoutX="277.0" layoutY="148.0"
-                            onKeyReleased="#validateButton"><font>
+                                      onKeyReleased="#validateButton">
+                            <font>
                                 <Font size="18.0"/>
                             </font>
                         </JFXTextField>
@@ -63,7 +65,8 @@
             <font>
                 <Font size="14.0"/>
             </font>
-        </JFXButton><Label fx:id="status" layoutX="206.0" layoutY="183.0" textFill="RED">
+        </JFXButton>
+        <Label fx:id="status" layoutX="206.0" layoutY="183.0" textFill="RED">
             <font>
                 <Font size="14.0"/>
             </font>

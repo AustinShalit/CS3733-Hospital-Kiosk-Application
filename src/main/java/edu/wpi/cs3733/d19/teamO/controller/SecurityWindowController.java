@@ -2,7 +2,6 @@ package edu.wpi.cs3733.d19.teamO.controller;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.Random;
 
 import com.jfoenix.controls.JFXComboBox;
 
@@ -45,18 +44,6 @@ public class SecurityWindowController extends Controller {
   }
 
   @FXML
-  void initialize() {
-    insertlocationdropdown.getItems().addAll(
-        "Place 1",
-        "Place 2",
-        "Place 3",
-        "Place 4"
-    );
-  }
-
-
-
-  @FXML
   void initialize() throws SQLException {
     database = new Database();
     populateComboBox(database, insertlocationdropdown);
@@ -78,20 +65,6 @@ public class SecurityWindowController extends Controller {
   }
 
   @FXML
-  void onAlertAction(ActionEvent event) throws SQLException {
-    if (event.getSource() == alertbutton) {
-      Database db = new Database();
-      Random r = new Random();
-      int rand = r.nextInt();
-      Node node1 = new Node(""+r, 1, 1, 2, "fuller",
-          Node.NodeType.DEPT, "fuller commons","fc");
-      db.insertNode(node1);
-      db.insertSecurityRequest(new SecurityRequest(rand, LocalDateTime.now(), LocalDateTime.now(),
-          "A", "idk", node1));
-    }
-  }
-
-
   void sendAlert(ActionEvent e) {
     if (e.getSource() == alertbutton) {
       Node node = (Node) insertlocationdropdown.getValue();

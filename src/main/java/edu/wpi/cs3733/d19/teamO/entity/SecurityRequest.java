@@ -15,5 +15,3 @@ public class SecurityRequest extends ServiceRequest {
     super(-1, timeRequested, timeCompleted, whoCompleted, description, node);
   }
 }
-
-

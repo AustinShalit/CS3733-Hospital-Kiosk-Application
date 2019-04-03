@@ -50,7 +50,6 @@ public class SanitationWindowController extends Controller {
   }
 
 
-
   @FXML
   void onSubmitButtonAction() {
     try {
