@@ -1,19 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.SecurityWindowController">
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.SecurityWindowController">
   <children>
-    <Button fx:id="alertbutton" layoutX="365.0" layoutY="314.0" mnemonicParsing="false" onAction="#sendAlert" text="Alert Them" />
-    <Button fx:id="backButton" layoutX="8.0" layoutY="8.0" mnemonicParsing="false" onAction="#onBackButtonAction" text="Back" />
-    <Text fx:id="securityTitle" layoutX="188.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Security " textAlignment="CENTER" wrappingWidth="223.17449808120728">
-      <font>
-        <Font size="44.0" />
-      </font>
-    </Text>
-    <JFXComboBox fx:id="insertlocationdropdown" layoutX="160.0" layoutY="178.0" prefHeight="44.0" prefWidth="250.0" />
+    <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="87.0" prefWidth="610.0">
+      <children>
+        <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+          <children>
+            <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackButtonAction" text="Go Back">
+              <VBox.margin>
+                <Insets left="5.0" top="5.0" />
+              </VBox.margin>
+            </Button>
+          </children>
+        </VBox>
+        <Label maxWidth="-Infinity" minWidth="-Infinity" text="Security">
+          <HBox.margin>
+            <Insets top="40.0" />
+          </HBox.margin>
+          <font>
+            <Font name="Constantia Bold" size="32.0" />
+          </font>
+        </Label>
+        <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS" />
+      </children>
+    </HBox>
+    <VBox alignment="CENTER" layoutX="-4.0" layoutY="87.0" prefHeight="313.0" prefWidth="616.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <children>
+        <ComboBox fx:id="locationComboBox" prefWidth="150.0" promptText="Select Location">
+          <VBox.margin>
+            <Insets bottom="10.0" top="10.0" />
+          </VBox.margin>
+        </ComboBox>
+        <Button fx:id="sendHelpButton" mnemonicParsing="false" onAction="#onSendHelpButtonAction" prefHeight="98.0" prefWidth="152.0" text="Send Help!">
+          <VBox.margin>
+            <Insets bottom="10.0" top="10.0" />
+          </VBox.margin>
+        </Button>
+        <Button fx:id="viewSecurityRequestsButton" mnemonicParsing="false" onAction="#onViewSecurityRequestsAction" prefHeight="98.0" prefWidth="152.0" text="View Security Requests">
+          <VBox.margin>
+            <Insets bottom="10.0" top="10.0" />
+          </VBox.margin>
+        </Button>
+      </children>
+    </VBox>
   </children>
 </AnchorPane>
