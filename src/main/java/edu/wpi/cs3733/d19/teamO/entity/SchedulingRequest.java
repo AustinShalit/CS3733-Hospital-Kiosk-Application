@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class SchedulingRequest {
 
-  private Integer id;
+  private int id;
   private final LocalDateTime startTime;
   private final LocalDateTime endTime;
   private final LocalDateTime timeRequested;
@@ -24,7 +24,7 @@ public class SchedulingRequest {
    * @param name          Who requested the room
    * @param room          Which room to reserve
    */
-  public SchedulingRequest(Integer id, LocalDateTime startTime, LocalDateTime endTime,
+  public SchedulingRequest(int id, LocalDateTime startTime, LocalDateTime endTime,
                            LocalDateTime timeRequested, LocalDateTime timeCompleted,
                            String name, Node room) {
     this.id = id;
@@ -35,18 +35,28 @@ public class SchedulingRequest {
     this.whoReserved = name;
     this.room = room;
   }
-  /*
-  public SchedulingRequest(LocalTime startTime, LocalTime endTime, LocalDate date,
+
+  /**
+   * Constructor without id specified.
+   *
+   * @param startTime     Start time
+   * @param endTime       End Time
+   * @param timeRequested Time Request opened
+   * @param timeCompleted Time Request approved
+   * @param name          Who requested the room
+   * @param room          Which room to reserve
+   */
+  public SchedulingRequest(LocalDateTime startTime, LocalDateTime endTime,
                            LocalDateTime timeRequested, LocalDateTime timeCompleted,
-                           String whoReserved, Node room) {
-    this.id = 0;
-    this.startTime = LocalDateTime.of(date, startTime);
-    this.endTime = LocalDateTime.of(date, endTime);
+                           String name, Node room) {
+    this.id = -1;
+    this.startTime = startTime;
+    this.endTime = endTime;
     this.timeRequested = timeRequested;
     this.timeCompleted = timeCompleted;
-    this.whoReserved = whoReserved;
+    this.whoReserved = name;
     this.room = room;
-  }*/
+  }
 
   // Getters and Setters
   public int getId() {
@@ -107,10 +117,12 @@ public class SchedulingRequest {
 
   @Override
   public String toString() {
-    return "SanitationRequest{"
+    return "SchedulingRequest{"
         + "id=" + getId()
         + ", startTime=" + getStartTime()
         + ", endTime=" + getEndTime()
+        + ", timeRequested=" + getTimeRequested()
+        + ", timeCompleted=" + getTimeCompleted()
         + ", locationNode=" + getRoom().toString()
         + ", whoReserved=" + getWhoReserved()
         + '}';
