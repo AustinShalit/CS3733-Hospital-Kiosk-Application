@@ -50,9 +50,14 @@ class DijkrasAlgorithmTest {
 
     Stack<Node> path = dij.getPath(NODE_A, NODE_E);
 
-    System.out.println(path);
+    Stack<Node> correctPath = new Stack<Node>();
 
-    fail();
+    correctPath.add(NODE_E);
+    correctPath.add(NODE_D);
+    correctPath.add(NODE_B);
+    correctPath.add(NODE_A);
+
+    assertEquals(path, correctPath);
 
   }
 }
