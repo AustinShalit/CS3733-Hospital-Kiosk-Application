@@ -9,82 +9,74 @@
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
-<Pane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171"
-      fx:controller="edu.wpi.cs3733.d19.teamO.controller.NavigationWindowController">
-    <children>
-        <JFXButton fx:id="addAStopButton" alignment="CENTER" disable="true" layoutX="446.0"
-                   layoutY="159.0" ripplerFill="#d4d2d136" style="-fx-border-color: #d4d2d1;"
-                   text="Add a Stop" textAlignment="CENTER"/>
-        <JFXButton fx:id="backButton" layoutX="14.0" layoutY="14.0" onAction="#onBackButtonAction"
-                   ripplerFill="#d4d2d136" style="-fx-border-color: #d4d2d1;" text="Back"/>
-        <JFXButton fx:id="genPathButton" layoutX="439.0" layoutY="340.0" ripplerFill="#b5b5b536"
-                   style="-fx-background-color: e4e4e4;" text="Generate Path"/>
-        <JFXClippedPane layoutX="386.0" layoutY="41.0" style="-fx-border-color: #d4d2d1;">
-            <children>
-                <VBox alignment="CENTER_RIGHT">
-                    <children>
-                        <Label alignment="CENTER" prefWidth="196.0" text="Starting Point"
-                               textAlignment="CENTER"/>
-                        <JFXRadioButton fx:id="startCurrLocJFXRadio" disable="true"
-                                        onAction="#onStartCurrLocRadioAction" prefWidth="190.0"
-                                        text="Current Location">
-                            <padding>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                            </padding>
-                            <toggleGroup>
-                                <ToggleGroup fx:id="startLocationToggle"/>
-                            </toggleGroup>
-                        </JFXRadioButton>
-                        <JFXRadioButton fx:id="startSelLocJFXRadio"
-                                        onAction="#onStartSelLocRadioAction" prefWidth="190.0"
-                                        text="Select a Location" toggleGroup="$startLocationToggle">
-                            <padding>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                            </padding>
-                        </JFXRadioButton>
-                        <JFXComboBox fx:id="startSelLocJFXCombo" disable="true" editable="true"
-                                     onAction="#onStartSelLocComboAction"
-                                     promptText="Room # or Name"/>
-                    </children>
-                </VBox>
-            </children>
-        </JFXClippedPane>
-        <JFXClippedPane layoutX="386.0" layoutY="212.0" style="-fx-border-color: #d4d2d1;">
-            <children>
-                <VBox alignment="CENTER_RIGHT">
-                    <children>
-                        <Label alignment="CENTER" prefWidth="196.0" text="End Point"
-                               textAlignment="CENTER"/>
-                        <JFXRadioButton fx:id="endCurrLocJFXRadio" disable="true"
-                                        onAction="#onEndCurrLocRadioAction" prefWidth="190.0"
-                                        text="Current Location">
-                            <padding>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                            </padding>
-                            <toggleGroup>
-                                <ToggleGroup fx:id="endLocationToggle"/>
-                            </toggleGroup>
-                        </JFXRadioButton>
-                        <JFXRadioButton fx:id="endSelLocJFXRadio" onAction="#onEndSelLocRadioAction"
-                                        prefWidth="190.0" text="Select a Location"
-                                        toggleGroup="$endLocationToggle">
-                            <padding>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                            </padding>
-                        </JFXRadioButton>
-                        <JFXComboBox fx:id="endSelLocJFXCombo" disable="true" editable="true"
-                                     onAction="#onEndSelLocComboAction"
-                                     promptText="Room # or Name"/>
-                    </children>
-                </VBox>
-            </children>
-        </JFXClippedPane>
-        <Label layoutX="147.0" layoutY="10.0" text="Navigation:" underline="true">
-            <font>
-                <Font size="24.0"/>
-            </font>
-        </Label>
-    </children>
+<?import edu.wpi.cs3733.d19.teamO.component.MapView?>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.NavigationWindowController">
+  <children>
+    <JFXButton fx:id="addAStopButton" alignment="CENTER" disable="true" layoutX="446.0" layoutY="159.0" ripplerFill="#d4d2d136" style="-fx-border-color: #d4d2d1;" text="Add a Stop" textAlignment="CENTER" />
+    <JFXButton fx:id="backButton" layoutX="8.0" layoutY="14.0" onAction="#onBackButtonAction" ripplerFill="#d4d2d136" style="-fx-border-color: #d4d2d1;" text="Back" />
+    <JFXButton fx:id="genPathButton" layoutX="439.0" layoutY="340.0" onAction="#onGenPathButtonAction" ripplerFill="#b5b5b536" style="-fx-background-color: e4e4e4;" text="Generate Path" />
+    <JFXClippedPane layoutX="386.0" layoutY="41.0" style="-fx-border-color: #d4d2d1;">
+      <children>
+        <VBox alignment="CENTER_RIGHT">
+          <children>
+            <Label alignment="CENTER" prefWidth="196.0" text="Starting Point" textAlignment="CENTER">
+              <graphic>
+                <Circle fill="GREEN" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+              </graphic>
+            </Label>
+            <JFXRadioButton fx:id="startCurrLocJFXRadio" disable="true" onAction="#onStartCurrLocRadioAction" prefWidth="190.0" text="Current Location">
+              <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+              </padding>
+              <toggleGroup>
+                <ToggleGroup fx:id="startLocationToggle" />
+              </toggleGroup>
+            </JFXRadioButton>
+            <JFXRadioButton fx:id="startSelLocJFXRadio" onAction="#onStartSelLocRadioAction" prefWidth="190.0" text="Select a Location" toggleGroup="$startLocationToggle">
+              <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+              </padding>
+            </JFXRadioButton>
+            <JFXComboBox fx:id="startSelLocJFXCombo" disable="true" editable="true" onAction="#onStartSelLocComboAction" promptText="Room # or Name" />
+          </children>
+        </VBox>
+      </children>
+    </JFXClippedPane>
+    <JFXClippedPane layoutX="386.0" layoutY="212.0" style="-fx-border-color: #d4d2d1;">
+      <children>
+        <VBox alignment="CENTER_RIGHT">
+          <children>
+            <Label alignment="CENTER" prefWidth="196.0" text="End Point" textAlignment="CENTER">
+              <graphic>
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="RED" height="16.0" stroke="BLACK" strokeType="INSIDE" width="16.0" />
+              </graphic>
+            </Label>
+            <JFXRadioButton fx:id="endCurrLocJFXRadio" disable="true" onAction="#onEndCurrLocRadioAction" prefWidth="190.0" text="Current Location">
+              <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+              </padding>
+              <toggleGroup>
+                <ToggleGroup fx:id="endLocationToggle" />
+              </toggleGroup>
+            </JFXRadioButton>
+            <JFXRadioButton fx:id="endSelLocJFXRadio" onAction="#onEndSelLocRadioAction" prefWidth="190.0" text="Select a Location" toggleGroup="$endLocationToggle">
+              <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+              </padding>
+            </JFXRadioButton>
+            <JFXComboBox fx:id="endSelLocJFXCombo" disable="true" editable="true" onAction="#onEndSelLocComboAction" promptText="Room # or Name" />
+          </children>
+        </VBox>
+      </children>
+    </JFXClippedPane>
+    <Label layoutX="147.0" layoutY="10.0" text="Navigation:" underline="true">
+      <font>
+        <Font size="24.0" />
+      </font>
+    </Label>
+    <MapView fx:id="map" layoutX="8.0" layoutY="45.0" prefHeight="334.0" prefWidth="362.0" />
+  </children>
 </Pane>
