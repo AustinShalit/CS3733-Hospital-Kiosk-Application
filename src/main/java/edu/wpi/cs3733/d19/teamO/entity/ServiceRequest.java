@@ -9,20 +9,25 @@ class ServiceRequest {
   private int id;
   private final LocalDateTime timeRequested;
   private final LocalDateTime timeCompleted;
-  private final String whoCompleted;
+  private String whoCompleted;
   private final String description;
   private final Node location;
 
   public static LocalDateTime defaultTime() {
-    return LocalDateTime.of(1, 1, 1, 1, 1);
+    return LocalDateTime.of(1, 1,
+        1, 1, 1);
   }
 
+  public static Node defaultNode() {
+    return new Node(null, 0, 0,
+        null, null, null, null, null);
+  }
 
   /**
    * The constructor for the service request class.
    *
-   * @param id This primary key for the ServiceRequest. -1 if ServiceRequest not in Database, and
-   *           you wish the database to generate the id.
+   * @param id            This primary key for the ServiceRequest. -1 if ServiceRequest not in
+   *                      Database, and you wish the database to generate the id.
    * @param timeRequested The time the service request was first requested.
    * @param timeCompleted The time the service request was completed.
    *                      Use Globals.defaultTime() instead of null
@@ -60,6 +65,15 @@ class ServiceRequest {
     this.whoCompleted = "";
   }
 
+  ServiceRequest(int id) {
+    this.id = id;
+
+    this.timeRequested = defaultTime();
+    this.timeCompleted = defaultTime();
+    this.description = "";
+    this.location = defaultNode();
+    this.whoCompleted = "";
+  }
   // getters and setters
 
   public void setId(int id) {
@@ -92,6 +106,10 @@ class ServiceRequest {
 
   public String getWhoCompleted() {
     return whoCompleted;
+  }
+
+  public void setWhoCompleted(String whoCompleted) {
+    this.whoCompleted = whoCompleted;
   }
 
   public String getDescription() {
