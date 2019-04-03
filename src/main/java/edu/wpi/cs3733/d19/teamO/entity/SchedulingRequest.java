@@ -32,28 +32,28 @@ class SchedulingRequest {
     return this.startTime;
   }
 
-  public LocalDateTime getEndTime() {
-    return this.endTime;
-  }
-
-  public String getWhoReserved() {
-    return this.whoReserved;
-  }
-
-  public Node getRoom() {
-    return room;
-  }
-
   public void setStartTime(LocalDateTime startTime) {
     this.startTime = startTime;
+  }
+
+  public LocalDateTime getEndTime() {
+    return this.endTime;
   }
 
   public void setEndTime(LocalDateTime endTime) {
     this.endTime = endTime;
   }
 
+  public String getWhoReserved() {
+    return this.whoReserved;
+  }
+
   public void setWhoReserved(String name) {
     this.whoReserved = name;
+  }
+
+  public Node getRoom() {
+    return room;
   }
 
   public void setRoom(Node room) {

@@ -39,32 +39,6 @@ class SanitationRequestDaoDbTest {
       new SanitationRequest(123456, LocalDateTime.now(), LocalDateTime.now(), testNode2,
           "Bill",
           SanitationRequest.SanitationRequestType.BEDDING, "This is a description");
-
-  @Nested
-  class Creation {
-    @Test
-    void createTableTest(TestInfo testInfo) {
-      DatabaseConnectionFactory dcf
-          = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
-          testInfo.getDisplayName());
-
-      assertDoesNotThrow(() -> new NodeDaoDb(dcf));
-      assertDoesNotThrow(() -> new SanitationRequestDaoDb(dcf));
-    }
-
-    @Test
-    void existingTableTest(TestInfo testInfo) {
-      DatabaseConnectionFactory dcf
-          = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
-          testInfo.getDisplayName());
-
-      assertDoesNotThrow(() -> new NodeDaoDb(dcf));
-
-      assertDoesNotThrow(() -> new SanitationRequestDaoDb(dcf));
-      assertDoesNotThrow(() -> new SanitationRequestDaoDb(dcf));
-    }
-  }
-
   private SanitationRequestDaoDb sanitationDao;
   private NodeDao nodeDao;
 
@@ -180,5 +154,30 @@ class SanitationRequestDaoDbTest {
     sanitationDao.delete(testSanitationRequest1);
 
     assertTrue(sanitationDao.getAll().isEmpty());
+  }
+
+  @Nested
+  class Creation {
+    @Test
+    void createTableTest(TestInfo testInfo) {
+      DatabaseConnectionFactory dcf
+          = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
+          testInfo.getDisplayName());
+
+      assertDoesNotThrow(() -> new NodeDaoDb(dcf));
+      assertDoesNotThrow(() -> new SanitationRequestDaoDb(dcf));
+    }
+
+    @Test
+    void existingTableTest(TestInfo testInfo) {
+      DatabaseConnectionFactory dcf
+          = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
+          testInfo.getDisplayName());
+
+      assertDoesNotThrow(() -> new NodeDaoDb(dcf));
+
+      assertDoesNotThrow(() -> new SanitationRequestDaoDb(dcf));
+      assertDoesNotThrow(() -> new SanitationRequestDaoDb(dcf));
+    }
   }
 }

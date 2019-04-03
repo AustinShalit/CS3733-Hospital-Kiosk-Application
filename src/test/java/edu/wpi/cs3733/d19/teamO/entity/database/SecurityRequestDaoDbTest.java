@@ -25,28 +25,6 @@ class SecurityRequestDaoDbTest {
   private static final SecurityRequest SECURITY_REQUEST
       = new SecurityRequest(1, LocalDateTime.now(),
       LocalDateTime.now(), "A", "D", NODE_A);
-
-  @Nested
-  class Creation {
-    @Test
-    void createTableTest(TestInfo testInfo) {
-      DatabaseConnectionFactory dcf
-          = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
-          testInfo.getDisplayName());
-
-      assertDoesNotThrow(() -> new SecurityRequestDaoDb(dcf));
-    }
-
-    @Test
-    void existingTableTest(TestInfo testInfo) {
-      DatabaseConnectionFactory dcf
-          = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
-          testInfo.getDisplayName());
-      assertDoesNotThrow(() -> new SecurityRequestDaoDb(dcf));
-      assertDoesNotThrow(() -> new SecurityRequestDaoDb(dcf));
-    }
-  }
-
   private SecurityRequestDaoDb dao;
 
   @BeforeEach
@@ -132,6 +110,27 @@ class SecurityRequestDaoDbTest {
   @Test
   void getAllEmptyTest() {
     assertTrue(dao.getAll().isEmpty());
+  }
+
+  @Nested
+  class Creation {
+    @Test
+    void createTableTest(TestInfo testInfo) {
+      DatabaseConnectionFactory dcf
+          = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
+          testInfo.getDisplayName());
+
+      assertDoesNotThrow(() -> new SecurityRequestDaoDb(dcf));
+    }
+
+    @Test
+    void existingTableTest(TestInfo testInfo) {
+      DatabaseConnectionFactory dcf
+          = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
+          testInfo.getDisplayName());
+      assertDoesNotThrow(() -> new SecurityRequestDaoDb(dcf));
+      assertDoesNotThrow(() -> new SecurityRequestDaoDb(dcf));
+    }
   }
 
 }

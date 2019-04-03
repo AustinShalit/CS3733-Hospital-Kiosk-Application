@@ -14,19 +14,6 @@ public class Project extends Application {
   private static final Logger logger
       = Logger.getLogger(Project.class.getName());
 
-  @Override
-  public void start(final Stage primaryStage) throws IOException {
-    logger.config("Starting application");
-
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("controller/MainWindow.fxml"));
-    Parent mainWindow = loader.load();
-
-    primaryStage.setTitle("Team O Kiosk Application");
-    primaryStage.setScene(new Scene(mainWindow));
-    primaryStage.show();
-    logger.config("Startup complete");
-  }
-
   /**
    * The version of this build.
    *
@@ -38,5 +25,18 @@ public class Project extends Application {
       return "Development";
     }
     return version;
+  }
+
+  @Override
+  public void start(final Stage primaryStage) throws IOException {
+    logger.config("Starting application");
+
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("controller/MainWindow.fxml"));
+    Parent mainWindow = loader.load();
+
+    primaryStage.setTitle("Team O Kiosk Application");
+    primaryStage.setScene(new Scene(mainWindow));
+    primaryStage.show();
+    logger.config("Startup complete");
   }
 }

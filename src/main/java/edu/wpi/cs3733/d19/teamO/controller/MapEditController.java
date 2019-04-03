@@ -10,24 +10,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import edu.wpi.cs3733.d19.teamO.component.MapView;
-import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 @SuppressWarnings("PMD")
 public class MapEditController extends Controller {
 
-  private Database database = new Database();
+  Database database = new Database();
 
   @FXML
   private Button add;
@@ -83,6 +77,7 @@ public class MapEditController extends Controller {
       stage.initModality(Modality.APPLICATION_MODAL);
       stage.initOwner(delete.getScene().getWindow());
       stage.showAndWait();
+      map.clearNodes();
       map.addNodesToPane(database.getAllNodes());
     } else if (event.getSource() == connect) {
       stage = new Stage();
@@ -100,13 +95,9 @@ public class MapEditController extends Controller {
       stage.initModality(Modality.APPLICATION_MODAL);
       stage.initOwner(update.getScene().getWindow());
       stage.showAndWait();
+      map.clearNodes();
       map.addNodesToPane(database.getAllNodes());
     }
-  }
-
-  @FXML
-  void onRefreshButtonAction(){
-    map.addNodesToPane(database.getAllNodes());
   }
 
 
@@ -116,7 +107,7 @@ public class MapEditController extends Controller {
   }
 
   @FXML
-  void cancelButtonAction(){
+  void cancelButtonAction() {
     Stage stage = (Stage) cancel.getScene().getWindow();
     stage.close();
 

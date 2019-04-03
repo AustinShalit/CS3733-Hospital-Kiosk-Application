@@ -7,37 +7,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class SanitationRequest extends ServiceRequest {
 
-  public enum SanitationRequestType {
-    SPILL("Spill"),
-    VOMIT("Vomit"),
-    BEDDING("Bedding"),
-    OTHERS("Others");
-
-    private static final Map<String, SanitationRequest.SanitationRequestType> lookup
-        = new ConcurrentHashMap<>();
-
-    static {
-      for (SanitationRequest.SanitationRequestType type : values()) {
-        lookup.put(type.name(), type);
-      }
-    }
-
-    private final String name;
-
-    SanitationRequestType(final String name) {
-      this.name = name;
-    }
-
-    @Override
-    public String toString() {
-      return name;
-    }
-
-    public static SanitationRequest.SanitationRequestType get(final String name) {
-      return lookup.get(name);
-    }
-  }
-
   private final SanitationRequestType type;
 
   /**
@@ -53,7 +22,6 @@ public class SanitationRequest extends ServiceRequest {
   public SanitationRequestType getType() {
     return type;
   }
-
 
   @Override
   public boolean equals(Object o) {
@@ -90,5 +58,36 @@ public class SanitationRequest extends ServiceRequest {
         + ", type=" + type
         + ", description='" + getDescription() + '\''
         + '}';
+  }
+
+  public enum SanitationRequestType {
+    SPILL("Spill"),
+    VOMIT("Vomit"),
+    BEDDING("Bedding"),
+    OTHERS("Others");
+
+    private static final Map<String, SanitationRequest.SanitationRequestType> lookup
+        = new ConcurrentHashMap<>();
+
+    static {
+      for (SanitationRequest.SanitationRequestType type : values()) {
+        lookup.put(type.name(), type);
+      }
+    }
+
+    private final String name;
+
+    SanitationRequestType(final String name) {
+      this.name = name;
+    }
+
+    public static SanitationRequest.SanitationRequestType get(final String name) {
+      return lookup.get(name);
+    }
+
+    @Override
+    public String toString() {
+      return name;
+    }
   }
 }

@@ -8,111 +8,120 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
-<AnchorPane prefHeight="352.0" prefWidth="546.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.MapEditAddController">
-   <children>
-      <HBox layoutX="46.0" layoutY="46.0" spacing="15.0">
-         <children>
-            <VBox layoutX="120.0" layoutY="137.0" spacing="20.0">
-               <children>
-                  <Label layoutX="82.0" layoutY="193.0" text="NodeID:">
-                     <font>
-                        <Font size="22.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="92.0" layoutY="203.0" text="x-coord:">
-                     <font>
-                        <Font size="22.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="102.0" layoutY="213.0" text="y-coord:">
-                     <font>
-                        <Font size="22.0" />
-                     </font>
-                  </Label>
-                  <Label text="Building:">
-                     <font>
-                        <Font size="22.0" />
-                     </font>
-                  </Label>
-                  <Label text="Floor:">
-                     <font>
-                        <Font size="22.0" />
-                     </font>
-                  </Label>
-                  <Label text="Node Type:">
-                     <font>
-                        <Font size="22.0" />
-                     </font>
-                  </Label>
-                  <Label text="Long Name:">
-                     <font>
-                        <Font size="22.0" />
-                     </font>
-                  </Label>
-                  <Label text="Short Name:">
-                     <font>
-                        <Font size="22.0" />
-                     </font>
-                  </Label>
-               </children>
-            </VBox>
-            <VBox layoutX="227.0" layoutY="148.0" spacing="12.0">
-               <children>
-                  <JFXTextField fx:id="addNodeID" layoutX="277.0" layoutY="148.0">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXTextField fx:id="addX" layoutX="227.0" layoutY="189.0">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXTextField fx:id="addY" layoutX="227.0" layoutY="232.0">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXTextField fx:id="addBuilding">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXTextField fx:id="addFloor">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXComboBox fx:id="nodeType" onMouseClicked="#comboBox" prefHeight="33.0" prefWidth="229.0" unFocusColor="BLACK" />
-                  <JFXTextField fx:id="longName">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXTextField fx:id="shortName">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </JFXTextField>
-               </children>
-            </VBox>
-         </children>
-      </HBox>
-      <JFXButton layoutX="413.0" layoutY="469.0" onAction="#addNodeAction" text="Add">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </JFXButton>
-      <JFXButton fx:id="cancel" layoutX="475.0" layoutY="469.0" onAction="#cancelButtonAction" text="Cancel">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </JFXButton>
-      <Label fx:id="addLabel" layoutX="128.0" layoutY="425.0" prefHeight="59.0" prefWidth="203.0" textFill="RED">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-   </children>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="352.0" prefWidth="546.0"
+            xmlns="http://javafx.com/javafx/8.0.171"
+            fx:controller="edu.wpi.cs3733.d19.teamO.controller.MapEditAddController">
+    <children>
+        <HBox layoutX="46.0" layoutY="46.0" spacing="15.0">
+            <children>
+                <VBox layoutX="120.0" layoutY="137.0" spacing="20.0">
+                    <children>
+                        <Label layoutX="82.0" layoutY="193.0" text="NodeID:">
+                            <font>
+                                <Font size="22.0"/>
+                            </font>
+                        </Label>
+                        <Label layoutX="92.0" layoutY="203.0" text="x-coord:">
+                            <font>
+                                <Font size="22.0"/>
+                            </font>
+                        </Label>
+                        <Label layoutX="102.0" layoutY="213.0" text="y-coord:">
+                            <font>
+                                <Font size="22.0"/>
+                            </font>
+                        </Label>
+                        <Label text="Building:">
+                            <font>
+                                <Font size="22.0"/>
+                            </font>
+                        </Label>
+                        <Label text="Floor:">
+                            <font>
+                                <Font size="22.0"/>
+                            </font>
+                        </Label>
+                        <Label text="Node Type:">
+                            <font>
+                                <Font size="22.0"/>
+                            </font>
+                        </Label>
+                        <Label text="Long Name:">
+                            <font>
+                                <Font size="22.0"/>
+                            </font>
+                        </Label>
+                        <Label text="Short Name:">
+                            <font>
+                                <Font size="22.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                </VBox>
+                <VBox layoutX="227.0" layoutY="148.0" spacing="12.0">
+                    <children>
+                        <JFXTextField fx:id="addNodeID" layoutX="277.0" layoutY="148.0"
+                                      onKeyReleased="#validateButton">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </JFXTextField>
+                        <JFXTextField fx:id="addX" layoutX="227.0" layoutY="189.0"
+                                      onKeyReleased="#validateButton">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </JFXTextField>
+                        <JFXTextField fx:id="addY" layoutX="227.0" layoutY="232.0"
+                                      onKeyReleased="#validateButton">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </JFXTextField>
+                        <JFXTextField fx:id="addBuilding" onKeyReleased="#validateButton">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </JFXTextField>
+                        <JFXTextField fx:id="addFloor" onKeyReleased="#validateButton">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </JFXTextField>
+                        <JFXComboBox fx:id="nodeType" onAction="#validateButton"
+                                     onMouseClicked="#comboBoxAction" prefHeight="33.0" prefWidth="229.0"
+                                     unFocusColor="BLACK"/>
+                        <JFXTextField fx:id="longName" onKeyReleased="#validateButton">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </JFXTextField>
+                        <JFXTextField fx:id="shortName" onKeyReleased="#validateButton">
+                            <font>
+                                <Font size="18.0"/>
+                            </font>
+                        </JFXTextField>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+        <JFXButton fx:id="addButton" disable="true" layoutX="413.0" layoutY="469.0"
+                   onAction="#addNodeAction" ripplerFill="BLACK" text="Add">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </JFXButton>
+        <JFXButton fx:id="cancel" layoutX="475.0" layoutY="469.0" onAction="#cancelButtonAction"
+                   text="Cancel">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </JFXButton>
+        <Label fx:id="status" layoutX="128.0" layoutY="425.0" prefHeight="59.0" prefWidth="203.0"
+               textFill="RED">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </Label>
+    </children>
 </AnchorPane>
