@@ -15,11 +15,9 @@ import edu.wpi.cs3733.d19.teamO.entity.Node;
 
 class NodeDaoDb implements NodeDao {
 
+  static final String TABLE_NAME = "NODE";
   private static final Logger logger
       = Logger.getLogger(NodeDaoDb.class.getName());
-
-  static final String TABLE_NAME = "NODE";
-
   private DatabaseConnectionFactory dcf;
 
   NodeDaoDb(final DatabaseConnectionFactory dcf) throws SQLException {

@@ -4,17 +4,16 @@ import java.sql.SQLException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import edu.wpi.cs3733.d19.teamO.entity.Node;
-import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 public class MapEditAddController extends MapEditController {
-  private final Database database = new Database();
   @FXML
-  private Label addLabel;
+  private Label status;
   @FXML
   private TextField addNodeID;
   @FXML
@@ -30,14 +29,31 @@ public class MapEditAddController extends MapEditController {
   @FXML
   private TextField longName;
   @FXML
+  private Button addButton;
+  @FXML
   private ComboBox<Node.NodeType> nodeType;
 
   public MapEditAddController() throws SQLException {
   }
 
   @FXML
-  void comboBox() {
+  private void comboBoxAction() { // NOPMD
     nodeType.getItems().addAll(Node.NodeType.values());
+  }
+
+  /**
+   * check if all field are filled.
+   */
+  @FXML
+  public void validateButton() {
+    if (addNodeID.getText().isEmpty() || addX.getText().isEmpty() || addY.getText().isEmpty()
+        || addFloor.getText().isEmpty() || addBuilding.getText().isEmpty()
+        || nodeType.getValue() == null || longName.getText().isEmpty()
+        || shortName.getText().isEmpty()) {
+      addButton.setDisable(true);
+    } else {
+      addButton.setDisable(false);
+    }
   }
 
   @FXML
@@ -51,7 +67,7 @@ public class MapEditAddController extends MapEditController {
         longName.getText(),
         shortName.getText());
     database.insertNode(newNode);
-    addLabel.setText("Succeed!");
+    status.setText("Succeed!");
   }
 
 

@@ -85,14 +85,20 @@ class SecurityRequestDaoDb implements SecurityRequestDao {
   @Override
   public boolean insert(final SecurityRequest securityRequest) {
     try (Connection connection = dcf.getConnection()) {
-      PreparedStatement statement = connection.prepareStatement(
+      PreparedStatement statement;
+      statement = connection.prepareStatement(
           queries.getProperty("security_request.insert"));
-      statement.setInt(1, securityRequest.getId());
-      statement.setTimestamp(2, Timestamp.valueOf(securityRequest.getTimeRequested()));
-      statement.setTimestamp(3, Timestamp.valueOf(securityRequest.getTimeCompleted()));
-      statement.setString(4, securityRequest.getWhoCompleted());
-      statement.setString(5, securityRequest.getDescription());
-      statement.setString(6, securityRequest.getLocationNode().getNodeId());
+      statement.setTimestamp(
+          1,
+          Timestamp.valueOf(securityRequest.getTimeRequested())
+      );
+      statement.setTimestamp(
+          2,
+          Timestamp.valueOf(securityRequest.getTimeCompleted())
+      );
+      statement.setString(3, securityRequest.getWhoCompleted());
+      statement.setString(4, securityRequest.getDescription());
+      statement.setString(5, securityRequest.getLocationNode().getNodeId());
 
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
@@ -137,7 +143,8 @@ class SecurityRequestDaoDb implements SecurityRequestDao {
     return new SecurityRequest(
         resultSet.getInt("id"),
         resultSet.getTimestamp("time_requested").toLocalDateTime(),
-        resultSet.getTimestamp("time_completed").toLocalDateTime(),
+        resultSet.getTimestamp("time_completed") != null
+            ? resultSet.getTimestamp("time_completed").toLocalDateTime() : null,
         resultSet.getString("who_completed"),
         resultSet.getString("description"),
         nodeDaoDb.get(resultSet

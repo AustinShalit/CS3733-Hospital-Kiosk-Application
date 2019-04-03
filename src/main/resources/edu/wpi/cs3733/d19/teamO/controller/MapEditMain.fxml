@@ -6,8 +6,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import edu.wpi.cs3733.d19.teamO.component.MapView?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171"
-            xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/8.0.171"
             fx:controller="edu.wpi.cs3733.d19.teamO.controller.MapEditController">
     <children>
         <VBox alignment="TOP_CENTER" layoutX="414.0" layoutY="77.0" spacing="20.0">

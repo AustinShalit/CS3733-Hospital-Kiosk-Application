@@ -1,9 +1,7 @@
 package edu.wpi.cs3733.d19.teamO.component;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import javafx.animation.Interpolator;
 import javafx.fxml.FXML;
@@ -36,14 +34,9 @@ public class MapView extends StackPane {
   @FXML
   private Group edges;
 
-  private List<Line> lines;
-
-  public List<Line> getLines() {
-    return lines;
-  }
-
   /**
-   * Create new MapView.
+   * The constructor for the MapView class.
+   * @throws IOException Throws in case of xyz.
    */
   public MapView() throws IOException {
     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MapView.fxml"));
@@ -54,7 +47,6 @@ public class MapView extends StackPane {
 
   @FXML
   void initialize() {
-    lines = new ArrayList<>();
     gesturePane.setMinScale(0.1);
     gesturePane.setOnMouseClicked(e -> {
       if (e.getButton() == MouseButton.PRIMARY && e.getClickCount() == 2) {
@@ -69,26 +61,29 @@ public class MapView extends StackPane {
   }
 
   /**
-   * Set and scale the given image to the current MapView.
-   *
-   * @param image The image to be displayed.
+   * Set the image to the map.
+   * @param image image is the map file
    */
   public void setMapImage(final Image image) {
     backgroundImage.setImage(image);
     gesturePane.zoomTo(0.1, new Point2D(backgroundImage.getImage().getWidth() / 2,
-        backgroundImage.getImage().getHeight() / 2));
+                       backgroundImage.getImage().getHeight() / 2));
   }
 
   /**
-   * Add nodes to display on map.
-   *
-   * @param nodes The nodes to be displayed.
+   * add nodes to the pane as small circles.
+   * @param nodes nodes are the for positions
    */
   public void addNodesToPane(final Collection<Node> nodes) {
     nodes.stream()
-        .map(node -> new Circle(node.getXcoord(), node.getYcoord(), 5, Color.PURPLE))
+        .map(node -> new Circle(node.getXcoord(), node.getYcoord(), 5, Color.RED))
         .forEach(nodeGroup.getChildren()::add);
   }
+
+  public void clearNodes() {
+    nodeGroup.getChildren().clear();
+  }
+
 
   public void setEdges(Group edges) {
     this.edges = edges;
@@ -113,9 +108,7 @@ public class MapView extends StackPane {
     for (Edge edge : edgeCollection) {
       Line line = new Line(edge.getStartNode().getXcoord(), edge.getStartNode().getYcoord(),
           edge.getEndNode().getXcoord(), edge.getEndNode().getYcoord());
-      lines.add(line);
       edges.getChildren().add(line);
     }
   }
-
 }

@@ -147,7 +147,6 @@ public class NavigationWindowController extends Controller {
   @FXML
   @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
   void onGenPathButtonAction() throws SQLException {
-
     map.getEdges().getChildren().removeAll(bfsPath);
 
     BreadthFirstSearchAlgorithm bfsAlgorithm = new BreadthFirstSearchAlgorithm(new Database());

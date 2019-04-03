@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.HashSet;
@@ -35,9 +36,12 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
   public Optional<SanitationRequest> get(final Integer id) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement("SELECT * FROM " + TABLE_NAME
-          + " INNER JOIN " + NodeDaoDb.TABLE_NAME
-          + " ON " + TABLE_NAME + ".LOCATIONNODEID" + "=" + NodeDaoDb.TABLE_NAME + ".id"
-          + " WHERE " + TABLE_NAME + ".sr_id=?");
+              + " INNER JOIN " + NodeDaoDb.TABLE_NAME
+              + " ON " + TABLE_NAME + ".LOCATIONNODEID" + "=" + NodeDaoDb.TABLE_NAME + ".id"
+              + " WHERE " + TABLE_NAME + ".sr_id=?",
+          Statement.RETURN_GENERATED_KEYS
+      );
+
       statement.setInt(1, id);
 
       try (ResultSet resultSet = statement.executeQuery()) {
@@ -55,9 +59,11 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
   public Set<SanitationRequest> getAll() {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement("SELECT * FROM " + TABLE_NAME
-          + " INNER JOIN " + NodeDaoDb.TABLE_NAME
-          + " ON " + TABLE_NAME + ".LOCATIONNODEID" + "=" + NodeDaoDb.TABLE_NAME + ".id"
+              + " INNER JOIN " + NodeDaoDb.TABLE_NAME
+              + " ON " + TABLE_NAME + ".LOCATIONNODEID" + "=" + NodeDaoDb.TABLE_NAME + ".id",
+          Statement.RETURN_GENERATED_KEYS
       );
+
       try (ResultSet resultSet = statement.executeQuery()) {
         Set<SanitationRequest> sanitationRequest = new HashSet<>();
         while (resultSet.next()) {
@@ -98,17 +104,19 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
   public boolean insert(final SanitationRequest sanitationRequest) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement("INSERT INTO " + TABLE_NAME
-          + " VALUES (?, ?, ?, ?, ?, ?, ?)");
+          + " (TIMEREQUESTED, TIMECOMPLETED, WHOCOMPLETED, LOCATIONNODEID, "
+          + "SANITATIONTYPE, DESCRIPTION) "
+          + "VALUES (?, ?, ?, ?, ?, ?)");
 
-      statement.setInt(1, sanitationRequest.getId());
-      statement.setTimestamp(2,
+      statement.setTimestamp(1,
           Timestamp.valueOf(sanitationRequest.getTimeRequested()));
-      statement.setTimestamp(3,
+      statement.setTimestamp(2,
           Timestamp.valueOf(sanitationRequest.getTimeCompleted()));
-      statement.setString(4, sanitationRequest.getWhoCompleted());
-      statement.setString(5, sanitationRequest.getLocationNode().getNodeId());
-      statement.setString(6, sanitationRequest.getType().name());
-      statement.setString(7, sanitationRequest.getDescription());
+      statement.setString(3, sanitationRequest.getWhoCompleted());
+      statement.setString(4, sanitationRequest.getLocationNode().getNodeId());
+      statement.setString(5, sanitationRequest.getType().name());
+      statement.setString(6, sanitationRequest.getDescription());
+
       return statement.executeUpdate() == 1;
     } catch (SQLException exception) {
       logger.log(Level.WARNING, "Failed to insert SanitationRequest", exception);
@@ -117,12 +125,13 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
   }
 
   private void createTable() throws SQLException {
+
     try (Connection connection = dcf.getConnection();
          ResultSet resultSet = connection.getMetaData().getTables(null, null, TABLE_NAME, null)) {
       if (!resultSet.next()) {
         logger.info("Table " + TABLE_NAME + " does not exist. Creating");
         PreparedStatement statement = connection.prepareStatement("CREATE TABLE " + TABLE_NAME
-            + "(sr_id INT PRIMARY KEY,"
+            + " (sr_id INT PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY,"
             + "TIMEREQUESTED TIMESTAMP,"
             + "TIMECOMPLETED TIMESTAMP,"
             + "WHOCOMPLETED VARCHAR(255),"

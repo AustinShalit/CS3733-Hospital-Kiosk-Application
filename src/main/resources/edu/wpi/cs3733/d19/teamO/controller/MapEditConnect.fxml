@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<AnchorPane prefHeight="233.0" prefWidth="546.0" xmlns="http://javafx.com/javafx/8.0.171"
-            xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="233.0" prefWidth="546.0" xmlns="http://javafx.com/javafx/8.0.171"
             fx:controller="edu.wpi.cs3733.d19.teamO.controller.MapEditConnectController">
     <children>
         <HBox layoutX="87.0" layoutY="41.0" spacing="15.0">
@@ -34,17 +33,17 @@
                 </VBox>
                 <VBox layoutX="227.0" layoutY="148.0" spacing="10.0">
                     <children>
-                        <JFXTextField fx:id="edgeID">
+                        <JFXTextField fx:id="edgeID" onKeyReleased="#validateButton">
                             <font>
                                 <Font size="18.0"/>
                             </font>
                         </JFXTextField>
-                        <JFXTextField fx:id="connectNodeID1" layoutX="277.0" layoutY="148.0">
-                            <font>
+                        <JFXTextField fx:id="connectNodeID1" layoutX="277.0" layoutY="148.0"
+                            onKeyReleased="#validateButton"><font>
                                 <Font size="18.0"/>
                             </font>
                         </JFXTextField>
-                        <JFXTextField fx:id="connectNodeID2">
+                        <JFXTextField fx:id="connectNodeID2" onKeyReleased="#validateButton">
                             <font>
                                 <Font size="18.0"/>
                             </font>
@@ -53,7 +52,8 @@
                 </VBox>
             </children>
         </HBox>
-        <JFXButton layoutX="394.0" layoutY="190.0" onAction="#connectNodeAcion" text="Connect">
+        <JFXButton fx:id="connectButton" disable="true" layoutX="394.0" layoutY="190.0"
+                   onAction="#connectNodeAction" text="Connect">
             <font>
                 <Font size="14.0"/>
             </font>
@@ -63,6 +63,10 @@
             <font>
                 <Font size="14.0"/>
             </font>
-        </JFXButton>
+        </JFXButton><Label fx:id="status" layoutX="206.0" layoutY="183.0" textFill="RED">
+            <font>
+                <Font size="14.0"/>
+            </font>
+        </Label>
     </children>
 </AnchorPane>

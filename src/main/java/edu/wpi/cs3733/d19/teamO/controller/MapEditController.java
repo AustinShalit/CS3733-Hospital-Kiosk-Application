@@ -21,7 +21,7 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 @SuppressWarnings("PMD")
 public class MapEditController extends Controller {
 
-  private Database database = new Database();
+  Database database = new Database();
 
   @FXML
   private Button add;
@@ -77,6 +77,8 @@ public class MapEditController extends Controller {
       stage.initModality(Modality.APPLICATION_MODAL);
       stage.initOwner(delete.getScene().getWindow());
       stage.showAndWait();
+      map.clearNodes();
+      map.addNodesToPane(database.getAllNodes());
     } else if (event.getSource() == connect) {
       stage = new Stage();
       root = FXMLLoader.load(getClass().getResource("MapEditConnect.fxml"));
@@ -93,12 +95,9 @@ public class MapEditController extends Controller {
       stage.initModality(Modality.APPLICATION_MODAL);
       stage.initOwner(update.getScene().getWindow());
       stage.showAndWait();
+      map.clearNodes();
+      map.addNodesToPane(database.getAllNodes());
     }
-  }
-
-  @FXML
-  void onRefreshButtonAction() {
-    map.addNodesToPane(database.getAllNodes());
   }
 
 

@@ -59,6 +59,8 @@
                         <Insets bottom="5.0" top="5.0"/>
                     </VBox.margin>
                 </Button>
+                <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#logoutButtonAction"
+                        text="Log Out"/>
             </children>
             <padding>
                 <Insets left="5.0"/>
