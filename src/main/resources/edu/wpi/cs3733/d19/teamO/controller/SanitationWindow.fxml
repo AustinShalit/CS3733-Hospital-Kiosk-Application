@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171"
-            xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/8.0.171"
             fx:controller="edu.wpi.cs3733.d19.teamO.controller.SanitationWindowController">
     <children>
         <HBox layoutX="200.0" layoutY="7.0" maxHeight="1.7976931348623157E308"
@@ -25,7 +21,11 @@
                 <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                     <children>
                         <Button fx:id="backButton" mnemonicParsing="false"
-                                onAction="#onBackButtonAction" text="Go Back"/>
+                                onAction="#onBackButtonAction" text="Go Back">
+                            <VBox.margin>
+                                <Insets left="5.0" top="5.0"/>
+                            </VBox.margin>
+                        </Button>
                     </children>
                 </VBox>
                 <Label fx:id="titleLabel" maxWidth="-Infinity" minWidth="-Infinity"
@@ -40,81 +40,33 @@
                 <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS"/>
             </children>
         </HBox>
-        <VBox layoutY="100.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0"
-              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+        <VBox alignment="CENTER" layoutY="84.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="84.0">
             <children>
-                <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
-                    <children>
-                        <GridPane maxHeight="1.7976931348623157E308"
-                                  maxWidth="1.7976931348623157E308">
-                            <columnConstraints>
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
-                                                   prefWidth="100.0"/>
-                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"
-                                                   prefWidth="100.0"/>
-                            </columnConstraints>
-                            <rowConstraints>
-                                <RowConstraints/>
-                                <RowConstraints maxHeight="43.0" minHeight="10.0" prefHeight="43.0"
-                                                vgrow="SOMETIMES"/>
-                                <RowConstraints maxHeight="43.0" minHeight="10.0" prefHeight="43.0"
-                                                vgrow="SOMETIMES"/>
-                                <RowConstraints maxHeight="43.0" minHeight="10.0" prefHeight="43.0"
-                                                vgrow="SOMETIMES"/>
-                                <RowConstraints maxHeight="43.0" minHeight="10.0" prefHeight="43.0"
-                                                vgrow="SOMETIMES"/>
-                                <RowConstraints maxHeight="43.0" minHeight="10.0" prefHeight="43.0"
-                                                vgrow="SOMETIMES"/>
-                                <RowConstraints maxHeight="43.0" minHeight="10.0" prefHeight="43.0"
-                                                vgrow="SOMETIMES"/>
-                                <RowConstraints maxHeight="43.0" minHeight="10.0" prefHeight="43.0"
-                                                vgrow="SOMETIMES"/>
-                                <RowConstraints maxHeight="43.0" minHeight="10.0" prefHeight="43.0"
-                                                vgrow="SOMETIMES"/>
-                            </rowConstraints>
-                            <children>
-                                <TextArea fx:id="descriptionTextArea" maxHeight="-Infinity"
-                                          maxWidth="-Infinity" minHeight="-Infinity"
-                                          minWidth="-Infinity" prefHeight="120.0" prefWidth="250.0"
-                                          promptText="Add a Description"
-                                          style="-fx-background-radius: 5;" GridPane.columnSpan="2"
-                                          GridPane.halignment="CENTER" GridPane.rowIndex="4">
-                                    <GridPane.margin>
-                                        <Insets top="45.0"/>
-                                    </GridPane.margin>
-                                </TextArea>
-                                <Button fx:id="submitButton" mnemonicParsing="false"
-                                        onAction="#onSubmitButtonAction" text="Submit"
-                                        GridPane.columnSpan="2" GridPane.halignment="CENTER"
-                                        GridPane.rowIndex="8">
-                                    <GridPane.margin>
-                                        <Insets bottom="20.0"/>
-                                    </GridPane.margin>
-                                </Button>
-                                <JFXComboBox fx:id="categoryComboBox" promptText="Pick Category"
-                                             GridPane.columnSpan="2" GridPane.halignment="CENTER"
-                                             GridPane.rowIndex="2">
-                                    <opaqueInsets>
-                                        <Insets/>
-                                    </opaqueInsets>
-                                    <GridPane.margin>
-                                        <Insets top="10.0"/>
-                                    </GridPane.margin>
-                                </JFXComboBox>
-                                <JFXComboBox fx:id="locationComboBox" promptText="Insert Location"
-                                             GridPane.columnSpan="2" GridPane.halignment="CENTER"
-                                             GridPane.rowIndex="1"/>
-                                <Separator prefWidth="200.0"
-                                           style="-fx-border-style: solid; -fx-background-color: #000000;"
-                                           GridPane.columnSpan="2" GridPane.halignment="CENTER">
-                                    <GridPane.margin>
-                                        <Insets bottom="10.0"/>
-                                    </GridPane.margin>
-                                </Separator>
-                            </children>
-                        </GridPane>
-                    </children>
-                </VBox>
+                <ComboBox fx:id="locationComboBox" prefWidth="150.0" promptText="Select Location">
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="10.0"/>
+                    </VBox.margin>
+                </ComboBox>
+                <ComboBox fx:id="categoryComboBox" prefWidth="150.0" promptText="Select Categories">
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="10.0"/>
+                    </VBox.margin>
+                </ComboBox>
+                <TextArea fx:id="descriptionTextArea" maxHeight="-Infinity" maxWidth="-Infinity"
+                          minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0"
+                          prefWidth="250.0" promptText="Add a Description"
+                          style="-fx-background-radius: 5;">
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="10.0"/>
+                    </VBox.margin>
+                </TextArea>
+                <Button fx:id="submitButton" mnemonicParsing="false"
+                        onAction="#onSubmitButtonAction" text="Submit">
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="10.0"/>
+                    </VBox.margin>
+                </Button>
             </children>
         </VBox>
     </children>

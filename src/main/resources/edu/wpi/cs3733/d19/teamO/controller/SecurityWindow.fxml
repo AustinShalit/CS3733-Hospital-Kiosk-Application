@@ -23,5 +23,4 @@
         <JFXComboBox fx:id="insertlocationdropdown" layoutX="160.0" layoutY="178.0"
                      prefHeight="44.0" prefWidth="250.0"/>
     </children>
-
 </AnchorPane>
