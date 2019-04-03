@@ -17,6 +17,22 @@ class ServiceRequest {
   private final LocalDateTime defaultTime = LocalDateTime.of(1, 1, 1, 1, 1);
 
   // constructors
+  public static LocalDateTime defaultTime() {
+    return LocalDateTime.of(1, 1, 1, 1, 1);
+  }
+
+
+  /**
+   * The constructor for the service request class.
+   * @param id This primary key for the ServiceRequest. -1 if ServiceRequest not in Database, and
+   *           you wish the database to generate the id.
+   * @param timeRequested The time the service request was first requested.
+   * @param timeCompleted The time the service request was completed.
+   *                      Use Globals.defaultTime() instead of null
+   * @param whoCompleted A string representation of whoever completed the Service Request.
+   * @param description A description.
+   * @param location A reference to the Node.
+   */
   ServiceRequest(int id, LocalDateTime timeRequested, LocalDateTime timeCompleted,
                  String whoCompleted, String description, Node location) {
     this.id = id;
