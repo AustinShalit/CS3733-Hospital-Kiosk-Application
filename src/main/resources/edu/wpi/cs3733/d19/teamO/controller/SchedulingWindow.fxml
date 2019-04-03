@@ -10,58 +10,52 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="edu.wpi.cs3733.d19.teamO.controller.SchedulingWindowController">
-    <children>
-        <ComboBox fx:id="roomComboBox" layoutX="69.0" layoutY="148.0" prefWidth="150.0"
-                  promptText="enter a room"/>
-        <Button fx:id="backButton" layoutX="43.0" layoutY="34.0" mnemonicParsing="false"
-                onAction="#onBackButtonAction" text="Back"/>
-        <Button fx:id="submitButton" layoutX="330.0" layoutY="333.0" mnemonicParsing="false"
-                onAction="#onSubmitButtonAction" text="Confirm Reservation"/>
-        <Group layoutX="330.0" layoutY="39.0">
-            <children>
-                <JFXTimePicker fx:id="startChoiceBox" layoutY="26.0" prefWidth="205.0"/>
-                <Label text="Start Time">
-                    <font>
-                        <Font name="System Bold" size="15.0"/>
-                    </font>
-                </Label>
-            </children>
-        </Group>
-        <Group layoutX="330.0" layoutY="120.0">
-            <children>
-                <JFXTimePicker fx:id="endChoiceBox" layoutY="26.0" prefWidth="205.0"/>
-                <Label text="End Time">
-                    <font>
-                        <Font name="System Bold" size="15.0"/>
-                    </font>
-                </Label>
-            </children>
-        </Group>
-        <Group layoutX="330.0" layoutY="200.0">
-            <children>
-                <JFXDatePicker fx:id="datePicker" layoutY="29.0" prefWidth="205.0"/>
-                <Label text="Date">
-                    <font>
-                        <Font name="System Bold" size="15.0"/>
-                    </font>
-                </Label>
-            </children>
-        </Group>
-        <TextField fx:id="nameBox" layoutX="69.0" layoutY="231.0"/>
-        <Text layoutX="69.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
-            <font>
-                <Font name="System Bold" size="15.0"/>
-            </font>
-        </Text>
-        <Text layoutX="69.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room">
-            <font>
-                <Font name="System Bold" size="15.0"/>
-            </font>
-        </Text>
-        <Label fx:id="submitStatus" layoutX="30.0" layoutY="338.0" prefHeight="21.0"
-               prefWidth="288.0"/>
-    </children>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.SchedulingWindowController">
+  <children>
+    <ComboBox fx:id="roomComboBox" layoutX="69.0" layoutY="148.0" prefWidth="150.0" promptText="enter a room" />
+    <Button fx:id="backButton" layoutX="43.0" layoutY="34.0" mnemonicParsing="false" onAction="#onBackButtonAction" text="Back" />
+    <Button fx:id="submitButton" layoutX="330.0" layoutY="333.0" mnemonicParsing="false" onAction="#onSubmitButtonAction" text="Confirm Reservation" />
+    <Group layoutX="330.0" layoutY="39.0">
+      <children>
+        <JFXTimePicker fx:id="startChoiceBox" layoutY="26.0" prefWidth="205.0" />
+        <Label text="Start Time">
+          <font>
+            <Font name="System Bold" size="15.0" />
+          </font>
+        </Label>
+      </children>
+    </Group>
+    <Group layoutX="330.0" layoutY="120.0">
+      <children>
+        <JFXTimePicker fx:id="endChoiceBox" layoutY="26.0" prefWidth="205.0" />
+        <Label text="End Time">
+          <font>
+            <Font name="System Bold" size="15.0" />
+          </font>
+        </Label>
+      </children>
+    </Group>
+    <Group layoutX="330.0" layoutY="200.0">
+      <children>
+        <JFXDatePicker fx:id="datePicker" layoutY="29.0" prefWidth="205.0" />
+        <Label text="Date">
+          <font>
+            <Font name="System Bold" size="15.0" />
+          </font>
+        </Label>
+      </children>
+    </Group>
+    <TextField fx:id="nameBox" layoutX="69.0" layoutY="231.0" />
+    <Text layoutX="69.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+      <font>
+        <Font name="System Bold" size="15.0" />
+      </font>
+    </Text>
+    <Text layoutX="69.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room">
+      <font>
+        <Font name="System Bold" size="15.0" />
+      </font>
+    </Text>
+    <Label fx:id="submitStatus" layoutX="30.0" layoutY="338.0" prefHeight="21.0" prefWidth="288.0" />
+  </children>
 </AnchorPane>
