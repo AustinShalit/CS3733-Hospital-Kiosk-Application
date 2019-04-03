@@ -25,7 +25,7 @@ public class LoginWindowController extends Controller {
   @FXML
   private Label loginFail;
 
-  Database db;
+  private Database db;
 
   @FXML
   void initialize() throws SQLException {

@@ -5,8 +5,8 @@ import java.util.Objects;
 import com.google.common.base.MoreObjects;
 
 public class Login {
-  private String username;
-  private String password;
+  private final String username;
+  private final String password;
 
   //constructor
   public Login(String username, String password) {
@@ -20,14 +20,6 @@ public class Login {
 
   public String getPassword() {
     return password;
-  }
-
-  public void setUsername(String username) {
-    this.username = username;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
   }
 
   @Override

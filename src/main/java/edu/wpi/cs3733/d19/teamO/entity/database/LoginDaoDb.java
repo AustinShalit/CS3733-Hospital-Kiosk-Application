@@ -18,7 +18,7 @@ public class LoginDaoDb implements LoginDao {
   private static final Logger logger = Logger.getLogger(LoginDaoDb.class.getName());
 
   private static final String TABLE_NAME = "LOGIN";
-  private DatabaseConnectionFactory dcf;
+  private final DatabaseConnectionFactory dcf;
 
   LoginDaoDb(final DatabaseConnectionFactory dcf) throws SQLException {
     this.dcf = dcf;
