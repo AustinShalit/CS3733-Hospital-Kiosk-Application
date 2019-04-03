@@ -6,7 +6,6 @@ import java.nio.file.Files;
 import java.sql.SQLException;
 import java.util.List;
 
-import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
