@@ -32,6 +32,8 @@ public class MainWindowController extends Controller {
   @FXML
   private Button schedulingButton;
   @FXML
+  private Button logoutButton;
+  @FXML
   private Button nodeImportButton;
   @FXML
   private Button edgeImportButton;
@@ -112,7 +114,13 @@ public class MainWindowController extends Controller {
   }
 
   @FXML
+  void logoutButtonAction() {
+    switchScenes("LoginWindow.fxml", schedulingButton.getScene().getWindow());
+  }
+
+  @FXML
   public void initialize() throws SQLException {
     database = new Database();
   }
 }
+

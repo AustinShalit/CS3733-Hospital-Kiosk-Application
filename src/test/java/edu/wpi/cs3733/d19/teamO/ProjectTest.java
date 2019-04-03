@@ -8,7 +8,6 @@ import org.testfx.framework.junit5.ApplicationTest;
 
 import javafx.stage.Stage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Tag("UI")
@@ -26,8 +25,4 @@ class ProjectTest extends ApplicationTest {
     assertTrue(stage.isShowing());
   }
 
-  @Test
-  void titleTest() {
-    assertEquals("Team O Kiosk Application", stage.getTitle());
-  }
 }
