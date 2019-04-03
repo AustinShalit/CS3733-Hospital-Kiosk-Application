@@ -13,6 +13,10 @@ class ServiceRequest {
   private final String description;
   private final Node location;
 
+  public static LocalDateTime defaultTime() {
+    return LocalDateTime.of(1, 1, 1, 1, 1);
+  }
+
 
   /**
    * The constructor for the service request class.
