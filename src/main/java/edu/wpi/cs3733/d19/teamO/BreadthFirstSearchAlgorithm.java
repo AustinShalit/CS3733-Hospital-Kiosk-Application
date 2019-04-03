@@ -41,9 +41,6 @@ class BreadthFirstSearchAlgorithm extends SearchAlgorithm {
         }
       }
     }
-
     return makePath(cameFrom, goal);
   }
-
-
 }
