@@ -47,6 +47,8 @@ public class MapView extends StackPane {
 
   @FXML
   void initialize() {
+    gesturePane.prefWidthProperty().bind(widthProperty());
+    gesturePane.prefHeightProperty().bind(heightProperty());
     gesturePane.setMinScale(0.1);
     gesturePane.setOnMouseClicked(e -> {
       if (e.getButton() == MouseButton.PRIMARY && e.getClickCount() == 2) {
