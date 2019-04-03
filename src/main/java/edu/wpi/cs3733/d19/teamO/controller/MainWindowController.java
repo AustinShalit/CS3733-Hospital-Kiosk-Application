@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.sql.SQLException;
 import java.util.List;
 
+import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -88,6 +89,7 @@ public class MainWindowController extends Controller {
       database.insertNode(node);
     }
     nodeImportInProgress.setText("Nodes Imported");
+    edgeImportButton.setDisable(false);
 
   }
 
@@ -108,7 +110,17 @@ public class MainWindowController extends Controller {
     List<Edge> edges = ecrw.readEdges(Files.newBufferedReader(file.toPath()));
 
     for (Edge edge : edges) {
-      database.insertEdge(edge);
+      Node start = edge.getStartNode();
+      Node end = edge.getEndNode();
+      if (start.getFloor().equals("2") && end.getFloor().equals("2")) {
+        database.insertEdge(edge);
+      }
+      if (!(edge.getStartNode().getFloor().equals("2"))) {
+        database.deleteNode(start);
+      }
+      if (!(edge.getEndNode().getFloor().equals("2"))) {
+        database.deleteNode(end);
+      }
     }
     nodeImportInProgress.setText("Edges Imported");
   }
@@ -121,6 +133,7 @@ public class MainWindowController extends Controller {
   @FXML
   public void initialize() throws SQLException {
     database = new Database();
+    edgeImportButton.setDisable(true);
   }
 }
 
