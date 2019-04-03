@@ -1,12 +1,13 @@
 package edu.wpi.cs3733.d19.teamO.entity;
 
+import java.util.Comparator;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.google.common.base.MoreObjects;
 
-public class Node {
+public class Node implements Comparator<Node> {
 
   public enum NodeType {
     CONF("Conference"),
@@ -147,4 +148,22 @@ public class Node {
   public int hashCode() {
     return Objects.hash(nodeId, xcoord, ycoord, floor, building, nodeType, longName, shortName);
   }
+
+  @Override
+  public int compare(Node node1, Node node2) {
+    if (getCost(node1) < getCost(node2)) {
+      return -1;
+    }
+    if (getCost(node1) > getCost(node2)) {
+      return 1;
+    }
+    return 0;
+  }
+
+
+  public double getCost(Node node) {
+    double dist = Math.sqrt(Math.pow(this.xcoord - node.xcoord, 2) + Math.pow(this.ycoord - node.ycoord, 2));
+    return dist;
+  }
+
 }
