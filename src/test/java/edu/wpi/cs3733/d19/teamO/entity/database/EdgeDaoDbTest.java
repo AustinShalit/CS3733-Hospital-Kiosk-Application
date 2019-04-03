@@ -20,38 +20,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class EdgeDaoDbTest {
 
-  private static final Node NODE_A = new Node("A", 1, 2, 0, "B", Node.NodeType.HALL,
+  private static final Node NODE_A = new Node("A", 1, 2, "0", "B", Node.NodeType.HALL,
       "AL", "AS");
-  private static final Node NODE_B = new Node("B", 3, 4, 0, "B", Node.NodeType.HALL,
+  private static final Node NODE_B = new Node("B", 3, 4, "0", "B", Node.NodeType.HALL,
       "BL", "BS");
-  private static final Node NODE_C = new Node("C", 5, 6, 0, "B", Node.NodeType.HALL,
+  private static final Node NODE_C = new Node("C", 5, 6, "0", "B", Node.NodeType.HALL,
       "CL", "CS");
   private static final Edge EDGE_AB = new Edge("AB", NODE_A, NODE_B);
   private static final Edge EDGE_BC = new Edge("BC", NODE_B, NODE_C);
   private static final Edge EDGE_CA = new Edge("CA", NODE_C, NODE_A);
-
-
-  @Nested
-  class Creation {
-    @Test
-    void createTableTest(TestInfo testInfo) {
-      DatabaseConnectionFactory dcf
-          = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
-          testInfo.getDisplayName());
-
-      assertDoesNotThrow(() -> new EdgeDaoDb(dcf));
-    }
-
-    @Test
-    void existingTableTest(TestInfo testInfo) {
-      DatabaseConnectionFactory dcf
-          = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
-          testInfo.getDisplayName());
-      assertDoesNotThrow(() -> new EdgeDaoDb(dcf));
-      assertDoesNotThrow(() -> new EdgeDaoDb(dcf));
-    }
-  }
-
   private EdgeDaoDb dao;
 
   @BeforeEach
@@ -152,5 +129,26 @@ class EdgeDaoDbTest {
         () -> assertTrue(result.contains(EDGE_CA)),
         () -> assertEquals(2, result.size())
     );
+  }
+
+  @Nested
+  class Creation {
+    @Test
+    void createTableTest(TestInfo testInfo) {
+      DatabaseConnectionFactory dcf
+          = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
+          testInfo.getDisplayName());
+
+      assertDoesNotThrow(() -> new EdgeDaoDb(dcf));
+    }
+
+    @Test
+    void existingTableTest(TestInfo testInfo) {
+      DatabaseConnectionFactory dcf
+          = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
+          testInfo.getDisplayName());
+      assertDoesNotThrow(() -> new EdgeDaoDb(dcf));
+      assertDoesNotThrow(() -> new EdgeDaoDb(dcf));
+    }
   }
 }

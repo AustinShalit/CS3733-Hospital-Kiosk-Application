@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/8.0.171"
+            fx:controller="edu.wpi.cs3733.d19.teamO.controller.MainSanitationWindowController">
+    <children>
+        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="52.0" prefWidth="200.0"
+               text="Sanitation" AnchorPane.leftAnchor="56.0" AnchorPane.rightAnchor="56.0">
+            <font>
+                <Font size="32.0"/>
+            </font>
+        </Label>
+        <Button fx:id="goBackButton" mnemonicParsing="false" onAction="#goBackButtonAction"
+                text="Back" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0"/>
+        <VBox alignment="CENTER" layoutY="74.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="74.0">
+            <children>
+                <Button fx:id="addSanitationButton" mnemonicParsing="false"
+                        onAction="#addSanitationButtonAction" prefHeight="76.0" prefWidth="206.0"
+                        text="Add Sanitation Request">
+                    <VBox.margin>
+                        <Insets bottom="20.0" top="20.0"/>
+                    </VBox.margin>
+                </Button>
+                <Button fx:id="viewSanitationButton" mnemonicParsing="false"
+                        onAction="#viewSanitationButtonAction" prefHeight="76.0" prefWidth="206.0"
+                        text="View Current Requests">
+                    <VBox.margin>
+                        <Insets bottom="20.0" top="20.0"/>
+                    </VBox.margin>
+                </Button>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

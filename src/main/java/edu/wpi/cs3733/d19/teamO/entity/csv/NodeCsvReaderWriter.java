@@ -1,10 +1,7 @@
 package edu.wpi.cs3733.d19.teamO.entity.csv;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.Reader;
+import java.io.Writer;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +22,40 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class NodeCsvReaderWriter {
 
+  /**
+   * Read in the provided file as a List of Nodes.
+   *
+   * @param reader The input stream to read from
+   * @return A list of Nodes in the CSV file
+   */
+  public List<Node> readNodes(final Reader reader) {
+    checkNotNull(reader);
+
+    return new CsvToBeanBuilder<NodeVo>(reader)
+        .withType(NodeVo.class)
+        .build()
+        .parse()
+        .stream()
+        .map(NodeVo::toNode)
+        .collect(Collectors.toList());
+  }
+
+  /**
+   * Write provided nodes to file.
+   *
+   * @param writer The output stream to write to
+   * @param nodes  The nodes to write
+   */
+  public void writeNodes(final Writer writer, final Collection<Node> nodes)
+      throws CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
+    checkNotNull(writer);
+    checkNotNull(nodes);
+
+    StatefulBeanToCsv<NodeVo> beanToCsv
+        = new StatefulBeanToCsvBuilder<NodeVo>(writer).build();
+    beanToCsv.write(nodes.stream().map(NodeVo::fromNode).collect(Collectors.toList()));
+  }
+
   // MUST be public for reflection to work
   public static final class NodeVo {
     @CsvBindByName(column = "nodeID")
@@ -34,7 +65,7 @@ public class NodeCsvReaderWriter {
     @CsvBindByName
     private int ycoord;
     @CsvBindByName
-    private int floor;
+    private String floor;
     @CsvBindByName
     private String building;
     @CsvBindByName
@@ -49,7 +80,7 @@ public class NodeCsvReaderWriter {
 
     }
 
-    private NodeVo(final String nodeId, final int xcoord, final int ycoord, final int floor,
+    private NodeVo(final String nodeId, final int xcoord, final int ycoord, final String floor,
                    final String building, final String nodeType, final String longName,
                    final String shortName) {
       this();
@@ -90,41 +121,5 @@ public class NodeCsvReaderWriter {
       );
     }
 
-  }
-
-  /**
-   * Read in the provided file as a List of Nodes.
-   *
-   * @param csv The file to read from
-   * @return A list of Nodes in the CSV file
-   * @throws FileNotFoundException If the file does not exist
-   */
-  public List<Node> readNodes(final Path csv) throws IOException {
-    checkNotNull(csv);
-
-    return new CsvToBeanBuilder<NodeVo>(Files.newBufferedReader(csv))
-        .withType(NodeVo.class)
-        .build()
-        .parse()
-        .stream()
-        .map(NodeVo::toNode)
-        .collect(Collectors.toList());
-  }
-
-  /**
-   * Write provided nodes to file.
-   *
-   * @param csv   The file to write to
-   * @param nodes The nodes to write
-   */
-  public void writeNodes(final Path csv, final Collection<Node> nodes) throws IOException,
-      CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
-    checkNotNull(csv);
-    checkNotNull(nodes);
-
-    StatefulBeanToCsv<NodeVo> beanToCsv
-        = new StatefulBeanToCsvBuilder<NodeVo>(Files.newBufferedWriter(csv,
-        Charset.forName("UTF-8"))).build();
-    beanToCsv.write(nodes.stream().map(NodeVo::fromNode).collect(Collectors.toList()));
   }
 }
