@@ -111,13 +111,13 @@ public class MainWindowController extends Controller {
     for (Edge edge : edges) {
       Node start = edge.getStartNode();
       Node end = edge.getEndNode();
-      if (start.getFloor().equals("2") && end.getFloor().equals("2")) {
+      if (start.getFloor().equals("1") && end.getFloor().equals("1")) {
         database.insertEdge(edge);
       }
-      if (!(edge.getStartNode().getFloor().equals("2"))) {
+      if (!(edge.getStartNode().getFloor().equals("1"))) {
         database.deleteNode(start);
       }
-      if (!(edge.getEndNode().getFloor().equals("2"))) {
+      if (!(edge.getEndNode().getFloor().equals("1"))) {
         database.deleteNode(end);
       }
     }
