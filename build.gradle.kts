@@ -1,4 +1,5 @@
 import com.diffplug.spotless.FormatterStep
+import com.diffplug.spotless.extra.wtp.EclipseWtpFormatterStep
 import com.github.spotbugs.SpotBugsTask
 
 plugins {
@@ -129,14 +130,21 @@ spotless {
         indentWithSpaces()
         endWithNewline()
     }
+    format("xml") {
+        target("**/*.fxml")
+        trimTrailingWhitespace()
+        indentWithSpaces()
+        endWithNewline()
+        eclipseWtp(EclipseWtpFormatterStep.XML).configFile(files("config/spotless/xmlformat.prefs"))
+    }
     format("extraneous") {
-        target("*.sh", "*.yml")
+        target("**/*.sh", "**/*.yml", "**/*.prefs", "**/*.properties")
         trimTrailingWhitespace()
         indentWithSpaces()
         endWithNewline()
     }
     format("markdown") {
-        target("*.md")
+        target("**/*.md")
         // Default timeWhitespace() doesn't respect lines ending with two spaces for a tight line break
         // So we have to implement it ourselves
         class TrimTrailingSpaces : FormatterStep {
