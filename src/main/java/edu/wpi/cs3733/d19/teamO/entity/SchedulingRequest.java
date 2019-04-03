@@ -15,13 +15,14 @@ public class SchedulingRequest {
 
   /**
    * Constructor with id and full start and end times specified.
-   * @param id ID
-   * @param startTime Start time
-   * @param endTime End Time
+   *
+   * @param id            ID
+   * @param startTime     Start time
+   * @param endTime       End Time
    * @param timeRequested Time Request opened
    * @param timeCompleted Time Request approved
-   * @param name Who requested the room
-   * @param room  Which room to reserve
+   * @param name          Who requested the room
+   * @param room          Which room to reserve
    */
   public SchedulingRequest(Integer id, LocalDateTime startTime, LocalDateTime endTime,
                            LocalDateTime timeRequested, LocalDateTime timeCompleted,
@@ -90,12 +91,12 @@ public class SchedulingRequest {
     }
     SchedulingRequest that = (SchedulingRequest) o;
     return getId() == that.getId()
-            && getStartTime().equals(that.getStartTime())
-            && getEndTime().equals(that.getEndTime())
-            && getTimeRequested().equals(that.getTimeRequested())
-            && getTimeCompleted().equals(that.getTimeCompleted())
-            && getRoom().equals(that.getRoom())
-            && getWhoReserved().equals(that.getWhoReserved());
+        && getStartTime().equals(that.getStartTime())
+        && getEndTime().equals(that.getEndTime())
+        && getTimeRequested().equals(that.getTimeRequested())
+        && getTimeCompleted().equals(that.getTimeCompleted())
+        && getRoom().equals(that.getRoom())
+        && getWhoReserved().equals(that.getWhoReserved());
   }
 
   @Override
@@ -107,12 +108,11 @@ public class SchedulingRequest {
   @Override
   public String toString() {
     return "SanitationRequest{"
-            + "id=" + getId()
-            + ", startTime=" + getStartTime()
-            + ", endTime=" + getEndTime()
-            + ", locationNode=" + getRoom().toString()
-            + ", whoReserved=" + getWhoReserved()
-            + '}';
+        + "id=" + getId()
+        + ", startTime=" + getStartTime()
+        + ", endTime=" + getEndTime()
+        + ", locationNode=" + getRoom().toString()
+        + ", whoReserved=" + getWhoReserved()
+        + '}';
   }
-
 }
