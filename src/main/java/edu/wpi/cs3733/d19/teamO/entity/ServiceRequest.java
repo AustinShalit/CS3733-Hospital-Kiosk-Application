@@ -26,9 +26,9 @@ class ServiceRequest {
    * @param timeRequested The time the service request was first requested.
    * @param timeCompleted The time the service request was completed.
    *                      Use Globals.defaultTime() instead of null
-   * @param whoCompleted A string representation of whoever completed the Service Request.
-   * @param description A description.
-   * @param location A reference to the Node.
+   * @param whoCompleted  A string representation of whoever completed the Service Request.
+   * @param description   A description.
+   * @param location      A reference to the Node.
    */
   ServiceRequest(int id, LocalDateTime timeRequested, LocalDateTime timeCompleted,
                  String whoCompleted, String description, Node location) {

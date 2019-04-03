@@ -28,8 +28,9 @@ class SchedulingRequestDaoDbTest {
   private static final LocalDateTime aRequest = LocalDateTime.now();
   private static final LocalDateTime aComplete = LocalDateTime.now();
 
-  private static final SchedulingRequest schedulingRequest = new SchedulingRequest(12, aStart, aEnd,
-      aRequest, aComplete, "Dr. Owlman", nodeA);
+  private static final SchedulingRequest schedulingRequest = new SchedulingRequest(12,
+      aStart, aEnd, aRequest, aComplete, "Dr. Owlmann", nodeA);
+  private SchedulingRequestDaoDb schedulingDao;
 
   @Nested
   class Creation {
@@ -52,8 +53,6 @@ class SchedulingRequestDaoDbTest {
     }
   }
 
-  private SchedulingRequestDaoDb schedulingDao;
-
   @BeforeEach
   void setup(TestInfo testInfo) throws SQLException {
     DatabaseConnectionFactory dcf
@@ -61,10 +60,8 @@ class SchedulingRequestDaoDbTest {
         testInfo.getTestClass().get().getName()
             + testInfo.getDisplayName());
 
-    NodeDao nodeDao = new NodeDaoDb(dcf);
-
+    NodeDaoDb nodeDao = new NodeDaoDb(dcf);
     nodeDao.insert(nodeA);
-
     schedulingDao = new SchedulingRequestDaoDb(dcf);
   }
 
@@ -94,12 +91,6 @@ class SchedulingRequestDaoDbTest {
   }
 
   @Test
-  void insertTwiceTest() {
-    schedulingDao.insert(schedulingRequest);
-    assertFalse(schedulingDao.insert(schedulingRequest));
-  }
-
-  @Test
   void deleteTest() {
     schedulingDao.insert(schedulingRequest);
     assertTrue(schedulingDao.delete(schedulingRequest));
@@ -113,9 +104,8 @@ class SchedulingRequestDaoDbTest {
   @Test
   void updateTest() {
     schedulingDao.insert(schedulingRequest);
-
-    SchedulingRequest update = new SchedulingRequest(12, aStart, aEnd,
-        LocalDateTime.now(), LocalDateTime.now(), "Dr. Owlman", nodeA);
+    SchedulingRequest update = new SchedulingRequest(schedulingRequest.getId(), aStart, aEnd,
+        LocalDateTime.now(), LocalDateTime.now(), "D", nodeA);
     assertTrue(schedulingDao.update(update));
   }
 
@@ -134,8 +124,7 @@ class SchedulingRequestDaoDbTest {
   @Test
   void getAllResultSameTest() {
     schedulingDao.insert(schedulingRequest);
-
-    assertEquals(schedulingRequest, schedulingDao.getAll().toArray()[0]);
+    assertTrue(schedulingDao.getAll().contains(schedulingRequest));
   }
 
   @Test

@@ -18,7 +18,7 @@ public class Project extends Application {
   public void start(final Stage primaryStage) throws IOException {
     logger.config("Starting application");
 
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("controller/MainWindow.fxml"));
+    FXMLLoader loader = new FXMLLoader(getClass().getResource("controller/LoginWindow.fxml"));
     Parent mainWindow = loader.load();
 
     primaryStage.setTitle("Team O Kiosk Application");
