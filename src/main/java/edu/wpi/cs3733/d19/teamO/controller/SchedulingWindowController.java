@@ -77,6 +77,7 @@ public class SchedulingWindowController extends Controller {
                 datePicker.valueProperty(),
                 roomComboBox.valueProperty());
       }
+
       @Override
       protected boolean computeValue() {
         return nameBox.getText() == null
