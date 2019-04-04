@@ -120,11 +120,14 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
       statement.setString(5, sanitationRequest.getType().name());
       statement.setString(6, sanitationRequest.getDescription());
 
-      int ret = statement.executeUpdate();
-      ResultSet keys = statement.getGeneratedKeys(); // NOPMD
-      keys.next();
-      sanitationRequest.setId(keys.getInt(1));
-      return ret == 1;
+      statement.executeUpdate();
+      try (ResultSet keys = statement.getGeneratedKeys()) {
+        if (!keys.next()) {
+          return false;
+        }
+        sanitationRequest.setId(keys.getInt(1));
+        return true;
+      }
     } catch (SQLException exception) {
       logger.log(Level.WARNING, "Failed to insert SanitationRequest", exception);
     }
