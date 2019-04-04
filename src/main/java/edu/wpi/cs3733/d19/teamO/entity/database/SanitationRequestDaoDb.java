@@ -12,12 +12,10 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Properties;
-import java.util.Queue;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
 
 public class SanitationRequestDaoDb implements SanitationRequestDao {
@@ -51,13 +49,13 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
   }
 
   @Override
-  public Optional<SanitationRequest> get(final Integer sr_id) {
+  public Optional<SanitationRequest> get(final Integer id) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement(
           queries.getProperty("sanitation_request.select")
       );
 
-      statement.setInt(1, sr_id);
+      statement.setInt(1, id);
 
       try (ResultSet resultSet = statement.executeQuery()) {
         if (resultSet.next()) {
@@ -158,9 +156,9 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
   @Override
   public boolean update(SanitationRequest sanitationRequest) {
     try (Connection connection = dcf.getConnection()) {
-      PreparedStatement statement = connection.prepareStatement(queries.getProperty(
+      PreparedStatement statement = connection.prepareStatement(
           queries.getProperty("sanitation_request.update")
-      ));
+      );
       statement.setTimestamp(1,
           Timestamp.valueOf(sanitationRequest.getTimeRequested()));
       statement.setTimestamp(2,
@@ -180,8 +178,8 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
   @Override
   public boolean delete(SanitationRequest sanitationRequest) {
     try (Connection connection = dcf.getConnection()) {
-      PreparedStatement statement = connection.prepareStatement("DELETE FROM " + TABLE_NAME
-          + " WHERE sr_id=?");
+      PreparedStatement statement = connection.prepareStatement(
+          queries.getProperty("sanitation_request.delete"));
       statement.setInt(1, sanitationRequest.getId());
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
