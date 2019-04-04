@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.d19.teamO.entity.database;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,6 +11,8 @@ import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
+import java.util.Properties;
+import java.util.Queue;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,13 +22,27 @@ import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
 
 public class SanitationRequestDaoDb implements SanitationRequestDao {
 
-  private static final Logger logger = Logger.getLogger(SanitationRequestDaoDb.class.getName());
+  private static final String QUERY_FILE_NAME = "sanitation_request_queries.properties";
 
-  private static final String TABLE_NAME = "SANITATION";
+  private static final Logger logger = Logger.getLogger(SanitationRequestDaoDb.class.getName());
+  private static final Properties queries;
+
+  static {
+    queries = new Properties();
+    try (InputStream is = SanitationRequestDaoDb.class.getResourceAsStream(QUERY_FILE_NAME)) {
+      queries.load(is);
+    } catch (IOException ex) {
+      logger.log(Level.SEVERE, "Unable to load property file: " + QUERY_FILE_NAME, ex);
+    }
+  }
+
+  private static final String TABLE_NAME = queries.getProperty("sanitation_request.table_name");
   private DatabaseConnectionFactory dcf;
+  private NodeDaoDb nodeDaoDb;
 
   SanitationRequestDaoDb(final DatabaseConnectionFactory dcf) throws SQLException {
     this.dcf = dcf;
+    nodeDaoDb = new NodeDaoDb(dcf);
     createTable();
   }
 
@@ -33,16 +51,13 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
   }
 
   @Override
-  public Optional<SanitationRequest> get(final Integer id) {
+  public Optional<SanitationRequest> get(final Integer sr_id) {
     try (Connection connection = dcf.getConnection()) {
-      PreparedStatement statement = connection.prepareStatement("SELECT * FROM " + TABLE_NAME
-              + " INNER JOIN " + NodeDaoDb.TABLE_NAME
-              + " ON " + TABLE_NAME + ".LOCATIONNODEID" + "=" + NodeDaoDb.TABLE_NAME + ".id"
-              + " WHERE " + TABLE_NAME + ".sr_id=?",
-          Statement.RETURN_GENERATED_KEYS
+      PreparedStatement statement = connection.prepareStatement(
+          queries.getProperty("sanitation_request.select")
       );
 
-      statement.setInt(1, id);
+      statement.setInt(1, sr_id);
 
       try (ResultSet resultSet = statement.executeQuery()) {
         if (resultSet.next()) {
@@ -58,10 +73,8 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
   @Override
   public Set<SanitationRequest> getAll() {
     try (Connection connection = dcf.getConnection()) {
-      PreparedStatement statement = connection.prepareStatement("SELECT * FROM " + TABLE_NAME
-              + " INNER JOIN " + NodeDaoDb.TABLE_NAME
-              + " ON " + TABLE_NAME + ".LOCATIONNODEID" + "=" + NodeDaoDb.TABLE_NAME + ".id",
-          Statement.RETURN_GENERATED_KEYS
+      PreparedStatement statement = connection.prepareStatement(
+          queries.getProperty("sanitation_request.select_all")
       );
 
       try (ResultSet resultSet = statement.executeQuery()) {
@@ -79,20 +92,13 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
 
   private SanitationRequest extractSanitationRequestFromResultSet(final ResultSet resultSet)
       throws SQLException {
-    Node node = new Node(resultSet.getString("id"),
-        resultSet.getInt("x"),
-        resultSet.getInt("y"),
-        resultSet.getString("floor"),
-        resultSet.getString("building"),
-        Node.NodeType.get(resultSet.getString("type")),
-        resultSet.getString("long_name"),
-        resultSet.getString("short_name"));
-
     return new SanitationRequest(
         resultSet.getInt("sr_id"),
         resultSet.getTimestamp("TIMEREQUESTED").toLocalDateTime(),
         resultSet.getTimestamp("TIMECOMPLETED").toLocalDateTime(),
-        node,
+        nodeDaoDb.get(resultSet
+          .getString("LOCATIONNODEID"))
+          .orElseThrow(() -> new SQLException("Could not get node for sanitation request")),
         resultSet.getString("WHOCOMPLETED"),
         SanitationRequest.SanitationRequestType.get(
             resultSet.getString("SANITATIONTYPE")),
@@ -103,11 +109,10 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
   @Override
   public boolean insert(final SanitationRequest sanitationRequest) {
     try (Connection connection = dcf.getConnection()) {
-      PreparedStatement statement = connection.prepareStatement("INSERT INTO " + TABLE_NAME
-          + " (TIMEREQUESTED, TIMECOMPLETED, WHOCOMPLETED, LOCATIONNODEID, "
-          + "SANITATIONTYPE, DESCRIPTION) "
-          + "VALUES (?, ?, ?, ?, ?, ?)");
-
+      PreparedStatement statement = connection.prepareStatement(
+          queries.getProperty("sanitation_request.insert"),
+          Statement.RETURN_GENERATED_KEYS
+      );
       statement.setTimestamp(1,
           Timestamp.valueOf(sanitationRequest.getTimeRequested()));
       statement.setTimestamp(2,
@@ -117,7 +122,11 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
       statement.setString(5, sanitationRequest.getType().name());
       statement.setString(6, sanitationRequest.getDescription());
 
-      return statement.executeUpdate() == 1;
+      int ret = statement.executeUpdate();
+      ResultSet keys = statement.getGeneratedKeys(); // NOPMD
+      keys.next();
+      sanitationRequest.setId(keys.getInt(1));
+      return ret == 1;
     } catch (SQLException exception) {
       logger.log(Level.WARNING, "Failed to insert SanitationRequest", exception);
     }
@@ -127,18 +136,14 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
   private void createTable() throws SQLException {
 
     try (Connection connection = dcf.getConnection();
-         ResultSet resultSet = connection.getMetaData().getTables(null, null, TABLE_NAME, null)) {
+         ResultSet resultSet = connection.getMetaData().getTables(null, null,
+             TABLE_NAME, null)) {
       if (!resultSet.next()) {
-        logger.info("Table " + TABLE_NAME + " does not exist. Creating");
-        PreparedStatement statement = connection.prepareStatement("CREATE TABLE " + TABLE_NAME
-            + " (sr_id INT PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY,"
-            + "TIMEREQUESTED TIMESTAMP,"
-            + "TIMECOMPLETED TIMESTAMP,"
-            + "WHOCOMPLETED VARCHAR(255),"
-            + "LOCATIONNODEID VARCHAR(255),"
-            + "SANITATIONTYPE VARCHAR(255),"
-            + "DESCRIPTION VARCHAR(255),"
-            + "FOREIGN KEY (LOCATIONNODEID) REFERENCES NODE(id))");
+        logger.info("Table "
+            + TABLE_NAME
+            + " does not exist. Creating");
+        PreparedStatement statement
+            = connection.prepareStatement(queries.getProperty("sanitation_request.create_table"));
         statement.executeUpdate();
         logger.info("Table " + TABLE_NAME + " created");
       } else {
@@ -153,14 +158,9 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
   @Override
   public boolean update(SanitationRequest sanitationRequest) {
     try (Connection connection = dcf.getConnection()) {
-      PreparedStatement statement = connection.prepareStatement("UPDATE " + TABLE_NAME
-          + " SET TIMEREQUESTED=?,"
-          + "TIMECOMPLETED=?,"
-          + "WHOCOMPLETED=?,"
-          + "LOCATIONNODEID=?,"
-          + "SANITATIONTYPE=?,"
-          + "DESCRIPTION=?"
-          + "WHERE sr_id=?");
+      PreparedStatement statement = connection.prepareStatement(queries.getProperty(
+          queries.getProperty("sanitation_request.update")
+      ));
       statement.setTimestamp(1,
           Timestamp.valueOf(sanitationRequest.getTimeRequested()));
       statement.setTimestamp(2,
