@@ -15,31 +15,31 @@
 
 
 <GridPane hgap="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.SchedulingWindowController">
-   <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="285.0" minWidth="10.0" prefWidth="228.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="286.0" minWidth="10.0" prefWidth="269.0" />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-   </rowConstraints>
-   <children>
-      <Group GridPane.columnIndex="1" GridPane.rowIndex="2">
-         <children>
-          <ComboBox fx:id="roomComboBox" layoutY="66.0" prefWidth="150.0" promptText="enter a room" />
-          <Text layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room">
-            <font>
-              <Font name="System Bold" size="15.0" />
-            </font>
-          </Text>
-         </children>
-      </Group>
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="285.0" minWidth="10.0" prefWidth="228.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="286.0" minWidth="10.0" prefWidth="269.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+  <children>
+    <Group GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <children>
+        <ComboBox fx:id="roomComboBox" layoutY="66.0" prefWidth="150.0" promptText="enter a room" />
+        <Text layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room">
+          <font>
+            <Font name="System Bold" size="15.0" />
+          </font>
+        </Text>
+      </children>
+    </Group>
     <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackButtonAction" text="Back" GridPane.halignment="CENTER" />
     <Button fx:id="submitButton" mnemonicParsing="false" onAction="#onSubmitButtonAction" text="Confirm Reservation" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
     <Group GridPane.columnIndex="2" GridPane.rowIndex="2">
@@ -72,16 +72,16 @@
         </Label>
       </children>
     </Group>
-      <Group GridPane.columnIndex="1" GridPane.rowIndex="3">
-         <children>
-          <TextField fx:id="nameBox" layoutY="70.0" />
-          <Text layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
-            <font>
-              <Font name="System Bold" size="15.0" />
-            </font>
-          </Text>
-         </children>
-      </Group>
+    <Group GridPane.columnIndex="1" GridPane.rowIndex="3">
+      <children>
+        <TextField fx:id="nameBox" layoutY="70.0" />
+        <Text layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+          <font>
+            <Font name="System Bold" size="15.0" />
+          </font>
+        </Text>
+      </children>
+    </Group>
     <Label fx:id="submitStatus" prefHeight="21.0" prefWidth="288.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-   </children>
+  </children>
 </GridPane>
