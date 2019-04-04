@@ -6,6 +6,8 @@ matrix:
   - os: linux
     jdk: oraclejdk8
 
+install: true # Skip install because JVM start is expensive
+
 script:
   - "./gradlew check shadowJar --stacktrace"
 
