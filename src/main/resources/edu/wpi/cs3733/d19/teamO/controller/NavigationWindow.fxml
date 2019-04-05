@@ -113,6 +113,6 @@
         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
       </GridPane.margin>
     </Label>
-    <MapView fx:id="map" minHeight="334.0" minWidth="362.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+    <MapView fx:id="map" minHeight="334.0" minWidth="362.0" maxHeight="668.0" maxWidth="724.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER" />
   </children>
 </GridPane>
