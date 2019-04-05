@@ -91,7 +91,7 @@ class EdgeDaoDb implements EdgeDao {
       statement.setString(3, edge.getEndNode().getNodeId());
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
-      logger.log(Level.WARNING, "Failed to insert Node", ex);
+      logger.log(Level.WARNING, "Failed to insert Edge", ex);
     }
     return false;
   }
