@@ -9,6 +9,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import edu.wpi.cs3733.d19.teamO.controller.Controller;
+
 public class Project extends Application {
 
   private static final Logger logger
@@ -23,6 +25,9 @@ public class Project extends Application {
 
     primaryStage.setTitle("Team O Kiosk Application");
     primaryStage.setScene(new Scene(mainWindow));
+    Controller controller = new Controller();
+    controller.minWindowSize(primaryStage);
+
     primaryStage.show();
     logger.config("Startup complete");
   }
