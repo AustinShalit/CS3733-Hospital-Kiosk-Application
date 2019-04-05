@@ -80,6 +80,7 @@ public class MapView extends StackPane {
         .forEach(nodeGroup.getChildren()::add);
   }
 
+
   public void clearNodes() {
     nodeGroup.getChildren().clear();
   }
@@ -110,5 +111,9 @@ public class MapView extends StackPane {
           edge.getEndNode().getXcoord(), edge.getEndNode().getYcoord());
       edges.getChildren().add(line);
     }
+  }
+
+  public void clearEdges() {
+    edges.getChildren().clear();
   }
 }
