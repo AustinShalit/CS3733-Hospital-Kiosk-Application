@@ -33,6 +33,7 @@ public class Project extends Application {
     controller.setWindowSize(primaryStage, 1200, 900);
     controller.setWindowPosition(primaryStage, 0, 0);
 
+    primaryStage.hide();
     primaryStage.show();
     logger.config("Startup complete");
   }
