@@ -3,48 +3,47 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="233.0" prefWidth="546.0" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="edu.wpi.cs3733.d19.teamO.controller.MapEditDeleteController">
+
+<GridPane prefHeight="200.0" prefWidth="611.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.MapEditDeleteController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="189.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="338.0" minWidth="10.0" prefWidth="289.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="325.0" minWidth="10.0" prefWidth="133.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="223.0" minHeight="10.0" prefHeight="84.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="258.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="271.0" minHeight="10.0" prefHeight="77.0" vgrow="SOMETIMES" />
+  </rowConstraints>
   <children>
-    <HBox layoutX="112.0" layoutY="92.0" spacing="15.0">
-      <children>
-        <VBox layoutX="120.0" layoutY="137.0" spacing="20.0">
-          <children>
-            <Label layoutX="82.0" layoutY="193.0" text="NodeID:">
-              <font>
-                <Font size="22.0" />
-              </font>
-            </Label>
-          </children>
-        </VBox>
-        <VBox layoutX="227.0" layoutY="148.0" spacing="10.0">
-          <children>
-            <JFXTextField fx:id="deleteNodeID" layoutX="277.0" layoutY="148.0" onKeyReleased="#validateButton">
-              <font>
-                <Font size="18.0" />
-              </font>
-            </JFXTextField>
-          </children>
-        </VBox>
-      </children>
-    </HBox>
-    <JFXButton fx:id="deleteButton" disable="true" layoutX="394.0" layoutY="164.0" onAction="#deleteNodeAction" text="Delete">
+    <JFXButton fx:id="deleteButton" disable="true" onAction="#deleteNodeAction" text="Delete" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
       <font>
         <Font size="14.0" />
       </font>
     </JFXButton>
-    <JFXButton fx:id="cancel" layoutX="456.0" layoutY="164.0" onAction="#cancelButtonAction" text="Cancel">
+    <JFXButton fx:id="cancel" onAction="#cancelButtonAction" text="Cancel" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
       <font>
         <Font size="14.0" />
       </font>
     </JFXButton>
-    <Label fx:id="status" layoutX="168.0" layoutY="128.0" prefHeight="52.0" prefWidth="242.0" text=" " textFill="RED">
+    <Label fx:id="status" prefHeight="52.0" prefWidth="242.0" text=" " textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="1">
       <font>
         <Font size="13.0" />
       </font>
     </Label>
+    <JFXTextField fx:id="deleteNodeID" onKeyReleased="#validateButton" GridPane.columnIndex="1" GridPane.valignment="BOTTOM">
+      <font>
+        <Font size="18.0" />
+      </font>
+    </JFXTextField>
+    <Label text="NodeID:" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
+      <font>
+        <Font size="22.0" />
+      </font>
+    </Label>
   </children>
-</AnchorPane>
+</GridPane>
