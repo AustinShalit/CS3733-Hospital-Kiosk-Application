@@ -1,61 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextArea?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="edu.wpi.cs3733.d19.teamO.controller.SanitationWindowController">
-  <children>
-    <HBox layoutX="200.0" layoutY="7.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="300.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<BorderPane prefHeight="908.0" prefWidth="1204.0" style="-fx-background-color: #008080;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.SanitationWindowController">
+  <top>
+    <AnchorPane prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
       <children>
-        <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+        <JFXButton fx:id="backButton" cancelButton="true" layoutY="3.0" onAction="#onBackButtonAction" prefHeight="48.0" prefWidth="91.0" ripplerFill="#0040ff" style="-fx-background-color: white; -fx-background-radius: 30;" text="Go Back">
+          <font>
+            <Font name="System Italic" size="15.0" />
+          </font>
+        </JFXButton>
+      </children>
+    </AnchorPane>
+  </top>
+  <left>
+    <AnchorPane prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+  </left>
+  <right>
+    <AnchorPane prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+  </right>
+  <bottom>
+    <AnchorPane prefHeight="50.0" prefWidth="54.0" BorderPane.alignment="CENTER" />
+  </bottom>
+  <center>
+    <VBox alignment="CENTER" prefHeight="808.0" prefWidth="868.0" BorderPane.alignment="CENTER">
+      <children>
+        <VBox alignment="TOP_CENTER" prefHeight="197.0" prefWidth="1004.0" VBox.vgrow="ALWAYS">
           <children>
-            <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackButtonAction" text="Go Back">
+            <Label fx:id="titleLabel" text="Add Sanitation Request" textFill="#eeeeee">
               <VBox.margin>
-                <Insets left="5.0" top="5.0" />
+                <Insets top="30.0" />
               </VBox.margin>
-            </Button>
+              <font>
+                <Font name="System Bold" size="62.0" />
+              </font>
+            </Label>
+            <Separator prefWidth="200.0" />
+            <JFXComboBox fx:id="locationComboBox" focusColor="WHITE" promptText="Select Location" unFocusColor="WHITE">
+              <VBox.margin>
+                <Insets top="80.0" />
+              </VBox.margin>
+            </JFXComboBox>
+            <JFXComboBox fx:id="categoryComboBox" focusColor="WHITE" promptText="Select Category" unFocusColor="WHITE">
+              <VBox.margin>
+                <Insets top="80.0" />
+              </VBox.margin>
+            </JFXComboBox>
           </children>
         </VBox>
-        <Label fx:id="titleLabel" maxWidth="-Infinity" minWidth="-Infinity" text="Add Sanitation Request">
-          <HBox.margin>
-            <Insets top="40.0" />
-          </HBox.margin>
-          <font>
-            <Font name="Constantia Bold" size="32.0" />
-          </font>
-        </Label>
-        <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS" />
-      </children>
-    </HBox>
-    <VBox alignment="CENTER" layoutY="84.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="84.0">
-      <children>
-        <ComboBox fx:id="locationComboBox" prefWidth="150.0" promptText="Select Location">
-          <VBox.margin>
-            <Insets bottom="10.0" top="10.0" />
-          </VBox.margin>
-        </ComboBox>
-        <ComboBox fx:id="categoryComboBox" prefWidth="150.0" promptText="Select Categories">
-          <VBox.margin>
-            <Insets bottom="10.0" top="10.0" />
-          </VBox.margin>
-        </ComboBox>
-        <TextArea fx:id="descriptionTextArea" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="120.0" prefWidth="250.0" promptText="Add a Description" style="-fx-background-radius: 5;">
-          <VBox.margin>
-            <Insets bottom="10.0" top="10.0" />
-          </VBox.margin>
-        </TextArea>
-        <Button fx:id="submitButton" mnemonicParsing="false" onAction="#onSubmitButtonAction" text="Submit">
-          <VBox.margin>
-            <Insets bottom="10.0" top="10.0" />
-          </VBox.margin>
-        </Button>
+        <VBox alignment="TOP_CENTER" prefHeight="403.0" prefWidth="1004.0" VBox.vgrow="ALWAYS">
+          <children>
+            <JFXTextArea fx:id="descriptionTextArea" maxWidth="600.0" minWidth="200.0" prefHeight="219.0" prefWidth="200.0" promptText="Type in a description..." style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 2;">
+              <VBox.margin>
+                <Insets top="30.0" />
+              </VBox.margin>
+            </JFXTextArea>
+            <JFXButton fx:id="submitButton" defaultButton="true" onAction="#onSubmitButtonAction" prefHeight="56.0" prefWidth="107.0" ripplerFill="#0040ff" style="-fx-background-color: white; -fx-background-radius: 30;" text="Submit">
+              <VBox.margin>
+                <Insets top="100.0" />
+              </VBox.margin>
+              <font>
+                <Font name="System Italic" size="19.0" />
+              </font>
+            </JFXButton>
+          </children>
+        </VBox>
       </children>
     </VBox>
-  </children>
-</AnchorPane>
+  </center>
+</BorderPane>

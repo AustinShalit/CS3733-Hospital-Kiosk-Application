@@ -72,19 +72,19 @@ public class SchedulingWindowController extends Controller {
     submitButton.disableProperty().bind(new BooleanBinding() {
       {
         super.bind(nameBox.textProperty(),
-                startChoiceBox.valueProperty(),
-                endChoiceBox.valueProperty(),
-                datePicker.valueProperty(),
-                roomComboBox.valueProperty());
+            startChoiceBox.valueProperty(),
+            endChoiceBox.valueProperty(),
+            datePicker.valueProperty(),
+            roomComboBox.valueProperty());
       }
 
       @Override
       protected boolean computeValue() {
-          return nameBox.getText() == null
-          || startChoiceBox.getValue() == null
-          || endChoiceBox.getValue() == null
-          || datePicker.getValue() == null
-          || roomComboBox.getValue() == null;
+        return nameBox.getText() == null
+            || startChoiceBox.getValue() == null
+            || endChoiceBox.getValue() == null
+            || datePicker.getValue() == null
+            || roomComboBox.getValue() == null;
       }
     });
   }

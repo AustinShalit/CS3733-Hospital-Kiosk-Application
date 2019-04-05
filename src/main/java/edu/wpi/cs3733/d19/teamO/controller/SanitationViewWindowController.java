@@ -3,8 +3,9 @@ package edu.wpi.cs3733.d19.teamO.controller;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
+import com.jfoenix.controls.JFXButton;
+
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -17,7 +18,7 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 public class SanitationViewWindowController extends Controller {
 
   @FXML
-  private Button goBackButton;
+  private JFXButton goBackButton;
   @FXML
   private Label titleLabel;
   @FXML

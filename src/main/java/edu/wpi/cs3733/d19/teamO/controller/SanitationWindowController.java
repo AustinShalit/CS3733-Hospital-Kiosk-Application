@@ -7,11 +7,12 @@ import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextArea;
+
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 
 import edu.wpi.cs3733.d19.teamO.controller.exception.InvalidUserInputException;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
@@ -22,17 +23,17 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 public class SanitationWindowController extends Controller {
 
   @FXML
-  private Button backButton;
+  private JFXButton backButton;
   @FXML
-  private Button submitButton;
+  private JFXButton submitButton;
   @FXML
   private Label titleLabel;
   @FXML
-  private TextArea descriptionTextArea;
+  private JFXTextArea descriptionTextArea;
   @FXML
-  private ComboBox<Node> locationComboBox;
+  private JFXComboBox<Node> locationComboBox;
   @FXML
-  private ComboBox<SanitationRequest.SanitationRequestType> categoryComboBox;
+  private JFXComboBox<SanitationRequest.SanitationRequestType> categoryComboBox;
 
   private Database database;
 

@@ -1,16 +1,17 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
+import com.jfoenix.controls.JFXButton;
+
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 
 public class MainSanitationWindowController extends Controller {
 
   @FXML
-  private Button addSanitationButton;
+  private JFXButton addSanitationButton;
   @FXML
-  private Button viewSanitationButton;
+  private JFXButton viewSanitationButton;
   @FXML
-  private Button goBackButton;
+  private JFXButton goBackButton;
 
   @FXML
   void addSanitationButtonAction() {
