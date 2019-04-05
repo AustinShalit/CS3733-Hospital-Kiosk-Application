@@ -48,6 +48,7 @@ public class MapEditController extends Controller {
       Image image = new Image(getClass().getResource("01_thefirstfloor.png").openStream());
       map.setMapImage(image);
       map.addNodesToPane(database.getAllNodes());
+      map.addEdgesToPane(database.getAllEdges());
     }
   }
 
@@ -87,6 +88,8 @@ public class MapEditController extends Controller {
       stage.initModality(Modality.APPLICATION_MODAL);
       stage.initOwner(connect.getScene().getWindow());
       stage.showAndWait();
+      map.clearEdges();
+      map.addEdgesToPane(database.getAllEdges());
     } else if (event.getSource() == update) {
       stage = new Stage();
       root = FXMLLoader.load(getClass().getResource("MapEditUpdate.fxml"));

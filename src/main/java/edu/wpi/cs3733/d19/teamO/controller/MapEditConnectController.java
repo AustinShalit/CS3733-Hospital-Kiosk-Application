@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
 import java.sql.SQLException;
+import java.util.Optional;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -40,23 +41,20 @@ public class MapEditConnectController extends MapEditController {
 
   @FXML
   void connectNodeAction() {
-    String connect1 = connectNodeID1.getText();
-    String connect2 = connectNodeID2.getText();
-    Node connectN1 = null;
-    Node connectN2 = null;
-    for (Node node : database.getAllNodes()) {
-      if (connect1.equals(node.getNodeId())) {
-        connectN1 = node;
-      } else if (connect2.equals(node.getNodeId())) {
-        connectN2 = node;
-      }
-    }
-    if (connectN1 != null && connectN2 != null) {
-      Edge newEdge = new Edge(edgeID.getText(), connectN1, connectN2);
+
+    String udNodeID1 = connectNodeID1.getText();
+    Optional<Node> nodeFromDB1 = database.getNode(udNodeID1);
+    String udNodeID2 = connectNodeID1.getText();
+    Optional<Node> nodeFromDB2 = database.getNode(udNodeID2);
+    if (!nodeFromDB1.isPresent() || !nodeFromDB2.isPresent()) {
+      status.setText("ERROR: InvalidNodeID");
+    } else {
+      Node node1 = nodeFromDB1.get();
+      Node node2 = nodeFromDB2.get();
+      Edge newEdge = new Edge(edgeID.getText(), node1, node2);
       database.insertEdge(newEdge);
       status.setText("Succeed!");
-    } else if (connectN1 == null || connectN2 == null) {
-      status.setText("ERROR: InvalidNode");
     }
+
   }
 }
