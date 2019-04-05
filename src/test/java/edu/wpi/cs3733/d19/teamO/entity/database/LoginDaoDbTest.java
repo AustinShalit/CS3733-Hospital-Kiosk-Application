@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 
+import edu.wpi.cs3733.d19.teamO.entity.Employee;
 import edu.wpi.cs3733.d19.teamO.entity.Login;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -17,7 +18,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class LoginDaoDbTest {
 
-  private static final Login testLogin1 = new Login("dev", "hello");
+  private static final Employee testEmployee1 = new Employee(123, "Dev",
+      Employee.EmployeeType.ADMIN);
+  private static final Login testLogin1 = new Login("dev", "hello",
+      testEmployee1);
 
   @Nested
   class Creation {
@@ -48,6 +52,9 @@ class LoginDaoDbTest {
         = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
         testInfo.getTestClass().get().getName()
             + testInfo.getDisplayName());
+
+    EmployeeDaoDb employeeDao = new EmployeeDaoDb(dcf);
+    employeeDao.insert(testEmployee1);
 
     dao = new LoginDaoDb(dcf);
   }
@@ -98,7 +105,7 @@ class LoginDaoDbTest {
   void updateTest() {
     dao.insert(testLogin1);
 
-    Login update = new Login(testLogin1.getUsername(), "meow");
+    Login update = new Login(testLogin1.getUsername(), "meow", testEmployee1);
     assertTrue(dao.update(update));
   }
 
