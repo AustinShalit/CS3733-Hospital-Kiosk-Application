@@ -80,7 +80,7 @@ public class SchedulingWindowController extends Controller {
 
       @Override
       protected boolean computeValue() {
-        return nameBox.getText() == null
+          return nameBox.getText() == null
           || startChoiceBox.getValue() == null
           || endChoiceBox.getValue() == null
           || datePicker.getValue() == null

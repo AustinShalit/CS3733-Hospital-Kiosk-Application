@@ -5,10 +5,12 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
+
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 
 import edu.wpi.cs3733.d19.teamO.controller.exception.InvalidUserInputException;
 import edu.wpi.cs3733.d19.teamO.entity.Login;
@@ -17,11 +19,11 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 public class LoginWindowController extends Controller {
 
   @FXML
-  private Button loginButton;
+  private JFXButton loginButton;
   @FXML
-  private TextField userName;
+  private JFXTextField userName;
   @FXML
-  private TextField passWord;
+  private JFXPasswordField passWord;
   @FXML
   private Label loginFail;
 

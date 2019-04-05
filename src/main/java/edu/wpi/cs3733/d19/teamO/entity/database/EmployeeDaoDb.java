@@ -14,13 +14,12 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import edu.wpi.cs3733.d19.teamO.entity.Login;
+import edu.wpi.cs3733.d19.teamO.entity.Employee;
 
-public class LoginDaoDb implements LoginDao {
-
+public class EmployeeDaoDb implements EmployeeDao {
   private static final Logger logger = Logger.getLogger(LoginDaoDb.class.getName());
 
-  private static final String QUERY_FILE_NAME = "login_queries.properties";
+  private static final String QUERY_FILE_NAME = "employee_queries.properties";
 
   private static final Properties queries;
 
@@ -35,112 +34,126 @@ public class LoginDaoDb implements LoginDao {
 
   private DatabaseConnectionFactory dcf;
 
-  LoginDaoDb(final DatabaseConnectionFactory dcf) throws SQLException {
+  EmployeeDaoDb(final DatabaseConnectionFactory dcf) throws SQLException {
     this.dcf = dcf;
     createTable();
   }
 
-  LoginDaoDb() throws SQLException {
+  EmployeeDaoDb() throws SQLException {
     this(new DatabaseConnectionFactoryEmbedded());
   }
 
   @Override
-  public Optional<Login> get(final String username) {
+  public Optional<Employee> get(final Integer id) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement(
-          queries.getProperty("login.select"));
-      statement.setString(1, username);
+          queries.getProperty("employee.select")
+      );
+      statement.setInt(1, id);
+
       try (ResultSet resultSet = statement.executeQuery()) {
         if (resultSet.next()) {
-          return Optional.of(extractLoginFromResultSet(resultSet));
+          return Optional.of(extractEmployeeFromResultSet(resultSet));
         }
       }
     } catch (SQLException exception) {
-      logger.log(Level.WARNING, "Failed to get Login", exception);
+      logger.log(Level.WARNING, "Failed to get Employee", exception);
     }
     return Optional.empty();
   }
 
   @Override
-  public Set<Login> getAll() {
+  public Set<Employee> getAll() {
     try (Connection connection = dcf.getConnection()) {
-      PreparedStatement statement
-          = connection.prepareStatement(queries.getProperty("login.select_all"));
+      PreparedStatement statement = connection.prepareStatement(
+          queries.getProperty("employee.select_all")
+      );
+
       try (ResultSet resultSet = statement.executeQuery()) {
-        Set<Login> login = new HashSet<>();
+        Set<Employee> employees = new HashSet<>();
         while (resultSet.next()) {
-          login.add(extractLoginFromResultSet(resultSet));
+          employees.add(extractEmployeeFromResultSet(resultSet));
         }
-        return login;
+        return employees;
       }
     } catch (SQLException ex) {
-      logger.log(Level.WARNING, "Failed to get Logins", ex);
+      logger.log(Level.WARNING, "Failed to get Employees", ex);
     }
     return Collections.emptySet();
   }
 
-  private Login extractLoginFromResultSet(final ResultSet resultSet) throws SQLException {
-    return new Login(
-        resultSet.getString("username"),
-        resultSet.getString("password")
+  private Employee extractEmployeeFromResultSet(final ResultSet resultSet) throws SQLException {
+    return  new Employee(
+        resultSet.getInt("id"),
+        resultSet.getString("name"),
+        Employee.EmployeeType.get(
+            resultSet.getString("type")
+        )
     );
   }
 
   @Override
-  public boolean insert(final Login login) {
+  public boolean insert(final Employee employee) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement(
-          queries.getProperty("login.insert"));
-      statement.setString(1, login.getUsername());
-      statement.setString(2, login.getPassword());
+          queries.getProperty("employee.insert")
+      );
+      statement.setInt(1, employee.getId());
+      statement.setString(2, employee.getName());
+      statement.setString(3, employee.getType().name());
+
       return statement.executeUpdate() == 1;
-    } catch (SQLException ex) {
-      logger.log(Level.WARNING, "Failed to insert Login", ex);
+    } catch (SQLException exception) {
+      logger.log(Level.WARNING, "Failed to insert Employee", exception);
     }
     return false;
   }
 
   @Override
-  public boolean update(final Login login) {
+  public boolean update(final Employee employee) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement(
-          queries.getProperty("login.update"));
-      statement.setString(1, login.getUsername());
-      statement.setString(2, login.getPassword());
-      statement.setString(3, login.getUsername());
+          queries.getProperty("employee.update")
+      );
+      statement.setString(1, employee.getName());
+      statement.setString(2, employee.getType().name());
+      statement.setInt(3, employee.getId());
+
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
-      logger.log(Level.WARNING, "Failed to update Login", ex);
+      logger.log(Level.WARNING, "Failed to update Employee", ex);
     }
     return false;
   }
 
   @Override
-  public boolean delete(Login login) {
+  public boolean delete(Employee employee) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement(
-          queries.getProperty("login.delete"));
-      statement.setString(1, login.getUsername());
+          queries.getProperty("employee.delete"));
+      statement.setInt(1, employee.getId());
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
-      logger.log(Level.WARNING, "FAILED to delete SanitationRequest");
+      logger.log(Level.WARNING, "Failed to delete Employee");
     }
     return false;
   }
 
   private void createTable() throws SQLException {
+
     try (Connection connection = dcf.getConnection();
          ResultSet resultSet = connection.getMetaData().getTables(null, null,
-             queries.getProperty("login.table_name"), null)) {
+             queries.getProperty("employee.table_name"), null)) {
       if (!resultSet.next()) {
-        logger.info("Table " + queries.getProperty("login.table_name") + " does not exist. "
-            + "Creating");
-        PreparedStatement statement = connection.prepareStatement(
-            queries.getProperty("login.create_table"));
+        logger.info("Table "
+            + queries.getProperty("employee.table_name")
+            + " does not exist. Creating");
+        PreparedStatement statement
+            = connection.prepareStatement(queries.getProperty("employee.create_table"));
         statement.executeUpdate();
-        logger.info("Table " + queries.getProperty("login.table_name") + " created");
+        logger.info("Table " + queries.getProperty("employee.table_name") + " created");
       } else {
-        logger.info("Table " + queries.getProperty("login.table_name") + " exists");
+        logger.info("Table " + queries.getProperty("employee.table_name") + " exists");
       }
     } catch (SQLException exception) {
       logger.log(Level.WARNING, "Failed to create table", exception);

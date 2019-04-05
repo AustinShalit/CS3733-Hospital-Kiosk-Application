@@ -2,14 +2,15 @@ package edu.wpi.cs3733.d19.teamO.controller;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import com.jfoenix.controls.JFXComboBox;
-
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.text.Text;
+import javafx.scene.control.ComboBox;
 
+import edu.wpi.cs3733.d19.teamO.controller.exception.InvalidUserInputException;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
@@ -23,49 +24,65 @@ public class SecurityWindowController extends Controller {
   private Button backButton;
 
   @FXML
-  private Button alertbutton;
+  private Button sendHelpButton;
 
   @FXML
-  private Button filePicker;
+  private Button viewSecurityRequestsButton;
 
   @FXML
-  private Text securityTitle;
-
-  @FXML
-  private JFXComboBox insertlocationdropdown;
-
-  @FXML
-  void chooseLocation(ActionEvent event) {
-
-  }
-
+  private ComboBox<Node> locationComboBox;
 
   @FXML
   void initialize() throws SQLException {
     database = new Database();
-    populateComboBox(database, insertlocationdropdown);
+    populateComboBox(database, locationComboBox);
   }
 
   @FXML
-  void onBackButtonAction(ActionEvent event) {
-    if (event.getSource() == backButton) {
-      switchScenes("MainWindow.fxml", backButton.getScene().getWindow());
+  void onBackButtonAction() {
+    switchScenes("MainWindow.fxml", backButton.getScene().getWindow());
+  }
+
+  @FXML
+  void onSendHelpButtonAction() {
+    try {
+      SecurityRequest sr = parseUserSecurityRequest();
+      if (database.insertSecurityRequest(sr)) {
+        String message = "Successfully submitted security request. Help is on the way.";
+        showInformationAlert("Success!", message);
+      } else {
+        showErrorAlert("Error.", "Unable to submit security request.");
+      }
+    } catch (InvalidUserInputException ex) {
+      Logger logger = Logger.getLogger(SanitationWindowController.class.getName());
+      logger.log(Level.WARNING, "Unable to parse Security Request.", ex);
     }
   }
 
   @FXML
-  void sendAlert(ActionEvent e) {
-    if (e.getSource() == alertbutton) {
-      Node node = (Node) insertlocationdropdown.getValue();
-      database.insertSecurityRequest(
-          new SecurityRequest(
-              LocalDateTime.now(),
-              SecurityRequest.defaultTime(),
-              null,
-              "",
-              node
-          ));
+  void onViewSecurityRequestsAction() {
+    switchScenes("SecurityViewWindow.fxml", viewSecurityRequestsButton.getScene().getWindow());
+
+  }
+
+  /**
+   * Parse input the user has inputted for the security request.
+   *
+   * @return A SecurityRequest representing the users input.
+   */
+  private SecurityRequest parseUserSecurityRequest() throws InvalidUserInputException {
+    // if input is valid, parse it and return a new SecurityRequest
+    if (Objects.nonNull(locationComboBox.getValue())) {
+
+      LocalDateTime now = LocalDateTime.now();
+      Node node = locationComboBox.getValue();
+
+      return new SecurityRequest(now, node);
     }
+
+    // otherwise, some input was invalid
+    showErrorAlert("Error.", "Please make sure to select a location.");
+    throw new InvalidUserInputException("Unable to parse Security Request.");
   }
 
 }

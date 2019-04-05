@@ -14,6 +14,14 @@ public class SecurityRequest extends ServiceRequest {
                          String whoCompleted, String description, Node node) {
     super(-1, timeRequested, timeCompleted, whoCompleted, description, node);
   }
+
+  public SecurityRequest(LocalDateTime timeRequested, Node locationNode) {
+    super(timeRequested, "", locationNode);
+  }
+
+  public SecurityRequest(int id) {
+    super(id);
+  }
 }
 
 
