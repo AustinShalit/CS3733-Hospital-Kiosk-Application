@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
 
+import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -51,12 +52,7 @@ public class SchedulingWindowController extends Controller {
    */
   @FXML
   void onSubmitButtonAction(ActionEvent e) {
-    if (e.getSource() == submitButton
-        && nameBox != null
-        && startChoiceBox.getValue() != null
-        && endChoiceBox.getValue() != null
-        && datePicker.getValue() != null
-        && roomComboBox.getValue() != null) {
+    if (e.getSource() == submitButton) {
       submitStatus.setText("All fields are filled. Nice!");
     } else {
       submitStatus.setText("Make sure all fields are filled in.");
@@ -73,6 +69,24 @@ public class SchedulingWindowController extends Controller {
   public void initialize() throws SQLException {
     database = new Database();
     populateComboBox(database, roomComboBox);
+    submitButton.disableProperty().bind(new BooleanBinding() {
+      {
+        super.bind(nameBox.textProperty(),
+                startChoiceBox.valueProperty(),
+                endChoiceBox.valueProperty(),
+                datePicker.valueProperty(),
+                roomComboBox.valueProperty());
+      }
+
+      @Override
+      protected boolean computeValue() {
+          return nameBox.getText() == null
+          || startChoiceBox.getValue() == null
+          || endChoiceBox.getValue() == null
+          || datePicker.getValue() == null
+          || roomComboBox.getValue() == null;
+      }
+    });
   }
 
 }

@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d19.teamO.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Optional;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,6 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Callback;
@@ -61,6 +63,23 @@ class Controller {
     alert.setContentText(null);
 
     alert.showAndWait();
+  }
+
+  /**
+   * Show a dialog that asks a user a prompt. Reurns the user input as a String, or an empty
+   * string if no input.
+   */
+  protected String textInputDialog(String titleText, String headerText, String promptText) {
+    TextInputDialog dialog = new TextInputDialog(null);
+    dialog.setTitle(titleText);
+    dialog.setHeaderText(headerText);
+    dialog.setContentText(promptText);
+
+    Optional<String> result = dialog.showAndWait();
+    if (result.isPresent()) {
+      return result.get();
+    }
+    return "";
   }
 
   protected void populateComboBox(Database database, ComboBox<Node> comboBox) throws SQLException {

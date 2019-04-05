@@ -88,6 +88,7 @@ public class MainWindowController extends Controller {
       database.insertNode(node);
     }
     nodeImportInProgress.setText("Nodes Imported");
+    edgeImportButton.setDisable(false);
 
   }
 
@@ -108,7 +109,17 @@ public class MainWindowController extends Controller {
     List<Edge> edges = ecrw.readEdges(Files.newBufferedReader(file.toPath()));
 
     for (Edge edge : edges) {
-      database.insertEdge(edge);
+      Node start = edge.getStartNode();
+      Node end = edge.getEndNode();
+      if (start.getFloor().equals("1") && end.getFloor().equals("1")) {
+        database.insertEdge(edge);
+      }
+      if (!(edge.getStartNode().getFloor().equals("1"))) {
+        database.deleteNode(start);
+      }
+      if (!(edge.getEndNode().getFloor().equals("1"))) {
+        database.deleteNode(end);
+      }
     }
     nodeImportInProgress.setText("Edges Imported");
   }
@@ -121,6 +132,7 @@ public class MainWindowController extends Controller {
   @FXML
   public void initialize() throws SQLException {
     database = new Database();
+    edgeImportButton.setDisable(true);
   }
 }
 

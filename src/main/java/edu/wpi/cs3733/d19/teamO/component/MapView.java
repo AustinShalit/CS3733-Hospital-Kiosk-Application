@@ -36,6 +36,7 @@ public class MapView extends StackPane {
 
   /**
    * The constructor for the MapView class.
+   *
    * @throws IOException Throws in case of xyz.
    */
   public MapView() throws IOException {
@@ -62,16 +63,18 @@ public class MapView extends StackPane {
 
   /**
    * Set the image to the map.
+   *
    * @param image image is the map file
    */
   public void setMapImage(final Image image) {
     backgroundImage.setImage(image);
     gesturePane.zoomTo(0.1, new Point2D(backgroundImage.getImage().getWidth() / 2,
-                       backgroundImage.getImage().getHeight() / 2));
+        backgroundImage.getImage().getHeight() / 2));
   }
 
   /**
    * add nodes to the pane as small circles.
+   *
    * @param nodes nodes are the for positions
    */
   public void addNodesToPane(final Collection<Node> nodes) {
