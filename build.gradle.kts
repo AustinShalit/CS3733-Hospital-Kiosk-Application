@@ -1,6 +1,7 @@
 import com.diffplug.spotless.FormatterStep
 import com.diffplug.spotless.extra.wtp.EclipseWtpFormatterStep
 import com.github.spotbugs.SpotBugsTask
+import org.apache.tools.ant.taskdefs.condition.Os
 
 plugins {
     java
@@ -184,6 +185,24 @@ spotless {
         addStep(TrimTrailingSpaces())
         indentWithSpaces()
         endWithNewline()
+    }
+}
+
+tasks.register<Delete>("deleteDatabase") {
+    group = "build"
+    description = "Delete the application database for debugging"
+
+    val directoryName = "Onyx Owlmen Kiosk"
+    when {
+        Os.isFamily(Os.FAMILY_WINDOWS) -> delete(System.getenv("APPDATA") +
+                File.separator +
+                directoryName)
+        Os.isFamily(Os.FAMILY_MAC) -> delete(System.getProperty("user.home") +
+                "/Library/" +
+                directoryName)
+        else -> delete(System.getProperty("user.home") +
+                File.separator +
+                directoryName)
     }
 }
 
