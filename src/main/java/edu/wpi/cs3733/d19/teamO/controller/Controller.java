@@ -30,7 +30,7 @@ public class Controller {
   }
 
   /**
-   * Try to switch scenes to the fxml file.
+   * Try to switch scenes to the fxml file. Enforces minimum window size.
    *
    * @param fxmlFile   String representing the fxml file to switch scenes to
    * @param currWindow The current window
@@ -46,7 +46,11 @@ public class Controller {
 
     Scene scene = new Scene(root);
     stage.setScene(scene);
+
+    // Window size and position
     minWindowSize(stage);
+    setWindowSize(stage, currWindow.getWidth(), currWindow.getHeight());
+    setWindowPosition(stage, currWindow.getX(), currWindow.getY());
 
     stage.hide();
     stage.show();
@@ -151,6 +155,22 @@ public class Controller {
   public void minWindowSize(Stage stage) {
     stage.setMinWidth(800);
     stage.setMinHeight(600);
+  }
+
+  /**
+   * Set the size of the window given a width and height.
+   */
+  public void setWindowSize(Stage stage, double width, double height) {
+    stage.setWidth(width);
+    stage.setHeight(height);
+  }
+
+  /**
+   * Set the position of the window.
+   */
+  public void setWindowPosition(Stage stage, double xpos, double ypos) {
+    stage.setX(xpos);
+    stage.setY(ypos);
   }
 }
 

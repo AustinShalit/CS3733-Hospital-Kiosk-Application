@@ -13,6 +13,8 @@ import edu.wpi.cs3733.d19.teamO.controller.Controller;
 
 public class Project extends Application {
 
+  private final Controller controller = new Controller();
+
   private static final Logger logger
       = Logger.getLogger(Project.class.getName());
 
@@ -25,8 +27,11 @@ public class Project extends Application {
 
     primaryStage.setTitle("Team O Kiosk Application");
     primaryStage.setScene(new Scene(mainWindow));
-    Controller controller = new Controller();
+
+    // Set original window size and position
     controller.minWindowSize(primaryStage);
+    controller.setWindowSize(primaryStage, 1200, 900);
+    controller.setWindowPosition(primaryStage, 0, 0);
 
     primaryStage.show();
     logger.config("Startup complete");
