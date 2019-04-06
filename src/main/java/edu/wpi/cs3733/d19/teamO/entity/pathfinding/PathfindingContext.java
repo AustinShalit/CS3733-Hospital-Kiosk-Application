@@ -16,6 +16,14 @@ public class PathfindingContext<T> {
     this(new BreadthFirstSearchAlgorithm<>());
   }
 
+  public GraphSearchAlgorithm<T> getStrategy() {
+    return strategy;
+  }
+
+  public void setStrategy(GraphSearchAlgorithm<T> strategy) {
+    this.strategy = strategy;
+  }
+
   public List<T> getPath(Graph<T> graph, T start, T goal) {
     return strategy.getPath(graph, start, goal);
   }
