@@ -3,11 +3,14 @@ package edu.wpi.cs3733.d19.teamO.component;
 import java.io.IOException;
 import java.util.Collection;
 
+import com.sun.scenario.effect.impl.sw.java.JSWBlend_BLUEPeer;
+
 import javafx.animation.Interpolator;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -34,6 +37,19 @@ public class MapView extends StackPane {
   @FXML
   private Group edges;
 
+  @FXML
+   private Button levelL1;
+  @FXML
+  private Button levelF1;
+  @FXML
+  private Button levelF2;
+  @FXML
+  private Button levelF3;
+  @FXML
+  private Button levelL2;
+  @FXML
+  private Button levelG;
+
   /**
    * The constructor for the MapView class.
    *
@@ -59,6 +75,65 @@ public class MapView extends StackPane {
             .zoomBy(gesturePane.getCurrentScale(), pivotOnTarget);
       }
     });
+    levelF1.setStyle("-fx-background-color: rgba(17,0,255,0.33)");
+  }
+
+  void resetButtonBackground() {
+    levelL1.setStyle("-fx-background-color: rgba(249,249,255,0)");
+    levelL2.setStyle("-fx-background-color: rgba(249,249,255,0)");
+    levelF1.setStyle("-fx-background-color: rgba(249,249,255,0)");
+    levelF2.setStyle("-fx-background-color: rgba(249,249,255,0)");
+    levelF3.setStyle("-fx-background-color: rgba(249,249,255,0)");
+    levelG.setStyle("-fx-background-color: rgba(249,249,255,0)");
+  }
+
+
+  @FXML
+  void onL1Action() throws IOException {
+    resetButtonBackground();
+    Image image = new Image(getClass().getResource("00_thelowerlevel1.png").openStream());
+    setMapImage(image);
+    resetButtonBackground();
+    levelL1.setStyle("-fx-background-color: rgba(17,0,255,0.33)");
+  }
+  @FXML
+  void onL2Action() throws IOException {
+    Image image = new Image(getClass().getResource("00_thelowerlevel2.png").openStream());
+    setMapImage(image);
+    resetButtonBackground();
+    levelL2.setStyle("-fx-background-color: rgba(17,0,255,0.33)");
+  }
+
+  @FXML
+  void onF1Action() throws IOException {
+    resetButtonBackground();
+    Image image = new Image(getClass().getResource("01_thefirstfloor.png").openStream());
+    setMapImage(image);
+    levelF1.setStyle("-fx-background-color: rgba(17,0,255,0.33)f");
+  }
+
+  @FXML
+  void onF2Action() throws IOException {
+    resetButtonBackground();
+    Image image = new Image(getClass().getResource("02_thesecondfloor.png").openStream());
+    setMapImage(image);
+    levelF2.setStyle("-fx-background-color:  rgba(17,0,255,0.33)");
+  }
+
+  @FXML
+  void onF3Action() throws IOException {
+    resetButtonBackground();
+    Image image = new Image(getClass().getResource("03_thethirdfloor.png").openStream());
+    setMapImage(image);
+    levelF3.setStyle("-fx-background-color:  rgba(17,0,255,0.33)");
+  }
+
+  @FXML
+  void onGAction() throws IOException {
+    resetButtonBackground();
+    Image image = new Image(getClass().getResource("00_thegroundfloor.png").openStream());
+    setMapImage(image);
+    levelG.setStyle("-fx-background-color:  rgba(17,0,255,0.33)");
   }
 
   /**

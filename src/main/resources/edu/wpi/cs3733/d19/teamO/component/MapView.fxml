@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import net.kurobako.gesturefx.GesturePane?>
-<fx:root type="javafx.scene.layout.StackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" type="javafx.scene.layout.StackPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
   <GesturePane fx:id="gesturePane">
     <StackPane>
       <ImageView fx:id="backgroundImage" pickOnBounds="true" preserveRatio="true">
@@ -16,4 +19,52 @@
       </Pane>
     </StackPane>
   </GesturePane>
+  <JFXButton fx:id="levelF3" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#onF3Action" prefHeight="30.0" prefWidth="30.0" ripplerFill="BLACK" text="3" textAlignment="CENTER" StackPane.alignment="BOTTOM_RIGHT">
+    <opaqueInsets>
+      <Insets bottom="20.0" right="20.0" />
+    </opaqueInsets>
+    <StackPane.margin>
+      <Insets bottom="140.0" right="20.0" />
+    </StackPane.margin>
+  </JFXButton>
+  <JFXButton fx:id="levelF2" alignment="CENTER" buttonType="RAISED" onAction="#onF2Action" prefHeight="30.0" prefWidth="30.0" text="2" StackPane.alignment="BOTTOM_RIGHT">
+    <opaqueInsets>
+      <Insets bottom="20.0" right="20.0" />
+    </opaqueInsets>
+    <StackPane.margin>
+      <Insets bottom="115.0" right="20.0" />
+    </StackPane.margin>
+  </JFXButton>
+  <JFXButton fx:id="levelF1" alignment="CENTER" buttonType="RAISED" onAction="#onF1Action" prefHeight="30.0" prefWidth="30.0" text="1" StackPane.alignment="BOTTOM_RIGHT">
+    <opaqueInsets>
+      <Insets bottom="20.0" right="20.0" />
+    </opaqueInsets>
+    <StackPane.margin>
+      <Insets bottom="90.0" right="20.0" />
+    </StackPane.margin>
+  </JFXButton>
+  <JFXButton fx:id="levelG" alignment="CENTER" buttonType="RAISED" onAction="#onGAction" prefHeight="30.0" prefWidth="30.0" text="G" StackPane.alignment="BOTTOM_RIGHT">
+    <opaqueInsets>
+      <Insets bottom="20.0" right="20.0" />
+    </opaqueInsets>
+    <StackPane.margin>
+      <Insets bottom="65.0" right="20.0" />
+    </StackPane.margin>
+  </JFXButton>
+  <JFXButton fx:id="levelL1" alignment="CENTER" buttonType="RAISED" onAction="#onL1Action" prefHeight="30.0" prefWidth="30.0" text="L1" StackPane.alignment="BOTTOM_RIGHT">
+    <opaqueInsets>
+      <Insets bottom="20.0" right="20.0" />
+    </opaqueInsets>
+    <StackPane.margin>
+      <Insets bottom="40.0" right="20.0" />
+    </StackPane.margin>
+  </JFXButton>
+  <JFXButton fx:id="levelL2" alignment="CENTER" buttonType="RAISED" onAction="#onL2Action" prefHeight="30.0" prefWidth="30.0" text="L2" StackPane.alignment="BOTTOM_RIGHT">
+    <opaqueInsets>
+      <Insets bottom="20.0" right="20.0" />
+    </opaqueInsets>
+    <StackPane.margin>
+      <Insets bottom="15.0" right="20.0" />
+    </StackPane.margin>
+  </JFXButton>
 </fx:root>
