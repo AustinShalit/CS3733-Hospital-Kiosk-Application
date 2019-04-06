@@ -54,7 +54,6 @@ class LoginDaoDbTest {
 
     EmployeeDaoDb employeeDao = new EmployeeDaoDb(dcf);
     employeeDao.insert(testEmployee1);
-
     dao = new LoginDaoDb(dcf);
   }
 
