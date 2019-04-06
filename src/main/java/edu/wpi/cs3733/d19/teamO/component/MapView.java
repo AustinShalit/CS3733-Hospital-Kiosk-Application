@@ -121,11 +121,7 @@ public class MapView extends StackPane {
       filename = "00_thegroundfloor.png";
     }
 
-    if (filename.length() > 0) {
-      setMapImage(
-          new Image(getClass().getResource(filename).openStream())
-      );
-    }
+    setMapImage(new Image(getClass().getResource(filename).openStream()));
 
   }
 
