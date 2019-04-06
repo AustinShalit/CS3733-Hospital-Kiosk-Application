@@ -3,9 +3,9 @@ package edu.wpi.cs3733.d19.teamO.component;
 import java.io.IOException;
 import java.util.Collection;
 
-import com.sun.scenario.effect.impl.sw.java.JSWBlend_BLUEPeer;
 
 import javafx.animation.Interpolator;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
@@ -105,19 +105,22 @@ public class MapView extends StackPane {
   }
 
   @FXML
-  void onF1Action() throws IOException {
+  void onFloorSelectAction(ActionEvent e) throws IOException {
     resetButtonBackground();
-    Image image = new Image(getClass().getResource("01_thefirstfloor.png").openStream());
-    setMapImage(image);
-    levelF1.setStyle("-fx-background-color: rgba(17,0,255,0.33)f");
-  }
+    Image image;
 
-  @FXML
-  void onF2Action() throws IOException {
-    resetButtonBackground();
-    Image image = new Image(getClass().getResource("02_thesecondfloor.png").openStream());
+    if (e.getSource() == levelF1) {
+      levelF1.setStyle("-fx-background-color: rgba(17,0,255,0.33)f");
+      image = new Image(getClass().getResource("01_thefirstfloor.png").openStream());
+    } else if (e.getSource() == levelF2) {
+      levelF2.setStyle("-fx-background-color:  rgba(17,0,255,0.33)");
+      image = new Image(getClass().getResource("02_thesecondfloor.png").openStream());
+    } else {
+      System.out.println(e.getSource());
+      return;
+    }
+
     setMapImage(image);
-    levelF2.setStyle("-fx-background-color:  rgba(17,0,255,0.33)");
   }
 
   @FXML

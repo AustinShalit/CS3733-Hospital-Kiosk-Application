@@ -27,7 +27,7 @@
       <Insets bottom="140.0" right="20.0" />
     </StackPane.margin>
   </JFXButton>
-  <JFXButton fx:id="levelF2" alignment="CENTER" buttonType="RAISED" onAction="#onF2Action" prefHeight="30.0" prefWidth="30.0" text="2" StackPane.alignment="BOTTOM_RIGHT">
+  <JFXButton fx:id="levelF2" alignment="CENTER" buttonType="RAISED" onAction="#onFloorSelectAction" prefHeight="30.0" prefWidth="30.0" text="2" StackPane.alignment="BOTTOM_RIGHT">
     <opaqueInsets>
       <Insets bottom="20.0" right="20.0" />
     </opaqueInsets>
@@ -35,7 +35,7 @@
       <Insets bottom="115.0" right="20.0" />
     </StackPane.margin>
   </JFXButton>
-  <JFXButton fx:id="levelF1" alignment="CENTER" buttonType="RAISED" onAction="#onF1Action" prefHeight="30.0" prefWidth="30.0" text="1" StackPane.alignment="BOTTOM_RIGHT">
+  <JFXButton fx:id="levelF1" alignment="CENTER" buttonType="RAISED" onAction="#onFloorSelectAction" prefHeight="30.0" prefWidth="30.0" text="1" StackPane.alignment="BOTTOM_RIGHT">
     <opaqueInsets>
       <Insets bottom="20.0" right="20.0" />
     </opaqueInsets>
