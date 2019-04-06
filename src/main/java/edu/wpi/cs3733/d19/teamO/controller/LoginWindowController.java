@@ -21,9 +21,9 @@ public class LoginWindowController extends Controller {
   @FXML
   private JFXButton loginButton;
   @FXML
-  private TextField username;
+  private JFXTextField username;
   @FXML
-  private TextField password;
+  private JFXPasswordField password;
   @FXML
   private Label loginFail;
 
