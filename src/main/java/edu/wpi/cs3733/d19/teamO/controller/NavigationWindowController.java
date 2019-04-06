@@ -2,9 +2,12 @@ package edu.wpi.cs3733.d19.teamO.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Set;
-import java.util.Stack;
 
+import com.google.common.graph.GraphBuilder;
+import com.google.common.graph.ImmutableGraph;
+import com.google.common.graph.MutableGraph;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXRadioButton;
@@ -19,10 +22,10 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.util.StringConverter;
 
-import edu.wpi.cs3733.d19.teamO.BreadthFirstSearchAlgorithm;
 import edu.wpi.cs3733.d19.teamO.component.MapView;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
+import edu.wpi.cs3733.d19.teamO.entity.pathfinding.PathfindingContext;
 
 @SuppressWarnings("PMD.GodClass")
 public class NavigationWindowController extends Controller {
@@ -58,11 +61,12 @@ public class NavigationWindowController extends Controller {
 
   private Set<Node> nodeSet;
 
+  private Database database;
   private Group bfsPath;
 
   @FXML
   void initialize() throws SQLException, IOException {
-    Database database = new Database();
+    database = new Database();
     nodeSet = database.getAllNodes();
 
     bfsPath = new Group();
@@ -149,9 +153,14 @@ public class NavigationWindowController extends Controller {
   void onGenPathButtonAction() throws SQLException {
     map.getEdges().getChildren().removeAll(bfsPath);
 
-    BreadthFirstSearchAlgorithm bfsAlgorithm = new BreadthFirstSearchAlgorithm(new Database());
-    Stack<Node> path = bfsAlgorithm.getPath((Node) startSelLocJFXCombo.getValue(),
-        (Node) endSelLocJFXCombo.getValue());
+    PathfindingContext<Node> pathfindingContext = new PathfindingContext<>();
+    MutableGraph<Node> graph = GraphBuilder.undirected().allowsSelfLoops(false).build();
+    database.getAllNodes().forEach(graph::addNode);
+    database.getAllEdges().forEach(e -> graph.putEdge(e.getStartNode(), e.getEndNode()));
+
+    List<Node> path = pathfindingContext.getPath(ImmutableGraph.copyOf(graph),
+        startSelLocJFXCombo.getValue(),
+        endSelLocJFXCombo.getValue());
 
     bfsPath = new Group();
 
