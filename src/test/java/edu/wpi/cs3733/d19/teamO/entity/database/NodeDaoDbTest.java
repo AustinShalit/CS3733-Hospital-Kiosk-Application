@@ -1,8 +1,6 @@
 package edu.wpi.cs3733.d19.teamO.entity.database;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -11,13 +9,11 @@ import org.junit.jupiter.api.TestInfo;
 
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 
-import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 class NodeDaoDbTest {
 
