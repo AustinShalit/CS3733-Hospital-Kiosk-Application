@@ -92,32 +92,42 @@ public class MapView extends StackPane {
   @FXML
   void onFloorSelectAction(ActionEvent e) throws IOException {
     resetButtonBackground();
-    Image image;
 
-    if (e.getSource() == levelF1) {
-      levelF1.setStyle("-fx-background-color: rgba(17,0,255,0.33)f");
-      image = new Image(getClass().getResource("01_thefirstfloor.png").openStream());
-    } else if (e.getSource() == levelF2) {
-      levelF2.setStyle("-fx-background-color:  rgba(17,0,255,0.33)");
-      image = new Image(getClass().getResource("02_thesecondfloor.png").openStream());
-    } else if (e.getSource() == levelF3) {
-      levelF3.setStyle("-fx-background-color:  rgba(17,0,255,0.33)");
-      image = new Image(getClass().getResource("03_thethirdfloor.png").openStream());
-    } else if (e.getSource() == levelL1) {
-      levelL1.setStyle("-fx-background-color:  rgba(17,0,255,0.33)");
-      image = new Image(getClass().getResource("00_thelowerlevel1.png").openStream());
-    } else if (e.getSource() == levelL2) {
-      levelL2.setStyle("-fx-background-color:  rgba(17,0,255,0.33)");
-      image = new Image(getClass().getResource("00_thelowerlevel2.png").openStream());
-    } else if (e.getSource() == levelG) {
-      levelG.setStyle("-fx-background-color:  rgba(17,0,255,0.33)");
-      image = new Image(getClass().getResource("00_thegroundfloor.png").openStream());
+    Object src = e.getSource();
+
+
+    if (src == levelF1 || src == levelF2 || src == levelF3
+     || src == levelG || src == levelL1 || src == levelL2) {
+      // If the src of this ActionEvent is from our supported buttons
+      ((Button) src).setStyle("-fx-background-color:  rgba(17,0,255,0.33)"); // style button
     } else {
+      // If the src of this ActionEvent is from an unsupported button, return.
       System.out.println(e.getSource());
       return;
     }
 
-    setMapImage(image);
+    String filename = "";
+
+    if (src == levelF1) {
+      filename = "01_thefirstfloor.png";
+    } else if (src == levelF2) {
+      filename = "02_thesecondfloor.png";
+    } else if (src == levelF3) {
+      filename = "03_thethirdfloor.png";
+    } else if (src == levelL1) {
+      filename = "00_thelowerlevel1.png";
+    } else if (src == levelL2) {
+      filename = "00_thelowerlevel2.png";
+    } else if (src == levelG) {
+      filename = "00_thegroundfloor.png";
+    }
+
+    if (!filename.equals("")) {
+      setMapImage(
+          new Image(getClass().getResource(filename).openStream())
+      );
+    }
+
   }
 
 
