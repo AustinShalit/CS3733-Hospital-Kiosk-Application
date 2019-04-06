@@ -50,8 +50,7 @@ class LoginDaoDbTest {
   void setup(TestInfo testInfo) throws SQLException {
     DatabaseConnectionFactory dcf
         = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
-        testInfo.getTestClass().get().getName()
-            + testInfo.getDisplayName());
+        testInfo.getDisplayName());
 
     EmployeeDaoDb employeeDao = new EmployeeDaoDb(dcf);
     employeeDao.insert(testEmployee1);
