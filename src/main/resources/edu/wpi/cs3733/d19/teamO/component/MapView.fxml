@@ -19,7 +19,7 @@
       </Pane>
     </StackPane>
   </GesturePane>
-  <JFXButton fx:id="levelF3" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#onF3Action" prefHeight="30.0" prefWidth="30.0" ripplerFill="BLACK" text="3" textAlignment="CENTER" StackPane.alignment="BOTTOM_RIGHT">
+  <JFXButton fx:id="levelF3" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#onFloorSelectAction" prefHeight="30.0" prefWidth="30.0" ripplerFill="BLACK" text="3" textAlignment="CENTER" StackPane.alignment="BOTTOM_RIGHT">
     <opaqueInsets>
       <Insets bottom="20.0" right="20.0" />
     </opaqueInsets>
@@ -43,7 +43,7 @@
       <Insets bottom="90.0" right="20.0" />
     </StackPane.margin>
   </JFXButton>
-  <JFXButton fx:id="levelG" alignment="CENTER" buttonType="RAISED" onAction="#onGAction" prefHeight="30.0" prefWidth="30.0" text="G" StackPane.alignment="BOTTOM_RIGHT">
+  <JFXButton fx:id="levelG" alignment="CENTER" buttonType="RAISED" onAction="#onFloorSelectAction" prefHeight="30.0" prefWidth="30.0" text="G" StackPane.alignment="BOTTOM_RIGHT">
     <opaqueInsets>
       <Insets bottom="20.0" right="20.0" />
     </opaqueInsets>
@@ -51,7 +51,7 @@
       <Insets bottom="65.0" right="20.0" />
     </StackPane.margin>
   </JFXButton>
-  <JFXButton fx:id="levelL1" alignment="CENTER" buttonType="RAISED" onAction="#onL1Action" prefHeight="30.0" prefWidth="30.0" text="L1" StackPane.alignment="BOTTOM_RIGHT">
+  <JFXButton fx:id="levelL1" alignment="CENTER" buttonType="RAISED" onAction="#onFloorSelectAction" prefHeight="30.0" prefWidth="30.0" text="L1" StackPane.alignment="BOTTOM_RIGHT">
     <opaqueInsets>
       <Insets bottom="20.0" right="20.0" />
     </opaqueInsets>
@@ -59,7 +59,7 @@
       <Insets bottom="40.0" right="20.0" />
     </StackPane.margin>
   </JFXButton>
-  <JFXButton fx:id="levelL2" alignment="CENTER" buttonType="RAISED" onAction="#onL2Action" prefHeight="30.0" prefWidth="30.0" text="L2" StackPane.alignment="BOTTOM_RIGHT">
+  <JFXButton fx:id="levelL2" alignment="CENTER" buttonType="RAISED" onAction="#onFloorSelectAction" prefHeight="30.0" prefWidth="30.0" text="L2" StackPane.alignment="BOTTOM_RIGHT">
     <opaqueInsets>
       <Insets bottom="20.0" right="20.0" />
     </opaqueInsets>

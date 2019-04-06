@@ -88,21 +88,6 @@ public class MapView extends StackPane {
   }
 
 
-  @FXML
-  void onL1Action() throws IOException {
-    resetButtonBackground();
-    Image image = new Image(getClass().getResource("00_thelowerlevel1.png").openStream());
-    setMapImage(image);
-    resetButtonBackground();
-    levelL1.setStyle("-fx-background-color: rgba(17,0,255,0.33)");
-  }
-  @FXML
-  void onL2Action() throws IOException {
-    Image image = new Image(getClass().getResource("00_thelowerlevel2.png").openStream());
-    setMapImage(image);
-    resetButtonBackground();
-    levelL2.setStyle("-fx-background-color: rgba(17,0,255,0.33)");
-  }
 
   @FXML
   void onFloorSelectAction(ActionEvent e) throws IOException {
@@ -115,6 +100,18 @@ public class MapView extends StackPane {
     } else if (e.getSource() == levelF2) {
       levelF2.setStyle("-fx-background-color:  rgba(17,0,255,0.33)");
       image = new Image(getClass().getResource("02_thesecondfloor.png").openStream());
+    } else if (e.getSource() == levelF3) {
+      levelF3.setStyle("-fx-background-color:  rgba(17,0,255,0.33)");
+      image = new Image(getClass().getResource("03_thethirdfloor.png").openStream());
+    } else if (e.getSource() == levelL1) {
+      levelL1.setStyle("-fx-background-color:  rgba(17,0,255,0.33)");
+      image = new Image(getClass().getResource("00_thelowerlevel1.png").openStream());
+    } else if (e.getSource() == levelL2) {
+      levelL2.setStyle("-fx-background-color:  rgba(17,0,255,0.33)");
+      image = new Image(getClass().getResource("00_thelowerlevel2.png").openStream());
+    } else if (e.getSource() == levelG) {
+      levelG.setStyle("-fx-background-color:  rgba(17,0,255,0.33)");
+      image = new Image(getClass().getResource("00_thegroundfloor.png").openStream());
     } else {
       System.out.println(e.getSource());
       return;
@@ -123,21 +120,8 @@ public class MapView extends StackPane {
     setMapImage(image);
   }
 
-  @FXML
-  void onF3Action() throws IOException {
-    resetButtonBackground();
-    Image image = new Image(getClass().getResource("03_thethirdfloor.png").openStream());
-    setMapImage(image);
-    levelF3.setStyle("-fx-background-color:  rgba(17,0,255,0.33)");
-  }
 
-  @FXML
-  void onGAction() throws IOException {
-    resetButtonBackground();
-    Image image = new Image(getClass().getResource("00_thegroundfloor.png").openStream());
-    setMapImage(image);
-    levelG.setStyle("-fx-background-color:  rgba(17,0,255,0.33)");
-  }
+
 
   /**
    * Set the image to the map.
