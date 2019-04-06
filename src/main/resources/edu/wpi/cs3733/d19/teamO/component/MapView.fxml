@@ -51,7 +51,7 @@
       <Insets bottom="65.0" right="20.0" />
     </StackPane.margin>
   </JFXButton>
-  <JFXButton fx:id="levelL1" alignment="CENTER" buttonType="RAISED" onAction="#onFloorSelectAction" prefHeight="30.0" prefWidth="30.0" text="L1" StackPane.alignment="BOTTOM_RIGHT">
+  <JFXButton fx:id="levelL1" alignment="CENTER" buttonType="RAISED" onAction="#onFloorSelectAction" prefHeight="30.0" prefWidth="33.0" text="L1" StackPane.alignment="BOTTOM_RIGHT">
     <opaqueInsets>
       <Insets bottom="20.0" right="20.0" />
     </opaqueInsets>
@@ -59,7 +59,7 @@
       <Insets bottom="40.0" right="20.0" />
     </StackPane.margin>
   </JFXButton>
-  <JFXButton fx:id="levelL2" alignment="CENTER" buttonType="RAISED" onAction="#onFloorSelectAction" prefHeight="30.0" prefWidth="30.0" text="L2" StackPane.alignment="BOTTOM_RIGHT">
+  <JFXButton fx:id="levelL2" alignment="CENTER" buttonType="RAISED" onAction="#onFloorSelectAction" prefHeight="30.0" prefWidth="34.0" text="L2" StackPane.alignment="BOTTOM_RIGHT">
     <opaqueInsets>
       <Insets bottom="20.0" right="20.0" />
     </opaqueInsets>
