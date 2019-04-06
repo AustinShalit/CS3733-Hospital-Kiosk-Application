@@ -47,15 +47,16 @@ public class Project extends Application {
     return version;
   }
 
+  @SuppressWarnings("PMD.AvoidCatchingThrowable")
   private void onThreadException(Thread thread, Throwable throwable) {
     PlatformImpl.runAndWait(() -> {
       try {
         // Don't create more than one exception dialog at the same time
         final ExceptionAlert exceptionAlert = new ExceptionAlert(root, throwable,
-            throwable.getMessage(), getHostServices());
+            thread.getName() + ": " + throwable.getMessage(), getHostServices());
         exceptionAlert.setInitialFocus();
         exceptionAlert.showAndWait();
-      } catch (Throwable e) {
+      } catch (Throwable ex) {
         // Well in this case something has gone very, very wrong
         // We don't want to create a feedback loop either.
         logger.log(Level.SEVERE, "Failed to show exception alert", throwable);
