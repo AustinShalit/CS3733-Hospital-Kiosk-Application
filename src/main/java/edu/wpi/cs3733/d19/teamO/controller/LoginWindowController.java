@@ -22,9 +22,9 @@ public class LoginWindowController extends Controller {
   @FXML
   private JFXButton loginButton;
   @FXML
-  private JFXTextField userName;
+  private JFXTextField username;
   @FXML
-  private JFXPasswordField passWord;
+  private JFXPasswordField password;
   @FXML
   private Label loginFail;
 
@@ -33,6 +33,7 @@ public class LoginWindowController extends Controller {
   @FXML
   void initialize() throws SQLException {
     db = new Database();
+
     // Test employees
     Employee adminWong = new Employee(1234, "Admin", Employee.EmployeeType.ADMIN);
     Employee teamO = new Employee(12, "TeamO", Employee.EmployeeType.DEFAULT);
@@ -42,6 +43,7 @@ public class LoginWindowController extends Controller {
     // Test user login info
     Login user1 = new Login("admin", "wong", adminWong);
     Login user2 = new Login("teamo", "won", teamO);
+
     // checks if Logins inserted, if already inserted will not give message
     if (db.insertLogin(user2) && db.insertLogin(user1)) {
       String message = "Successfully inserted Login infos";
@@ -55,16 +57,16 @@ public class LoginWindowController extends Controller {
   }
 
   @FXML
-  void loginButtonAction() throws InvalidUserInputException {
+  void loginButtonAction() {
     try {
       // gets the user input
-      Login lg = parseUserLogin();
+      Login login = parseUserLogin();
       Set<Login> info = db.getAllLogin();
       boolean check = false;
 
       // checks every Login info in set
       for (Login l : info) {
-        if (l.equals(lg)) {
+        if (l.equals(login)) {
           check = true;
         }
       }
@@ -75,7 +77,8 @@ public class LoginWindowController extends Controller {
       if (check) {
         switchScenes("MainWindow.fxml", loginButton.getScene().getWindow());
       } else {
-        showErrorAlert("Failed", "The Login info does not match the records");
+        loginFail.setText("Incorrect username or password");
+        bounceTextAnimation(loginFail);
       }
     } catch (InvalidUserInputException ex) {
       Logger logger = Logger.getLogger(SanitationWindowController.class.getName());
@@ -85,15 +88,14 @@ public class LoginWindowController extends Controller {
 
   private Login parseUserLogin() throws InvalidUserInputException {
     // checks if input is valid, parses it and returns a new Login
-    if (!userName.getText().isEmpty() && !passWord.getText().isEmpty()) {
-      String inusername = userName.getText();
-      String inpassword = passWord.getText();
-
-      return new Login(inusername, inpassword);
+    if (!username.getText().isEmpty() && !password.getText().isEmpty()) {
+      return new Login(username.getText(), password.getText());
     }
 
     // otherwise
-    showErrorAlert("Error", "Please make sure all fields are filled out");
+    loginFail.setText("Incorrect username or password");
+    bounceTextAnimation(loginFail);
+
     throw new InvalidUserInputException("Unable to parse User Login info");
   }
 }
