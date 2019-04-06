@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.d19.teamO.entity.database;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,6 +9,7 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
+import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,9 +18,21 @@ import edu.wpi.cs3733.d19.teamO.entity.Node;
 
 class NodeDaoDb implements NodeDao {
 
-  static final String TABLE_NAME = "NODE";
+  private static final String QUERY_FILE_NAME = "node_queries.properties";
+
   private static final Logger logger
       = Logger.getLogger(NodeDaoDb.class.getName());
+  private static final Properties queries;
+
+  static {
+    queries = new Properties();
+    try (InputStream is = NodeDaoDb.class.getResourceAsStream(QUERY_FILE_NAME)) {
+      queries.load(is);
+    } catch (IOException ex) {
+      logger.log(Level.SEVERE, "Unable to load property file: " + QUERY_FILE_NAME, ex);
+    }
+  }
+
   private DatabaseConnectionFactory dcf;
 
   NodeDaoDb(final DatabaseConnectionFactory dcf) throws SQLException {
@@ -33,7 +48,7 @@ class NodeDaoDb implements NodeDao {
   public Optional<Node> get(final String id) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement
-          = connection.prepareStatement("SELECT * FROM " + TABLE_NAME + " WHERE id=?");
+          = connection.prepareStatement(queries.getProperty("node.select"));
       statement.setString(1, id);
       try (ResultSet resultSet = statement.executeQuery()) {
         if (resultSet.next()) {
@@ -50,7 +65,7 @@ class NodeDaoDb implements NodeDao {
   public Set<Node> getAll() {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement
-          = connection.prepareStatement("SELECT * FROM " + TABLE_NAME);
+          = connection.prepareStatement(queries.getProperty("node.select_all"));
       try (ResultSet resultSet = statement.executeQuery()) {
         Set<Node> nodes = new HashSet<>();
         while (resultSet.next()) {
@@ -67,8 +82,7 @@ class NodeDaoDb implements NodeDao {
   @Override
   public boolean insert(final Node node) {
     try (Connection connection = dcf.getConnection()) {
-      PreparedStatement statement = connection.prepareStatement("INSERT INTO " + TABLE_NAME
-          + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+      PreparedStatement statement = connection.prepareStatement(queries.getProperty("node.insert"));
       statement.setString(1, node.getNodeId());
       statement.setInt(2, node.getXcoord());
       statement.setInt(3, node.getYcoord());
@@ -87,11 +101,7 @@ class NodeDaoDb implements NodeDao {
   @Override
   public boolean update(final Node node) {
     try (Connection connection = dcf.getConnection()) {
-      PreparedStatement statement = connection.prepareStatement("UPDATE " + TABLE_NAME + " "
-          + "SET x=?, "
-          + "y=?, floor=?, building=?, "
-          + "type=?, long_name=?, short_name=?"
-          + "WHERE id=?");
+      PreparedStatement statement = connection.prepareStatement(queries.getProperty("node.update"));
       statement.setInt(1, node.getXcoord());
       statement.setInt(2, node.getYcoord());
       statement.setString(3, node.getFloor());
@@ -111,7 +121,7 @@ class NodeDaoDb implements NodeDao {
   public boolean delete(final Node node) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement
-          = connection.prepareStatement("DELETE FROM " + TABLE_NAME + " WHERE id=?");
+          = connection.prepareStatement(queries.getProperty("node.delete"));
       statement.setString(1, node.getNodeId());
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
@@ -135,22 +145,18 @@ class NodeDaoDb implements NodeDao {
 
   private void createTable() throws SQLException {
     try (Connection connection = dcf.getConnection();
-         ResultSet resultSet = connection.getMetaData().getTables(null, null, TABLE_NAME, null)) {
+         ResultSet resultSet = connection.getMetaData().getTables(null, null,
+             queries.getProperty("node.table_name"), null)) {
       if (!resultSet.next()) {
-        logger.info("Table " + TABLE_NAME + " does not exist. Creating");
-        PreparedStatement statement = connection.prepareStatement("CREATE TABLE " + TABLE_NAME
-            + "(id VARCHAR(255) PRIMARY KEY,"
-            + "x INT,"
-            + "y INT,"
-            + "floor VARCHAR(255),"
-            + "building VARCHAR(255),"
-            + "type VARCHAR(255),"
-            + "long_name VARCHAR(255),"
-            + "short_name VARCHAR(255))");
+        logger.info("Table "
+            + queries.getProperty("node.table_name")
+            + " does not exist. Creating");
+        PreparedStatement statement
+            = connection.prepareStatement(queries.getProperty("node.create_table"));
         statement.executeUpdate();
-        logger.info("Table " + TABLE_NAME + " created");
+        logger.info("Table " + queries.getProperty("node.table_name") + " created");
       } else {
-        logger.info("Table " + TABLE_NAME + " exists");
+        logger.info("Table " + queries.getProperty("node.table_name") + " exists");
       }
     } catch (SQLException ex) {
       logger.log(Level.WARNING, "Failed to create table", ex);
