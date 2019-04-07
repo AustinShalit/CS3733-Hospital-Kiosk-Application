@@ -5,8 +5,10 @@ import com.jfoenix.controls.JFXButton;
 
 import javafx.fxml.FXML;
 
+import edu.wpi.cs3733.d19.teamO.entity.database.Database;
+
 @FxmlController(url = "Home.fxml")
-public class HomeController {
+public class HomeController extends Controller {
 
   @FXML
   private JFXButton navigationButton;
@@ -19,6 +21,8 @@ public class HomeController {
 
   @Inject
   private ContentSwitcher contentSwitcher;
+
+  Database database;
 
   @FXML
   void navigationOnAction(){
@@ -38,6 +42,9 @@ public class HomeController {
 
   @FXML
   void securityOnAction(){
-
+    if(securityDialog("Security", "Security will be called. Are you sure?", null)) {
+//      Node node = new Node();
+//      database.insertSecurityRequest(new SecurityRequest(LocalDateTime.now(), node));
+    }
   }
 }
