@@ -29,6 +29,7 @@ import edu.wpi.cs3733.d19.teamO.entity.Node;
 
 public class MapView extends StackPane {
   private int level = 1;
+  private int currentLevel = 1;
 
   @FXML
   private GesturePane gesturePane;
@@ -188,25 +189,37 @@ public class MapView extends StackPane {
 
 
   @FXML
-  void onMouseMove(MouseEvent e) {
+  void onMouseMove(MouseEvent e)  {
     Object src = e.getSource();
     resetButtonBackground(level);
-
-    if (src.equals(levelF1) && level != 1) {
+    if (src.equals(levelF1)) {
       levelF1.setStyle("-fx-background-color:  rgba(17,0,255,0.2)");
-    } else if (src.equals(levelF2) && level != 2) {
+      currentLevel = 1;
+    } else if (src.equals(levelF2)) {
       levelF2.setStyle("-fx-background-color:  rgba(17,0,255,0.2)");
-    } else if (src.equals(levelF3) && level != 3) {
+      currentLevel = 2;
+    } else if (src.equals(levelF3) ) {
       levelF3.setStyle("-fx-background-color:  rgba(17,0,255,0.2)");
-    } else if (src.equals(levelL1) && level != -1) {
+      currentLevel = 3;
+    } else if (src.equals(levelL1) ) {
       levelL1.setStyle("-fx-background-color:  rgba(17,0,255,0.2)");
-    } else if (src.equals(levelL2) && level != -2) {
+      currentLevel = -1;
+    } else if (src.equals(levelL2) ) {
       levelL2.setStyle("-fx-background-color:  rgba(17,0,255,0.2)");
-    } else if (src.equals(levelG) && level != 0) {
+      currentLevel = -2;
+    } else if (src.equals(levelG) ) {
       levelG.setStyle("-fx-background-color:  rgba(17,0,255,0.2)");
+      currentLevel = 0;
+    } else {
+      return;
+    }
 
+    if (currentLevel == level) {
+      ((Button) src).setStyle("-fx-background-color:  rgba(17,0,255,0.4)"); // style button
     }
   }
+
+
 
 
   /**

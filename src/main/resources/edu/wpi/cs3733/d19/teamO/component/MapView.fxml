@@ -73,9 +73,9 @@
     <StackPane.margin>
       <Insets bottom="15.0" right="20.0" />
     </StackPane.margin>
-      <cursor>
-         <Cursor fx:constant="DEFAULT" />
-      </cursor>
+    <cursor>
+      <Cursor fx:constant="DEFAULT" />
+    </cursor>
   </JFXButton>
   <Label fx:id="coordX" text="X-coord" StackPane.alignment="BOTTOM_LEFT">
     <padding>
