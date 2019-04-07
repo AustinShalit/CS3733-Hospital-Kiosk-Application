@@ -5,20 +5,20 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.StackPane?>
 
-<JFXListView fx:id="toolbarPopupList" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-    <Label>
-        Contact Us
+<JFXListView fx:id="list" onMouseClicked="#onAction" fx:controller="edu.wpi.cs3733.d19.teamO.controller.v2.OptionsPopupController" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <Label onMouseClicked="#settingsAction">
+        Settings
         <graphic>
             <StackPane>
-                <FontAwesomeIconView glyphName="USER" size="1.5em"/>
+                <FontAwesomeIconView glyphName="COG" size="1.5em"/>
             </StackPane>
         </graphic>
     </Label>
-    <Label>
-        Exit
+    <Label onMouseClicked="#signoutAction">
+        Sign out
         <graphic>
             <StackPane>
-                <FontAwesomeIconView glyphName="REPLY" size="1.5em"/>
+                <FontAwesomeIconView glyphName="SIGN_OUT" size="1.5em"/>
             </StackPane>
         </graphic>
     </Label>

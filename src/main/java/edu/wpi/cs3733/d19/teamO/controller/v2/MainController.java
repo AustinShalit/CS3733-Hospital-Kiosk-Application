@@ -36,7 +36,8 @@ public class MainController implements ContentSwitcher {
         (Module) binder -> binder.bind(ContentSwitcher.class).toInstance(this));
     accept(HomeController.class, HomeController.class.getAnnotation(FxmlController.class).url());
 
-    FXMLLoader loader = new FXMLLoader(MainController.class.getResource("OptionsPopup.fxml"));
+    FXMLLoader loader = getFxmlLoader();
+    loader.setLocation(OptionsPopupController.class.getResource("OptionsPopup.fxml"));
     optionsPopup = new JFXPopup(loader.load());
 
     optionsBurger.setOnMouseClicked(e ->
