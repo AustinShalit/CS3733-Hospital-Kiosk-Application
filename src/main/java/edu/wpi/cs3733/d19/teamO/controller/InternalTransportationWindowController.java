@@ -52,8 +52,8 @@ public class InternalTransportationWindowController extends Controller {
   @FXML
   void onSubmitButtonAction() {
     try {
-      InternalTransportationRequest sr = parseUserITRequest();
-      if (database.insertInternalTransportationRequest(sr)) {
+      InternalTransportationRequest internal = parseUserITRequest();
+      if (database.insertInternalTransportationRequest(internal)) {
         String message = "Successfully submitted internal transportation request.";
         showInformationAlert("Success!", message);
       } else {
@@ -82,13 +82,13 @@ public class InternalTransportationWindowController extends Controller {
       Node node = (Node) locationbox.getValue();
 
       String type = categorybox.getValue().toString().toUpperCase(new Locale("EN"));
-      InternalTransportationRequest.InternalTransportationRequestType srt =
+      InternalTransportationRequest.InternalTransportationRequestType internalRequestType =
           InternalTransportationRequest.InternalTransportationRequestType.valueOf(type);
 
       String description = descriptiontxt.getText();
       String name = nametxt.getText();
 
-      return new InternalTransportationRequest(now, node, srt, description, name);
+      return new InternalTransportationRequest(now, node, internalRequestType, description, name);
     }
 
     // otherwise, some input was invalid
