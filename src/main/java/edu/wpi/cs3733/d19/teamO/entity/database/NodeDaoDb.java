@@ -165,18 +165,30 @@ class NodeDaoDb implements NodeDao {
   }
 
   @Override
-  public Set<Node> getAllRooms() {
+  public Set<Node> getAllRooms(String type) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement
           = connection.prepareStatement(queries.getProperty("node.select_room"));
-      statement.setString(1,"CONF");
-      statement.setString(2,"DEPT");
-      statement.setString(3,"INFO");
-      statement.setString(4,"LABS");
-      statement.setString(5,"REST");
-      statement.setString(6,"RETL");
-      statement.setString(7,"SERV");
-      statement.setString(8,"BATH");
+      statement.setString(1,type);
+      try (ResultSet resultSet = statement.executeQuery()) {
+        Set<Node> nodes = new HashSet<>();
+        while (resultSet.next()) {
+          nodes.add(extractNodeFromResultSet(resultSet));
+        }
+        return nodes;
+      }
+    } catch (SQLException ex) {
+      logger.log(Level.WARNING, "Failed to get Nodes", ex);
+    }
+    return Collections.emptySet();
+  }
+
+  @Override
+  public Set<Node> getFloor(String floor) {
+    try (Connection connection = dcf.getConnection()) {
+      PreparedStatement statement
+          = connection.prepareStatement(queries.getProperty("node.select_floor"));
+      statement.setString(1, floor);
       try (ResultSet resultSet = statement.executeQuery()) {
         Set<Node> nodes = new HashSet<>();
         while (resultSet.next()) {
