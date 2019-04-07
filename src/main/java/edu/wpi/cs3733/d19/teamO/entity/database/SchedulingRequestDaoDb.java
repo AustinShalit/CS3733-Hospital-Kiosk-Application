@@ -77,11 +77,11 @@ public class SchedulingRequestDaoDb implements SchedulingRequestDao {
       PreparedStatement statement
           = connection.prepareStatement(queries.getProperty("scheduling_request.select_all"));
       try (ResultSet resultSet = statement.executeQuery()) {
-        Set<SchedulingRequest> nodes = new HashSet<>();
+        Set<SchedulingRequest> schedulingRequests = new HashSet<>();
         while (resultSet.next()) {
-          nodes.add(extractSchedulingRequestFromResultSet(resultSet));
+          schedulingRequests.add(extractSchedulingRequestFromResultSet(resultSet));
         }
-        return nodes;
+        return schedulingRequests;
       }
     } catch (SQLException ex) {
       logger.log(Level.WARNING, "Failed to get Scheduling Request", ex);
