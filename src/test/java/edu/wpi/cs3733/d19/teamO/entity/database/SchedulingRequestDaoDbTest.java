@@ -21,8 +21,6 @@ class SchedulingRequestDaoDbTest {
 
   private static final Node nodeA = new Node("A", 1, 2, "0", "B",
       Node.NodeType.HALL, "AL", "AS");
-  private static final Node nodeB = new Node("B", 4, 6, "1", "B",
-      Node.NodeType.REST, "BL", "BS");
   private static final LocalDateTime aStart = LocalDateTime.of(2019, 4, 1,
       3, 30);
   private static final LocalDateTime aEnd = LocalDateTime.of(2019, 4, 1,
@@ -136,6 +134,11 @@ class SchedulingRequestDaoDbTest {
 
   @Test
   void wouldConflictTest() {
+    Node nodeB = new Node("B", 4, 6, "1", "B",
+        Node.NodeType.REST, "BL", "BS");
+
+    database.insertNode(nodeB);
+
     // Starts during schedulingRequest and ends after schedulingRequest
     SchedulingRequest conflictingSchedulingRequest1 = new SchedulingRequest(
         2,
@@ -177,10 +180,18 @@ class SchedulingRequestDaoDbTest {
         nodeB);
 
     database.insertSchedulingrequest(schedulingRequest);
+
     assertTrue(database.schedulingRequestWouldConflict(conflictingSchedulingRequest1));
+    assertFalse(database.insertSchedulingrequest(conflictingSchedulingRequest1));
+
     assertTrue(database.schedulingRequestWouldConflict(conflictingSchedulingRequest2));
+    assertFalse(database.insertSchedulingrequest(conflictingSchedulingRequest2));
+
     assertFalse(database.schedulingRequestWouldConflict(nonConflictingSchedulingRequest1));
+    assertTrue(database.insertSchedulingrequest(nonConflictingSchedulingRequest1));
+
     assertFalse(database.schedulingRequestWouldConflict(nonConflictingSchedulingRequest2));
+    assertTrue(database.insertSchedulingrequest(nonConflictingSchedulingRequest2));
   }
 
 }
