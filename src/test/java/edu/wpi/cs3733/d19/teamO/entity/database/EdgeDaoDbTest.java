@@ -35,8 +35,7 @@ class EdgeDaoDbTest {
   void setup(TestInfo testInfo) throws SQLException {
     DatabaseConnectionFactory dcf
         = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
-        testInfo.getTestClass().get().getName()
-            + testInfo.getDisplayName());
+        testInfo.getDisplayName());
     NodeDaoDb nodeDaoDb = new NodeDaoDb(dcf);
     nodeDaoDb.insert(NODE_A);
     nodeDaoDb.insert(NODE_B);

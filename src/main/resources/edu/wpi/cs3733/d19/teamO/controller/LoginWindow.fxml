@@ -3,40 +3,65 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<AnchorPane prefHeight="400.0" prefWidth="441.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.LoginWindowController">
-  <children>
-    <Label layoutX="96.0" layoutY="65.0" text="Login">
-      <font>
-        <Font size="39.0" />
-      </font>
-    </Label>
-    <VBox layoutX="98.0" layoutY="154.0" spacing="12.0">
+
+<BorderPane id="hello" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" styleClass="BorderPane" stylesheets="@style/LoginWindowStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.LoginWindowController">
+  <center>
+    <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="444.0" prefWidth="828.0" BorderPane.alignment="CENTER">
       <children>
-        <JFXTextField fx:id="userName" promptText="Username">
+        <Label alignment="CENTER" text="Login" textFill="WHITE">
           <font>
-            <Font size="23.0" />
+            <Font size="44.0" />
           </font>
+          <VBox.margin>
+            <Insets />
+          </VBox.margin>
+        </Label>
+        <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="350.0" text="Welcome to our kiosk. Please enter your credentials" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+          <font>
+            <Font size="20.0" />
+          </font>
+          <VBox.margin>
+            <Insets bottom="15.0" />
+          </VBox.margin>
+        </Label>
+        <JFXTextField fx:id="username" focusColor="#32b92d" maxWidth="350.0" prefHeight="50.0" prefWidth="350.0" promptText="Username" style="-fx-background-color: white; -fx-background-radius: 5;">
+          <VBox.margin>
+            <Insets bottom="15.0" />
+          </VBox.margin>
         </JFXTextField>
-        <JFXPasswordField fx:id="passWord" prefHeight="36.0" prefWidth="258.0" promptText="Password">
-          <font>
-            <Font size="23.0" />
-          </font>
+        <JFXPasswordField fx:id="password" focusColor="#32b92d" maxWidth="350.0" prefHeight="50.0" promptText="Password" style="-fx-background-color: white; -fx-border-radius: 5; -fx-background-radius: 5;">
+          <VBox.margin>
+            <Insets bottom="10.0" />
+          </VBox.margin>
         </JFXPasswordField>
+        <Label fx:id="loginFail" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="281.0" textFill="WHITE" />
+        <JFXButton fx:id="loginButton" buttonType="RAISED" defaultButton="true" maxWidth="350.0" onAction="#loginButtonAction" ripplerFill="WHITE" style="-fx-background-color: #32B92D; -fx-background-radius: 5;" text="Login" textFill="WHITE">
+          <VBox.margin>
+            <Insets top="10.0" />
+          </VBox.margin>
+          <font>
+            <Font name="System Bold" size="21.0" />
+          </font>
+        </JFXButton>
       </children>
     </VBox>
-    <JFXButton fx:id="loginButton" layoutX="287.0" layoutY="310.0" onAction="#loginButtonAction" text="Login">
-      <font>
-        <Font size="18.0" />
-      </font>
-    </JFXButton>
-    <Label fx:id="loginFail" layoutX="72.0" layoutY="277.0" prefHeight="39.0" prefWidth="338.0">
-      <font>
-        <Font size="15.0" />
-      </font>
-    </Label>
-  </children>
-</AnchorPane>
+  </center>
+  <top>
+    <StackPane prefHeight="20.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+  </top>
+  <bottom>
+    <StackPane prefHeight="20.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+  </bottom>
+  <left>
+    <StackPane prefHeight="50.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+  </left>
+  <right>
+    <StackPane prefHeight="50.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+  </right>
+</BorderPane>
