@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -27,7 +28,7 @@ import edu.wpi.cs3733.d19.teamO.entity.Node;
 
 
 public class MapView extends StackPane {
-
+  private int level = 1;
 
   @FXML
   private GesturePane gesturePane;
@@ -88,18 +89,57 @@ public class MapView extends StackPane {
       coordY.setText(Double.toString((int) pointOnMap.getX()));
       coordX.setText(Double.toString((int) pointOnMap.getY()));
     });
-    resetButtonBackground();
-    levelF1.setStyle("-fx-background-color: rgba(17,0,255,0.33)");
+    resetButtonBackground(99);
+    levelF1.setStyle("-fx-background-color: rgba(17,0,255,0.4)");
 
   }
 
-  void resetButtonBackground() {
-    levelL1.setStyle("-fx-background-color: rgba(249,249,255,0)");
-    levelL2.setStyle("-fx-background-color: rgba(249,249,255,0)");
-    levelF1.setStyle("-fx-background-color: rgba(249,249,255,0)");
-    levelF2.setStyle("-fx-background-color: rgba(249,249,255,0)");
-    levelF3.setStyle("-fx-background-color: rgba(249,249,255,0)");
-    levelG.setStyle("-fx-background-color: rgba(249,249,255,0)");
+  void resetButtonBackground(int level) {
+    if (level == 1) {
+      levelL1.setStyle("-fx-background-color: rgba(249,249,255,0)");
+      levelL2.setStyle("-fx-background-color: rgba(249,249,255,0)");
+      levelF2.setStyle("-fx-background-color: rgba(249,249,255,0)");
+      levelF3.setStyle("-fx-background-color: rgba(249,249,255,0)");
+      levelG.setStyle("-fx-background-color: rgba(249,249,255,0)");
+    } else if (level == 2) {
+      levelL1.setStyle("-fx-background-color: rgba(249,249,255,0)");
+      levelL2.setStyle("-fx-background-color: rgba(249,249,255,0)");
+      levelF1.setStyle("-fx-background-color: rgba(249,249,255,0)");
+      levelF3.setStyle("-fx-background-color: rgba(249,249,255,0)");
+      levelG.setStyle("-fx-background-color: rgba(249,249,255,0)");
+    } else if (level == 3) {
+      levelL1.setStyle("-fx-background-color: rgba(249,249,255,0)");
+      levelL2.setStyle("-fx-background-color: rgba(249,249,255,0)");
+      levelF1.setStyle("-fx-background-color: rgba(249,249,255,0)");
+      levelF2.setStyle("-fx-background-color: rgba(249,249,255,0)");
+      levelG.setStyle("-fx-background-color: rgba(249,249,255,0)");
+    } else if (level == 0) {
+      levelL1.setStyle("-fx-background-color: rgba(249,249,255,0)");
+      levelL2.setStyle("-fx-background-color: rgba(249,249,255,0)");
+      levelF1.setStyle("-fx-background-color: rgba(249,249,255,0)");
+      levelF2.setStyle("-fx-background-color: rgba(249,249,255,0)");
+      levelF3.setStyle("-fx-background-color: rgba(249,249,255,0)");
+    } else if (level == -1) {
+      levelG.setStyle("-fx-background-color: rgba(249,249,255,0)");
+      levelL2.setStyle("-fx-background-color: rgba(249,249,255,0)");
+      levelF1.setStyle("-fx-background-color: rgba(249,249,255,0)");
+      levelF2.setStyle("-fx-background-color: rgba(249,249,255,0)");
+      levelF3.setStyle("-fx-background-color: rgba(249,249,255,0)");
+    } else if (level == -2) {
+      levelL1.setStyle("-fx-background-color: rgba(249,249,255,0)");
+      levelG.setStyle("-fx-background-color: rgba(249,249,255,0)");
+      levelF1.setStyle("-fx-background-color: rgba(249,249,255,0)");
+      levelF2.setStyle("-fx-background-color: rgba(249,249,255,0)");
+      levelF3.setStyle("-fx-background-color: rgba(249,249,255,0)");
+    } else {
+      levelL1.setStyle("-fx-background-color: rgba(249,249,255,0)");
+      levelG.setStyle("-fx-background-color: rgba(249,249,255,0)");
+      levelF1.setStyle("-fx-background-color: rgba(249,249,255,0)");
+      levelF2.setStyle("-fx-background-color: rgba(249,249,255,0)");
+      levelF3.setStyle("-fx-background-color: rgba(249,249,255,0)");
+      levelL2.setStyle("-fx-background-color: rgba(249,249,255,0)");
+    }
+
   }
 
 
@@ -110,9 +150,9 @@ public class MapView extends StackPane {
 
     if (src.equals(levelF1) || src.equals(levelF2) || src.equals(levelF3)
         || src.equals(levelG) || src.equals(levelL1) || src.equals(levelL2)) {
-      resetButtonBackground();
+      resetButtonBackground(level);
       // If the src of this ActionEvent is from our supported buttons
-      ((Button) src).setStyle("-fx-background-color:  rgba(17,0,255,0.44)"); // style button
+      ((Button) src).setStyle("-fx-background-color:  rgba(17,0,255,0.4)"); // style button
     } else {
       // If the src of this ActionEvent is from an unsupported button, return.
       System.out.println(e.getSource());
@@ -123,16 +163,22 @@ public class MapView extends StackPane {
 
     if (src.equals(levelF1)) {
       filename = "01_thefirstfloor.png";
+      level = 1;
     } else if (src.equals(levelF2)) {
       filename = "02_thesecondfloor.png";
+      level = 2;
     } else if (src.equals(levelF3)) {
       filename = "03_thethirdfloor.png";
+      level = 3;
     } else if (src.equals(levelL1)) {
       filename = "00_thelowerlevel1.png";
+      level = -1;
     } else if (src.equals(levelL2)) {
       filename = "00_thelowerlevel2.png";
+      level = -2;
     } else if (src.equals(levelG)) {
       filename = "00_thegroundfloor.png";
+      level = 0;
     }
 
     backgroundImage.setImage(new Image(getClass().getResource(filename).openStream()));
@@ -141,6 +187,26 @@ public class MapView extends StackPane {
   }
 
 
+  @FXML
+  void onMouseMove(MouseEvent e) {
+    Object src = e.getSource();
+    resetButtonBackground(level);
+
+    if (src.equals(levelF1) && level != 1) {
+      levelF1.setStyle("-fx-background-color:  rgba(17,0,255,0.2)");
+    } else if (src.equals(levelF2) && level != 2) {
+      levelF2.setStyle("-fx-background-color:  rgba(17,0,255,0.2)");
+    } else if (src.equals(levelF3) && level != 3) {
+      levelF3.setStyle("-fx-background-color:  rgba(17,0,255,0.2)");
+    } else if (src.equals(levelL1) && level != -1) {
+      levelL1.setStyle("-fx-background-color:  rgba(17,0,255,0.2)");
+    } else if (src.equals(levelL2) && level != -2) {
+      levelL2.setStyle("-fx-background-color:  rgba(17,0,255,0.2)");
+    } else if (src.equals(levelG) && level != 0) {
+      levelG.setStyle("-fx-background-color:  rgba(17,0,255,0.2)");
+
+    }
+  }
 
 
   /**
