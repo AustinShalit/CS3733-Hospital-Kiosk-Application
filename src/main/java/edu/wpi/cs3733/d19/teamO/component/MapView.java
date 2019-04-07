@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -24,7 +25,10 @@ import net.kurobako.gesturefx.GesturePane;
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 
+
 public class MapView extends StackPane {
+
+
   @FXML
   private GesturePane gesturePane;
 
@@ -49,6 +53,11 @@ public class MapView extends StackPane {
   private Button levelL2;
   @FXML
   private Button levelG;
+  @FXML
+  private Label coordX;
+  @FXML
+  private Label coordY;
+
 
   /**
    * The constructor for the MapView class.
@@ -66,16 +75,22 @@ public class MapView extends StackPane {
   void initialize() {
     gesturePane.setMinScale(0.1);
     gesturePane.setOnMouseClicked(e -> {
+      Point2D pointOnMap = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
+          .orElse(gesturePane.targetPointAtViewportCentre());
+
       if (e.getButton() == MouseButton.PRIMARY && e.getClickCount() == 2) {
-        Point2D pivotOnTarget = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
-            .orElse(gesturePane.targetPointAtViewportCentre());
+
         // increment of scale makes more sense exponentially instead of linearly
         gesturePane.animate(Duration.millis(200))
             .interpolateWith(Interpolator.EASE_BOTH)
-            .zoomBy(gesturePane.getCurrentScale(), pivotOnTarget);
+            .zoomBy(gesturePane.getCurrentScale(), pointOnMap);
       }
+      coordY.setText(Double.toString((int) pointOnMap.getX()));
+      coordX.setText(Double.toString((int) pointOnMap.getY()));
     });
+    resetButtonBackground();
     levelF1.setStyle("-fx-background-color: rgba(17,0,255,0.33)");
+
   }
 
   void resetButtonBackground() {
@@ -88,7 +103,6 @@ public class MapView extends StackPane {
   }
 
 
-
   @FXML
   @SuppressWarnings("PMD.CyclomaticComplexity")
   void onFloorSelectAction(ActionEvent e) throws IOException {
@@ -98,7 +112,7 @@ public class MapView extends StackPane {
         || src.equals(levelG) || src.equals(levelL1) || src.equals(levelL2)) {
       resetButtonBackground();
       // If the src of this ActionEvent is from our supported buttons
-      ((Button) src).setStyle("-fx-background-color:  rgba(17,0,255,0.33)"); // style button
+      ((Button) src).setStyle("-fx-background-color:  rgba(17,0,255,0.44)"); // style button
     } else {
       // If the src of this ActionEvent is from an unsupported button, return.
       System.out.println(e.getSource());
@@ -121,7 +135,8 @@ public class MapView extends StackPane {
       filename = "00_thegroundfloor.png";
     }
 
-    setMapImage(new Image(getClass().getResource(filename).openStream()));
+    backgroundImage.setImage(new Image(getClass().getResource(filename).openStream()));
+
 
   }
 
@@ -186,4 +201,5 @@ public class MapView extends StackPane {
   public void clearEdges() {
     edges.getChildren().clear();
   }
+
 }

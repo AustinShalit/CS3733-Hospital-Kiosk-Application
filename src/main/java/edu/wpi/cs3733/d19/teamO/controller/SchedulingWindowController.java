@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d19.teamO.controller;
 
 import java.sql.SQLException;
 
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
 
@@ -9,7 +10,6 @@ import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -24,7 +24,7 @@ public class SchedulingWindowController extends Controller {
   @FXML
   private Button submitButton;
   @FXML
-  private ComboBox<Node> roomComboBox;
+  private JFXComboBox<Node> roomComboBox;
   @FXML
   private TextField nameBox;
   @FXML
@@ -72,19 +72,19 @@ public class SchedulingWindowController extends Controller {
     submitButton.disableProperty().bind(new BooleanBinding() {
       {
         super.bind(nameBox.textProperty(),
-                startChoiceBox.valueProperty(),
-                endChoiceBox.valueProperty(),
-                datePicker.valueProperty(),
-                roomComboBox.valueProperty());
+            startChoiceBox.valueProperty(),
+            endChoiceBox.valueProperty(),
+            datePicker.valueProperty(),
+            roomComboBox.valueProperty());
       }
 
       @Override
       protected boolean computeValue() {
-          return nameBox.getText() == null
-          || startChoiceBox.getValue() == null
-          || endChoiceBox.getValue() == null
-          || datePicker.getValue() == null
-          || roomComboBox.getValue() == null;
+        return nameBox.getText() == null
+            || startChoiceBox.getValue() == null
+            || endChoiceBox.getValue() == null
+            || datePicker.getValue() == null
+            || roomComboBox.getValue() == null;
       }
     });
   }
