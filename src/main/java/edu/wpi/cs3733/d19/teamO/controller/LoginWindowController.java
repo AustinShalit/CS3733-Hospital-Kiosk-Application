@@ -65,7 +65,7 @@ public class LoginWindowController extends Controller {
 
       // if info typed was right, you go to main window screen
       if (check) {
-        switchScenes("Main.fxml", loginButton.getScene().getWindow());
+        switchScenes("./v2/Main.fxml", loginButton.getScene().getWindow());
       } else {
         loginFail.setText("Incorrect username or password");
         bounceTextAnimation(loginFail);
