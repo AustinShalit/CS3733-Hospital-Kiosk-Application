@@ -104,7 +104,6 @@ public class MapView extends StackPane {
   }
 
 
-
   @FXML
   @SuppressWarnings("PMD.CyclomaticComplexity")
   void onFloorSelectAction(ActionEvent e) throws IOException {
@@ -114,7 +113,7 @@ public class MapView extends StackPane {
         || src.equals(levelG) || src.equals(levelL1) || src.equals(levelL2)) {
       resetButtonBackground();
       // If the src of this ActionEvent is from our supported buttons
-      ((Button) src).setStyle("-fx-background-color:  rgba(17,0,255,0.33)"); // style button
+      ((Button) src).setStyle("-fx-background-color:  rgba(17,0,255,0.44)"); // style button
     } else {
       // If the src of this ActionEvent is from an unsupported button, return.
       System.out.println(e.getSource());
@@ -137,7 +136,8 @@ public class MapView extends StackPane {
       filename = "00_thegroundfloor.png";
     }
 
-    setMapImage(new Image(getClass().getResource(filename).openStream()));
+    backgroundImage.setImage(new Image(getClass().getResource(filename).openStream()));
+
 
   }
 

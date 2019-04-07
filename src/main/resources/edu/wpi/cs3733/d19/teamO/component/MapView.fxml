@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
@@ -28,6 +29,9 @@
     <StackPane.margin>
       <Insets bottom="140.0" right="20.0" />
     </StackPane.margin>
+    <cursor>
+      <Cursor fx:constant="DEFAULT" />
+    </cursor>
   </JFXButton>
   <JFXButton fx:id="levelF2" alignment="CENTER" buttonType="RAISED" onAction="#onFloorSelectAction" prefHeight="30.0" prefWidth="30.0" text="2" StackPane.alignment="BOTTOM_RIGHT">
     <opaqueInsets>
