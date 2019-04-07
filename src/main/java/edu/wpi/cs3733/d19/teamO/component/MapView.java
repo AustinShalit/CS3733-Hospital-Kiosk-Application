@@ -77,6 +77,7 @@ public class MapView extends StackPane {
     gesturePane.setOnMouseClicked(e -> {
       Point2D pointOnMap = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
           .orElse(gesturePane.targetPointAtViewportCentre());
+
       if (e.getButton() == MouseButton.PRIMARY && e.getClickCount() == 2) {
 
         // increment of scale makes more sense exponentially instead of linearly
@@ -87,10 +88,8 @@ public class MapView extends StackPane {
       coordY.setText(Double.toString((int) pointOnMap.getX()));
       coordX.setText(Double.toString((int) pointOnMap.getY()));
     });
-
+    resetButtonBackground();
     levelF1.setStyle("-fx-background-color: rgba(17,0,255,0.33)");
-
-
 
   }
 
