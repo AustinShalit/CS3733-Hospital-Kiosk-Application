@@ -71,6 +71,15 @@ public class Database {
     return nodeDao.update(node);
   }
 
+
+  public Set<Node> getAllRooms(String type) {
+    return nodeDao.getAllRooms(type);
+  }
+
+  public Set<Node> getFloor(String floor) {
+    return nodeDao.getFloor(floor);
+  }
+
   /*
    * Edge
    */
