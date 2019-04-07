@@ -12,6 +12,7 @@ import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SchedulingRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
+import edu.wpi.cs3733.d19.teamO.entity.SupportAnimalRequest;
 
 @SuppressWarnings("PMD.TooManyMethods")
 public class Database {
@@ -23,6 +24,7 @@ public class Database {
   private final SchedulingRequestDao schedulingRequestDao;
   private final LoginDao loginDao;
   private final InternalTransportationRequestDao itransportationDao;
+  private final SupportAnimalRequestDao supportAnimalRequestDao;
   private final EmployeeDao employeeDao;
 
 
@@ -34,6 +36,7 @@ public class Database {
     this.loginDao = new LoginDaoDb(dcf);
     this.schedulingRequestDao = new SchedulingRequestDaoDb(dcf);
     this.itransportationDao = new InternalTransportationRequestDaoDb(dcf);
+    this.supportAnimalRequestDao = new SupportAnimalRequestDaoDb(dcf);
     this.employeeDao = new EmployeeDaoDb(dcf);
   }
 
@@ -249,6 +252,29 @@ public class Database {
   public boolean updateInternalTransportationRequest(
       InternalTransportationRequest internalTransportationRequest) {
     return itransportationDao.update(internalTransportationRequest);
+  }
+
+  /*
+   * Support Animal
+   */
+  public Optional<SupportAnimalRequest> getSupportAnimalRequest(int id) {
+    return supportAnimalRequestDao.get(id);
+  }
+
+  public Set<SupportAnimalRequest> getAllSupportAnimalRequests() {
+    return supportAnimalRequestDao.getAll();
+  }
+
+  public boolean insertSupportAnimalRequest(SupportAnimalRequest request) {
+    return supportAnimalRequestDao.insert(request);
+  }
+
+  public boolean deleteSupportAnimalRequest(SupportAnimalRequest request) {
+    return supportAnimalRequestDao.delete(request);
+  }
+
+  public boolean updateSupportAnimalRequest(SupportAnimalRequest request) {
+    return supportAnimalRequestDao.update(request);
   }
 
 }
