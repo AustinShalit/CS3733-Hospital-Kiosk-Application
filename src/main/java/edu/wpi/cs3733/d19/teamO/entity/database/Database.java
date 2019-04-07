@@ -5,6 +5,8 @@ import java.util.Optional;
 import java.util.Set;
 
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
+import edu.wpi.cs3733.d19.teamO.entity.Employee;
+import edu.wpi.cs3733.d19.teamO.entity.InternalTransportationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.Login;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
@@ -20,6 +22,8 @@ public class Database {
   private final SanitationRequestDao sanitationRequestDao;
   private final SchedulingRequestDao schedulingRequestDao;
   private final LoginDao loginDao;
+  private final InternalTransportationRequestDao itransportationDao;
+  private final EmployeeDao employeeDao;
 
 
   Database(DatabaseConnectionFactory dcf) throws SQLException {
@@ -29,6 +33,8 @@ public class Database {
     this.sanitationRequestDao = new SanitationRequestDaoDb(dcf);
     this.loginDao = new LoginDaoDb(dcf);
     this.schedulingRequestDao = new SchedulingRequestDaoDb(dcf);
+    this.itransportationDao = new InternalTransportationRequestDaoDb(dcf);
+    this.employeeDao = new EmployeeDaoDb(dcf);
   }
 
   /**
@@ -185,6 +191,64 @@ public class Database {
 
   public boolean updateScheduling(SchedulingRequest schedulingRequest) {
     return schedulingRequestDao.update(schedulingRequest);
+  }
+
+  /**
+   * Used to check for conflicts before inserting them.
+   * @param schedulingRequest The scheduling request you want that might get added.
+   * @return Returns false if no conflict, Returns true if there would be a conflict.
+   */
+  public boolean schedulingRequestWouldConflict(SchedulingRequest schedulingRequest) {
+    return schedulingRequestDao.wouldConflict(schedulingRequest);
+  }
+
+  /*
+   * Employee
+   */
+  public Optional<Employee> getEmployee(int id) {
+    return employeeDao.get(id);
+  }
+
+  public Set<Employee> getAllEmployees() {
+    return employeeDao.getAll();
+  }
+
+  public boolean insertEmployee(Employee employee) {
+    return employeeDao.insert(employee);
+  }
+
+  public boolean deleteEmployee(Employee employee) {
+    return employeeDao.delete(employee);
+  }
+
+  public boolean updateEmployee(Employee employee) {
+    return employeeDao.update(employee);
+  }
+
+  /*
+   * Internal Transporation
+   */
+  public Optional<InternalTransportationRequest> getInternalTransportationRequest(int id) {
+    return itransportationDao.get(id);
+  }
+
+  public Set<InternalTransportationRequest> getAllInternalTransportationRequests() {
+    return itransportationDao.getAll();
+  }
+
+  public boolean insertInternalTransportationRequest(
+      InternalTransportationRequest internalTransportationRequest) {
+    return itransportationDao.insert(internalTransportationRequest);
+  }
+
+  public boolean deleteInternalTransportationRequest(
+      InternalTransportationRequest internalTransportationRequest) {
+    return itransportationDao.delete(internalTransportationRequest);
+  }
+
+  public boolean updateInternalTransportationRequest(
+      InternalTransportationRequest internalTransportationRequest) {
+    return itransportationDao.update(internalTransportationRequest);
   }
 
 }

@@ -19,6 +19,7 @@ import edu.wpi.cs3733.d19.teamO.entity.csv.EdgeCsvReaderWriter;
 import edu.wpi.cs3733.d19.teamO.entity.csv.NodeCsvReaderWriter;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
+@SuppressWarnings("PMD.TooManyMethods")
 public class MainWindowController extends Controller {
 
   @FXML
@@ -38,9 +39,13 @@ public class MainWindowController extends Controller {
   @FXML
   private Button edgeImportButton;
   @FXML
+  private Button itrequestButton;
+  @FXML
+  private Button itrequestviewButton;
+  @FXML
   private Label nodeImportInProgress;
 
-  private Database database;
+  Database database;
 
   @FXML
   void navigationButtonAction(ActionEvent event) {
@@ -65,6 +70,17 @@ public class MainWindowController extends Controller {
   @FXML
   void schedulingButtonButtonAction(ActionEvent event) {
     switchScenes("SchedulingWindow.fxml", schedulingButton.getScene().getWindow());
+  }
+
+  @FXML
+  void itButtonButtonAction(ActionEvent event) {
+    switchScenes("InternalTransportationWindow.fxml", itrequestButton.getScene().getWindow());
+  }
+
+  @FXML
+  void itviewButtonButtonAction(ActionEvent event) {
+    switchScenes("InternalTransportationViewWindow.fxml",
+        itrequestviewButton.getScene().getWindow());
   }
 
   @FXML
@@ -132,7 +148,6 @@ public class MainWindowController extends Controller {
   @FXML
   public void initialize() throws SQLException {
     database = new Database();
-    edgeImportButton.setDisable(true);
   }
 }
 

@@ -6,9 +6,10 @@ import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.jfoenix.controls.JFXComboBox;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 
 import edu.wpi.cs3733.d19.teamO.controller.exception.InvalidUserInputException;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
@@ -30,7 +31,7 @@ public class SecurityWindowController extends Controller {
   private Button viewSecurityRequestsButton;
 
   @FXML
-  private ComboBox<Node> locationComboBox;
+  private JFXComboBox<Node> locationComboBox;
 
   @FXML
   void initialize() throws SQLException {
