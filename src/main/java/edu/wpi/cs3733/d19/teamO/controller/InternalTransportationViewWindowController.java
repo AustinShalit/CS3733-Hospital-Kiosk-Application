@@ -44,9 +44,11 @@ public class InternalTransportationViewWindowController extends Controller {
   @FXML
   private TableColumn<InternalTransportationRequest, String> nameCol;
 
+  private Database db;
+
   @FXML
   void initialize() throws SQLException {
-    final Database db = new Database();
+    db = new Database();
 
     idTableCol.setCellValueFactory(new PropertyValueFactory<>("id"));
     timeRequestedCol.setCellValueFactory(new PropertyValueFactory<>("timeRequested"));
@@ -82,7 +84,6 @@ public class InternalTransportationViewWindowController extends Controller {
     String name = textInputDialog("Enter Employee Name",
         "Enter Employee Name", "Employee Name: ");
 
-    Database db = new Database();
     InternalTransportationRequest sr = db.getInternalTransportationRequest(idInt).get();
     sr.setWhoCompleted(name);
     db.updateInternalTransportationRequest(sr);
@@ -96,5 +97,8 @@ public class InternalTransportationViewWindowController extends Controller {
     InternalTransportationRequest selectedItem =
         requestsTableView.getSelectionModel().getSelectedItem();
     requestsTableView.getItems().remove(selectedItem);
+
+    db.deleteInternalTransportationRequest(selectedItem);
+
   }
 }
