@@ -78,6 +78,8 @@ public class MainController {
       Node view = loader.load();
       contentPane.setCenter(view);
       toolbar.setVisible(event.isFramed());
+      // Force popup closed
+      optionsPopup.hide();
     } catch (IOException e) {
       e.printStackTrace();
       throw new RuntimeException(e);
