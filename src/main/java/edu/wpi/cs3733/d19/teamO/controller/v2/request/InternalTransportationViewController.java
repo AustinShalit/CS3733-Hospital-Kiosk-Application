@@ -23,6 +23,7 @@ import edu.wpi.cs3733.d19.teamO.entity.InternalTransportationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 @FxmlController(url = "InternalTransportationView.fxml")
+@SuppressWarnings("PMD.TooManyFields")
 public class InternalTransportationViewController implements Controller {
 
   @FXML

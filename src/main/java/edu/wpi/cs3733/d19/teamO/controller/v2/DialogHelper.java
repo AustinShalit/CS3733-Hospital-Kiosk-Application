@@ -65,6 +65,9 @@ public final class DialogHelper {
     return "";
   }
 
+  /**
+   * Populate a combobox of nodes.
+   */
   public static void populateComboBox(
       Database database, JFXComboBox<Node> comboBox) {
     comboBox.getItems().addAll(database.getAllNodes());
