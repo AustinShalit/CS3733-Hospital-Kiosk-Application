@@ -93,6 +93,10 @@ public class SchedulingRequestDaoDb implements SchedulingRequestDao {
   @Override
   public boolean insert(final SchedulingRequest schedulingRequest) {
     try (Connection connection = dcf.getConnection()) {
+      if (wouldConflict(schedulingRequest)) {
+        return false;
+      }
+
       PreparedStatement statement;
       statement = connection.prepareStatement(
           queries.getProperty("scheduling_request.insert"),
@@ -121,6 +125,10 @@ public class SchedulingRequestDaoDb implements SchedulingRequestDao {
   @Override
   public boolean update(final SchedulingRequest schedulingRequest) {
     try (Connection connection = dcf.getConnection()) {
+      if (wouldConflict(schedulingRequest)) {
+        return false;
+      }
+
       PreparedStatement statement = connection.prepareStatement(
           queries.getProperty("scheduling_request.update"));
       statement.setTimestamp(1, Timestamp.valueOf(schedulingRequest.getStartTime()));
