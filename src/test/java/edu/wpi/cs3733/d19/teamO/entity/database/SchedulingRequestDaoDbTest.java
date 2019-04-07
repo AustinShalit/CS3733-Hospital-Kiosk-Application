@@ -21,6 +21,8 @@ class SchedulingRequestDaoDbTest {
 
   private static final Node nodeA = new Node("A", 1, 2, "0", "B",
       Node.NodeType.HALL, "AL", "AS");
+  private static final Node nodeB = new Node("B", 4, 6, "1", "B",
+      Node.NodeType.REST, "BL", "BS");
   private static final LocalDateTime aStart = LocalDateTime.of(2019, 4, 1,
       3, 30);
   private static final LocalDateTime aEnd = LocalDateTime.of(2019, 4, 1,
@@ -130,6 +132,55 @@ class SchedulingRequestDaoDbTest {
   @Test
   void getAllEmptyTest() {
     assertTrue(database.getAllSchedulingRequests().isEmpty());
+  }
+
+  @Test
+  void wouldConflictTest() {
+    // Starts during schedulingRequest and ends after schedulingRequest
+    SchedulingRequest conflictingSchedulingRequest1 = new SchedulingRequest(
+        2,
+        LocalDateTime.of(2019, 4, 1, 4, 0),
+        LocalDateTime.of(2019, 4, 1, 5, 0),
+        LocalDateTime.now(),
+        LocalDateTime.now(),
+        "Bob",
+        nodeA);
+
+    // Starts before schedulingRequest and ends after schedulingRequest
+    SchedulingRequest conflictingSchedulingRequest2 = new SchedulingRequest(
+        2,
+        LocalDateTime.of(2019, 4, 1, 2, 0),
+        LocalDateTime.of(2019, 4, 1, 6, 0),
+        LocalDateTime.now(),
+        LocalDateTime.now(),
+        "Bob",
+        nodeA);
+
+    // Ends at the same time schedulingRequest starts
+    SchedulingRequest nonConflictingSchedulingRequest1 = new SchedulingRequest(
+        2,
+        LocalDateTime.of(2019, 4, 1, 2, 0),
+        LocalDateTime.of(2019, 4, 1, 3, 30),
+        LocalDateTime.now(),
+        LocalDateTime.now(),
+        "Bob",
+        nodeA);
+
+    // Same time as schedulingRequest but in a different room
+    SchedulingRequest nonConflictingSchedulingRequest2 = new SchedulingRequest(
+        2,
+        LocalDateTime.of(2019, 4, 1, 3, 30),
+        LocalDateTime.of(2019, 4, 1, 4, 30),
+        LocalDateTime.now(),
+        LocalDateTime.now(),
+        "Bob",
+        nodeB);
+
+    database.insertSchedulingrequest(schedulingRequest);
+    assertTrue(database.schedulingRequestWouldConflict(conflictingSchedulingRequest1));
+    assertTrue(database.schedulingRequestWouldConflict(conflictingSchedulingRequest2));
+    assertFalse(database.schedulingRequestWouldConflict(nonConflictingSchedulingRequest1));
+    assertFalse(database.schedulingRequestWouldConflict(nonConflictingSchedulingRequest2));
   }
 
 }

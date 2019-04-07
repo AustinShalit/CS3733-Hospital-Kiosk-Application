@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
@@ -17,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import edu.wpi.cs3733.d19.teamO.entity.SchedulingRequest;
+import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
 
 public class SchedulingRequestDaoDb implements SchedulingRequestDao {
 
@@ -145,6 +147,32 @@ public class SchedulingRequestDaoDb implements SchedulingRequestDao {
           = connection.prepareStatement(queries.getProperty("scheduling_request.delete"));
       statement.setInt(1, schedulingRequest.getId());
       return statement.executeUpdate() == 1;
+    } catch (SQLException ex) {
+      logger.log(Level.WARNING, "Failed to delete Scheduling Request", ex);
+    }
+    return false;
+  }
+
+  @Override
+  public boolean wouldConflict(final SchedulingRequest proposedSchedulingRequest) {
+    try (Connection connection = dcf.getConnection()) {
+      PreparedStatement statement
+          = connection.prepareStatement(queries.getProperty("scheduling_request.would_conflict"));
+      statement.setString(1, proposedSchedulingRequest.getRoom().getNodeId());
+
+      try (ResultSet resultSet = statement.executeQuery()) {
+        ArrayList<SchedulingRequest> schedulingRequests = new ArrayList<>();
+        while (resultSet.next()) {
+          schedulingRequests.add(extractSchedulingRequestFromResultSet(resultSet));
+        }
+        boolean conflictExists = false;
+        for (SchedulingRequest existingSchedulingRequest : schedulingRequests) {
+          if (existingSchedulingRequest.conflictsWith(proposedSchedulingRequest)) {
+            conflictExists = true;
+          }
+        }
+        return conflictExists;
+      }
     } catch (SQLException ex) {
       logger.log(Level.WARNING, "Failed to delete Scheduling Request", ex);
     }

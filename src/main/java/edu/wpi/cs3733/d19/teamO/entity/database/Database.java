@@ -190,6 +190,15 @@ public class Database {
     return schedulingRequestDao.update(schedulingRequest);
   }
 
+  /**
+   * Used to check for conflicts before inserting them.
+   * @param schedulingRequest The scheduling request you want that might get added.
+   * @return Returns false if no conflict, Returns true if there would be a conflict.
+   */
+  public boolean schedulingRequestWouldConflict(SchedulingRequest schedulingRequest) {
+    return schedulingRequestDao.wouldConflict(schedulingRequest);
+  }
+
   /*
    * Employee
    */

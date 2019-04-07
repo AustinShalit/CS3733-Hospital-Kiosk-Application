@@ -91,6 +91,28 @@ public class SchedulingRequest {
     this.id = id;
   }
 
+  /**
+   * Use to check if this scheduling request would happen at the same time and place as
+   * the other scheduling request.
+   * @param schedulingRequest The other scheduling request.
+   * @return True if there would be a conflict, false otherwise.
+   */
+  public boolean conflictsWith(SchedulingRequest schedulingRequest) {
+    if (!room.equals(schedulingRequest.room)) {
+      return false;
+    }
+
+    if (endTime.isBefore(schedulingRequest.startTime) || endTime.isEqual(schedulingRequest.startTime)) {
+      return false;
+    }
+
+    if (schedulingRequest.endTime.isBefore(startTime) || schedulingRequest.endTime.isEqual(startTime)) {
+      return false;
+    }
+
+    return true;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
