@@ -18,7 +18,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import edu.wpi.cs3733.d19.teamO.entity.SchedulingRequest;
-import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
 
 public class SchedulingRequestDaoDb implements SchedulingRequestDao {
 
