@@ -2,8 +2,9 @@ package edu.wpi.cs3733.d19.teamO.controller.v2;
 
 import java.io.IOException;
 
-import com.google.common.eventbus.EventBus;
-import com.google.common.eventbus.Subscribe;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.Module;
 import com.jfoenix.controls.JFXPopup;
 
 import javafx.fxml.FXML;
@@ -12,7 +13,8 @@ import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
-public class MainController {
+@FxmlController(url = "Home.fxml")
+public class MainController implements ContentSwitcher {
 
   @FXML
   private StackPane root;
@@ -23,19 +25,15 @@ public class MainController {
   @FXML
   private StackPane optionsBurger;
 
-  private final EventBus contentEventBus = new EventBus("Main Content EventBus");
-
   private JFXPopup optionsPopup;
 
-  public MainController() {
-    contentEventBus.register(this);
-  }
+  private Injector injector;
 
   @FXML
   void initialize() throws IOException {
-    onContentChangeRequest("Home.fxml");
-//    Node view = FXMLLoader.load(MainController.class.getResource("Home.fxml"));
-//    contentPane.setCenter(view);
+    injector = Guice.createInjector(
+        (Module) binder -> binder.bind(ContentSwitcher.class).toInstance(this));
+    accept(HomeController.class, HomeController.class.getAnnotation(FxmlController.class).url());
 
     FXMLLoader loader = new FXMLLoader(MainController.class.getResource("OptionsPopup.fxml"));
     optionsPopup = new JFXPopup(loader.load());
@@ -47,14 +45,23 @@ public class MainController {
             -12,
             15));
   }
+  
+  @Override
+  public void accept(Class clazz, String fxml) {
+    FXMLLoader loader = getFxmlLoader();
+    loader.setLocation(clazz.getResource(fxml));
+    try {
+      Node view = loader.load();
+      contentPane.setCenter(view);
+    } catch (IOException e) {
+      e.printStackTrace();
+      throw new RuntimeException(e);
+    }
+  }
 
-  @Subscribe
-  public void onContentChangeRequest(String r) throws IOException {
+  private FXMLLoader getFxmlLoader() {
     FXMLLoader loader = new FXMLLoader();
-    loader.setLocation(MainController.class.getResource(r));
-    Node view = loader.load();
-    ContentPane c = loader.getController();
-    c.setEventBus(contentEventBus);
-    contentPane.setCenter(view);
+    loader.setControllerFactory(injector::getInstance);
+    return loader;
   }
 }

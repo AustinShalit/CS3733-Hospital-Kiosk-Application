@@ -26,6 +26,7 @@ repositories {
 
 dependencies {
     implementation(group = "com.google.guava", name = "guava", version = "27.1-jre")
+    implementation(group = "com.google.inject", name = "guice", version = "4.2.2")
     implementation(group = "com.jfoenix", name = "jfoenix", version = "8.0.8")
     implementation(group = "com.opencsv", name = "opencsv", version = "4.5")
     implementation(group = "de.jensd", name = "fontawesomefx", version = "8.9")

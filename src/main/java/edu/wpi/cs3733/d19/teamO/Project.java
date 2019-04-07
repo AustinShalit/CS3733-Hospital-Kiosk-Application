@@ -3,6 +3,8 @@ package edu.wpi.cs3733.d19.teamO;
 import java.io.IOException;
 import java.util.logging.Logger;
 
+import com.google.inject.Guice;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
