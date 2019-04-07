@@ -35,7 +35,8 @@ public class LoginWindowController extends Controller {
 
     // Test user login info
     Login user1 = new Login("admin", "wong");
-    Login user2 = new Login("teamo", "won");
+    Login user2 = new Login("1", "1");
+    //Login user3 = new Login("1", "1");
 
     // checks if Logins inserted, if already inserted will not give message
     if (db.insertLogin(user2) && db.insertLogin(user1)) {
