@@ -1,14 +1,15 @@
 package edu.wpi.cs3733.d19.teamO.controller.v2;
 
+import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 
 import javafx.fxml.FXML;
 
-import edu.wpi.cs3733.d19.teamO.entity.database.Database;
+import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
 
 @FxmlController(url = "Home.fxml")
-public class HomeController extends Controller {
+public class HomeController {
 
   @FXML
   private JFXButton navigationButton;
@@ -18,11 +19,8 @@ public class HomeController extends Controller {
   private JFXButton scheduleButton;
   @FXML
   private JFXButton securityButton;
-
   @Inject
-  private ContentSwitcher contentSwitcher;
-
-  Database database;
+  private EventBus eventBus;
 
   @FXML
   void navigationOnAction(){
@@ -31,8 +29,8 @@ public class HomeController extends Controller {
 
   @FXML
   void requestOnAction(){
-    contentSwitcher.accept(RequestController.class,
-        RequestController.class.getDeclaredAnnotation(FxmlController.class).url());
+    eventBus.post(new ChangeMainViewEvent(RequestController.class
+        .getResource(RequestController.class.getAnnotation(FxmlController.class).url())));
   }
 
   @FXML
@@ -42,9 +40,6 @@ public class HomeController extends Controller {
 
   @FXML
   void securityOnAction(){
-    if(securityDialog("Security", "Security will be called. Are you sure?", null)) {
-//      Node node = new Node();
-//      database.insertSecurityRequest(new SecurityRequest(LocalDateTime.now(), node));
-    }
+
   }
 }
