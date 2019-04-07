@@ -25,16 +25,17 @@ class SecurityRequestDaoDbTest {
   private static final SecurityRequest SECURITY_REQUEST
       = new SecurityRequest(1, LocalDateTime.now(),
       LocalDateTime.now(), "A", "D", NODE_A);
-  private SecurityRequestDaoDb dao;
+  private SecurityRequestDao dao;
 
   @BeforeEach
   void setup(TestInfo testInfo) throws SQLException {
     DatabaseConnectionFactory dcf
         = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
-        testInfo.getTestClass().get().getName()
-            + testInfo.getDisplayName());
-    NodeDaoDb nodeDaoDb = new NodeDaoDb(dcf);
-    nodeDaoDb.insert(NODE_A);
+        testInfo.getDisplayName());
+
+    NodeDaoDb nodeDao = new NodeDaoDb(dcf);
+    nodeDao.insert(NODE_A);
+
     dao = new SecurityRequestDaoDb(dcf);
   }
 
