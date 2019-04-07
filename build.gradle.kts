@@ -48,6 +48,9 @@ dependencies {
     testImplementation(testFx(name = "testfx-core"))
     testImplementation(testFx(name = "testfx-junit5"))
     testRuntime(testFx(name = "openjfx-monocle", version = "8u76-b04"))
+
+    testCompile(group = "junit", name = "junit", version = "4.12")
+    compile(group = "net.aksingh", name = "owm-japis", version = "2.5.2.3")
 }
 
 java {

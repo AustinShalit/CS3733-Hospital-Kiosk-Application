@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d19.teamO.controller.v2;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -12,7 +13,11 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.util.Duration;
+import net.aksingh.owmjapis.core.OWM;
+import net.aksingh.owmjapis.api.APIException;
+import net.aksingh.owmjapis.model.CurrentWeather;
 
 public class HomeController implements ContentPane {
 
@@ -43,6 +48,27 @@ public class HomeController implements ContentPane {
     );
     clock.setCycleCount(Animation.INDEFINITE);
     clock.play();
+
+    try{
+      getWeatherData();
+    }catch(APIException e){
+      e.printStackTrace();
+    }
+  }
+
+  void getWeatherData() throws APIException{
+    OWM owm = new OWM("c2711050ed24651e99a523ce6d08ad73");
+
+    CurrentWeather cwd = owm.currentWeatherByCityName("Worcester", OWM.Country.UNITED_STATES);
+
+    DecimalFormat df = new DecimalFormat("#.##");
+
+    double max = (cwd.getMainData().getTempMax() - 273.15) * 9.0 / 5.0 + 32.0;
+    double min = (cwd.getMainData().getTempMin() - 273.15) * 9.0 / 5.0 + 32.0;
+//    double cloud = cwd.getCloudData().getCloud();
+//    double wind = cwd.getWindData().getSpeed() * 3.6f;
+//    double rain = cwd.getRainData().getPrecipVol3h();
+    weatherLabel.setText("The weather at Worcester is from " + df.format(min) + " Fahrenheit to " + df.format(max) + " Fahrenheit" );
   }
 
   @FXML
