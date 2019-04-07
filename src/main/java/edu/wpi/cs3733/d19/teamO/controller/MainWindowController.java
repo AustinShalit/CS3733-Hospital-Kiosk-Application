@@ -1,10 +1,25 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.sql.SQLException;
+import java.util.List;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
+import edu.wpi.cs3733.d19.teamO.entity.Edge;
+import edu.wpi.cs3733.d19.teamO.entity.Node;
+import edu.wpi.cs3733.d19.teamO.entity.csv.EdgeCsvReaderWriter;
+import edu.wpi.cs3733.d19.teamO.entity.csv.NodeCsvReaderWriter;
+import edu.wpi.cs3733.d19.teamO.entity.database.Database;
+
+@SuppressWarnings("PMD.TooManyMethods")
 public class MainWindowController extends Controller {
 
   @FXML
@@ -24,8 +39,13 @@ public class MainWindowController extends Controller {
   @FXML
   private Button edgeImportButton;
   @FXML
+  private Button itrequestButton;
+  @FXML
+  private Button itrequestviewButton;
+  @FXML
   private Label nodeImportInProgress;
 
+  Database database;
 
   @FXML
   void navigationButtonAction(ActionEvent event) {
@@ -52,6 +72,73 @@ public class MainWindowController extends Controller {
     switchScenes("SchedulingWindow.fxml", schedulingButton.getScene().getWindow());
   }
 
+  @FXML
+  void itButtonButtonAction(ActionEvent event) {
+    switchScenes("InternalTransportationWindow.fxml", itrequestButton.getScene().getWindow());
+  }
+
+  @FXML
+  void itviewButtonButtonAction(ActionEvent event) {
+    switchScenes("InternalTransportationViewWindow.fxml",
+        itrequestviewButton.getScene().getWindow());
+  }
+
+  @FXML
+  void nodeImportButtonAction(ActionEvent e) throws IOException {
+    // Create and configure file chooser
+    final FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Choose Node CSV File");
+    fileChooser.setInitialDirectory(
+        new File(System.getProperty("user.home"))
+    );
+    fileChooser.getExtensionFilters().addAll(
+        new FileChooser.ExtensionFilter("CSV", "*.csv")
+    );
+
+    NodeCsvReaderWriter ncrw = new NodeCsvReaderWriter();
+    File file = fileChooser.showOpenDialog(new Stage());
+
+    List<Node> nodes = ncrw.readNodes(Files.newBufferedReader(file.toPath()));
+
+    for (Node node : nodes) {
+      database.insertNode(node);
+    }
+    nodeImportInProgress.setText("Nodes Imported");
+    edgeImportButton.setDisable(false);
+
+  }
+
+  @FXML
+  void edgeImportButtonAction(ActionEvent e) throws IOException {
+    // Create and configure file chooser
+    final FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Choose Edge CSV File");
+    fileChooser.setInitialDirectory(
+        new File(System.getProperty("user.home"))
+    );
+    fileChooser.getExtensionFilters().addAll(
+        new FileChooser.ExtensionFilter("CSV", "*.csv")
+    );
+
+    EdgeCsvReaderWriter ecrw = new EdgeCsvReaderWriter(database);
+    File file = fileChooser.showOpenDialog(new Stage());
+    List<Edge> edges = ecrw.readEdges(Files.newBufferedReader(file.toPath()));
+
+    for (Edge edge : edges) {
+      Node start = edge.getStartNode();
+      Node end = edge.getEndNode();
+      if (start.getFloor().equals("1") && end.getFloor().equals("1")) {
+        database.insertEdge(edge);
+      }
+      if (!(edge.getStartNode().getFloor().equals("1"))) {
+        database.deleteNode(start);
+      }
+      if (!(edge.getEndNode().getFloor().equals("1"))) {
+        database.deleteNode(end);
+      }
+    }
+    nodeImportInProgress.setText("Edges Imported");
+  }
 
   @FXML
   void logoutButtonAction() {
@@ -59,7 +146,8 @@ public class MainWindowController extends Controller {
   }
 
   @FXML
-  public void initialize() {
+  public void initialize() throws SQLException {
+    database = new Database();
   }
 }
 

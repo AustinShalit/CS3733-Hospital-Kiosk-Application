@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTimePicker?>
-<?import javafx.scene.Group?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-
-
 <GridPane hgap="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.SchedulingWindowController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -32,7 +31,6 @@
   <children>
     <Group GridPane.columnIndex="1" GridPane.rowIndex="2">
       <children>
-        <ComboBox fx:id="roomComboBox" layoutY="66.0" prefWidth="150.0" promptText="enter a room" />
         <Text layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room">
           <font>
             <Font name="System Bold" size="15.0" />
@@ -83,5 +81,10 @@
       </children>
     </Group>
     <Label fx:id="submitStatus" prefHeight="21.0" prefWidth="288.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+    <JFXComboBox fx:id="roomComboBox" promptText="Enter a Room" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.rowSpan="2">
+      <GridPane.margin>
+        <Insets bottom="10.0" />
+      </GridPane.margin>
+    </JFXComboBox>
   </children>
 </GridPane>
