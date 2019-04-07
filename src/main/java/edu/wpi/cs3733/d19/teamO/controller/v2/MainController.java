@@ -33,8 +33,9 @@ public class MainController {
 
   @FXML
   void initialize() throws IOException {
-    Node view = FXMLLoader.load(MainController.class.getResource("Home.fxml"));
-    contentPane.setCenter(view);
+    onContentChangeRequest("Home.fxml");
+//    Node view = FXMLLoader.load(MainController.class.getResource("Home.fxml"));
+//    contentPane.setCenter(view);
 
     FXMLLoader loader = new FXMLLoader(MainController.class.getResource("OptionsPopup.fxml"));
     optionsPopup = new JFXPopup(loader.load());
@@ -51,9 +52,9 @@ public class MainController {
   public void onContentChangeRequest(String r) throws IOException {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(MainController.class.getResource(r));
+    Node view = loader.load();
     ContentPane c = loader.getController();
     c.setEventBus(contentEventBus);
-    Node view = loader.load();
     contentPane.setCenter(view);
   }
 }
