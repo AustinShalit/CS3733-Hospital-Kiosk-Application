@@ -14,7 +14,6 @@ import com.jfoenix.controls.JFXTextField;
 
 import javafx.fxml.FXML;
 
-import edu.wpi.cs3733.d19.teamO.controller.exception.InvalidUserInputException;
 import edu.wpi.cs3733.d19.teamO.entity.InternalTransportationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
@@ -51,27 +50,30 @@ public class InternalTransportationWindowController extends Controller {
 
   @FXML
   void onSubmitButtonAction() {
-    try {
-      InternalTransportationRequest internal = parseUserITRequest();
-      if (database.insertInternalTransportationRequest(internal)) {
-        String message = "Successfully submitted internal transportation request.";
-        showInformationAlert("Success!", message);
-      } else {
-        showErrorAlert("Error.",
-            "Unable to submit internal transportation request.");
-      }
-    } catch (InvalidUserInputException ex) {
+    InternalTransportationRequest internal = parseUserITRequest();
+    if (internal == null) {
       Logger logger = Logger.getLogger(SanitationWindowController.class.getName());
-      logger.log(Level.WARNING, "Unable to parse internal transportation Request.", ex);
+      logger.log(Level.WARNING,
+          "Unable to parse internal transportation Request.",
+          "Unable to parse Internal Transportation Request.");
+      return;
+    }
+
+    if (database.insertInternalTransportationRequest(internal)) {
+      String message = "Successfully submitted internal transportation request.";
+      showInformationAlert("Success!", message);
+    } else {
+      showErrorAlert("Error.",
+          "Unable to submit internal transportation request.");
     }
   }
 
   /**
    * Parse input the user has inputted for the sanitation request.
    *
-   * @return A SanitationRequest representing the users input.
+   * @return If valid input, A SanitationRequest representing the users input. Otherwise null.
    */
-  private InternalTransportationRequest parseUserITRequest() throws InvalidUserInputException {
+  private InternalTransportationRequest parseUserITRequest() {
     // if input is valid, parse it and return a new SanitationRequest
     if (!descriptiontxt.getText().isEmpty()
         && !nametxt.getText().isEmpty()
@@ -93,7 +95,7 @@ public class InternalTransportationWindowController extends Controller {
 
     // otherwise, some input was invalid
     showErrorAlert("Error.", "Please make sure all fields are filled out.");
-    throw new InvalidUserInputException("Unable to parse Internal Transportation Request.");
+    return null;
   }
 
 }

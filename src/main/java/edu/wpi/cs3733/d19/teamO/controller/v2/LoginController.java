@@ -16,7 +16,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
 import edu.wpi.cs3733.d19.teamO.controller.SanitationWindowController;
-import edu.wpi.cs3733.d19.teamO.controller.exception.InvalidUserInputException;
 import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.Employee;
 import edu.wpi.cs3733.d19.teamO.entity.Login;
@@ -61,33 +60,41 @@ public class LoginController implements Controller {
 
   @FXML
   void loginButtonAction() {
-    try {
-      // gets the user input
-      Login login = parseUserLogin();
-      Set<Login> info = db.getAllLogin();
-      boolean check = false;
-      // checks every Login info in set
-      for (Login l : info) {
-        if (l.equals(login)) {
-          check = true;
-        }
-      }
-
-      // if info typed was right, you go to main window screen
-      if (check) {
-        eventBus.post(new ChangeMainViewEvent(homeControllerFactory.create()));
-        //switchScenes("./v2/Main.fxml", loginButton.getScene().getWindow());
-      } else {
-        loginFail.setText("Incorrect username or password");
-        //bounceTextAnimation(loginFail);
-      }
-    } catch (InvalidUserInputException ex) {
+    // gets the user input
+    Login login = parseUserLogin();
+    if (login == null) {
       Logger logger = Logger.getLogger(SanitationWindowController.class.getName());
-      logger.log(Level.WARNING, "Unable to parse Username and Password.", ex);
+      logger.log(Level.WARNING,
+          "Unable to parse Username and Password.",
+          "Unable to parse User Login info");
+      return;
+    }
+
+    Set<Login> info = db.getAllLogin();
+    boolean check = false;
+    // checks every Login info in set
+    for (Login l : info) {
+      if (l.equals(login)) {
+        check = true;
+      }
+    }
+
+    // if info typed was right, you go to main window screen
+    if (check) {
+      eventBus.post(new ChangeMainViewEvent(homeControllerFactory.create()));
+      //switchScenes("./v2/Main.fxml", loginButton.getScene().getWindow());
+    } else {
+      loginFail.setText("Incorrect username or password");
+      //bounceTextAnimation(loginFail);
     }
   }
 
-  private Login parseUserLogin() throws InvalidUserInputException {
+  /**
+   * Validate the username and password fields and return a Login object.
+   *
+   * @return A new login object if valid input, otherwise null.
+   */
+  private Login parseUserLogin() {
     // checks if input is valid, parses it and returns a new Login
     if (!username.getText().isEmpty() && !password.getText().isEmpty()) {
       return new Login(username.getText(), password.getText());
@@ -95,9 +102,8 @@ public class LoginController implements Controller {
 
     // otherwise
     loginFail.setText("Incorrect username or password");
-    //bounceTextAnimation(loginFail);
-
-    throw new InvalidUserInputException("Unable to parse User Login info");
+    // bounceTextAnimation(loginFail);
+    return null;
   }
 
   @Override
