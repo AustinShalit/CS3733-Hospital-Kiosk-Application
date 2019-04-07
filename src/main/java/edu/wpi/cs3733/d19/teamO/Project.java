@@ -1,10 +1,6 @@
 package edu.wpi.cs3733.d19.teamO;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,11 +21,6 @@ import edu.wpi.cs3733.d19.teamO.controller.v2.ControllerModule;
 import edu.wpi.cs3733.d19.teamO.controller.v2.LoginController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.MainController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
-import edu.wpi.cs3733.d19.teamO.entity.Edge;
-import edu.wpi.cs3733.d19.teamO.entity.Node;
-import edu.wpi.cs3733.d19.teamO.entity.csv.EdgeCsvReaderWriter;
-import edu.wpi.cs3733.d19.teamO.entity.csv.NodeCsvReaderWriter;
-import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 public class Project extends Application {
 
@@ -45,12 +36,13 @@ public class Project extends Application {
   private Parent root;
 
   @Override
-  public void init() throws Exception {
+  public void init() {
     logger.config("Application init");
 
     injector = Guice.createInjector(new ProjectModule(), new ControllerModule());
     injector.injectMembers(this);
 
+    /*
     Database database = new Database();
 
     NodeCsvReaderWriter ncrw = new NodeCsvReaderWriter();
@@ -64,6 +56,7 @@ public class Project extends Application {
     for (Edge edge : edges) {
       database.insertEdge(edge);
     }
+    */
 
     logger.config("Application init complete");
   }

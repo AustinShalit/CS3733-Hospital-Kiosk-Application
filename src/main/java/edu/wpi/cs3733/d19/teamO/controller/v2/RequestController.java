@@ -1,10 +1,16 @@
 package edu.wpi.cs3733.d19.teamO.controller.v2;
 
+import com.google.common.eventbus.EventBus;
+import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
+
+import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationController;
 
 @FxmlController(url = "ServiceRequest.fxml")
 @SuppressWarnings("PMD.TooManyFields")
@@ -49,9 +55,14 @@ public class RequestController implements Controller {
   @FXML
   private JFXButton other4;
 
-  @FXML
-  void initialize() {
+  @Inject
+  private EventBus eventBus;
+  @Inject
+  private InternalTransportationController.Factory internalTransportationControllerFactory;
 
+  @FXML
+  void internalTransportationAction(ActionEvent event) {
+    eventBus.post(new ChangeMainViewEvent(internalTransportationControllerFactory.create()));
   }
 
   @Override

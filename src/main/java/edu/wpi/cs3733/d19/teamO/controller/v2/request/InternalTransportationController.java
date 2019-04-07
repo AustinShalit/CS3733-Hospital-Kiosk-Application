@@ -1,25 +1,37 @@
-package edu.wpi.cs3733.d19.teamO.controller;
+package edu.wpi.cs3733.d19.teamO.controller.v2.request;
 
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.EventBus;
+import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
+import javafx.scene.layout.BorderPane;
 
+import edu.wpi.cs3733.d19.teamO.controller.SanitationWindowController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.Controller;
+import edu.wpi.cs3733.d19.teamO.controller.v2.DialogHelper;
+import edu.wpi.cs3733.d19.teamO.controller.v2.FxmlController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.RequestController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.InternalTransportationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
-public class InternalTransportationWindowController extends Controller {
+@FxmlController(url = "InternalTransportation.fxml")
+public class InternalTransportationController implements Controller {
 
+  @FXML
+  private BorderPane root;
   @FXML
   private JFXTextField nametxt;
   @FXML
@@ -33,19 +45,23 @@ public class InternalTransportationWindowController extends Controller {
   @FXML
   private JFXButton backbtn;
 
-  private Database database;
+  @Inject
+  private EventBus eventBus;
+  @Inject
+  private Database db;
+  @Inject
+  private RequestController.Factory requestControllerFactory;
 
   @FXML
-  void initialize() throws SQLException {
-    database = new Database();
-    populateComboBox(database, locationbox);
+  void initialize() {
+    DialogHelper.populateComboBox(db, locationbox);
     categorybox.getItems().setAll(InternalTransportationRequest.InternalTransportationRequestType
         .values());
   }
 
   @FXML
   void onbackButtonAction() {
-    switchScenes("MainWindow.fxml", backbtn.getScene().getWindow());
+    eventBus.post(new ChangeMainViewEvent(requestControllerFactory.create()));
   }
 
   @FXML
@@ -59,11 +75,11 @@ public class InternalTransportationWindowController extends Controller {
       return;
     }
 
-    if (database.insertInternalTransportationRequest(internal)) {
+    if (db.insertInternalTransportationRequest(internal)) {
       String message = "Successfully submitted internal transportation request.";
-      showInformationAlert("Success!", message);
+      DialogHelper.showInformationAlert("Success!", message);
     } else {
-      showErrorAlert("Error.",
+      DialogHelper.showErrorAlert("Error.",
           "Unable to submit internal transportation request.");
     }
   }
@@ -94,8 +110,16 @@ public class InternalTransportationWindowController extends Controller {
     }
 
     // otherwise, some input was invalid
-    showErrorAlert("Error.", "Please make sure all fields are filled out.");
+    DialogHelper.showErrorAlert("Error.", "Please make sure all fields are filled out.");
     return null;
   }
 
+  @Override
+  public Parent getRoot() {
+    return root;
+  }
+
+  public interface Factory {
+    InternalTransportationController create();
+  }
 }

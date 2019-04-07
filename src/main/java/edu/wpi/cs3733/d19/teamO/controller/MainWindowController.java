@@ -74,12 +74,12 @@ public class MainWindowController extends Controller {
 
   @FXML
   void itButtonButtonAction(ActionEvent event) {
-    switchScenes("InternalTransportationWindow.fxml", itrequestButton.getScene().getWindow());
+    switchScenes("InternalTransportation.fxml", itrequestButton.getScene().getWindow());
   }
 
   @FXML
   void itviewButtonButtonAction(ActionEvent event) {
-    switchScenes("InternalTransportationViewWindow.fxml",
+    switchScenes("InternalTransportationView.fxml",
         itrequestviewButton.getScene().getWindow());
   }
 
