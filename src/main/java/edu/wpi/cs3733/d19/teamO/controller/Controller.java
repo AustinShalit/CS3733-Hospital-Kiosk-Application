@@ -9,6 +9,8 @@ import com.jfoenix.controls.JFXComboBox;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -120,7 +122,14 @@ public class Controller {
           }
         };
     comboBox.setCellFactory(cellFactory);
-    comboBox.setButtonCell(cellFactory.call(null));
+
+    // wait for selection
+    comboBox.valueProperty().addListener(new ChangeListener<Node>() {
+      @Override
+      public void changed(ObservableValue<? extends Node> observable, Node oldValue, Node newValue) {
+        comboBox.setButtonCell(cellFactory.call(null));
+      }
+    });
   }
 
   /**
