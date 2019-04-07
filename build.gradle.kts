@@ -28,6 +28,7 @@ dependencies {
     implementation(group = "com.google.guava", name = "guava", version = "27.1-jre")
     implementation(group = "com.jfoenix", name = "jfoenix", version = "8.0.8")
     implementation(group = "com.opencsv", name = "opencsv", version = "4.5")
+    implementation(group = "de.jensd", name = "fontawesomefx", version = "8.9")
     implementation(group = "net.kurobako", name = "gesturefx", version = "0.3.0")
 
     fun derby(name: String, version: String = "10.14.2.0") =
