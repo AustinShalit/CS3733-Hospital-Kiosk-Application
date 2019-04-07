@@ -14,7 +14,7 @@
          <top>
             <JFXToolbar BorderPane.alignment="CENTER">
                <left>
-                  <JFXButton buttonType="RAISED" text="Home" BorderPane.alignment="CENTER" />
+                  <JFXButton onAction="#onHomeButtonAction" buttonType="RAISED" text="Home" BorderPane.alignment="CENTER" />
                </left>
                <right>
                   <JFXRippler maskType="CIRCLE" style="ripple: white;" BorderPane.alignment="CENTER">

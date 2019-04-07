@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 
 import javafx.fxml.FXML;
 
+@FxmlController(url = "ServiceRequest.fxml")
 public class RequestController {
 
   @FXML

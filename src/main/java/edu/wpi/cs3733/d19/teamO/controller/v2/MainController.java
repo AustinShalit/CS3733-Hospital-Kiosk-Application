@@ -7,6 +7,7 @@ import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.jfoenix.controls.JFXPopup;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -44,6 +45,11 @@ public class MainController implements ContentSwitcher {
             JFXPopup.PopupHPosition.RIGHT,
             -12,
             15));
+  }
+
+  @FXML
+  void onHomeButtonAction(ActionEvent event) {
+    accept(HomeController.class, HomeController.class.getAnnotation(FxmlController.class).url());
   }
   
   @Override

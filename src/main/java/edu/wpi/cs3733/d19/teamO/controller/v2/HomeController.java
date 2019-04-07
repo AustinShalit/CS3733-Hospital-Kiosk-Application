@@ -22,12 +22,13 @@ public class HomeController {
 
   @FXML
   void navigationOnAction(){
-    contentSwitcher.accept(HomeController.class, HomeController.class.getDeclaredAnnotation(FxmlController.class).url());
+
   }
 
   @FXML
   void requestOnAction(){
-
+    contentSwitcher.accept(RequestController.class,
+        RequestController.class.getDeclaredAnnotation(FxmlController.class).url());
   }
 
   @FXML
