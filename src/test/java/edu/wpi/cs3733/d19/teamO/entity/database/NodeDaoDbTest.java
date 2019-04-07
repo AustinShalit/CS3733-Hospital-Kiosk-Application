@@ -116,6 +116,11 @@ class NodeDaoDbTest {
     }
 
     @Test
+    void createTableAndDcfTest() {
+      assertDoesNotThrow(() -> new NodeDaoDb());
+    }
+
+    @Test
     void existingTableTest(TestInfo testInfo) {
       DatabaseConnectionFactory dcf
           = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
@@ -123,5 +128,6 @@ class NodeDaoDbTest {
       assertDoesNotThrow(() -> new NodeDaoDb(dcf));
       assertDoesNotThrow(() -> new NodeDaoDb(dcf));
     }
+
   }
 }

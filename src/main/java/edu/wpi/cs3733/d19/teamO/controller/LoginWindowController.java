@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 import edu.wpi.cs3733.d19.teamO.controller.exception.InvalidUserInputException;
+import edu.wpi.cs3733.d19.teamO.entity.Employee;
 import edu.wpi.cs3733.d19.teamO.entity.Login;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
@@ -30,23 +31,8 @@ public class LoginWindowController extends Controller {
   private Database db;
 
   @FXML
-  void initialize() throws SQLException {
-    db = new Database();
+  void initialize() {
 
-    // Test user login info
-    Login user1 = new Login("admin", "wong");
-    Login user2 = new Login("teamo", "won");
-
-    // checks if Logins inserted, if already inserted will not give message
-    if (db.insertLogin(user2) && db.insertLogin(user1)) {
-      String message = "Successfully inserted Login infos";
-      showInformationAlert("Success!", message);
-    }
-    // checks if new Login info was actually inserted
-    /*else {
-      showErrorAlert("Error", "Unable to insert the Login info");
-    }
-    */
   }
 
   @FXML
@@ -56,12 +42,15 @@ public class LoginWindowController extends Controller {
       Login login = parseUserLogin();
       Set<Login> info = db.getAllLogin();
       boolean check = false;
+
       // checks every Login info in set
       for (Login l : info) {
         if (l.equals(login)) {
           check = true;
         }
       }
+
+      // TODO: User privilege check
 
       // if info typed was right, you go to main window screen
       if (check) {
