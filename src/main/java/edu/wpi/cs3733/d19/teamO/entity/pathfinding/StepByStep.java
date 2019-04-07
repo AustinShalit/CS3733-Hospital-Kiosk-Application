@@ -2,20 +2,27 @@ package edu.wpi.cs3733.d19.teamO.entity.pathfinding;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 import edu.wpi.cs3733.d19.teamO.entity.Node;
+
+
 
 public class StepByStep {
 
   public StepByStep() {
   }
 
+  /**
+   * This returns a String direction between a start and end node.
+   * @param start the starting node.
+   * @param end the end node.
+   * @return a String diretion.
+   */
   public String getDirection(Coordinate start, Coordinate end) {
-    int xDif = end.getxCoord() - start.getxCoord();
-    int yDif = start.getyCoord() - end.getyCoord();
+    int xdif = end.getXcoord() - start.getXcoord();
+    int ydif = start.getYcoord() - end.getYcoord();
 
-    double theta = Math.atan2(yDif, xDif)*180/Math.PI;
+    double theta = Math.atan2(ydif, xdif) * 180 / Math.PI;
 
 
 
@@ -40,179 +47,63 @@ public class StepByStep {
     return "";
   }
 
+  /**
+   * Creates a list of instruction from a list of nodes.
+   * @param nodes list of nodes.
+   * @return list of instructions.
+   */
   public ArrayList<String> getStepByStep(List<Node> nodes) {
     ArrayList<String> instructions = new ArrayList<>();
 
-    ArrayList<Coordinate> coordinates= new ArrayList<>();
+    ArrayList<Coordinate> coordinates = new ArrayList<>();
 
     for (Node node: nodes) {
-      Coordinate newCoord = new Coordinate(node.getXcoord(),node.getYcoord());
+      Coordinate newCoord = new Coordinate(node.getXcoord(), node.getYcoord());
       coordinates.add(newCoord);
     }
 
     ArrayList<String> cardinalDirections = new ArrayList<>();
 
-    for (int i = 0; i < coordinates.size() -1; i++) {
-      String direction = getDirection(coordinates.get(i), coordinates.get(i+1));
+    List<String> compass = new ArrayList<>();
+    compass.add("North");
+    compass.add("North East");
+    compass.add("East");
+    compass.add("South East");
+    compass.add("South");
+    compass.add("South West");
+    compass.add("West");
+    compass.add("North West");
+
+    for (int i = 0; i < coordinates.size() - 1; i++) {
+      String direction = getDirection(coordinates.get(i), coordinates.get(i + 1));
       cardinalDirections.add(direction);
     }
 
-    for (int i = 0; i < cardinalDirections.size() -1; i++) {
+    for (int i = 0; i < cardinalDirections.size() - 1; i++) {
       String current = cardinalDirections.get(i);
-      String next = cardinalDirections.get(i+1);
+      String next = cardinalDirections.get(i + 1);
 
-      /**
-       * Right
-       *  North, East;
-       * Left
-       *  Current:
-       *  Next:
-       */
-      if (current.equals("North")) {
-        if (next.equals("East")) {
-          instructions.add("Right");
-        } else if (next.equals("North East")) {
-          instructions.add("Slight Right");
-        } else if (next.equals("North West")) {
-          instructions.add("Slight Left");
-        } else if (next.equals("South West")) {
-          instructions.add("Hard Left");
-        } else if (next.equals("South East")) {
-          instructions.add("Hard Right");
-        } else if (next.equals("West")) {
-          instructions.add("Left");
-        } else if (next.equals("North")) {
-          instructions.add("Forward");
-        } else if (next.equals("South")) {
-          instructions.add("None");
-        }
-      } else if (current.equals("East")) {
-        if (next.equals("South")) {
-          instructions.add("Right");
-        } else if (next.equals("North")) {
-          instructions.add("Left");
-        } else if (next.equals("East")) {
-          instructions.add("Forward");
-        } else if (next.equals("West")) {
-          instructions.add("None");
-        } else if (next.equals("North East")) {
-          instructions.add("Slight Left");
-        } else if (next.equals("South East")) {
-          instructions.add("Slight Right");
-        } else if (next.equals("North West")) {
-          instructions.add("Hard Left");
-        } else if (next.equals("South West")) {
-          instructions.add("Hard Right");
-        }
-      } else if (current.equals("South")) {
-        if (next.equals("West")) {
-          instructions.add("Right");
-        } else if (next.equals("East")) {
-          instructions.add("Left");
-        } else if (next.equals("South")) {
-          instructions.add("Forward");
-        } else if (next.equals("North")) {
-          instructions.add("None");
-        } else if (next.equals("South East")) {
-          instructions.add("Slight Left");
-        } else if (next.equals("South West")) {
-          instructions.add("Slight Right");
-        } else if (next.equals("North West")) {
-          instructions.add("Hard Right");
-        } else if (next.equals("North East")) {
-          instructions.add("Hard Left");
-        }
-      } else if (current.equals("West")) {
-        if (next.equals("North")) {
-          instructions.add("Right");
-        } else if (next.equals("South")) {
-          instructions.add("Left");
-        } else if (next.equals("West")) {
-          instructions.add("Forward");
-        } else if (next.equals("East")) {
-          instructions.add("None");
-        } else if (next.equals("North West")) {
-          instructions.add("Slight Right");
-        } else if (next.equals("South West")) {
-          instructions.add("Slight Left");
-        } else if (next.equals("North East")) {
-          instructions.add("Hard Right");
-        } else if (next.equals("South East")) {
-          instructions.add("Hard Left");
-        }
-      } else if (current.equals("North West")) {
-        if (next.equals("West")) {
-          instructions.add("Slight Left");
-        } else if (next.equals("North")) {
-          instructions.add("Slight Right");
-        } else if (next.equals("South West")) {
-          instructions.add("Left");
-        } else if (next.equals("North East")) {
-          instructions.add("Right");
-        } else if (next.equals("South")) {
-          instructions.add("Hard Left");
-        } else if (next.equals("East")) {
-          instructions.add("Hard Right");
-        } else if (next.equals("North West")) {
-          instructions.add("Forward");
-        } else if (next.equals("South East")) {
-          instructions.add("None");
-        }
-      } else if (current.equals("North East")) {
-        if (next.equals("North")) {
-          instructions.add("Slight Left");
-        } else if (next.equals("East")) {
-          instructions.add("Slight Right");
-        } else if (next.equals("North West")) {
-          instructions.add("Left");
-        } else if (next.equals("South East")) {
-          instructions.add("Right");
-        } else if (next.equals("South")) {
-          instructions.add("Hard Right");
-        } else if (next.equals("West")) {
-          instructions.add("Hard Left");
-        } else if (next.equals("South West")) {
-          instructions.add("None");
-        } else if (next.equals("North East")) {
-          instructions.add("Forward");
-        }
-      } else if (current.equals("South East")) {
-        if (next.equals("East")) {
-          instructions.add("Slight Left");
-        } else if (next.equals("South")) {
-          instructions.add("Slight Right");
-        } else if (next.equals("North East")) {
-          instructions.add("Right");
-        } else if (next.equals("South West")) {
-          instructions.add("Right");
-        } else if (next.equals("North")) {
-          instructions.add("Hard Left");
-        } else if (next.equals("West")) {
-          instructions.add("Hard Right");
-        } else if (next.equals("North West")) {
-          instructions.add("None");
-        } else if (next.equals("South East")) {
-          instructions.add("Forward");
-        }
-      } else if (current.equals("South West")) {
-        if (next.equals("South")) {
-          instructions.add("Slight Left");
-        } else if (next.equals("West")) {
-          instructions.add("Slight Right");
-        } else if (next.equals("North West")) {
-          instructions.add("Right");
-        } else if (next.equals("South East")) {
-          instructions.add("Left");
-        } else if (next.equals("North")) {
-          instructions.add("Hard Right");
-        } else if (next.equals("East")) {
-          instructions.add("Hard Left");
-        } else if (next.equals("North East")) {
-          instructions.add("None");
-        } else if (next.equals("South West")) {
-          instructions.add("Forward");
-        }
+      int start = compass.indexOf(current);
+      int end = compass.indexOf(next);
+      int diff = end - start;
+
+      if (diff == 1 || diff == -7 ) {
+        instructions.add("Slight Right");
+      } else if (diff == 2 || diff == -6) {
+        instructions.add("Right");
+      } else if (diff == 3 || diff == -5) {
+        instructions.add("Hard Right");
+      } else if (diff == -1 || diff == 7) {
+        instructions.add("Slight Left");
+      } else if (diff == -2 || diff == 6) {
+        instructions.add("Left");
+      } else if (diff == -3 || diff == 5) {
+        instructions.add("Hard Left");
+      } else if (diff == 0) {
+        instructions.add("Forward");
       }
+
+
     }
 
     return instructions;

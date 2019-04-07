@@ -2,25 +2,16 @@ package edu.wpi.cs3733.d19.teamO.entity.pathfinding;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class StepByStepTest {
 
 
-  /*
-  @Test
-  void getDirection() {
-  }
-
-  */
   @Test
   void getStepByStep() {
 
