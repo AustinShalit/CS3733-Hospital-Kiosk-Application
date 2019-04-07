@@ -1,7 +1,10 @@
 package edu.wpi.cs3733.d19.teamO;
 
 import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.sun.javafx.application.PlatformImpl;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -18,15 +21,18 @@ public class Project extends Application {
   private static final Logger logger
       = Logger.getLogger(Project.class.getName());
 
+  private Parent root;
+
   @Override
   public void start(final Stage primaryStage) throws IOException {
     logger.config("Starting application");
 
     FXMLLoader loader = new FXMLLoader(getClass().getResource("controller/LoginWindow.fxml"));
-    Parent mainWindow = loader.load();
+    root = loader.load();
 
     primaryStage.setTitle("Team O Kiosk Application");
-    primaryStage.setScene(new Scene(mainWindow));
+
+    primaryStage.setScene(new Scene(root));
 
     // Set original window size and position
     controller.minWindowSize(primaryStage);
@@ -36,6 +42,8 @@ public class Project extends Application {
     primaryStage.hide();
     primaryStage.show();
     logger.config("Startup complete");
+
+    Thread.setDefaultUncaughtExceptionHandler(this::onThreadException);
   }
 
   /**
@@ -49,5 +57,22 @@ public class Project extends Application {
       return "Development";
     }
     return version;
+  }
+
+  @SuppressWarnings("PMD.AvoidCatchingThrowable")
+  private void onThreadException(Thread thread, Throwable throwable) {
+    PlatformImpl.runAndWait(() -> {
+      try {
+        // Don't create more than one exception dialog at the same time
+        final ExceptionAlert exceptionAlert = new ExceptionAlert(root, throwable,
+            thread.getName() + ": " + throwable.getMessage(), getHostServices());
+        exceptionAlert.setInitialFocus();
+        exceptionAlert.showAndWait();
+      } catch (Throwable ex) {
+        // Well in this case something has gone very, very wrong
+        // We don't want to create a feedback loop either.
+        logger.log(Level.SEVERE, "Failed to show exception alert", throwable);
+      }
+    });
   }
 }
