@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -29,7 +30,11 @@
                   <VBox prefHeight="325.0" prefWidth="325.0" style="-fx-background-color: grey;" GridPane.rowSpan="2">
                      <GridPane.margin>
                         <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
-                     </GridPane.margin></VBox>
+                     </GridPane.margin>
+                     <children>
+                        <Label fx:id="timeLabel" prefHeight="181.0" prefWidth="320.0" text="Time: " />
+                        <Label fx:id="weatherLabel" text="Weather:" />
+                     </children></VBox>
                   <JFXButton fx:id="navigationButton" onAction="#navigationOnAction" prefHeight="325.0" prefWidth="325.0" style="-fx-background-color: grey;" text="Navigation" GridPane.columnIndex="1">
                      <GridPane.margin>
                         <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />

@@ -68,6 +68,10 @@ public class Database {
     return nodeDao.update(node);
   }
 
+  public Set<Node> getAllRooms() {
+    return nodeDao.getAllRooms();
+  }
+
   /*
    * Edge
    */
