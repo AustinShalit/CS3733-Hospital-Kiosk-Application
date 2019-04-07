@@ -153,8 +153,8 @@ public class Controller {
    * too small.
    */
   public void minWindowSize(Stage stage) {
-    stage.setMinWidth(800);
-    stage.setMinHeight(600);
+    stage.setMinWidth(1280);
+    stage.setMinHeight(780);
   }
 
   /**
