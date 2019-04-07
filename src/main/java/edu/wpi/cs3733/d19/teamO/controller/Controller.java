@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Optional;
 
+import com.jfoenix.controls.JFXComboBox;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -11,7 +13,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -97,7 +98,8 @@ public class Controller {
     return "";
   }
 
-  protected void populateComboBox(Database database, ComboBox<Node> comboBox) throws SQLException {
+  protected void populateComboBox(
+      Database database, JFXComboBox<Node> comboBox) throws SQLException {
     comboBox.getItems().addAll(database.getAllNodes());
     Callback<ListView<Node>, ListCell<Node>> cellFactory =
         new Callback<ListView<Node>, ListCell<Node>>() {
@@ -118,7 +120,10 @@ public class Controller {
           }
         };
     comboBox.setCellFactory(cellFactory);
-    comboBox.setButtonCell(cellFactory.call(null));
+
+    // wait for selection
+    comboBox.valueProperty().addListener((observable, oldValue, newValue)
+        -> comboBox.setButtonCell(cellFactory.call(null)));
   }
 
   /**
@@ -153,8 +158,8 @@ public class Controller {
    * too small.
    */
   public void minWindowSize(Stage stage) {
-    stage.setMinWidth(800);
-    stage.setMinHeight(600);
+    stage.setMinWidth(1280);
+    stage.setMinHeight(780);
   }
 
   /**

@@ -29,6 +29,8 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       </rowConstraints>
       <children>
         <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#logoutButtonAction" text="Log Out" GridPane.rowIndex="7" />
@@ -47,6 +49,8 @@
             <Font size="32.0" />
           </font>
         </Label>
+        <Button fx:id="itrequestButton" mnemonicParsing="false" onAction="#itButtonButtonAction" text="ITAdd" GridPane.rowIndex="8" />
+        <Button fx:id="itrequestviewButton" mnemonicParsing="false" onAction="#itviewButtonButtonAction" text="ITView" GridPane.rowIndex="9" />
       </children>
     </GridPane>
     <GridPane GridPane.columnIndex="1">
