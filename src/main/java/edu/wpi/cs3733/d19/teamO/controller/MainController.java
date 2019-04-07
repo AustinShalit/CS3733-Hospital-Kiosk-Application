@@ -18,7 +18,7 @@ public class MainController {
 
   @FXML
   void initialize() throws IOException {
-    Parent view = FXMLLoader.load(MainController.class.getResource("Main.fxml"));
+    Parent view = FXMLLoader.load(MainController.class.getResource("Home.fxml"));
     content.setCenter(view);
   }
 }
