@@ -12,7 +12,7 @@
    <children>
       <BorderPane fx:id="contentPane">
          <top>
-            <JFXToolbar BorderPane.alignment="CENTER">
+            <JFXToolbar fx:id="toolbar" BorderPane.alignment="CENTER">
                <left>
                   <JFXButton onAction="#onHomeButtonAction" buttonType="RAISED" text="Home" BorderPane.alignment="CENTER" />
                </left>
