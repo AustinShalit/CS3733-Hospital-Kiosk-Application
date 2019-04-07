@@ -102,15 +102,13 @@ public class SchedulingRequest {
       return false;
     }
 
-    if (endTime.isBefore(schedulingRequest.startTime) || endTime.isEqual(schedulingRequest.startTime)) {
+    if (endTime.isBefore(schedulingRequest.startTime)
+        || endTime.isEqual(schedulingRequest.startTime)) {
       return false;
     }
 
-    if (schedulingRequest.endTime.isBefore(startTime) || schedulingRequest.endTime.isEqual(startTime)) {
-      return false;
-    }
-
-    return true;
+    return !(schedulingRequest.endTime.isBefore(startTime)
+        || schedulingRequest.endTime.isEqual(startTime));
   }
 
   @Override
