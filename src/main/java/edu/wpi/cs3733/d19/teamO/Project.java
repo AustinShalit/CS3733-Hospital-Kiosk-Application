@@ -9,7 +9,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import edu.wpi.cs3733.d19.teamO.controller.Controller;
+
 public class Project extends Application {
+
+  private final Controller controller = new Controller();
 
   private static final Logger logger
       = Logger.getLogger(Project.class.getName());
@@ -23,6 +27,13 @@ public class Project extends Application {
 
     primaryStage.setTitle("Team O Kiosk Application");
     primaryStage.setScene(new Scene(mainWindow));
+
+    // Set original window size and position
+    controller.minWindowSize(primaryStage);
+    controller.setWindowSize(primaryStage, 1200, 900);
+    controller.setWindowPosition(primaryStage, 0, 0);
+
+    primaryStage.hide();
     primaryStage.show();
     logger.config("Startup complete");
   }
