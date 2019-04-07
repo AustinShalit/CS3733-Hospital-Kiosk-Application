@@ -7,6 +7,8 @@ import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.jfoenix.controls.JFXComboBox;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -29,7 +31,7 @@ public class SanitationWindowController extends Controller {
   @FXML
   private TextArea descriptionTextArea;
   @FXML
-  private ComboBox<Node> locationComboBox;
+  private JFXComboBox<Node> locationComboBox;
   @FXML
   private ComboBox<SanitationRequest.SanitationRequestType> categoryComboBox;
 
