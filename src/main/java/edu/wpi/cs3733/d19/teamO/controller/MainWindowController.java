@@ -132,6 +132,7 @@ public class MainWindowController extends Controller {
   @FXML
   public void initialize() throws SQLException {
     database = new Database();
+    
     edgeImportButton.setDisable(true);
   }
 }
