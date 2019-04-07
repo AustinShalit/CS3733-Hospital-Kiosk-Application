@@ -98,6 +98,10 @@ public class SchedulingRequest {
    * @return True if there would be a conflict, false otherwise.
    */
   public boolean conflictsWith(SchedulingRequest schedulingRequest) {
+    if (this.id == schedulingRequest.id) {
+      return false;
+    }
+
     if (!room.equals(schedulingRequest.room)) {
       return false;
     }
