@@ -1,23 +1,9 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.sql.SQLException;
-import java.util.List;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-
-import edu.wpi.cs3733.d19.teamO.entity.Edge;
-import edu.wpi.cs3733.d19.teamO.entity.Node;
-import edu.wpi.cs3733.d19.teamO.entity.csv.EdgeCsvReaderWriter;
-import edu.wpi.cs3733.d19.teamO.entity.csv.NodeCsvReaderWriter;
-import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 @SuppressWarnings("PMD.TooManyMethods")
 public class MainWindowController extends Controller {
@@ -45,7 +31,6 @@ public class MainWindowController extends Controller {
   @FXML
   private Label nodeImportInProgress;
 
-  private Database database;
 
   @FXML
   void navigationButtonAction(ActionEvent event) {
@@ -146,9 +131,7 @@ public class MainWindowController extends Controller {
   }
 
   @FXML
-  public void initialize() throws SQLException {
-    database = new Database();
-    edgeImportButton.setDisable(true);
+  public void initialize() {
   }
 }
 
