@@ -95,8 +95,8 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
         resultSet.getTimestamp("TIMEREQUESTED").toLocalDateTime(),
         resultSet.getTimestamp("TIMECOMPLETED").toLocalDateTime(),
         nodeDaoDb.get(resultSet
-          .getString("LOCATIONNODEID"))
-          .orElseThrow(() -> new SQLException("Could not get node for sanitation request")),
+            .getString("LOCATIONNODEID"))
+            .orElseThrow(() -> new SQLException("Could not get node for sanitation request")),
         resultSet.getString("WHOCOMPLETED"),
         SanitationRequest.SanitationRequestType.get(
             resultSet.getString("SANITATIONTYPE")),

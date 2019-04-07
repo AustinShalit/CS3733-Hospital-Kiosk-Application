@@ -4,11 +4,12 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Optional;
 
+import com.jfoenix.controls.JFXComboBox;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextInputDialog;
@@ -82,7 +83,8 @@ class Controller {
     return "";
   }
 
-  protected void populateComboBox(Database database, ComboBox<Node> comboBox) throws SQLException {
+  protected void populateComboBox(
+      Database database, JFXComboBox<Node> comboBox) throws SQLException {
     comboBox.getItems().addAll(database.getAllNodes());
     Callback<ListView<Node>, ListCell<Node>> cellFactory =
         new Callback<ListView<Node>, ListCell<Node>>() {

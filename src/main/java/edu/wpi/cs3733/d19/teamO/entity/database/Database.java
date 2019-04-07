@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
+import edu.wpi.cs3733.d19.teamO.entity.InternalTransportationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.Login;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
@@ -20,6 +21,7 @@ public class Database {
   private final SanitationRequestDao sanitationRequestDao;
   private final SchedulingRequestDao schedulingRequestDao;
   private final LoginDao loginDao;
+  private final InternalTransportationRequestDao itransportationDao;
 
 
   Database(DatabaseConnectionFactory dcf) throws SQLException {
@@ -29,6 +31,7 @@ public class Database {
     this.sanitationRequestDao = new SanitationRequestDaoDb(dcf);
     this.loginDao = new LoginDaoDb(dcf);
     this.schedulingRequestDao = new SchedulingRequestDaoDb(dcf);
+    this.itransportationDao = new InternalTransportationRequestDaoDb(dcf);
   }
 
   /**
@@ -185,6 +188,32 @@ public class Database {
 
   public boolean updateScheduling(SchedulingRequest schedulingRequest) {
     return schedulingRequestDao.update(schedulingRequest);
+  }
+
+  /*
+   * Internal Transporation
+   */
+  public Optional<InternalTransportationRequest> getInternalTransportationRequest(int id) {
+    return itransportationDao.get(id);
+  }
+
+  public Set<InternalTransportationRequest> getAllInternalTransportationRequests() {
+    return itransportationDao.getAll();
+  }
+
+  public boolean insertInternalTransportationRequest(
+      InternalTransportationRequest internalTransportationRequest) {
+    return itransportationDao.insert(internalTransportationRequest);
+  }
+
+  public boolean deleteInternalTransportationRequest(
+      InternalTransportationRequest internalTransportationRequest) {
+    return itransportationDao.delete(internalTransportationRequest);
+  }
+
+  public boolean updateInternalTransportationRequest(
+      InternalTransportationRequest internalTransportationRequest) {
+    return itransportationDao.update(internalTransportationRequest);
   }
 
 }
