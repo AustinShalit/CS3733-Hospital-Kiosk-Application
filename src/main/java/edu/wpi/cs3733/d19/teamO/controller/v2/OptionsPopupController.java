@@ -9,6 +9,8 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 
+import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
+
 @FxmlController(url = "OptionsPopup.fxml")
 public class OptionsPopupController implements Controller {
 
@@ -33,7 +35,7 @@ public class OptionsPopupController implements Controller {
   @FXML
   void signoutAction(MouseEvent event) {
     event.consume();
-    eventBus.post(loginControllerFactory.create());
+    eventBus.post(new ChangeMainViewEvent(loginControllerFactory.create(), false));
   }
 
   @Override

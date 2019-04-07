@@ -17,6 +17,7 @@ import javafx.scene.layout.BorderPane;
 
 import edu.wpi.cs3733.d19.teamO.controller.SanitationWindowController;
 import edu.wpi.cs3733.d19.teamO.controller.exception.InvalidUserInputException;
+import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.Login;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
@@ -66,7 +67,7 @@ public class LoginController implements Controller {
 
       // if info typed was right, you go to main window screen
       if (check) {
-        eventBus.post(homeControllerFactory.create());
+        eventBus.post(new ChangeMainViewEvent(homeControllerFactory.create()));
         //switchScenes("./v2/Main.fxml", loginButton.getScene().getWindow());
       } else {
         loginFail.setText("Incorrect username or password");

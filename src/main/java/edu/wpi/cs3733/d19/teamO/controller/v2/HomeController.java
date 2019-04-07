@@ -8,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 
+import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
+
 @FxmlController(url = "Home.fxml")
 public class HomeController implements Controller {
 
@@ -33,7 +35,7 @@ public class HomeController implements Controller {
 
   @FXML
   void requestOnAction() {
-    eventBus.post(requestControllerFactory.create());
+    eventBus.post(new ChangeMainViewEvent(requestControllerFactory.create()));
   }
 
   @FXML

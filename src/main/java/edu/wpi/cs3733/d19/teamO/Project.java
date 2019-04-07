@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import edu.wpi.cs3733.d19.teamO.controller.v2.ControllerModule;
 import edu.wpi.cs3733.d19.teamO.controller.v2.LoginController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.MainController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
 
 public class Project extends Application {
 
@@ -39,7 +40,7 @@ public class Project extends Application {
     loader.setControllerFactory(injector::getInstance);
     Parent root = loader.load();
 
-    eventBus.post(loginControllerFactory.create());
+    eventBus.post(new ChangeMainViewEvent(loginControllerFactory.create(), false));
 
     primaryStage.setTitle("Team O Kiosk Application");
     primaryStage.setScene(new Scene(root));
