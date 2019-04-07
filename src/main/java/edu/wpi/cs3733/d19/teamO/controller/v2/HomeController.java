@@ -5,12 +5,14 @@ import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 
 import javafx.fxml.FXML;
-
-import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
+import javafx.scene.Parent;
+import javafx.scene.layout.VBox;
 
 @FxmlController(url = "Home.fxml")
-public class HomeController {
+public class HomeController implements Controller {
 
+  @FXML
+  private VBox root;
   @FXML
   private JFXButton navigationButton;
   @FXML
@@ -21,25 +23,35 @@ public class HomeController {
   private JFXButton securityButton;
   @Inject
   private EventBus eventBus;
+  @Inject
+  private RequestController.Factory requestControllerFactory;
 
   @FXML
-  void navigationOnAction(){
+  void navigationOnAction() {
 
   }
 
   @FXML
-  void requestOnAction(){
-    eventBus.post(new ChangeMainViewEvent(RequestController.class
-        .getResource(RequestController.class.getAnnotation(FxmlController.class).url())));
+  void requestOnAction() {
+    eventBus.post(requestControllerFactory.create());
   }
 
   @FXML
-  void scheduleOnAction(){
+  void scheduleOnAction() {
 
   }
 
   @FXML
-  void securityOnAction(){
+  void securityOnAction() {
 
+  }
+
+  @Override
+  public Parent getRoot() {
+    return root;
+  }
+
+  public interface Factory {
+    HomeController create();
   }
 }

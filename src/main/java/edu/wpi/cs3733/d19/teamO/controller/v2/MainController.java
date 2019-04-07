@@ -1,27 +1,21 @@
 package edu.wpi.cs3733.d19.teamO.controller.v2;
 
-import java.io.IOException;
-
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
-import com.google.inject.Guice;
 import com.google.inject.Inject;
-import com.google.inject.Injector;
-import com.google.inject.Module;
 import com.jfoenix.controls.JFXPopup;
 import com.jfoenix.controls.JFXToolbar;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
 import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
 
-@FxmlController(url = "Home.fxml")
-public class MainController {
+@FxmlController(url = "Main.fxml")
+public class MainController implements Controller {
 
   @FXML
   private StackPane root;
@@ -37,24 +31,18 @@ public class MainController {
 
   @Inject
   private EventBus eventBus;
+  @Inject
+  private HomeController.Factory homeControllerFactory;
+  @Inject
+  private OptionsPopupController.Factory optionsPopupControllerFactory;
 
   private JFXPopup optionsPopup;
 
-  private Injector injector;
-
   @FXML
-  void initialize() throws IOException {
-    injector = Guice.createInjector(
-        (Module) binder -> binder.bind(EventBus.class).asEagerSingleton());
-    injector.injectMembers(this);
+  void initialize() {
     eventBus.register(this);
 
-    eventBus.post(new ChangeMainViewEvent(
-        HomeController.class.getResource(HomeController.class.getAnnotation(FxmlController.class).url())));
-
-    FXMLLoader loader = getFxmlLoader();
-    loader.setLocation(OptionsPopupController.class.getResource("OptionsPopup.fxml"));
-    optionsPopup = new JFXPopup(loader.load());
+    optionsPopup = new JFXPopup(optionsPopupControllerFactory.create().list);
 
     optionsBurger.setOnMouseClicked(e ->
         optionsPopup.show(optionsBurger,
@@ -66,29 +54,17 @@ public class MainController {
 
   @FXML
   void onHomeButtonAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(
-        HomeController.class.getResource(HomeController.class.getAnnotation(FxmlController.class).url())));
-  }
-  
-  @Subscribe
-  private void accept(ChangeMainViewEvent event) {
-    FXMLLoader loader = getFxmlLoader();
-    loader.setLocation(event.getFxml());
-    try {
-      Node view = loader.load();
-      contentPane.setCenter(view);
-      toolbar.setVisible(event.isFramed());
-      // Force popup closed
-      optionsPopup.hide();
-    } catch (IOException e) {
-      e.printStackTrace();
-      throw new RuntimeException(e);
-    }
+    eventBus.post(new ChangeMainViewEvent(homeControllerFactory.create()));
   }
 
-  private FXMLLoader getFxmlLoader() {
-    FXMLLoader loader = new FXMLLoader();
-    loader.setControllerFactory(injector::getInstance);
-    return loader;
+  @Subscribe
+  @SuppressWarnings("PMD.UnusedPrivateMethod")
+  private void acceptController(Controller controller) {
+    contentPane.setCenter(controller.getRoot());
+  }
+
+  @Override
+  public Parent getRoot() {
+    return root;
   }
 }

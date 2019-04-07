@@ -17,6 +17,8 @@ import java.lang.annotation.Target;
 @Documented
 public @interface FxmlController {
   /**
+   * The location of the fxml file.
+   *
    * @return The name of the fxml file to be loaded as the controller.
    */
   String url();

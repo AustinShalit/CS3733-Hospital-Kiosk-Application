@@ -3,9 +3,15 @@ package edu.wpi.cs3733.d19.teamO.controller.v2;
 import com.jfoenix.controls.JFXButton;
 
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
+import javafx.scene.layout.VBox;
 
 @FxmlController(url = "ServiceRequest.fxml")
-public class RequestController {
+@SuppressWarnings("PMD.TooManyFields")
+public class RequestController implements Controller {
+
+  @FXML
+  private VBox root;
 
   @FXML
   private JFXButton sanitation;
@@ -46,5 +52,14 @@ public class RequestController {
   @FXML
   void initialize() {
 
+  }
+
+  @Override
+  public Parent getRoot() {
+    return root;
+  }
+
+  public interface Factory {
+    RequestController create();
   }
 }
