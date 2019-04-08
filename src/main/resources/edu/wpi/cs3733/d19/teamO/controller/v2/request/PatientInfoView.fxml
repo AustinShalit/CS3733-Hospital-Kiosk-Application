@@ -63,7 +63,7 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       </rowConstraints>
       <children>
-        <JFXButton fx:id="completedButton" onAction="#onCompletedButtonAction" text="Delete Entry" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowSpan="2" />
+        <JFXButton fx:id="deleteEntryButton" onAction="#onDeleteEntryButtonAction" text="Delete Entry" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowSpan="2" />
       </children>
     </GridPane>
   </bottom>

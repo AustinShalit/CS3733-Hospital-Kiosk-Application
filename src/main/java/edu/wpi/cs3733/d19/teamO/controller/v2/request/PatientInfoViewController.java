@@ -32,7 +32,7 @@ public class PatientInfoViewController implements Controller {
   @FXML
   private JFXButton goBackButton;
   @FXML
-  private JFXButton completedButton;
+  private JFXButton deleteEntryButton;
   @FXML
   private Label titleLabel;
   @FXML
@@ -107,7 +107,7 @@ public class PatientInfoViewController implements Controller {
   }
 
   @FXML
-  void onCompletedButtonAction() {
+  void onDeleteEntryButtonAction() {
     PatientInfoRequest selectedItem =
         requestsTableView.getSelectionModel().getSelectedItem();
     requestsTableView.getItems().remove(selectedItem);
