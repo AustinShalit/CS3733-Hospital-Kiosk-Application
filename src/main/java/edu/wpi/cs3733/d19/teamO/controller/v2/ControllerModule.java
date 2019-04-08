@@ -18,10 +18,10 @@ import edu.wpi.cs3733.d19.teamO.controller.v2.request.GiftController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.GiftViewController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationViewController;
-import edu.wpi.cs3733.d19.teamO.controller.v2.request.PatientInfoController;
-import edu.wpi.cs3733.d19.teamO.controller.v2.request.PatientInfoViewController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InterpreterController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InterpreterViewController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.PatientInfoController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.PatientInfoViewController;
 
 public class ControllerModule extends AbstractModule {
   @Override
@@ -67,7 +67,7 @@ public class ControllerModule extends AbstractModule {
 
     install(new FactoryModuleBuilder().build(InterpreterController.Factory.class));
     install(new FactoryModuleBuilder().build(InterpreterViewController.Factory.class));
-    
+
     install(new FactoryModuleBuilder().build(NavigationController.Factory.class));
   }
 }

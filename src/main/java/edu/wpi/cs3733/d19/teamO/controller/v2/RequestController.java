@@ -13,8 +13,8 @@ import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.ExternalTransportationController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.GiftController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationController;
-import edu.wpi.cs3733.d19.teamO.controller.v2.request.PatientInfoController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InterpreterController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.PatientInfoController;
 
 @FxmlController(url = "ServiceRequest.fxml")
 @SuppressWarnings("PMD.TooManyFields")
