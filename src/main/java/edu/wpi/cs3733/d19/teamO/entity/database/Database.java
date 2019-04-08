@@ -281,6 +281,7 @@ public class Database {
   public boolean updateInterpreterRequest(InterpreterRequest interpreterRequest) {
     return interpreterDao.update(interpreterRequest);
   }
+
   /*
    * Gift Request
    */
