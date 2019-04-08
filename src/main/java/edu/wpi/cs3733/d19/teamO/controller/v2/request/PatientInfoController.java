@@ -69,8 +69,9 @@ public class PatientInfoController implements Controller {
   void onSubmitButtonAction() {
     PatientInfoRequest req = parse();
     if (Objects.nonNull(req)) {
+      db.insertPatientInfoRequest(req);
       DialogHelper.showInformationAlert("Success!",
-          "Created object, not submitted to DB");
+          "Inserted Patient Info into Database!");;
     } else {
       DialogHelper.showErrorAlert("Error.",
           "Please make sure all fields are filled out.");
