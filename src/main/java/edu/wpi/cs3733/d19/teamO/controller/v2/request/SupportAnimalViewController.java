@@ -93,7 +93,7 @@ public class SupportAnimalViewController implements Controller {
 
   @FXML
   void onAssignButtonAction() {
-    String id = DialogHelper.textInputDialog("Enter Security Request ID",
+    String id = DialogHelper.textInputDialog("Enter Support Animal Request ID",
         "Enter Request ID", "ID: ");
     int idInt = Integer.parseInt(id);
     String name = DialogHelper.textInputDialog("Enter Employee Name",
