@@ -14,7 +14,8 @@ import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SchedulingRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
 
-@SuppressWarnings("PMD.TooManyMethods")
+@SuppressWarnings({"PMD.TooManyMethods", "PMD.GodClass", "PMD.ExcessivePublicCount"})
+
 public class Database {
 
   private final NodeDao nodeDao;
@@ -26,7 +27,6 @@ public class Database {
   private final InternalTransportationRequestDao itransportationDao;
   private final ExternalTransportationRequestDao etransportationDao;
   private final EmployeeDao employeeDao;
-
 
   Database(DatabaseConnectionFactory dcf) throws SQLException {
     this.nodeDao = new NodeDaoDb(dcf);
