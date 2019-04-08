@@ -60,5 +60,7 @@ public class ControllerModule extends AbstractModule {
 
     install(new FactoryModuleBuilder().build(InterpreterController.Factory.class));
     install(new FactoryModuleBuilder().build(InterpreterViewController.Factory.class));
+    
+    install(new FactoryModuleBuilder().build(NavigationController.Factory.class));
   }
 }

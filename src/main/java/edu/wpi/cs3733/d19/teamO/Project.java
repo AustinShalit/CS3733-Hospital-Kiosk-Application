@@ -85,9 +85,7 @@ public class Project extends Application {
 
     // Set original window size and position
     primaryStage.setMinWidth(1280);
-    primaryStage.setMinHeight(780);
-    primaryStage.setWidth(1280);
-    primaryStage.setHeight(780);
+    primaryStage.setMinHeight(720);
 
     primaryStage.show();
     logger.config("Startup complete");
