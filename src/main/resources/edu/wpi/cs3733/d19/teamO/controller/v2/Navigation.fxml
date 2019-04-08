@@ -22,7 +22,7 @@
           <children>
             <VBox alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
               <children>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Filter">
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="FILTER">
                   <font>
                     <Font size="36.0" />
                   </font>
@@ -37,22 +37,22 @@
                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                   </rowConstraints>
                   <children>
-                    <JFXButton prefWidth="100.0" style="-fx-background-color: grey;" text="Bathroom" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                    <JFXButton prefWidth="100.0" style="-fx-background-color: #0067B1;" text="Bathroom" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                       <GridPane.margin>
                         <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                       </GridPane.margin>
                     </JFXButton>
-                    <JFXButton prefWidth="100.0" style="-fx-background-color: grey;" text="Elevator" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                    <JFXButton prefWidth="100.0" style="-fx-background-color: #0067B1;" text="Elevator" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                       <GridPane.margin>
                         <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                       </GridPane.margin>
                     </JFXButton>
-                    <JFXButton prefWidth="100.0" style="-fx-background-color: grey;" text="Information" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                    <JFXButton prefWidth="100.0" style="-fx-background-color: #0067B1;" text="Information" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                       <GridPane.margin>
                         <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                       </GridPane.margin>
                     </JFXButton>
-                    <JFXButton prefWidth="100.0" style="-fx-background-color: grey;" text="Exit" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                    <JFXButton prefWidth="100.0" style="-fx-background-color: #0067B1;" text="Exit" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                       <GridPane.margin>
                         <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                       </GridPane.margin>
@@ -91,10 +91,13 @@
                     <Insets bottom="30.0" left="5.0" right="5.0" />
                   </VBox.margin>
                 </JFXComboBox>
-                <JFXButton prefHeight="50.0" prefWidth="294.0" style="-fx-background-color: grey;" text="Go">
+                <JFXButton prefHeight="50.0" prefWidth="294.0" style="-fx-background-color: #012d5a;" text="GO" textFill="WHITE">
                   <VBox.margin>
                     <Insets bottom="30.0" />
                   </VBox.margin>
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
                 </JFXButton>
               </children>
             </VBox>
