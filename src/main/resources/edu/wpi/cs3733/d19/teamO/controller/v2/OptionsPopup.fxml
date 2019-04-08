@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXListView?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
+<JFXListView fx:id="list" onMouseClicked="#onAction" fx:controller="edu.wpi.cs3733.d19.teamO.controller.v2.OptionsPopupController" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <Label onMouseClicked="#settingsAction">
+    Settings
+    <graphic>
+      <StackPane>
+        <FontAwesomeIconView glyphName="COG" size="1.5em" />
+      </StackPane>
+    </graphic>
+  </Label>
+  <Label onMouseClicked="#signoutAction">
+    Sign out
+    <graphic>
+      <StackPane>
+        <FontAwesomeIconView glyphName="SIGN_OUT" size="1.5em" />
+      </StackPane>
+    </graphic>
+  </Label>
+</JFXListView>

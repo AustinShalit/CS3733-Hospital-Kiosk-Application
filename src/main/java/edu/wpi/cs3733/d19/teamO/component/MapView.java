@@ -3,7 +3,6 @@ package edu.wpi.cs3733.d19.teamO.component;
 import java.io.IOException;
 import java.util.Collection;
 
-
 import javafx.animation.Interpolator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -44,7 +43,7 @@ public class MapView extends StackPane {
   private Group edges;
 
   @FXML
-   private Button levelL1;
+  private Button levelL1;
   @FXML
   private Button levelF1;
   @FXML
@@ -187,7 +186,6 @@ public class MapView extends StackPane {
 
   }
 
-
   @FXML
   void onMouseMove(MouseEvent e)  {
     Object src = e.getSource();
@@ -218,9 +216,6 @@ public class MapView extends StackPane {
       ((Button) src).setStyle("-fx-background-color:  rgba(17,0,255,0.4)"); // style button
     }
   }
-
-
-
 
   /**
    * Set the image to the map.

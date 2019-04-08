@@ -9,15 +9,23 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.EventBus;
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
 import com.sun.javafx.application.PlatformImpl;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import edu.wpi.cs3733.d19.teamO.controller.Controller;
+import edu.wpi.cs3733.d19.teamO.controller.v2.ControllerModule;
+import edu.wpi.cs3733.d19.teamO.controller.v2.LoginController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.MainController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.csv.EdgeCsvReaderWriter;
@@ -26,19 +34,26 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 public class Project extends Application {
 
-  private final Controller controller = new Controller();
-
   private static final Logger logger
       = Logger.getLogger(Project.class.getName());
 
-  private static Database database;
+  @Inject
+  private EventBus eventBus;
+  @Inject
+  private LoginController.Factory loginControllerFactory;
+
+  private Injector injector;
   private Parent root;
 
   @Override
-  public void start(final Stage primaryStage) throws IOException, SQLException {
-    logger.config("Starting application");
+  public void init() throws IOException, SQLException {
+    logger.config("Application init");
 
-    database = new Database();
+    injector = Guice.createInjector(new ProjectModule(), new ControllerModule());
+    injector.injectMembers(this);
+
+
+    Database database = new Database();
 
     NodeCsvReaderWriter ncrw = new NodeCsvReaderWriter();
     EdgeCsvReaderWriter ecrw = new EdgeCsvReaderWriter(database);
@@ -52,19 +67,30 @@ public class Project extends Application {
       database.insertEdge(edge);
     }
 
-    FXMLLoader loader = new FXMLLoader(getClass().getResource("controller/LoginWindow.fxml"));
+
+    logger.config("Application init complete");
+  }
+
+  @Override
+  public void start(final Stage primaryStage) throws IOException {
+    logger.config("Starting application");
+
+    FXMLLoader loader = new FXMLLoader(MainController.class.getResource("Main.fxml"));
+    loader.setControllerFactory(injector::getInstance);
     root = loader.load();
 
-    primaryStage.setTitle("Team O Kiosk Application");
+    Platform.runLater(()
+        -> eventBus.post(new ChangeMainViewEvent(loginControllerFactory.create(), false)));
 
+    primaryStage.setTitle("Team O Kiosk Application");
     primaryStage.setScene(new Scene(root));
 
     // Set original window size and position
-    controller.minWindowSize(primaryStage);
-    controller.setWindowSize(primaryStage, 1200, 900);
-    controller.setWindowPosition(primaryStage, 0, 0);
+    primaryStage.setMinWidth(1280);
+    primaryStage.setMinHeight(780);
+    primaryStage.setWidth(1280);
+    primaryStage.setHeight(780);
 
-    primaryStage.hide();
     primaryStage.show();
     logger.config("Startup complete");
 
