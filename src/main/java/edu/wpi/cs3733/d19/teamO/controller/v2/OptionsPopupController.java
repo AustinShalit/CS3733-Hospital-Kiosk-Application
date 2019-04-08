@@ -24,7 +24,6 @@ public class OptionsPopupController implements Controller {
 
   @FXML
   void onAction(MouseEvent event) {
-    list.getSelectionModel().getSelectedItem().fireEvent(event);
   }
 
   @FXML
@@ -34,7 +33,6 @@ public class OptionsPopupController implements Controller {
 
   @FXML
   void signoutAction(MouseEvent event) {
-    event.consume();
     eventBus.post(new ChangeMainViewEvent(loginControllerFactory.create(), false));
   }
 
