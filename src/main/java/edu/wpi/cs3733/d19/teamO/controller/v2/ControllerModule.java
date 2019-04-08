@@ -14,6 +14,8 @@ import javafx.fxml.FXMLLoader;
 
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationViewController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.PatientInfoController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.PatientInfoViewController;
 
 public class ControllerModule extends AbstractModule {
   @Override
@@ -45,5 +47,7 @@ public class ControllerModule extends AbstractModule {
 
     install(new FactoryModuleBuilder().build(InternalTransportationController.Factory.class));
     install(new FactoryModuleBuilder().build(InternalTransportationViewController.Factory.class));
+    install(new FactoryModuleBuilder().build(PatientInfoController.Factory.class));
+    install(new FactoryModuleBuilder().build(PatientInfoViewController.Factory.class));
   }
 }
