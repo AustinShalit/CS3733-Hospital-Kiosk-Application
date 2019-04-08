@@ -126,11 +126,12 @@ public class PatientInfoRequestDaoDb implements PatientInfoRequestDao {
       statement.setTimestamp(2,
           Timestamp.valueOf(patientInfoRequest.getTimeCompleted()));
       statement.setString(3, patientInfoRequest.getWhoCompleted());
-      statement.setString(4,
+      statement.setString(4, patientInfoRequest.getDescription());
+      statement.setString(5,
           patientInfoRequest.getLocationNode().getNodeId());
-      statement.setString(5, patientInfoRequest.getPatientName());
-      statement.setDate(6, Date.valueOf(patientInfoRequest.getPatientDOB()));
-      statement.setString(7, patientInfoRequest.getPatientSex().toString());
+      statement.setString(6, patientInfoRequest.getPatientName());
+      statement.setDate(7, Date.valueOf(patientInfoRequest.getPatientDOB()));
+      statement.setString(8, patientInfoRequest.getPatientSex().toString());
 
       statement.executeUpdate();
       try (ResultSet keys = statement.getGeneratedKeys()) {
