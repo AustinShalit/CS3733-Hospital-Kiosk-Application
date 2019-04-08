@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<<<<<<< HEAD
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXDatePicker?>
-<?import com.jfoenix.controls.JFXTimePicker?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ComboBox?>
-=======
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTimePicker?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
->>>>>>> master
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.Group?>
@@ -21,8 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<<<<<<< HEAD
-<GridPane xmlns:fx="http://javafx.com/fxml/1" hgap="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="edu.wpi.cs3733.d19.teamO.controller.SchedulingWindowController">
+<GridPane hgap="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.SchedulingWindowController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="285.0" minWidth="10.0" prefWidth="228.0" />
@@ -40,7 +31,6 @@
   <children>
     <Group GridPane.columnIndex="1" GridPane.rowIndex="2">
       <children>
-        <ComboBox fx:id="roomComboBox" layoutY="66.0" prefWidth="150.0" promptText="enter a room" />
         <Text layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room">
           <font>
             <Font name="System Bold" size="15.0" />
@@ -48,6 +38,8 @@
         </Text>
       </children>
     </Group>
+    <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackButtonAction" text="Back" GridPane.halignment="CENTER" />
+    <Button fx:id="submitButton" mnemonicParsing="false" onAction="#onSubmitButtonAction" text="Confirm Reservation" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
     <Group GridPane.columnIndex="2" GridPane.rowIndex="2">
       <children>
         <JFXTimePicker fx:id="startChoiceBox" layoutY="26.0" prefWidth="205.0" />
@@ -89,99 +81,10 @@
       </children>
     </Group>
     <Label fx:id="submitStatus" prefHeight="21.0" prefWidth="288.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-    <JFXButton fx:id="submitButton" buttonType="RAISED" onAction="#onSubmitButtonAction" ripplerFill="WHITE" style="-fx-background-color: #c4eff4;" text="Confirm Sumbission" GridPane.columnIndex="2" GridPane.rowIndex="6">
-      <font>
-        <Font name="System Bold" size="15.0" />
-      </font>
-    </JFXButton>
-    <JFXButton fx:id="viewSchedulingButton" buttonType="RAISED" layoutX="380.0" layoutY="393.0" onAction="#viewSchedulingButtonAction" ripplerFill="WHITE" style="-fx-background-color: #c4eff4;" text="View Current Schedule" GridPane.columnIndex="2" GridPane.rowIndex="5">
-      <font>
-        <Font name="System Bold" size="15.0" />
-      </font>
-    </JFXButton>
-    <JFXButton fx:id="backButton" onAction="#onBackButtonAction" ripplerFill="WHITE" style="-fx-background-color: #c4eff4;" text="Back">
-      <font>
-        <Font name="System Bold" size="15.0" />
-      </font>
+    <JFXComboBox fx:id="roomComboBox" promptText="Enter a Room" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.rowSpan="2">
       <GridPane.margin>
-        <Insets left="15.0" />
+        <Insets bottom="10.0" />
       </GridPane.margin>
-    </JFXButton>
+    </JFXComboBox>
   </children>
-  =======
-  <GridPane hgap="20.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.SchedulingWindowController">
-    <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="285.0" minWidth="10.0" prefWidth="228.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="286.0" minWidth="10.0" prefWidth="269.0" />
-    </columnConstraints>
-    <rowConstraints>
-      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-    </rowConstraints>
-    <children>
-      <Group GridPane.columnIndex="1" GridPane.rowIndex="2">
-        <children>
-          <Text layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room">
-            <font>
-              <Font name="System Bold" size="15.0" />
-            </font>
-          </Text>
-        </children>
-      </Group>
-      <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackButtonAction" text="Back" GridPane.halignment="CENTER" />
-      <Button fx:id="submitButton" mnemonicParsing="false" onAction="#onSubmitButtonAction" text="Confirm Reservation" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
-      <Group GridPane.columnIndex="2" GridPane.rowIndex="2">
-        <children>
-          <JFXTimePicker fx:id="startChoiceBox" layoutY="26.0" prefWidth="205.0" />
-          <Label text="Start Time">
-            <font>
-              <Font name="System Bold" size="15.0" />
-            </font>
-          </Label>
-        </children>
-      </Group>
-      <Group GridPane.columnIndex="2" GridPane.rowIndex="3">
-        <children>
-          <JFXTimePicker fx:id="endChoiceBox" layoutY="26.0" prefWidth="205.0" />
-          <Label text="End Time">
-            <font>
-              <Font name="System Bold" size="15.0" />
-            </font>
-          </Label>
-        </children>
-      </Group>
-      <Group GridPane.columnIndex="2" GridPane.rowIndex="4">
-        <children>
-          <JFXDatePicker fx:id="datePicker" layoutY="29.0" prefWidth="205.0" />
-          <Label text="Date">
-            <font>
-              <Font name="System Bold" size="15.0" />
-            </font>
-          </Label>
-        </children>
-      </Group>
-      <Group GridPane.columnIndex="1" GridPane.rowIndex="3">
-        <children>
-          <TextField fx:id="nameBox" layoutY="70.0" />
-          <Text layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
-            <font>
-              <Font name="System Bold" size="15.0" />
-            </font>
-          </Text>
-        </children>
-      </Group>
-      <Label fx:id="submitStatus" prefHeight="21.0" prefWidth="288.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-      <JFXComboBox fx:id="roomComboBox" promptText="Enter a Room" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.rowSpan="2">
-        <GridPane.margin>
-          <Insets bottom="10.0" />
-        </GridPane.margin>
-      </JFXComboBox>
-    </children>
-    >>>>>>> master
-  </GridPane>
+</GridPane>
