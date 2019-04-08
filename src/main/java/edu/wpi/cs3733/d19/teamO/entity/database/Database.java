@@ -31,10 +31,10 @@ public class Database {
     this.edgeDao = new EdgeDaoDb(dcf);
     this.securityRequestDao = new SecurityRequestDaoDb(dcf);
     this.sanitationRequestDao = new SanitationRequestDaoDb(dcf);
-    this.loginDao = new LoginDaoDb(dcf);
     this.schedulingRequestDao = new SchedulingRequestDaoDb(dcf);
     this.itransportationDao = new InternalTransportationRequestDaoDb(dcf);
     this.employeeDao = new EmployeeDaoDb(dcf);
+    this.loginDao = new LoginDaoDb(dcf);
   }
 
   /**

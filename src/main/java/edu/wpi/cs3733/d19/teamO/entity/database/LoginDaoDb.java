@@ -130,7 +130,7 @@ public class LoginDaoDb implements LoginDao {
       statement.setString(1, login.getUsername());
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
-      logger.log(Level.WARNING, "FAILED to delete SanitationRequest");
+      logger.log(Level.WARNING, "Failed to delete Login");
     }
     return false;
   }
