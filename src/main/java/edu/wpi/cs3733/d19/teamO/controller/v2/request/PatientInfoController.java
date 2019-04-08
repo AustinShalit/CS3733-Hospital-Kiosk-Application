@@ -1,9 +1,7 @@
 package edu.wpi.cs3733.d19.teamO.controller.v2.request;
 
 import java.time.LocalDateTime;
-import java.util.Locale;
 import java.util.Objects;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.EventBus;

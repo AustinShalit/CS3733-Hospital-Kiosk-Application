@@ -17,7 +17,6 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import edu.wpi.cs3733.d19.teamO.entity.InternalTransportationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.PatientInfoRequest;
 
 public class PatientInfoRequestDaoDb implements PatientInfoRequestDao {
