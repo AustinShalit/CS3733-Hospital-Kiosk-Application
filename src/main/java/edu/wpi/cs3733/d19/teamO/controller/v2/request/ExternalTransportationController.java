@@ -17,7 +17,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 
-import edu.wpi.cs3733.d19.teamO.controller.SanitationWindowController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.Controller;
 import edu.wpi.cs3733.d19.teamO.controller.v2.DialogHelper;
 import edu.wpi.cs3733.d19.teamO.controller.v2.FxmlController;
@@ -30,7 +29,8 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 @FxmlController(url = "ExternalTransportation.fxml")
 public class ExternalTransportationController implements Controller {
 
-  private static final Logger logger = Logger.getLogger(ExternalTransportationController.class.getName());
+  private static final Logger logger =
+      Logger.getLogger(ExternalTransportationController.class.getName());
 
   @FXML
   private BorderPane root;
@@ -68,15 +68,15 @@ public class ExternalTransportationController implements Controller {
 
   @FXML
   void onSubmitButtonAction() {
-    ExternalTransportationRequest External = parseUserITRequest();
-    if (External == null) {
+    ExternalTransportationRequest external = parseUserITRequest();
+    if (external == null) {
       logger.log(Level.WARNING,
           "Unable to parse External transportation Request.",
           "Unable to parse External Transportation Request.");
       return;
     }
 
-    if (db.insertExternalTransportationRequest(External)) {
+    if (db.insertExternalTransportationRequest(external)) {
       String message = "Successfully submitted External transportation request.";
       DialogHelper.showInformationAlert("Success!", message);
     } else {
@@ -101,13 +101,13 @@ public class ExternalTransportationController implements Controller {
       Node node = (Node) locationbox.getValue();
 
       String type = categorybox.getValue().toString().toUpperCase(new Locale("EN"));
-      ExternalTransportationRequest.ExternalTransportationRequestType ExternalRequestType =
+      ExternalTransportationRequest.ExternalTransportationRequestType externalRequestType =
           ExternalTransportationRequest.ExternalTransportationRequestType.valueOf(type);
 
       String description = descriptiontxt.getText();
       String name = nametxt.getText();
 
-      return new ExternalTransportationRequest(now, node, ExternalRequestType, description, name);
+      return new ExternalTransportationRequest(now, node, externalRequestType, description, name);
     }
 
     // otherwise, some input was invalid

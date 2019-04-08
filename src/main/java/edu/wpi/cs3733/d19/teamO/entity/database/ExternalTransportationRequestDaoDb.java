@@ -80,12 +80,12 @@ public class ExternalTransportationRequestDaoDb implements ExternalTransportatio
       );
 
       try (ResultSet resultSet = statement.executeQuery()) {
-        Set<ExternalTransportationRequest> ExternalTransportationRequests = new HashSet<>();
+        Set<ExternalTransportationRequest> externalTransportationRequests = new HashSet<>();
         while (resultSet.next()) {
-          ExternalTransportationRequests.add(extractExternalTransportationRequestFromResultSet(
+          externalTransportationRequests.add(extractExternalTransportationRequestFromResultSet(
               resultSet));
         }
-        return ExternalTransportationRequests;
+        return externalTransportationRequests;
       }
     } catch (SQLException ex) {
       logger.log(Level.WARNING, "Failed to get ExternalTransportationRequests", ex);
@@ -112,29 +112,29 @@ public class ExternalTransportationRequestDaoDb implements ExternalTransportatio
   }
 
   @Override
-  public boolean insert(final ExternalTransportationRequest ExternalTransportationRequest) {
+  public boolean insert(final ExternalTransportationRequest externalTransportationRequest) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement(
           queries.getProperty("external_transportation_request.insert"),
           Statement.RETURN_GENERATED_KEYS
       );
       statement.setTimestamp(1,
-          Timestamp.valueOf(ExternalTransportationRequest.getTimeRequested()));
+          Timestamp.valueOf(externalTransportationRequest.getTimeRequested()));
       statement.setTimestamp(2,
-          Timestamp.valueOf(ExternalTransportationRequest.getTimeCompleted()));
-      statement.setString(3, ExternalTransportationRequest.getWhoCompleted());
+          Timestamp.valueOf(externalTransportationRequest.getTimeCompleted()));
+      statement.setString(3, externalTransportationRequest.getWhoCompleted());
       statement.setString(4,
-          ExternalTransportationRequest.getLocationNode().getNodeId());
-      statement.setString(5, ExternalTransportationRequest.getType().name());
-      statement.setString(6, ExternalTransportationRequest.getDescription());
-      statement.setString(7, ExternalTransportationRequest.getPerson());
+          externalTransportationRequest.getLocationNode().getNodeId());
+      statement.setString(5, externalTransportationRequest.getType().name());
+      statement.setString(6, externalTransportationRequest.getDescription());
+      statement.setString(7, externalTransportationRequest.getPerson());
 
       statement.executeUpdate();
       try (ResultSet keys = statement.getGeneratedKeys()) {
         if (!keys.next()) {
           return false;
         }
-        ExternalTransportationRequest.setId(keys.getInt(1));
+        externalTransportationRequest.setId(keys.getInt(1));
         return true;
       }
     } catch (SQLException exception) {
@@ -167,38 +167,38 @@ public class ExternalTransportationRequestDaoDb implements ExternalTransportatio
   }
 
   @Override
-  public boolean update(ExternalTransportationRequest ExternalTransportationRequest) {
+  public boolean update(ExternalTransportationRequest externalTransportationRequest) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement(
           queries.getProperty("external_transportation_request.update")
       );
       statement.setTimestamp(1,
-          Timestamp.valueOf(ExternalTransportationRequest.getTimeRequested()));
+          Timestamp.valueOf(externalTransportationRequest.getTimeRequested()));
       statement.setTimestamp(2,
-          Timestamp.valueOf(ExternalTransportationRequest.getTimeCompleted()));
-      statement.setString(3, ExternalTransportationRequest.getWhoCompleted());
-      statement.setString(4, ExternalTransportationRequest.getLocationNode().getNodeId());
-      statement.setString(5, ExternalTransportationRequest.getType().name());
-      statement.setString(6, ExternalTransportationRequest.getDescription());
-      statement.setString(7, ExternalTransportationRequest.getPerson());
-      statement.setInt(8, ExternalTransportationRequest.getId());
+          Timestamp.valueOf(externalTransportationRequest.getTimeCompleted()));
+      statement.setString(3, externalTransportationRequest.getWhoCompleted());
+      statement.setString(4, externalTransportationRequest.getLocationNode().getNodeId());
+      statement.setString(5, externalTransportationRequest.getType().name());
+      statement.setString(6, externalTransportationRequest.getDescription());
+      statement.setString(7, externalTransportationRequest.getPerson());
+      statement.setInt(8, externalTransportationRequest.getId());
 
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
-      logger.log(Level.WARNING, "Failed to update ExternalTransportationRequest", ex);
+      logger.log(Level.WARNING, "Failed to update externalTransportationRequest", ex);
     }
     return false;
   }
 
   @Override
-  public boolean delete(ExternalTransportationRequest ExternalTransportationRequest) {
+  public boolean delete(ExternalTransportationRequest externalTransportationRequest) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement(
           queries.getProperty("external_transportation_request.delete"));
-      statement.setInt(1, ExternalTransportationRequest.getId());
+      statement.setInt(1, externalTransportationRequest.getId());
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
-      logger.log(Level.WARNING, "FAILED to delete ExternalTransportationRequest");
+      logger.log(Level.WARNING, "FAILED to delete externalTransportationRequest");
     }
     return false;
   }

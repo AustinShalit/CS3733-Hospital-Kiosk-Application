@@ -51,11 +51,11 @@ class ExternalTransportationRequestDaoDbTest {
             + testInfo.getDisplayName());
 
     nodeDao = new NodeDaoDb(dcf);
-    ExternalTransportationRequestDaoDb ExternalTransportationRequestDaoDb =
+    ExternalTransportationRequestDaoDb externalTransportationRequestDaoDb =
         new ExternalTransportationRequestDaoDb(dcf);
 
     nodeDao.insert(testNode1);
-    ExternalTransportationRequestDaoDb.insert(testITRequest1);
+    externalTransportationRequestDaoDb.insert(testITRequest1);
 
 
     itrequestdao = new ExternalTransportationRequestDaoDb(dcf);
@@ -152,8 +152,8 @@ class ExternalTransportationRequestDaoDbTest {
       itrequestdao.insert(testITRequest1);
     }
 
-    Set<ExternalTransportationRequest> ExternalTransportationRequestSet = itrequestdao.getAll();
-    for (ExternalTransportationRequest sr : ExternalTransportationRequestSet) {
+    Set<ExternalTransportationRequest> externalTransportationRequestSet = itrequestdao.getAll();
+    for (ExternalTransportationRequest sr : externalTransportationRequestSet) {
       // make sure the id is in the correct range
       assertTrue(sr.getId() < 11 || sr.getId() > 1);
     }
