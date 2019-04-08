@@ -14,6 +14,14 @@
       </StackPane>
     </graphic>
   </Label>
+  <Label onMouseClicked="#adminAction">
+    Admin
+    <graphic>
+      <StackPane>
+        <FontAwesomeIconView glyphName="SHIELD" size="1.5em" />
+      </StackPane>
+    </graphic>
+  </Label>
   <Label onMouseClicked="#signoutAction">
     Sign out
     <graphic>

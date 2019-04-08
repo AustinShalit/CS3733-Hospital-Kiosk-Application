@@ -60,6 +60,7 @@ public class RequestController implements Controller {
   @Inject
   private InternalTransportationController.Factory internalTransportationControllerFactory;
 
+
   @FXML
   void internalTransportationAction(ActionEvent event) {
     eventBus.post(new ChangeMainViewEvent(internalTransportationControllerFactory.create()));
