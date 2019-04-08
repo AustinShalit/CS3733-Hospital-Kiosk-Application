@@ -28,6 +28,8 @@ public class HomeController implements Controller {
   @Inject
   private RequestController.Factory requestControllerFactory;
   @Inject
+  private SchedulingController.Factory schedulingControllerFactory;
+  @Inject
   private NavigationController.Factory navigationControllerFactory;
 
   @FXML
@@ -42,7 +44,7 @@ public class HomeController implements Controller {
 
   @FXML
   void scheduleOnAction() {
-
+    eventBus.post(new ChangeMainViewEvent(schedulingControllerFactory.create()));
   }
 
   @FXML
