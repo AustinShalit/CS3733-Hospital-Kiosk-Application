@@ -13,7 +13,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
+import javafx.scene.web.WebView;
 import javafx.util.Duration;
 import net.aksingh.owmjapis.core.OWM;
 import net.aksingh.owmjapis.api.APIException;
@@ -33,6 +33,8 @@ public class HomeController implements ContentPane {
   private Label timeLabel;
   @FXML
   private Label weatherLabel;
+  @FXML
+  private WebView weather;
 
   private Optional<EventBus> eventBus = Optional.empty();
 

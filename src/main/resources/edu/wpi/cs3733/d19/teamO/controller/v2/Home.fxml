@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.web.WebView?>
 
 <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.v2.HomeController">
    <children>
@@ -34,6 +35,7 @@
                      <children>
                         <Label fx:id="timeLabel" prefHeight="181.0" prefWidth="320.0" text="Time: " />
                         <Label fx:id="weatherLabel" text="Weather:" />
+                        <WebView fx:id="weather" prefHeight="200.0" prefWidth="200.0" />
                      </children></VBox>
                   <JFXButton fx:id="navigationButton" onAction="#navigationOnAction" prefHeight="325.0" prefWidth="325.0" style="-fx-background-color: grey;" text="Navigation" GridPane.columnIndex="1">
                      <GridPane.margin>
