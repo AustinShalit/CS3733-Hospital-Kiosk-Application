@@ -86,7 +86,7 @@ public class LoginDaoDb implements LoginDao {
         resultSet.getString("username"),
         resultSet.getString("password"),
         employeeDaoDb.get(resultSet.getInt("emp_id"))
-        .orElseThrow(() -> new SQLException("Could not get associated employee"))
+            .orElseThrow(() -> new SQLException("Could not get associated employee"))
     );
   }
 
@@ -130,7 +130,7 @@ public class LoginDaoDb implements LoginDao {
       statement.setString(1, login.getUsername());
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
-      logger.log(Level.WARNING, "FAILED to delete SanitationRequest");
+      logger.log(Level.WARNING, "Failed to delete Login");
     }
     return false;
   }
