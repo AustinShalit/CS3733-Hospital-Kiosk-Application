@@ -12,96 +12,72 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="navSideBarVBox" alignment="CENTER_LEFT"
-      nodeOrientation="LEFT_TO_RIGHT" xmlns="http://javafx.com/javafx/8.0.171"
-      fx:controller="edu.wpi.cs3733.d19.teamO.controller.SidePanelPopOutController">
-    <children>
-        <ImageView fx:id="navBarBackImage" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true"
-                   preserveRatio="true"/>
-        <JFXClippedPane style="-fx-border-color: #d4d2d1;" VBox.vgrow="ALWAYS">
-            <children>
-                <VBox alignment="CENTER_RIGHT">
-                    <children>
-                        <Label alignment="CENTER" prefWidth="196.0" text="Starting Point"
-                               textAlignment="CENTER">
-                            <graphic>
-                                <Circle fill="GREEN" radius="8.0" stroke="BLACK"
-                                        strokeType="INSIDE"/>
-                            </graphic>
-                        </Label>
-                        <JFXRadioButton fx:id="startCurrLocJFXRadio" disable="true"
-                                        onAction="#onStartCurrLocRadioAction" prefWidth="190.0"
-                                        text="Current Location">
-                            <padding>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                            </padding>
-                            <toggleGroup>
-                                <ToggleGroup fx:id="startLocationToggle"/>
-                            </toggleGroup>
-                        </JFXRadioButton>
-                        <JFXRadioButton fx:id="startSelLocJFXRadio"
-                                        onAction="#onStartSelLocRadioAction" prefWidth="190.0"
-                                        text="Select a Location" toggleGroup="$startLocationToggle">
-                            <padding>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                            </padding>
-                        </JFXRadioButton>
-                        <JFXComboBox fx:id="startSelLocJFXCombo" disable="true" editable="true"
-                                     onAction="#onStartSelLocComboAction"
-                                     promptText="Room # or Name"/>
-                    </children>
-                </VBox>
-            </children>
-        </JFXClippedPane>
-        <JFXButton fx:id="multiPathButton" disable="true" mouseTransparent="true" prefHeight="25.0"
-                   prefWidth="200.0" ripplerFill="#ed1111e7" text="Add Multiple"
-                   VBox.vgrow="ALWAYS">
-            <font>
-                <Font name="System Bold" size="18.0"/>
-            </font>
-        </JFXButton>
-        <JFXClippedPane style="-fx-border-color: #d4d2d1;" VBox.vgrow="ALWAYS">
-            <children>
-                <VBox alignment="CENTER_RIGHT">
-                    <children>
-                        <Label alignment="CENTER" prefWidth="196.0" text="End Point"
-                               textAlignment="CENTER">
-                            <graphic>
-                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="RED" height="16.0"
-                                           stroke="BLACK" strokeType="INSIDE" width="16.0"/>
-                            </graphic>
-                        </Label>
-                        <JFXRadioButton fx:id="endCurrLocJFXRadio" disable="true"
-                                        onAction="#onEndCurrLocRadioAction" prefWidth="190.0"
-                                        text="Current Location">
-                            <padding>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                            </padding>
-                            <toggleGroup>
-                                <ToggleGroup fx:id="endLocationToggle"/>
-                            </toggleGroup>
-                        </JFXRadioButton>
-                        <JFXRadioButton fx:id="endSelLocJFXRadio" onAction="#onEndSelLocRadioAction"
-                                        prefWidth="190.0" text="Select a Location"
-                                        toggleGroup="$endLocationToggle">
-                            <padding>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                            </padding>
-                        </JFXRadioButton>
-                        <JFXComboBox fx:id="endSelLocJFXCombo" disable="true" editable="true"
-                                     onAction="#onEndSelLocComboAction"
-                                     promptText="Room # or Name"/>
-                    </children>
-                </VBox>
-            </children>
-        </JFXClippedPane>
-        <JFXButton fx:id="generatePathButton" disable="true" layoutX="10.0" layoutY="258.0"
-                   onAction="#onGeneratePathButtonAction" prefHeight="39.0" prefWidth="200.0"
-                   ripplerFill="#2146ffdf" text="Generate Path" textAlignment="CENTER"
-                   VBox.vgrow="ALWAYS">
-            <font>
-                <Font name="System Bold" size="18.0"/>
-            </font>
-        </JFXButton>
-    </children>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="navSideBarVBox" alignment="CENTER_LEFT" nodeOrientation="LEFT_TO_RIGHT" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="edu.wpi.cs3733.d19.teamO.controller.SidePanelPopOutController">
+  <children>
+    <ImageView fx:id="navBarBackImage" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+    <JFXClippedPane style="-fx-border-color: #d4d2d1;" VBox.vgrow="ALWAYS">
+      <children>
+        <VBox alignment="CENTER_RIGHT">
+          <children>
+            <Label alignment="CENTER" prefWidth="196.0" text="Starting Point" textAlignment="CENTER">
+              <graphic>
+                <Circle fill="GREEN" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+              </graphic>
+            </Label>
+            <JFXRadioButton fx:id="startCurrLocJFXRadio" disable="true" onAction="#onStartCurrLocRadioAction" prefWidth="190.0" text="Current Location">
+              <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+              </padding>
+              <toggleGroup>
+                <ToggleGroup fx:id="startLocationToggle" />
+              </toggleGroup>
+            </JFXRadioButton>
+            <JFXRadioButton fx:id="startSelLocJFXRadio" onAction="#onStartSelLocRadioAction" prefWidth="190.0" text="Select a Location" toggleGroup="$startLocationToggle">
+              <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+              </padding>
+            </JFXRadioButton>
+            <JFXComboBox fx:id="startSelLocJFXCombo" disable="true" editable="true" onAction="#onStartSelLocComboAction" promptText="Room # or Name" />
+          </children>
+        </VBox>
+      </children>
+    </JFXClippedPane>
+    <JFXButton fx:id="multiPathButton" disable="true" mouseTransparent="true" prefHeight="25.0" prefWidth="200.0" ripplerFill="#ed1111e7" text="Add Multiple" VBox.vgrow="ALWAYS">
+      <font>
+        <Font name="System Bold" size="18.0" />
+      </font>
+    </JFXButton>
+    <JFXClippedPane style="-fx-border-color: #d4d2d1;" VBox.vgrow="ALWAYS">
+      <children>
+        <VBox alignment="CENTER_RIGHT">
+          <children>
+            <Label alignment="CENTER" prefWidth="196.0" text="End Point" textAlignment="CENTER">
+              <graphic>
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="RED" height="16.0" stroke="BLACK" strokeType="INSIDE" width="16.0" />
+              </graphic>
+            </Label>
+            <JFXRadioButton fx:id="endCurrLocJFXRadio" disable="true" onAction="#onEndCurrLocRadioAction" prefWidth="190.0" text="Current Location">
+              <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+              </padding>
+              <toggleGroup>
+                <ToggleGroup fx:id="endLocationToggle" />
+              </toggleGroup>
+            </JFXRadioButton>
+            <JFXRadioButton fx:id="endSelLocJFXRadio" onAction="#onEndSelLocRadioAction" prefWidth="190.0" text="Select a Location" toggleGroup="$endLocationToggle">
+              <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+              </padding>
+            </JFXRadioButton>
+            <JFXComboBox fx:id="endSelLocJFXCombo" disable="true" editable="true" onAction="#onEndSelLocComboAction" promptText="Room # or Name" />
+          </children>
+        </VBox>
+      </children>
+    </JFXClippedPane>
+    <JFXButton fx:id="generatePathButton" disable="true" layoutX="10.0" layoutY="258.0" onAction="#onGeneratePathButtonAction" prefHeight="39.0" prefWidth="200.0" ripplerFill="#2146ffdf" text="Generate Path" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+      <font>
+        <Font name="System Bold" size="18.0" />
+      </font>
+    </JFXButton>
+  </children>
 </VBox>

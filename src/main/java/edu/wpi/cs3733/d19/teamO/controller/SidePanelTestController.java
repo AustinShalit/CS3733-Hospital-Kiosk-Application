@@ -25,7 +25,7 @@ public class SidePanelTestController extends Controller {
   private JFXButton backButton;
 
   @FXML
-    // This method is called by the FXMLLoader when initialization is complete
+  // This method is called by the FXMLLoader when initialization is complete
   void initialize() throws IOException {
     VBox box = FXMLLoader.load(getClass().getResource("SidePanelPopOut.fxml"));
     navDrawer.setSidePane(box);

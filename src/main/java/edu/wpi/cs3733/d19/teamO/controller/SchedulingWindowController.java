@@ -3,8 +3,6 @@ package edu.wpi.cs3733.d19.teamO.controller;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
