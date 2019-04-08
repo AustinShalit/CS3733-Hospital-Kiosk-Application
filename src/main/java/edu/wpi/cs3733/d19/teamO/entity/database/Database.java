@@ -6,6 +6,7 @@ import java.util.Set;
 
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Employee;
+import edu.wpi.cs3733.d19.teamO.entity.FloristRequest;
 import edu.wpi.cs3733.d19.teamO.entity.InternalTransportationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.Login;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
@@ -23,6 +24,7 @@ public class Database {
   private final SchedulingRequestDao schedulingRequestDao;
   private final LoginDao loginDao;
   private final InternalTransportationRequestDao itransportationDao;
+  private final FloristRequestDao floristRequestDao;
   private final EmployeeDao employeeDao;
 
 
@@ -249,6 +251,32 @@ public class Database {
   public boolean updateInternalTransportationRequest(
       InternalTransportationRequest internalTransportationRequest) {
     return itransportationDao.update(internalTransportationRequest);
+  }
+
+  /*
+   * Florist
+   */
+  public Optional<FloristRequest> getFloristRequest(int id) {
+    return FloristRequestDao.get(id);
+  }
+
+  public Set<FloristRequest> getAllFloristRequests() {
+    return FloristRequestDao.getAll();
+  }
+
+  public boolean insertFloristRequest(
+      FloristRequest floristRequest) {
+    return FloristRequestDao.insert(floristRequest);
+  }
+
+  public boolean deleteFloristRequest(
+      FloristRequest floristRequest) {
+    return FloristRequestDao.delete(floristRequest);
+  }
+
+  public boolean updateFloristRequest(
+      FloristRequest floristRequest) {
+    return FloristRequest.update(floristRequest);
   }
 
 }
