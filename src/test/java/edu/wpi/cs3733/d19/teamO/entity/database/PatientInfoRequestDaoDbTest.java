@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 
-import edu.wpi.cs3733.d19.teamO.entity.InternalTransportationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.PatientInfoRequest;
 
@@ -33,10 +32,6 @@ class PatientInfoRequestDaoDbTest {
       "FL3", "Central", Node.NodeType.DEPT, "LONGNAME",
       "SHORTNAME");
 
-  private static final InternalTransportationRequest testITRequest2 =
-      new InternalTransportationRequest(2, LocalDateTime.now(), LocalDateTime.now(), testNode2,
-          "Bill", InternalTransportationRequest.InternalTransportationRequestType.STRETCHER,
-          "This is a description", "Ken");
 
   private static final PatientInfoRequest PIR1 = new PatientInfoRequest(
       1,
@@ -144,9 +139,6 @@ class PatientInfoRequestDaoDbTest {
 
   @Test
   void updateNotExistingTest() {
-    Node newNode = new Node("9876", 0, 0, "2", "Fuller",
-        Node.NodeType.DEPT, "longname", "shortname");
-
     db.insertNode(testNode1);
     db.insertPatientInfoRequest(PIR1);
 

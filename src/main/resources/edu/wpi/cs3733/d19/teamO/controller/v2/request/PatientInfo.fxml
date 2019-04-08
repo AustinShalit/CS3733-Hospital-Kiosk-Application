@@ -24,30 +24,31 @@
             <Insets top="30.0" />
           </VBox.margin>
         </JFXTextField>
-            <JFXDatePicker fx:id="patientDOB" promptText="Patient DOB">
-               <VBox.margin>
-                  <Insets top="45.0" />
-               </VBox.margin>
-            </JFXDatePicker>
-            <JFXComboBox fx:id="sexbox" promptText="Patient Sex">
-               <VBox.margin>
-                  <Insets top="45.0" />
-               </VBox.margin></JFXComboBox>
-            <JFXComboBox fx:id="locationComboBox" promptText="Assigned Location">
-               <VBox.margin>
-                  <Insets top="45.0" />
-               </VBox.margin>
-            </JFXComboBox>
+        <JFXDatePicker fx:id="patientDOB" promptText="Patient DOB">
+          <VBox.margin>
+            <Insets top="45.0" />
+          </VBox.margin>
+        </JFXDatePicker>
+        <JFXComboBox fx:id="sexbox" promptText="Patient Sex">
+          <VBox.margin>
+            <Insets top="45.0" />
+          </VBox.margin>
+        </JFXComboBox>
+        <JFXComboBox fx:id="locationComboBox" promptText="Assigned Location">
+          <VBox.margin>
+            <Insets top="45.0" />
+          </VBox.margin>
+        </JFXComboBox>
         <JFXTextArea fx:id="descriptiontxt" maxHeight="160.0" maxWidth="325.0" prefHeight="97.0" prefWidth="325.0" promptText="Patient notes">
           <VBox.margin>
             <Insets top="45.0" />
           </VBox.margin>
         </JFXTextArea>
-            <JFXButton fx:id="viewRequestsButton" mnemonicParsing="false" onAction="#viewRequestsOnAction" text="Temp View Requests">
-               <VBox.margin>
-                  <Insets top="45.0" />
-               </VBox.margin>
-            </JFXButton>
+        <JFXButton fx:id="viewRequestsButton" mnemonicParsing="false" onAction="#viewRequestsOnAction" text="Temp View Requests">
+          <VBox.margin>
+            <Insets top="45.0" />
+          </VBox.margin>
+        </JFXButton>
       </children>
     </VBox>
   </center>

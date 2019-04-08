@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d19.teamO.controller.v2.request;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.EventBus;
@@ -75,8 +76,11 @@ public class PatientInfoController implements Controller {
     if (Objects.nonNull(req)) {
       db.insertPatientInfoRequest(req);
       DialogHelper.showInformationAlert("Success!",
-          "Inserted Patient Info into Database!");;
+          "Inserted Patient Info into Database!");
     } else {
+      logger.log(Level.WARNING,
+          "Unable to parse patient info Request.",
+          "Unable to parse Patient Info Request.");
       DialogHelper.showErrorAlert("Error.",
           "Please make sure all fields are filled out.");
     }

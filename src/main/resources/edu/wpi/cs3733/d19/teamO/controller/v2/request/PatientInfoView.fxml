@@ -21,7 +21,7 @@
         <TableColumn fx:id="locationTableCol" minWidth="7.0" prefWidth="88.0" text="Location" />
         <TableColumn fx:id="patientNameCol" prefWidth="158.0" text="Patient Name" />
         <TableColumn fx:id="patientDOBCol" prefWidth="134.0" text="Patient DOB" />
-            <TableColumn fx:id="patientSexCol" prefWidth="134.0" text="Patient Sex" />
+        <TableColumn fx:id="patientSexCol" prefWidth="134.0" text="Patient Sex" />
         <TableColumn fx:id="descriptionCol" prefWidth="188.0" text="Description" />
       </columns>
     </TableView>
