@@ -3,7 +3,6 @@ package edu.wpi.cs3733.d19.teamO.component;
 import java.io.IOException;
 import java.util.Collection;
 
-
 import javafx.animation.Interpolator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -42,7 +41,7 @@ public class MapView extends StackPane {
   private Group edges;
 
   @FXML
-   private Button levelL1;
+  private Button levelL1;
   @FXML
   private Button levelF1;
   @FXML
@@ -139,8 +138,6 @@ public class MapView extends StackPane {
 
 
   }
-
-
 
 
   /**

@@ -58,7 +58,7 @@ class SchedulingRequestDaoDbTest {
   void setup(TestInfo testInfo) throws SQLException {
     DatabaseConnectionFactory dcf
         = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
-            testInfo.getDisplayName());
+        testInfo.getDisplayName());
 
     database = new Database(dcf);
     database.insertNode(nodeA);
