@@ -8,6 +8,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -121,6 +122,22 @@ public final class DialogHelper {
         timelineRight.play();
       }
     }
+  }
+
+  /**
+   * Show an error alert, and wait for user to close it.
+   *
+   * @return
+   */
+  public static boolean showConfirmDialog(String titleText, String headerText, String contentText) {
+    Alert dialog = new Alert(Alert.AlertType.CONFIRMATION);
+    dialog.setTitle(titleText);
+    dialog.setHeaderText(headerText);
+    dialog.setContentText(contentText);
+
+    Optional<ButtonType> result = dialog.showAndWait();
+    return result.get() == ButtonType.OK;
+
   }
 }
 

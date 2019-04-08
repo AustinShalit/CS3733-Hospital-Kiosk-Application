@@ -45,7 +45,11 @@ public class HomeController implements Controller {
 
   @FXML
   void securityOnAction() {
-
+    if (DialogHelper.showConfirmDialog("Confirmation Dialog",
+        "Security Request Notification",
+        "Are you sure you want to alert the security?")) {
+      System.out.println("Notifying");
+    }
   }
 
   @Override
