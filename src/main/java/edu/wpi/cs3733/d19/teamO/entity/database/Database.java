@@ -6,6 +6,7 @@ import java.util.Set;
 
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Employee;
+import edu.wpi.cs3733.d19.teamO.entity.ExternalTransportationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.GiftRequest;
 import edu.wpi.cs3733.d19.teamO.entity.InternalTransportationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.Login;
@@ -13,7 +14,6 @@ import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SchedulingRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
-
 
 @SuppressWarnings({"PMD.TooManyMethods", "PMD.GodClass", "PMD.ExcessivePublicCount"})
 
@@ -26,9 +26,9 @@ public class Database {
   private final SchedulingRequestDao schedulingRequestDao;
   private final LoginDao loginDao;
   private final InternalTransportationRequestDao itransportationDao;
+  private final ExternalTransportationRequestDao etransportationDao;
   private final GiftRequestDao giftRequestDao;
   private final EmployeeDao employeeDao;
-
 
   Database(DatabaseConnectionFactory dcf) throws SQLException {
     this.nodeDao = new NodeDaoDb(dcf);
@@ -38,6 +38,7 @@ public class Database {
     this.loginDao = new LoginDaoDb(dcf);
     this.schedulingRequestDao = new SchedulingRequestDaoDb(dcf);
     this.itransportationDao = new InternalTransportationRequestDaoDb(dcf);
+    this.etransportationDao = new ExternalTransportationRequestDaoDb(dcf);
     this.employeeDao = new EmployeeDaoDb(dcf);
     this.giftRequestDao = new GiftRequestDaoDb(dcf);
   }
@@ -264,6 +265,32 @@ public class Database {
   public boolean updateInternalTransportationRequest(
       InternalTransportationRequest internalTransportationRequest) {
     return itransportationDao.update(internalTransportationRequest);
+  }
+
+  /*
+   * External Transporation
+   */
+  public Optional<ExternalTransportationRequest> getExternalTransportationRequest(int id) {
+    return etransportationDao.get(id);
+  }
+
+  public Set<ExternalTransportationRequest> getAllExternalTransportationRequests() {
+    return etransportationDao.getAll();
+  }
+
+  public boolean insertExternalTransportationRequest(
+      ExternalTransportationRequest externalTransportationRequest) {
+    return etransportationDao.insert(externalTransportationRequest);
+  }
+
+  public boolean deleteExternalTransportationRequest(
+      ExternalTransportationRequest externalTransportationRequest) {
+    return etransportationDao.delete(externalTransportationRequest);
+  }
+
+  public boolean updateExternalTransportationRequest(
+      ExternalTransportationRequest externalTransportationRequest) {
+    return etransportationDao.update(externalTransportationRequest);
   }
 
   /*
