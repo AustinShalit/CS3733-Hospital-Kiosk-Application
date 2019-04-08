@@ -12,6 +12,10 @@ import com.google.inject.spi.TypeListener;
 
 import javafx.fxml.FXMLLoader;
 
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.ExternalTransportationController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.ExternalTransportationViewController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.GiftController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.GiftViewController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationViewController;
 
@@ -42,9 +46,17 @@ public class ControllerModule extends AbstractModule {
     install(new FactoryModuleBuilder().build(LoginController.Factory.class));
     install(new FactoryModuleBuilder().build(OptionsPopupController.Factory.class));
     install(new FactoryModuleBuilder().build(RequestController.Factory.class));
+    install(new FactoryModuleBuilder().build(AdminController.Factory.class));
 
     install(new FactoryModuleBuilder().build(InternalTransportationController.Factory.class));
     install(new FactoryModuleBuilder().build(InternalTransportationViewController.Factory.class));
+
+    install(new FactoryModuleBuilder().build(ExternalTransportationController.Factory.class));
+    install(new FactoryModuleBuilder().build(ExternalTransportationViewController.Factory.class));
+
+    install(new FactoryModuleBuilder().build(GiftController.Factory.class));
+    install(new FactoryModuleBuilder().build(GiftViewController.Factory.class));
+
     install(new FactoryModuleBuilder().build(NavigationController.Factory.class));
   }
 }

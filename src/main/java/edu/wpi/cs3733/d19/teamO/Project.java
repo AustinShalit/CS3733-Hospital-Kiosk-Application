@@ -46,7 +46,7 @@ public class Project extends Application {
   private Parent root;
 
   @Override
-  public void init() throws SQLException, IOException {
+  public void init() throws IOException, SQLException {
     logger.config("Application init");
 
     injector = Guice.createInjector(new ProjectModule(), new ControllerModule());
@@ -68,6 +68,7 @@ public class Project extends Application {
     }
 
 
+
     logger.config("Application init complete");
   }
 
@@ -87,7 +88,7 @@ public class Project extends Application {
 
     // Set original window size and position
     primaryStage.setMinWidth(1280);
-    primaryStage.setMinHeight(780);
+    primaryStage.setMinHeight(720);
 
     primaryStage.show();
     logger.config("Startup complete");
