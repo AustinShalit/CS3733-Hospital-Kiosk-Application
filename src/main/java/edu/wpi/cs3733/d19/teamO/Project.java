@@ -52,7 +52,6 @@ public class Project extends Application {
     injector = Guice.createInjector(new ProjectModule(), new ControllerModule());
     injector.injectMembers(this);
 
-
     Database database = new Database();
 
     NodeCsvReaderWriter ncrw = new NodeCsvReaderWriter();
@@ -66,8 +65,6 @@ public class Project extends Application {
     for (Edge edge : edges) {
       database.insertEdge(edge);
     }
-
-
 
     logger.config("Application init complete");
   }
