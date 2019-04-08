@@ -70,7 +70,6 @@ public class RequestController implements Controller {
   private GiftController.Factory giftControllerFactory;
 
 
-
   @FXML
   void internalTransportationAction(ActionEvent event) {
     eventBus.post(new ChangeMainViewEvent(internalTransportationControllerFactory.create()));
