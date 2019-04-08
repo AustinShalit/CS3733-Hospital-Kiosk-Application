@@ -2,20 +2,19 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import net.kurobako.gesturefx.GesturePane?>
-
 <fx:root type="javafx.scene.layout.StackPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
   <GesturePane fx:id="gesturePane">
     <StackPane>
       <ImageView fx:id="backgroundImage" pickOnBounds="true" preserveRatio="true">
       </ImageView>
-      <Pane>
+      <Pane onMouseMoved="#onMouseMove">
         <Group fx:id="nodeGroup" />
         <Group fx:id="edges" />
       </Pane>
@@ -23,56 +22,59 @@
 
     </StackPane>
   </GesturePane>
-  <JFXButton fx:id="levelF3" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#onFloorSelectAction" prefHeight="30.0" prefWidth="30.0" ripplerFill="BLACK" text="3" textAlignment="CENTER" StackPane.alignment="BOTTOM_RIGHT">
+  <JFXButton fx:id="levelF3" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#onFloorSelectAction" onMouseEntered="#onMouseMove" prefHeight="30.0" prefWidth="30.0" ripplerFill="BLACK" text="3" textAlignment="CENTER" StackPane.alignment="BOTTOM_RIGHT">
     <opaqueInsets>
       <Insets bottom="20.0" right="20.0" />
     </opaqueInsets>
     <StackPane.margin>
-      <Insets bottom="140.0" right="20.0" />
+      <Insets bottom="165.0" right="20.0" />
     </StackPane.margin>
     <cursor>
       <Cursor fx:constant="DEFAULT" />
     </cursor>
   </JFXButton>
-  <JFXButton fx:id="levelF2" alignment="CENTER" buttonType="RAISED" onAction="#onFloorSelectAction" prefHeight="30.0" prefWidth="30.0" text="2" StackPane.alignment="BOTTOM_RIGHT">
+  <JFXButton fx:id="levelF2" alignment="CENTER" buttonType="RAISED" onAction="#onFloorSelectAction" onMouseEntered="#onMouseMove" prefHeight="30.0" prefWidth="30.0" text="2" StackPane.alignment="BOTTOM_RIGHT">
     <opaqueInsets>
       <Insets bottom="20.0" right="20.0" />
     </opaqueInsets>
     <StackPane.margin>
-      <Insets bottom="115.0" right="20.0" />
+      <Insets bottom="135.0" right="20.0" />
     </StackPane.margin>
   </JFXButton>
-  <JFXButton fx:id="levelF1" alignment="CENTER" buttonType="RAISED" onAction="#onFloorSelectAction" prefHeight="30.0" prefWidth="30.0" text="1" StackPane.alignment="BOTTOM_RIGHT">
+  <JFXButton fx:id="levelF1" alignment="CENTER" buttonType="RAISED" onAction="#onFloorSelectAction" onMouseEntered="#onMouseMove" prefHeight="30.0" prefWidth="30.0" text="1" StackPane.alignment="BOTTOM_RIGHT">
     <opaqueInsets>
       <Insets bottom="20.0" right="20.0" />
     </opaqueInsets>
     <StackPane.margin>
-      <Insets bottom="90.0" right="20.0" />
+      <Insets bottom="105.0" right="20.0" />
     </StackPane.margin>
   </JFXButton>
-  <JFXButton fx:id="levelG" alignment="CENTER" buttonType="RAISED" onAction="#onFloorSelectAction" prefHeight="30.0" prefWidth="30.0" text="G" StackPane.alignment="BOTTOM_RIGHT">
+  <JFXButton fx:id="levelG" alignment="CENTER" buttonType="RAISED" onAction="#onFloorSelectAction" onMouseEntered="#onMouseMove" prefHeight="30.0" prefWidth="30.0" text="G" StackPane.alignment="BOTTOM_RIGHT">
     <opaqueInsets>
       <Insets bottom="20.0" right="20.0" />
     </opaqueInsets>
     <StackPane.margin>
-      <Insets bottom="65.0" right="20.0" />
+      <Insets bottom="75.0" right="20.0" />
     </StackPane.margin>
   </JFXButton>
-  <JFXButton fx:id="levelL1" alignment="CENTER" buttonType="RAISED" onAction="#onFloorSelectAction" prefHeight="30.0" prefWidth="34.0" text="L1" StackPane.alignment="BOTTOM_RIGHT">
+  <JFXButton fx:id="levelL1" alignment="CENTER" buttonType="RAISED" onAction="#onFloorSelectAction" onMouseEntered="#onMouseMove" prefHeight="30.0" prefWidth="30.0" text="L1" StackPane.alignment="BOTTOM_RIGHT">
     <opaqueInsets>
       <Insets bottom="20.0" right="20.0" />
     </opaqueInsets>
     <StackPane.margin>
-      <Insets bottom="40.0" right="20.0" />
+      <Insets bottom="45.0" right="20.0" />
     </StackPane.margin>
   </JFXButton>
-  <JFXButton fx:id="levelL2" alignment="CENTER" buttonType="RAISED" onAction="#onFloorSelectAction" prefHeight="30.0" prefWidth="34.0" text="L2" StackPane.alignment="BOTTOM_RIGHT">
+  <JFXButton fx:id="levelL2" alignment="CENTER" buttonType="RAISED" onAction="#onFloorSelectAction" onMouseEntered="#onMouseMove" prefHeight="30.0" prefWidth="30.0" text="L2" StackPane.alignment="BOTTOM_RIGHT">
     <opaqueInsets>
       <Insets bottom="20.0" right="20.0" />
     </opaqueInsets>
     <StackPane.margin>
       <Insets bottom="15.0" right="20.0" />
     </StackPane.margin>
+    <cursor>
+      <Cursor fx:constant="DEFAULT" />
+    </cursor>
   </JFXButton>
   <Label fx:id="coordX" text="X-coord" StackPane.alignment="BOTTOM_LEFT">
     <padding>

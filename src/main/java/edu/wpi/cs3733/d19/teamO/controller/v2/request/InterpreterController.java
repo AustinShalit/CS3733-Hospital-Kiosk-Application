@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.d19.teamO.controller.v2.request;
 
 import java.time.LocalDateTime;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,7 +10,6 @@ import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
-import com.jfoenix.controls.JFXTextField;
 
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -22,24 +20,20 @@ import edu.wpi.cs3733.d19.teamO.controller.v2.DialogHelper;
 import edu.wpi.cs3733.d19.teamO.controller.v2.FxmlController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.RequestController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
-import edu.wpi.cs3733.d19.teamO.entity.InternalTransportationRequest;
+import edu.wpi.cs3733.d19.teamO.entity.InterpreterRequest;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
-@FxmlController(url = "InternalTransportation.fxml")
-public class InternalTransportationController implements Controller {
-
-  private static final Logger logger = Logger.getLogger(
-      InternalTransportationController.class.getName());
+@FxmlController(url = "Interpreter.fxml")
+public class InterpreterController implements Controller {
+  private static final Logger logger = Logger.getLogger(InterpreterController.class.getName());
 
   @FXML
   private BorderPane root;
   @FXML
-  private JFXTextField nametxt;
-  @FXML
   private JFXComboBox<Node> locationbox;
   @FXML
-  private JFXComboBox<InternalTransportationRequest.InternalTransportationRequestType> categorybox;
+  private JFXComboBox<InterpreterRequest.Language> categorybox;
   @FXML
   private JFXTextArea descriptiontxt;
   @FXML
@@ -57,7 +51,7 @@ public class InternalTransportationController implements Controller {
   @FXML
   void initialize() {
     DialogHelper.populateComboBox(db, locationbox);
-    categorybox.getItems().setAll(InternalTransportationRequest.InternalTransportationRequestType
+    categorybox.getItems().setAll(InterpreterRequest.Language
         .values());
   }
 
@@ -68,47 +62,42 @@ public class InternalTransportationController implements Controller {
 
   @FXML
   void onSubmitButtonAction() {
-    InternalTransportationRequest internal = parseUserITRequest();
-    if (internal == null) {
+    InterpreterRequest interpreter = parseUserInterpreterRequest();
+    if (interpreter == null) {
       logger.log(Level.WARNING,
-          "Unable to parse internal transportation Request.",
-          "Unable to parse Internal Transportation Request.");
+          "Unable to parse interpreter request.",
+          "Unable to parse interpreter request.");
       return;
     }
 
-    if (db.insertInternalTransportationRequest(internal)) {
-      String message = "Successfully submitted internal transportation request.";
+    if (db.insertInterpreterRequest(interpreter)) {
+      String message = "Successfully submitted interpreter request.";
       DialogHelper.showInformationAlert("Success!", message);
     } else {
       DialogHelper.showErrorAlert("Error.",
-          "Unable to submit internal transportation request.");
+          "Unable to submit interpreter request.");
     }
   }
 
   /**
    * Parse input the user has inputted for the sanitation request.
    *
-   * @return If valid input, A InternalTransportationRequest representing the users input
-   *      Otherwise null.
+   * @return If valid input, A SanitationRequest representing the users input. Otherwise null.
    */
-  private InternalTransportationRequest parseUserITRequest() {
-    // if input is valid, parse it and return a new InternalTransportationRequest
+  private InterpreterRequest parseUserInterpreterRequest() {
+    // if input is valid, parse it and return a new SanitationRequest
     if (!descriptiontxt.getText().isEmpty()
-        && !nametxt.getText().isEmpty()
         && Objects.nonNull(locationbox.getValue())
         && Objects.nonNull(categorybox.getValue())) {
 
       LocalDateTime now = LocalDateTime.now();
-      Node node = (Node) locationbox.getValue();
+      Node node = locationbox.getValue();
 
-      String type = categorybox.getValue().toString().toUpperCase(new Locale("EN"));
-      InternalTransportationRequest.InternalTransportationRequestType internalRequestType =
-          InternalTransportationRequest.InternalTransportationRequestType.valueOf(type);
+      InterpreterRequest.Language language = categorybox.getValue();
 
       String description = descriptiontxt.getText();
-      String name = nametxt.getText();
 
-      return new InternalTransportationRequest(now, node, internalRequestType, description, name);
+      return new InterpreterRequest(now, node, language, description);
     }
 
     // otherwise, some input was invalid
@@ -122,6 +111,6 @@ public class InternalTransportationController implements Controller {
   }
 
   public interface Factory {
-    InternalTransportationController create();
+    InterpreterController create();
   }
 }
