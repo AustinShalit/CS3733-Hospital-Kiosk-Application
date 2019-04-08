@@ -45,5 +45,6 @@ public class ControllerModule extends AbstractModule {
 
     install(new FactoryModuleBuilder().build(InternalTransportationController.Factory.class));
     install(new FactoryModuleBuilder().build(InternalTransportationViewController.Factory.class));
+    install(new FactoryModuleBuilder().build(NavigationController.Factory.class));
   }
 }

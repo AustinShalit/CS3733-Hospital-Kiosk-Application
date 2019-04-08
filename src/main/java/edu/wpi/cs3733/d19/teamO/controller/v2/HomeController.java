@@ -27,10 +27,12 @@ public class HomeController implements Controller {
   private EventBus eventBus;
   @Inject
   private RequestController.Factory requestControllerFactory;
+  @Inject
+  private NavigationController.Factory navigationControllerFactory;
 
   @FXML
   void navigationOnAction() {
-
+    eventBus.post(new ChangeMainViewEvent(navigationControllerFactory.create()));
   }
 
   @FXML
