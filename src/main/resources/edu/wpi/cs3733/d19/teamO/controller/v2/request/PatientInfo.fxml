@@ -43,6 +43,11 @@
             <Insets top="45.0" />
           </VBox.margin>
         </JFXTextArea>
+            <JFXButton fx:id="viewRequestsButton" mnemonicParsing="false" onAction="#viewRequestsOnAction" text="Temp View Requests">
+               <VBox.margin>
+                  <Insets top="45.0" />
+               </VBox.margin>
+            </JFXButton>
       </children>
     </VBox>
   </center>
