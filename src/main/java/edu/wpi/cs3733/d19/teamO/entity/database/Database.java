@@ -7,6 +7,7 @@ import java.util.Set;
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Employee;
 import edu.wpi.cs3733.d19.teamO.entity.InternalTransportationRequest;
+import edu.wpi.cs3733.d19.teamO.entity.ITSupportRequest;
 import edu.wpi.cs3733.d19.teamO.entity.Login;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
@@ -23,6 +24,7 @@ public class Database {
   private final SchedulingRequestDao schedulingRequestDao;
   private final LoginDao loginDao;
   private final InternalTransportationRequestDao itransportationDao;
+  private final ITSupportRequestDao itSupportDao;
   private final EmployeeDao employeeDao;
 
 
@@ -34,6 +36,7 @@ public class Database {
     this.loginDao = new LoginDaoDb(dcf);
     this.schedulingRequestDao = new SchedulingRequestDaoDb(dcf);
     this.itransportationDao = new InternalTransportationRequestDaoDb(dcf);
+    this.itSupportDao = new ITSupportRequestDaoDb(dcf);
     this.employeeDao = new EmployeeDaoDb(dcf);
   }
 
@@ -232,8 +235,19 @@ public class Database {
     return itransportationDao.get(id);
   }
 
+  /*
+   * IT Support
+   */
+  public Optional<ITSupportRequest> getITSupportRequest(int id) {
+    return itSupportDao.get(id);
+  }
+
   public Set<InternalTransportationRequest> getAllInternalTransportationRequests() {
     return itransportationDao.getAll();
+  }
+
+  public Set<ITSupportRequest> getAllITSupportRequests() {
+    return itSupportDao.getAll();
   }
 
   public boolean insertInternalTransportationRequest(
@@ -241,14 +255,29 @@ public class Database {
     return itransportationDao.insert(internalTransportationRequest);
   }
 
+  public boolean insertITSupportRequest(
+      ITSupportRequest itSupportRequest) {
+    return itSupportDao.insert(itSupportRequest);
+  }
+
   public boolean deleteInternalTransportationRequest(
       InternalTransportationRequest internalTransportationRequest) {
     return itransportationDao.delete(internalTransportationRequest);
   }
 
+  public boolean deleteITSupportRequest(
+      ITSupportRequest itSupportRequest) {
+    return itSupportDao.delete(itSupportRequest);
+  }
+
   public boolean updateInternalTransportationRequest(
       InternalTransportationRequest internalTransportationRequest) {
     return itransportationDao.update(internalTransportationRequest);
+  }
+
+  public boolean updateITSupportRequest(
+      ITSupportRequest itSupportRequest) {
+    return itSupportDao.update(itSupportRequest);
   }
 
 }
