@@ -196,7 +196,7 @@ public class Database {
     return schedulingRequestDao.getAll();
   }
 
-  public boolean insertSchedulingRequest(SchedulingRequest schedulingRequest) {
+  public boolean insertSchedulingrequest(SchedulingRequest schedulingRequest) {
     return schedulingRequestDao.insert(schedulingRequest);
   }
 
