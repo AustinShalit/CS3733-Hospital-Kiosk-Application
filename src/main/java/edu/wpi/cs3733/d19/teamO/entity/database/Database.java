@@ -9,11 +9,13 @@ import edu.wpi.cs3733.d19.teamO.entity.Employee;
 import edu.wpi.cs3733.d19.teamO.entity.InternalTransportationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.Login;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
+import edu.wpi.cs3733.d19.teamO.entity.ReligiousServiceRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SchedulingRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
 
-@SuppressWarnings("PMD.TooManyMethods")
+
+@SuppressWarnings({"PMD.TooManyMethods", "PMD.GodClass", "PMD.ExcessivePublicCount"})
 public class Database {
 
   private final NodeDao nodeDao;
@@ -23,6 +25,8 @@ public class Database {
   private final SchedulingRequestDao schedulingRequestDao;
   private final LoginDao loginDao;
   private final InternalTransportationRequestDao itransportationDao;
+  private final ReligiousServiceRequestDao rserviceDao;
+
   private final EmployeeDao employeeDao;
 
 
@@ -34,6 +38,7 @@ public class Database {
     this.loginDao = new LoginDaoDb(dcf);
     this.schedulingRequestDao = new SchedulingRequestDaoDb(dcf);
     this.itransportationDao = new InternalTransportationRequestDaoDb(dcf);
+    this.rserviceDao = new ReligiousServiceRequestDaoDb(dcf);
     this.employeeDao = new EmployeeDaoDb(dcf);
   }
 
@@ -195,6 +200,7 @@ public class Database {
 
   /**
    * Used to check for conflicts before inserting them.
+   *
    * @param schedulingRequest The scheduling request you want that might get added.
    * @return Returns false if no conflict, Returns true if there would be a conflict.
    */
@@ -251,4 +257,29 @@ public class Database {
     return itransportationDao.update(internalTransportationRequest);
   }
 
+  /*
+   * Religious Service
+   */
+  public Optional<ReligiousServiceRequest> getReligiousServiceRequest(int id) {
+    return rserviceDao.get(id);
+  }
+
+  public Set<ReligiousServiceRequest> getAllReligiousServiceRequests() {
+    return rserviceDao.getAll();
+  }
+
+  public boolean insertReligiousServiceRequest(
+      ReligiousServiceRequest religiousServiceRequest) {
+    return rserviceDao.insert(religiousServiceRequest);
+  }
+
+  public boolean deleteReligiousServiceRequest(
+      ReligiousServiceRequest religiousServiceRequest) {
+    return rserviceDao.delete(religiousServiceRequest);
+  }
+
+  public boolean updateReligiousServiceRequest(
+      ReligiousServiceRequest religiousServiceRequest) {
+    return rserviceDao.update(religiousServiceRequest);
+  }
 }
