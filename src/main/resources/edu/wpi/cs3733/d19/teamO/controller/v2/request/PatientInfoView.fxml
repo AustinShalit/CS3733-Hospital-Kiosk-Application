@@ -17,12 +17,12 @@
       <columns>
         <TableColumn fx:id="idCol" prefWidth="52.0" text="ID" />
         <TableColumn fx:id="timeRequestedCol" prefWidth="123.0" text="Time Requested" />
-        <TableColumn fx:id="whoCompletedCol" prefWidth="119.0" text="Who Completed" />
-        <TableColumn fx:id="descriptionCol" prefWidth="188.0" text="Description" />
+        <TableColumn fx:id="whoCompletedCol" prefWidth="119.0" text="Who Completed" visible="false" />
         <TableColumn fx:id="locationTableCol" minWidth="7.0" prefWidth="88.0" text="Location" />
         <TableColumn fx:id="patientNameCol" prefWidth="158.0" text="Patient Name" />
         <TableColumn fx:id="patientDOBCol" prefWidth="134.0" text="Patient DOB" />
             <TableColumn fx:id="patientSexCol" prefWidth="134.0" text="Patient Sex" />
+        <TableColumn fx:id="descriptionCol" prefWidth="188.0" text="Description" />
       </columns>
     </TableView>
   </center>
