@@ -11,7 +11,6 @@ import org.junit.jupiter.api.TestInfo;
 
 import edu.wpi.cs3733.d19.teamO.entity.InterpreterRequest;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
-import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -73,14 +72,16 @@ class InterpreterRequestDaoDbTest {
     interpreterDao.insert(testInterpreterRequest1);
 
     assertNotSame(testInterpreterRequest1,
-        interpreterDao.get(testInterpreterRequest1.getId()).orElseThrow(IllegalStateException::new));
+        interpreterDao.get(
+            testInterpreterRequest1.getId()).orElseThrow(IllegalStateException::new));
   }
 
   @Test
   void checkEqual() {
     interpreterDao.insert(testInterpreterRequest1);
 
-    assertEquals(testInterpreterRequest1, interpreterDao.get(testInterpreterRequest1.getId()).get());
+    assertEquals(testInterpreterRequest1, interpreterDao.get(
+        testInterpreterRequest1.getId()).get());
   }
 
   @Test
@@ -126,7 +127,7 @@ class InterpreterRequestDaoDbTest {
         Node.NodeType.DEPT, "longname", "shortname");
     assertFalse(interpreterDao.update(new InterpreterRequest(987, LocalDateTime.now(),
         LocalDateTime.now(), "Jane", "This request doesnt exist",
-        testNode1, InterpreterRequest.Language.ENG)));
+        newNode, InterpreterRequest.Language.ENG)));
   }
 
   @Test

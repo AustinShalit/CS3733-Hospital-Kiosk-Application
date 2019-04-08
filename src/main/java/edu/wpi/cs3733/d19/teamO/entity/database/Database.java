@@ -7,13 +7,15 @@ import java.util.Set;
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Employee;
 import edu.wpi.cs3733.d19.teamO.entity.InternalTransportationRequest;
+import edu.wpi.cs3733.d19.teamO.entity.InterpreterRequest;
 import edu.wpi.cs3733.d19.teamO.entity.Login;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SchedulingRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
 
-@SuppressWarnings("PMD.TooManyMethods")
+// ONLY SUPPRESSING FOR TEST PURPOSES
+@SuppressWarnings("PMD")
 public class Database {
 
   private final NodeDao nodeDao;
@@ -24,6 +26,7 @@ public class Database {
   private final LoginDao loginDao;
   private final InternalTransportationRequestDao itransportationDao;
   private final EmployeeDao employeeDao;
+  private final InterpreterRequestDao interpreterDao;
 
 
   Database(DatabaseConnectionFactory dcf) throws SQLException {
@@ -35,6 +38,7 @@ public class Database {
     this.itransportationDao = new InternalTransportationRequestDaoDb(dcf);
     this.employeeDao = new EmployeeDaoDb(dcf);
     this.loginDao = new LoginDaoDb(dcf);
+    this.interpreterDao = new InterpreterRequestDaoDb(dcf);
   }
 
   /**
@@ -251,4 +255,26 @@ public class Database {
     return itransportationDao.update(internalTransportationRequest);
   }
 
+  /*
+   * Interpretation
+   */
+  public Optional<InterpreterRequest> getInterpreterRequest(int id) {
+    return interpreterDao.get(id);
+  }
+
+  public Set<InterpreterRequest> getAllInterpreterRequests() {
+    return interpreterDao.getAll();
+  }
+
+  public boolean insertInterpreterRequest(InterpreterRequest interpreterRequest) {
+    return interpreterDao.insert(interpreterRequest);
+  }
+
+  public boolean deleteInterpreterRequest(InterpreterRequest interpreterRequest) {
+    return interpreterDao.delete(interpreterRequest);
+  }
+
+  public boolean updateInterpreterRequest(InterpreterRequest interpreterRequest) {
+    return interpreterDao.update(interpreterRequest);
+  }
 }
