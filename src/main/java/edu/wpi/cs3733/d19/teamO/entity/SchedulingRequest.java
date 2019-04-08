@@ -94,6 +94,7 @@ public class SchedulingRequest {
   /**
    * Use to check if this scheduling request would happen at the same time and place as
    * the other scheduling request.
+   *
    * @param schedulingRequest The other scheduling request.
    * @return True if there would be a conflict, false otherwise.
    */

@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 
 import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.GiftController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationController;
 
 @FxmlController(url = "ServiceRequest.fxml")
@@ -55,14 +56,24 @@ public class RequestController implements Controller {
   @FXML
   private JFXButton other4;
 
+  @FXML
+  private JFXButton viewResolveButton;
+
   @Inject
   private EventBus eventBus;
   @Inject
   private InternalTransportationController.Factory internalTransportationControllerFactory;
+  @Inject
+  private GiftController.Factory giftControllerFactory;
 
   @FXML
   void internalTransportationAction(ActionEvent event) {
     eventBus.post(new ChangeMainViewEvent(internalTransportationControllerFactory.create()));
+  }
+
+  @FXML
+  void giftAction(ActionEvent event) {
+    eventBus.post(new ChangeMainViewEvent(giftControllerFactory.create()));
   }
 
   @Override
