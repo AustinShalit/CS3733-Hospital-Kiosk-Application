@@ -29,11 +29,12 @@ public class HomeController implements Controller {
   private RequestController.Factory requestControllerFactory;
   @Inject
   private SchedulingController.Factory schedulingControllerFactory;
-
+  @Inject
+  private NavigationController.Factory navigationControllerFactory;
 
   @FXML
   void navigationOnAction() {
-
+    eventBus.post(new ChangeMainViewEvent(navigationControllerFactory.create()));
   }
 
   @FXML
@@ -48,7 +49,12 @@ public class HomeController implements Controller {
 
   @FXML
   void securityOnAction() {
-
+    if (DialogHelper.showConfirmDialog("Confirmation Dialog",
+        "Security Request Notification",
+        "Are you sure you want to alert the security?")) {
+      System.out.println("Notifying");
+      // TODO send to database
+    }
   }
 
   @Override
