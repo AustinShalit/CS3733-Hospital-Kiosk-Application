@@ -293,9 +293,9 @@ public class Database {
     return etransportationDao.update(externalTransportationRequest);
   }
 
-   /*
-    * Gift Request
-    */
+  /*
+   * Gift Request
+   */
   public Optional<GiftRequest> getGiftRequest(int id) {
     return giftRequestDao.get(id);
   }

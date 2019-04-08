@@ -212,14 +212,11 @@ public class MapView extends StackPane {
       return;
     }
 
-<<<<<<< HEAD
-=======
     if (currentLevel == level) {
       ((Button) src).setStyle("-fx-background-color:  rgba(17,0,255,0.4)"); // style button
     }
   }
 
->>>>>>> master
   /**
    * Set the image to the map.
    *
