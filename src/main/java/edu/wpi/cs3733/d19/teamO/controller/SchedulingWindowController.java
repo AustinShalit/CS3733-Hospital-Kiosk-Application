@@ -7,17 +7,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
 
 import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-import edu.wpi.cs3733.d19.teamO.controller.exception.InvalidUserInputException;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.SchedulingRequest;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
@@ -30,7 +29,7 @@ public class SchedulingWindowController extends Controller {
   @FXML
   private JFXButton submitButton;
   @FXML
-  private ComboBox<Node> roomComboBox;
+  private JFXComboBox<Node> roomComboBox;
   @FXML
   private TextField nameBox;
   @FXML
@@ -92,17 +91,12 @@ public class SchedulingWindowController extends Controller {
    */
   @FXML
   void onSubmitButtonAction() {
-    try {
-      SchedulingRequest request = parseUserSchedulingRequestTest();
-      if (database.insertSchedulingRequest(request)) {
-        String message = "Successfully submitted scheduling request.";
-        showInformationAlert("Success!", message);
-      } else {
-        showErrorAlert("Error.", "Unable to submit scheduling request.");
-      }
-    } catch (InvalidUserInputException ex) {
-      Logger logger = Logger.getLogger(SchedulingWindowController.class.getName());
-      logger.log(Level.WARNING, "Unable to parse scheduling request.", ex);
+    SchedulingRequest request = parseUserSchedulingRequestTest();
+    if (database.insertSchedulingRequest(request)) {
+      String message = "Successfully submitted scheduling request.";
+      showInformationAlert("Success!", message);
+    } else {
+      showErrorAlert("Error.", "Unable to submit scheduling request.");
     }
   }
 
@@ -111,7 +105,7 @@ public class SchedulingWindowController extends Controller {
    *
    * @return A SchedulingRequest representing the users input.
    */
-  private SchedulingRequest parseUserSchedulingRequestTest() throws InvalidUserInputException {
+  private SchedulingRequest parseUserSchedulingRequestTest() {
     // if input is valid, parse it and return a new SanitationRequest
     if (Objects.nonNull(startChoiceBox.getValue())
         && Objects.nonNull(endChoiceBox.getValue())
@@ -131,7 +125,7 @@ public class SchedulingWindowController extends Controller {
 
     // otherwise, some input was invalid
     showErrorAlert("Error.", "Please make sure all fields are filled out.");
-    throw new InvalidUserInputException("Unable to parse Scheduling Request.");
+    return null;
   }
 
 

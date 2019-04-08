@@ -30,7 +30,8 @@ class SchedulingRequestDaoDbTest {
 
   private static final SchedulingRequest schedulingRequest = new SchedulingRequest(12,
       aStart, aEnd, aRequest, aComplete, "Dr. Owlmann", nodeA);
-  private SchedulingRequestDaoDb schedulingDao;
+
+  private Database database;
 
   @Nested
   class Creation {
@@ -57,79 +58,140 @@ class SchedulingRequestDaoDbTest {
   void setup(TestInfo testInfo) throws SQLException {
     DatabaseConnectionFactory dcf
         = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
-        testInfo.getTestClass().get().getName()
-            + testInfo.getDisplayName());
+        testInfo.getDisplayName());
 
-    NodeDaoDb nodeDao = new NodeDaoDb(dcf);
-    nodeDao.insert(nodeA);
-    schedulingDao = new SchedulingRequestDaoDb(dcf);
+    database = new Database(dcf);
+    database.insertNode(nodeA);
   }
 
   @Test
   void getTest() {
-    schedulingDao.insert(schedulingRequest);
+    database.insertSchedulingrequest(schedulingRequest);
 
-    assertTrue(schedulingDao.get(schedulingRequest.getId()).isPresent());
+    assertTrue(database.getSchedulingRequest(schedulingRequest.getId()).isPresent());
   }
 
   @Test
   void getDifferentObjectTest() {
-    schedulingDao.insert(schedulingRequest);
+    database.insertSchedulingrequest(schedulingRequest);
 
     assertNotSame(schedulingRequest,
-        schedulingDao.get(schedulingRequest.getId()).orElseThrow(IllegalStateException::new));
+        database.getSchedulingRequest(
+            schedulingRequest.getId()).orElseThrow(IllegalStateException::new));
   }
 
   @Test
   void getNotExistingTest() {
-    assertFalse(schedulingDao.get(schedulingRequest.getId()).isPresent());
+    assertFalse(database.getSchedulingRequest(schedulingRequest.getId()).isPresent());
   }
 
   @Test
   void insertTest() {
-    assertTrue(schedulingDao.insert(schedulingRequest));
+    assertTrue(database.insertSchedulingrequest(schedulingRequest));
   }
 
   @Test
   void deleteTest() {
-    schedulingDao.insert(schedulingRequest);
-    assertTrue(schedulingDao.delete(schedulingRequest));
+    database.insertSchedulingrequest(schedulingRequest);
+    assertTrue(database.deleteSchedulingRequest(schedulingRequest));
   }
 
   @Test
   void deleteNotExistingTest() {
-    assertFalse(schedulingDao.delete(schedulingRequest));
+    assertFalse(database.deleteSchedulingRequest(schedulingRequest));
   }
 
   @Test
   void updateTest() {
-    schedulingDao.insert(schedulingRequest);
+    database.insertSchedulingrequest(schedulingRequest);
     SchedulingRequest update = new SchedulingRequest(schedulingRequest.getId(), aStart, aEnd,
         LocalDateTime.now(), LocalDateTime.now(), "D", nodeA);
-    assertTrue(schedulingDao.update(update));
+    assertTrue(database.updateScheduling(update));
   }
 
   @Test
   void updateNotExistingTest() {
-    assertFalse(schedulingDao.update(schedulingRequest));
+    assertFalse(database.updateScheduling(schedulingRequest));
   }
 
   @Test
   void getAllTest() {
-    schedulingDao.insert(schedulingRequest);
+    database.insertSchedulingrequest(schedulingRequest);
 
-    assertEquals(1, schedulingDao.getAll().size());
+    assertEquals(1, database.getAllSchedulingRequests().size());
   }
 
   @Test
   void getAllResultSameTest() {
-    schedulingDao.insert(schedulingRequest);
-    assertTrue(schedulingDao.getAll().contains(schedulingRequest));
+    database.insertSchedulingrequest(schedulingRequest);
+    assertTrue(database.getAllSchedulingRequests().contains(schedulingRequest));
   }
 
   @Test
   void getAllEmptyTest() {
-    assertTrue(schedulingDao.getAll().isEmpty());
+    assertTrue(database.getAllSchedulingRequests().isEmpty());
+  }
+
+  @Test
+  void wouldConflictTest() {
+    database.insertSchedulingrequest(schedulingRequest);
+
+    Node nodeB = new Node("B", 4, 6, "1", "B",
+        Node.NodeType.REST, "BL", "BS");
+
+    database.insertNode(nodeB);
+
+    // Starts during schedulingRequest and ends after schedulingRequest
+    SchedulingRequest conflictingSchedulingRequest1 = new SchedulingRequest(
+        2,
+        LocalDateTime.of(2019, 4, 1, 4, 0),
+        LocalDateTime.of(2019, 4, 1, 5, 0),
+        LocalDateTime.now(),
+        LocalDateTime.now(),
+        "Bob",
+        nodeA);
+
+    assertTrue(database.schedulingRequestWouldConflict(conflictingSchedulingRequest1));
+    assertFalse(database.insertSchedulingrequest(conflictingSchedulingRequest1));
+
+    // Starts before schedulingRequest and ends after schedulingRequest
+    SchedulingRequest conflictingSchedulingRequest2 = new SchedulingRequest(
+        2,
+        LocalDateTime.of(2019, 4, 1, 2, 0),
+        LocalDateTime.of(2019, 4, 1, 6, 0),
+        LocalDateTime.now(),
+        LocalDateTime.now(),
+        "Bob",
+        nodeA);
+
+    assertTrue(database.schedulingRequestWouldConflict(conflictingSchedulingRequest2));
+    assertFalse(database.insertSchedulingrequest(conflictingSchedulingRequest2));
+
+    // Ends at the same time schedulingRequest starts
+    SchedulingRequest nonConflictingSchedulingRequest1 = new SchedulingRequest(
+        2,
+        LocalDateTime.of(2019, 4, 1, 2, 0),
+        LocalDateTime.of(2019, 4, 1, 3, 30),
+        LocalDateTime.now(),
+        LocalDateTime.now(),
+        "Bob",
+        nodeA);
+
+    assertFalse(database.schedulingRequestWouldConflict(nonConflictingSchedulingRequest1));
+    assertTrue(database.insertSchedulingrequest(nonConflictingSchedulingRequest1));
+
+    // Same time as schedulingRequest but in a different room
+    SchedulingRequest nonConflictingSchedulingRequest2 = new SchedulingRequest(
+        2,
+        LocalDateTime.of(2019, 4, 1, 3, 30),
+        LocalDateTime.of(2019, 4, 1, 4, 30),
+        LocalDateTime.now(),
+        LocalDateTime.now(),
+        "Bob",
+        nodeB);
+
+    assertFalse(database.schedulingRequestWouldConflict(nonConflictingSchedulingRequest2));
+    assertTrue(database.insertSchedulingrequest(nonConflictingSchedulingRequest2));
   }
 
 }

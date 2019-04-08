@@ -5,13 +5,18 @@ import java.util.Optional;
 import java.util.Set;
 
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
+import edu.wpi.cs3733.d19.teamO.entity.Employee;
+import edu.wpi.cs3733.d19.teamO.entity.ExternalTransportationRequest;
+import edu.wpi.cs3733.d19.teamO.entity.GiftRequest;
+import edu.wpi.cs3733.d19.teamO.entity.InternalTransportationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.Login;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SchedulingRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
 
-@SuppressWarnings("PMD.TooManyMethods")
+@SuppressWarnings({"PMD.TooManyMethods", "PMD.GodClass", "PMD.ExcessivePublicCount"})
+
 public class Database {
 
   private final NodeDao nodeDao;
@@ -20,7 +25,10 @@ public class Database {
   private final SanitationRequestDao sanitationRequestDao;
   private final SchedulingRequestDao schedulingRequestDao;
   private final LoginDao loginDao;
-
+  private final InternalTransportationRequestDao itransportationDao;
+  private final ExternalTransportationRequestDao etransportationDao;
+  private final GiftRequestDao giftRequestDao;
+  private final EmployeeDao employeeDao;
 
   Database(DatabaseConnectionFactory dcf) throws SQLException {
     this.nodeDao = new NodeDaoDb(dcf);
@@ -29,6 +37,10 @@ public class Database {
     this.sanitationRequestDao = new SanitationRequestDaoDb(dcf);
     this.loginDao = new LoginDaoDb(dcf);
     this.schedulingRequestDao = new SchedulingRequestDaoDb(dcf);
+    this.itransportationDao = new InternalTransportationRequestDaoDb(dcf);
+    this.etransportationDao = new ExternalTransportationRequestDaoDb(dcf);
+    this.employeeDao = new EmployeeDaoDb(dcf);
+    this.giftRequestDao = new GiftRequestDaoDb(dcf);
   }
 
   /**
@@ -66,6 +78,15 @@ public class Database {
 
   public boolean updateNode(Node node) {
     return nodeDao.update(node);
+  }
+
+
+  public Set<Node> getAllRooms(String type) {
+    return nodeDao.getAllRooms(type);
+  }
+
+  public Set<Node> getFloor(String floor) {
+    return nodeDao.getFloor(floor);
   }
 
   /*
@@ -175,7 +196,7 @@ public class Database {
     return schedulingRequestDao.getAll();
   }
 
-  public boolean insertSchedulingrequest(SchedulingRequest schedulingRequest) {
+  public boolean insertSchedulingRequest(SchedulingRequest schedulingRequest) {
     return schedulingRequestDao.insert(schedulingRequest);
   }
 
@@ -185,6 +206,117 @@ public class Database {
 
   public boolean updateScheduling(SchedulingRequest schedulingRequest) {
     return schedulingRequestDao.update(schedulingRequest);
+  }
+
+  /**
+   * Used to check for conflicts before inserting them.
+   *
+   * @param schedulingRequest The scheduling request you want that might get added.
+   * @return Returns false if no conflict, Returns true if there would be a conflict.
+   */
+  public boolean schedulingRequestWouldConflict(SchedulingRequest schedulingRequest) {
+    return schedulingRequestDao.wouldConflict(schedulingRequest);
+  }
+
+  /*
+   * Employee
+   */
+  public Optional<Employee> getEmployee(int id) {
+    return employeeDao.get(id);
+  }
+
+  public Set<Employee> getAllEmployees() {
+    return employeeDao.getAll();
+  }
+
+  public boolean insertEmployee(Employee employee) {
+    return employeeDao.insert(employee);
+  }
+
+  public boolean deleteEmployee(Employee employee) {
+    return employeeDao.delete(employee);
+  }
+
+  public boolean updateEmployee(Employee employee) {
+    return employeeDao.update(employee);
+  }
+
+  /*
+   * Internal Transporation
+   */
+  public Optional<InternalTransportationRequest> getInternalTransportationRequest(int id) {
+    return itransportationDao.get(id);
+  }
+
+  public Set<InternalTransportationRequest> getAllInternalTransportationRequests() {
+    return itransportationDao.getAll();
+  }
+
+  public boolean insertInternalTransportationRequest(
+      InternalTransportationRequest internalTransportationRequest) {
+    return itransportationDao.insert(internalTransportationRequest);
+  }
+
+  public boolean deleteInternalTransportationRequest(
+      InternalTransportationRequest internalTransportationRequest) {
+    return itransportationDao.delete(internalTransportationRequest);
+  }
+
+  public boolean updateInternalTransportationRequest(
+      InternalTransportationRequest internalTransportationRequest) {
+    return itransportationDao.update(internalTransportationRequest);
+  }
+
+  /*
+   * External Transporation
+   */
+  public Optional<ExternalTransportationRequest> getExternalTransportationRequest(int id) {
+    return etransportationDao.get(id);
+  }
+
+  public Set<ExternalTransportationRequest> getAllExternalTransportationRequests() {
+    return etransportationDao.getAll();
+  }
+
+  public boolean insertExternalTransportationRequest(
+      ExternalTransportationRequest externalTransportationRequest) {
+    return etransportationDao.insert(externalTransportationRequest);
+  }
+
+  public boolean deleteExternalTransportationRequest(
+      ExternalTransportationRequest externalTransportationRequest) {
+    return etransportationDao.delete(externalTransportationRequest);
+  }
+
+  public boolean updateExternalTransportationRequest(
+      ExternalTransportationRequest externalTransportationRequest) {
+    return etransportationDao.update(externalTransportationRequest);
+  }
+
+  /*
+   * Gift Request
+   */
+  public Optional<GiftRequest> getGiftRequest(int id) {
+    return giftRequestDao.get(id);
+  }
+
+  public Set<GiftRequest> getAllGiftRequests() {
+    return giftRequestDao.getAll();
+  }
+
+  public boolean insertGiftRequest(
+      GiftRequest giftRequest) {
+    return giftRequestDao.insert(giftRequest);
+  }
+
+  public boolean deleteGiftRequest(
+      GiftRequest giftRequest) {
+    return giftRequestDao.delete(giftRequest);
+  }
+
+  public boolean updateGiftRequest(
+      GiftRequest giftRequest) {
+    return giftRequestDao.update(giftRequest);
   }
 
 }

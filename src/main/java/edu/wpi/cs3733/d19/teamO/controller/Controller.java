@@ -1,28 +1,24 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Optional;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
+import com.jfoenix.controls.JFXComboBox;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Callback;
-import javafx.util.Duration;
 
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
+
 
 public class Controller {
 
@@ -97,7 +93,8 @@ public class Controller {
     return "";
   }
 
-  protected void populateComboBox(Database database, ComboBox<Node> comboBox) throws SQLException {
+  protected void populateComboBox(
+      Database database, JFXComboBox<Node> comboBox) {
     comboBox.getItems().addAll(database.getAllNodes());
     Callback<ListView<Node>, ListCell<Node>> cellFactory =
         new Callback<ListView<Node>, ListCell<Node>>() {
@@ -118,34 +115,10 @@ public class Controller {
           }
         };
     comboBox.setCellFactory(cellFactory);
-    comboBox.setButtonCell(cellFactory.call(null));
-  }
 
-  /**
-   * The method bounces the label to the left and right rapidly.
-   */
-  void bounceTextAnimation(Label label) {
-    KeyFrame init = new KeyFrame(Duration.ZERO, new KeyValue(label.translateXProperty(),
-        0));
-
-    KeyFrame left = new KeyFrame(Duration.seconds(.1), new KeyValue(label.translateXProperty(),
-        -10));
-    KeyFrame right = new KeyFrame(Duration.seconds(.1), new KeyValue(label.translateXProperty(),
-        10));
-
-    Timeline timelineLeft = new Timeline(init, left);
-    timelineLeft.setCycleCount(2);
-
-    Timeline timelineRight = new Timeline(init, right);
-    timelineRight.setCycleCount(2);
-
-    for (int i = 2; i < 12; i++) {
-      if (i % 2 == 0) {
-        timelineLeft.play();
-      } else if (i % 3 == 0) {
-        timelineRight.play();
-      }
-    }
+    // wait for selection
+    comboBox.valueProperty().addListener((observable, oldValue, newValue)
+        -> comboBox.setButtonCell(cellFactory.call(null)));
   }
 
   /**
@@ -153,8 +126,8 @@ public class Controller {
    * too small.
    */
   public void minWindowSize(Stage stage) {
-    stage.setMinWidth(800);
-    stage.setMinHeight(600);
+    stage.setMinWidth(1280);
+    stage.setMinHeight(780);
   }
 
   /**
