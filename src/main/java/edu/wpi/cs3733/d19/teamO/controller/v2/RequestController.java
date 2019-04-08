@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 
 import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.AudioVisualController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.ExternalTransportationController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.GiftController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationController;
@@ -65,6 +66,8 @@ public class RequestController implements Controller {
   @Inject
   private InternalTransportationController.Factory internalTransportationControllerFactory;
   @Inject
+  private AudioVisualController.Factory audioVisualControllerFactory;
+  @Inject
   private ExternalTransportationController.Factory externalTransportationControllerFactory;
   @Inject
   private GiftController.Factory giftControllerFactory;
@@ -85,6 +88,12 @@ public class RequestController implements Controller {
   void giftAction(ActionEvent event) {
     eventBus.post(new ChangeMainViewEvent(giftControllerFactory.create()));
   }
+
+  @FXML
+  void audioVisualAction(ActionEvent event) {
+    eventBus.post(new ChangeMainViewEvent(audioVisualControllerFactory.create()));
+  }
+
 
   @Override
   public Parent getRoot() {
