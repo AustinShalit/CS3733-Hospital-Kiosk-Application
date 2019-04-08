@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
@@ -23,11 +24,11 @@
             <Insets top="30.0" />
           </VBox.margin>
         </JFXTextField>
-            <JFXTextField fx:id="dobtxt" labelFloat="true" maxWidth="200.0" prefHeight="31.0" promptText="Patient DOB (mm/dd/yyyy)">
+            <JFXDatePicker fx:id="patientDOB" promptText="Patient DOB">
                <VBox.margin>
                   <Insets top="45.0" />
                </VBox.margin>
-            </JFXTextField>
+            </JFXDatePicker>
             <JFXComboBox fx:id="sexbox" promptText="Patient Sex">
                <VBox.margin>
                   <Insets top="45.0" />

@@ -10,6 +10,7 @@ import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 
@@ -37,7 +38,7 @@ public class PatientInfoController implements Controller {
   @FXML
   private JFXTextField nametxt;
   @FXML
-  private JFXTextField dobtxt;
+  private JFXDatePicker patientDOB;
   @FXML
   private JFXComboBox<PatientInfoRequest.PatientInfoSex> sexbox;
   @FXML
@@ -69,23 +70,36 @@ public class PatientInfoController implements Controller {
 
   @FXML
   void onSubmitButtonAction() {
-    return;
+    PatientInfoRequest req = parse();
+    if (Objects.nonNull(req)) {
+      DialogHelper.showInformationAlert("Success!",
+          "Created object, not submitted to DB");
+    } else {
+      DialogHelper.showErrorAlert("Error.",
+          "Please make sure all fields are filled out.");
+    }
   }
 
   /**
    * Parse input the user has inputted for the sanitation request.
    *
-   * @return If valid input, A SanitationRequest representing the users input. Otherwise null.
+   * @return If valid input, A PatientInfoRequest representing the users input. Otherwise null.
    */
   private PatientInfoRequest parse() {
     // validation
+    if (nametxt.getText().isEmpty() // check that the name field is filled out
+        || Objects.isNull(patientDOB.getValue()) // check if patientDOB is filled out
+        || Objects.isNull(locationComboBox.getValue()) // check that location field is filled out
+        || Objects.isNull(sexbox.getValue())) { // check if patient sex is selected
+      return null;
+    }
 
-    // creation
-    /*
-    PatientInfoRequest patientInfoRequest = new PatientInfoRequest(0,
-        )
-        */
-    return null;
+    return new PatientInfoRequest(LocalDateTime.now(),
+        locationComboBox.getValue(),
+        descriptiontxt.getText(),
+        nametxt.getText(),
+        patientDOB.getValue(),
+        sexbox.getValue());
   }
 
   @Override
