@@ -157,7 +157,7 @@ class SupportAnimalRequestDaoDbTest {
           testInfo.getDisplayName());
 
       assertDoesNotThrow(() -> new NodeDaoDb(dcf));
-      assertDoesNotThrow(() -> new InternalTransportationRequestDaoDb(dcf));
+      assertDoesNotThrow(() -> new SupportAnimalRequestDaoDb(dcf));
     }
 
     @Test
@@ -168,8 +168,8 @@ class SupportAnimalRequestDaoDbTest {
 
       assertDoesNotThrow(() -> new NodeDaoDb(dcf));
 
-      assertDoesNotThrow(() -> new SanitationRequestDaoDb(dcf));
-      assertDoesNotThrow(() -> new InternalTransportationRequestDaoDb(dcf));
+      assertDoesNotThrow(() -> new SupportAnimalRequestDaoDb(dcf));
+      assertDoesNotThrow(() -> new SupportAnimalRequestDaoDb(dcf));
     }
   }
 }
