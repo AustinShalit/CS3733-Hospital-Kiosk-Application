@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 
 import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.ExternalTransportationController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.GiftController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationController;
 
@@ -64,11 +65,19 @@ public class RequestController implements Controller {
   @Inject
   private InternalTransportationController.Factory internalTransportationControllerFactory;
   @Inject
+  private ExternalTransportationController.Factory externalTransportationControllerFactory;
+  @Inject
   private GiftController.Factory giftControllerFactory;
+
 
   @FXML
   void internalTransportationAction(ActionEvent event) {
     eventBus.post(new ChangeMainViewEvent(internalTransportationControllerFactory.create()));
+  }
+
+  @FXML
+  void externalTransportationAction(ActionEvent event) {
+    eventBus.post(new ChangeMainViewEvent(externalTransportationControllerFactory.create()));
   }
 
   @FXML

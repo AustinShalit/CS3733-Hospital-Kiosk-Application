@@ -68,6 +68,7 @@ public class Project extends Application {
     }
 
 
+
     logger.config("Application init complete");
   }
 
