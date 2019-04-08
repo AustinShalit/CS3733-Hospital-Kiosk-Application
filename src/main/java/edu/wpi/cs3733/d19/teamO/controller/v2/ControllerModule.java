@@ -57,5 +57,6 @@ public class ControllerModule extends AbstractModule {
     install(new FactoryModuleBuilder().build(GiftController.Factory.class));
     install(new FactoryModuleBuilder().build(GiftViewController.Factory.class));
 
+    install(new FactoryModuleBuilder().build(NavigationController.Factory.class));
   }
 }
