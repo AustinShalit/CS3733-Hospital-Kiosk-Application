@@ -93,9 +93,7 @@ public class InterpreterController implements Controller {
       LocalDateTime now = LocalDateTime.now();
       Node node = locationbox.getValue();
 
-      String type = categorybox.getValue().toString();
-      InterpreterRequest.Language language =
-          InterpreterRequest.Language.valueOf(type);
+      InterpreterRequest.Language language = categorybox.getValue();
 
       String description = descriptiontxt.getText();
 
