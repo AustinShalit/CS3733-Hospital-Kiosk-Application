@@ -86,7 +86,7 @@ public class LoginDaoDb implements LoginDao {
         resultSet.getString("username"),
         resultSet.getString("password"),
         employeeDaoDb.get(resultSet.getInt("emp_id"))
-        .orElseThrow(() -> new SQLException("Could not get associated employee"))
+            .orElseThrow(() -> new SQLException("Could not get associated employee"))
     );
   }
 

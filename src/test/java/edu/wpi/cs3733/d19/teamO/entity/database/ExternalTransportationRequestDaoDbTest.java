@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 
-import edu.wpi.cs3733.d19.teamO.entity.InternalTransportationRequest;
+import edu.wpi.cs3733.d19.teamO.entity.ExternalTransportationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class InternalTransportationRequestDaoDbTest {
+class ExternalTransportationRequestDaoDbTest {
   private static final int id1 = 123;
   private static final int id2 = 1234;
 
@@ -31,16 +31,16 @@ class InternalTransportationRequestDaoDbTest {
       "FL3", "Central", Node.NodeType.DEPT, "LONGNAME",
       "SHORTNAME");
 
-  private static final InternalTransportationRequest testITRequest1 =
-      new InternalTransportationRequest(1, LocalDateTime.now(), LocalDateTime.now(), testNode1,
-          "Bob", InternalTransportationRequest.InternalTransportationRequestType.DELIVERY,
+  private static final ExternalTransportationRequest testITRequest1 =
+      new ExternalTransportationRequest(1, LocalDateTime.now(), LocalDateTime.now(), testNode1,
+          "Bob", ExternalTransportationRequest.ExternalTransportationRequestType.HELICOPTER,
           "This is a description", "Dev");
 
-  private static final InternalTransportationRequest testITRequest2 =
-      new InternalTransportationRequest(2, LocalDateTime.now(), LocalDateTime.now(), testNode2,
-          "Bill", InternalTransportationRequest.InternalTransportationRequestType.STRETCHER,
+  private static final ExternalTransportationRequest testITRequest2 =
+      new ExternalTransportationRequest(2, LocalDateTime.now(), LocalDateTime.now(), testNode2,
+          "Bill", ExternalTransportationRequest.ExternalTransportationRequestType.AMBULANCE,
           "This is a description", "Ken");
-  private InternalTransportationRequestDaoDb itrequestdao;
+  private ExternalTransportationRequestDaoDb itrequestdao;
   private NodeDao nodeDao;
 
   @BeforeEach
@@ -51,14 +51,14 @@ class InternalTransportationRequestDaoDbTest {
             + testInfo.getDisplayName());
 
     nodeDao = new NodeDaoDb(dcf);
-    InternalTransportationRequestDaoDb internalTransportationRequestDaoDb =
-        new InternalTransportationRequestDaoDb(dcf);
+    ExternalTransportationRequestDaoDb externalTransportationRequestDaoDb =
+        new ExternalTransportationRequestDaoDb(dcf);
 
     nodeDao.insert(testNode1);
-    internalTransportationRequestDaoDb.insert(testITRequest1);
+    externalTransportationRequestDaoDb.insert(testITRequest1);
 
 
-    itrequestdao = new InternalTransportationRequestDaoDb(dcf);
+    itrequestdao = new ExternalTransportationRequestDaoDb(dcf);
   }
 
   @Test
@@ -103,7 +103,7 @@ class InternalTransportationRequestDaoDbTest {
 
   @Test
   void deleteNotExistingTest() {
-    assertFalse(itrequestdao.delete(new InternalTransportationRequest(987, null,
+    assertFalse(itrequestdao.delete(new ExternalTransportationRequest(987, null,
         null, testNode1, null, null, null, null)));
   }
 
@@ -111,10 +111,10 @@ class InternalTransportationRequestDaoDbTest {
   void updateTest() {
     itrequestdao.insert(testITRequest1);
 
-    InternalTransportationRequest update = new InternalTransportationRequest(testITRequest1.getId(),
+    ExternalTransportationRequest update = new ExternalTransportationRequest(testITRequest1.getId(),
         LocalDateTime.now(), LocalDateTime.now(),
         testNode1, "Fred",
-        InternalTransportationRequest.InternalTransportationRequestType.OTHERS,
+        ExternalTransportationRequest.ExternalTransportationRequestType.OTHERS,
         "A different description", "Austin");
 
     assertTrue(itrequestdao.update(update));
@@ -125,9 +125,9 @@ class InternalTransportationRequestDaoDbTest {
   void updateNotExistingTest() {
     Node newNode = new Node("9876", 0, 0, "2", "Fuller",
         Node.NodeType.DEPT, "longname", "shortname");
-    assertFalse(itrequestdao.update(new InternalTransportationRequest(987, LocalDateTime.now(),
+    assertFalse(itrequestdao.update(new ExternalTransportationRequest(987, LocalDateTime.now(),
         LocalDateTime.now(), newNode, "Jane",
-        InternalTransportationRequest.InternalTransportationRequestType.DELIVERY,
+        ExternalTransportationRequest.ExternalTransportationRequestType.OTHERS,
         "This request doesnt exist", "Jill")));
   }
 
@@ -152,8 +152,8 @@ class InternalTransportationRequestDaoDbTest {
       itrequestdao.insert(testITRequest1);
     }
 
-    Set<InternalTransportationRequest> internalTransportationRequestSet = itrequestdao.getAll();
-    for (InternalTransportationRequest sr : internalTransportationRequestSet) {
+    Set<ExternalTransportationRequest> externalTransportationRequestSet = itrequestdao.getAll();
+    for (ExternalTransportationRequest sr : externalTransportationRequestSet) {
       // make sure the id is in the correct range
       assertTrue(sr.getId() < 11 || sr.getId() > 1);
     }
@@ -168,7 +168,7 @@ class InternalTransportationRequestDaoDbTest {
           testInfo.getDisplayName());
 
       assertDoesNotThrow(() -> new NodeDaoDb(dcf));
-      assertDoesNotThrow(() -> new InternalTransportationRequestDaoDb(dcf));
+      assertDoesNotThrow(() -> new ExternalTransportationRequestDaoDb(dcf));
     }
 
     @Test
@@ -179,8 +179,8 @@ class InternalTransportationRequestDaoDbTest {
 
       assertDoesNotThrow(() -> new NodeDaoDb(dcf));
 
-      assertDoesNotThrow(() -> new InternalTransportationRequestDaoDb(dcf));
-      assertDoesNotThrow(() -> new InternalTransportationRequestDaoDb(dcf));
+      assertDoesNotThrow(() -> new SanitationRequestDaoDb(dcf));
+      assertDoesNotThrow(() -> new ExternalTransportationRequestDaoDb(dcf));
     }
   }
 }
