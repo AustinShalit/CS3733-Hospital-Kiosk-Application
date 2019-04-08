@@ -49,6 +49,7 @@ public class HomeController implements Controller {
         "Security Request Notification",
         "Are you sure you want to alert the security?")) {
       System.out.println("Notifying");
+      // TODO send to database
     }
   }
 

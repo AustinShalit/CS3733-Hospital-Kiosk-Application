@@ -127,7 +127,7 @@ public final class DialogHelper {
   /**
    * Show an error alert, and wait for user to close it.
    *
-   * @return
+   * @return true if the user presses ok, false otherwise
    */
   public static boolean showConfirmDialog(String titleText, String headerText, String contentText) {
     Alert dialog = new Alert(Alert.AlertType.CONFIRMATION);
