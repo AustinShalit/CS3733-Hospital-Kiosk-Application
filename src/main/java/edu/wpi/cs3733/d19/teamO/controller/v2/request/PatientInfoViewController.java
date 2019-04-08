@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d19.teamO.controller.v2.request;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.google.common.eventbus.EventBus;
@@ -19,7 +20,7 @@ import edu.wpi.cs3733.d19.teamO.controller.v2.DialogHelper;
 import edu.wpi.cs3733.d19.teamO.controller.v2.FxmlController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.RequestController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
-import edu.wpi.cs3733.d19.teamO.entity.InternalTransportationRequest;
+import edu.wpi.cs3733.d19.teamO.entity.PatientInfoRequest;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 @FxmlController(url = "PatientInfoView.fxml")
@@ -31,30 +32,27 @@ public class PatientInfoViewController implements Controller {
   @FXML
   private JFXButton goBackButton;
   @FXML
-  private JFXButton assignButton;
-  @FXML
   private JFXButton completedButton;
   @FXML
   private Label titleLabel;
   @FXML
-  private TableView<InternalTransportationRequest> requestsTableView;
+  private TableView<PatientInfoRequest> requestsTableView;
   @FXML
-  private TableColumn<InternalTransportationRequest, Integer> idTableCol;
+  private TableColumn<PatientInfoRequest, Integer> idCol;
   @FXML
-  private TableColumn<InternalTransportationRequest, LocalDateTime> timeRequestedCol;
+  private TableColumn<PatientInfoRequest, LocalDateTime> timeRequestedCol;
   @FXML
-  private TableColumn<InternalTransportationRequest, LocalDateTime> timeCompletedCol;
+  private TableColumn<PatientInfoRequest, String> whoCompletedCol;
   @FXML
-  private TableColumn<InternalTransportationRequest, String> whoCompletedCol;
+  private TableColumn<PatientInfoRequest, String> descriptionCol;
   @FXML
-  private TableColumn<InternalTransportationRequest, String> locationTableCol;
+  private TableColumn<PatientInfoRequest, String> locationTableCol;
   @FXML
-  private TableColumn<InternalTransportationRequest,
-      InternalTransportationRequest.InternalTransportationRequestType> categoryTableCol;
+  private TableColumn<PatientInfoRequest, String> patientNameCol;
   @FXML
-  private TableColumn<InternalTransportationRequest, String> descriptionCol;
+  private TableColumn<PatientInfoRequest, LocalDate> patientDOBCol;
   @FXML
-  private TableColumn<InternalTransportationRequest, String> nameCol;
+  private TableColumn<PatientInfoRequest, PatientInfoRequest.PatientInfoSex> patientSexCol;
 
   @Inject
   private EventBus eventBus;
@@ -65,19 +63,20 @@ public class PatientInfoViewController implements Controller {
 
   @FXML
   void initialize() {
-    idTableCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+    idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
     timeRequestedCol.setCellValueFactory(new PropertyValueFactory<>("timeRequested"));
-    //timeCompletedCol.setCellValueFactory(new PropertyValueFactory<>("timeCompletedString"));
     whoCompletedCol.setCellValueFactory(new PropertyValueFactory<>("whoCompleted"));
-    locationTableCol.setCellValueFactory(new PropertyValueFactory<>("locationNodeIdString"));
-    categoryTableCol.setCellValueFactory(new PropertyValueFactory<>("type"));
     descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
-    nameCol.setCellValueFactory(new PropertyValueFactory<>("person"));
+    locationTableCol.setCellValueFactory(new PropertyValueFactory<>("locationNodeIdString"));
+    patientNameCol.setCellValueFactory(new PropertyValueFactory<>("patientName"));
+    patientDOBCol.setCellValueFactory(new PropertyValueFactory<>("patientDOB"));
+    patientSexCol.setCellValueFactory(new PropertyValueFactory<>("patientSex"));
 
-    requestsTableView.getItems().setAll(db.getAllInternalTransportationRequests());
+
+    requestsTableView.getItems().setAll(db.getAllPatientInfoRequests());
 
     // sort by id
-    requestsTableView.getSortOrder().add(idTableCol);
+    requestsTableView.getSortOrder().add(idCol);
 
     // make columns auto-resize
     requestsTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -99,21 +98,21 @@ public class PatientInfoViewController implements Controller {
     String name = DialogHelper.textInputDialog("Enter Employee Name",
         "Enter Employee Name", "Employee Name: ");
 
-    InternalTransportationRequest sr = db.getInternalTransportationRequest(idInt).get();
+    PatientInfoRequest sr = db.getPatientInfoRequest(idInt).get();
     sr.setWhoCompleted(name);
-    db.updateInternalTransportationRequest(sr);
+    db.updatePatientInfoRequest(sr);
 
-    requestsTableView.getItems().setAll(db.getAllInternalTransportationRequests());
-    requestsTableView.getSortOrder().add(idTableCol); //sort
+    requestsTableView.getItems().setAll(db.getAllPatientInfoRequests());
+    requestsTableView.getSortOrder().add(idCol); //sort
   }
 
   @FXML
   void onCompletedButtonAction() {
-    InternalTransportationRequest selectedItem =
+    PatientInfoRequest selectedItem =
         requestsTableView.getSelectionModel().getSelectedItem();
     requestsTableView.getItems().remove(selectedItem);
 
-    db.deleteInternalTransportationRequest(selectedItem);
+    db.deletePatientInfoRequest(selectedItem);
 
   }
 
