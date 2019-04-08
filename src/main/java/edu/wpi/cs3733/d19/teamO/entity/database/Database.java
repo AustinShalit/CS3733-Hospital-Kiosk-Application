@@ -4,11 +4,14 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.Set;
 
+import org.checkerframework.checker.nullness.Opt;
+
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Employee;
 import edu.wpi.cs3733.d19.teamO.entity.InternalTransportationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.Login;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
+import edu.wpi.cs3733.d19.teamO.entity.PatientInfoRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SchedulingRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
@@ -23,6 +26,7 @@ public class Database {
   private final SchedulingRequestDao schedulingRequestDao;
   private final LoginDao loginDao;
   private final InternalTransportationRequestDao itransportationDao;
+  private final PatientInfoRequestDaoDb patientInfoRequestDao;
   private final EmployeeDao employeeDao;
 
 
@@ -34,6 +38,7 @@ public class Database {
     this.loginDao = new LoginDaoDb(dcf);
     this.schedulingRequestDao = new SchedulingRequestDaoDb(dcf);
     this.itransportationDao = new InternalTransportationRequestDaoDb(dcf);
+    this.patientInfoRequestDao = new PatientInfoRequestDaoDb(dcf);
     this.employeeDao = new EmployeeDaoDb(dcf);
   }
 
@@ -249,6 +254,29 @@ public class Database {
   public boolean updateInternalTransportationRequest(
       InternalTransportationRequest internalTransportationRequest) {
     return itransportationDao.update(internalTransportationRequest);
+  }
+
+  /*
+   * Patient info
+   */
+  public Optional<PatientInfoRequest> getPatientInfoRequest(int id) {
+    return patientInfoRequestDao.get(id);
+  }
+
+  public Set<PatientInfoRequest> getAllPatientInfoRequests() {
+    return patientInfoRequestDao.getAll();
+  }
+
+  public boolean insertPatientInfoRequest(PatientInfoRequest patientInfoRequest) {
+    return patientInfoRequestDao.insert(patientInfoRequest);
+  }
+
+  public boolean deletePatientInfoRequest(PatientInfoRequest patientInfoRequest) {
+    return patientInfoRequestDao.delete(patientInfoRequest);
+  }
+
+  public boolean updatePatientInfoRequest(PatientInfoRequest patientInfoRequest) {
+    return patientInfoRequestDao.update(patientInfoRequest);
   }
 
 }
