@@ -14,7 +14,7 @@ public class PatientInfoRequest extends ServiceRequest {
 
 
   /**
-   * Create a Patient Info Object.
+   * Initialization of Patient Info Object.
    */
   public PatientInfoRequest(int id,
                             LocalDateTime timeRequested,
@@ -32,7 +32,7 @@ public class PatientInfoRequest extends ServiceRequest {
   }
 
   /**
-   * Initialization of Internal Transportation Request.
+   * Initialization of Patient Info Object.
    */
   public PatientInfoRequest(LocalDateTime timeRequested,
                             Node location,
@@ -73,13 +73,15 @@ public class PatientInfoRequest extends ServiceRequest {
         && getLocationNode().equals(that.getLocationNode())
         && getWhoCompleted().equals(that.getWhoCompleted())
         && getDescription().equals(that.getDescription())
-        && patientName.equals(that.patientName);
+        && patientName.equals(that.patientName)
+        && patientDOB.equals(that.patientDOB)
+        && patientSex == that.patientSex;
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(getId(), getTimeRequested(), getTimeCompleted(), getLocationNode(),
-        getWhoCompleted(), getDescription(), patientName);
+        getWhoCompleted(), getDescription(), patientName, patientDOB, patientSex);
   }
 
   @Override
@@ -91,7 +93,9 @@ public class PatientInfoRequest extends ServiceRequest {
         + ", locationNode=" + getLocationNode().toString()
         + ", whoCompleted=" + getWhoCompleted()
         + ", description=" + getDescription()
-        + ", patientName=" + patientName + '\''
+        + ", patientName=" + patientName
+        + ", patientDOB=" + patientDOB.toString()
+        + ", patientSex=" + patientSex.toString() + '\''
         + '}';
   }
 
