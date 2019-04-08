@@ -22,15 +22,13 @@ import edu.wpi.cs3733.d19.teamO.controller.v2.DialogHelper;
 import edu.wpi.cs3733.d19.teamO.controller.v2.FxmlController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.RequestController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
-import edu.wpi.cs3733.d19.teamO.entity.InternalTransportationRequest;
+import edu.wpi.cs3733.d19.teamO.entity.GiftRequest;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
-@FxmlController(url = "InternalTransportation.fxml")
-public class InternalTransportationController implements Controller {
-
-  private static final Logger logger = Logger.getLogger(
-      InternalTransportationController.class.getName());
+@FxmlController(url = "Gift.fxml")
+public class GiftController implements Controller {
+  private static final Logger logger = Logger.getLogger(GiftController.class.getName());
 
   @FXML
   private BorderPane root;
@@ -39,7 +37,7 @@ public class InternalTransportationController implements Controller {
   @FXML
   private JFXComboBox<Node> locationbox;
   @FXML
-  private JFXComboBox<InternalTransportationRequest.InternalTransportationRequestType> categorybox;
+  private JFXComboBox<GiftRequest.GiftRequestType> categorybox;
   @FXML
   private JFXTextArea descriptiontxt;
   @FXML
@@ -57,7 +55,7 @@ public class InternalTransportationController implements Controller {
   @FXML
   void initialize() {
     DialogHelper.populateComboBox(db, locationbox);
-    categorybox.getItems().setAll(InternalTransportationRequest.InternalTransportationRequestType
+    categorybox.getItems().setAll(GiftRequest.GiftRequestType
         .values());
   }
 
@@ -68,31 +66,30 @@ public class InternalTransportationController implements Controller {
 
   @FXML
   void onSubmitButtonAction() {
-    InternalTransportationRequest internal = parseUserITRequest();
-    if (internal == null) {
+    GiftRequest gift = parseUserGiftRequest();
+    if (gift == null) {
       logger.log(Level.WARNING,
-          "Unable to parse internal transportation Request.",
-          "Unable to parse Internal Transportation Request.");
+          "Unable to parse gift request.",
+          "Unable to parse gift request.");
       return;
     }
 
-    if (db.insertInternalTransportationRequest(internal)) {
-      String message = "Successfully submitted internal transportation request.";
+    if (db.insertGiftRequest(gift)) {
+      String message = "Successfully submitted gift request.";
       DialogHelper.showInformationAlert("Success!", message);
     } else {
       DialogHelper.showErrorAlert("Error.",
-          "Unable to submit internal transportation request.");
+          "Unable to submit gift request.");
     }
   }
 
   /**
    * Parse input the user has inputted for the sanitation request.
    *
-   * @return If valid input, A InternalTransportationRequest representing the users input
-   *      Otherwise null.
+   * @return If valid input, A SanitationRequest representing the users input. Otherwise null.
    */
-  private InternalTransportationRequest parseUserITRequest() {
-    // if input is valid, parse it and return a new InternalTransportationRequest
+  private GiftRequest parseUserGiftRequest() {
+    // if input is valid, parse it and return a new SanitationRequest
     if (!descriptiontxt.getText().isEmpty()
         && !nametxt.getText().isEmpty()
         && Objects.nonNull(locationbox.getValue())
@@ -102,13 +99,13 @@ public class InternalTransportationController implements Controller {
       Node node = (Node) locationbox.getValue();
 
       String type = categorybox.getValue().toString().toUpperCase(new Locale("EN"));
-      InternalTransportationRequest.InternalTransportationRequestType internalRequestType =
-          InternalTransportationRequest.InternalTransportationRequestType.valueOf(type);
+      GiftRequest.GiftRequestType giftRequestType =
+          GiftRequest.GiftRequestType.valueOf(type);
 
       String description = descriptiontxt.getText();
       String name = nametxt.getText();
 
-      return new InternalTransportationRequest(now, node, internalRequestType, description, name);
+      return new GiftRequest(now, node, giftRequestType, description, name);
     }
 
     // otherwise, some input was invalid
@@ -122,6 +119,6 @@ public class InternalTransportationController implements Controller {
   }
 
   public interface Factory {
-    InternalTransportationController create();
+    GiftController create();
   }
 }

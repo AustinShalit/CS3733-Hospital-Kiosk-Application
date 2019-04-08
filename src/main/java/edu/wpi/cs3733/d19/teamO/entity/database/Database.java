@@ -7,6 +7,7 @@ import java.util.Set;
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Employee;
 import edu.wpi.cs3733.d19.teamO.entity.ExternalTransportationRequest;
+import edu.wpi.cs3733.d19.teamO.entity.GiftRequest;
 import edu.wpi.cs3733.d19.teamO.entity.InternalTransportationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.Login;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
@@ -26,6 +27,7 @@ public class Database {
   private final LoginDao loginDao;
   private final InternalTransportationRequestDao itransportationDao;
   private final ExternalTransportationRequestDao etransportationDao;
+  private final GiftRequestDao giftRequestDao;
   private final EmployeeDao employeeDao;
 
   Database(DatabaseConnectionFactory dcf) throws SQLException {
@@ -38,6 +40,7 @@ public class Database {
     this.itransportationDao = new InternalTransportationRequestDaoDb(dcf);
     this.etransportationDao = new ExternalTransportationRequestDaoDb(dcf);
     this.employeeDao = new EmployeeDaoDb(dcf);
+    this.giftRequestDao = new GiftRequestDaoDb(dcf);
   }
 
   /**
@@ -75,6 +78,15 @@ public class Database {
 
   public boolean updateNode(Node node) {
     return nodeDao.update(node);
+  }
+
+
+  public Set<Node> getAllRooms(String type) {
+    return nodeDao.getAllRooms(type);
+  }
+
+  public Set<Node> getFloor(String floor) {
+    return nodeDao.getFloor(floor);
   }
 
   /*
@@ -279,6 +291,32 @@ public class Database {
   public boolean updateExternalTransportationRequest(
       ExternalTransportationRequest externalTransportationRequest) {
     return etransportationDao.update(externalTransportationRequest);
+  }
+
+   /*
+    * Gift Request
+    */
+  public Optional<GiftRequest> getGiftRequest(int id) {
+    return giftRequestDao.get(id);
+  }
+
+  public Set<GiftRequest> getAllGiftRequests() {
+    return giftRequestDao.getAll();
+  }
+
+  public boolean insertGiftRequest(
+      GiftRequest giftRequest) {
+    return giftRequestDao.insert(giftRequest);
+  }
+
+  public boolean deleteGiftRequest(
+      GiftRequest giftRequest) {
+    return giftRequestDao.delete(giftRequest);
+  }
+
+  public boolean updateGiftRequest(
+      GiftRequest giftRequest) {
+    return giftRequestDao.update(giftRequest);
   }
 
 }
