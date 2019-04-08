@@ -10,12 +10,9 @@ import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 
 import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
-
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.AudioVisualController;
-
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.ExternalTransportationController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.GiftController;
-
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationController;
 
 @FxmlController(url = "ServiceRequest.fxml")

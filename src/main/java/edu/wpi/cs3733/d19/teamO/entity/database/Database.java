@@ -18,8 +18,7 @@ import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
 
 
 
-@SuppressWarnings({"PMD.GodClass", "PMD.TooManyMethods", "PMD.ExcessivePublicCount"})
-=======
+
 @SuppressWarnings({"PMD.TooManyMethods", "PMD.GodClass", "PMD.ExcessivePublicCount"})
 
 
