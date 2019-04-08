@@ -109,7 +109,7 @@ public class PatientInfoRequest extends ServiceRequest {
 
     static {
       for (PatientInfoSex sex : values()) {
-        lookup.put(sex.name(), sex);
+        lookup.put(sex.name, sex);
       }
     }
 
