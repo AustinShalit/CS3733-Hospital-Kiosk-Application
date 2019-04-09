@@ -1,9 +1,11 @@
 package edu.wpi.cs3733.d19.teamO.component;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Collection;
 
 import javafx.animation.Interpolator;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,11 +26,18 @@ import net.kurobako.gesturefx.GesturePane;
 
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
+import edu.wpi.cs3733.d19.teamO.entity.database.Database;
+
+import static java.lang.Math.abs;
 
 
 public class MapView extends StackPane {
-
   private int level = 1;
+  private int currentLevel = 1;
+  Database database = new Database();
+  Collection<Node> nodes;
+
+
 
   @FXML
   private GesturePane gesturePane;
@@ -57,21 +66,41 @@ public class MapView extends StackPane {
   @FXML
   private Circle circle;
 
+  private SimpleObjectProperty<Node> selectedNode = new SimpleObjectProperty<>();
+
 
   /**
    * The constructor for the MapView class.
    *
    * @throws IOException Throws in case of xyz.
    */
-  public MapView() throws IOException {
+  public MapView() throws IOException, SQLException {
     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MapView.fxml"));
     fxmlLoader.setRoot(this);
     fxmlLoader.setController(this);
     fxmlLoader.load();
   }
 
+  public Node getSelectedNode() {
+    return selectedNode.get();
+  }
+
+  public SimpleObjectProperty<Node> selectedNodeProperty() {
+    return selectedNode;
+  }
+
+  public void setSelectedNode(Node selectedNode) {
+    this.selectedNode.set(selectedNode);
+  }
+
   @FXML
   void initialize() {
+    //database.getFloor("1");
+
+    //  selectedNode.set(the new node here closest);
+    clearNodes();
+    nodes = database.getFloor("1");
+    addNodesToPane(nodes);
     gesturePane.setMinScale(0.1);
     gesturePane.setOnMouseClicked(e -> {
       Point2D pointOnMap = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
@@ -83,11 +112,20 @@ public class MapView extends StackPane {
             .interpolateWith(Interpolator.EASE_BOTH)
             .zoomBy(gesturePane.getCurrentScale(), pointOnMap);
       }
-      coordY.setText(Double.toString((int) pointOnMap.getX()));
-      coordX.setText(Double.toString((int) pointOnMap.getY()));
+      int currentX = (int) pointOnMap.getX();
+      int currentY = (int) pointOnMap.getY();
+      coordX.setText(Double.toString(currentX));
+      coordY.setText(Double.toString(currentY));
       circle.setCenterX(pointOnMap.getX());
       circle.setCenterY(pointOnMap.getY());
       circle.setVisible(true);
+      Node[] nodesArray = nodes.toArray(new Node[nodes.size()]);
+      for (Node n : nodesArray) {
+        if (abs(n.getXcoord() - currentX) < 8 && abs(n.getYcoord() - currentX) < 8) {
+          selectedNode.set(n);
+          break;
+        }
+      }
     });
     gesturePane.setFitMode(GesturePane.FitMode.COVER);
     gesturePane.setScrollBarEnabled(false);
@@ -166,21 +204,36 @@ public class MapView extends StackPane {
     if (src.equals(levelF1)) {
       filename = "01_thefirstfloor.png";
       level = 1;
+      clearNodes();
+      nodes = database.getFloor("1");
+      addNodesToPane(nodes);
     } else if (src.equals(levelF2)) {
       filename = "02_thesecondfloor.png";
       level = 2;
+      clearNodes();
+      addNodesToPane(database.getFloor("2"));
     } else if (src.equals(levelF3)) {
       filename = "03_thethirdfloor.png";
       level = 3;
+      clearNodes();
+      nodes = database.getFloor("3");
+      addNodesToPane(nodes);
     } else if (src.equals(levelL1)) {
       filename = "00_thelowerlevel1.png";
       level = -1;
+      clearNodes();
+      addNodesToPane(database.getFloor("L1"));
     } else if (src.equals(levelL2)) {
       filename = "00_thelowerlevel2.png";
       level = -2;
+      clearNodes();
+      nodes = database.getFloor("L2");
+      addNodesToPane(nodes);
     } else if (src.equals(levelG)) {
       filename = "00_thegroundfloor.png";
       level = 0;
+      clearNodes();
+      addNodesToPane(database.getFloor("G"));
     }
 
     backgroundImage.setImage(new Image(getClass().getResource(filename).openStream()));
@@ -192,7 +245,6 @@ public class MapView extends StackPane {
   void onMouseMove(MouseEvent e) {
     Object src = e.getSource();
     resetButtonBackground(level);
-    int currentLevel = 1;
     if (src.equals(levelF1)) {
       levelF1.setStyle("-fx-background-color:  rgba(17,0,255,0.2)");
       currentLevel = 1;

@@ -57,7 +57,6 @@ public class MapEditController implements Controller {
     if (map != null) {
       Image image = new Image(getClass().getResource("01_thefirstfloor.png").openStream());
       map.setMapImage(image);
-      map.addNodesToPane(database.getAllNodes());
       map.addEdgesToPane(database.getAllEdges());
     }
   }
