@@ -35,7 +35,7 @@ public class AdminController implements Controller {
 
   @FXML
   void editdatabaseOnAction() {
-    switchScenes("EditedNodesForExport.fxml", editdatabaseButton.getScene().getWindow());
+
   }
 
   @Override

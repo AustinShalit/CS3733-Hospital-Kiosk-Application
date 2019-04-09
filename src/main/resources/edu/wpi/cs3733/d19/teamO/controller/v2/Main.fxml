@@ -9,16 +9,17 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.v2.MainController">
+<StackPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="100" minWidth="-Infinity" prefHeight="100.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.v2.MainController">
   <children>
     <BorderPane fx:id="contentPane">
       <top>
         <JFXToolbar fx:id="toolbar" BorderPane.alignment="CENTER">
           <left>
             <JFXButton onAction="#onHomeButtonAction" ripplerFill="#004e86" style="-fx-background-color: #0067B1;" text="Home" textFill="WHITE" BorderPane.alignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font></JFXButton>
+              <font>
+                <Font name="System Bold" size="15.0" />
+              </font>
+            </JFXButton>
           </left>
           <right>
             <JFXRippler maskType="CIRCLE" style="ripple: white;" BorderPane.alignment="CENTER">

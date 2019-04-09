@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -17,6 +18,7 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.SchedulingRequest;
 
 public class SchedulingRequestDaoDb implements SchedulingRequestDao {
@@ -88,6 +90,32 @@ public class SchedulingRequestDaoDb implements SchedulingRequestDao {
       logger.log(Level.WARNING, "Failed to get Scheduling Request", ex);
     }
     return Collections.emptySet();
+  }
+
+  @Override
+  public Set<Node> allAvailableNodes(LocalDateTime localDateTime) {
+    Set<SchedulingRequest> schedulingRequests = getAll();
+    Set<Node> nodes = nodeDaoDb.getAll();
+    Set<Node> availableNodes = new HashSet<>(nodes);
+    for (SchedulingRequest schedulingRequest : schedulingRequests) {
+      if (schedulingRequest.isDuring(localDateTime)) {
+        availableNodes.remove(schedulingRequest.getRoom());
+      }
+    }
+    return availableNodes;
+  }
+
+  @Override
+  public Set<Node> allAvailableNodes(LocalDateTime start, LocalDateTime end) {
+    Set<SchedulingRequest> schedulingRequests = getAll();
+    Set<Node> nodes = nodeDaoDb.getAll();
+    Set<Node> availableNodes = new HashSet<>(nodes);
+    for (SchedulingRequest schedulingRequest : schedulingRequests) {
+      if (schedulingRequest.isDuring(start, end)) {
+        availableNodes.remove(schedulingRequest.getRoom());
+      }
+    }
+    return availableNodes;
   }
 
   @Override
