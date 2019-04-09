@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d19.teamO.entity.database;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Set;
 
@@ -222,6 +223,10 @@ public class Database {
 
   public boolean updateScheduling(SchedulingRequest schedulingRequest) {
     return schedulingRequestDao.update(schedulingRequest);
+  }
+
+  public Set<Node> getAllAvailableNodes(LocalDateTime localDateTime) {
+    return schedulingRequestDao.allAvailableNodes(localDateTime);
   }
 
   /**
