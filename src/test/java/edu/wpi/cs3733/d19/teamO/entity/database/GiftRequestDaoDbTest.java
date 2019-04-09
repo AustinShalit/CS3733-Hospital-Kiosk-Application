@@ -47,8 +47,7 @@ class GiftRequestDaoDbTest {
   void setup(TestInfo testInfo) throws SQLException {
     DatabaseConnectionFactory dcf
         = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
-        testInfo.getTestClass().get().getName()
-            + testInfo.getDisplayName());
+        testInfo.getDisplayName());
 
     nodeDao = new NodeDaoDb(dcf);
     GiftRequestDaoDb internalTransportationRequestDaoDb =
