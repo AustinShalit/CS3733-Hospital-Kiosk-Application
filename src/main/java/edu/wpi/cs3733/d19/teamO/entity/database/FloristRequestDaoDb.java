@@ -39,7 +39,7 @@ public class FloristRequestDaoDb implements FloristRequestDao {
   }
 
   private static final String TABLE_NAME = queries.getProperty(
-      "florist_request.table_name");
+      "florist_request_queries.table_name");
   private DatabaseConnectionFactory dcf;
   private NodeDaoDb nodeDaoDb;
 
@@ -57,7 +57,7 @@ public class FloristRequestDaoDb implements FloristRequestDao {
   public Optional<FloristRequest> get(final Integer id) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement(
-          queries.getProperty("florist_request.select")
+          queries.getProperty("florist_request_queries.select")
       );
 
       statement.setInt(1, id);
@@ -77,7 +77,7 @@ public class FloristRequestDaoDb implements FloristRequestDao {
   public Set<FloristRequest> getAll() {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement(
-          queries.getProperty("florist_request.select_all")
+          queries.getProperty("florist_request_queries.select_all")
       );
 
       try (ResultSet resultSet = statement.executeQuery()) {
@@ -116,7 +116,7 @@ public class FloristRequestDaoDb implements FloristRequestDao {
   public boolean insert(final FloristRequest floristRequest) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement(
-          queries.getProperty("florist_request.insert"),
+          queries.getProperty("florist_request_queries.insert"),
           Statement.RETURN_GENERATED_KEYS
       );
       statement.setTimestamp(1,
@@ -139,7 +139,7 @@ public class FloristRequestDaoDb implements FloristRequestDao {
         return true;
       }
     } catch (SQLException exception) {
-      logger.log(Level.WARNING, "Failed to insert InternalTransportationRequest", exception);
+      logger.log(Level.WARNING, "Failed to insert FloristRequest", exception);
     }
     return false;
   }
@@ -155,7 +155,7 @@ public class FloristRequestDaoDb implements FloristRequestDao {
             + " does not exist. Creating");
         PreparedStatement statement
             = connection.prepareStatement(queries.getProperty(
-            "internal_transportation_request.create_table"));
+            "florist_request_queries.create_table"));
         statement.executeUpdate();
         logger.info("Table " + TABLE_NAME + " created");
       } else {
@@ -171,7 +171,7 @@ public class FloristRequestDaoDb implements FloristRequestDao {
   public boolean update(FloristRequest floristRequest) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement(
-          queries.getProperty("internal_transportation_request.update")
+          queries.getProperty("florist_request_queries.update")
       );
       statement.setTimestamp(1,
           Timestamp.valueOf(floristRequest.getTimeRequested()));
@@ -186,7 +186,7 @@ public class FloristRequestDaoDb implements FloristRequestDao {
 
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
-      logger.log(Level.WARNING, "Failed to update InternalTransportationRequest", ex);
+      logger.log(Level.WARNING, "Failed to update FloristTransportationRequest", ex);
     }
     return false;
   }
@@ -195,11 +195,11 @@ public class FloristRequestDaoDb implements FloristRequestDao {
   public boolean delete(FloristRequest floristRequest) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement(
-          queries.getProperty("florist_request.delete"));
+          queries.getProperty("florist_request_queries.delete"));
       statement.setInt(1, floristRequest.getId());
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
-      logger.log(Level.WARNING, "FAILED to delete InternalTransportationRequest");
+      logger.log(Level.WARNING, "FAILED to delete FloristTransportationRequest");
     }
     return false;
   }

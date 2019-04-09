@@ -22,7 +22,7 @@ import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.FloristRequest;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
-@FxmlController(url = "FloristView.fxml")
+@FxmlController(url = "FloristRequestView.fxml")
 @SuppressWarnings("PMD.TooManyFields")
 public class FloristRequestViewController implements Controller {
 

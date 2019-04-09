@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox fx:id="root" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.v2.RequestController">
+<VBox fx:id="root" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.v2.RequestController">
   <children>
     <Pane />
     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Service Requests">
@@ -91,7 +91,7 @@
                 <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
               </GridPane.margin>
             </JFXButton>
-            <JFXButton prefHeight="100.0" prefWidth="300.0" ripplerFill="WHITE" style="-fx-background-color: grey;" text="Other 1" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
+            <JFXButton fx:id="florist" onAction="#floristAction" prefHeight="100.0" prefWidth="300.0" ripplerFill="WHITE" style="-fx-background-color: grey;" text="Florist Request" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
               <GridPane.margin>
                 <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
               </GridPane.margin>
@@ -111,7 +111,7 @@
                 <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
               </GridPane.margin>
             </JFXButton>
-            <JFXButton prefHeight="100.0" prefWidth="904.0" ripplerFill="WHITE" style="-fx-background-color: grey;" text="View and Resolve Request" GridPane.columnSpan="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.vgrow="ALWAYS">
+            <JFXButton fx:id="viewRequest" onAction="#viewAction" prefHeight="100.0" prefWidth="904.0" ripplerFill="WHITE" style="-fx-background-color: grey;" text="View and Resolve Request" GridPane.columnSpan="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.vgrow="ALWAYS">
               <GridPane.margin>
                 <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
               </GridPane.margin>

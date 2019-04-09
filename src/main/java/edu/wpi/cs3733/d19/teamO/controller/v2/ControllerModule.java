@@ -12,8 +12,11 @@ import com.google.inject.spi.TypeListener;
 
 import javafx.fxml.FXMLLoader;
 
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.FloristRequestController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.FloristRequestViewController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationViewController;
+import edu.wpi.cs3733.d19.teamO.entity.FloristRequest;
 
 public class ControllerModule extends AbstractModule {
   @Override
@@ -45,5 +48,8 @@ public class ControllerModule extends AbstractModule {
 
     install(new FactoryModuleBuilder().build(InternalTransportationController.Factory.class));
     install(new FactoryModuleBuilder().build(InternalTransportationViewController.Factory.class));
+
+    install(new FactoryModuleBuilder().build(FloristRequestController.Factory.class));
+    install(new FactoryModuleBuilder().build(FloristRequestViewController.Factory.class));
   }
 }

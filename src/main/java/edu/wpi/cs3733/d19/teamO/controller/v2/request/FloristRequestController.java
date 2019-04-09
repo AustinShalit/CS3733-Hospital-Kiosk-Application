@@ -69,7 +69,7 @@ public class FloristRequestController implements Controller {
 
   @FXML
   void onSubmitButtonAction() {
-    FloristRequest florist = parseUserITRequest();
+    FloristRequest florist = parseUserFloristRequest();
     if (florist == null) {
       logger.log(Level.WARNING,
           "Unable to parse florist Request.",
@@ -87,12 +87,12 @@ public class FloristRequestController implements Controller {
   }
 
   /**
-   * Parse input the user has inputted for the sanitation request.
+   * Parse input the user has inputted for the florist request.
    *
-   * @return If valid input, A SanitationRequest representing the users input. Otherwise null.
+   * @return If valid input, A florist Request representing the users input. Otherwise null.
    */
-  private FloristRequest parseUserITRequest() {
-    // if input is valid, parse it and return a new SanitationRequest
+  private FloristRequest parseUserFloristRequest() {
+    // if input is valid, parse it and return a new florist request
     if (!descriptiontxt.getText().isEmpty()
         && !nametxt.getText().isEmpty()
         && Objects.nonNull(locationbox.getValue())

@@ -7,9 +7,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class FloristRequest extends ServiceRequest {
   public enum FloristRequestType {
-    STRETCHER("Stretcher"),
-    DISABLED("Disabled"),
-    DELIVERY("Delivery"),
+    ROSES("Roses"),
+    TULIPS("Tulips"),
+    DAFFODIL("Daffodil"),
     OTHERS("Others");
 
     private static final Map<String,
