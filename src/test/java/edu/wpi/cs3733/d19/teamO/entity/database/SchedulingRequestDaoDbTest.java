@@ -202,6 +202,14 @@ class SchedulingRequestDaoDbTest {
   void isDuringTest() {
     assertFalse(schedulingRequest.isDuring(LocalDateTime.now()));
     assertTrue(schedulingRequest2.isDuring(LocalDateTime.now()));
+    assertFalse(schedulingRequest2.isDuring(
+        LocalDateTime.now().minusHours(4),
+        LocalDateTime.now().minusHours(3))
+    );
+    assertTrue(schedulingRequest2.isDuring(
+        LocalDateTime.now().minusHours(4),
+        LocalDateTime.now().plusHours(3))
+    );
   }
 
   @Test
