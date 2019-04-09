@@ -25,17 +25,24 @@ public class OptionsPopupController implements Controller {
   private LoginController.Factory loginControllerFactory;
 
   @FXML
+  void onAction(MouseEvent event) {
+    list.getSelectionModel().getSelectedItem().fireEvent(event);
+  }
+
+  @FXML
   void settingsAction(MouseEvent event) {
 
   }
 
   @FXML
   void adminAction(MouseEvent event) {
+    event.consume();
     eventBus.post(new ChangeMainViewEvent(adminControllerFactory.create()));
   }
 
   @FXML
   void signoutAction(MouseEvent event) {
+    event.consume();
     eventBus.post(new ChangeMainViewEvent(loginControllerFactory.create(), false));
   }
 
