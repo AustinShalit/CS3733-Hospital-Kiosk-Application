@@ -206,7 +206,7 @@ class PatientInfoRequestDaoDbTest {
           = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
           testInfo.getDisplayName());
 
-      assertDoesNotThrow(() -> new NodeDaoDb(dcf));
+      assertDoesNotThrow(() -> new PatientInfoRequestDaoDb(dcf));
       assertDoesNotThrow(() -> new PatientInfoRequestDaoDb(dcf));
     }
   }

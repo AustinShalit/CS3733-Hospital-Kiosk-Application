@@ -47,8 +47,6 @@ public class PatientInfoController implements Controller {
   private JFXButton submitbtn;
   @FXML
   private JFXButton backbtn;
-  @FXML
-  private JFXButton viewRequestsButton;
 
   @Inject
   private EventBus eventBus;
@@ -117,8 +115,4 @@ public class PatientInfoController implements Controller {
     PatientInfoController create();
   }
 
-  @FXML
-  public void viewRequestsOnAction() {
-    eventBus.post(new ChangeMainViewEvent(patientInfoViewControllerFactory.create()));
-  }
 }

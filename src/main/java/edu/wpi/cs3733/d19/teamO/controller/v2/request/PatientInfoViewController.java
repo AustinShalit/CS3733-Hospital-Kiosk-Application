@@ -92,7 +92,7 @@ public class PatientInfoViewController implements Controller {
 
   @FXML
   void onAssignButtonAction() {
-    String id = DialogHelper.textInputDialog("Enter Security Request ID",
+    String id = DialogHelper.textInputDialog("Enter Patient Info Request ID",
         "Enter Request ID", "ID: ");
     int idInt = Integer.parseInt(id);
     String name = DialogHelper.textInputDialog("Enter Employee Name",
