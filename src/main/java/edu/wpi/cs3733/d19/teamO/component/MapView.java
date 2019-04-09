@@ -234,12 +234,13 @@ public class MapView extends StackPane {
    *
    * @param nodes nodes are the for positions
    */
+  @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
   public void addNodesToPane(final Collection<Node> nodes) {
 
     for (Node node: nodes) {
-      Circle c = new Circle(node.getXcoord(), node.getYcoord(), 5, Color.color(0, 0.31, 0.53));
-      c.setStroke(Color.BLACK);
-      nodeGroup.getChildren().add(c);
+      Circle circle = new Circle(node.getXcoord(), node.getYcoord(), 5, Color.color(0, 0.31, 0.53));
+      circle.setStroke(Color.BLACK);
+      nodeGroup.getChildren().add(circle);
     }
   }
 

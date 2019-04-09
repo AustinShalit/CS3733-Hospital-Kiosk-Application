@@ -21,90 +21,76 @@
         <VBox alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Filter">
             <font>
-              <Font size="36.0"/>
+              <Font size="36.0" />
             </font>
           </Text>
           <GridPane>
             <columnConstraints>
-              <ColumnConstraints hgrow="ALWAYS" minWidth="10.0"/>
-              <ColumnConstraints hgrow="ALWAYS" minWidth="10.0"/>
+              <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
+              <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
             </columnConstraints>
             <rowConstraints>
-              <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
-              <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-              <JFXButton prefWidth="100.0" style="-fx-background-color: grey;" text="Bathroom"
-                         GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
-                         GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+              <JFXButton prefWidth="100.0" style="-fx-background-color: grey;" text="Bathroom" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                 <GridPane.margin>
-                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0"/>
+                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                 </GridPane.margin>
               </JFXButton>
-              <JFXButton prefWidth="100.0" style="-fx-background-color: grey;" text="Elevator"
-                         GridPane.columnIndex="1" GridPane.halignment="CENTER"
-                         GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER"
-                         GridPane.vgrow="ALWAYS">
+              <JFXButton prefWidth="100.0" style="-fx-background-color: grey;" text="Elevator" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                 <GridPane.margin>
-                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0"/>
+                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                 </GridPane.margin>
               </JFXButton>
-              <JFXButton prefWidth="100.0" style="-fx-background-color: grey;"
-                         text="Information" GridPane.columnIndex="1"
-                         GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
-                         GridPane.rowIndex="1" GridPane.valignment="CENTER"
-                         GridPane.vgrow="ALWAYS">
+              <JFXButton prefWidth="100.0" style="-fx-background-color: grey;" text="Information" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                 <GridPane.margin>
-                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0"/>
+                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                 </GridPane.margin>
               </JFXButton>
-              <JFXButton prefWidth="100.0" style="-fx-background-color: grey;" text="Exit"
-                         GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
-                         GridPane.rowIndex="1" GridPane.valignment="CENTER"
-                         GridPane.vgrow="ALWAYS">
+              <JFXButton prefWidth="100.0" style="-fx-background-color: grey;" text="Exit" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                 <GridPane.margin>
-                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0"/>
+                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                 </GridPane.margin>
               </JFXButton>
             </children>
             <padding>
-              <Insets bottom="5.0"/>
+              <Insets bottom="5.0" />
             </padding>
             <VBox.margin>
-              <Insets bottom="10.0"/>
+              <Insets bottom="10.0" />
             </VBox.margin>
           </GridPane>
           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="From">
             <VBox.margin>
-              <Insets/>
+              <Insets />
             </VBox.margin>
             <font>
-              <Font size="36.0"/>
+              <Font size="36.0" />
             </font>
           </Text>
-          <JFXComboBox fx:id="fromComboBox" onAction="#onComboAction" prefHeight="50.0" prefWidth="393.0"
-                       VBox.vgrow="ALWAYS">
+          <JFXComboBox fx:id="fromComboBox" onAction="#onComboAction" prefHeight="50.0" prefWidth="393.0" VBox.vgrow="ALWAYS">
             <VBox.margin>
-              <Insets bottom="30.0" left="5.0" right="5.0"/>
+              <Insets bottom="30.0" left="5.0" right="5.0" />
             </VBox.margin>
           </JFXComboBox>
           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="To">
             <VBox.margin>
-              <Insets/>
+              <Insets />
             </VBox.margin>
             <font>
-              <Font size="36.0"/>
+              <Font size="36.0" />
             </font>
           </Text>
           <JFXComboBox fx:id="toComboBox" onAction="#onComboAction" prefHeight="50.0" prefWidth="264.0">
             <VBox.margin>
-              <Insets bottom="30.0" left="5.0" right="5.0"/>
+              <Insets bottom="30.0" left="5.0" right="5.0" />
             </VBox.margin>
           </JFXComboBox>
-          <JFXButton fx:id="goButton" onAction="#onGoButtonAction" prefHeight="50.0" prefWidth="294.0" style="-fx-background-color: grey;"
-                     text="Go">
+          <JFXButton fx:id="goButton" onAction="#onGoButtonAction" prefHeight="50.0" prefWidth="294.0" style="-fx-background-color: grey;" text="Go">
             <VBox.margin>
-              <Insets bottom="30.0"/>
+              <Insets bottom="30.0" />
             </VBox.margin>
           </JFXButton>
         </VBox>
