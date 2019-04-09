@@ -90,7 +90,6 @@ public class RequestController implements Controller {
   private ReligiousServiceController.Factory religiousServiceControllerFactory;
   @Inject
   private ReligiousServiceViewController.Factory religiousServiceViewControllerFactory;
-
   @Inject
   private SupportAnimalController.Factory supportAnimalControllerFactory;
   @Inject
