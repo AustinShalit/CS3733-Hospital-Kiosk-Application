@@ -10,6 +10,8 @@ import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 
 import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.AudioVisualController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.AudioVisualViewController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.ExternalTransportationController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.GiftController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.ITSupportController;
@@ -67,6 +69,10 @@ public class RequestController implements Controller {
   @Inject
   private InternalTransportationController.Factory internalTransportationControllerFactory;
   @Inject
+  private AudioVisualController.Factory audioVisualControllerFactory;
+  @Inject
+  private AudioVisualViewController.Factory audioVisualViewControllerFactory;
+  @Inject
   private ITSupportController.Factory itSupportControllerFactory;
   @Inject
   private ExternalTransportationController.Factory externalTransportationControllerFactory;
@@ -81,6 +87,11 @@ public class RequestController implements Controller {
     eventBus.post(new ChangeMainViewEvent(internalTransportationControllerFactory.create()));
   }
 
+  @FXML
+  void audioVisualAction(ActionEvent event) {
+    eventBus.post(new ChangeMainViewEvent(audioVisualControllerFactory.create()));
+  }  
+  
   @FXML
   void itSupportAction(ActionEvent event) {
     eventBus.post(new ChangeMainViewEvent(itSupportControllerFactory.create()));
@@ -100,6 +111,12 @@ public class RequestController implements Controller {
   void interpreterAction(ActionEvent event) {
     eventBus.post(new ChangeMainViewEvent(interpreterControllerFactory.create()));
   }
+
+  @FXML
+  void viewAction(ActionEvent event) {
+    eventBus.post(new ChangeMainViewEvent(audioVisualViewControllerFactory.create()));
+  }
+
 
   @Override
   public Parent getRoot() {
