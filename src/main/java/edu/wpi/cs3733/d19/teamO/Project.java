@@ -71,6 +71,8 @@ public class Project extends Application {
     primaryStage.setMinWidth(1280);
     primaryStage.setMinHeight(720);
 
+    primaryStage.setMaximized(true);
+
     primaryStage.show();
     logger.config("Startup complete");
 
