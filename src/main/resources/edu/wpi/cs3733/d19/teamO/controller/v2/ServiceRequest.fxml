@@ -71,7 +71,7 @@
                 <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
               </GridPane.margin>
             </JFXButton>
-            <JFXButton prefHeight="100.0" prefWidth="300.0" ripplerFill="WHITE" style="-fx-background-color: grey;" text="Audio/Visual" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+            <JFXButton onAction="#audioVisualAction" prefHeight="100.0" prefWidth="300.0" ripplerFill="WHITE" style="-fx-background-color: grey;" text="Audio/Visual" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
               <GridPane.margin>
                 <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
               </GridPane.margin>
@@ -111,7 +111,7 @@
                 <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
               </GridPane.margin>
             </JFXButton>
-            <JFXButton fx:id="viewResolveButton" prefHeight="100.0" prefWidth="904.0" ripplerFill="WHITE" style="-fx-background-color: grey;" text="View and Resolve Request" GridPane.columnSpan="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.vgrow="ALWAYS">
+            <JFXButton fx:id="viewResolveButton" onAction="#viewAction" prefHeight="100.0" prefWidth="904.0" ripplerFill="WHITE" style="-fx-background-color: grey;" text="View and Resolve Request" GridPane.columnSpan="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.vgrow="ALWAYS">
               <GridPane.margin>
                 <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
               </GridPane.margin>
