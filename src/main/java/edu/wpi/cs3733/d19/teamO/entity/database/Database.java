@@ -9,6 +9,7 @@ import edu.wpi.cs3733.d19.teamO.entity.AudioVisualRequest;
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Employee;
 import edu.wpi.cs3733.d19.teamO.entity.ExternalTransportationRequest;
+import edu.wpi.cs3733.d19.teamO.entity.FloristRequest;
 import edu.wpi.cs3733.d19.teamO.entity.GiftRequest;
 import edu.wpi.cs3733.d19.teamO.entity.ITSupportRequest;
 import edu.wpi.cs3733.d19.teamO.entity.InternalTransportationRequest;
@@ -20,7 +21,8 @@ import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SchedulingRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
 
-@SuppressWarnings({"PMD.TooManyMethods", "PMD.GodClass", "PMD.ExcessivePublicCount"})
+@SuppressWarnings({"PMD.TooManyMethods", "PMD.GodClass", "PMD.ExcessivePublicCount",
+    "PMD.CyclomaticComplexity"})
 
 public class Database {
 
@@ -38,6 +40,7 @@ public class Database {
   private final ExternalTransportationRequestDao etransportationDao;
   private final GiftRequestDao giftRequestDao;
   private final ITSupportRequestDao itSupportDao;
+  private final FloristRequestDao floristRequestDao;
   private final EmployeeDao employeeDao;
   private final InterpreterRequestDao interpreterDao;
 
@@ -48,9 +51,8 @@ public class Database {
     this.sanitationRequestDao = new SanitationRequestDaoDb(dcf);
     this.schedulingRequestDao = new SchedulingRequestDaoDb(dcf);
     this.itransportationDao = new InternalTransportationRequestDaoDb(dcf);
-
+    this.floristRequestDao = new FloristRequestDaoDb(dcf);
     this.audioVisualRequestDao = new AudioVisualRequestDaoDb(dcf);
-
     this.patientInfoRequestDao = new PatientInfoRequestDaoDb(dcf);
     this.etransportationDao = new ExternalTransportationRequestDaoDb(dcf);
     this.itSupportDao = new ITSupportRequestDaoDb(dcf);
@@ -314,6 +316,32 @@ public class Database {
     return itransportationDao.update(internalTransportationRequest);
   }
 
+  /*
+   * Florist
+   */
+  public Optional<FloristRequest> getFloristRequest(int id) {
+    return floristRequestDao.get(id);
+  }
+
+  public Set<FloristRequest> getAllFloristRequests() {
+    return floristRequestDao.getAll();
+  }
+
+  public boolean insertFloristRequest(
+      FloristRequest floristRequest) {
+    return floristRequestDao.insert(floristRequest);
+  }
+
+  public boolean deleteFloristRequest(
+      FloristRequest floristRequest) {
+    return floristRequestDao.delete(floristRequest);
+  }
+
+  public boolean updateFloristRequest(
+      FloristRequest floristRequest) {
+    return floristRequestDao.update(floristRequest);
+  }
+  
   /*
    * Patient info
    */
