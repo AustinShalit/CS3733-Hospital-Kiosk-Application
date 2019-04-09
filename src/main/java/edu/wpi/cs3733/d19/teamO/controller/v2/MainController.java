@@ -40,7 +40,6 @@ public class MainController implements Controller {
 
   @FXML
   void initialize() {
-
     eventBus.register(this);
 
     optionsPopup = new JFXPopup(optionsPopupControllerFactory.create().list);
