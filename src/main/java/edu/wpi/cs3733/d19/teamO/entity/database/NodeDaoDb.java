@@ -160,7 +160,6 @@ class NodeDaoDb implements NodeDao {
     }
   }
 
-
   @Override
   public Set<Node> getAllRooms(String type) {
     try (Connection connection = dcf.getConnection()) {
