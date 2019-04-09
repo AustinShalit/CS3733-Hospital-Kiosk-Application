@@ -92,8 +92,12 @@ public class SchedulingController implements Controller {
    * Check to make sure Scheduling Request is valid.
    */
   @FXML
-  void onSubmitButtonAction() throws InvalidUserInputException {
+  void onSubmitButtonAction() {
     SchedulingRequest request = parseUserSchedulingRequestTest();
+    if (Objects.isNull(request)) {
+      return;
+    }
+
     if (database.insertSchedulingrequest(request)) {
       String message = "Successfully submitted scheduling request.";
       showInformationAlert("Success!", message);
@@ -105,9 +109,9 @@ public class SchedulingController implements Controller {
   /**
    * Parse input the user has inputted for the scheduling request.
    *
-   * @return A SchedulingRequest representing the users input.
+   * @return A SchedulingRequest representing the users input. If invalid input, null.
    */
-  private SchedulingRequest parseUserSchedulingRequestTest() throws InvalidUserInputException {
+  private SchedulingRequest parseUserSchedulingRequestTest() {
     // if input is valid, parse it and return a new SanitationRequest
     if (Objects.nonNull(startTime.getValue())
         && Objects.nonNull(endTime.getValue())
@@ -126,13 +130,7 @@ public class SchedulingController implements Controller {
 
     // otherwise, some input was invalid
     showErrorAlert("Error.", "Please make sure all fields are filled out.");
-    throw new SchedulingController.InvalidUserInputException("Unable to parse Scheduling Request.");
-  }
-
-  private class InvalidUserInputException extends Exception {
-    InvalidUserInputException(String s) {
-      super(s);
-    }
+    return null;
   }
 
   @Override
