@@ -4,24 +4,36 @@
 <?import com.jfoenix.controls.JFXHamburger?>
 <?import com.jfoenix.controls.JFXRippler?>
 <?import com.jfoenix.controls.JFXToolbar?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
-<StackPane fx:id="root" minHeight="1280" minWidth="720" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.v2.MainController">
-  <BorderPane fx:id="contentPane">
-    <top>
-      <JFXToolbar fx:id="toolbar" BorderPane.alignment="CENTER">
-        <left>
-          <JFXButton onAction="#onHomeButtonAction" buttonType="RAISED" text="Home" BorderPane.alignment="CENTER" />
-        </left>
-        <right>
-          <JFXRippler maskType="CIRCLE" style="ripple: white;" BorderPane.alignment="CENTER">
-            <StackPane fx:id="optionsBurger">
-              <JFXHamburger>
-              </JFXHamburger>
-            </StackPane>
-          </JFXRippler>
-        </right>
-      </JFXToolbar>
-    </top>
-  </BorderPane>
+<?import javafx.scene.text.Font?>
+
+<StackPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="100" minWidth="-Infinity" prefHeight="100.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.v2.MainController">
+  <children>
+    <BorderPane fx:id="contentPane">
+      <top>
+        <JFXToolbar fx:id="toolbar" BorderPane.alignment="CENTER">
+          <left>
+            <JFXButton onAction="#onHomeButtonAction" ripplerFill="#004e86" style="-fx-background-color: #0067B1;" text="Home" textFill="WHITE" BorderPane.alignment="CENTER">
+              <font>
+                <Font name="System Bold" size="15.0" />
+              </font>
+            </JFXButton>
+          </left>
+          <right>
+            <JFXRippler maskType="CIRCLE" style="ripple: white;" BorderPane.alignment="CENTER">
+              <StackPane fx:id="optionsBurger">
+                <JFXHamburger>
+                </JFXHamburger>
+              </StackPane>
+            </JFXRippler>
+          </right>
+        </JFXToolbar>
+      </top>
+    </BorderPane>
+  </children>
+  <padding>
+    <Insets bottom="9.0" left="9.0" right="9.0" top="9.0" />
+  </padding>
 </StackPane>
