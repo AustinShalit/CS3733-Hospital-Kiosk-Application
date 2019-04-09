@@ -110,6 +110,5 @@ public class ExternalTransportationRequest extends ServiceRequest {
         + ", personName=" + person + '\''
         + '}';
   }
-
 }
 
