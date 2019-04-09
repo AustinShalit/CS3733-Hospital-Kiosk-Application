@@ -28,6 +28,8 @@ import edu.wpi.cs3733.d19.teamO.controller.v2.request.InterpreterController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InterpreterViewController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.PatientInfoController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.PatientInfoViewController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.SupportAnimalController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.SupportAnimalViewController;
 
 @SuppressWarnings("PMD.CouplingBetweenObjects")
 public class ControllerModule extends AbstractModule {
@@ -55,6 +57,7 @@ public class ControllerModule extends AbstractModule {
 
     install(new FactoryModuleBuilder().build(HomeController.Factory.class));
     install(new FactoryModuleBuilder().build(LoginController.Factory.class));
+    install(new FactoryModuleBuilder().build(NavigationController.Factory.class));
     install(new FactoryModuleBuilder().build(OptionsPopupController.Factory.class));
     install(new FactoryModuleBuilder().build(RequestController.Factory.class));
 
@@ -79,6 +82,9 @@ public class ControllerModule extends AbstractModule {
 
     install(new FactoryModuleBuilder().build(InterpreterController.Factory.class));
     install(new FactoryModuleBuilder().build(InterpreterViewController.Factory.class));
+
+    install(new FactoryModuleBuilder().build(SupportAnimalController.Factory.class));
+    install(new FactoryModuleBuilder().build(SupportAnimalViewController.Factory.class));
 
     install(new FactoryModuleBuilder().build(NavigationController.Factory.class));
 

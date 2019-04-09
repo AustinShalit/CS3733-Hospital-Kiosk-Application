@@ -19,6 +19,7 @@ import edu.wpi.cs3733.d19.teamO.controller.v2.request.ITSupportController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InterpreterController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.PatientInfoController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.SupportAnimalController;
 
 @FxmlController(url = "ServiceRequest.fxml")
 @SuppressWarnings("PMD.TooManyFields")
@@ -86,6 +87,8 @@ public class RequestController implements Controller {
   private InterpreterController.Factory interpreterControllerFactory;
 
   @Inject
+  private SupportAnimalController.Factory supportAnimalControllerFactory;
+  @Inject
   private FloristRequestController.Factory floristRequestControllerFactory;
   @Inject
   private FloristRequestViewController.Factory floristRequestViewControllerFactory;
@@ -135,6 +138,11 @@ public class RequestController implements Controller {
     eventBus.post(new ChangeMainViewEvent(floristRequestViewControllerFactory.create()));
   }
 
+
+  @FXML
+  void supportAnimalAction(ActionEvent event) {
+    eventBus.post(new ChangeMainViewEvent(supportAnimalControllerFactory.create()));
+  }
 
   @Override
   public Parent getRoot() {
