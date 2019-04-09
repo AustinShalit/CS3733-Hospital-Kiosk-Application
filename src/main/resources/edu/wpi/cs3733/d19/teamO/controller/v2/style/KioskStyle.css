@@ -1,11 +1,25 @@
+.root {
+    -fx-font-family: Calibri;
+    -fx-background-color: #F1F1F1;
+}
+
+#header {
+    -fx-font-family: "Palatino Linotype";
+    -fx-font-size: 42px;
+    -fx-font-style: bold;
+    -fx-text-fill: #1D1A1B;
+}
+
 .button {
     -fx-background-color: #012D5A;
     -fx-text-fill: #ffffff;
     -fx-font-size: 20px;
+    -fx-text-alignment: center;
     -fx-text-transform: uppercase;
 }
 
 .button:hover {
     -fx-background-color: #011E3C;
-    
+    -fx-border-color: #f6bd38;
+    -fx-border-width: 0 0 10px 0;
 }
