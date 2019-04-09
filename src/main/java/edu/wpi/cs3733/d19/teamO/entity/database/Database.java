@@ -219,6 +219,10 @@ public class Database {
     return schedulingRequestDao.allAvailableNodes(localDateTime);
   }
 
+  public Set<Node> getAllAvailableNodes(LocalDateTime startTime, LocalDateTime endTime) {
+    return schedulingRequestDao.allAvailableNodes(startTime, endTime);
+  }
+
   /**
    * Used to check for conflicts before inserting them.
    *

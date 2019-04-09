@@ -102,6 +102,19 @@ public class SchedulingRequestDaoDb implements SchedulingRequestDao {
   }
 
   @Override
+  public Set<Node> allAvailableNodes(LocalDateTime start, LocalDateTime end) {
+    Set<SchedulingRequest> schedulingRequests = getAll();
+    Set<Node> nodes = nodeDaoDb.getAll();
+    Set<Node> availableNodes = new HashSet<>(nodes);
+    for (SchedulingRequest schedulingRequest : schedulingRequests) {
+      if (schedulingRequest.isDuring(start, end)) {
+        availableNodes.remove(schedulingRequest.getRoom());
+      }
+    }
+    return availableNodes;
+  }
+
+  @Override
   public boolean insert(final SchedulingRequest schedulingRequest) {
     try (Connection connection = dcf.getConnection()) {
       if (wouldConflict(schedulingRequest)) {
