@@ -1,5 +1,9 @@
 package edu.wpi.cs3733.d19.teamO.entity.database;
 
+import java.time.LocalDateTime;
+import java.util.Set;
+
+import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.SchedulingRequest;
 
 /**
@@ -13,4 +17,6 @@ interface SchedulingRequestDao extends Dao<Integer, SchedulingRequest> {
    * @return Returns false if no conflict, Returns true if there would be a conflict.
    */
   boolean wouldConflict(SchedulingRequest schedulingRequest);
+
+  Set<Node> allAvailableNodes(LocalDateTime localDateTime);
 }
