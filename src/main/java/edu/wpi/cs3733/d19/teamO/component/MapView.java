@@ -27,21 +27,17 @@ import edu.wpi.cs3733.d19.teamO.entity.Node;
 
 
 public class MapView extends StackPane {
+
   private int level = 1;
-  private int currentLevel = 1;
 
   @FXML
   private GesturePane gesturePane;
-
   @FXML
   private ImageView backgroundImage;
-
   @FXML
   private Group nodeGroup;
-
   @FXML
   private Group edges;
-
   @FXML
   private Button levelL1;
   @FXML
@@ -89,6 +85,7 @@ public class MapView extends StackPane {
       coordY.setText(Double.toString((int) pointOnMap.getX()));
       coordX.setText(Double.toString((int) pointOnMap.getY()));
     });
+    gesturePane.setFitMode(GesturePane.FitMode.COVER);
     resetButtonBackground(99);
     levelF1.setStyle("-fx-background-color: rgba(17,0,255,0.4)");
 
@@ -190,6 +187,7 @@ public class MapView extends StackPane {
   void onMouseMove(MouseEvent e)  {
     Object src = e.getSource();
     resetButtonBackground(level);
+    int currentLevel = 1;
     if (src.equals(levelF1)) {
       levelF1.setStyle("-fx-background-color:  rgba(17,0,255,0.2)");
       currentLevel = 1;
