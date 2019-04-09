@@ -52,7 +52,6 @@ public class Project extends Application {
     injector = Guice.createInjector(new ProjectModule(), new ControllerModule());
     injector.injectMembers(this);
 
-
     Database database = new Database();
 
     NodeCsvReaderWriter ncrw = new NodeCsvReaderWriter();
@@ -66,7 +65,6 @@ public class Project extends Application {
     for (Edge edge : edges) {
       database.insertEdge(edge);
     }
-
 
     logger.config("Application init complete");
   }
@@ -87,9 +85,7 @@ public class Project extends Application {
 
     // Set original window size and position
     primaryStage.setMinWidth(1280);
-    primaryStage.setMinHeight(780);
-    primaryStage.setWidth(1280);
-    primaryStage.setHeight(780);
+    primaryStage.setMinHeight(720);
 
     primaryStage.show();
     logger.config("Startup complete");

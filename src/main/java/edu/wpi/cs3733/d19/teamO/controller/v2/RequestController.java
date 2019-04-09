@@ -10,9 +10,13 @@ import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 
 import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.ExternalTransportationController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.GiftController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.ITSupportController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.FloristRequestController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.FloristRequestViewController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.InterpreterController;
 
 @FxmlController(url = "ServiceRequest.fxml")
 @SuppressWarnings("PMD.TooManyFields")
@@ -26,7 +30,7 @@ public class RequestController implements Controller {
   @FXML
   private JFXButton perscription;
   @FXML
-  private JFXButton interpereter;
+  private JFXButton interpreter;
 
   @FXML
   private JFXButton internalTransportation;
@@ -59,10 +63,22 @@ public class RequestController implements Controller {
   @FXML
   private JFXButton viewRequest;
 
+  @FXML
+  private JFXButton viewResolveButton;
+
   @Inject
   private EventBus eventBus;
   @Inject
   private InternalTransportationController.Factory internalTransportationControllerFactory;
+  @Inject
+  private ITSupportController.Factory itSupportControllerFactory;
+  @Inject
+  private ExternalTransportationController.Factory externalTransportationControllerFactory;
+  @Inject
+  private GiftController.Factory giftControllerFactory;
+  @Inject
+  private InterpreterController.Factory interpreterControllerFactory;
+
   @Inject
   private FloristRequestController.Factory floristRequestControllerFactory;
   @Inject
@@ -71,6 +87,26 @@ public class RequestController implements Controller {
   @FXML
   void internalTransportationAction(ActionEvent event) {
     eventBus.post(new ChangeMainViewEvent(internalTransportationControllerFactory.create()));
+  }
+
+  @FXML
+  void itSupportAction(ActionEvent event) {
+    eventBus.post(new ChangeMainViewEvent(itSupportControllerFactory.create()));
+  }
+
+  @FXML
+  void externalTransportationAction(ActionEvent event) {
+    eventBus.post(new ChangeMainViewEvent(externalTransportationControllerFactory.create()));
+  }
+
+  @FXML
+  void giftAction(ActionEvent event) {
+    eventBus.post(new ChangeMainViewEvent(giftControllerFactory.create()));
+  }
+
+  @FXML
+  void interpreterAction(ActionEvent event) {
+    eventBus.post(new ChangeMainViewEvent(interpreterControllerFactory.create()));
   }
 
   @FXML

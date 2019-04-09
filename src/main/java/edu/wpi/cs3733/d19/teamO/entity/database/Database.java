@@ -6,8 +6,12 @@ import java.util.Set;
 
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Employee;
+import edu.wpi.cs3733.d19.teamO.entity.ExternalTransportationRequest;
+import edu.wpi.cs3733.d19.teamO.entity.GiftRequest;
+import edu.wpi.cs3733.d19.teamO.entity.ITSupportRequest;
 import edu.wpi.cs3733.d19.teamO.entity.FloristRequest;
 import edu.wpi.cs3733.d19.teamO.entity.InternalTransportationRequest;
+import edu.wpi.cs3733.d19.teamO.entity.InterpreterRequest;
 import edu.wpi.cs3733.d19.teamO.entity.Login;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
@@ -25,20 +29,27 @@ public class Database {
   private final SchedulingRequestDao schedulingRequestDao;
   private final LoginDao loginDao;
   private final InternalTransportationRequestDao itransportationDao;
+  private final ExternalTransportationRequestDao etransportationDao;
+  private final GiftRequestDao giftRequestDao;
+  private final ITSupportRequestDao itSupportDao;
   private final FloristRequestDao floristRequestDao;
   private final EmployeeDao employeeDao;
-
+  private final InterpreterRequestDao interpreterDao;
 
   Database(DatabaseConnectionFactory dcf) throws SQLException {
     this.nodeDao = new NodeDaoDb(dcf);
     this.edgeDao = new EdgeDaoDb(dcf);
     this.securityRequestDao = new SecurityRequestDaoDb(dcf);
     this.sanitationRequestDao = new SanitationRequestDaoDb(dcf);
-    this.loginDao = new LoginDaoDb(dcf);
     this.schedulingRequestDao = new SchedulingRequestDaoDb(dcf);
     this.itransportationDao = new InternalTransportationRequestDaoDb(dcf);
     this.floristRequestDao = new FloristRequestDaoDb(dcf);
+    this.etransportationDao = new ExternalTransportationRequestDaoDb(dcf);
+    this.itSupportDao = new ITSupportRequestDaoDb(dcf);
     this.employeeDao = new EmployeeDaoDb(dcf);
+    this.loginDao = new LoginDaoDb(dcf);
+    this.interpreterDao = new InterpreterRequestDaoDb(dcf);
+    this.giftRequestDao = new GiftRequestDaoDb(dcf);
   }
 
   /**
@@ -46,7 +57,6 @@ public class Database {
    *
    * @param memoryName The name of the database
    */
-
   public Database(String memoryName) throws SQLException {
     this(new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
         memoryName));
@@ -77,6 +87,15 @@ public class Database {
 
   public boolean updateNode(Node node) {
     return nodeDao.update(node);
+  }
+
+
+  public Set<Node> getAllRooms(String type) {
+    return nodeDao.getAllRooms(type);
+  }
+
+  public Set<Node> getFloor(String floor) {
+    return nodeDao.getFloor(floor);
   }
 
   /*
@@ -200,6 +219,7 @@ public class Database {
 
   /**
    * Used to check for conflicts before inserting them.
+   *
    * @param schedulingRequest The scheduling request you want that might get added.
    * @return Returns false if no conflict, Returns true if there would be a conflict.
    */
@@ -282,4 +302,104 @@ public class Database {
     return floristRequestDao.update(floristRequest);
   }
 
+  /*
+   * IT Support
+   */
+  public Optional<ITSupportRequest> getITSupportRequest(int id) {
+    return itSupportDao.get(id);
+  }
+
+  public Set<ITSupportRequest> getAllITSupportRequests() {
+    return itSupportDao.getAll();
+  }
+
+  public boolean insertITSupportRequest(
+      ITSupportRequest itSupportRequest) {
+    return itSupportDao.insert(itSupportRequest);
+  }
+
+  public boolean deleteITSupportRequest(
+      ITSupportRequest itSupportRequest) {
+    return itSupportDao.delete(itSupportRequest);
+  }
+
+  public boolean updateITSupportRequest(
+      ITSupportRequest itSupportRequest) {
+    return itSupportDao.update(itSupportRequest);
+  }
+
+  /*
+   * Interpretation
+   */
+  public Optional<InterpreterRequest> getInterpreterRequest(int id) {
+    return interpreterDao.get(id);
+  }
+
+  public Set<InterpreterRequest> getAllInterpreterRequests() {
+    return interpreterDao.getAll();
+  }
+
+  public boolean insertInterpreterRequest(InterpreterRequest interpreterRequest) {
+    return interpreterDao.insert(interpreterRequest);
+  }
+
+  public boolean deleteInterpreterRequest(InterpreterRequest interpreterRequest) {
+    return interpreterDao.delete(interpreterRequest);
+  }
+
+  public boolean updateInterpreterRequest(InterpreterRequest interpreterRequest) {
+    return interpreterDao.update(interpreterRequest);
+  }
+
+  /*
+   * External Transporation
+   */
+  public Optional<ExternalTransportationRequest> getExternalTransportationRequest(int id) {
+    return etransportationDao.get(id);
+  }
+
+  public Set<ExternalTransportationRequest> getAllExternalTransportationRequests() {
+    return etransportationDao.getAll();
+  }
+
+  public boolean insertExternalTransportationRequest(
+      ExternalTransportationRequest externalTransportationRequest) {
+    return etransportationDao.insert(externalTransportationRequest);
+  }
+
+  public boolean deleteExternalTransportationRequest(
+      ExternalTransportationRequest externalTransportationRequest) {
+    return etransportationDao.delete(externalTransportationRequest);
+  }
+
+  public boolean updateExternalTransportationRequest(
+      ExternalTransportationRequest externalTransportationRequest) {
+    return etransportationDao.update(externalTransportationRequest);
+  }
+
+  /*
+   * Gift Request
+   */
+  public Optional<GiftRequest> getGiftRequest(int id) {
+    return giftRequestDao.get(id);
+  }
+
+  public Set<GiftRequest> getAllGiftRequests() {
+    return giftRequestDao.getAll();
+  }
+
+  public boolean insertGiftRequest(
+      GiftRequest giftRequest) {
+    return giftRequestDao.insert(giftRequest);
+  }
+
+  public boolean deleteGiftRequest(
+      GiftRequest giftRequest) {
+    return giftRequestDao.delete(giftRequest);
+  }
+
+  public boolean updateGiftRequest(
+      GiftRequest giftRequest) {
+    return giftRequestDao.update(giftRequest);
+  }
 }

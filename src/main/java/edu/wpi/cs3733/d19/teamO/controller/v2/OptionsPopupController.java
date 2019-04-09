@@ -20,6 +20,8 @@ public class OptionsPopupController implements Controller {
   @Inject
   private EventBus eventBus;
   @Inject
+  private AdminController.Factory adminControllerFactory;
+  @Inject
   private LoginController.Factory loginControllerFactory;
 
   @FXML
@@ -30,6 +32,12 @@ public class OptionsPopupController implements Controller {
   @FXML
   void settingsAction(MouseEvent event) {
 
+  }
+
+  @FXML
+  void adminAction(MouseEvent event) {
+    event.consume();
+    eventBus.post(new ChangeMainViewEvent(adminControllerFactory.create()));
   }
 
   @FXML
