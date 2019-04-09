@@ -10,10 +10,14 @@ import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 
 import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.AudioVisualController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.AudioVisualViewController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.ExternalTransportationController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.GiftController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.ITSupportController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InterpreterController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.PatientInfoController;
 
 @FxmlController(url = "ServiceRequest.fxml")
 @SuppressWarnings("PMD.TooManyFields")
@@ -66,6 +70,14 @@ public class RequestController implements Controller {
   @Inject
   private InternalTransportationController.Factory internalTransportationControllerFactory;
   @Inject
+  private AudioVisualController.Factory audioVisualControllerFactory;
+  @Inject
+  private AudioVisualViewController.Factory audioVisualViewControllerFactory;
+  @Inject
+  private PatientInfoController.Factory patientInfoControllerFactory;
+  @Inject
+  private ITSupportController.Factory itSupportControllerFactory;
+  @Inject
   private ExternalTransportationController.Factory externalTransportationControllerFactory;
   @Inject
   private GiftController.Factory giftControllerFactory;
@@ -76,6 +88,21 @@ public class RequestController implements Controller {
   @FXML
   void internalTransportationAction(ActionEvent event) {
     eventBus.post(new ChangeMainViewEvent(internalTransportationControllerFactory.create()));
+  }
+
+  @FXML
+  void audioVisualAction(ActionEvent event) {
+    eventBus.post(new ChangeMainViewEvent(audioVisualControllerFactory.create()));
+  }
+
+  @FXML
+  void patientInfoAction(ActionEvent event) {
+    eventBus.post(new ChangeMainViewEvent(patientInfoControllerFactory.create()));
+  }
+
+  @FXML
+  void itSupportAction(ActionEvent event) {
+    eventBus.post(new ChangeMainViewEvent(itSupportControllerFactory.create()));
   }
 
   @FXML
@@ -92,6 +119,12 @@ public class RequestController implements Controller {
   void interpreterAction(ActionEvent event) {
     eventBus.post(new ChangeMainViewEvent(interpreterControllerFactory.create()));
   }
+
+  @FXML
+  void viewAction(ActionEvent event) {
+    eventBus.post(new ChangeMainViewEvent(audioVisualViewControllerFactory.create()));
+  }
+
 
   @Override
   public Parent getRoot() {

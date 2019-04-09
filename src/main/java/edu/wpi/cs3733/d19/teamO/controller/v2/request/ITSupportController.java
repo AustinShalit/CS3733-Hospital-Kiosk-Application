@@ -22,15 +22,14 @@ import edu.wpi.cs3733.d19.teamO.controller.v2.DialogHelper;
 import edu.wpi.cs3733.d19.teamO.controller.v2.FxmlController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.RequestController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
-import edu.wpi.cs3733.d19.teamO.entity.InternalTransportationRequest;
+import edu.wpi.cs3733.d19.teamO.entity.ITSupportRequest;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
-@FxmlController(url = "InternalTransportation.fxml")
-public class InternalTransportationController implements Controller {
+@FxmlController(url = "ITSupport.fxml")
+public class ITSupportController implements Controller {
 
-  private static final Logger logger = Logger.getLogger(
-      InternalTransportationController.class.getName());
+  private static final Logger logger = Logger.getLogger(ITSupportController.class.getName());
 
   @FXML
   private BorderPane root;
@@ -39,7 +38,7 @@ public class InternalTransportationController implements Controller {
   @FXML
   private JFXComboBox<Node> locationbox;
   @FXML
-  private JFXComboBox<InternalTransportationRequest.InternalTransportationRequestType> categorybox;
+  private JFXComboBox<ITSupportRequest.ITSupportRequestType> categorybox;
   @FXML
   private JFXTextArea descriptiontxt;
   @FXML
@@ -57,7 +56,7 @@ public class InternalTransportationController implements Controller {
   @FXML
   void initialize() {
     DialogHelper.populateComboBox(db, locationbox);
-    categorybox.getItems().setAll(InternalTransportationRequest.InternalTransportationRequestType
+    categorybox.getItems().setAll(ITSupportRequest.ITSupportRequestType
         .values());
   }
 
@@ -68,31 +67,30 @@ public class InternalTransportationController implements Controller {
 
   @FXML
   void onSubmitButtonAction() {
-    InternalTransportationRequest internal = parseUserITRequest();
-    if (internal == null) {
+    ITSupportRequest itSupport = parseUserITSupportRequest();
+    if (itSupport == null) {
       logger.log(Level.WARNING,
-          "Unable to parse internal transportation Request.",
-          "Unable to parse Internal Transportation Request.");
+          "Unable to parse IT Support Request.",
+          "Unable to parse IT Support Request.");
       return;
     }
 
-    if (db.insertInternalTransportationRequest(internal)) {
-      String message = "Successfully submitted internal transportation request.";
+    if (db.insertITSupportRequest(itSupport)) {
+      String message = "Successfully submitted IT Support request.";
       DialogHelper.showInformationAlert("Success!", message);
     } else {
       DialogHelper.showErrorAlert("Error.",
-          "Unable to submit internal transportation request.");
+          "Unable to submit IT Support request.");
     }
   }
 
   /**
    * Parse input the user has inputted for the sanitation request.
    *
-   * @return If valid input, A InternalTransportationRequest representing the users input
-   *         Otherwise null.
+   * @return If valid input, A SanitationRequest representing the users input. Otherwise null.
    */
-  private InternalTransportationRequest parseUserITRequest() {
-    // if input is valid, parse it and return a new InternalTransportationRequest
+  private edu.wpi.cs3733.d19.teamO.entity.ITSupportRequest parseUserITSupportRequest() {
+    // if input is valid, parse it and return a new SanitationRequest
     if (!descriptiontxt.getText().isEmpty()
         && !nametxt.getText().isEmpty()
         && Objects.nonNull(locationbox.getValue())
@@ -102,13 +100,13 @@ public class InternalTransportationController implements Controller {
       Node node = (Node) locationbox.getValue();
 
       String type = categorybox.getValue().toString().toUpperCase(new Locale("EN"));
-      InternalTransportationRequest.InternalTransportationRequestType internalRequestType =
-          InternalTransportationRequest.InternalTransportationRequestType.valueOf(type);
+      ITSupportRequest.ITSupportRequestType itSupportRequestType =
+          ITSupportRequest.ITSupportRequestType.valueOf(type);
 
       String description = descriptiontxt.getText();
       String name = nametxt.getText();
 
-      return new InternalTransportationRequest(now, node, internalRequestType, description, name);
+      return new ITSupportRequest(now, node, itSupportRequestType, description, name);
     }
 
     // otherwise, some input was invalid
@@ -122,6 +120,6 @@ public class InternalTransportationController implements Controller {
   }
 
   public interface Factory {
-    InternalTransportationController create();
+    ITSupportController create();
   }
 }
