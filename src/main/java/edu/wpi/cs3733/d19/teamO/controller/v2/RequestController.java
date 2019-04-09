@@ -135,6 +135,7 @@ public class RequestController implements Controller {
     eventBus.post(new ChangeMainViewEvent(religiousServiceControllerFactory.create()));
   }
 
+  @FXML
   void floristAction(ActionEvent event) {
     eventBus.post(new ChangeMainViewEvent(floristRequestControllerFactory.create()));
   }
