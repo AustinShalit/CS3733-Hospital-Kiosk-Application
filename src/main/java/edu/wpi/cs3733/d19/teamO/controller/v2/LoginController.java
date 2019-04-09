@@ -44,22 +44,6 @@ public class LoginController implements Controller {
   private Database db;
 
   @FXML
-  void initialize() {
-    // Test employees
-    Employee adminWong = new Employee(1234, "Admin", Employee.EmployeeType.ADMIN);
-    Employee teamO = new Employee(12, "TeamO", Employee.EmployeeType.DEFAULT);
-    // Insert employees
-    db.insertEmployee(adminWong);
-    db.insertEmployee(teamO);
-    // Test user login info
-    Login user1 = new Login("admin", "wong", adminWong);
-    Login user2 = new Login("teamo", "won", teamO);
-
-    db.insertLogin(user1);
-    db.insertLogin(user2);
-  }
-
-  @FXML
   void loginButtonAction() {
     // gets the user input
     Login login = parseUserLogin();

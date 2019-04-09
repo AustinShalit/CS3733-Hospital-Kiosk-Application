@@ -67,7 +67,9 @@ public class MainController implements Controller {
       contentPane.setTop(null);
     }
     // toolbar.setVisible(event.isFramed());
-    optionsPopup.hide();
+    if (optionsPopup.isShowing()) {
+      optionsPopup.hide();
+    }
   }
 
   @Override
