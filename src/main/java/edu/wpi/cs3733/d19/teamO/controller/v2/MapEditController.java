@@ -1,7 +1,11 @@
-package edu.wpi.cs3733.d19.teamO.controller;
+package edu.wpi.cs3733.d19.teamO.controller.v2;
 
 import java.io.IOException;
 import java.sql.SQLException;
+
+
+import com.google.common.eventbus.EventBus;
+import com.google.inject.Inject;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -19,10 +24,12 @@ import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 @SuppressWarnings("PMD")
-public class MapEditController extends Controller {
+@FxmlController(url = "MapEditMain.fxml")
+public class MapEditController implements Controller {
 
   Database database = new Database();
-
+  @FXML
+  private GridPane root;
   @FXML
   private Button add;
   @FXML
@@ -38,6 +45,9 @@ public class MapEditController extends Controller {
   private ComboBox<Node.NodeType> nodeType;
   @FXML
   private MapView map;
+  @Inject
+  private EventBus eventBus;
+
 
   public MapEditController() throws SQLException {
   }
@@ -104,16 +114,23 @@ public class MapEditController extends Controller {
   }
 
 
-  @FXML
-  void onBackButtonAction(ActionEvent event) {
-    switchScenes("MainWindow.fxml", backButton.getScene().getWindow());
-  }
 
   @FXML
   void cancelButtonAction() {
     Stage stage = (Stage) cancel.getScene().getWindow();
     stage.close();
   }
+
+
+  @Override
+  public Parent getRoot() {
+    return root;
+  }
+
+  public interface Factory {
+    MapEditController create();
+  }
+
 
 
 }
