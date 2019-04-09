@@ -54,6 +54,8 @@ public class MapView extends StackPane {
   private Label coordX;
   @FXML
   private Label coordY;
+  @FXML
+  private Circle circle;
 
 
   /**
@@ -76,7 +78,6 @@ public class MapView extends StackPane {
           .orElse(gesturePane.targetPointAtViewportCentre());
 
       if (e.getButton() == MouseButton.PRIMARY && e.getClickCount() == 2) {
-
         // increment of scale makes more sense exponentially instead of linearly
         gesturePane.animate(Duration.millis(200))
             .interpolateWith(Interpolator.EASE_BOTH)
@@ -84,6 +85,9 @@ public class MapView extends StackPane {
       }
       coordY.setText(Double.toString((int) pointOnMap.getX()));
       coordX.setText(Double.toString((int) pointOnMap.getY()));
+      circle.setCenterX(pointOnMap.getX());
+      circle.setCenterY(pointOnMap.getY());
+      circle.setVisible(true);
     });
     gesturePane.setFitMode(GesturePane.FitMode.COVER);
     gesturePane.setScrollBarEnabled(false);

@@ -8,10 +8,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
+import edu.wpi.cs3733.d19.teamO.controller.v2.MapEditController;
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
+import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 public class MapEditConnectController extends MapEditController {
+  Database database = new Database();
   @FXML
   private TextField connectNodeID1;
   @FXML

@@ -2,26 +2,33 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Circle?>
 <?import net.kurobako.gesturefx.GesturePane?>
+
 <fx:root type="javafx.scene.layout.StackPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
   <GesturePane fx:id="gesturePane">
+
     <StackPane>
+
       <ImageView fx:id="backgroundImage" pickOnBounds="true" preserveRatio="true">
       </ImageView>
       <Pane onMouseMoved="#onMouseMove">
+        <Circle fx:id="circle" fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
         <Group fx:id="nodeGroup" />
         <Group fx:id="edges" />
+
       </Pane>
 
 
     </StackPane>
   </GesturePane>
+
   <JFXButton fx:id="levelF3" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#onFloorSelectAction" onMouseEntered="#onMouseMove" prefHeight="30.0" prefWidth="30.0" ripplerFill="BLACK" text="3" textAlignment="CENTER" StackPane.alignment="BOTTOM_RIGHT">
     <opaqueInsets>
       <Insets bottom="20.0" right="20.0" />

@@ -66,6 +66,8 @@ public class ControllerModule extends AbstractModule {
 
     install(new FactoryModuleBuilder().build(AdminController.Factory.class));
 
+    install(new FactoryModuleBuilder().build(MapEditController.Factory.class));
+
     install(new FactoryModuleBuilder().build(InternalTransportationController.Factory.class));
     install(new FactoryModuleBuilder().build(InternalTransportationViewController.Factory.class));
 
