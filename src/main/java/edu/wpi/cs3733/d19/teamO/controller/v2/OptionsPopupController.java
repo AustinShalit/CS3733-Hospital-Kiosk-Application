@@ -23,10 +23,6 @@ public class OptionsPopupController implements Controller {
   private LoginController.Factory loginControllerFactory;
 
   @FXML
-  void onAction(MouseEvent event) {
-  }
-
-  @FXML
   void settingsAction(MouseEvent event) {
 
   }
