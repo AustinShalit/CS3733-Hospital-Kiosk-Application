@@ -93,13 +93,12 @@ public class RequestController implements Controller {
   }
 
   @FXML
-
   void audioVisualAction(ActionEvent event) {
     eventBus.post(new ChangeMainViewEvent(audioVisualControllerFactory.create()));
   }
 
 
-
+  @FXML
   void interpreterAction(ActionEvent event) {
     eventBus.post(new ChangeMainViewEvent(interpreterControllerFactory.create()));
   }
