@@ -3,7 +3,6 @@ package edu.wpi.cs3733.d19.teamO.entity.database;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -61,16 +60,6 @@ class SchedulingRequestDaoDbTest {
 
   @BeforeEach
   void setup(TestInfo testInfo) throws SQLException {
-    DatabaseConnectionFactory dcf
-        = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
-        testInfo.getDisplayName());
-
-    database = new Database(dcf);
-    database.insertNode(nodeA);
-  }
-
-  @AfterEach
-  void close(TestInfo testInfo) throws SQLException {
     DatabaseConnectionFactory dcf
         = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
         testInfo.getDisplayName());
