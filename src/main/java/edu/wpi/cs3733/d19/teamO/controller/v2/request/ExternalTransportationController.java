@@ -15,6 +15,7 @@ import com.jfoenix.controls.JFXTextField;
 
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
 import edu.wpi.cs3733.d19.teamO.controller.v2.Controller;
@@ -46,6 +47,8 @@ public class ExternalTransportationController implements Controller {
   private JFXButton submitbtn;
   @FXML
   private JFXButton backbtn;
+  @FXML
+  private Label reportLabel;
 
   @Inject
   private EventBus eventBus;
@@ -83,6 +86,16 @@ public class ExternalTransportationController implements Controller {
       DialogHelper.showErrorAlert("Error.",
           "Unable to submit External transportation request.");
     }
+  }
+  
+  @FXML
+  void onReportAction(){
+    int aSize = db.getExternalTransportationRequestsByCategory("AMBULANCE").size();
+    int hSize = db.getExternalTransportationRequestsByCategory("HELICOPTER").size();
+    int oSize = db.getExternalTransportationRequestsByCategory("OTHERS").size();
+    reportLabel.setText("The number of requests for transporting by ambulance: " + aSize
+        + "by helicopter: " + hSize
+        + "by other transportation: " + oSize);
   }
 
   /**

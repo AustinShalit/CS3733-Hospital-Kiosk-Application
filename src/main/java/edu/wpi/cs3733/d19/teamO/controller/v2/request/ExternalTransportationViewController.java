@@ -37,8 +37,6 @@ public class ExternalTransportationViewController implements Controller {
   @FXML
   private Label titleLabel;
   @FXML
-  private Label reportLabel;
-  @FXML
   private TableView<ExternalTransportationRequest> requestsTableView;
   @FXML
   private TableColumn<ExternalTransportationRequest, Integer> idTableCol;
@@ -117,16 +115,6 @@ public class ExternalTransportationViewController implements Controller {
 
     db.deleteExternalTransportationRequest(selectedItem);
 
-  }
-
-  @FXML
-  void onReportAction(){
-    int aSize = db.getExternalTransportationRequestsByCategory("AMBULANCE").size();
-    int hSize = db.getExternalTransportationRequestsByCategory("HELICOPTER").size();
-    int oSize = db.getExternalTransportationRequestsByCategory("OTHERS").size();
-    reportLabel.setText("The number of requests for transporting by ambulance: " + aSize
-                        + "by helicopter: " + hSize
-                        + "by other transportation: " + oSize);
   }
 
   @Override
