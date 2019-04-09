@@ -35,17 +35,13 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
   }
 
   private static final String TABLE_NAME = queries.getProperty("sanitation_request.table_name");
-  private DatabaseConnectionFactory dcf;
-  private NodeDaoDb nodeDaoDb;
+  private final DatabaseConnectionFactory dcf;
+  private final NodeDaoDb nodeDaoDb;
 
   SanitationRequestDaoDb(final DatabaseConnectionFactory dcf) throws SQLException {
     this.dcf = dcf;
     nodeDaoDb = new NodeDaoDb(dcf);
     createTable();
-  }
-
-  SanitationRequestDaoDb() throws SQLException {
-    this(new DatabaseConnectionFactoryEmbedded());
   }
 
   @Override

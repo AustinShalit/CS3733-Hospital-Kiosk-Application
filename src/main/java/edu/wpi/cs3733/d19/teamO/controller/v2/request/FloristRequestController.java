@@ -17,7 +17,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 
-import edu.wpi.cs3733.d19.teamO.controller.SanitationWindowController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.Controller;
 import edu.wpi.cs3733.d19.teamO.controller.v2.DialogHelper;
 import edu.wpi.cs3733.d19.teamO.controller.v2.FxmlController;
@@ -30,7 +29,7 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 @FxmlController(url = "FloristRequest.fxml")
 public class FloristRequestController implements Controller {
 
-  private static final Logger logger = Logger.getLogger(SanitationWindowController.class.getName());
+  private static final Logger logger = Logger.getLogger(FloristRequestController.class.getName());
 
   @FXML
   private BorderPane root;

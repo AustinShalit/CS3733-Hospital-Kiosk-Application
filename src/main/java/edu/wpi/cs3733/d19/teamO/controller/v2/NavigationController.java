@@ -7,6 +7,7 @@ import java.util.List;
 import com.google.common.graph.GraphBuilder;
 import com.google.common.graph.ImmutableGraph;
 import com.google.common.graph.MutableGraph;
+import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
@@ -27,8 +28,6 @@ import edu.wpi.cs3733.d19.teamO.entity.pathfinding.PathfindingContext;
 
 @FxmlController(url = "Navigation.fxml")
 public class NavigationController implements Controller {
-
-  Database database = new Database();
 
   @FXML
   BorderPane root;
@@ -52,8 +51,8 @@ public class NavigationController implements Controller {
 
   Group bfsPath;
 
-  public NavigationController() throws SQLException {
-  }
+  @Inject
+  private Database database;
 
   @FXML
   void initialize() throws IOException {
