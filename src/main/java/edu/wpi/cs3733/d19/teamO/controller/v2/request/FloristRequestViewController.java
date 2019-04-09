@@ -37,24 +37,24 @@ public class FloristRequestViewController implements Controller {
   @FXML
   private Label titleLabel;
   @FXML
-  private TableView<FloristRequestController> requestsTableView;
+  private TableView<FloristRequest> requestsTableView;
   @FXML
-  private TableColumn<FloristRequestController, Integer> idTableCol;
+  private TableColumn<FloristRequest, Integer> idTableCol;
   @FXML
-  private TableColumn<FloristRequestController, LocalDateTime> timeRequestedCol;
+  private TableColumn<FloristRequest, LocalDateTime> timeRequestedCol;
   @FXML
-  private TableColumn<FloristRequestController, LocalDateTime> timeCompletedCol;
+  private TableColumn<FloristRequest, LocalDateTime> timeCompletedCol;
   @FXML
-  private TableColumn<FloristRequestController, String> whoCompletedCol;
+  private TableColumn<FloristRequest, String> whoCompletedCol;
   @FXML
-  private TableColumn<FloristRequestController, String> locationTableCol;
+  private TableColumn<FloristRequest, String> locationTableCol;
   @FXML
   private TableColumn<FloristRequest,
       FloristRequest.FloristRequestType> categoryTableCol;
   @FXML
-  private TableColumn<FloristRequestController, String> descriptionCol;
+  private TableColumn<FloristRequest, String> descriptionCol;
   @FXML
-  private TableColumn<FloristRequestController, String> nameCol;
+  private TableColumn<FloristRequest, String> nameCol;
 
   @Inject
   private EventBus eventBus;

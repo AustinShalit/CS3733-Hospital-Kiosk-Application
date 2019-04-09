@@ -36,6 +36,7 @@ public class Database {
     this.loginDao = new LoginDaoDb(dcf);
     this.schedulingRequestDao = new SchedulingRequestDaoDb(dcf);
     this.itransportationDao = new InternalTransportationRequestDaoDb(dcf);
+    this.floristRequestDao = new FloristRequestDaoDb(dcf);
     this.employeeDao = new EmployeeDaoDb(dcf);
   }
 
@@ -257,26 +258,26 @@ public class Database {
    * Florist
    */
   public Optional<FloristRequest> getFloristRequest(int id) {
-    return FloristRequestDao.get(id);
+    return floristRequestDao.get(id);
   }
 
   public Set<FloristRequest> getAllFloristRequests() {
-    return FloristRequestDao.getAll();
+    return floristRequestDao.getAll();
   }
 
   public boolean insertFloristRequest(
       FloristRequest floristRequest) {
-    return FloristRequestDao.insert(floristRequest);
+    return floristRequestDao.insert(floristRequest);
   }
 
   public boolean deleteFloristRequest(
       FloristRequest floristRequest) {
-    return FloristRequestDao.delete(floristRequest);
+    return floristRequestDao.delete(floristRequest);
   }
 
   public boolean updateFloristRequest(
       FloristRequest floristRequest) {
-    return FloristRequest.update(floristRequest);
+    return floristRequestDao.update(floristRequest);
   }
 
 }
