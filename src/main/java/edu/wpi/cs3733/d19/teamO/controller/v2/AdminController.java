@@ -1,10 +1,14 @@
 package edu.wpi.cs3733.d19.teamO.controller.v2;
 
+import com.google.common.eventbus.EventBus;
+import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
+
+import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
 
 @FxmlController(url = "AdminWindow.fxml")
 public class AdminController implements Controller {
@@ -17,6 +21,11 @@ public class AdminController implements Controller {
   private JFXButton employeeButton;
   @FXML
   private JFXButton editdatabaseButton;
+  @Inject
+  private EventBus eventBus;
+  @Inject
+  private MapEditController.Factory mapEditControllerFactory;
+
 
   @FXML
   void initialize() {
@@ -25,7 +34,7 @@ public class AdminController implements Controller {
 
   @FXML
   void mapeditOnAction() {
-
+    eventBus.post(new ChangeMainViewEvent(mapEditControllerFactory.create()));
   }
 
   @FXML
