@@ -179,7 +179,7 @@ class InternalTransportationRequestDaoDbTest {
 
       assertDoesNotThrow(() -> new NodeDaoDb(dcf));
 
-      assertDoesNotThrow(() -> new SanitationRequestDaoDb(dcf));
+      assertDoesNotThrow(() -> new InternalTransportationRequestDaoDb(dcf));
       assertDoesNotThrow(() -> new InternalTransportationRequestDaoDb(dcf));
     }
   }

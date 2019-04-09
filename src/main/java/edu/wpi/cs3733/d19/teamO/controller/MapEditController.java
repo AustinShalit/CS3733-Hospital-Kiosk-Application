@@ -116,6 +116,4 @@ public class MapEditController extends Controller {
   }
 
 
-
-
 }
