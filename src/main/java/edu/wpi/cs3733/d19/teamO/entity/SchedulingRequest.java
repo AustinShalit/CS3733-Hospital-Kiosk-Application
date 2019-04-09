@@ -92,6 +92,32 @@ public class SchedulingRequest {
   }
 
   /**
+   * Used to check if the meeting is during a certain time.
+   * @param localDateTime The time to check
+   * @return True if the meeting is during the supplied time, False otherwise.
+   */
+  public boolean isDuring(LocalDateTime localDateTime) {
+    return (localDateTime.isAfter(startTime) || localDateTime.isEqual(startTime))
+        && (localDateTime.isBefore(endTime) || localDateTime.isEqual(endTime));
+  }
+
+  /**
+   * Used to check if the given time range is during this meeting.
+   * @param startTime the start of the time range
+   * @param endTime the end of the time range
+   * @return True if the meeting is during the supplied time range, False otherwise.
+   */
+  public boolean isDuring(LocalDateTime startTime, LocalDateTime endTime) {
+    if (this.endTime.isBefore(startTime)
+        || this.endTime.isEqual(startTime)) {
+      return false;
+    }
+
+    return !(endTime.isBefore(this.startTime)
+        || endTime.isEqual(this.startTime));
+  }
+
+  /**
    * Use to check if this scheduling request would happen at the same time and place as
    * the other scheduling request.
    *
@@ -107,13 +133,7 @@ public class SchedulingRequest {
       return false;
     }
 
-    if (endTime.isBefore(schedulingRequest.startTime)
-        || endTime.isEqual(schedulingRequest.startTime)) {
-      return false;
-    }
-
-    return !(schedulingRequest.endTime.isBefore(startTime)
-        || schedulingRequest.endTime.isEqual(startTime));
+    return isDuring(schedulingRequest.startTime, schedulingRequest.endTime);
   }
 
   @Override

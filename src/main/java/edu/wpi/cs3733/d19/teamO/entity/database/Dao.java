@@ -47,4 +47,5 @@ interface Dao<K, T> {
    * @return True if the operation was successful
    */
   boolean delete(T o);
+
 }

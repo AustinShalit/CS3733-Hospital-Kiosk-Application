@@ -31,6 +31,10 @@ class SchedulingRequestDaoDbTest {
   private static final SchedulingRequest schedulingRequest = new SchedulingRequest(12,
       aStart, aEnd, aRequest, aComplete, "Dr. Owlmann", nodeA);
 
+  private static final SchedulingRequest schedulingRequest2 = new SchedulingRequest(12,
+      LocalDateTime.now().minusHours(1),
+      LocalDateTime.now().plusHours(1), aRequest, aComplete, "Dr. Owlmann", nodeA);
+
   private Database database;
 
   @Nested
@@ -192,6 +196,28 @@ class SchedulingRequestDaoDbTest {
 
     assertFalse(database.schedulingRequestWouldConflict(nonConflictingSchedulingRequest2));
     assertTrue(database.insertSchedulingrequest(nonConflictingSchedulingRequest2));
+  }
+
+  @Test
+  void isDuringTest() {
+    assertFalse(schedulingRequest.isDuring(LocalDateTime.now()));
+    assertTrue(schedulingRequest2.isDuring(LocalDateTime.now()));
+    assertFalse(schedulingRequest2.isDuring(
+        LocalDateTime.now().minusHours(4),
+        LocalDateTime.now().minusHours(3))
+    );
+    assertTrue(schedulingRequest2.isDuring(
+        LocalDateTime.now().minusHours(4),
+        LocalDateTime.now().plusHours(3))
+    );
+  }
+
+  @Test
+  void getAllAvailableNodesTest() {
+    database.insertSchedulingrequest(schedulingRequest);
+    assertTrue(database.getAllAvailableNodes(LocalDateTime.now()).contains(nodeA));
+    database.insertSchedulingrequest(schedulingRequest2);
+    assertFalse(database.getAllAvailableNodes(LocalDateTime.now()).contains(nodeA));
   }
 
 }
