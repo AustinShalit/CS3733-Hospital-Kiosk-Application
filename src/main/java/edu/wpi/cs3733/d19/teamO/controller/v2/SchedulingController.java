@@ -88,15 +88,13 @@ public class SchedulingController implements Controller {
     tableTab.setContent(content);
   }
 
-  //TODO keep getting Error When Trying to submit from scheduling window
-
   /**
    * Check to make sure Scheduling Request is valid.
    */
   @FXML
   void onSubmitButtonAction() throws InvalidUserInputException {
     SchedulingRequest request = parseUserSchedulingRequestTest();
-    if (database.insertSchedulingRequest(request)) {
+    if (database.insertSchedulingrequest(request)) {
       String message = "Successfully submitted scheduling request.";
       showInformationAlert("Success!", message);
     } else {
@@ -133,6 +131,7 @@ public class SchedulingController implements Controller {
 
   private class InvalidUserInputException extends Exception {
     InvalidUserInputException(String s) {
+      super(s);
     }
   }
 
