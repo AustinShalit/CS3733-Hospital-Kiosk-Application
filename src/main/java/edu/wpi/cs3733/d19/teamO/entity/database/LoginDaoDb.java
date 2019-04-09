@@ -33,17 +33,13 @@ public class LoginDaoDb implements LoginDao {
     }
   }
 
-  private DatabaseConnectionFactory dcf;
-  private EmployeeDaoDb employeeDaoDb;
+  private final DatabaseConnectionFactory dcf;
+  private final EmployeeDaoDb employeeDaoDb;
 
   LoginDaoDb(final DatabaseConnectionFactory dcf) throws SQLException {
     this.dcf = dcf;
     employeeDaoDb = new EmployeeDaoDb(dcf);
     createTable();
-  }
-
-  LoginDaoDb() throws SQLException {
-    this(new DatabaseConnectionFactoryEmbedded());
   }
 
   @Override
