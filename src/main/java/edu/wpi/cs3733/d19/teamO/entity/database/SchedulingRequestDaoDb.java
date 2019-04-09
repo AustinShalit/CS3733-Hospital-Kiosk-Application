@@ -38,8 +38,8 @@ public class SchedulingRequestDaoDb implements SchedulingRequestDao {
     }
   }
 
-  private DatabaseConnectionFactory dcf;
-  private NodeDaoDb nodeDaoDb;
+  private final DatabaseConnectionFactory dcf;
+  private final NodeDaoDb nodeDaoDb;
 
   /**
    * Constructor.
@@ -47,14 +47,10 @@ public class SchedulingRequestDaoDb implements SchedulingRequestDao {
    * @param dcf New database connection factory
    * @throws SQLException When stuff goes wrong
    */
-  public SchedulingRequestDaoDb(final DatabaseConnectionFactory dcf) throws SQLException {
+  SchedulingRequestDaoDb(final DatabaseConnectionFactory dcf) throws SQLException {
     this.dcf = dcf;
     nodeDaoDb = new NodeDaoDb(dcf);
     createTable();
-  }
-
-  public SchedulingRequestDaoDb() throws SQLException {
-    this(new DatabaseConnectionFactoryEmbedded());
   }
 
   @Override
@@ -99,6 +95,19 @@ public class SchedulingRequestDaoDb implements SchedulingRequestDao {
     Set<Node> availableNodes = new HashSet<>(nodes);
     for (SchedulingRequest schedulingRequest : schedulingRequests) {
       if (schedulingRequest.isDuring(localDateTime)) {
+        availableNodes.remove(schedulingRequest.getRoom());
+      }
+    }
+    return availableNodes;
+  }
+
+  @Override
+  public Set<Node> allAvailableNodes(LocalDateTime start, LocalDateTime end) {
+    Set<SchedulingRequest> schedulingRequests = getAll();
+    Set<Node> nodes = nodeDaoDb.getAll();
+    Set<Node> availableNodes = new HashSet<>(nodes);
+    for (SchedulingRequest schedulingRequest : schedulingRequests) {
+      if (schedulingRequest.isDuring(start, end)) {
         availableNodes.remove(schedulingRequest.getRoom());
       }
     }

@@ -32,6 +32,7 @@ import static java.lang.Math.abs;
 
 
 public class MapView extends StackPane {
+
   private int level = 1;
   private int currentLevel = 1;
   Database database = new Database();
@@ -41,16 +42,12 @@ public class MapView extends StackPane {
 
   @FXML
   private GesturePane gesturePane;
-
   @FXML
   private ImageView backgroundImage;
-
   @FXML
   private Group nodeGroup;
-
   @FXML
   private Group edges;
-
   @FXML
   private Button levelL1;
   @FXML
@@ -99,19 +96,13 @@ public class MapView extends StackPane {
 
   @FXML
   void initialize() throws IOException {
-    //database.getFloor("1");
-
-    //  selectedNode.set(the new node here closest);
-    clearNodes();
-    nodes = database.getFloor("1");
-    addNodesToPane(nodes);
     gesturePane.setMinScale(0.1);
-    backgroundImage.setImage(new Image(getClass().getResource("01_thefirstfloor.png").openStream()));
     gesturePane.setOnMouseClicked(e -> {
       Point2D pointOnMap = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
           .orElse(gesturePane.targetPointAtViewportCentre());
 
       if (e.getButton() == MouseButton.PRIMARY && e.getClickCount() == 2) {
+
         // increment of scale makes more sense exponentially instead of linearly
         gesturePane.animate(Duration.millis(200))
             .interpolateWith(Interpolator.EASE_BOTH)
@@ -120,8 +111,12 @@ public class MapView extends StackPane {
       coordY.setText(Double.toString((int) pointOnMap.getX()));
       coordX.setText(Double.toString((int) pointOnMap.getY()));
     });
+    gesturePane.setFitMode(GesturePane.FitMode.COVER);
+    gesturePane.setScrollBarEnabled(false);
     resetButtonBackground(99);
     levelF1.setStyle("-fx-background-color: rgba(17,0,255,0.4)");
+
+    onFloorSelectAction(new ActionEvent(levelF1, levelF1));
 
   }
 
@@ -288,10 +283,14 @@ public class MapView extends StackPane {
    *
    * @param nodes nodes are the for positions
    */
+  @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
   public void addNodesToPane(final Collection<Node> nodes) {
-    nodes.stream()
-        .map(node -> new Circle(node.getXcoord(), node.getYcoord(), 5, Color.RED))
-        .forEach(nodeGroup.getChildren()::add);
+
+    for (Node node: nodes) {
+      Circle circle = new Circle(node.getXcoord(), node.getYcoord(), 5, Color.color(0, 0.31, 0.53));
+      circle.setStroke(Color.BLACK);
+      nodeGroup.getChildren().add(circle);
+    }
   }
 
 
