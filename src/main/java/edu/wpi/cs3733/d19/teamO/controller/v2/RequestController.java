@@ -76,6 +76,7 @@ public class RequestController implements Controller {
   @Inject
   private SupportAnimalController.Factory supportAnimalControllerFactory;
 
+
   @FXML
   void internalTransportationAction(ActionEvent event) {
     eventBus.post(new ChangeMainViewEvent(internalTransportationControllerFactory.create()));
