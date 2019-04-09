@@ -1,19 +1,29 @@
 package edu.wpi.cs3733.d19.teamO.controller.v2;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import javax.management.ImmutableDescriptor;
 import com.google.common.eventbus.EventBus;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.jfoenix.controls.JFXButton;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.web.WebView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 import net.aksingh.owmjapis.core.OWM;
 import net.aksingh.owmjapis.api.APIException;
@@ -34,43 +44,85 @@ public class HomeController implements ContentPane {
   @FXML
   private Label weatherLabel;
   @FXML
-  private WebView weather;
+  private Label description;
+  @FXML
+  private ImageView tempImage;
 
   private Optional<EventBus> eventBus = Optional.empty();
+  private int second, minute, hour, month, day, year;
+  private Image sun, temp, moon;
+  private String image;
 
   @FXML
   void initialize()throws IOException {
+    String sURL = "http://api.openweathermap.org/data/2.5/weather?q=Boston&APPID=c2711050ed24651e99a523ce6d08ad73";
+    URL url = new URL(sURL);
+    URLConnection request = url.openConnection();
+    request.connect();
+
+//     Convert to a JSON object  using GSON
+    JsonParser jp = new JsonParser();
+    JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
+    JsonObject rootobj = root.getAsJsonObject();
+    System.out.println(root.toString());
+    String name = rootobj.get("name").getAsString();
+    String icon = rootobj.get("weather")
+        .getAsJsonArray()
+        .get(0)
+        .getAsJsonObject()
+        .get("icon")
+        .getAsString(); //.get("weather.icon").getAsString(); // Get the icon
+    String discrp = rootobj.get("weather")
+        .getAsJsonArray()
+        .get(0)
+        .getAsJsonObject()
+        .get("description")
+        .getAsString(); //.get("weather.icon").getAsString(); // Get the description
+    image = "http://openweathermap.org/img/w/" + icon +".png";
+
     Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-      int second = LocalDateTime.now().getSecond();
-      int minute = LocalDateTime.now().getMinute();
-      int hour = LocalDateTime.now().getHour();
-      timeLabel.setText(hour + ":" + (minute) + ":" + second);
+      second = LocalDateTime.now().getSecond();
+      minute = LocalDateTime.now().getMinute();
+      hour = LocalDateTime.now().getHour();
+      month = LocalDateTime.now().getMonthValue();
+      day = LocalDateTime.now().getDayOfMonth();
+      year = LocalDateTime.now().getYear();
+      timeLabel.setText(hour + ":" + (minute) + ":" + second + "  " + month + "/" + day + "/" + year);
     }),
         new KeyFrame(Duration.seconds(1))
     );
     clock.setCycleCount(Animation.INDEFINITE);
     clock.play();
 
-    try{
-      getWeatherData();
-    }catch(APIException e){
-      e.printStackTrace();
-    }
+    description.setText(discrp);
+
+    new Thread(() -> {
+      try {
+        getWeatherData();
+      } catch (APIException e) {
+        e.printStackTrace();
+      }
+    }).start();
   }
 
   void getWeatherData() throws APIException{
     OWM owm = new OWM("c2711050ed24651e99a523ce6d08ad73");
 
-    CurrentWeather cwd = owm.currentWeatherByCityName("Worcester", OWM.Country.UNITED_STATES);
+    CurrentWeather cwd = owm.currentWeatherByCityName("Boston", OWM.Country.UNITED_STATES);
 
     DecimalFormat df = new DecimalFormat("#.##");
 
+    System.out.println(cwd.getCityId());
+
+
     double max = (cwd.getMainData().getTempMax() - 273.15) * 9.0 / 5.0 + 32.0;
     double min = (cwd.getMainData().getTempMin() - 273.15) * 9.0 / 5.0 + 32.0;
-//    double cloud = cwd.getCloudData().getCloud();
-//    double wind = cwd.getWindData().getSpeed() * 3.6f;
-//    double rain = cwd.getRainData().getPrecipVol3h();
-    weatherLabel.setText("The weather at Worcester is from " + df.format(min) + " Fahrenheit to " + df.format(max) + " Fahrenheit" );
+
+    temp = new Image(image);
+    tempImage.setImage(temp);
+
+    Platform.runLater(()
+        -> weatherLabel.setText("From " + df.format(min) + " F to " + df.format(max) + " F" ));
   }
 
   @FXML

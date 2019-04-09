@@ -49,8 +49,14 @@ dependencies {
     testImplementation(testFx(name = "testfx-junit5"))
     testRuntime(testFx(name = "openjfx-monocle", version = "8u76-b04"))
 
+//    testCompile(group = "junit", name = "junit", version = "4.12")
+//    compile(group = "net.aksingh", name = "owm-japis", version = "2.5.2.3")
+
     testCompile(group = "junit", name = "junit", version = "4.12")
+    testCompile(group = "net.aksingh", name =  "owm-japis", version = "2.5.2.3")
     compile(group = "net.aksingh", name = "owm-japis", version = "2.5.2.3")
+    compile(group = "com.google.code.gson", name = "gson", version = "2.8.5")
+    compile(group = "net.sf.sociaal", name = "freetts", version = "1.2.2")
 }
 
 java {
