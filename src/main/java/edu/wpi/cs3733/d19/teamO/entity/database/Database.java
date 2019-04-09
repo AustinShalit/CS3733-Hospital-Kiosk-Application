@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Set;
 
+import edu.wpi.cs3733.d19.teamO.entity.AudioVisualRequest;
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Employee;
 import edu.wpi.cs3733.d19.teamO.entity.ExternalTransportationRequest;
@@ -14,6 +15,7 @@ import edu.wpi.cs3733.d19.teamO.entity.InternalTransportationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.InterpreterRequest;
 import edu.wpi.cs3733.d19.teamO.entity.Login;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
+import edu.wpi.cs3733.d19.teamO.entity.PatientInfoRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SchedulingRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
@@ -29,6 +31,10 @@ public class Database {
   private final SchedulingRequestDao schedulingRequestDao;
   private final LoginDao loginDao;
   private final InternalTransportationRequestDao itransportationDao;
+
+  private final AudioVisualRequestDao audioVisualRequestDao;
+
+  private final PatientInfoRequestDaoDb patientInfoRequestDao;
   private final ExternalTransportationRequestDao etransportationDao;
   private final GiftRequestDao giftRequestDao;
   private final ITSupportRequestDao itSupportDao;
@@ -42,6 +48,10 @@ public class Database {
     this.sanitationRequestDao = new SanitationRequestDaoDb(dcf);
     this.schedulingRequestDao = new SchedulingRequestDaoDb(dcf);
     this.itransportationDao = new InternalTransportationRequestDaoDb(dcf);
+
+    this.audioVisualRequestDao = new AudioVisualRequestDaoDb(dcf);
+
+    this.patientInfoRequestDao = new PatientInfoRequestDaoDb(dcf);
     this.etransportationDao = new ExternalTransportationRequestDaoDb(dcf);
     this.itSupportDao = new ITSupportRequestDaoDb(dcf);
     this.employeeDao = new EmployeeDaoDb(dcf);
@@ -253,6 +263,32 @@ public class Database {
   }
 
   /*
+   * Audio Visual
+   */
+  public Optional<AudioVisualRequest> getAudioVisualRequest(int id) {
+    return audioVisualRequestDao.get(id);
+  }
+
+  public Set<AudioVisualRequest> getAllAudioVisualRequests() {
+    return audioVisualRequestDao.getAll();
+  }
+
+  public boolean insertAudioVisualRequest(
+      AudioVisualRequest audioVisualRequest) {
+    return audioVisualRequestDao.insert(audioVisualRequest);
+  }
+
+  public boolean deleteAudioVisualRequest(
+      AudioVisualRequest audioVisualRequest) {
+    return audioVisualRequestDao.delete(audioVisualRequest);
+  }
+
+  public boolean updateAudioVisualRequest(
+      AudioVisualRequest audioVisualRequest) {
+    return audioVisualRequestDao.update(audioVisualRequest);
+  }
+
+  /*
    * Internal Transporation
    */
   public Optional<InternalTransportationRequest> getInternalTransportationRequest(int id) {
@@ -276,6 +312,29 @@ public class Database {
   public boolean updateInternalTransportationRequest(
       InternalTransportationRequest internalTransportationRequest) {
     return itransportationDao.update(internalTransportationRequest);
+  }
+
+  /*
+   * Patient info
+   */
+  public Optional<PatientInfoRequest> getPatientInfoRequest(int id) {
+    return patientInfoRequestDao.get(id);
+  }
+
+  public Set<PatientInfoRequest> getAllPatientInfoRequests() {
+    return patientInfoRequestDao.getAll();
+  }
+
+  public boolean insertPatientInfoRequest(PatientInfoRequest patientInfoRequest) {
+    return patientInfoRequestDao.insert(patientInfoRequest);
+  }
+
+  public boolean deletePatientInfoRequest(PatientInfoRequest patientInfoRequest) {
+    return patientInfoRequestDao.delete(patientInfoRequest);
+  }
+
+  public boolean updatePatientInfoRequest(PatientInfoRequest patientInfoRequest) {
+    return patientInfoRequestDao.update(patientInfoRequest);
   }
 
   /*
