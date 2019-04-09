@@ -85,7 +85,6 @@ public class RequestController implements Controller {
   private GiftController.Factory giftControllerFactory;
   @Inject
   private InterpreterController.Factory interpreterControllerFactory;
-
   @Inject
   private SupportAnimalController.Factory supportAnimalControllerFactory;
   @Inject
