@@ -135,7 +135,6 @@ class NodeDaoDbTest {
 
   }
 
-
   @Test
   void getAllRoomTest() {
     dao.insert(TEST_NODE);
