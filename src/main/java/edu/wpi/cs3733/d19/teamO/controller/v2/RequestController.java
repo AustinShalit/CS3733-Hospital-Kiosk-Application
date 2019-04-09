@@ -76,6 +76,7 @@ public class RequestController implements Controller {
   private InterpreterController.Factory interpreterControllerFactory;
 
 
+
   @FXML
   void internalTransportationAction(ActionEvent event) {
     eventBus.post(new ChangeMainViewEvent(internalTransportationControllerFactory.create()));
