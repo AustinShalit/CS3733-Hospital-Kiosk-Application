@@ -16,7 +16,6 @@ import edu.wpi.cs3733.d19.teamO.controller.v2.request.FloristRequestController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.FloristRequestViewController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationViewController;
-import edu.wpi.cs3733.d19.teamO.entity.FloristRequest;
 
 public class ControllerModule extends AbstractModule {
   @Override

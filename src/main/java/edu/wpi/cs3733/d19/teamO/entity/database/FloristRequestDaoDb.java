@@ -17,7 +17,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import edu.wpi.cs3733.d19.teamO.entity.FloristRequest;
-import edu.wpi.cs3733.d19.teamO.entity.InternalTransportationRequest;
 
 public class FloristRequestDaoDb implements FloristRequestDao {
 
@@ -126,7 +125,7 @@ public class FloristRequestDaoDb implements FloristRequestDao {
       statement.setString(3, floristRequest.getWhoCompleted());
       statement.setString(4,
           floristRequest.getLocationNode().getNodeId());
-      statement.setString(5,floristRequest.getType().name());
+      statement.setString(5, floristRequest.getType().name());
       statement.setString(6, floristRequest.getDescription());
       statement.setString(7, floristRequest.getPerson());
 

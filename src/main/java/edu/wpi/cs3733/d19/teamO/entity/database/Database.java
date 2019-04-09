@@ -14,7 +14,8 @@ import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SchedulingRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
 
-@SuppressWarnings("PMD.TooManyMethods")
+@SuppressWarnings({"PMD.TooManyMethods", "PMD.GodClass", "PMD.ExcessivePublicCount"})
+
 public class Database {
 
   private final NodeDao nodeDao;
@@ -45,6 +46,7 @@ public class Database {
    *
    * @param memoryName The name of the database
    */
+
   public Database(String memoryName) throws SQLException {
     this(new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
         memoryName));

@@ -24,7 +24,6 @@ import edu.wpi.cs3733.d19.teamO.controller.v2.FxmlController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.RequestController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.FloristRequest;
-import edu.wpi.cs3733.d19.teamO.entity.FloristRequest;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
@@ -108,7 +107,7 @@ public class FloristRequestController implements Controller {
       String description = descriptiontxt.getText();
       String name = nametxt.getText();
 
-      return new FloristRequest (now, node, floristRequest, description, name);
+      return new FloristRequest(now, node, floristRequest, description, name);
     }
 
     // otherwise, some input was invalid
