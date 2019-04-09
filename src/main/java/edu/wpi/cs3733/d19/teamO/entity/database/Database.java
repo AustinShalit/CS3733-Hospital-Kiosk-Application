@@ -20,10 +20,10 @@ import edu.wpi.cs3733.d19.teamO.entity.PatientInfoRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SchedulingRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
+import edu.wpi.cs3733.d19.teamO.entity.SupportAnimalRequest;
 
 @SuppressWarnings({"PMD.TooManyMethods", "PMD.GodClass", "PMD.ExcessivePublicCount",
-    "PMD.CyclomaticComplexity"})
-
+    "PMD.CyclomaticComplexity", "PMD.TooManyFields"})
 public class Database {
 
   private final NodeDao nodeDao;
@@ -33,10 +33,9 @@ public class Database {
   private final SchedulingRequestDao schedulingRequestDao;
   private final LoginDao loginDao;
   private final InternalTransportationRequestDao itransportationDao;
-
   private final AudioVisualRequestDao audioVisualRequestDao;
-
   private final PatientInfoRequestDaoDb patientInfoRequestDao;
+  private final SupportAnimalRequestDao supportAnimalRequestDao;
   private final ExternalTransportationRequestDao etransportationDao;
   private final GiftRequestDao giftRequestDao;
   private final ITSupportRequestDao itSupportDao;
@@ -55,6 +54,7 @@ public class Database {
     this.audioVisualRequestDao = new AudioVisualRequestDaoDb(dcf);
     this.patientInfoRequestDao = new PatientInfoRequestDaoDb(dcf);
     this.etransportationDao = new ExternalTransportationRequestDaoDb(dcf);
+    this.supportAnimalRequestDao = new SupportAnimalRequestDaoDb(dcf);
     this.itSupportDao = new ITSupportRequestDaoDb(dcf);
     this.employeeDao = new EmployeeDaoDb(dcf);
     this.loginDao = new LoginDaoDb(dcf);
@@ -98,7 +98,6 @@ public class Database {
   public boolean updateNode(Node node) {
     return nodeDao.update(node);
   }
-
 
   public Set<Node> getAllRooms(String type) {
     return nodeDao.getAllRooms(type);
@@ -464,5 +463,28 @@ public class Database {
   public boolean updateGiftRequest(
       GiftRequest giftRequest) {
     return giftRequestDao.update(giftRequest);
+  }
+
+  /*
+   * Support Animal
+   */
+  public Optional<SupportAnimalRequest> getSupportAnimalRequest(int id) {
+    return supportAnimalRequestDao.get(id);
+  }
+
+  public Set<SupportAnimalRequest> getAllSupportAnimalRequests() {
+    return supportAnimalRequestDao.getAll();
+  }
+
+  public boolean insertSupportAnimalRequest(SupportAnimalRequest request) {
+    return supportAnimalRequestDao.insert(request);
+  }
+
+  public boolean deleteSupportAnimalRequest(SupportAnimalRequest request) {
+    return supportAnimalRequestDao.delete(request);
+  }
+
+  public boolean updateSupportAnimalRequest(SupportAnimalRequest request) {
+    return supportAnimalRequestDao.update(request);
   }
 }
