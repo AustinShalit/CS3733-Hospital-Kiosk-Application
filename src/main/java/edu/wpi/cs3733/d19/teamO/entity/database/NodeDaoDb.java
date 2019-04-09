@@ -169,7 +169,7 @@ class NodeDaoDb implements NodeDao {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement
           = connection.prepareStatement(queries.getProperty("node.select_room"));
-      statement.setString(1,type);
+      statement.setString(1, type);
       try (ResultSet resultSet = statement.executeQuery()) {
         Set<Node> nodes = new HashSet<>();
         while (resultSet.next()) {

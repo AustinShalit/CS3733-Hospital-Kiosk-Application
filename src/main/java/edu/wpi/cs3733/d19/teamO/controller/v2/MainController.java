@@ -1,18 +1,21 @@
 package edu.wpi.cs3733.d19.teamO.controller.v2;
 
-import java.io.IOException;
-
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
+import com.google.inject.Inject;
 import com.jfoenix.controls.JFXPopup;
+import com.jfoenix.controls.JFXToolbar;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
-public class MainController {
+import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
+
+@FxmlController(url = "Main.fxml")
+public class MainController implements Controller {
 
   @FXML
   private StackPane root;
@@ -23,22 +26,23 @@ public class MainController {
   @FXML
   private StackPane optionsBurger;
 
-  private final EventBus contentEventBus = new EventBus("Main Content EventBus");
+  @FXML
+  private JFXToolbar toolbar;
+
+  @Inject
+  private EventBus eventBus;
+  @Inject
+  private HomeController.Factory homeControllerFactory;
+  @Inject
+  private OptionsPopupController.Factory optionsPopupControllerFactory;
 
   private JFXPopup optionsPopup;
 
-  public MainController() {
-    contentEventBus.register(this);
-  }
-
   @FXML
-  void initialize() throws IOException {
-    onContentChangeRequest("Home.fxml");
-//    Node view = FXMLLoader.load(MainController.class.getResource("Home.fxml"));
-//    contentPane.setCenter(view);
+  void initialize() {
+    eventBus.register(this);
 
-    FXMLLoader loader = new FXMLLoader(MainController.class.getResource("OptionsPopup.fxml"));
-    optionsPopup = new JFXPopup(loader.load());
+    optionsPopup = new JFXPopup(optionsPopupControllerFactory.create().list);
 
     optionsBurger.setOnMouseClicked(e ->
         optionsPopup.show(optionsBurger,
@@ -48,13 +52,21 @@ public class MainController {
             15));
   }
 
+  @FXML
+  void onHomeButtonAction(ActionEvent event) {
+    eventBus.post(new ChangeMainViewEvent(homeControllerFactory.create()));
+  }
+
   @Subscribe
-  public void onContentChangeRequest(String r) throws IOException {
-    FXMLLoader loader = new FXMLLoader();
-    loader.setLocation(MainController.class.getResource(r));
-    Node view = loader.load();
-    ContentPane c = loader.getController();
-    c.setEventBus(contentEventBus);
-    contentPane.setCenter(view);
+  @SuppressWarnings("PMD.UnusedPrivateMethod")
+  private void acceptController(ChangeMainViewEvent event) {
+    contentPane.setCenter(event.getController().getRoot());
+    toolbar.setVisible(event.isFramed());
+    optionsPopup.hide();
+  }
+
+  @Override
+  public Parent getRoot() {
+    return root;
   }
 }

@@ -11,6 +11,7 @@ import java.util.Optional;
 
 import javax.management.ImmutableDescriptor;
 import com.google.common.eventbus.EventBus;
+import com.google.inject.Inject;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -21,6 +22,8 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
+import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -29,8 +32,13 @@ import net.aksingh.owmjapis.core.OWM;
 import net.aksingh.owmjapis.api.APIException;
 import net.aksingh.owmjapis.model.CurrentWeather;
 
-public class HomeController implements ContentPane {
+import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
 
+@FxmlController(url = "Home.fxml")
+public class HomeController implements Controller {
+
+  @FXML
+  private VBox root;
   @FXML
   private JFXButton navigationButton;
   @FXML
@@ -47,6 +55,14 @@ public class HomeController implements ContentPane {
   private Label description;
   @FXML
   private ImageView tempImage;
+  @Inject
+  private EventBus eventBus;
+  @Inject
+  private RequestController.Factory requestControllerFactory;
+  @Inject
+  private SchedulingController.Factory schedulingControllerFactory;
+  @Inject
+  private NavigationController.Factory navigationControllerFactory;
 
   private Optional<EventBus> eventBus = Optional.empty();
   private int second, minute, hour, month, day, year;
@@ -124,29 +140,46 @@ public class HomeController implements ContentPane {
     Platform.runLater(()
         -> weatherLabel.setText("From " + df.format(min) + " F to " + df.format(max) + " F" ));
   }
+  @Inject
+  private EventBus eventBus;
+  @Inject
+  private RequestController.Factory requestControllerFactory;
+  @Inject
+  private SchedulingController.Factory schedulingControllerFactory;
+  @Inject
+  private NavigationController.Factory navigationControllerFactory;
 
   @FXML
-  void navigationOnAction(){
-    eventBus.ifPresent(bus -> bus.post("../NavigationWindow.fxml"));
+  void navigationOnAction() {
+    eventBus.post(new ChangeMainViewEvent(navigationControllerFactory.create()));
   }
 
   @FXML
-  void requestOnAction(){
-    eventBus.ifPresent(bus -> bus.post("../NavigationWindow.fxml"));
+  void requestOnAction() {
+    eventBus.post(new ChangeMainViewEvent(requestControllerFactory.create()));
   }
 
   @FXML
-  void scheduleOnAction(){
-    eventBus.ifPresent(bus -> bus.post("../SchedulingWindow.fxml"));
+  void scheduleOnAction() {
+    eventBus.post(new ChangeMainViewEvent(schedulingControllerFactory.create()));
   }
 
   @FXML
-  void securityOnAction(){
-    eventBus.ifPresent(bus -> bus.post("../SecurityWindow.fxml"));
+  void securityOnAction() {
+    if (DialogHelper.showConfirmDialog("Confirmation Dialog",
+        "Security Request Notification",
+        "Are you sure you want to alert the security?")) {
+      System.out.println("Notifying");
+      // TODO send to database
+    }
   }
 
   @Override
-  public void setEventBus(EventBus eventBus) {
-    this.eventBus = Optional.of(eventBus);
+  public Parent getRoot() {
+    return root;
+  }
+
+  public interface Factory {
+    HomeController create();
   }
 }

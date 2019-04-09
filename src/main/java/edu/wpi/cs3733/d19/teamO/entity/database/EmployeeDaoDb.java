@@ -83,7 +83,7 @@ public class EmployeeDaoDb implements EmployeeDao {
   }
 
   private Employee extractEmployeeFromResultSet(final ResultSet resultSet) throws SQLException {
-    return  new Employee(
+    return new Employee(
         resultSet.getInt("id"),
         resultSet.getString("name"),
         Employee.EmployeeType.get(

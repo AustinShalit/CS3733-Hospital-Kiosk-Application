@@ -113,7 +113,6 @@ public class MapEditController extends Controller {
   void cancelButtonAction() {
     Stage stage = (Stage) cancel.getScene().getWindow();
     stage.close();
-
   }
 
 

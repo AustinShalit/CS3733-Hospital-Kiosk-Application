@@ -43,7 +43,8 @@ public class Employee {
 
   /**
    * Constructor for Employee.
-   * @param id Employee's integer ID
+   *
+   * @param id   Employee's integer ID
    * @param name Employee name
    * @param type Permissions type
    */

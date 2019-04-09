@@ -33,8 +33,8 @@ class SecurityRequestDaoDbTest {
         = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
         testInfo.getDisplayName());
 
-    NodeDaoDb nodeDao = new NodeDaoDb(dcf);
-    nodeDao.insert(NODE_A);
+    NodeDaoDb nodeDaoDb = new NodeDaoDb(dcf);
+    nodeDaoDb.insert(NODE_A);
 
     dao = new SecurityRequestDaoDb(dcf);
   }
