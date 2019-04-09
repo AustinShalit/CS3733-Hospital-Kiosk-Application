@@ -14,6 +14,7 @@ import edu.wpi.cs3733.d19.teamO.controller.v2.request.AudioVisualController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.ExternalTransportationController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.GiftController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.InterpreterController;
 
 @FxmlController(url = "ServiceRequest.fxml")
 @SuppressWarnings("PMD.TooManyFields")
@@ -27,7 +28,7 @@ public class RequestController implements Controller {
   @FXML
   private JFXButton perscription;
   @FXML
-  private JFXButton interpereter;
+  private JFXButton interpreter;
 
   @FXML
   private JFXButton internalTransportation;
@@ -71,6 +72,8 @@ public class RequestController implements Controller {
   private ExternalTransportationController.Factory externalTransportationControllerFactory;
   @Inject
   private GiftController.Factory giftControllerFactory;
+  @Inject
+  private InterpreterController.Factory interpreterControllerFactory;
 
 
 
@@ -90,8 +93,15 @@ public class RequestController implements Controller {
   }
 
   @FXML
+
   void audioVisualAction(ActionEvent event) {
     eventBus.post(new ChangeMainViewEvent(audioVisualControllerFactory.create()));
+  }
+
+
+
+  void interpreterAction(ActionEvent event) {
+    eventBus.post(new ChangeMainViewEvent(interpreterControllerFactory.create()));
   }
 
 
