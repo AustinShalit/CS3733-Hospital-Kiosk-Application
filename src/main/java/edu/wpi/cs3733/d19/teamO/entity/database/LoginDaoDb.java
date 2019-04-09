@@ -34,9 +34,11 @@ public class LoginDaoDb implements LoginDao {
   }
 
   private DatabaseConnectionFactory dcf;
+  private EmployeeDaoDb employeeDaoDb;
 
   LoginDaoDb(final DatabaseConnectionFactory dcf) throws SQLException {
     this.dcf = dcf;
+    employeeDaoDb = new EmployeeDaoDb(dcf);
     createTable();
   }
 
@@ -82,7 +84,9 @@ public class LoginDaoDb implements LoginDao {
   private Login extractLoginFromResultSet(final ResultSet resultSet) throws SQLException {
     return new Login(
         resultSet.getString("username"),
-        resultSet.getString("password")
+        resultSet.getString("password"),
+        employeeDaoDb.get(resultSet.getInt("emp_id"))
+            .orElseThrow(() -> new SQLException("Could not get associated employee"))
     );
   }
 
@@ -93,6 +97,7 @@ public class LoginDaoDb implements LoginDao {
           queries.getProperty("login.insert"));
       statement.setString(1, login.getUsername());
       statement.setString(2, login.getPassword());
+      statement.setInt(3, login.getEmployee().getId());
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
       logger.log(Level.WARNING, "Failed to insert Login", ex);
@@ -105,9 +110,11 @@ public class LoginDaoDb implements LoginDao {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement(
           queries.getProperty("login.update"));
+
       statement.setString(1, login.getUsername());
       statement.setString(2, login.getPassword());
-      statement.setString(3, login.getUsername());
+      statement.setInt(3, login.getEmployee().getId());
+
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
       logger.log(Level.WARNING, "Failed to update Login", ex);
@@ -123,7 +130,7 @@ public class LoginDaoDb implements LoginDao {
       statement.setString(1, login.getUsername());
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
-      logger.log(Level.WARNING, "FAILED to delete SanitationRequest");
+      logger.log(Level.WARNING, "Failed to delete Login");
     }
     return false;
   }

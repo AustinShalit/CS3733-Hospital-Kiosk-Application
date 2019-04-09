@@ -1,36 +1,30 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
 
 import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-import edu.wpi.cs3733.d19.teamO.controller.exception.InvalidUserInputException;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
-import edu.wpi.cs3733.d19.teamO.entity.SchedulingRequest;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 @SuppressWarnings("PMD")
 public class SchedulingWindowController extends Controller {
 
   @FXML
-  private JFXButton backButton;
+  private Button backButton;
   @FXML
-  private JFXButton submitButton;
+  private Button submitButton;
   @FXML
-  private ComboBox<Node> roomComboBox;
+  private JFXComboBox<Node> roomComboBox;
   @FXML
   private TextField nameBox;
   @FXML
@@ -41,10 +35,25 @@ public class SchedulingWindowController extends Controller {
   private JFXDatePicker datePicker;
   @FXML
   private Label submitStatus;
+
+  private Database database;
+
+  @FXML
+  void onBackButtonAction(ActionEvent event) {
+    if (event.getSource() == backButton) {
+      switchScenes("MainWindow.fxml", backButton.getScene().getWindow());
+    }
+  }
+
+  /**
+   * Check to make sure Scheduling Request is valid.
+   *
+   * @param e Action Event from Submit button
+   */
   @FXML
   private JFXButton viewSchedulingButton;
 
-  private Database database;
+  }
 
   /**
    * Populate the Room selection ComboBox.
