@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 
-import edu.wpi.cs3733.d19.teamO.entity.InternalTransportationRequest;
+import edu.wpi.cs3733.d19.teamO.entity.ITSupportRequest;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class InternalTransportationRequestDaoDbTest {
+class ITSupportRequestDaoDbTest {
   private static final int id1 = 123;
   private static final int id2 = 1234;
 
@@ -31,128 +31,132 @@ class InternalTransportationRequestDaoDbTest {
       "FL3", "Central", Node.NodeType.DEPT, "LONGNAME",
       "SHORTNAME");
 
-  private static final InternalTransportationRequest testITRequest1 =
-      new InternalTransportationRequest(1, LocalDateTime.now(), LocalDateTime.now(), testNode1,
-          "Bob", InternalTransportationRequest.InternalTransportationRequestType.DELIVERY,
+  private static final ITSupportRequest testITSupportRequest1 =
+      new ITSupportRequest(1, LocalDateTime.now(), LocalDateTime.now(), testNode1,
+          "Bob", ITSupportRequest.ITSupportRequestType.DELIVERY,
           "This is a description", "Dev");
 
-  private static final InternalTransportationRequest testITRequest2 =
-      new InternalTransportationRequest(2, LocalDateTime.now(), LocalDateTime.now(), testNode2,
-          "Bill", InternalTransportationRequest.InternalTransportationRequestType.STRETCHER,
+  private static final ITSupportRequest testITSupportRequest2 =
+      new ITSupportRequest(2, LocalDateTime.now(), LocalDateTime.now(), testNode2,
+          "Bill", ITSupportRequest.ITSupportRequestType.STRETCHER,
           "This is a description", "Ken");
-  private InternalTransportationRequestDaoDb itrequestdao;
+  private ITSupportRequestDaoDb itSupportRequestDaoDb;
   private NodeDao nodeDao;
 
   @BeforeEach
   void setup(TestInfo testInfo) throws SQLException {
     DatabaseConnectionFactory dcf
         = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
-        testInfo.getDisplayName());
+        testInfo.getTestClass().get().getName()
+            + testInfo.getDisplayName());
 
     nodeDao = new NodeDaoDb(dcf);
-    InternalTransportationRequestDaoDb internalTransportationRequestDaoDb =
-        new InternalTransportationRequestDaoDb(dcf);
+    ITSupportRequestDaoDb informationTechnologySupportRequestDaoDb =
+        new ITSupportRequestDaoDb(dcf);
 
     nodeDao.insert(testNode1);
-    internalTransportationRequestDaoDb.insert(testITRequest1);
+    informationTechnologySupportRequestDaoDb.insert(testITSupportRequest1);
 
 
-    itrequestdao = new InternalTransportationRequestDaoDb(dcf);
+    itSupportRequestDaoDb = new ITSupportRequestDaoDb(dcf);
   }
 
   @Test
   void getTest() {
-    itrequestdao.insert(testITRequest1);
+    itSupportRequestDaoDb.insert(testITSupportRequest1);
 
-    assertTrue(itrequestdao.get(testITRequest1.getId()).isPresent());
+    assertTrue(itSupportRequestDaoDb.get(testITSupportRequest1.getId()).isPresent());
   }
 
   @Test
   void getDifferentObjectTest() {
-    itrequestdao.insert(testITRequest1);
+    itSupportRequestDaoDb.insert(testITSupportRequest1);
 
-    assertNotSame(testITRequest1,
-        itrequestdao.get(testITRequest1.getId()).orElseThrow(IllegalStateException::new));
+    assertNotSame(testITSupportRequest1,
+        itSupportRequestDaoDb.get(testITSupportRequest1.getId())
+            .orElseThrow(IllegalStateException::new));
   }
 
   @Test
   void checkEqual() {
-    itrequestdao.insert(testITRequest1);
+    itSupportRequestDaoDb.insert(testITSupportRequest1);
 
-    assertEquals(testITRequest1, itrequestdao.get(testITRequest1.getId()).get());
+    assertEquals(testITSupportRequest1, itSupportRequestDaoDb.get(testITSupportRequest1.getId())
+        .get());
   }
 
   @Test
   void getNotExistingTest() {
-    assertFalse(itrequestdao.get(987).isPresent());
+    assertFalse(itSupportRequestDaoDb.get(987).isPresent());
   }
 
   @Test
   void insertTest() {
     nodeDao.insert(testNode2);
 
-    assertTrue(itrequestdao.insert(testITRequest2));
+    assertTrue(itSupportRequestDaoDb.insert(testITSupportRequest2));
   }
 
   @Test
   void deleteTest() {
-    itrequestdao.insert(testITRequest1);
-    assertTrue(itrequestdao.delete(testITRequest1));
+    itSupportRequestDaoDb.insert(testITSupportRequest1);
+    assertTrue(itSupportRequestDaoDb.delete(testITSupportRequest1));
   }
 
   @Test
   void deleteNotExistingTest() {
-    assertFalse(itrequestdao.delete(new InternalTransportationRequest(987, null,
+    assertFalse(itSupportRequestDaoDb.delete(new ITSupportRequest(987, null,
         null, testNode1, null, null, null, null)));
   }
 
   @Test
   void updateTest() {
-    itrequestdao.insert(testITRequest1);
+    itSupportRequestDaoDb.insert(testITSupportRequest1);
 
-    InternalTransportationRequest update = new InternalTransportationRequest(testITRequest1.getId(),
+    ITSupportRequest update = new ITSupportRequest(testITSupportRequest1.getId(),
         LocalDateTime.now(), LocalDateTime.now(),
         testNode1, "Fred",
-        InternalTransportationRequest.InternalTransportationRequestType.OTHERS,
+        ITSupportRequest.ITSupportRequestType.OTHERS,
         "A different description", "Austin");
 
-    assertTrue(itrequestdao.update(update));
-    assertNotEquals(testITRequest1, itrequestdao.get(testITRequest1.getId()));
+    assertTrue(itSupportRequestDaoDb.update(update));
+    assertNotEquals(testITSupportRequest1, itSupportRequestDaoDb.get(testITSupportRequest1
+        .getId()));
   }
 
   @Test
   void updateNotExistingTest() {
     Node newNode = new Node("9876", 0, 0, "2", "Fuller",
         Node.NodeType.DEPT, "longname", "shortname");
-    assertFalse(itrequestdao.update(new InternalTransportationRequest(987, LocalDateTime.now(),
+    assertFalse(itSupportRequestDaoDb.update(new ITSupportRequest(987, LocalDateTime.now(),
         LocalDateTime.now(), newNode, "Jane",
-        InternalTransportationRequest.InternalTransportationRequestType.DELIVERY,
+        ITSupportRequest.ITSupportRequestType.DELIVERY,
         "This request doesnt exist", "Jill")));
   }
 
   @Test
   void getAllTest() {
     nodeDao.insert(testNode2);
-    itrequestdao.insert(testITRequest2);
+    itSupportRequestDaoDb.insert(testITSupportRequest2);
 
-    assertEquals(2, itrequestdao.getAll().size());
+    assertEquals(2, itSupportRequestDaoDb.getAll().size());
   }
 
   @Test
   void getAllEmptyTest() {
-    itrequestdao.delete(testITRequest1);
+    itSupportRequestDaoDb.delete(testITSupportRequest1);
 
-    assertTrue(itrequestdao.getAll().isEmpty());
+    assertTrue(itSupportRequestDaoDb.getAll().isEmpty());
   }
 
   @Test
   void autoIncrementTest() {
     for (int i = 0; i < 10; i++) {
-      itrequestdao.insert(testITRequest1);
+      itSupportRequestDaoDb.insert(testITSupportRequest1);
     }
 
-    Set<InternalTransportationRequest> internalTransportationRequestSet = itrequestdao.getAll();
-    for (InternalTransportationRequest sr : internalTransportationRequestSet) {
+    Set<ITSupportRequest> itSupportRequestSet = itSupportRequestDaoDb.getAll();
+    for (ITSupportRequest sr : itSupportRequestSet) {
       // make sure the id is in the correct range
       assertTrue(sr.getId() < 11 || sr.getId() > 1);
     }
@@ -167,7 +171,7 @@ class InternalTransportationRequestDaoDbTest {
           testInfo.getDisplayName());
 
       assertDoesNotThrow(() -> new NodeDaoDb(dcf));
-      assertDoesNotThrow(() -> new InternalTransportationRequestDaoDb(dcf));
+      assertDoesNotThrow(() -> new ITSupportRequestDaoDb(dcf));
     }
 
     @Test
@@ -178,8 +182,7 @@ class InternalTransportationRequestDaoDbTest {
 
       assertDoesNotThrow(() -> new NodeDaoDb(dcf));
 
-      assertDoesNotThrow(() -> new InternalTransportationRequestDaoDb(dcf));
-      assertDoesNotThrow(() -> new InternalTransportationRequestDaoDb(dcf));
+      assertDoesNotThrow(() -> new ITSupportRequestDaoDb(dcf));
     }
   }
 }
