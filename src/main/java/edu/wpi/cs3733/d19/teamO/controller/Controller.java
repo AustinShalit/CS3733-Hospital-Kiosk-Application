@@ -16,10 +16,11 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Callback;
 
+import edu.wpi.cs3733.d19.teamO.SuppressFBWarnings;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
-
+@SuppressFBWarnings(value = "UI_INHERITANCE_UNSAFE_GETRESOURCE", justification = "w")
 public class Controller {
 
   public Controller() {

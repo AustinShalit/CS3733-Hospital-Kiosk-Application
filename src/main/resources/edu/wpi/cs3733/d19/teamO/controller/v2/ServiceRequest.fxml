@@ -12,6 +12,7 @@
 <?import javafx.scene.text.Text?>
 
 <VBox fx:id="root" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1980.0" styleClass="root" stylesheets="@style/KioskStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.v2.RequestController">
+
   <children>
     <Pane />
     <Text id="heading" strokeType="OUTSIDE" strokeWidth="0.0" text="SERVICE REQUESTS">
@@ -76,7 +77,7 @@
                 <Font name="Calibri" size="20.0" />
               </font>
             </JFXButton>
-            <JFXButton prefHeight="100.0" prefWidth="300.0" ripplerFill="#013c78" stylesheets="@style/KioskStyle.css" text="PATIENT INFO" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+            <JFXButton onAction="#patientInfoAction" prefHeight="100.0" prefWidth="300.0" ripplerFill="#013c78" stylesheets="@style/KioskStyle.css" text="PATIENT INFO" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
               <GridPane.margin>
                 <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
               </GridPane.margin>
@@ -92,7 +93,7 @@
                 <Font name="Calibri" size="20.0" />
               </font>
             </JFXButton>
-            <JFXButton prefHeight="100.0" prefWidth="300.0" ripplerFill="#013c78" stylesheets="@style/KioskStyle.css" text="AUDIO/VISUAL" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+            <JFXButton onAction="#audioVisualAction" prefHeight="100.0" prefWidth="300.0" ripplerFill="#013c78" stylesheets="@style/KioskStyle.css" text="AUDIO/VISUAL" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
               <GridPane.margin>
                 <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
               </GridPane.margin>
@@ -100,7 +101,7 @@
                 <Font name="Calibri" size="20.0" />
               </font>
             </JFXButton>
-            <JFXButton prefHeight="100.0" prefWidth="300.0" ripplerFill="#013c78" stylesheets="@style/KioskStyle.css" text="IT SUPPORT" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
+            <JFXButton fx:id="itSupport" onAction="#itSupportAction" prefHeight="100.0" prefWidth="300.0" ripplerFill="#013c78" stylesheets="@style/KioskStyle.css" text="IT SUPPORT" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
               <GridPane.margin>
                 <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
               </GridPane.margin>
@@ -116,7 +117,7 @@
                 <Font name="Calibri" size="20.0" />
               </font>
             </JFXButton>
-            <JFXButton prefHeight="100.0" prefWidth="300.0" ripplerFill="#013c78" stylesheets="@style/KioskStyle.css" text="JYAN" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
+            <JFXButton onAction="#supportAnimalAction" prefHeight="100.0" prefWidth="300.0" ripplerFill="#013c78" stylesheets="@style/KioskStyle.css" text="JYAN" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
               <GridPane.margin>
                 <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
               </GridPane.margin>
@@ -124,7 +125,7 @@
                 <Font name="Calibri" size="20.0" />
               </font>
             </JFXButton>
-            <JFXButton prefHeight="100.0" prefWidth="300.0" ripplerFill="#013c78" stylesheets="@style/KioskStyle.css" text="Other 1" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
+            <JFXButton fx:id="florist" onAction="#floristAction" prefHeight="100.0" prefWidth="300.0" ripplerFill="#013c78" stylesheets="@style/KioskStyle.css" text="Other 1" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
               <GridPane.margin>
                 <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
               </GridPane.margin>
@@ -156,7 +157,7 @@
                 <Font name="Calibri" size="20.0" />
               </font>
             </JFXButton>
-            <JFXButton fx:id="viewResolveButton" prefHeight="100.0" prefWidth="912.0" ripplerFill="#013c78" stylesheets="@style/KioskStyle.css" text="VIEW/RESOLVE REQUESTS" GridPane.columnSpan="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.vgrow="ALWAYS">
+            <JFXButton fx:id="viewResolveButton" onAction="#viewAction" prefHeight="100.0" prefWidth="912.0" ripplerFill="#013c78" stylesheets="@style/KioskStyle.css" text="VIEW/RESOLVE REQUESTS" GridPane.columnSpan="3" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" GridPane.vgrow="ALWAYS">
               <GridPane.margin>
                 <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
               </GridPane.margin>
