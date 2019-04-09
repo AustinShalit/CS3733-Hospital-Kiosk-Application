@@ -19,4 +19,6 @@ interface SchedulingRequestDao extends Dao<Integer, SchedulingRequest> {
   boolean wouldConflict(SchedulingRequest schedulingRequest);
 
   Set<Node> allAvailableNodes(LocalDateTime localDateTime);
+
+  Set<Node> allAvailableNodes(LocalDateTime start, LocalDateTime end);
 }
