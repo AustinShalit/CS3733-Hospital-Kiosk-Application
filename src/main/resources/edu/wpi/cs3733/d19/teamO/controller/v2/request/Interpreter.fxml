@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.v2.request.GiftController">
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../style/KioskStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.v2.request.GiftController">
   <center>
     <VBox alignment="TOP_CENTER" maxHeight="441.0" maxWidth="662.0" prefHeight="441.0" prefWidth="662.0" BorderPane.alignment="CENTER">
       <children>
@@ -46,7 +46,7 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       </rowConstraints>
       <children>
-        <Label text="Add Interpreter Request" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowSpan="2">
+        <Label id="header" text="Add Interpreter Request" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowSpan="2">
           <font>
             <Font name="System Bold" size="36.0" />
           </font>
@@ -68,7 +68,7 @@
   <bottom>
     <AnchorPane prefHeight="62.0" prefWidth="800.0" BorderPane.alignment="CENTER">
       <children>
-        <JFXButton fx:id="submitbtn" layoutX="260.0" layoutY="-1.0" onAction="#onSubmitButtonAction" text="Submit" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="273.0" AnchorPane.topAnchor="10.0" />
+        <JFXButton fx:id="submitbtn" layoutX="260.0" layoutY="-1.0" onAction="#onSubmitButtonAction" ripplerFill="WHITE" text="Submit" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="273.0" AnchorPane.topAnchor="10.0" />
       </children>
     </AnchorPane>
   </bottom>
