@@ -40,7 +40,7 @@ public class FloristRequestController implements Controller {
   @FXML
   private JFXComboBox<Node> locationbox;
   @FXML
-  private JFXComboBox<FloristRequestController.FloristRequestType> categorybox;
+  private JFXComboBox<FloristRequest.FloristRequestType> categorybox;
   @FXML
   private JFXTextArea descriptiontxt;
   @FXML

@@ -19,6 +19,7 @@ import edu.wpi.cs3733.d19.teamO.controller.v2.DialogHelper;
 import edu.wpi.cs3733.d19.teamO.controller.v2.FxmlController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.RequestController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
+import edu.wpi.cs3733.d19.teamO.entity.FloristRequest;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 @FxmlController(url = "FloristView.fxml")
@@ -48,8 +49,8 @@ public class FloristRequestViewController implements Controller {
   @FXML
   private TableColumn<FloristRequestController, String> locationTableCol;
   @FXML
-  private TableColumn<FloristRequestController,
-      FloristRequestController.FloristRequestType> categoryTableCol;
+  private TableColumn<FloristRequest,
+      FloristRequest.FloristRequestType> categoryTableCol;
   @FXML
   private TableColumn<FloristRequestController, String> descriptionCol;
   @FXML
@@ -98,7 +99,7 @@ public class FloristRequestViewController implements Controller {
     String name = DialogHelper.textInputDialog("Enter Employee Name",
         "Enter Employee Name", "Employee Name: ");
 
-    FloristRequestController sr = db.getFloristRequest(idInt).get();
+    FloristRequest sr = db.getFloristRequest(idInt).get();
     sr.setWhoCompleted(name);
     db.updateFloristRequest(sr);
 
@@ -108,7 +109,7 @@ public class FloristRequestViewController implements Controller {
 
   @FXML
   void onCompletedButtonAction() {
-    FloristRequestController selectedItem =
+    FloristRequest selectedItem =
         requestsTableView.getSelectionModel().getSelectedItem();
     requestsTableView.getItems().remove(selectedItem);
 
