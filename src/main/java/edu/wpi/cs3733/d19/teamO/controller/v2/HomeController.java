@@ -7,9 +7,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
-import java.util.Optional;
 
-import javax.management.ImmutableDescriptor;
 import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.google.gson.JsonElement;
@@ -64,9 +62,8 @@ public class HomeController implements Controller {
   @Inject
   private NavigationController.Factory navigationControllerFactory;
 
-  private Optional<EventBus> eventBus = Optional.empty();
   private int second, minute, hour, month, day, year;
-  private Image sun, temp, moon;
+  private Image temp;
   private String image;
 
   @FXML
@@ -140,14 +137,6 @@ public class HomeController implements Controller {
     Platform.runLater(()
         -> weatherLabel.setText("From " + df.format(min) + " F to " + df.format(max) + " F" ));
   }
-  @Inject
-  private EventBus eventBus;
-  @Inject
-  private RequestController.Factory requestControllerFactory;
-  @Inject
-  private SchedulingController.Factory schedulingControllerFactory;
-  @Inject
-  private NavigationController.Factory navigationControllerFactory;
 
   @FXML
   void navigationOnAction() {
