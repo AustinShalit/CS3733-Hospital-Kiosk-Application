@@ -21,6 +21,14 @@
       </StackPane>
     </graphic>
   </Label>
+  <Label onMouseClicked="#checkRequestsAction">
+    Check Requests
+    <graphic>
+      <StackPane>
+        <FontAwesomeIconView glyphName="CHECK" size="1.5em" />
+      </StackPane>
+    </graphic>
+  </Label>
   <Label onMouseClicked="#signoutAction">
     Sign out
     <graphic>
