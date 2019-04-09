@@ -1,21 +1,33 @@
-package edu.wpi.cs3733.d19.teamO.controller;
+package edu.wpi.cs3733.d19.teamO.controller.v2.request;
 
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 
+import com.google.common.eventbus.EventBus;
+import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
 
+import edu.wpi.cs3733.d19.teamO.controller.v2.Controller;
+import edu.wpi.cs3733.d19.teamO.controller.v2.DialogHelper;
+import edu.wpi.cs3733.d19.teamO.controller.v2.FxmlController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.RequestController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.InternalTransportationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
-public class InternalTransportationViewWindowController extends Controller {
+@FxmlController(url = "InternalTransportationView.fxml")
+@SuppressWarnings("PMD.TooManyFields")
+public class InternalTransportationViewController implements Controller {
 
+  @FXML
+  private BorderPane root;
   @FXML
   private JFXButton goBackButton;
   @FXML
@@ -44,12 +56,15 @@ public class InternalTransportationViewWindowController extends Controller {
   @FXML
   private TableColumn<InternalTransportationRequest, String> nameCol;
 
+  @Inject
+  private EventBus eventBus;
+  @Inject
   private Database db;
+  @Inject
+  private RequestController.Factory requestControllerFactory;
 
   @FXML
-  void initialize() throws SQLException {
-    db = new Database();
-
+  void initialize() {
     idTableCol.setCellValueFactory(new PropertyValueFactory<>("id"));
     timeRequestedCol.setCellValueFactory(new PropertyValueFactory<>("timeRequested"));
     //timeCompletedCol.setCellValueFactory(new PropertyValueFactory<>("timeCompletedString"));
@@ -73,15 +88,15 @@ public class InternalTransportationViewWindowController extends Controller {
 
   @FXML
   void goBackButtonAction() {
-    switchScenes("MainWindow.fxml", goBackButton.getScene().getWindow());
+    eventBus.post(new ChangeMainViewEvent(requestControllerFactory.create()));
   }
 
   @FXML
-  void onAssignButtonAction() throws SQLException {
-    String id = textInputDialog("Enter Security Request ID",
+  void onAssignButtonAction() {
+    String id = DialogHelper.textInputDialog("Enter Security Request ID",
         "Enter Request ID", "ID: ");
     int idInt = Integer.parseInt(id);
-    String name = textInputDialog("Enter Employee Name",
+    String name = DialogHelper.textInputDialog("Enter Employee Name",
         "Enter Employee Name", "Employee Name: ");
 
     InternalTransportationRequest sr = db.getInternalTransportationRequest(idInt).get();
@@ -100,5 +115,14 @@ public class InternalTransportationViewWindowController extends Controller {
 
     db.deleteInternalTransportationRequest(selectedItem);
 
+  }
+
+  @Override
+  public Parent getRoot() {
+    return root;
+  }
+
+  public interface Factory {
+    InternalTransportationViewController create();
   }
 }

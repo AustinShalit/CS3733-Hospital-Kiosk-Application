@@ -15,7 +15,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
-import edu.wpi.cs3733.d19.teamO.controller.exception.InvalidUserInputException;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
@@ -54,26 +53,29 @@ public class SanitationWindowController extends Controller {
 
   @FXML
   void onSubmitButtonAction() {
-    try {
-      SanitationRequest sr = parseUserSanitationRequestTest();
-      if (database.insertSanitationRequest(sr)) {
-        String message = "Successfully submitted sanitation request.";
-        showInformationAlert("Success!", message);
-      } else {
-        showErrorAlert("Error.", "Unable to submit sanitation request.");
-      }
-    } catch (InvalidUserInputException ex) {
+    SanitationRequest sr = parseUserSanitationRequestTest();
+    if (sr == null) {
       Logger logger = Logger.getLogger(SanitationWindowController.class.getName());
-      logger.log(Level.WARNING, "Unable to parse Sanitation Request.", ex);
+      logger.log(Level.WARNING,
+          "Unable to parse Sanitation Request.",
+          "Unable to parse Sanitation Request.");
+      return;
+    }
+
+    if (database.insertSanitationRequest(sr)) {
+      String message = "Successfully submitted sanitation request.";
+      showInformationAlert("Success!", message);
+    } else {
+      showErrorAlert("Error.", "Unable to submit sanitation request.");
     }
   }
 
   /**
    * Parse input the user has inputted for the sanitation request.
    *
-   * @return A SanitationRequest representing the users input.
+   * @return If valid input, a SanitationRequest representing the users input. Otherwise null.
    */
-  private SanitationRequest parseUserSanitationRequestTest() throws InvalidUserInputException {
+  private SanitationRequest parseUserSanitationRequestTest() {
     // if input is valid, parse it and return a new SanitationRequest
     if (!descriptionTextArea.getText().isEmpty()
         && Objects.nonNull(locationComboBox.getValue())
@@ -93,7 +95,7 @@ public class SanitationWindowController extends Controller {
 
     // otherwise, some input was invalid
     showErrorAlert("Error.", "Please make sure all fields are filled out.");
-    throw new InvalidUserInputException("Unable to parse Sanitation Request.");
+    return null;
   }
 
 }

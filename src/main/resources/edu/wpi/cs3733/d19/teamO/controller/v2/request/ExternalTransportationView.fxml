@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.InternalTransportationViewWindowController">
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.v2.request.ExternalTransportationViewController">
   <center>
     <TableView fx:id="requestsTableView" prefHeight="459.0" prefWidth="668.0" BorderPane.alignment="CENTER">
       <columns>
@@ -35,7 +35,7 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       </rowConstraints>
       <children>
-        <Label fx:id="titleLabel" text="View Internal Transportation Requests" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowSpan="2">
+        <Label fx:id="titleLabel" text="View External Transportation Requests" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowSpan="2">
           <font>
             <Font name="System Bold" size="36.0" />
           </font>

@@ -11,7 +11,6 @@ import com.jfoenix.controls.JFXComboBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-import edu.wpi.cs3733.d19.teamO.controller.exception.InvalidUserInputException;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
@@ -46,17 +45,20 @@ public class SecurityWindowController extends Controller {
 
   @FXML
   void onSendHelpButtonAction() {
-    try {
-      SecurityRequest sr = parseUserSecurityRequest();
-      if (database.insertSecurityRequest(sr)) {
-        String message = "Successfully submitted security request. Help is on the way.";
-        showInformationAlert("Success!", message);
-      } else {
-        showErrorAlert("Error.", "Unable to submit security request.");
-      }
-    } catch (InvalidUserInputException ex) {
+    SecurityRequest sr = parseUserSecurityRequest();
+    if (sr == null) {
       Logger logger = Logger.getLogger(SanitationWindowController.class.getName());
-      logger.log(Level.WARNING, "Unable to parse Security Request.", ex);
+      logger.log(Level.WARNING,
+          "Unable to parse Security Request.",
+          "Unable to parse Security Request.");
+      return;
+    }
+
+    if (database.insertSecurityRequest(sr)) {
+      String message = "Successfully submitted security request. Help is on the way.";
+      showInformationAlert("Success!", message);
+    } else {
+      showErrorAlert("Error.", "Unable to submit security request.");
     }
   }
 
@@ -69,9 +71,9 @@ public class SecurityWindowController extends Controller {
   /**
    * Parse input the user has inputted for the security request.
    *
-   * @return A SecurityRequest representing the users input.
+   * @return If valid input, A SecurityRequest representing the users input. Otherwise null.
    */
-  private SecurityRequest parseUserSecurityRequest() throws InvalidUserInputException {
+  private SecurityRequest parseUserSecurityRequest() {
     // if input is valid, parse it and return a new SecurityRequest
     if (Objects.nonNull(locationComboBox.getValue())) {
 
@@ -83,7 +85,7 @@ public class SecurityWindowController extends Controller {
 
     // otherwise, some input was invalid
     showErrorAlert("Error.", "Please make sure to select a location.");
-    throw new InvalidUserInputException("Unable to parse Security Request.");
+    return null;
   }
 
 }
