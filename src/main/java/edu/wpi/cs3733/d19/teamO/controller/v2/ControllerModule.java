@@ -25,6 +25,7 @@ import edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationView
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InterpreterController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InterpreterViewController;
 
+@SuppressWarnings("PMD.CouplingBetweenObjects")
 public class ControllerModule extends AbstractModule {
   @Override
   protected void configure() {
