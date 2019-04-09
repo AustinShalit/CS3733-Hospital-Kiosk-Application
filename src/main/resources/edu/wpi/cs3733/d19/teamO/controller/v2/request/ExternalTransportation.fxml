@@ -18,9 +18,9 @@
   <center>
     <VBox alignment="TOP_CENTER" maxHeight="500.0" maxWidth="650.0" prefHeight="500.0" prefWidth="650.0" spacing="30.0" styleClass="form" BorderPane.alignment="CENTER">
       <children>
-        <JFXTextField fx:id="nametxt" focusColor="#0067b1" labelFloat="true" maxWidth="200.0" prefHeight="32.0" promptText="Enter Name" styleClass="jfx-text-field">
+        <JFXTextField fx:id="nametxt" focusColor="#0067b1" labelFloat="true" maxWidth="200.0" prefHeight="32.0" promptText="Enter Name">
           <VBox.margin>
-            <Insets top="-10.0" />
+            <Insets />
           </VBox.margin>
           <padding>
             <Insets left="10.0" right="10.0" />
@@ -42,7 +42,7 @@
             <Insets left="10.0" right="10.0" />
           </padding>
         </JFXComboBox>
-        <JFXTextArea fx:id="descriptiontxt" focusColor="#0067b1" maxHeight="160.0" maxWidth="325.0" prefHeight="160.0" prefWidth="325.0" promptText="  Description">
+        <JFXTextArea fx:id="descriptiontxt" focusColor="#0067b1" labelFloat="true" maxHeight="160.0" maxWidth="325.0" prefHeight="160.0" prefWidth="325.0" promptText="  Description">
           <VBox.margin>
             <Insets />
           </VBox.margin>
@@ -60,7 +60,7 @@
         <Insets />
       </BorderPane.margin>
       <padding>
-        <Insets top="36.0" />
+        <Insets top="30.0" />
       </padding>
     </VBox>
   </center>
@@ -75,7 +75,7 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       </rowConstraints>
       <children>
-        <Label id="heading" text="Add External Transportation Request" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+        <Label id="header" text="Add External Transportation Request" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
           <font>
             <Font name="System Bold" size="36.0" />
           </font>
