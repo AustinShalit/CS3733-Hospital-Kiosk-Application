@@ -86,6 +86,7 @@ public class MapView extends StackPane {
       coordX.setText(Double.toString((int) pointOnMap.getY()));
     });
     gesturePane.setFitMode(GesturePane.FitMode.COVER);
+    gesturePane.setScrollBarEnabled(false);
     resetButtonBackground(99);
     levelF1.setStyle("-fx-background-color: rgba(17,0,255,0.4)");
 
