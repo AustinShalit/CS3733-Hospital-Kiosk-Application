@@ -319,6 +319,10 @@ public class Database {
     return etransportationDao.update(externalTransportationRequest);
   }
 
+  public Set<ExternalTransportationRequest> getExternalTransportationRequestsByCategory(
+      String type) {
+    return etransportationDao.getNumberByCategory(type);
+  }
   /*
    * Gift Request
    */
@@ -343,5 +347,10 @@ public class Database {
   public boolean updateGiftRequest(
       GiftRequest giftRequest) {
     return giftRequestDao.update(giftRequest);
+  }
+
+  public Set<GiftRequest> getNumberbyCategory(
+      String type){
+    return giftRequestDao.getNumberByCategory(type);
   }
 }

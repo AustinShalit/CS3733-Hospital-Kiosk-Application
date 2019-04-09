@@ -15,6 +15,7 @@ import com.jfoenix.controls.JFXTextField;
 
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
 import edu.wpi.cs3733.d19.teamO.controller.v2.Controller;
@@ -44,6 +45,8 @@ public class GiftController implements Controller {
   private JFXButton submitbtn;
   @FXML
   private JFXButton backbtn;
+  @FXML
+  private Label reportLabel;
 
   @Inject
   private EventBus eventBus;
@@ -81,6 +84,18 @@ public class GiftController implements Controller {
       DialogHelper.showErrorAlert("Error.",
           "Unable to submit gift request.");
     }
+  }
+
+  @FXML
+  void onReportAction(){
+    int tSize = db.getNumberbyCategory("TEDDYBEAR").size();
+    int cSize = db.getNumberbyCategory("CANDY").size();
+    int bSize = db.getNumberbyCategory("BALLOONS").size();
+    int oSize = db.getNumberbyCategory("OTHERS").size();
+    reportLabel.setText("The number of requests for gift of teddy: " + tSize
+        + "of candy: " + cSize
+        + "of balloons: " + bSize
+        + "of other gifts: " + oSize);
   }
 
   /**

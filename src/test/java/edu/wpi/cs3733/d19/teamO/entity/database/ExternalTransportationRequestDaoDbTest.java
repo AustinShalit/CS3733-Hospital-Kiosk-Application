@@ -183,4 +183,13 @@ class ExternalTransportationRequestDaoDbTest {
       assertDoesNotThrow(() -> new ExternalTransportationRequestDaoDb(dcf));
     }
   }
+
+  @Test
+  void categoryTest(){
+    nodeDao.insert(testNode1);
+    nodeDao.insert(testNode2);
+    itrequestdao.insert(testITRequest1);
+    itrequestdao.insert(testITRequest2);
+    assertEquals(1,itrequestdao.getNumberByCategory("AMBULANCE").size());
+  }
 }

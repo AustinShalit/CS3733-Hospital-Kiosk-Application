@@ -202,4 +202,23 @@ public class GiftRequestDaoDb implements GiftRequestDao {
     }
     return false;
   }
+
+  @Override
+  public Set<GiftRequest> getNumberByCategory(String type) {
+    try (Connection connection = dcf.getConnection()) {
+      PreparedStatement statement
+          = connection.prepareStatement(queries.getProperty("gift_request.category"));
+      statement.setString(1, type);
+      try (ResultSet resultSet = statement.executeQuery()) {
+        Set<GiftRequest> giftRequests = new HashSet<>();
+        while (resultSet.next()) {
+          giftRequests.add(extractGiftRequestFromResultSet(resultSet));
+        }
+        return giftRequests;
+      }
+    } catch (SQLException ex) {
+      logger.log(Level.WARNING, "Failed to get Nodes", ex);
+    }
+    return Collections.emptySet();
+  }
 }
