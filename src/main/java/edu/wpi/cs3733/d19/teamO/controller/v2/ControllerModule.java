@@ -20,6 +20,8 @@ import edu.wpi.cs3733.d19.teamO.controller.v2.request.GiftController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.GiftViewController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationViewController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.InterpreterController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.InterpreterViewController;
 
 public class ControllerModule extends AbstractModule {
   @Override
@@ -62,6 +64,11 @@ public class ControllerModule extends AbstractModule {
 
     install(new FactoryModuleBuilder().build(GiftController.Factory.class));
     install(new FactoryModuleBuilder().build(GiftViewController.Factory.class));
+    install(new FactoryModuleBuilder().build(SchedulingController.Factory.class));
 
+    install(new FactoryModuleBuilder().build(InterpreterController.Factory.class));
+    install(new FactoryModuleBuilder().build(InterpreterViewController.Factory.class));
+    
+    install(new FactoryModuleBuilder().build(NavigationController.Factory.class));
   }
 }

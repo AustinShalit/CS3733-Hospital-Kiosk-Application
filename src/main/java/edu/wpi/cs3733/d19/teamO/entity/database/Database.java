@@ -10,6 +10,7 @@ import edu.wpi.cs3733.d19.teamO.entity.Employee;
 import edu.wpi.cs3733.d19.teamO.entity.ExternalTransportationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.GiftRequest;
 import edu.wpi.cs3733.d19.teamO.entity.InternalTransportationRequest;
+import edu.wpi.cs3733.d19.teamO.entity.InterpreterRequest;
 import edu.wpi.cs3733.d19.teamO.entity.Login;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
@@ -38,13 +39,13 @@ public class Database {
   private final GiftRequestDao giftRequestDao;
 
   private final EmployeeDao employeeDao;
+  private final InterpreterRequestDao interpreterDao;
 
   Database(DatabaseConnectionFactory dcf) throws SQLException {
     this.nodeDao = new NodeDaoDb(dcf);
     this.edgeDao = new EdgeDaoDb(dcf);
     this.securityRequestDao = new SecurityRequestDaoDb(dcf);
     this.sanitationRequestDao = new SanitationRequestDaoDb(dcf);
-    this.loginDao = new LoginDaoDb(dcf);
     this.schedulingRequestDao = new SchedulingRequestDaoDb(dcf);
     this.itransportationDao = new InternalTransportationRequestDaoDb(dcf);
 
@@ -53,6 +54,8 @@ public class Database {
     this.etransportationDao = new ExternalTransportationRequestDaoDb(dcf);
 
     this.employeeDao = new EmployeeDaoDb(dcf);
+    this.loginDao = new LoginDaoDb(dcf);
+    this.interpreterDao = new InterpreterRequestDaoDb(dcf);
     this.giftRequestDao = new GiftRequestDaoDb(dcf);
   }
 
@@ -307,6 +310,29 @@ public class Database {
   }
 
   /*
+   * Interpretation
+   */
+  public Optional<InterpreterRequest> getInterpreterRequest(int id) {
+    return interpreterDao.get(id);
+  }
+
+  public Set<InterpreterRequest> getAllInterpreterRequests() {
+    return interpreterDao.getAll();
+  }
+
+  public boolean insertInterpreterRequest(InterpreterRequest interpreterRequest) {
+    return interpreterDao.insert(interpreterRequest);
+  }
+
+  public boolean deleteInterpreterRequest(InterpreterRequest interpreterRequest) {
+    return interpreterDao.delete(interpreterRequest);
+  }
+
+  public boolean updateInterpreterRequest(InterpreterRequest interpreterRequest) {
+    return interpreterDao.update(interpreterRequest);
+  }
+
+  /*
    * External Transporation
    */
   public Optional<ExternalTransportationRequest> getExternalTransportationRequest(int id) {
@@ -357,5 +383,4 @@ public class Database {
       GiftRequest giftRequest) {
     return giftRequestDao.update(giftRequest);
   }
-
 }
