@@ -9,6 +9,7 @@ import edu.wpi.cs3733.d19.teamO.entity.AudioVisualRequest;
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Employee;
 import edu.wpi.cs3733.d19.teamO.entity.ExternalTransportationRequest;
+import edu.wpi.cs3733.d19.teamO.entity.FloristRequest;
 import edu.wpi.cs3733.d19.teamO.entity.GiftRequest;
 import edu.wpi.cs3733.d19.teamO.entity.ITSupportRequest;
 import edu.wpi.cs3733.d19.teamO.entity.InternalTransportationRequest;
@@ -19,9 +20,10 @@ import edu.wpi.cs3733.d19.teamO.entity.PatientInfoRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SchedulingRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
+import edu.wpi.cs3733.d19.teamO.entity.SupportAnimalRequest;
 
-@SuppressWarnings({"PMD.TooManyMethods", "PMD.GodClass", "PMD.ExcessivePublicCount"})
-
+@SuppressWarnings({"PMD.TooManyMethods", "PMD.GodClass", "PMD.ExcessivePublicCount",
+    "PMD.CyclomaticComplexity", "PMD.TooManyFields"})
 public class Database {
 
   private final NodeDao nodeDao;
@@ -31,13 +33,13 @@ public class Database {
   private final SchedulingRequestDao schedulingRequestDao;
   private final LoginDao loginDao;
   private final InternalTransportationRequestDao itransportationDao;
-
   private final AudioVisualRequestDao audioVisualRequestDao;
-
   private final PatientInfoRequestDaoDb patientInfoRequestDao;
+  private final SupportAnimalRequestDao supportAnimalRequestDao;
   private final ExternalTransportationRequestDao etransportationDao;
   private final GiftRequestDao giftRequestDao;
   private final ITSupportRequestDao itSupportDao;
+  private final FloristRequestDao floristRequestDao;
   private final EmployeeDao employeeDao;
   private final InterpreterRequestDao interpreterDao;
 
@@ -48,11 +50,11 @@ public class Database {
     this.sanitationRequestDao = new SanitationRequestDaoDb(dcf);
     this.schedulingRequestDao = new SchedulingRequestDaoDb(dcf);
     this.itransportationDao = new InternalTransportationRequestDaoDb(dcf);
-
+    this.floristRequestDao = new FloristRequestDaoDb(dcf);
     this.audioVisualRequestDao = new AudioVisualRequestDaoDb(dcf);
-
     this.patientInfoRequestDao = new PatientInfoRequestDaoDb(dcf);
     this.etransportationDao = new ExternalTransportationRequestDaoDb(dcf);
+    this.supportAnimalRequestDao = new SupportAnimalRequestDaoDb(dcf);
     this.itSupportDao = new ITSupportRequestDaoDb(dcf);
     this.employeeDao = new EmployeeDaoDb(dcf);
     this.loginDao = new LoginDaoDb(dcf);
@@ -96,7 +98,6 @@ public class Database {
   public boolean updateNode(Node node) {
     return nodeDao.update(node);
   }
-
 
   public Set<Node> getAllRooms(String type) {
     return nodeDao.getAllRooms(type);
@@ -315,6 +316,32 @@ public class Database {
   }
 
   /*
+   * Florist
+   */
+  public Optional<FloristRequest> getFloristRequest(int id) {
+    return floristRequestDao.get(id);
+  }
+
+  public Set<FloristRequest> getAllFloristRequests() {
+    return floristRequestDao.getAll();
+  }
+
+  public boolean insertFloristRequest(
+      FloristRequest floristRequest) {
+    return floristRequestDao.insert(floristRequest);
+  }
+
+  public boolean deleteFloristRequest(
+      FloristRequest floristRequest) {
+    return floristRequestDao.delete(floristRequest);
+  }
+
+  public boolean updateFloristRequest(
+      FloristRequest floristRequest) {
+    return floristRequestDao.update(floristRequest);
+  }
+  
+  /*
    * Patient info
    */
   public Optional<PatientInfoRequest> getPatientInfoRequest(int id) {
@@ -436,5 +463,28 @@ public class Database {
   public boolean updateGiftRequest(
       GiftRequest giftRequest) {
     return giftRequestDao.update(giftRequest);
+  }
+
+  /*
+   * Support Animal
+   */
+  public Optional<SupportAnimalRequest> getSupportAnimalRequest(int id) {
+    return supportAnimalRequestDao.get(id);
+  }
+
+  public Set<SupportAnimalRequest> getAllSupportAnimalRequests() {
+    return supportAnimalRequestDao.getAll();
+  }
+
+  public boolean insertSupportAnimalRequest(SupportAnimalRequest request) {
+    return supportAnimalRequestDao.insert(request);
+  }
+
+  public boolean deleteSupportAnimalRequest(SupportAnimalRequest request) {
+    return supportAnimalRequestDao.delete(request);
+  }
+
+  public boolean updateSupportAnimalRequest(SupportAnimalRequest request) {
+    return supportAnimalRequestDao.update(request);
   }
 }

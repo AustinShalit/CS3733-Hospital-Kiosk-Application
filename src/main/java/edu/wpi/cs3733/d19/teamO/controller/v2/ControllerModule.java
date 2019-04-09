@@ -16,6 +16,8 @@ import edu.wpi.cs3733.d19.teamO.controller.v2.request.AudioVisualController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.AudioVisualViewController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.ExternalTransportationController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.ExternalTransportationViewController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.FloristRequestController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.FloristRequestViewController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.GiftController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.GiftViewController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.ITSupportController;
@@ -26,6 +28,8 @@ import edu.wpi.cs3733.d19.teamO.controller.v2.request.InterpreterController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InterpreterViewController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.PatientInfoController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.PatientInfoViewController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.SupportAnimalController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.SupportAnimalViewController;
 
 @SuppressWarnings("PMD.CouplingBetweenObjects")
 public class ControllerModule extends AbstractModule {
@@ -53,6 +57,7 @@ public class ControllerModule extends AbstractModule {
 
     install(new FactoryModuleBuilder().build(HomeController.Factory.class));
     install(new FactoryModuleBuilder().build(LoginController.Factory.class));
+    install(new FactoryModuleBuilder().build(NavigationController.Factory.class));
     install(new FactoryModuleBuilder().build(OptionsPopupController.Factory.class));
     install(new FactoryModuleBuilder().build(RequestController.Factory.class));
 
@@ -78,9 +83,15 @@ public class ControllerModule extends AbstractModule {
     install(new FactoryModuleBuilder().build(InterpreterController.Factory.class));
     install(new FactoryModuleBuilder().build(InterpreterViewController.Factory.class));
 
+    install(new FactoryModuleBuilder().build(SupportAnimalController.Factory.class));
+    install(new FactoryModuleBuilder().build(SupportAnimalViewController.Factory.class));
+
     install(new FactoryModuleBuilder().build(NavigationController.Factory.class));
 
     install(new FactoryModuleBuilder().build(ITSupportController.Factory.class));
     install(new FactoryModuleBuilder().build(ITSupportViewController.Factory.class));
+
+    install(new FactoryModuleBuilder().build(FloristRequestController.Factory.class));
+    install(new FactoryModuleBuilder().build(FloristRequestViewController.Factory.class));
   }
 }

@@ -86,12 +86,12 @@
                 <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
               </GridPane.margin>
             </JFXButton>
-            <JFXButton prefHeight="100.0" prefWidth="300.0" ripplerFill="WHITE" style="-fx-background-color: grey;" text="Jyan" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
+            <JFXButton onAction="#supportAnimalAction" prefHeight="100.0" prefWidth="300.0" ripplerFill="WHITE" style="-fx-background-color: grey;" text="Support Animal" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
               <GridPane.margin>
                 <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
               </GridPane.margin>
             </JFXButton>
-            <JFXButton prefHeight="100.0" prefWidth="300.0" ripplerFill="WHITE" style="-fx-background-color: grey;" text="Other 1" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
+            <JFXButton fx:id="florist" onAction="#floristAction" prefHeight="100.0" prefWidth="300.0" ripplerFill="WHITE" style="-fx-background-color: grey;" text="Florist Request" GridPane.columnIndex="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
               <GridPane.margin>
                 <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
               </GridPane.margin>

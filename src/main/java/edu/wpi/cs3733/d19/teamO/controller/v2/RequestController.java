@@ -11,13 +11,15 @@ import javafx.scene.layout.VBox;
 
 import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.AudioVisualController;
-import edu.wpi.cs3733.d19.teamO.controller.v2.request.AudioVisualViewController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.ExternalTransportationController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.FloristRequestController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.FloristRequestViewController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.GiftController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.ITSupportController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InterpreterController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.PatientInfoController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.SupportAnimalController;
 
 @FxmlController(url = "ServiceRequest.fxml")
 @SuppressWarnings("PMD.TooManyFields")
@@ -53,7 +55,7 @@ public class RequestController implements Controller {
   @FXML
   private JFXButton jyans;
   @FXML
-  private JFXButton other1;
+  private JFXButton florist;
 
   @FXML
   private JFXButton other2;
@@ -61,6 +63,8 @@ public class RequestController implements Controller {
   private JFXButton other3;
   @FXML
   private JFXButton other4;
+  @FXML
+  private JFXButton viewRequest;
 
   @FXML
   private JFXButton viewResolveButton;
@@ -72,8 +76,6 @@ public class RequestController implements Controller {
   @Inject
   private AudioVisualController.Factory audioVisualControllerFactory;
   @Inject
-  private AudioVisualViewController.Factory audioVisualViewControllerFactory;
-  @Inject
   private PatientInfoController.Factory patientInfoControllerFactory;
   @Inject
   private ITSupportController.Factory itSupportControllerFactory;
@@ -84,6 +86,12 @@ public class RequestController implements Controller {
   @Inject
   private InterpreterController.Factory interpreterControllerFactory;
 
+  @Inject
+  private SupportAnimalController.Factory supportAnimalControllerFactory;
+  @Inject
+  private FloristRequestController.Factory floristRequestControllerFactory;
+  @Inject
+  private FloristRequestViewController.Factory floristRequestViewControllerFactory;
 
   @FXML
   void internalTransportationAction(ActionEvent event) {
@@ -121,10 +129,20 @@ public class RequestController implements Controller {
   }
 
   @FXML
-  void viewAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(audioVisualViewControllerFactory.create()));
+  void floristAction(ActionEvent event) {
+    eventBus.post(new ChangeMainViewEvent(floristRequestControllerFactory.create()));
   }
 
+  @FXML
+  void viewAction(ActionEvent event) {
+    eventBus.post(new ChangeMainViewEvent(floristRequestViewControllerFactory.create()));
+  }
+
+
+  @FXML
+  void supportAnimalAction(ActionEvent event) {
+    eventBus.post(new ChangeMainViewEvent(supportAnimalControllerFactory.create()));
+  }
 
   @Override
   public Parent getRoot() {
