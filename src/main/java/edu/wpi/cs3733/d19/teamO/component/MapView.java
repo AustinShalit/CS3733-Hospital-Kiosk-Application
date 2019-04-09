@@ -89,7 +89,9 @@ public class MapView extends StackPane {
     gesturePane.setScrollBarEnabled(false);
     level = 1;
     resetButtonBackground(1);
-    backgroundImage.setImage(new Image(getClass().getResource("01_thefirstfloor.png").openStream()));
+    backgroundImage.setImage(
+        new Image(getClass().getResource("01_thefirstfloor.png").openStream())
+    );
     levelF1.setStyle("-fx-background-color: rgba(17,0,255,0.4)");
 
   }
