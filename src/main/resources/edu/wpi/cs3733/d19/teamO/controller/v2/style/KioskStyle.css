@@ -2,10 +2,7 @@
     -fx-font-family: Calibri;
     -fx-background-color: #F1F1F1;
     -fx-background-image: url("TechBackground.png");
-}
-
-.header {
-
+    -fx-background-size: 100% 100%;
 }
 
 .form {
