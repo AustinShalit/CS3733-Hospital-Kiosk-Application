@@ -17,7 +17,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 
-import edu.wpi.cs3733.d19.teamO.controller.SanitationWindowController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.Controller;
 import edu.wpi.cs3733.d19.teamO.controller.v2.DialogHelper;
 import edu.wpi.cs3733.d19.teamO.controller.v2.FxmlController;
@@ -29,6 +28,9 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 @FxmlController(url = "InternalTransportation.fxml")
 public class InternalTransportationController implements Controller {
+
+  private static final Logger logger = Logger.getLogger(
+      InternalTransportationController.class.getName());
 
   @FXML
   private BorderPane root;
@@ -68,7 +70,6 @@ public class InternalTransportationController implements Controller {
   void onSubmitButtonAction() {
     InternalTransportationRequest internal = parseUserITRequest();
     if (internal == null) {
-      Logger logger = Logger.getLogger(SanitationWindowController.class.getName());
       logger.log(Level.WARNING,
           "Unable to parse internal transportation Request.",
           "Unable to parse Internal Transportation Request.");
@@ -87,10 +88,11 @@ public class InternalTransportationController implements Controller {
   /**
    * Parse input the user has inputted for the sanitation request.
    *
-   * @return If valid input, A SanitationRequest representing the users input. Otherwise null.
+   * @return If valid input, A InternalTransportationRequest representing the users input
+   *         Otherwise null.
    */
   private InternalTransportationRequest parseUserITRequest() {
-    // if input is valid, parse it and return a new SanitationRequest
+    // if input is valid, parse it and return a new InternalTransportationRequest
     if (!descriptiontxt.getText().isEmpty()
         && !nametxt.getText().isEmpty()
         && Objects.nonNull(locationbox.getValue())
