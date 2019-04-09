@@ -23,7 +23,7 @@ import edu.wpi.cs3733.d19.teamO.controller.v2.request.ReligiousServiceViewContro
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.SupportAnimalController;
 
 @FxmlController(url = "ServiceRequest.fxml")
-@SuppressWarnings("PMD.TooManyFields")
+@SuppressWarnings({"PMD.TooManyFields", "PMD.TooManyMethods"})
 public class RequestController implements Controller {
 
   @FXML
