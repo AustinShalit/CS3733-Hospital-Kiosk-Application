@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.AudioVisualController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.ExternalTransportationController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.FloristRequestController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.GiftController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.ITSupportController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationController;
@@ -54,7 +55,7 @@ public class RequestController implements Controller {
   @FXML
   private JFXButton jyans;
   @FXML
-  private JFXButton other1;
+  private JFXButton florist;
 
   @FXML
   private JFXButton other2;
@@ -62,6 +63,8 @@ public class RequestController implements Controller {
   private JFXButton other3;
   @FXML
   private JFXButton other4;
+  @FXML
+  private JFXButton viewRequest;
 
   @FXML
   private JFXButton viewResolveButton;
@@ -87,6 +90,8 @@ public class RequestController implements Controller {
   @Inject
   private ReligiousServiceViewController.Factory religiousServiceViewControllerFactory;
 
+  @Inject
+  private FloristRequestController.Factory floristRequestControllerFactory;
 
   @FXML
   void internalTransportationAction(ActionEvent event) {
@@ -126,6 +131,10 @@ public class RequestController implements Controller {
   @FXML
   void religiousAction(ActionEvent event) {
     eventBus.post(new ChangeMainViewEvent(religiousServiceControllerFactory.create()));
+  }
+  
+  void floristAction(ActionEvent event) {
+    eventBus.post(new ChangeMainViewEvent(floristRequestControllerFactory.create()));
   }
 
   @FXML
