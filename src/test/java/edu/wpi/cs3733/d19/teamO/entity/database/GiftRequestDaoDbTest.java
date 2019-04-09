@@ -4,21 +4,22 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Set;
 
+import com.google.inject.Inject;
+
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInfo;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import edu.wpi.cs3733.d19.teamO.entity.GiftRequest;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@ExtendWith(DatabaseExtension.class)
 class GiftRequestDaoDbTest {
   private static final int id1 = 123;
   private static final int id2 = 1234;
@@ -43,12 +44,11 @@ class GiftRequestDaoDbTest {
   private GiftRequestDaoDb itrequestdao;
   private NodeDao nodeDao;
 
-  @BeforeEach
-  void setup(TestInfo testInfo) throws SQLException {
-    DatabaseConnectionFactory dcf
-        = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
-        testInfo.getDisplayName());
+  @Inject
+  private DatabaseConnectionFactory dcf;
 
+  @BeforeEach
+  void setup() throws SQLException {
     nodeDao = new NodeDaoDb(dcf);
     GiftRequestDaoDb internalTransportationRequestDaoDb =
         new GiftRequestDaoDb(dcf);
@@ -155,31 +155,6 @@ class GiftRequestDaoDbTest {
     for (GiftRequest sr : internalTransportationRequestSet) {
       // make sure the id is in the correct range
       assertTrue(sr.getId() < 11 || sr.getId() > 1);
-    }
-  }
-
-  @Nested
-  class Creation {
-    @Test
-    void createTableTest(TestInfo testInfo) {
-      DatabaseConnectionFactory dcf
-          = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
-          testInfo.getDisplayName());
-
-      assertDoesNotThrow(() -> new NodeDaoDb(dcf));
-      assertDoesNotThrow(() -> new GiftRequestDaoDb(dcf));
-    }
-
-    @Test
-    void existingTableTest(TestInfo testInfo) {
-      DatabaseConnectionFactory dcf
-          = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
-          testInfo.getDisplayName());
-
-      assertDoesNotThrow(() -> new NodeDaoDb(dcf));
-
-      assertDoesNotThrow(() -> new GiftRequestDaoDb(dcf));
-      assertDoesNotThrow(() -> new GiftRequestDaoDb(dcf));
     }
   }
 }

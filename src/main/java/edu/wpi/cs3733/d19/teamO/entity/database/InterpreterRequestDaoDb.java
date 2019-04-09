@@ -35,17 +35,13 @@ public class InterpreterRequestDaoDb implements InterpreterRequestDao {
   }
 
   private static final String TABLE_NAME = queries.getProperty("interpreter_request.table_name");
-  private DatabaseConnectionFactory dcf;
-  private NodeDaoDb nodeDaoDb;
+  private final DatabaseConnectionFactory dcf;
+  private final NodeDaoDb nodeDaoDb;
 
   InterpreterRequestDaoDb(final DatabaseConnectionFactory dcf) throws SQLException {
     this.dcf = dcf;
     nodeDaoDb = new NodeDaoDb(dcf);
     createTable();
-  }
-
-  InterpreterRequestDaoDb() throws SQLException {
-    this(new DatabaseConnectionFactoryEmbedded());
   }
 
   @Override
