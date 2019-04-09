@@ -185,7 +185,7 @@ public class MapView extends StackPane {
   }
 
   @FXML
-  void onMouseMove(MouseEvent e)  {
+  void onMouseMove(MouseEvent e) {
     Object src = e.getSource();
     resetButtonBackground(level);
     int currentLevel = 1;
@@ -195,16 +195,16 @@ public class MapView extends StackPane {
     } else if (src.equals(levelF2)) {
       levelF2.setStyle("-fx-background-color:  rgba(17,0,255,0.2)");
       currentLevel = 2;
-    } else if (src.equals(levelF3) ) {
+    } else if (src.equals(levelF3)) {
       levelF3.setStyle("-fx-background-color:  rgba(17,0,255,0.2)");
       currentLevel = 3;
-    } else if (src.equals(levelL1) ) {
+    } else if (src.equals(levelL1)) {
       levelL1.setStyle("-fx-background-color:  rgba(17,0,255,0.2)");
       currentLevel = -1;
-    } else if (src.equals(levelL2) ) {
+    } else if (src.equals(levelL2)) {
       levelL2.setStyle("-fx-background-color:  rgba(17,0,255,0.2)");
       currentLevel = -2;
-    } else if (src.equals(levelG) ) {
+    } else if (src.equals(levelG)) {
       levelG.setStyle("-fx-background-color:  rgba(17,0,255,0.2)");
       currentLevel = 0;
     } else {
