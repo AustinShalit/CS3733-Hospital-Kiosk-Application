@@ -24,6 +24,8 @@ import edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationCont
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationViewController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InterpreterController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InterpreterViewController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.PatientInfoController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.PatientInfoViewController;
 
 @SuppressWarnings("PMD.CouplingBetweenObjects")
 public class ControllerModule extends AbstractModule {
@@ -61,6 +63,10 @@ public class ControllerModule extends AbstractModule {
 
     install(new FactoryModuleBuilder().build(InternalTransportationController.Factory.class));
     install(new FactoryModuleBuilder().build(InternalTransportationViewController.Factory.class));
+
+    install(new FactoryModuleBuilder().build(PatientInfoController.Factory.class));
+    install(new FactoryModuleBuilder().build(PatientInfoViewController.Factory.class));
+
 
     install(new FactoryModuleBuilder().build(ExternalTransportationController.Factory.class));
     install(new FactoryModuleBuilder().build(ExternalTransportationViewController.Factory.class));
