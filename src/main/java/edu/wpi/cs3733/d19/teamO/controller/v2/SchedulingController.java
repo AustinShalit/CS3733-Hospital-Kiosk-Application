@@ -96,6 +96,11 @@ public class SchedulingController implements Controller {
       return;
     }
 
+    if (database.schedulingRequestWouldConflict(request)) {
+      showErrorAlert("Error.", "Please choose different times.");
+      return;
+    }
+
     if (database.insertSchedulingrequest(request)) {
       String message = "Successfully submitted scheduling request.";
       showInformationAlert("Success!", message);
