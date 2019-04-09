@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Set;
 
+import com.google.inject.Inject;
+
 import edu.wpi.cs3733.d19.teamO.entity.AudioVisualRequest;
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Employee;
@@ -43,7 +45,8 @@ public class Database {
   private final EmployeeDao employeeDao;
   private final InterpreterRequestDao interpreterDao;
 
-  Database(DatabaseConnectionFactory dcf) throws SQLException {
+  @Inject
+  Database(final DatabaseConnectionFactory dcf) throws SQLException {
     this.nodeDao = new NodeDaoDb(dcf);
     this.edgeDao = new EdgeDaoDb(dcf);
     this.securityRequestDao = new SecurityRequestDaoDb(dcf);
@@ -60,20 +63,6 @@ public class Database {
     this.loginDao = new LoginDaoDb(dcf);
     this.interpreterDao = new InterpreterRequestDaoDb(dcf);
     this.giftRequestDao = new GiftRequestDaoDb(dcf);
-  }
-
-  /**
-   * Create a new database in memory.
-   *
-   * @param memoryName The name of the database
-   */
-  public Database(String memoryName) throws SQLException {
-    this(new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
-        memoryName));
-  }
-
-  public Database() throws SQLException {
-    this(new DatabaseConnectionFactoryEmbedded());
   }
 
   /*
@@ -344,7 +333,7 @@ public class Database {
       FloristRequest floristRequest) {
     return floristRequestDao.update(floristRequest);
   }
-  
+
   /*
    * Patient info
    */

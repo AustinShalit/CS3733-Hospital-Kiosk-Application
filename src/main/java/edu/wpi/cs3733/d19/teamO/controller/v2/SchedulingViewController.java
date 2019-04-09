@@ -1,23 +1,26 @@
 package edu.wpi.cs3733.d19.teamO.controller.v2;
 
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 
+import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 
-import edu.wpi.cs3733.d19.teamO.controller.Controller;
 import edu.wpi.cs3733.d19.teamO.entity.SchedulingRequest;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 
-public class SchedulingViewController extends Controller {
+public class SchedulingViewController implements Controller {
 
+  @FXML
+  private AnchorPane root;
   @FXML
   private JFXButton goBackButton;
   @FXML
@@ -39,11 +42,11 @@ public class SchedulingViewController extends Controller {
   @FXML
   private TableColumn<SchedulingRequest, String> locationTableCol;
 
+  @Inject
+  private Database db;
 
   @FXML
-  void initialize() throws SQLException {
-    final Database db = new Database();
-
+  void initialize() {
     idTableCol.setCellValueFactory(new PropertyValueFactory<>("id"));
     startTimeCol.setCellValueFactory(new PropertyValueFactory<>("startTime"));
     endTimeCol.setCellValueFactory(new PropertyValueFactory<>("endTime"));
@@ -63,5 +66,10 @@ public class SchedulingViewController extends Controller {
     for (TableColumn column : requestsTableView.getColumns()) {
       column.setPrefWidth(1000); // must be a value larger than the starting window size
     }
+  }
+
+  @Override
+  public Parent getRoot() {
+    return root;
   }
 }
