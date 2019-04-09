@@ -3,9 +3,13 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXTimePicker?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Tab?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -15,8 +19,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import edu.wpi.cs3733.d19.teamO.component.MapView?>
 
-<?import com.jfoenix.controls.JFXTabPane?>
 <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.v2.SchedulingController">
   <left>
     <StackPane maxWidth="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -38,10 +42,10 @@
                     <Font size="20.0" />
                   </font>
                   <VBox.margin>
-                    <Insets bottom="3.0" />
+                    <Insets bottom="5.0" />
                   </VBox.margin>
                 </Text>
-                <GridPane alignment="CENTER">
+                <GridPane alignment="CENTER" vgap="5.0">
                   <columnConstraints>
                     <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
                     <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
@@ -86,7 +90,7 @@
                     <Font size="20.0" />
                   </font>
                   <VBox.margin>
-                    <Insets bottom="3.0" />
+                    <Insets bottom="8.0" />
                   </VBox.margin>
                 </Text>
                 <GridPane>
@@ -116,6 +120,16 @@
                     <Insets bottom="3.0" />
                   </VBox.margin>
                 </GridPane>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+                  <font>
+                    <Font size="36.0" />
+                  </font>
+                </Text>
+                <JFXTextField fx:id="nameField" prefHeight="25.0" prefWidth="132.0">
+                  <VBox.margin>
+                    <Insets bottom="5.0" left="30.0" right="30.0" />
+                  </VBox.margin>
+                </JFXTextField>
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room">
                   <font>
                     <Font size="36.0" />
@@ -168,7 +182,7 @@
                     <Insets bottom="10.0" />
                   </VBox.margin>
                 </JFXTimePicker>
-                <JFXButton fx:id="goButton" prefHeight="40.0" prefWidth="294.0" style="-fx-background-color: grey;" text="Go">
+                <JFXButton fx:id="goButton" onAction="#onSubmitButtonAction" prefHeight="40.0" prefWidth="294.0" style="-fx-background-color: grey;" text="Go">
                   <VBox.margin>
                     <Insets bottom="3.0" />
                   </VBox.margin>
@@ -196,12 +210,20 @@
           <tabs>
             <Tab fx:id="mapTab" closable="false" text="Map">
               <content>
-                <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: red;" />
+                <MapView fx:id="map" style="-fx-background-color: WHITE;" GridPane.rowIndex="1" GridPane.rowSpan="4">
+                  <GridPane.margin>
+                    <Insets bottom="50.0" left="10.0" right="10.0" top="50.0" />
+                  </GridPane.margin>
+                </MapView>
               </content>
             </Tab>
-            <Tab fx:id="tableTab" closable="false" text="Table">
+            <Tab fx:id="tableTab" closable="false" onSelectionChanged="#showCurrentSchedule" text="Table">
               <content>
-                <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: blue;" />
+                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                  <children>
+                    <AnchorPane fx:id="tableVIew" onMouseClicked="#showCurrentSchedule" prefHeight="643.0" prefWidth="1066.0" style="-fx-background-color: #2600ff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  </children>
+                </AnchorPane>
               </content>
             </Tab>
           </tabs>

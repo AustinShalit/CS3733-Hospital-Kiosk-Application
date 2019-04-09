@@ -20,12 +20,9 @@ public class OptionsPopupController implements Controller {
   @Inject
   private EventBus eventBus;
   @Inject
+  private AdminController.Factory adminControllerFactory;
+  @Inject
   private LoginController.Factory loginControllerFactory;
-
-  @FXML
-  void onAction(MouseEvent event) {
-    list.getSelectionModel().getSelectedItem().fireEvent(event);
-  }
 
   @FXML
   void settingsAction(MouseEvent event) {
@@ -33,8 +30,12 @@ public class OptionsPopupController implements Controller {
   }
 
   @FXML
+  void adminAction(MouseEvent event) {
+    eventBus.post(new ChangeMainViewEvent(adminControllerFactory.create()));
+  }
+
+  @FXML
   void signoutAction(MouseEvent event) {
-    event.consume();
     eventBus.post(new ChangeMainViewEvent(loginControllerFactory.create(), false));
   }
 
