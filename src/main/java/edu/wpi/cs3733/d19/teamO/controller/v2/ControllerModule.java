@@ -14,17 +14,18 @@ import javafx.fxml.FXMLLoader;
 
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.ExternalTransportationController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.ExternalTransportationViewController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.FloristRequestController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.FloristRequestViewController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.GiftController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.GiftViewController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.ITSupportController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.ITSupportViewController;
-import edu.wpi.cs3733.d19.teamO.controller.v2.request.FloristRequestController;
-import edu.wpi.cs3733.d19.teamO.controller.v2.request.FloristRequestViewController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationViewController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InterpreterController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InterpreterViewController;
 
+@SuppressWarnings("PMD.CouplingBetweenObjects")
 public class ControllerModule extends AbstractModule {
   @Override
   protected void configure() {
