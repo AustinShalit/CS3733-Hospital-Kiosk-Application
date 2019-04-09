@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.ExternalTransportationController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.GiftController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.ITSupportController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InterpreterController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.PatientInfoController;
@@ -69,12 +70,13 @@ public class RequestController implements Controller {
   @Inject
   private PatientInfoController.Factory patientInfoControllerFactory;
   @Inject
+  private ITSupportController.Factory itSupportControllerFactory;
+  @Inject
   private ExternalTransportationController.Factory externalTransportationControllerFactory;
   @Inject
   private GiftController.Factory giftControllerFactory;
   @Inject
   private InterpreterController.Factory interpreterControllerFactory;
-
 
 
   @FXML
@@ -85,6 +87,11 @@ public class RequestController implements Controller {
   @FXML
   void patientInfoAction(ActionEvent event) {
     eventBus.post(new ChangeMainViewEvent(patientInfoControllerFactory.create()));
+  }
+
+  @FXML
+  void itSupportAction(ActionEvent event) {
+    eventBus.post(new ChangeMainViewEvent(itSupportControllerFactory.create()));
   }
 
   @FXML

@@ -8,6 +8,7 @@ import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Employee;
 import edu.wpi.cs3733.d19.teamO.entity.ExternalTransportationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.GiftRequest;
+import edu.wpi.cs3733.d19.teamO.entity.ITSupportRequest;
 import edu.wpi.cs3733.d19.teamO.entity.InternalTransportationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.InterpreterRequest;
 import edu.wpi.cs3733.d19.teamO.entity.Login;
@@ -31,6 +32,7 @@ public class Database {
   private final PatientInfoRequestDaoDb patientInfoRequestDao;
   private final ExternalTransportationRequestDao etransportationDao;
   private final GiftRequestDao giftRequestDao;
+  private final ITSupportRequestDao itSupportDao;
   private final EmployeeDao employeeDao;
   private final InterpreterRequestDao interpreterDao;
 
@@ -43,6 +45,7 @@ public class Database {
     this.itransportationDao = new InternalTransportationRequestDaoDb(dcf);
     this.patientInfoRequestDao = new PatientInfoRequestDaoDb(dcf);
     this.etransportationDao = new ExternalTransportationRequestDaoDb(dcf);
+    this.itSupportDao = new ITSupportRequestDaoDb(dcf);
     this.employeeDao = new EmployeeDaoDb(dcf);
     this.loginDao = new LoginDaoDb(dcf);
     this.interpreterDao = new InterpreterRequestDaoDb(dcf);
@@ -294,6 +297,32 @@ public class Database {
 
   public boolean updatePatientInfoRequest(PatientInfoRequest patientInfoRequest) {
     return patientInfoRequestDao.update(patientInfoRequest);
+  }
+
+  /*
+   * IT Support
+   */
+  public Optional<ITSupportRequest> getITSupportRequest(int id) {
+    return itSupportDao.get(id);
+  }
+
+  public Set<ITSupportRequest> getAllITSupportRequests() {
+    return itSupportDao.getAll();
+  }
+
+  public boolean insertITSupportRequest(
+      ITSupportRequest itSupportRequest) {
+    return itSupportDao.insert(itSupportRequest);
+  }
+
+  public boolean deleteITSupportRequest(
+      ITSupportRequest itSupportRequest) {
+    return itSupportDao.delete(itSupportRequest);
+  }
+
+  public boolean updateITSupportRequest(
+      ITSupportRequest itSupportRequest) {
+    return itSupportDao.update(itSupportRequest);
   }
 
   /*
