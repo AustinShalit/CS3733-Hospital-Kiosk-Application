@@ -69,7 +69,7 @@ public class MapView extends StackPane {
   }
 
   @FXML
-  void initialize() {
+  void initialize() throws IOException {
     gesturePane.setMinScale(0.1);
     gesturePane.setOnMouseClicked(e -> {
       Point2D pointOnMap = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
@@ -89,6 +89,8 @@ public class MapView extends StackPane {
     gesturePane.setScrollBarEnabled(false);
     resetButtonBackground(99);
     levelF1.setStyle("-fx-background-color: rgba(17,0,255,0.4)");
+
+    onFloorSelectAction(new ActionEvent(levelF1, levelF1));
 
   }
 
@@ -233,9 +235,12 @@ public class MapView extends StackPane {
    * @param nodes nodes are the for positions
    */
   public void addNodesToPane(final Collection<Node> nodes) {
-    nodes.stream()
-        .map(node -> new Circle(node.getXcoord(), node.getYcoord(), 5, Color.RED))
-        .forEach(nodeGroup.getChildren()::add);
+
+    for (Node node: nodes) {
+      Circle c = new Circle(node.getXcoord(), node.getYcoord(), 5, Color.color(0, 0.31, 0.53));
+      c.setStroke(Color.BLACK);
+      nodeGroup.getChildren().add(c);
+    }
   }
 
 
