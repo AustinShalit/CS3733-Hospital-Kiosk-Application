@@ -12,6 +12,8 @@ import com.google.inject.spi.TypeListener;
 
 import javafx.fxml.FXMLLoader;
 
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.AudioVisualController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.AudioVisualViewController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.ExternalTransportationController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.ExternalTransportationViewController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.GiftController;
@@ -22,7 +24,10 @@ import edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationCont
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationViewController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InterpreterController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InterpreterViewController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.PatientInfoController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.PatientInfoViewController;
 
+@SuppressWarnings("PMD.CouplingBetweenObjects")
 public class ControllerModule extends AbstractModule {
   @Override
   protected void configure() {
@@ -50,10 +55,18 @@ public class ControllerModule extends AbstractModule {
     install(new FactoryModuleBuilder().build(LoginController.Factory.class));
     install(new FactoryModuleBuilder().build(OptionsPopupController.Factory.class));
     install(new FactoryModuleBuilder().build(RequestController.Factory.class));
+
+    install(new FactoryModuleBuilder().build(AudioVisualController.Factory.class));
+    install(new FactoryModuleBuilder().build(AudioVisualViewController.Factory.class));
+
     install(new FactoryModuleBuilder().build(AdminController.Factory.class));
 
     install(new FactoryModuleBuilder().build(InternalTransportationController.Factory.class));
     install(new FactoryModuleBuilder().build(InternalTransportationViewController.Factory.class));
+
+    install(new FactoryModuleBuilder().build(PatientInfoController.Factory.class));
+    install(new FactoryModuleBuilder().build(PatientInfoViewController.Factory.class));
+
 
     install(new FactoryModuleBuilder().build(ExternalTransportationController.Factory.class));
     install(new FactoryModuleBuilder().build(ExternalTransportationViewController.Factory.class));
