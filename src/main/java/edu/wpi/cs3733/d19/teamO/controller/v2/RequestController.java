@@ -14,6 +14,8 @@ import edu.wpi.cs3733.d19.teamO.controller.v2.request.ExternalTransportationCont
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.GiftController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InterpreterController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.ReligiousServiceController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.ReligiousServiceViewController;
 
 @FxmlController(url = "ServiceRequest.fxml")
 @SuppressWarnings("PMD.TooManyFields")
@@ -71,6 +73,10 @@ public class RequestController implements Controller {
   private GiftController.Factory giftControllerFactory;
   @Inject
   private InterpreterController.Factory interpreterControllerFactory;
+  @Inject
+  private ReligiousServiceController.Factory religiousServiceControllerFactory;
+  @Inject
+  private ReligiousServiceViewController.Factory religiousServiceViewControllerFactory;
 
 
   @FXML
@@ -91,6 +97,16 @@ public class RequestController implements Controller {
   @FXML
   void interpreterAction(ActionEvent event) {
     eventBus.post(new ChangeMainViewEvent(interpreterControllerFactory.create()));
+  }
+
+  @FXML
+  void religiousAction(ActionEvent event) {
+    eventBus.post(new ChangeMainViewEvent(religiousServiceControllerFactory.create()));
+  }
+
+  @FXML
+  void viewAction(ActionEvent event) {
+    eventBus.post(new ChangeMainViewEvent(religiousServiceViewControllerFactory.create()));
   }
 
   @Override

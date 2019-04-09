@@ -26,7 +26,7 @@ import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.ReligiousServiceRequest;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
-@FxmlController(url = "RelgiousService.fxml")
+@FxmlController(url = "ReligiousService.fxml")
 public class ReligiousServiceController implements Controller {
 
   @FXML
@@ -99,13 +99,13 @@ public class ReligiousServiceController implements Controller {
       Node node = (Node) locationbox.getValue();
 
       String type = categorybox.getValue().toString().toUpperCase(new Locale("EN"));
-      ReligiousServiceRequest.ReligiousServiceRequestType relgiousRequestType =
+      ReligiousServiceRequest.ReligiousServiceRequestType religiousRequestType =
           ReligiousServiceRequest.ReligiousServiceRequestType.valueOf(type);
 
       String description = descriptiontxt.getText();
       String name = nametxt.getText();
 
-      return new ReligiousServiceRequest(now, node, relgiousRequestType, description, name);
+      return new ReligiousServiceRequest(now, node, religiousRequestType, description, name);
     }
 
     // otherwise, some input was invalid
