@@ -63,6 +63,7 @@ application {
 
 tasks.withType<Test> {
     useJUnitPlatform {
+        maxParallelForks = 4
         if (project.hasProperty("skipUI")) {
             excludeTags("UI")
         }

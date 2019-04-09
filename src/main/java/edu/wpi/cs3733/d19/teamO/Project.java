@@ -40,6 +40,8 @@ public class Project extends Application {
   @Inject
   private EventBus eventBus;
   @Inject
+  private Database database;
+  @Inject
   private LoginController.Factory loginControllerFactory;
 
   private Injector injector;
@@ -51,8 +53,6 @@ public class Project extends Application {
 
     injector = Guice.createInjector(new ProjectModule(), new ControllerModule());
     injector.injectMembers(this);
-
-    Database database = new Database();
 
     NodeCsvReaderWriter ncrw = new NodeCsvReaderWriter();
     EdgeCsvReaderWriter ecrw = new EdgeCsvReaderWriter(database);

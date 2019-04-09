@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.d19.teamO.controller.v2;
 
-import java.sql.SQLException;
-
+import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
@@ -19,8 +18,6 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 @SuppressWarnings("PMD.TooManyFields")
 @FxmlController(url = "Scheduling.fxml")
 public class SchedulingController implements Controller {
-
-  private final Database database = new Database();
 
   @FXML
   BorderPane root;
@@ -61,8 +58,8 @@ public class SchedulingController implements Controller {
   @FXML
   Tab tableTab;
 
-  public SchedulingController() throws SQLException {
-  }
+  @Inject
+  private Database database;
 
   @FXML
   void initialize() {
