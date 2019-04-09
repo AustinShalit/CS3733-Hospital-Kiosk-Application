@@ -23,7 +23,7 @@ import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SupportAnimalRequest;
 
 @SuppressWarnings({"PMD.TooManyMethods", "PMD.GodClass", "PMD.ExcessivePublicCount",
-    "PMD.CyclomaticComplexity"})
+    "PMD.CyclomaticComplexity", "PMD.TooManyFields"})
 public class Database {
 
   private final NodeDao nodeDao;
