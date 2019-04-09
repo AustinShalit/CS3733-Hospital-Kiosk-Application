@@ -51,11 +51,11 @@ class ITSupportRequestDaoDbTest {
             + testInfo.getDisplayName());
 
     nodeDao = new NodeDaoDb(dcf);
-    ITSupportRequestDaoDb itSupportRequestDaoDb =
+    ITSupportRequestDaoDb informationTechnologySupportRequestDaoDb =
         new ITSupportRequestDaoDb(dcf);
 
     nodeDao.insert(testNode1);
-    itSupportRequestDaoDb.insert(testITSupportRequest1);
+    informationTechnologySupportRequestDaoDb.insert(testITSupportRequest1);
 
 
     itSupportRequestDaoDb = new ITSupportRequestDaoDb(dcf);
@@ -73,14 +73,16 @@ class ITSupportRequestDaoDbTest {
     itSupportRequestDaoDb.insert(testITSupportRequest1);
 
     assertNotSame(testITSupportRequest1,
-        itSupportRequestDaoDb.get(testITSupportRequest1.getId()).orElseThrow(IllegalStateException::new));
+        itSupportRequestDaoDb.get(testITSupportRequest1.getId())
+            .orElseThrow(IllegalStateException::new));
   }
 
   @Test
   void checkEqual() {
     itSupportRequestDaoDb.insert(testITSupportRequest1);
 
-    assertEquals(testITSupportRequest1, itSupportRequestDaoDb.get(testITSupportRequest1.getId()).get());
+    assertEquals(testITSupportRequest1, itSupportRequestDaoDb.get(testITSupportRequest1.getId())
+        .get());
   }
 
   @Test
@@ -118,7 +120,8 @@ class ITSupportRequestDaoDbTest {
         "A different description", "Austin");
 
     assertTrue(itSupportRequestDaoDb.update(update));
-    assertNotEquals(testITSupportRequest1, itSupportRequestDaoDb.get(testITSupportRequest1.getId()));
+    assertNotEquals(testITSupportRequest1, itSupportRequestDaoDb.get(testITSupportRequest1
+        .getId()));
   }
 
   @Test
