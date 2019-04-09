@@ -1,6 +1,11 @@
 .root {
     -fx-font-family: Calibri;
     -fx-background-color: #F1F1F1;
+    -fx-background-image: url("TechBackground.png");
+}
+
+.header {
+
 }
 
 .form {
@@ -10,7 +15,7 @@
     -fx-spacing: 36px;
 }
 
-#header {
+#heading {
     -fx-font-family: "Palatino Linotype";
     -fx-font-size: 42px;
     -fx-text-fill: #1D1A1B;
