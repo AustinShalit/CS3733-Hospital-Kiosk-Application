@@ -15,7 +15,7 @@
       <top>
         <JFXToolbar fx:id="toolbar" BorderPane.alignment="CENTER">
           <left>
-            <JFXButton onAction="#onHomeButtonAction" ripplerFill="#004e86" style="-fx-background-color: #0067B1;" text="Home" textFill="WHITE" BorderPane.alignment="CENTER">
+            <JFXButton onAction="#onHomeButtonAction" prefWidth="63.0" ripplerFill="#004e86" style="-fx-background-color: #0067B1;" text="Home" textFill="WHITE" BorderPane.alignment="CENTER">
               <font>
                 <Font name="System Bold" size="15.0" />
               </font>
@@ -29,11 +29,11 @@
               </StackPane>
             </JFXRippler>
           </right>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
         </JFXToolbar>
       </top>
     </BorderPane>
   </children>
-  <padding>
-    <Insets bottom="9.0" left="9.0" right="9.0" top="9.0" />
-  </padding>
 </StackPane>

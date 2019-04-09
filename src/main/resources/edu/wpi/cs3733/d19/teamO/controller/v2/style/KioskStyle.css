@@ -2,8 +2,9 @@
     -fx-font-family: Calibri;
     -fx-background-color: #F1F1F1;
     -fx-background-image: url("TechBackground.png");
-    -fx-background-size: auto;
-    -fx-background-position: center bottom;
+    -fx-background-size: cover;
+    -fx-pref-width: MAX_VALUE;
+    -fx-pref-height: MAX_VALUE;
 }
 
 .form {
@@ -34,7 +35,8 @@
 }
 
 #small-button {
-    -fx-background-color: #0067B1;;
+    -fx-background-color: #0067B1;
+    -fx-pref-width: 100px;
     -fx-font-size: 16px;
     -fx-font-weight: bold;
 }
