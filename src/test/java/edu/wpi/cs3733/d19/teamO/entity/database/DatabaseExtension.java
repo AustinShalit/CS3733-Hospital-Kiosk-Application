@@ -7,43 +7,30 @@ import com.google.inject.Injector;
 import com.google.inject.Module;
 
 import org.junit.jupiter.api.extension.AfterEachCallback;
+import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
-import org.junit.jupiter.api.extension.TestInstancePostProcessor;
 
-public class DatabaseExtension implements TestInstancePostProcessor, AfterEachCallback {
+public class DatabaseExtension implements BeforeEachCallback, AfterEachCallback {
 
-  private static final String KEY = DatabaseExtension.class.getName();
+  private static String cleanId(final String id) {
+    return id.replaceAll("[^A-Za-z0-9]", "");
+  }
 
-  private static ExtensionContext getRoot(ExtensionContext context) {
-    return context.getParent().map(DatabaseExtension::getRoot).orElse(context);
+  private static Injector createInjector(ExtensionContext context) {
+    return Guice.createInjector((Module) binder -> {
+      binder.bind(DatabaseConnectionFactory.class)
+          .toInstance(new DatabaseConnectionFactoryMemory(cleanId(context.getUniqueId())));
+      binder.bind(Database.class).asEagerSingleton();
+    });
   }
 
   @Override
-  public void postProcessTestInstance(Object testInstance, ExtensionContext context) {
-    getOrCreateInjector(context).injectMembers(testInstance);
-  }
-
-  private static Injector getOrCreateInjector(ExtensionContext context) {
-    return getRoot(context)
-        .getStore(ExtensionContext.Namespace.GLOBAL)
-        .getOrComputeIfAbsent(KEY,
-            key -> Guice.createInjector((Module) binder
-                -> {
-              binder.bind(DatabaseConnectionFactory.class)
-                  .toInstance(new DatabaseConnectionFactoryMemory(context.getUniqueId()));
-              binder.bind(Database.class).asEagerSingleton();
-            }),
-            Injector.class);
+  public void beforeEach(ExtensionContext context) {
+    createInjector(context).injectMembers(context.getTestInstance().get());
   }
 
   @Override
   public void afterEach(ExtensionContext context) throws SQLException {
-    getRoot(context)
-        .getStore(ExtensionContext.Namespace.GLOBAL)
-        .get(KEY, Injector.class)
-        .getBinding(DatabaseConnectionFactory.class)
-        .getProvider()
-        .get()
-        .drop();
+    new DatabaseConnectionFactoryMemory(cleanId(context.getUniqueId())).drop();
   }
 }
