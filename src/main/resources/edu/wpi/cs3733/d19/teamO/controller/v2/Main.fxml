@@ -6,15 +6,12 @@
 <?import com.jfoenix.controls.JFXToolbar?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
-<StackPane fx:id="root" minHeight="1280" minWidth="720" xmlns="http://javafx.com/javafx/8.0.171"
-           xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="edu.wpi.cs3733.d19.teamO.controller.v2.MainController">
+<StackPane fx:id="root" minHeight="1280" minWidth="720" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.v2.MainController">
   <BorderPane fx:id="contentPane">
     <top>
       <JFXToolbar fx:id="toolbar" BorderPane.alignment="CENTER">
         <left>
-          <JFXButton onAction="#onHomeButtonAction" buttonType="RAISED" text="Home"
-                     BorderPane.alignment="CENTER"/>
+          <JFXButton onAction="#onHomeButtonAction" buttonType="RAISED" text="Home" BorderPane.alignment="CENTER" />
         </left>
         <right>
           <JFXRippler maskType="CIRCLE" style="ripple: white;" BorderPane.alignment="CENTER">

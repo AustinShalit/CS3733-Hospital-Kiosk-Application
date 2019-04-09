@@ -14,47 +14,37 @@
     <VBox alignment="CENTER" BorderPane.alignment="CENTER">
       <Label alignment="CENTER" text="Login" textFill="WHITE">
         <font>
-          <Font size="44.0"/>
+          <Font size="44.0" />
         </font>
         <VBox.margin>
-          <Insets/>
+          <Insets />
         </VBox.margin>
       </Label>
-      <Label alignment="CENTER" contentDisplay="CENTER"
-             text="Welcome to our kiosk. Please enter your credentials" textAlignment="CENTER"
-             textFill="WHITE" wrapText="true">
+      <Label alignment="CENTER" contentDisplay="CENTER" text="Welcome to our kiosk. Please enter your credentials" textAlignment="CENTER" textFill="WHITE" wrapText="true">
         <font>
-          <Font size="20.0"/>
+          <Font size="20.0" />
         </font>
         <VBox.margin>
-          <Insets bottom="15.0"/>
+          <Insets bottom="15.0" />
         </VBox.margin>
       </Label>
-      <JFXTextField fx:id="username" focusColor="#32b92d" maxWidth="350.0" prefHeight="50.0"
-                    prefWidth="350.0" promptText="Username"
-                    style="-fx-background-color: white; -fx-background-radius: 5;">
+      <JFXTextField fx:id="username" focusColor="#32b92d" maxWidth="350.0" prefHeight="50.0" prefWidth="350.0" promptText="Username" style="-fx-background-color: white; -fx-background-radius: 5;">
         <VBox.margin>
-          <Insets bottom="15.0"/>
+          <Insets bottom="15.0" />
         </VBox.margin>
       </JFXTextField>
-      <JFXPasswordField fx:id="password" focusColor="#32b92d" maxWidth="350.0" prefHeight="50.0"
-                        promptText="Password"
-                        style="-fx-background-color: white; -fx-border-radius: 5; -fx-background-radius: 5;">
+      <JFXPasswordField fx:id="password" focusColor="#32b92d" maxWidth="350.0" prefHeight="50.0" promptText="Password" style="-fx-background-color: white; -fx-border-radius: 5; -fx-background-radius: 5;">
         <VBox.margin>
-          <Insets bottom="10.0"/>
+          <Insets bottom="10.0" />
         </VBox.margin>
       </JFXPasswordField>
-      <Label fx:id="loginFail" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0"
-             prefWidth="281.0" textFill="WHITE"/>
-      <JFXButton fx:id="loginButton" buttonType="RAISED" defaultButton="true" maxWidth="350.0"
-                 onAction="#loginButtonAction" ripplerFill="WHITE"
-                 style="-fx-background-color: #32B92D; -fx-background-radius: 5;" text="Login"
-                 textFill="WHITE">
+      <Label fx:id="loginFail" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="281.0" textFill="WHITE" />
+      <JFXButton fx:id="loginButton" buttonType="RAISED" defaultButton="true" maxWidth="350.0" onAction="#loginButtonAction" ripplerFill="WHITE" style="-fx-background-color: #32B92D; -fx-background-radius: 5;" text="Login" textFill="WHITE">
         <VBox.margin>
-          <Insets top="10.0"/>
+          <Insets top="10.0" />
         </VBox.margin>
         <font>
-          <Font name="System Bold" size="21.0"/>
+          <Font name="System Bold" size="21.0" />
         </font>
       </JFXButton>
     </VBox>
