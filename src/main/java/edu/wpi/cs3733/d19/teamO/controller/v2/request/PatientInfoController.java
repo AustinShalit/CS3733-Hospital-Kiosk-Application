@@ -54,8 +54,6 @@ public class PatientInfoController implements Controller {
   private Database db;
   @Inject
   private RequestController.Factory requestControllerFactory;
-  @Inject
-  private PatientInfoViewController.Factory patientInfoViewControllerFactory;
 
   @FXML
   void initialize() {
