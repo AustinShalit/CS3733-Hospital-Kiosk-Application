@@ -11,7 +11,6 @@ import javafx.scene.layout.VBox;
 
 import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.AudioVisualController;
-import edu.wpi.cs3733.d19.teamO.controller.v2.request.AudioVisualViewController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.ExternalTransportationController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.FloristRequestController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.FloristRequestViewController;
@@ -75,8 +74,6 @@ public class RequestController implements Controller {
   private InternalTransportationController.Factory internalTransportationControllerFactory;
   @Inject
   private AudioVisualController.Factory audioVisualControllerFactory;
-  @Inject
-  private AudioVisualViewController.Factory audioVisualViewControllerFactory;
   @Inject
   private PatientInfoController.Factory patientInfoControllerFactory;
   @Inject
