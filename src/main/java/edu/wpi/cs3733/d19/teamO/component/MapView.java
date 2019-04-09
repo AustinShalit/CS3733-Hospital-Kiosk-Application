@@ -41,12 +41,16 @@ public class MapView extends StackPane {
 
   @FXML
   private GesturePane gesturePane;
+
   @FXML
   private ImageView backgroundImage;
+
   @FXML
   private Group nodeGroup;
+
   @FXML
   private Group edges;
+
   @FXML
   private Button levelL1;
   @FXML
@@ -113,23 +117,9 @@ public class MapView extends StackPane {
             .interpolateWith(Interpolator.EASE_BOTH)
             .zoomBy(gesturePane.getCurrentScale(), pointOnMap);
       }
-      int currentX = (int) pointOnMap.getX();
-      int currentY = (int) pointOnMap.getY();
-      coordX.setText(Double.toString(currentX));
-      coordY.setText(Double.toString(currentY));
-      circle.setCenterX(pointOnMap.getX());
-      circle.setCenterY(pointOnMap.getY());
-      circle.setVisible(true);
-      Node[] nodesArray = nodes.toArray(new Node[nodes.size()]);
-      for (Node n : nodesArray) {
-        if (abs(n.getXcoord() - currentX) < 8 && abs(n.getYcoord() - currentX) < 8) {
-          selectedNode.set(n);
-          break;
-        }
-      }
+      coordY.setText(Double.toString((int) pointOnMap.getX()));
+      coordX.setText(Double.toString((int) pointOnMap.getY()));
     });
-    gesturePane.setFitMode(GesturePane.FitMode.COVER);
-    gesturePane.setScrollBarEnabled(false);
     resetButtonBackground(99);
     levelF1.setStyle("-fx-background-color: rgba(17,0,255,0.4)");
 
@@ -214,7 +204,8 @@ public class MapView extends StackPane {
       circle.setVisible(false);
       level = 2;
       clearNodes();
-      addNodesToPane(database.getFloor("2"));
+      nodes = database.getFloor("2")
+      addNodesToPane(nodes);
     } else if (src.equals(levelF3)) {
       filename = "03_thethirdfloor.png";
       circle.setVisible(false);
@@ -227,7 +218,8 @@ public class MapView extends StackPane {
       circle.setVisible(false);
       level = -1;
       clearNodes();
-      addNodesToPane(database.getFloor("L1"));
+      nodes = database.getFloor("L1");
+      addNodesToPane(nodes);
     } else if (src.equals(levelL2)) {
       filename = "00_thelowerlevel2.png";
       circle.setVisible(false);
@@ -240,7 +232,8 @@ public class MapView extends StackPane {
       circle.setVisible(false);
       level = 0;
       clearNodes();
-      addNodesToPane(database.getFloor("G"));
+      nodes = database.getFloor("G");
+      addNodesToPane(nodes);
     }
 
     backgroundImage.setImage(new Image(getClass().getResource(filename).openStream()));
