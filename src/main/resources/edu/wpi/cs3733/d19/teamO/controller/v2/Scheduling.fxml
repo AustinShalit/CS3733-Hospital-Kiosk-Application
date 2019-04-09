@@ -172,9 +172,9 @@
                   <VBox.margin>
                     <Insets bottom="3.0" />
                   </VBox.margin>
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
+                  <font>
+                    <Font name="System Bold" size="15.0" />
+                  </font>
                 </JFXButton>
               </children>
             </VBox>

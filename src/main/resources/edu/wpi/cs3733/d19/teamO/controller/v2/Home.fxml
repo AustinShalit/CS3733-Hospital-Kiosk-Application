@@ -36,33 +36,33 @@
               <GridPane.margin>
                 <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
               </GridPane.margin>
-                     <font>
-                        <Font name="Calibri" size="20.0" />
-                     </font>
+              <font>
+                <Font name="Calibri" size="20.0" />
+              </font>
             </JFXButton>
             <JFXButton fx:id="requestButton" onAction="#requestOnAction" prefHeight="325.0" prefWidth="325.0" ripplerFill="WHITE" stylesheets="@style/KioskStyle.css" text="REQUESTS" textFill="WHITE" GridPane.columnIndex="2">
               <GridPane.margin>
                 <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
               </GridPane.margin>
-                     <font>
-                        <Font name="Calibri" size="20.0" />
-                     </font>
+              <font>
+                <Font name="Calibri" size="20.0" />
+              </font>
             </JFXButton>
             <JFXButton fx:id="scheduleButton" onAction="#scheduleOnAction" prefHeight="325.0" prefWidth="325.0" ripplerFill="WHITE" stylesheets="@style/KioskStyle.css" text="SCHEDULING" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
               <GridPane.margin>
                 <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
               </GridPane.margin>
-                     <font>
-                        <Font name="Calibri" size="20.0" />
-                     </font>
+              <font>
+                <Font name="Calibri" size="20.0" />
+              </font>
             </JFXButton>
             <JFXButton fx:id="securityButton" onAction="#securityOnAction" prefHeight="325.0" prefWidth="325.0" ripplerFill="WHITE" stylesheets="@style/KioskStyle.css" text="SECURITY" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
               <GridPane.margin>
                 <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
               </GridPane.margin>
-                     <font>
-                        <Font name="Calibri" size="20.0" />
-                     </font>
+              <font>
+                <Font name="Calibri" size="20.0" />
+              </font>
             </JFXButton>
           </children>
         </GridPane>

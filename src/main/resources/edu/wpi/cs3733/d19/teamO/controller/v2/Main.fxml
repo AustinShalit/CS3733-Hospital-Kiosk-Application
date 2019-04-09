@@ -16,9 +16,10 @@
         <JFXToolbar fx:id="toolbar" BorderPane.alignment="CENTER">
           <left>
             <JFXButton onAction="#onHomeButtonAction" ripplerFill="#004e86" style="-fx-background-color: #0067B1;" text="Home" textFill="WHITE" BorderPane.alignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font></JFXButton>
+              <font>
+                <Font name="System Bold" size="15.0" />
+              </font>
+            </JFXButton>
           </left>
           <right>
             <JFXRippler maskType="CIRCLE" style="ripple: white;" BorderPane.alignment="CENTER">
