@@ -94,7 +94,7 @@ public class MapView extends StackPane {
   }
 
   @FXML
-  void initialize() {
+  void initialize() throws IOException {
     //database.getFloor("1");
 
     //  selectedNode.set(the new node here closest);
@@ -102,6 +102,7 @@ public class MapView extends StackPane {
     nodes = database.getFloor("1");
     addNodesToPane(nodes);
     gesturePane.setMinScale(0.1);
+    backgroundImage.setImage(new Image(getClass().getResource("01_thefirstfloor.png").openStream()));
     gesturePane.setOnMouseClicked(e -> {
       Point2D pointOnMap = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
           .orElse(gesturePane.targetPointAtViewportCentre());
@@ -203,34 +204,40 @@ public class MapView extends StackPane {
 
     if (src.equals(levelF1)) {
       filename = "01_thefirstfloor.png";
+      circle.setVisible(false);
       level = 1;
       clearNodes();
       nodes = database.getFloor("1");
       addNodesToPane(nodes);
     } else if (src.equals(levelF2)) {
       filename = "02_thesecondfloor.png";
+      circle.setVisible(false);
       level = 2;
       clearNodes();
       addNodesToPane(database.getFloor("2"));
     } else if (src.equals(levelF3)) {
       filename = "03_thethirdfloor.png";
+      circle.setVisible(false);
       level = 3;
       clearNodes();
       nodes = database.getFloor("3");
       addNodesToPane(nodes);
     } else if (src.equals(levelL1)) {
       filename = "00_thelowerlevel1.png";
+      circle.setVisible(false);
       level = -1;
       clearNodes();
       addNodesToPane(database.getFloor("L1"));
     } else if (src.equals(levelL2)) {
       filename = "00_thelowerlevel2.png";
+      circle.setVisible(false);
       level = -2;
       clearNodes();
       nodes = database.getFloor("L2");
       addNodesToPane(nodes);
     } else if (src.equals(levelG)) {
       filename = "00_thegroundfloor.png";
+      circle.setVisible(false);
       level = 0;
       clearNodes();
       addNodesToPane(database.getFloor("G"));
