@@ -19,6 +19,10 @@ class NodeDaoDbTest {
 
   private static final Node TEST_NODE = new Node("TEST", 0, 0, "0", "B", Node.NodeType.CONF,
       "LN", "SN");
+  private static final Node TEST_NODE2 = new Node("123", 0, 0, "L2", "B", Node.NodeType.CONF,
+      "LN", "SN");
+  private static final Node TEST_NODE3 = new Node("456", 0, 0, "L2", "B", Node.NodeType.HALL,
+      "LN", "SN");
   private NodeDao dao;
 
   @BeforeEach
@@ -129,5 +133,33 @@ class NodeDaoDbTest {
       assertDoesNotThrow(() -> new NodeDaoDb(dcf));
     }
 
+  }
+
+
+  @Test
+  void getAllRoomTest() {
+    dao.insert(TEST_NODE);
+    dao.insert(TEST_NODE2);
+    dao.insert(TEST_NODE3);
+    assertEquals(2, dao.getAllRooms("CONF").size());
+  }
+
+
+  @Test
+  void getAllRoomTest2() {
+    dao.insert(TEST_NODE);
+    dao.insert(TEST_NODE2);
+    dao.insert(TEST_NODE3);
+    dao.update(new Node("456", 0, 0, "0", "B", Node.NodeType.BATH,
+        "LN", "SN"));
+    assertEquals(1, dao.getAllRooms("BATH").size());
+  }
+
+  @Test
+  void getFloor() {
+    dao.insert(TEST_NODE);
+    dao.insert(TEST_NODE2);
+    dao.insert(TEST_NODE3);
+    assertEquals(2, dao.getFloor("L2").size());
   }
 }

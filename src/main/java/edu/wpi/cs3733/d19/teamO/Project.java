@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -45,7 +46,7 @@ public class Project extends Application {
   private Parent root;
 
   @Override
-  public void init() throws Exception {
+  public void init() throws IOException, SQLException {
     logger.config("Application init");
 
     injector = Guice.createInjector(new ProjectModule(), new ControllerModule());
@@ -84,9 +85,7 @@ public class Project extends Application {
 
     // Set original window size and position
     primaryStage.setMinWidth(1280);
-    primaryStage.setMinHeight(780);
-    primaryStage.setWidth(1280);
-    primaryStage.setHeight(780);
+    primaryStage.setMinHeight(720);
 
     primaryStage.show();
     logger.config("Startup complete");
