@@ -31,7 +31,6 @@ public class OptionsPopupController implements Controller {
 
   @FXML
   void adminAction(MouseEvent event) {
-    event.consume();
     eventBus.post(new ChangeMainViewEvent(adminControllerFactory.create()));
   }
 
