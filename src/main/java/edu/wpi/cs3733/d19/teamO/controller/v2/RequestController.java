@@ -20,6 +20,7 @@ import edu.wpi.cs3733.d19.teamO.controller.v2.request.InterpreterController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.PatientInfoController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.ReligiousServiceController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.ReligiousServiceViewController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.SupportAnimalController;
 
 @FxmlController(url = "ServiceRequest.fxml")
 @SuppressWarnings("PMD.TooManyFields")
@@ -91,6 +92,8 @@ public class RequestController implements Controller {
   private ReligiousServiceViewController.Factory religiousServiceViewControllerFactory;
 
   @Inject
+  private SupportAnimalController.Factory supportAnimalControllerFactory;
+  @Inject
   private FloristRequestController.Factory floristRequestControllerFactory;
 
   @FXML
@@ -132,7 +135,7 @@ public class RequestController implements Controller {
   void religiousAction(ActionEvent event) {
     eventBus.post(new ChangeMainViewEvent(religiousServiceControllerFactory.create()));
   }
-  
+
   void floristAction(ActionEvent event) {
     eventBus.post(new ChangeMainViewEvent(floristRequestControllerFactory.create()));
   }
@@ -141,6 +144,13 @@ public class RequestController implements Controller {
   void viewAction(ActionEvent event) {
     eventBus.post(new ChangeMainViewEvent(religiousServiceViewControllerFactory.create()));
   }
+
+
+  @FXML
+  void supportAnimalAction(ActionEvent event) {
+    eventBus.post(new ChangeMainViewEvent(supportAnimalControllerFactory.create()));
+  }
+
 
   @Override
   public Parent getRoot() {
