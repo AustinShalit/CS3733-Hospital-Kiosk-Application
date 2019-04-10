@@ -14,6 +14,10 @@
     -fx-spacing: 36px;
     -fx-fill-width: false;
     -fx-padding: 30px;
+    -webkit-animation-direction: normal;
+    -moz-animation-direction: normal;
+    -o-animation-direction: normal;
+    animation-direction: normal;
     -fx-alignment: top-center;
 }
 
@@ -135,4 +139,11 @@
     -fx-padding: 10px;
     -fx-spacing: 10px;
     -fx-border-radius: 4px;
+}
+
+#welcome {
+    -fx-background-image: url("0002.jpg");
+    -fx-background-size: cover;
+    -fx-max-height: 4000px;
+    -fx-max-width: 4000px;
 }
