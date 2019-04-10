@@ -143,10 +143,11 @@ public class MapEditController implements Controller {
 
   @FXML
   void deleteNodeAction() {
-    boolean a =database.deleteNode(database.getNode(nodeID).get());
+    database.deleteNode(database.getNode(nodeID).get());
     status.setText("Succeed!");
     map.clearNodes();
     map.setNodes(database.getAllNodes());
+    map.clearNodes();
     map.addNodesToPane(database.getFloor(map.getLevel()));
   }
 
