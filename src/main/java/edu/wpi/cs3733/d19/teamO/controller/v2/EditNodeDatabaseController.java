@@ -4,19 +4,14 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Writer;
 
-import javax.imageio.ImageIO;
-import javax.swing.JFileChooser;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
-import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.DirectoryChooser;
 
@@ -43,23 +38,19 @@ public class EditNodeDatabaseController implements Controller {
 
   @FXML
   public void onExportButtonAction() throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
-    final DirectoryChooser directoryChooser =
-        new DirectoryChooser();
-    final File selectedDirectory =
-        directoryChooser.showDialog(getRoot().getScene().getWindow());
+    final DirectoryChooser directoryChooser = new DirectoryChooser();
+    final File selectedDirectory = directoryChooser.showDialog(getRoot().getScene().getWindow());
+    final File nodeFile = new File(selectedDirectory, "nodes.csv");
+    final File edgesFile = new File(selectedDirectory, "edges.csv");
+
     if (selectedDirectory != null) {
-
-      String string = selectedDirectory.getAbsolutePath() + "nodes.csv";
-      FileWriter fw = new FileWriter(string);
-      BufferedWriter bw = new BufferedWriter(fw);
+      FileWriter fw = new FileWriter(nodeFile);
       NodeCsvReaderWriter nodeCsvReaderWriter = new NodeCsvReaderWriter();
-      nodeCsvReaderWriter.writeNodes(bw, database.getAllNodes());
+      nodeCsvReaderWriter.writeNodes(fw, database.getAllNodes());
 
-      string = selectedDirectory.getAbsolutePath() + "edges.csv";
-      fw = new FileWriter(string);
-      bw = new BufferedWriter(fw);
+      fw = new FileWriter(edgesFile);
       EdgeCsvReaderWriter edgeCsvReaderWriter = new EdgeCsvReaderWriter(database);
-      edgeCsvReaderWriter.writeNodes(bw, database.getAllEdges());
+      edgeCsvReaderWriter.writeNodes(fw, database.getAllEdges());
 
     }
   }
