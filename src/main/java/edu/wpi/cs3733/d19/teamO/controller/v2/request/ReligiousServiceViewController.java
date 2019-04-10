@@ -14,10 +14,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 
+import edu.wpi.cs3733.d19.teamO.controller.v2.CheckRequestsController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.Controller;
 import edu.wpi.cs3733.d19.teamO.controller.v2.DialogHelper;
 import edu.wpi.cs3733.d19.teamO.controller.v2.FxmlController;
-import edu.wpi.cs3733.d19.teamO.controller.v2.RequestController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.ReligiousServiceRequest;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
@@ -61,7 +61,7 @@ public class ReligiousServiceViewController implements Controller {
   @Inject
   private Database db;
   @Inject
-  private RequestController.Factory requestControllerFactory;
+  private CheckRequestsController.Factory checkRequestsControllerFactory;
 
   @FXML
   void initialize() {
@@ -88,7 +88,7 @@ public class ReligiousServiceViewController implements Controller {
 
   @FXML
   void goBackButtonAction() {
-    eventBus.post(new ChangeMainViewEvent(requestControllerFactory.create()));
+    eventBus.post(new ChangeMainViewEvent(checkRequestsControllerFactory.create()));
   }
 
   @FXML
