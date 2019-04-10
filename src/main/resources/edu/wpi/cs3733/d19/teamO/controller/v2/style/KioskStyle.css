@@ -3,8 +3,6 @@
     -fx-background-color: #F1F1F1;
     -fx-background-image: url("TechBackground.png");
     -fx-background-size: cover;
-    -fx-pref-width: MAX_VALUE;
-    -fx-pref-height: MAX_VALUE;
 }
 
 .form {
@@ -12,6 +10,14 @@
     -fx-border-radius: 4px;
     -fx-effect: dropshadow(three-pass-box, rgba(110,110,110,0.25), 10, 0, 0, 0);
     -fx-spacing: 36px;
+    -fx-pref-height: 500px;
+    -fx-pref-width: 650px;
+    -fx-fill-width: false;
+}
+
+#title-grid {
+    -fx-pref-height: 140px;
+    -fx-pref-width: 1280px;
 }
 
 #heading {
@@ -46,19 +52,33 @@
     -fx-border-width: 0;
 }
 
-.jfx-text-field, .jfx-text-area {
+.jfx-text-field {
     -fx-background-color: #f8f8f8;
     -fx-border-color: #d2d2d2;
     -fx-border-radius: 2px;
     -fx-cursor: text;
     -fx-text-fill: #2f2f2f;
+    -fx-pref-height: 32px;
+    -fx-pref-width: 200px;
+    -fx-min-height: 32px;
+    -fx-min-width: 200px;
+    -fx-padding: 0px 10px 0px 10px;
 }
 
 .jfx-text-field:focused {
     -fx-border-color: #0067b1;
-    -fx-pref-height: 32px;
-    -fx-pref-width: 200px;
     -jfx-focus-color: rgba(0,103,177,0.2);
+}
+
+.jfx-text-area {
+    -fx-background-color: #f8f8f8;
+    -fx-border-color: #d2d2d2;
+    -fx-border-radius: 2px;
+    -fx-cursor: text;
+    -fx-text-fill: #2f2f2f;
+    -fx-pref-width: 320px;
+    -fx-pref-height: 100px;
+    -fx-padding: 10px 10px 0px 10px;
 }
 
 .jfx-text-area:focused {
@@ -68,7 +88,10 @@
 .jfx-combo-box {
     -fx-border-color: #d2d2d2;
     -fx-border-radius: 2px;
-    -fx-text-fill: #2f2f2f
+    -fx-text-fill: #2f2f2f;
+    -fx-pref-width: 200px;
+    -fx-pref-height: 32px;
+    -fx-padding: 0px 10px 0px 10px;
 }
 
 .jfx-combo-box:focused {

@@ -16,33 +16,37 @@
 
 <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../style/KioskStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationController">
   <center>
-    <VBox alignment="TOP_CENTER" maxHeight="441.0" maxWidth="662.0" prefHeight="441.0" prefWidth="662.0" styleClass="form" BorderPane.alignment="CENTER">
+    <VBox alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="480.0" prefWidth="650.0" styleClass="form" stylesheets="@../style/KioskStyle.css" BorderPane.alignment="CENTER">
       <children>
-        <JFXTextField fx:id="nametxt" labelFloat="true" maxWidth="200.0" prefHeight="31.0" promptText="Enter Name">
+        <JFXTextField fx:id="nametxt" labelFloat="true" maxWidth="200.0" prefHeight="31.0" promptText="Enter Name" styleClass="jfx-text-field">
           <VBox.margin>
             <Insets top="30.0" />
           </VBox.margin>
         </JFXTextField>
-        <JFXComboBox fx:id="locationbox" promptText="Pick Location">
+        <JFXComboBox fx:id="locationbox" prefHeight="30.0" prefWidth="200.0" promptText="Pick Location" styleClass="jfx-combo-box">
           <VBox.margin>
-            <Insets top="45.0" />
+            <Insets />
           </VBox.margin>
         </JFXComboBox>
-        <JFXComboBox fx:id="categorybox" promptText="Pick Category">
+        <JFXComboBox fx:id="categorybox" promptText="Pick Category" styleClass="jfx-combo-box">
           <VBox.margin>
-            <Insets top="45.0" />
+            <Insets />
           </VBox.margin>
         </JFXComboBox>
-        <JFXTextArea fx:id="descriptiontxt" maxHeight="160.0" maxWidth="325.0" prefHeight="160.0" prefWidth="325.0" promptText="Description...">
+        <JFXTextArea fx:id="descriptiontxt" maxHeight="160.0" maxWidth="325.0" prefHeight="160.0" prefWidth="325.0" promptText="Description..." styleClass="jfx-text-area">
           <VBox.margin>
-            <Insets top="45.0" />
+            <Insets />
           </VBox.margin>
         </JFXTextArea>
+        <JFXButton id="small-button" fx:id="submitbtn" onAction="#onSubmitButtonAction" prefHeight="30.0" text="Submit" />
       </children>
+         <padding>
+            <Insets bottom="36.0" />
+         </padding>
     </VBox>
   </center>
   <top>
-    <GridPane prefHeight="83.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+    <GridPane prefHeight="140.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
       <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -52,15 +56,18 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       </rowConstraints>
       <children>
-        <Label id="header" text="Add Internal Transportation Request" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowSpan="2">
+        <Label id="heading" text="Add Internal Transportation Request" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
           <font>
             <Font name="System Bold" size="36.0" />
           </font>
         </Label>
-        <JFXButton id="small-button" fx:id="backbtn" onAction="#onbackButtonAction" prefHeight="37.0" prefWidth="100.0" text="Go Back">
+        <JFXButton id="small-button" fx:id="backbtn" onAction="#onbackButtonAction" prefHeight="37.0" prefWidth="100.0" text="Go Back" GridPane.valignment="TOP">
           <font>
             <Font size="12.0" />
           </font>
+               <GridPane.margin>
+                  <Insets left="9.0" top="9.0" />
+               </GridPane.margin>
         </JFXButton>
       </children>
     </GridPane>
@@ -72,10 +79,6 @@
     <AnchorPane prefHeight="293.0" prefWidth="69.0" BorderPane.alignment="CENTER" />
   </right>
   <bottom>
-    <AnchorPane prefHeight="62.0" prefWidth="800.0" BorderPane.alignment="CENTER">
-      <children>
-        <JFXButton id="small-button" fx:id="submitbtn" layoutX="260.0" layoutY="-1.0" onAction="#onSubmitButtonAction" text="Submit" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="273.0" AnchorPane.topAnchor="10.0" />
-      </children>
-    </AnchorPane>
+    <AnchorPane prefHeight="62.0" prefWidth="800.0" BorderPane.alignment="CENTER" />
   </bottom>
 </BorderPane>
