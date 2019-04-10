@@ -39,7 +39,7 @@
                 <Font size="45.0" />
               </font>
             </JFXButton>
-            <JFXButton fx:id="editdatabaseButton" prefHeight="349.0" prefWidth="484.0" style="-fx-background-color: grey;" text="Node Database" GridPane.columnIndex="1">
+            <JFXButton fx:id="editdatabaseButton" onAction="#editdatabaseOnAction" prefHeight="349.0" prefWidth="484.0" style="-fx-background-color: grey;" text="Node Database" GridPane.columnIndex="1">
               <GridPane.margin>
                 <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
               </GridPane.margin>

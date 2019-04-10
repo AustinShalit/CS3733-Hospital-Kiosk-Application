@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d19.teamO.controller.v2;
 
+
 import com.jfoenix.controls.JFXButton;
 
 import javafx.fxml.FXML;
@@ -17,6 +18,9 @@ public class AdminController implements Controller {
   private JFXButton employeeButton;
   @FXML
   private JFXButton editdatabaseButton;
+  //
+  //  @Inject
+  //  private EventBus eventBus;
 
   @FXML
   void initialize() {
