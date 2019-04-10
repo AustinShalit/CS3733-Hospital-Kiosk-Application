@@ -70,6 +70,7 @@ public class ControllerModule extends AbstractModule {
     install(new FactoryModuleBuilder().build(AudioVisualViewController.Factory.class));
 
     install(new FactoryModuleBuilder().build(AdminController.Factory.class));
+    install(new FactoryModuleBuilder().build(MapEditController.Factory.class));
 
     install(new FactoryModuleBuilder().build(InternalTransportationController.Factory.class));
     install(new FactoryModuleBuilder().build(InternalTransportationViewController.Factory.class));
@@ -86,6 +87,7 @@ public class ControllerModule extends AbstractModule {
     install(new FactoryModuleBuilder().build(SchedulingController.Factory.class));
     install(new FactoryModuleBuilder().build(SchedulingViewController.Factory.class));
 
+
     install(new FactoryModuleBuilder().build(InterpreterController.Factory.class));
     install(new FactoryModuleBuilder().build(InterpreterViewController.Factory.class));
     install(new FactoryModuleBuilder().build(ReligiousServiceController.Factory.class));
@@ -94,7 +96,7 @@ public class ControllerModule extends AbstractModule {
     install(new FactoryModuleBuilder().build(SupportAnimalController.Factory.class));
     install(new FactoryModuleBuilder().build(SupportAnimalViewController.Factory.class));
 
-    install(new FactoryModuleBuilder().build(NavigationController.Factory.class));
+
 
     install(new FactoryModuleBuilder().build(ITSupportController.Factory.class));
     install(new FactoryModuleBuilder().build(ITSupportViewController.Factory.class));

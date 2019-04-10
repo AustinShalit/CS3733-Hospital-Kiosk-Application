@@ -23,11 +23,15 @@ public class AdminController implements Controller {
   @FXML
   private JFXButton editdatabaseButton;
 
+
   @Inject
   private EventBus eventBus;
 
   @Inject
   private EditNodeDatabaseController.Factory editNodeDatabaseFactory;
+  @Inject
+  private MapEditController.Factory mapEditControllerFactory;
+
 
   @FXML
   void initialize() {
@@ -36,7 +40,7 @@ public class AdminController implements Controller {
 
   @FXML
   void mapeditOnAction() {
-
+    eventBus.post(new ChangeMainViewEvent(mapEditControllerFactory.create()));
   }
 
   @FXML
