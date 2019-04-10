@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Collection;
 
+import com.google.inject.Inject;
+
 import javafx.animation.Interpolator;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
@@ -31,14 +33,16 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 import static java.lang.Math.abs;
 
 
-public class MapView extends StackPane {
+public class MapView2 extends StackPane {
 
-  private int level = 1;
-  private int currentLevel = 1;
-  Database database = new Database();
+  private String level = "1";
+  private String currentLevel = "1";
   Collection<Node> nodes;
+  Collection<Node> currentNodes;
 
-
+  public void setCurrentNodes(Collection<Node> currentNodes) {
+    this.currentNodes = currentNodes;
+  }
 
   @FXML
   private GesturePane gesturePane;
@@ -71,12 +75,12 @@ public class MapView extends StackPane {
 
 
   /**
-   * The constructor for the MapView class.
+   * The constructor for the MapView2 class.
    *
    * @throws IOException Throws in case of xyz.
    */
-  public MapView() throws IOException, SQLException {
-    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MapView.fxml"));
+  public MapView2() throws IOException {
+    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MapView2.fxml"));
     fxmlLoader.setRoot(this);
     fxmlLoader.setController(this);
     fxmlLoader.load();
@@ -96,6 +100,7 @@ public class MapView extends StackPane {
 
   @FXML
   void initialize() throws IOException {
+    //addNodesToPane(findCurrentNode(level));
     gesturePane.setMinScale(0.1);
     gesturePane.setOnMouseClicked(e -> {
       Point2D pointOnMap = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
@@ -108,50 +113,64 @@ public class MapView extends StackPane {
             .interpolateWith(Interpolator.EASE_BOTH)
             .zoomBy(gesturePane.getCurrentScale(), pointOnMap);
       }
-      coordY.setText(Double.toString((int) pointOnMap.getX()));
-      coordX.setText(Double.toString((int) pointOnMap.getY()));
+      int currentX = (int) pointOnMap.getX();
+      int currentY = (int) pointOnMap.getY();
+      coordX.setText(Double.toString(currentX));
+      coordY.setText(Double.toString(currentY));
+      circle.setCenterX(pointOnMap.getX());
+      circle.setCenterY(pointOnMap.getY());
+      circle.setVisible(true);
+    //  Node[] nodesArray = nodes.toArray(new Node[nodes.size()]);
+      selectedNode.set(new Node("Austin",currentX,currentY,level,"",null,"",""));
+      for (Node n : nodes) {
+        if (abs(n.getXcoord() - currentX) < 8 && abs(n.getYcoord() - currentY) < 8) {
+          selectedNode.set(n);
+          break;
+        }
+      }
+
     });
     gesturePane.setFitMode(GesturePane.FitMode.COVER);
     gesturePane.setScrollBarEnabled(false);
-    resetButtonBackground(99);
+    resetButtonBackground("99");
     levelF1.setStyle("-fx-background-color: rgba(17,0,255,0.4)");
 
     onFloorSelectAction(new ActionEvent(levelF1, levelF1));
 
   }
 
-  void resetButtonBackground(int level) {
-    if (level == 1) {
+  void resetButtonBackground(String l) {
+    if (l.equals("1")) {
       levelL1.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelL2.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelF2.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelF3.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelG.setStyle("-fx-background-color: rgba(249,249,255,0)");
-    } else if (level == 2) {
+    } else if (l.equals("2")) {
       levelL1.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelL2.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelF1.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelF3.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelG.setStyle("-fx-background-color: rgba(249,249,255,0)");
-    } else if (level == 3) {
+    } else if (l.equals("3")) {
       levelL1.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelL2.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelF1.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelF2.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelG.setStyle("-fx-background-color: rgba(249,249,255,0)");
-    } else if (level == 0) {
+    } else if (l.equals("G")) {
       levelL1.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelL2.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelF1.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelF2.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelF3.setStyle("-fx-background-color: rgba(249,249,255,0)");
-    } else if (level == -1) {
+    } else if (l.equals("L1")) {
       levelG.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelL2.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelF1.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelF2.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelF3.setStyle("-fx-background-color: rgba(249,249,255,0)");
-    } else if (level == -2) {
+    } else if (l.equals("L2")) {
       levelL1.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelG.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelF1.setStyle("-fx-background-color: rgba(249,249,255,0)");
@@ -168,6 +187,10 @@ public class MapView extends StackPane {
 
   }
 
+
+  public void setNodes(Collection<Node> nodes) {
+    this.nodes = nodes;
+  }
 
   @FXML
   @SuppressWarnings("PMD.CyclomaticComplexity")
@@ -190,45 +213,45 @@ public class MapView extends StackPane {
     if (src.equals(levelF1)) {
       filename = "01_thefirstfloor.png";
       circle.setVisible(false);
-      level = 1;
+      level = "1";
       clearNodes();
-      nodes = database.getFloor("1");
-      addNodesToPane(nodes);
+      findCurrentNode(level);
+      addNodesToPane(currentNodes);
     } else if (src.equals(levelF2)) {
       filename = "02_thesecondfloor.png";
       circle.setVisible(false);
-      level = 2;
+      level = "2";
       clearNodes();
-      nodes = database.getFloor("2")
-      addNodesToPane(nodes);
+      findCurrentNode(level);
+      addNodesToPane(currentNodes);
     } else if (src.equals(levelF3)) {
       filename = "03_thethirdfloor.png";
       circle.setVisible(false);
-      level = 3;
+      level = "3";
       clearNodes();
-      nodes = database.getFloor("3");
-      addNodesToPane(nodes);
+      findCurrentNode(level);
+      addNodesToPane(currentNodes);
     } else if (src.equals(levelL1)) {
       filename = "00_thelowerlevel1.png";
       circle.setVisible(false);
-      level = -1;
+      level = "L1";
       clearNodes();
-      nodes = database.getFloor("L1");
-      addNodesToPane(nodes);
+      findCurrentNode(level);
+      addNodesToPane(currentNodes);
     } else if (src.equals(levelL2)) {
       filename = "00_thelowerlevel2.png";
       circle.setVisible(false);
-      level = -2;
+      level = "L2";
       clearNodes();
-      nodes = database.getFloor("L2");
-      addNodesToPane(nodes);
+      findCurrentNode(level);
+      addNodesToPane(currentNodes);
     } else if (src.equals(levelG)) {
       filename = "00_thegroundfloor.png";
       circle.setVisible(false);
-      level = 0;
+      level = "G";
       clearNodes();
-      nodes = database.getFloor("G");
-      addNodesToPane(nodes);
+      findCurrentNode(level);
+      addNodesToPane(currentNodes);
     }
 
     backgroundImage.setImage(new Image(getClass().getResource(filename).openStream()));
@@ -242,27 +265,27 @@ public class MapView extends StackPane {
     resetButtonBackground(level);
     if (src.equals(levelF1)) {
       levelF1.setStyle("-fx-background-color:  rgba(17,0,255,0.2)");
-      currentLevel = 1;
+      currentLevel = "1";
     } else if (src.equals(levelF2)) {
       levelF2.setStyle("-fx-background-color:  rgba(17,0,255,0.2)");
-      currentLevel = 2;
+      currentLevel = "2";
     } else if (src.equals(levelF3)) {
       levelF3.setStyle("-fx-background-color:  rgba(17,0,255,0.2)");
-      currentLevel = 3;
+      currentLevel = "3";
     } else if (src.equals(levelL1)) {
       levelL1.setStyle("-fx-background-color:  rgba(17,0,255,0.2)");
-      currentLevel = -1;
+      currentLevel = "Ll";
     } else if (src.equals(levelL2)) {
       levelL2.setStyle("-fx-background-color:  rgba(17,0,255,0.2)");
-      currentLevel = -2;
+      currentLevel = "L2";
     } else if (src.equals(levelG)) {
       levelG.setStyle("-fx-background-color:  rgba(17,0,255,0.2)");
-      currentLevel = 0;
+      currentLevel = "G";
     } else {
       return;
     }
 
-    if (currentLevel == level) {
+    if (currentLevel.equals(level)) {
       ((Button) src).setStyle("-fx-background-color:  rgba(17,0,255,0.4)"); // style button
     }
   }
@@ -281,15 +304,16 @@ public class MapView extends StackPane {
   /**
    * add nodes to the pane as small circles.
    *
-   * @param nodes nodes are the for positions
+   * @param n nodes are the for positions
    */
   @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
-  public void addNodesToPane(final Collection<Node> nodes) {
-
-    for (Node node: nodes) {
-      Circle circle = new Circle(node.getXcoord(), node.getYcoord(), 5, Color.color(0, 0.31, 0.53));
-      circle.setStroke(Color.BLACK);
-      nodeGroup.getChildren().add(circle);
+  public void addNodesToPane(final Collection<Node> n) {
+    if(n!=null) {
+      for (Node node : n) {
+        Circle circle = new Circle(node.getXcoord(), node.getYcoord(), 5, Color.color(0, 0.31, 0.53));
+        circle.setStroke(Color.BLACK);
+        nodeGroup.getChildren().add(circle);
+      }
     }
   }
 
@@ -297,16 +321,26 @@ public class MapView extends StackPane {
   public void clearNodes() {
     nodeGroup.getChildren().clear();
   }
+  private void findCurrentNode(String lv){
+    if(currentNodes!=null&&nodes!=null) {
+      currentNodes.clear();
 
+      for (Node n : nodes) {
+        if (lv.equals(n.getFloor())) {
+          currentNodes.add(n);
+        }
+      }
+    }
+  }
 
   public void setEdges(Group edges) {
     this.edges = edges;
   }
 
   /**
-   * Get the edges field of this MapView.
+   * Get the edges field of this MapView2.
    *
-   * @return The edges Group field of this MapView.
+   * @return The edges Group field of this MapView2.
    */
   public Group getEdges() {
     return edges;
@@ -329,5 +363,6 @@ public class MapView extends StackPane {
   public void clearEdges() {
     edges.getChildren().clear();
   }
+
 
 }

@@ -16,7 +16,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<?import edu.wpi.cs3733.d19.teamO.component.MapView?>
+<?import edu.wpi.cs3733.d19.teamO.component.MapView2?>
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171">
   <columnConstraints>
@@ -121,10 +121,10 @@
             <Font size="40.0" />
          </font>
       </Label>
-      <MapView fx:id="map" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="4">
+      <MapView2 fx:id="map" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="4">
          <GridPane.margin>
             <Insets bottom="30.0" left="30.0" right="10.0" top="30.0" />
          </GridPane.margin>
-      </MapView>
+      </MapView2>
    </children>
 </GridPane>

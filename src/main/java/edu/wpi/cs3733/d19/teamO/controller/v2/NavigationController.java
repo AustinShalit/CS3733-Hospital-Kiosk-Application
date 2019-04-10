@@ -21,7 +21,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
 
-import edu.wpi.cs3733.d19.teamO.component.MapView;
+import edu.wpi.cs3733.d19.teamO.component.MapView2;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 import edu.wpi.cs3733.d19.teamO.entity.pathfinding.PathfindingContext;
@@ -47,7 +47,7 @@ public class NavigationController implements Controller {
   @FXML
   JFXButton goButton;
   @FXML
-  MapView map;
+  MapView2 map;
 
   Group bfsPath;
 
