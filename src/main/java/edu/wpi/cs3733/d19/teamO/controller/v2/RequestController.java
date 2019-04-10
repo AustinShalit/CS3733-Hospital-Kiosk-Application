@@ -13,16 +13,17 @@ import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.AudioVisualController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.ExternalTransportationController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.FloristRequestController;
-import edu.wpi.cs3733.d19.teamO.controller.v2.request.FloristRequestViewController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.GiftController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.ITSupportController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InterpreterController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.PatientInfoController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.ReligiousServiceController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.ReligiousServiceViewController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.SupportAnimalController;
 
 @FxmlController(url = "ServiceRequest.fxml")
-@SuppressWarnings("PMD.TooManyFields")
+@SuppressWarnings({"PMD.TooManyFields", "PMD.TooManyMethods"})
 public class RequestController implements Controller {
 
   @FXML
@@ -86,11 +87,13 @@ public class RequestController implements Controller {
   @Inject
   private InterpreterController.Factory interpreterControllerFactory;
   @Inject
+  private ReligiousServiceController.Factory religiousServiceControllerFactory;
+  @Inject
+  private ReligiousServiceViewController.Factory religiousServiceViewControllerFactory;
+  @Inject
   private SupportAnimalController.Factory supportAnimalControllerFactory;
   @Inject
   private FloristRequestController.Factory floristRequestControllerFactory;
-  @Inject
-  private FloristRequestViewController.Factory floristRequestViewControllerFactory;
 
   @FXML
   void internalTransportationAction(ActionEvent event) {
@@ -128,13 +131,18 @@ public class RequestController implements Controller {
   }
 
   @FXML
+  void religiousAction(ActionEvent event) {
+    eventBus.post(new ChangeMainViewEvent(religiousServiceControllerFactory.create()));
+  }
+
+  @FXML
   void floristAction(ActionEvent event) {
     eventBus.post(new ChangeMainViewEvent(floristRequestControllerFactory.create()));
   }
 
   @FXML
   void viewAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(floristRequestViewControllerFactory.create()));
+    eventBus.post(new ChangeMainViewEvent(religiousServiceViewControllerFactory.create()));
   }
 
 
@@ -142,6 +150,7 @@ public class RequestController implements Controller {
   void supportAnimalAction(ActionEvent event) {
     eventBus.post(new ChangeMainViewEvent(supportAnimalControllerFactory.create()));
   }
+
 
   @Override
   public Parent getRoot() {
