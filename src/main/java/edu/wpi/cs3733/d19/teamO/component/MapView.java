@@ -35,7 +35,7 @@ public class MapView extends StackPane {
   @FXML
   private ImageView backgroundImage;
   @FXML
-  private Group nodeGroup;
+  Group nodeGroup;
   @FXML
   private Group edges;
   @FXML
@@ -51,9 +51,9 @@ public class MapView extends StackPane {
   @FXML
   private Button levelG;
   @FXML
-  private Label coordX;
+  Label coordX;
   @FXML
-  private Label coordY;
+  Label coordY;
 
 
   /**
