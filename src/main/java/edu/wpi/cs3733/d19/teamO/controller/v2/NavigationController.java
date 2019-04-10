@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d19.teamO.controller.v2;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.common.graph.GraphBuilder;
@@ -14,6 +15,8 @@ import com.jfoenix.controls.JFXComboBox;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -25,6 +28,7 @@ import edu.wpi.cs3733.d19.teamO.component.MapView;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 import edu.wpi.cs3733.d19.teamO.entity.pathfinding.PathfindingContext;
+import edu.wpi.cs3733.d19.teamO.entity.pathfinding.StepByStep;
 
 @FxmlController(url = "Navigation.fxml")
 public class NavigationController implements Controller {
@@ -48,8 +52,12 @@ public class NavigationController implements Controller {
   JFXButton goButton;
   @FXML
   MapView map;
+  @FXML
+  Label instructions;
 
   Group bfsPath;
+
+  StepByStep stepByStep;
 
   @Inject
   private Database database;
@@ -58,6 +66,7 @@ public class NavigationController implements Controller {
   void initialize() throws IOException {
 
     bfsPath = new Group();
+    stepByStep = new StepByStep();
 
     map.addNodesToPane(database.getAllNodes());
 
@@ -131,6 +140,14 @@ public class NavigationController implements Controller {
     }
 
     map.getEdges().getChildren().addAll(bfsPath);
+
+     ArrayList<String> list= stepByStep.getStepByStep(path);
+     String instruction = "";
+    for (String s: list) {
+      instruction += s + "\n";
+    }
+    System.out.println(instruction);
+    instructions.setText(instruction);
   }
 
   void validateGoButton() {

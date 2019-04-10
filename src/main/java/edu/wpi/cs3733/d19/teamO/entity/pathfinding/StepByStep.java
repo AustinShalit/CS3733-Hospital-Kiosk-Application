@@ -75,11 +75,16 @@ public class StepByStep {
     compass.add("South West");
     compass.add("West");
     compass.add("North West");
+    ArrayList<Double> distance = new ArrayList<>();
+
 
     for (int i = 0; i < coordinates.size() - 1; i++) {
       String direction = getDirection(coordinates.get(i), coordinates.get(i + 1));
       cardinalDirections.add(direction);
+      double diff = coordinates.get(i).getDist(coordinates.get(i + 1));
+      distance.add(diff);
     }
+    instructions.add("Walk" + cardinalDirections.get(0) + "");
 
     for (int i = 0; i < cardinalDirections.size() - 1; i++) {
       String current = cardinalDirections.get(i);
@@ -88,6 +93,8 @@ public class StepByStep {
       int start = compass.indexOf(current);
       int end = compass.indexOf(next);
       int diff = end - start;
+
+      instructions.add("Walk " + Double.toString(distance.get(i)) + " ft then");
 
       if (diff == 1 || diff == -7 ) {
         instructions.add("Slight Right");
@@ -106,8 +113,12 @@ public class StepByStep {
       }
 
 
+
     }
 
     return instructions;
   }
+
+
+
 }
