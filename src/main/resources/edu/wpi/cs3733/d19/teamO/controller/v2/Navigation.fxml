@@ -3,7 +3,6 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -14,7 +13,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.v2.NavigationController">
+<?import edu.wpi.cs3733.d19.teamO.component.MapView?>
+<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.v2.NavigationController">
   <left>
     <StackPane prefWidth="200.0" BorderPane.alignment="CENTER">
       <children>
@@ -22,7 +22,7 @@
           <children>
             <VBox alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
               <children>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Filter">
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="FILTER">
                   <font>
                     <Font size="36.0" />
                   </font>
@@ -37,22 +37,22 @@
                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                   </rowConstraints>
                   <children>
-                    <JFXButton prefWidth="100.0" style="-fx-background-color: grey;" text="Bathroom" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                    <JFXButton prefWidth="100.0" style="-fx-background-color: #0067B1;" text="Bathroom" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                       <GridPane.margin>
                         <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                       </GridPane.margin>
                     </JFXButton>
-                    <JFXButton prefWidth="100.0" style="-fx-background-color: grey;" text="Elevator" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                    <JFXButton prefWidth="100.0" style="-fx-background-color: #0067B1;" text="Elevator" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                       <GridPane.margin>
                         <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                       </GridPane.margin>
                     </JFXButton>
-                    <JFXButton prefWidth="100.0" style="-fx-background-color: grey;" text="Information" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                    <JFXButton prefWidth="100.0" style="-fx-background-color: #0067B1;" text="Information" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                       <GridPane.margin>
                         <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                       </GridPane.margin>
                     </JFXButton>
-                    <JFXButton prefWidth="100.0" style="-fx-background-color: grey;" text="Exit" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                    <JFXButton prefWidth="100.0" style="-fx-background-color: #0067B1;" text="Exit" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                       <GridPane.margin>
                         <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                       </GridPane.margin>
@@ -73,7 +73,7 @@
                     <Font size="36.0" />
                   </font>
                 </Text>
-                <JFXComboBox fx:id="fromComboBox" prefHeight="50.0" prefWidth="393.0" VBox.vgrow="ALWAYS">
+                <JFXComboBox fx:id="fromComboBox" onAction="#onComboAction" prefHeight="50.0" prefWidth="393.0" VBox.vgrow="ALWAYS">
                   <VBox.margin>
                     <Insets bottom="30.0" left="5.0" right="5.0" />
                   </VBox.margin>
@@ -86,15 +86,18 @@
                     <Font size="36.0" />
                   </font>
                 </Text>
-                <JFXComboBox fx:id="toComboBox" prefHeight="50.0" prefWidth="264.0">
+                <JFXComboBox fx:id="toComboBox" onAction="#onComboAction" prefHeight="50.0" prefWidth="264.0">
                   <VBox.margin>
                     <Insets bottom="30.0" left="5.0" right="5.0" />
                   </VBox.margin>
                 </JFXComboBox>
-                <JFXButton prefHeight="50.0" prefWidth="294.0" style="-fx-background-color: grey;" text="Go">
+                <JFXButton fx:id="goButton" onAction="#onGoButtonAction" prefHeight="50.0" prefWidth="294.0" style="-fx-background-color: #012d5a;" text="GO" textFill="WHITE">
                   <VBox.margin>
                     <Insets bottom="30.0" />
                   </VBox.margin>
+                  <font>
+                    <Font name="System Bold" size="18.0" />
+                  </font>
                 </JFXButton>
               </children>
             </VBox>
@@ -103,28 +106,11 @@
       </children>
     </StackPane>
   </left>
-  <top>
-    <StackPane prefHeight="21.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
-  </top>
-  <right>
-    <StackPane prefHeight="360.0" prefWidth="14.0" BorderPane.alignment="CENTER" />
-  </right>
-  <bottom>
-    <StackPane prefHeight="19.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
-  </bottom>
   <center>
-    <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-      <children>
-        <VBox style="-fx-background-color: yellow;">
-          <children>
-            <HBox VBox.vgrow="ALWAYS">
-              <children>
-                <Separator orientation="VERTICAL" prefHeight="200.0" />
-              </children>
-            </HBox>
-          </children>
-        </VBox>
-      </children>
-    </StackPane>
+    <MapView fx:id="map" style="-fx-background-color: WHITE;" GridPane.rowIndex="1" GridPane.rowSpan="4">
+      <GridPane.margin>
+        <Insets bottom="50.0" left="10.0" right="10.0" top="50.0" />
+      </GridPane.margin>
+    </MapView>
   </center>
 </BorderPane>

@@ -61,8 +61,15 @@ public class MainController implements Controller {
   @SuppressWarnings("PMD.UnusedPrivateMethod")
   private void acceptController(ChangeMainViewEvent event) {
     contentPane.setCenter(event.getController().getRoot());
-    toolbar.setVisible(event.isFramed());
-    optionsPopup.hide();
+    if (event.isFramed()) {
+      contentPane.setTop(toolbar);
+    } else {
+      contentPane.setTop(null);
+    }
+    // toolbar.setVisible(event.isFramed());
+    if (optionsPopup.isShowing()) {
+      optionsPopup.hide();
+    }
   }
 
   @Override

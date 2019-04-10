@@ -33,15 +33,11 @@ class NodeDaoDb implements NodeDao {
     }
   }
 
-  private DatabaseConnectionFactory dcf;
+  private final DatabaseConnectionFactory dcf;
 
   NodeDaoDb(final DatabaseConnectionFactory dcf) throws SQLException {
     this.dcf = dcf;
     createTable();
-  }
-
-  NodeDaoDb() throws SQLException {
-    this(new DatabaseConnectionFactoryEmbedded());
   }
 
   @Override
@@ -163,7 +159,6 @@ class NodeDaoDb implements NodeDao {
       throw ex;
     }
   }
-
 
   @Override
   public Set<Node> getAllRooms(String type) {

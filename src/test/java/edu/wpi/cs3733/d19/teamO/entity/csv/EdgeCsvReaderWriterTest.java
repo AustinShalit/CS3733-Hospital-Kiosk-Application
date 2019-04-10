@@ -4,20 +4,24 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
-import java.sql.SQLException;
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeAll;
+import com.google.inject.Inject;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
+import edu.wpi.cs3733.d19.teamO.entity.database.DatabaseExtension;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@ExtendWith(DatabaseExtension.class)
 class EdgeCsvReaderWriterTest {
 
   private static final Node NODE_A = new Node("A", 1, 2, "0", "B", Node.NodeType.HALL,
@@ -31,7 +35,6 @@ class EdgeCsvReaderWriterTest {
   private static final Edge EDGE_CA = new Edge("CA", NODE_C, NODE_A);
 
   private static File TEST_DATA_FILE;
-  private static Database database;
 
   static {
     try {
@@ -42,9 +45,11 @@ class EdgeCsvReaderWriterTest {
     }
   }
 
-  @BeforeAll
-  static void setup() throws SQLException {
-    database = new Database(EdgeCsvReaderWriterTest.class.getName());
+  @Inject
+  private Database database;
+
+  @BeforeEach
+  void setup() {
     database.insertNode(NODE_A);
     database.insertNode(NODE_B);
     database.insertNode(NODE_C);

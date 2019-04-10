@@ -3,20 +3,21 @@ package edu.wpi.cs3733.d19.teamO.entity.database;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
+import com.google.inject.Inject;
+
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInfo;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@ExtendWith(DatabaseExtension.class)
 class SecurityRequestDaoDbTest {
 
   private static final Node NODE_A = new Node("A", 1, 2, "0", "B", Node.NodeType.HALL,
@@ -27,12 +28,11 @@ class SecurityRequestDaoDbTest {
       LocalDateTime.now(), "A", "D", NODE_A);
   private SecurityRequestDao dao;
 
-  @BeforeEach
-  void setup(TestInfo testInfo) throws SQLException {
-    DatabaseConnectionFactory dcf
-        = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
-        testInfo.getDisplayName());
+  @Inject
+  private DatabaseConnectionFactory dcf;
 
+  @BeforeEach
+  void setup() throws SQLException {
     NodeDaoDb nodeDaoDb = new NodeDaoDb(dcf);
     nodeDaoDb.insert(NODE_A);
 
@@ -106,26 +106,4 @@ class SecurityRequestDaoDbTest {
   void getAllEmptyTest() {
     assertTrue(dao.getAll().isEmpty());
   }
-
-  @Nested
-  class Creation {
-    @Test
-    void createTableTest(TestInfo testInfo) {
-      DatabaseConnectionFactory dcf
-          = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
-          testInfo.getDisplayName());
-
-      assertDoesNotThrow(() -> new SecurityRequestDaoDb(dcf));
-    }
-
-    @Test
-    void existingTableTest(TestInfo testInfo) {
-      DatabaseConnectionFactory dcf
-          = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
-          testInfo.getDisplayName());
-      assertDoesNotThrow(() -> new SecurityRequestDaoDb(dcf));
-      assertDoesNotThrow(() -> new SecurityRequestDaoDb(dcf));
-    }
-  }
-
 }

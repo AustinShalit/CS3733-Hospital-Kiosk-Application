@@ -10,19 +10,20 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
+import animatefx.animation.Shake;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
-import edu.wpi.cs3733.d19.teamO.controller.SanitationWindowController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
-import edu.wpi.cs3733.d19.teamO.entity.Employee;
 import edu.wpi.cs3733.d19.teamO.entity.Login;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 @FxmlController(url = "LoginWindow.fxml")
 public class LoginController implements Controller {
+
+  private static final Logger logger = Logger.getLogger(LoginController.class.getName());
 
   @FXML
   private BorderPane root;
@@ -34,6 +35,10 @@ public class LoginController implements Controller {
   private JFXPasswordField password;
   @FXML
   private Label loginFail;
+  @FXML
+  private Label welcomeLabel;
+  @FXML
+  private Label loginLabel;
 
   @Inject
   private EventBus eventBus;
@@ -43,27 +48,10 @@ public class LoginController implements Controller {
   private Database db;
 
   @FXML
-  void initialize() {
-    // Test employees
-    Employee adminWong = new Employee(1234, "Admin", Employee.EmployeeType.ADMIN);
-    Employee teamO = new Employee(12, "TeamO", Employee.EmployeeType.DEFAULT);
-    // Insert employees
-    db.insertEmployee(adminWong);
-    db.insertEmployee(teamO);
-    // Test user login info
-    Login user1 = new Login("admin", "wong", adminWong);
-    Login user2 = new Login("teamo", "won", teamO);
-
-    db.insertLogin(user1);
-    db.insertLogin(user2);
-  }
-
-  @FXML
   void loginButtonAction() {
     // gets the user input
     Login login = parseUserLogin();
     if (login == null) {
-      Logger logger = Logger.getLogger(SanitationWindowController.class.getName());
       logger.log(Level.WARNING,
           "Unable to parse Username and Password.",
           "Unable to parse User Login info");
@@ -82,10 +70,9 @@ public class LoginController implements Controller {
     // if info typed was right, you go to main window screen
     if (check) {
       eventBus.post(new ChangeMainViewEvent(homeControllerFactory.create()));
-      //switchScenes("./v2/Main.fxml", loginButton.getScene().getWindow());
     } else {
       loginFail.setText("Incorrect username or password");
-      //bounceTextAnimation(loginFail);
+      new Shake(loginFail).play();
     }
   }
 
@@ -102,7 +89,6 @@ public class LoginController implements Controller {
 
     // otherwise
     loginFail.setText("Incorrect username or password");
-    // bounceTextAnimation(loginFail);
     return null;
   }
 

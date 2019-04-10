@@ -27,21 +27,17 @@ import edu.wpi.cs3733.d19.teamO.entity.Node;
 
 
 public class MapView extends StackPane {
+
   private int level = 1;
-  private int currentLevel = 1;
 
   @FXML
   private GesturePane gesturePane;
-
   @FXML
   private ImageView backgroundImage;
-
   @FXML
   private Group nodeGroup;
-
   @FXML
   private Group edges;
-
   @FXML
   private Button levelL1;
   @FXML
@@ -73,7 +69,7 @@ public class MapView extends StackPane {
   }
 
   @FXML
-  void initialize() {
+  void initialize() throws IOException {
     gesturePane.setMinScale(0.1);
     gesturePane.setOnMouseClicked(e -> {
       Point2D pointOnMap = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
@@ -89,8 +85,12 @@ public class MapView extends StackPane {
       coordY.setText(Double.toString((int) pointOnMap.getX()));
       coordX.setText(Double.toString((int) pointOnMap.getY()));
     });
+    gesturePane.setFitMode(GesturePane.FitMode.COVER);
+    gesturePane.setScrollBarEnabled(false);
     resetButtonBackground(99);
     levelF1.setStyle("-fx-background-color: rgba(17,0,255,0.4)");
+
+    onFloorSelectAction(new ActionEvent(levelF1, levelF1));
 
   }
 
@@ -187,25 +187,26 @@ public class MapView extends StackPane {
   }
 
   @FXML
-  void onMouseMove(MouseEvent e)  {
+  void onMouseMove(MouseEvent e) {
     Object src = e.getSource();
     resetButtonBackground(level);
+    int currentLevel = 1;
     if (src.equals(levelF1)) {
       levelF1.setStyle("-fx-background-color:  rgba(17,0,255,0.2)");
       currentLevel = 1;
     } else if (src.equals(levelF2)) {
       levelF2.setStyle("-fx-background-color:  rgba(17,0,255,0.2)");
       currentLevel = 2;
-    } else if (src.equals(levelF3) ) {
+    } else if (src.equals(levelF3)) {
       levelF3.setStyle("-fx-background-color:  rgba(17,0,255,0.2)");
       currentLevel = 3;
-    } else if (src.equals(levelL1) ) {
+    } else if (src.equals(levelL1)) {
       levelL1.setStyle("-fx-background-color:  rgba(17,0,255,0.2)");
       currentLevel = -1;
-    } else if (src.equals(levelL2) ) {
+    } else if (src.equals(levelL2)) {
       levelL2.setStyle("-fx-background-color:  rgba(17,0,255,0.2)");
       currentLevel = -2;
-    } else if (src.equals(levelG) ) {
+    } else if (src.equals(levelG)) {
       levelG.setStyle("-fx-background-color:  rgba(17,0,255,0.2)");
       currentLevel = 0;
     } else {
@@ -233,10 +234,14 @@ public class MapView extends StackPane {
    *
    * @param nodes nodes are the for positions
    */
+  @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
   public void addNodesToPane(final Collection<Node> nodes) {
-    nodes.stream()
-        .map(node -> new Circle(node.getXcoord(), node.getYcoord(), 5, Color.RED))
-        .forEach(nodeGroup.getChildren()::add);
+
+    for (Node node: nodes) {
+      Circle circle = new Circle(node.getXcoord(), node.getYcoord(), 5, Color.color(0, 0.31, 0.53));
+      circle.setStroke(Color.BLACK);
+      nodeGroup.getChildren().add(circle);
+    }
   }
 
 

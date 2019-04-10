@@ -17,12 +17,11 @@ final class DatabaseConnectionFactoryEmbedded implements DatabaseConnectionFacto
       = Logger.getLogger(DatabaseConnectionFactoryEmbedded.class.getName());
 
   private static final String EMBEDDED_PROTOCOL = "jdbc:derby:";
-  static final String MEMORY_PROTOCOL = EMBEDDED_PROTOCOL + "memory:";
 
   private final String protocol;
   private final String name;
 
-  DatabaseConnectionFactoryEmbedded(final String protocol, final String name) {
+  private DatabaseConnectionFactoryEmbedded(final String protocol, final String name) {
     this.protocol = checkNotNull(protocol);
     this.name = checkNotNull(name);
 
@@ -49,6 +48,19 @@ final class DatabaseConnectionFactoryEmbedded implements DatabaseConnectionFacto
     } catch (SQLException ex) {
       kLogger.log(Level.SEVERE, "Exception getting connection to database", ex);
       throw ex;
+    }
+  }
+
+  @Override
+  public void drop() throws SQLException {
+    try {
+      DriverManager.getConnection(protocol
+          + name
+          + ";drop=true");
+    } catch (SQLException ex) {
+      if (ex.getErrorCode() != 45000) {
+        throw ex;
+      }
     }
   }
 }

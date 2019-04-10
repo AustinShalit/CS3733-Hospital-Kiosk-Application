@@ -2,20 +2,21 @@ package edu.wpi.cs3733.d19.teamO.entity.database;
 
 import java.sql.SQLException;
 
+import com.google.inject.Inject;
+
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInfo;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import edu.wpi.cs3733.d19.teamO.entity.Employee;
 import edu.wpi.cs3733.d19.teamO.entity.Login;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@ExtendWith(DatabaseExtension.class)
 class LoginDaoDbTest {
 
   private static final Employee testEmployee1 = new Employee(123, "Dev",
@@ -23,35 +24,13 @@ class LoginDaoDbTest {
   private static final Login testLogin1 = new Login("dev", "hello",
       testEmployee1);
 
-  @Nested
-  class Creation {
-    @Test
-    void createTableTest(TestInfo testInfo) {
-      DatabaseConnectionFactory dcf
-          = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
-          testInfo.getDisplayName());
-
-      assertDoesNotThrow(() -> new LoginDaoDb(dcf));
-    }
-
-    @Test
-    void existingTableTest(TestInfo testInfo) {
-      DatabaseConnectionFactory dcf
-          = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
-          testInfo.getDisplayName());
-
-      assertDoesNotThrow(() -> new LoginDaoDb(dcf));
-    }
-  }
-
   private LoginDao dao;
 
-  @BeforeEach
-  void setup(TestInfo testInfo) throws SQLException {
-    DatabaseConnectionFactory dcf
-        = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
-        testInfo.getDisplayName());
+  @Inject
+  private DatabaseConnectionFactory dcf;
 
+  @BeforeEach
+  void setup() throws SQLException {
     EmployeeDaoDb employeeDao = new EmployeeDaoDb(dcf);
     employeeDao.insert(testEmployee1);
     dao = new LoginDaoDb(dcf);
