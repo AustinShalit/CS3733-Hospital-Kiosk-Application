@@ -7,6 +7,8 @@ import edu.wpi.cs3733.d19.teamO.entity.csv.EdgeCsvReaderWriter;
 import edu.wpi.cs3733.d19.teamO.entity.csv.NodeCsvReaderWriter;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 public class DefaultInformationLoader {
 
   private final Database database;
@@ -33,7 +35,7 @@ public class DefaultInformationLoader {
   private void loadNodes() {
     NodeCsvReaderWriter ncrw = new NodeCsvReaderWriter();
     List<Node> nodes = ncrw.readNodes(new InputStreamReader(DefaultInformationLoader.class
-        .getResourceAsStream("nodesv4.csv")));
+        .getResourceAsStream("nodesv4.csv"), UTF_8));
     for (Node node : nodes) {
       database.insertNode(node);
     }
@@ -43,7 +45,7 @@ public class DefaultInformationLoader {
     EdgeCsvReaderWriter ecrw = new EdgeCsvReaderWriter(database);
     List<Edge> edges = ecrw.readEdges(
         new InputStreamReader(DefaultInformationLoader.class
-            .getResourceAsStream("edgesv5.csv")));
+            .getResourceAsStream("edgesv5.csv"), UTF_8));
     for (Edge edge : edges) {
       database.insertEdge(edge);
     }
