@@ -366,5 +366,7 @@ public class MapView2 extends StackPane {
     edges.getChildren().clear();
   }
 
-
+  public String getLevel() {
+    return level;
+  }
 }

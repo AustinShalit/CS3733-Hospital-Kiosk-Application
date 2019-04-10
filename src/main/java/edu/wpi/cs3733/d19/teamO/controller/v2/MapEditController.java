@@ -67,6 +67,7 @@ public class MapEditController implements Controller {
 
   @FXML
   void initialize() throws IOException {
+
     //  map = new MapView2();
     // database.getAllNodes();
     map.setNodes(database.getAllNodes());
@@ -82,6 +83,7 @@ public class MapEditController implements Controller {
       longNameField.setText(newValue.getLongName());
       shortNameField.setText(newValue.getShortName());
       validateButton();
+      status.setText("");
     });
 
     // set tab pane to span entire width
@@ -134,13 +136,18 @@ public class MapEditController implements Controller {
         shortNameField.getText());
     database.insertNode(newNode);
     status.setText("Succeed!");
+    map.setNodes(database.getAllNodes());
+    map.clearNodes();
+    map.addNodesToPane(database.getFloor(map.getLevel()));
   }
 
   @FXML
   void deleteNodeAction() {
-    database.deleteNode(database.getNode(nodeID).get());
+    boolean a =database.deleteNode(database.getNode(nodeID).get());
     status.setText("Succeed!");
-
+    map.clearNodes();
+    map.setNodes(database.getAllNodes());
+    map.addNodesToPane(database.getFloor(map.getLevel()));
   }
 
   @FXML
@@ -155,7 +162,9 @@ public class MapEditController implements Controller {
           shortNameField.getText());
     database.updateNode(updateNode);
     status.setText("Succeed!");
-
+    map.setNodes(database.getAllNodes());
+    map.clearNodes();
+    map.addNodesToPane(database.getFloor(map.getLevel()));
   }
 
   //  @FXML
