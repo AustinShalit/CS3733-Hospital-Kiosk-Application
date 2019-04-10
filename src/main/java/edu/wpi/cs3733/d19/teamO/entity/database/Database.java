@@ -19,6 +19,7 @@ import edu.wpi.cs3733.d19.teamO.entity.InterpreterRequest;
 import edu.wpi.cs3733.d19.teamO.entity.Login;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.PatientInfoRequest;
+import edu.wpi.cs3733.d19.teamO.entity.ReligiousServiceRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SchedulingRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
@@ -40,6 +41,8 @@ public class Database {
   private final SupportAnimalRequestDao supportAnimalRequestDao;
   private final ExternalTransportationRequestDao etransportationDao;
   private final GiftRequestDao giftRequestDao;
+  private final ReligiousServiceRequestDao rserviceDao;
+
   private final ITSupportRequestDao itSupportDao;
   private final FloristRequestDao floristRequestDao;
   private final EmployeeDao employeeDao;
@@ -57,6 +60,7 @@ public class Database {
     this.audioVisualRequestDao = new AudioVisualRequestDaoDb(dcf);
     this.patientInfoRequestDao = new PatientInfoRequestDaoDb(dcf);
     this.etransportationDao = new ExternalTransportationRequestDaoDb(dcf);
+    this.rserviceDao = new ReligiousServiceRequestDaoDb(dcf);
     this.supportAnimalRequestDao = new SupportAnimalRequestDaoDb(dcf);
     this.itSupportDao = new ITSupportRequestDaoDb(dcf);
     this.employeeDao = new EmployeeDaoDb(dcf);
@@ -121,6 +125,10 @@ public class Database {
 
   public Set<Edge> getEdgesFor(Node node) {
     return edgeDao.getEdgesFor(node);
+  }
+
+  public Set<Edge> getEdgeByFloor(String floor) {
+    return edgeDao.getFloor(floor);
   }
 
   /*
@@ -432,6 +440,11 @@ public class Database {
     return etransportationDao.update(externalTransportationRequest);
   }
 
+  public Set<ExternalTransportationRequest> getExternalTransportationRequestsByCategory(
+      String type) {
+    return etransportationDao.getNumberByCategory(type);
+  }
+
   /*
    * Gift Request
    */
@@ -456,6 +469,37 @@ public class Database {
   public boolean updateGiftRequest(
       GiftRequest giftRequest) {
     return giftRequestDao.update(giftRequest);
+  }
+
+  public Set<GiftRequest> getNumberbyCategory(
+      String type) {
+    return giftRequestDao.getNumberByCategory(type);
+  }
+
+  /*
+   * Religious Service
+   */
+  public Optional<ReligiousServiceRequest> getReligiousServiceRequest(int id) {
+    return rserviceDao.get(id);
+  }
+
+  public Set<ReligiousServiceRequest> getAllReligiousServiceRequests() {
+    return rserviceDao.getAll();
+  }
+
+  public boolean insertReligiousServiceRequest(
+      ReligiousServiceRequest religiousServiceRequest) {
+    return rserviceDao.insert(religiousServiceRequest);
+  }
+
+  public boolean deleteReligiousServiceRequest(
+      ReligiousServiceRequest religiousServiceRequest) {
+    return rserviceDao.delete(religiousServiceRequest);
+  }
+
+  public boolean updateReligiousServiceRequest(
+      ReligiousServiceRequest religiousServiceRequest) {
+    return rserviceDao.update(religiousServiceRequest);
   }
 
   /*

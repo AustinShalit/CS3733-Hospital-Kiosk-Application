@@ -21,11 +21,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ExtendWith(DatabaseExtension.class)
 class EdgeDaoDbTest {
 
-  private static final Node NODE_A = new Node("A", 1, 2, "0", "B", Node.NodeType.HALL,
+  private static final Node NODE_A = new Node("A", 1, 2, "1", "B", Node.NodeType.HALL,
       "AL", "AS");
-  private static final Node NODE_B = new Node("B", 3, 4, "0", "B", Node.NodeType.HALL,
+  private static final Node NODE_B = new Node("B", 3, 4, "2", "B", Node.NodeType.HALL,
       "BL", "BS");
-  private static final Node NODE_C = new Node("C", 5, 6, "0", "B", Node.NodeType.HALL,
+  private static final Node NODE_C = new Node("C", 5, 6, "1", "B", Node.NodeType.HALL,
       "CL", "CS");
   private static final Edge EDGE_AB = new Edge("AB", NODE_A, NODE_B);
   private static final Edge EDGE_BC = new Edge("BC", NODE_B, NODE_C);
@@ -129,5 +129,21 @@ class EdgeDaoDbTest {
         () -> assertTrue(result.contains(EDGE_CA)),
         () -> assertEquals(2, result.size())
     );
+  }
+
+  @Test
+  void edgeFloorTest() {
+    dao.insert(EDGE_CA);
+    dao.insert(EDGE_BC);
+    dao.insert(EDGE_AB);
+    assertEquals(3, dao.getFloor("1").size());
+  }
+
+  @Test
+  void edgeFloorTest2() {
+    dao.insert(EDGE_CA);
+    dao.insert(EDGE_BC);
+    dao.insert(EDGE_AB);
+    assertEquals(2, dao.getFloor("2").size());
   }
 }

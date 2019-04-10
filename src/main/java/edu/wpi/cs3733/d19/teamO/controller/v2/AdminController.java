@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d19.teamO.controller.v2;
 
+
 import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
@@ -21,6 +22,9 @@ public class AdminController implements Controller {
   private JFXButton employeeButton;
   @FXML
   private JFXButton editdatabaseButton;
+  //
+  //  @Inject
+  //  private EventBus eventBus;
   @Inject
   private EventBus eventBus;
   @Inject

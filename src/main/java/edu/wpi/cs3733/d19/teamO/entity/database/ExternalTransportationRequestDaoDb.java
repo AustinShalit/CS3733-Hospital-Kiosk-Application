@@ -101,7 +101,7 @@ public class ExternalTransportationRequestDaoDb implements ExternalTransportatio
                 "Could not get node for External transportation request")),
         resultSet.getString("WHOCOMPLETED"),
         ExternalTransportationRequest.ExternalTransportationRequestType.get(
-            resultSet.getString("ExternalTRANSPORTATIONTYPE")),
+            resultSet.getString("EXTERNALTRANSPORTATIONTYPE")),
         resultSet.getString("DESCRIPTION"),
         resultSet.getString("NAME")
     );
@@ -197,5 +197,26 @@ public class ExternalTransportationRequestDaoDb implements ExternalTransportatio
       logger.log(Level.WARNING, "FAILED to delete externalTransportationRequest");
     }
     return false;
+  }
+
+  @Override
+  public Set<ExternalTransportationRequest> getNumberByCategory(String type) {
+    try (Connection connection = dcf.getConnection()) {
+      PreparedStatement statement
+          = connection.prepareStatement(queries.getProperty(
+              "external_transportation_request.category"));
+      statement.setString(1, type);
+      try (ResultSet resultSet = statement.executeQuery()) {
+        Set<ExternalTransportationRequest> externalTransportationRequests = new HashSet<>();
+        while (resultSet.next()) {
+          externalTransportationRequests.add(
+              extractExternalTransportationRequestFromResultSet(resultSet));
+        }
+        return externalTransportationRequests;
+      }
+    } catch (SQLException ex) {
+      logger.log(Level.WARNING, "Failed to get Nodes", ex);
+    }
+    return Collections.emptySet();
   }
 }

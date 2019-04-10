@@ -28,6 +28,8 @@ import edu.wpi.cs3733.d19.teamO.controller.v2.request.InterpreterController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InterpreterViewController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.PatientInfoController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.PatientInfoViewController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.ReligiousServiceController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.ReligiousServiceViewController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.SupportAnimalController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.SupportAnimalViewController;
 
@@ -60,6 +62,8 @@ public class ControllerModule extends AbstractModule {
     install(new FactoryModuleBuilder().build(NavigationController.Factory.class));
     install(new FactoryModuleBuilder().build(OptionsPopupController.Factory.class));
     install(new FactoryModuleBuilder().build(RequestController.Factory.class));
+    install(new FactoryModuleBuilder().build(AdminController.Factory.class));
+
 
     install(new FactoryModuleBuilder().build(AudioVisualController.Factory.class));
     install(new FactoryModuleBuilder().build(AudioVisualViewController.Factory.class));
@@ -79,10 +83,14 @@ public class ControllerModule extends AbstractModule {
 
     install(new FactoryModuleBuilder().build(GiftController.Factory.class));
     install(new FactoryModuleBuilder().build(GiftViewController.Factory.class));
+    install(new FactoryModuleBuilder().build(SchedulingController.Factory.class));
+    install(new FactoryModuleBuilder().build(SchedulingViewController.Factory.class));
 
 
     install(new FactoryModuleBuilder().build(InterpreterController.Factory.class));
     install(new FactoryModuleBuilder().build(InterpreterViewController.Factory.class));
+    install(new FactoryModuleBuilder().build(ReligiousServiceController.Factory.class));
+    install(new FactoryModuleBuilder().build(ReligiousServiceViewController.Factory.class));
 
     install(new FactoryModuleBuilder().build(SupportAnimalController.Factory.class));
     install(new FactoryModuleBuilder().build(SupportAnimalViewController.Factory.class));

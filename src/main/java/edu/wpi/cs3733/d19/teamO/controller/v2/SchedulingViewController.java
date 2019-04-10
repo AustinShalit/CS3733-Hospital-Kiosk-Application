@@ -16,7 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import edu.wpi.cs3733.d19.teamO.entity.SchedulingRequest;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
-
+@FxmlController(url = "SchedulingViewWindow.fxml")
 public class SchedulingViewController implements Controller {
 
   @FXML
@@ -26,7 +26,7 @@ public class SchedulingViewController implements Controller {
   @FXML
   private Label titleLabel;
   @FXML
-  private TableView<SchedulingRequest> requestsTableView;
+  private TableView<SchedulingRequest> table;
   @FXML
   private TableColumn<SchedulingRequest, Integer> idTableCol;
   @FXML
@@ -56,16 +56,21 @@ public class SchedulingViewController implements Controller {
     locationTableCol.setCellValueFactory(new PropertyValueFactory<>("room"));
 
 
-    requestsTableView.getItems().setAll(db.getAllSchedulingRequests());
+    table.getItems().setAll(db.getAllSchedulingRequests());
 
     // sort by id
-    requestsTableView.getSortOrder().add(idTableCol);
+    table.getSortOrder().add(idTableCol);
 
     // make columns auto-resize
-    requestsTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-    for (TableColumn column : requestsTableView.getColumns()) {
+    table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+    for (TableColumn column : table.getColumns()) {
       column.setPrefWidth(1000); // must be a value larger than the starting window size
     }
+  }
+
+
+  public interface Factory {
+    SchedulingViewController create();
   }
 
   @Override
