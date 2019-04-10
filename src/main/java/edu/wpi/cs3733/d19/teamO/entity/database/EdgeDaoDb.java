@@ -171,4 +171,23 @@ class EdgeDaoDb implements EdgeDao {
       throw ex;
     }
   }
+
+  @Override
+  public Set<Edge> getFloor(String floor) {
+    try (Connection connection = dcf.getConnection()) {
+      PreparedStatement statement
+          = connection.prepareStatement(queries.getProperty("edge.select_floor"));
+      statement.setString(1, floor);
+      try (ResultSet resultSet = statement.executeQuery()) {
+        Set<Edge> edges = new HashSet<>();
+        while (resultSet.next()) {
+          edges.add(extractEdgeFromResultSet(resultSet));
+        }
+        return edges;
+      }
+    } catch (SQLException ex) {
+      logger.log(Level.WARNING, "Failed to get Nodes", ex);
+    }
+    return Collections.emptySet();
+  }
 }
