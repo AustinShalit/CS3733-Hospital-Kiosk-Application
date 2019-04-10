@@ -62,7 +62,7 @@ public class HomeController implements Controller {
   @Inject
   private RequestController.Factory requestControllerFactory;
   @Inject
-  private MapEditController.Factory schedulingControllerFactory;
+  private SchedulingController.Factory schedulingControllerFactory;
   @Inject
   private NavigationController.Factory navigationControllerFactory;
 
