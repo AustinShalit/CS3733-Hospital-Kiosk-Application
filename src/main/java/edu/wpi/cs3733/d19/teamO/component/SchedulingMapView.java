@@ -1,30 +1,20 @@
 package edu.wpi.cs3733.d19.teamO.component;
 
 import java.io.IOException;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 import javafx.animation.Interpolator;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
-import javafx.scene.Group;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
 import javafx.util.Duration;
 import net.kurobako.gesturefx.GesturePane;
 
-import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 
 
@@ -55,6 +45,7 @@ public class SchedulingMapView extends MapView {
   }
 
   @FXML
+  @Override
   void initialize() throws IOException {
     availableNodes = new HashSet<>();
     unavailableNodes = new HashSet<>();
@@ -80,19 +71,20 @@ public class SchedulingMapView extends MapView {
     setMapImage(new Image(getClass().getResource("SchedulingMap.jpg").openStream()));
   }
 
+  /**
+   * Redraw the nodes on the map.
+   */
+  @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
   public void redrawNodes() {
-    Circle circle = new Circle(442.0, 1179.0, 5, Color.color(0, 0.31, 0.53));
-    circle.setStroke(Color.BLACK);
-    nodeGroup.getChildren().add(circle);
-
     Set<Circle> circles = new HashSet<>();
+    int size = 20;
 
     for (Node availableNode : availableNodes) {
       circles.add(
           new Circle(
               availableNode.getXcoord(),
               availableNode.getYcoord(),
-              5,
+              size,
               Color.color(0, 1.0, 0)
           )
       );
@@ -103,7 +95,7 @@ public class SchedulingMapView extends MapView {
           new Circle(
               unavailableNode.getXcoord(),
               unavailableNode.getYcoord(),
-              5,
+              size,
               Color.color(1.0, 0, 0)
           )
       );

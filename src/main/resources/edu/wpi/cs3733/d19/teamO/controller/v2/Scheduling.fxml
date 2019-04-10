@@ -30,22 +30,6 @@
           <children>
             <VBox alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
               <children>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="FILTER">
-                  <font>
-                    <Font size="36.0" />
-                  </font>
-                  <VBox.margin>
-                    <Insets bottom="3.0" />
-                  </VBox.margin>
-                </Text>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Building">
-                  <font>
-                    <Font size="20.0" />
-                  </font>
-                  <VBox.margin>
-                    <Insets bottom="5.0" />
-                  </VBox.margin>
-                </Text>
                 <GridPane alignment="CENTER" vgap="5.0">
                   <columnConstraints>
                     <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
@@ -56,29 +40,6 @@
                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                   </rowConstraints>
-                  <children>
-                    <JFXButton fx:id="francis15Button" prefWidth="100.0" style="-fx-background-color: #0067B1;" text="15 Francis" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                      <GridPane.margin>
-                        <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
-                      </GridPane.margin>
-                    </JFXButton>
-                    <JFXButton fx:id="francis45Button" prefWidth="100.0" style="-fx-background-color: #0067B1;" text="45 Francis" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                      <GridPane.margin>
-                        <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
-                      </GridPane.margin>
-                    </JFXButton>
-                    <JFXButton fx:id="btmButton" prefWidth="100.0" style="-fx-background-color: #0067B1;" text="BTM" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                      <GridPane.margin>
-                        <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
-                      </GridPane.margin>
-                    </JFXButton>
-                    <JFXButton fx:id="shapiroButton" prefWidth="100.0" style="-fx-background-color: #0067B1;" text="Shapiro" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                      <GridPane.margin>
-                        <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
-                      </GridPane.margin>
-                    </JFXButton>
-                    <JFXButton fx:id="towerButton" alignment="CENTER" prefWidth="100.0" style="-fx-background-color: #0067B1;" text="Tower" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                  </children>
                   <padding>
                     <Insets bottom="5.0" />
                   </padding>
@@ -86,14 +47,6 @@
                     <Insets bottom="3.0" />
                   </VBox.margin>
                 </GridPane>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room Type">
-                  <font>
-                    <Font size="20.0" />
-                  </font>
-                  <VBox.margin>
-                    <Insets bottom="8.0" />
-                  </VBox.margin>
-                </Text>
                 <GridPane>
                   <columnConstraints>
                     <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
@@ -102,18 +55,6 @@
                   <rowConstraints>
                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                   </rowConstraints>
-                  <children>
-                    <JFXButton fx:id="conferenceButton" prefWidth="100.0" style="-fx-background-color: #004E86;" text="Conference" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                      <GridPane.margin>
-                        <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
-                      </GridPane.margin>
-                    </JFXButton>
-                    <JFXButton fx:id="labButton" prefWidth="100.0" style="-fx-background-color: #004E86;" text="Lab" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                      <GridPane.margin>
-                        <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
-                      </GridPane.margin>
-                    </JFXButton>
-                  </children>
                   <padding>
                     <Insets bottom="5.0" />
                   </padding>

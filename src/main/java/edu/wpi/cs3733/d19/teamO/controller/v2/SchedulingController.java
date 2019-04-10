@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.d19.teamO.controller.v2;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Objects;
@@ -14,13 +13,11 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTimePicker;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Callback;
 
@@ -38,20 +35,6 @@ public class SchedulingController implements Controller {
 
   @FXML
   BorderPane root;
-  @FXML
-  JFXButton conferenceButton;
-  @FXML
-  JFXButton labButton;
-  @FXML
-  JFXButton francis15Button;
-  @FXML
-  JFXButton francis45Button;
-  @FXML
-  JFXButton btmButton;
-  @FXML
-  JFXButton shapiroButton;
-  @FXML
-  JFXButton towerButton;
   @FXML
   JFXTextField nameField;
   @FXML
@@ -120,16 +103,16 @@ public class SchedulingController implements Controller {
     });
 
     date.valueProperty().addListener((observable, oldValue, newValue) -> {
-        updateMapViewNodeOverlay();
+      updateMapViewNodeOverlay();
     });
 
-    startTime.valueProperty().addListener(((observable, oldValue, newValue) -> {
+    startTime.valueProperty().addListener((observable, oldValue, newValue) -> {
       updateMapViewNodeOverlay();
-    }));
+    });
 
-    endTime.valueProperty().addListener(((observable, oldValue, newValue) -> {
+    endTime.valueProperty().addListener((observable, oldValue, newValue) -> {
       updateMapViewNodeOverlay();
-    }));
+    });
   }
 
   public void showCurrentSchedule() {
@@ -172,6 +155,7 @@ public class SchedulingController implements Controller {
         && Objects.nonNull(endTime.getValue())
         && Objects.nonNull(date.getValue())
         && (!(nameField.getText().isEmpty()))
+        && Objects.nonNull(roomComboBox.getValue())
         && (!(roomComboBox.getValue().getNodeId().isEmpty()))) {
 
       LocalDateTime start = LocalDateTime.of(date.getValue(), startTime.getValue());
@@ -190,9 +174,9 @@ public class SchedulingController implements Controller {
 
   void updateMapViewNodeOverlay() {
     if (Objects.isNull(date.getValue())
-    || Objects.isNull(startTime.getValue())
-    || Objects.isNull(endTime.getValue())
-    || endTime.getValue().isBefore(startTime.getValue())) {
+        || Objects.isNull(startTime.getValue())
+        || Objects.isNull(endTime.getValue())
+        || endTime.getValue().isBefore(startTime.getValue())) {
       return;
     }
 
