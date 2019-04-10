@@ -4,9 +4,12 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXTimePicker?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Tab?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -17,6 +20,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import edu.wpi.cs3733.d19.teamO.component.MapView?>
+
 <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.v2.SchedulingController">
   <left>
     <StackPane maxWidth="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -25,7 +29,7 @@
           <children>
             <VBox alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
               <children>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Filter">
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="FILTER">
                   <font>
                     <Font size="36.0" />
                   </font>
@@ -38,10 +42,10 @@
                     <Font size="20.0" />
                   </font>
                   <VBox.margin>
-                    <Insets bottom="3.0" />
+                    <Insets bottom="5.0" />
                   </VBox.margin>
                 </Text>
-                <GridPane alignment="CENTER">
+                <GridPane alignment="CENTER" vgap="5.0">
                   <columnConstraints>
                     <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
                     <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
@@ -52,27 +56,27 @@
                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                   </rowConstraints>
                   <children>
-                    <JFXButton fx:id="francis15Button" prefWidth="100.0" style="-fx-background-color: grey;" text="15 Francis" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                    <JFXButton fx:id="francis15Button" prefWidth="100.0" style="-fx-background-color: #0067B1;" text="15 Francis" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                       <GridPane.margin>
                         <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                       </GridPane.margin>
                     </JFXButton>
-                    <JFXButton fx:id="francis45Button" prefWidth="100.0" style="-fx-background-color: grey;" text="45 Francis" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                    <JFXButton fx:id="francis45Button" prefWidth="100.0" style="-fx-background-color: #0067B1;" text="45 Francis" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                       <GridPane.margin>
                         <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                       </GridPane.margin>
                     </JFXButton>
-                    <JFXButton fx:id="btmButton" prefWidth="100.0" style="-fx-background-color: grey;" text="BTM" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                    <JFXButton fx:id="btmButton" prefWidth="100.0" style="-fx-background-color: #0067B1;" text="BTM" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                       <GridPane.margin>
                         <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                       </GridPane.margin>
                     </JFXButton>
-                    <JFXButton fx:id="shapiroButton" prefWidth="100.0" style="-fx-background-color: grey;" text="Shapiro" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                    <JFXButton fx:id="shapiroButton" prefWidth="100.0" style="-fx-background-color: #0067B1;" text="Shapiro" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                       <GridPane.margin>
                         <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                       </GridPane.margin>
                     </JFXButton>
-                    <JFXButton fx:id="towerButton" alignment="CENTER" prefWidth="100.0" style="-fx-background-color: grey;" text="Tower" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                    <JFXButton fx:id="towerButton" alignment="CENTER" prefWidth="100.0" style="-fx-background-color: #0067B1;" text="Tower" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                   </children>
                   <padding>
                     <Insets bottom="5.0" />
@@ -86,7 +90,7 @@
                     <Font size="20.0" />
                   </font>
                   <VBox.margin>
-                    <Insets bottom="3.0" />
+                    <Insets bottom="8.0" />
                   </VBox.margin>
                 </Text>
                 <GridPane>
@@ -98,12 +102,12 @@
                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                   </rowConstraints>
                   <children>
-                    <JFXButton fx:id="conferenceButton" prefWidth="100.0" style="-fx-background-color: grey;" text="Conference" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                    <JFXButton fx:id="conferenceButton" prefWidth="100.0" style="-fx-background-color: #004E86;" text="Conference" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                       <GridPane.margin>
                         <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                       </GridPane.margin>
                     </JFXButton>
-                    <JFXButton fx:id="labButton" prefWidth="100.0" style="-fx-background-color: grey;" text="Lab" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                    <JFXButton fx:id="labButton" prefWidth="100.0" style="-fx-background-color: #004E86;" text="Lab" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                       <GridPane.margin>
                         <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                       </GridPane.margin>
@@ -116,6 +120,16 @@
                     <Insets bottom="3.0" />
                   </VBox.margin>
                 </GridPane>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+                  <font>
+                    <Font size="36.0" />
+                  </font>
+                </Text>
+                <JFXTextField fx:id="nameField" prefHeight="25.0" prefWidth="132.0">
+                  <VBox.margin>
+                    <Insets bottom="5.0" left="30.0" right="30.0" />
+                  </VBox.margin>
+                </JFXTextField>
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room">
                   <font>
                     <Font size="36.0" />
@@ -124,7 +138,7 @@
                     <Insets />
                   </VBox.margin>
                 </Text>
-                <JFXComboBox fx:id="roomComboBox" prefHeight="40.0">
+                <JFXComboBox fx:id="roomComboBox" focusColor="#004e86" prefHeight="39.0" prefWidth="97.0">
                   <VBox.margin>
                     <Insets bottom="5.0" />
                   </VBox.margin>
@@ -137,7 +151,7 @@
                     <Insets />
                   </VBox.margin>
                 </Text>
-                <JFXDatePicker fx:id="date" prefHeight="40.0">
+                <JFXDatePicker fx:id="date" defaultColor="#004e86" prefHeight="40.0">
                   <VBox.margin>
                     <Insets bottom="3.0" />
                   </VBox.margin>
@@ -150,7 +164,7 @@
                     <Font size="36.0" />
                   </font>
                 </Text>
-                <JFXTimePicker fx:id="startTime" prefHeight="40.0">
+                <JFXTimePicker fx:id="startTime" defaultColor="#004e86" prefHeight="40.0">
                   <VBox.margin>
                     <Insets bottom="5.0" />
                   </VBox.margin>
@@ -163,15 +177,18 @@
                     <Font size="36.0" />
                   </font>
                 </Text>
-                <JFXTimePicker fx:id="endTime" prefHeight="40.0">
+                <JFXTimePicker fx:id="endTime" defaultColor="#004e86" prefHeight="40.0">
                   <VBox.margin>
                     <Insets bottom="10.0" />
                   </VBox.margin>
                 </JFXTimePicker>
-                <JFXButton fx:id="goButton" prefHeight="40.0" prefWidth="294.0" style="-fx-background-color: grey;" text="Go">
+                <JFXButton fx:id="goButton" onAction="#onSubmitButtonAction" prefHeight="40.0" prefWidth="294.0" ripplerFill="#013c78" style="-fx-background-color: #012d5a;" text="GO" textFill="WHITE">
                   <VBox.margin>
                     <Insets bottom="3.0" />
                   </VBox.margin>
+                  <font>
+                    <Font name="System Bold" size="15.0" />
+                  </font>
                 </JFXButton>
               </children>
             </VBox>
@@ -203,9 +220,13 @@
                 </MapView>
               </content>
             </Tab>
-            <Tab fx:id="tableTab" closable="false" text="Table">
+            <Tab fx:id="tableTab" closable="false" onSelectionChanged="#showCurrentSchedule" text="Table">
               <content>
-                <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: blue;" />
+                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                  <children>
+                    <AnchorPane fx:id="tableVIew" onMouseClicked="#showCurrentSchedule" prefHeight="643.0" prefWidth="1066.0" style="-fx-background-color: #2600ff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  </children>
+                </AnchorPane>
               </content>
             </Tab>
           </tabs>

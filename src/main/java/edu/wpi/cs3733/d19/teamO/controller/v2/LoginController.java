@@ -15,7 +15,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
-import edu.wpi.cs3733.d19.teamO.controller.SanitationWindowController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.Employee;
 import edu.wpi.cs3733.d19.teamO.entity.Login;
@@ -23,6 +22,8 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 @FxmlController(url = "LoginWindow.fxml")
 public class LoginController implements Controller {
+
+  private static final Logger logger = Logger.getLogger(LoginController.class.getName());
 
   @FXML
   private BorderPane root;
@@ -63,7 +64,6 @@ public class LoginController implements Controller {
     // gets the user input
     Login login = parseUserLogin();
     if (login == null) {
-      Logger logger = Logger.getLogger(SanitationWindowController.class.getName());
       logger.log(Level.WARNING,
           "Unable to parse Username and Password.",
           "Unable to parse User Login info");

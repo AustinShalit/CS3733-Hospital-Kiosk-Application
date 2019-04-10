@@ -39,17 +39,13 @@ public class ExternalTransportationRequestDaoDb implements ExternalTransportatio
 
   private static final String TABLE_NAME = queries.getProperty(
       "external_transportation_request.table_name");
-  private DatabaseConnectionFactory dcf;
-  private NodeDaoDb nodeDaoDb;
+  private final DatabaseConnectionFactory dcf;
+  private final NodeDaoDb nodeDaoDb;
 
   ExternalTransportationRequestDaoDb(final DatabaseConnectionFactory dcf) throws SQLException {
     this.dcf = dcf;
     nodeDaoDb = new NodeDaoDb(dcf);
     createTable();
-  }
-
-  ExternalTransportationRequestDaoDb() throws SQLException {
-    this(new DatabaseConnectionFactoryEmbedded());
   }
 
   @Override
