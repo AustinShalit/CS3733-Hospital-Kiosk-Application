@@ -147,3 +147,21 @@
     -fx-max-height: 4000px;
     -fx-max-width: 4000px;
 }
+
+#date-time {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 32px;
+}
+
+.weatherbox {
+    -fx-background-color: linear-gradient(from 50% 0% to 50% 75%, #012d5a 0%, black 100%);
+    -fx-border-color: #2f2f2f;
+    -fx-border-width: 1px;
+    -fx-border-radius: 4px;
+}
+
+#temp {
+    -fx-font-weight: bold;
+    -fx-font-size: 24px;
+}
