@@ -31,7 +31,7 @@ import edu.wpi.cs3733.d19.teamO.entity.Node;
 
 import static java.lang.Math.abs;
 
-
+@SuppressWarnings("PMD.TooManyFields")
 public class MapView2 extends StackPane {
 
   private String level = "1";

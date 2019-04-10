@@ -94,6 +94,7 @@ public class MapEditController implements Controller {
   /**
    *  A cool comboBox of nodetype.
    */
+  @SuppressWarnings("PMD.UnusedPrivateMethod")
   @FXML
   private void comboBox() {
     nodeTypeComboBox.getItems().addAll(Node.NodeType.values());
