@@ -16,10 +16,13 @@ import com.jfoenix.controls.JFXTimePicker;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.util.Callback;
 
 import edu.wpi.cs3733.d19.teamO.component.SchedulingMapView;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
@@ -78,7 +81,37 @@ public class SchedulingController implements Controller {
 
   @FXML
   void initialize() {
-    DialogHelper.populateComboBox(database, roomComboBox);
+    // DialogHelper.populateComboBox(database, roomComboBox);
+    Set<Node> bookableNodes = new HashSet<>();
+    for (Node n : database.getAllNodes()) {
+      if (n.getNodeType().isSchedulable()) {
+        bookableNodes.add(n);
+      }
+    }
+    roomComboBox.getItems().addAll(bookableNodes);
+    Callback<ListView<Node>, ListCell<Node>> cellFactory =
+        new Callback<ListView<Node>, ListCell<Node>>() {
+          @Override
+          public ListCell<Node> call(ListView<Node> param) {
+            return new ListCell<Node>() {
+
+              @Override
+              protected void updateItem(Node item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || empty) {
+                  setGraphic(null);
+                } else {
+                  setText(item.getLongName());
+                }
+              }
+            };
+          }
+        };
+    roomComboBox.setCellFactory(cellFactory);
+
+    // wait for selection
+    roomComboBox.valueProperty().addListener((observable, oldValue, newValue)
+        -> roomComboBox.setButtonCell(cellFactory.call(null)));
 
     // set tab pane to span entire width
     tabPane.widthProperty().addListener((observable, oldValue, newValue) -> {
