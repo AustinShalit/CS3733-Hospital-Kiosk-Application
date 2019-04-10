@@ -85,7 +85,6 @@ public class LoginController implements Controller {
 
     // otherwise
     loginFail.setText("Incorrect username or password");
-    // bounceTextAnimation(loginFail);
     return null;
   }
 
