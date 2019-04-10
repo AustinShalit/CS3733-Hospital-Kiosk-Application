@@ -33,9 +33,9 @@
           <padding>
             <Insets bottom="9.0" left="9.0" right="9.0" top="9.0" />
           </padding>
-               <center>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="logo" BorderPane.alignment="CENTER" />
-               </center>
+          <center>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="logo" BorderPane.alignment="CENTER" />
+          </center>
         </JFXToolbar>
       </top>
     </BorderPane>
