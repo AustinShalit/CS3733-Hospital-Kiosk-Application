@@ -34,12 +34,12 @@ class ITSupportRequestDaoDbTest {
 
   private static final ITSupportRequest testITSupportRequest1 =
       new ITSupportRequest(1, LocalDateTime.now(), LocalDateTime.now(), testNode1,
-          "Bob", ITSupportRequest.ITSupportRequestType.DELIVERY,
+          "Bob", ITSupportRequest.ITSupportRequestType.COMPUTER,
           "This is a description", "Dev");
 
   private static final ITSupportRequest testITSupportRequest2 =
       new ITSupportRequest(2, LocalDateTime.now(), LocalDateTime.now(), testNode2,
-          "Bill", ITSupportRequest.ITSupportRequestType.STRETCHER,
+          "Bill", ITSupportRequest.ITSupportRequestType.INTERNET,
           "This is a description", "Ken");
   private ITSupportRequestDaoDb itSupportRequestDaoDb;
   private NodeDao nodeDao;
@@ -129,7 +129,7 @@ class ITSupportRequestDaoDbTest {
         Node.NodeType.DEPT, "longname", "shortname");
     assertFalse(itSupportRequestDaoDb.update(new ITSupportRequest(987, LocalDateTime.now(),
         LocalDateTime.now(), newNode, "Jane",
-        ITSupportRequest.ITSupportRequestType.DELIVERY,
+        ITSupportRequest.ITSupportRequestType.TV,
         "This request doesnt exist", "Jill")));
   }
 
