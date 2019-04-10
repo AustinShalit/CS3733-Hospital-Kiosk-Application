@@ -28,6 +28,8 @@ import edu.wpi.cs3733.d19.teamO.controller.v2.request.InterpreterController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InterpreterViewController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.PatientInfoController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.PatientInfoViewController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.ReligiousServiceController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.ReligiousServiceViewController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.SupportAnimalController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.SupportAnimalViewController;
 
@@ -82,6 +84,8 @@ public class ControllerModule extends AbstractModule {
 
     install(new FactoryModuleBuilder().build(InterpreterController.Factory.class));
     install(new FactoryModuleBuilder().build(InterpreterViewController.Factory.class));
+    install(new FactoryModuleBuilder().build(ReligiousServiceController.Factory.class));
+    install(new FactoryModuleBuilder().build(ReligiousServiceViewController.Factory.class));
 
     install(new FactoryModuleBuilder().build(SupportAnimalController.Factory.class));
     install(new FactoryModuleBuilder().build(SupportAnimalViewController.Factory.class));
