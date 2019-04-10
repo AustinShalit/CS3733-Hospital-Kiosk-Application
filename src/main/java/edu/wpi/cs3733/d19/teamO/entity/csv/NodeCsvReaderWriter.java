@@ -80,6 +80,38 @@ public class NodeCsvReaderWriter {
 
     }
 
+    public String getNodeId() {
+      return nodeId;
+    }
+
+    public int getXcoord() {
+      return xcoord;
+    }
+
+    public int getYcoord() {
+      return ycoord;
+    }
+
+    public String getFloor() {
+      return floor;
+    }
+
+    public String getBuilding() {
+      return building;
+    }
+
+    public String getNodeType() {
+      return nodeType;
+    }
+
+    public String getLongName() {
+      return longName;
+    }
+
+    public String getShortName() {
+      return shortName;
+    }
+
     private NodeVo(final String nodeId, final int xcoord, final int ycoord, final String floor,
                    final String building, final String nodeType, final String longName,
                    final String shortName) {

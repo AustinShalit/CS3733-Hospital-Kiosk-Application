@@ -101,5 +101,7 @@ public class ControllerModule extends AbstractModule {
 
     install(new FactoryModuleBuilder().build(FloristRequestController.Factory.class));
     install(new FactoryModuleBuilder().build(FloristRequestViewController.Factory.class));
+
+    install(new FactoryModuleBuilder().build(EditNodeDatabaseController.Factory.class));
   }
 }

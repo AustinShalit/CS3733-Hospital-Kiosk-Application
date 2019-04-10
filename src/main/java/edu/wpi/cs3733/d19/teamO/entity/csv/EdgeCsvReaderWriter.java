@@ -45,6 +45,17 @@ public class EdgeCsvReaderWriter {
       this.endNode = endNode;
     }
 
+    public String getId() {
+      return id;
+    }
+
+    public String getStartNode() {
+      return startNode;
+    }
+
+    public String getEndNode() {
+      return endNode;
+    }
 
     private static Edge toEdge(final EdgeVo vo, final Database database) {
       return new Edge(
