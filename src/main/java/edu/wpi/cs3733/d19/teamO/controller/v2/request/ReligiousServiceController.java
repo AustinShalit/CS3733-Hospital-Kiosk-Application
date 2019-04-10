@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.d19.teamO.controller.v2.request;
 
 import java.time.LocalDateTime;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -67,7 +66,7 @@ public class ReligiousServiceController implements Controller {
   void onSubmitButtonAction() {
     ReligiousServiceRequest religious = parseUserRSRequest();
     if (religious == null) {
-      Logger logger = Logger.getLogger(ReligiousServiceViewController.class.getName());
+      Logger logger = Logger.getLogger(ReligiousServiceController.class.getName());
       logger.log(Level.WARNING,
           "Unable to parse religious service Request.",
           "Unable to parse religious service Request.");
@@ -98,9 +97,8 @@ public class ReligiousServiceController implements Controller {
       LocalDateTime now = LocalDateTime.now();
       Node node = (Node) locationbox.getValue();
 
-      String type = categorybox.getValue().toString().toUpperCase(new Locale("EN"));
       ReligiousServiceRequest.ReligiousServiceRequestType religiousRequestType =
-          ReligiousServiceRequest.ReligiousServiceRequestType.valueOf(type);
+          categorybox.getValue();
 
       String description = descriptiontxt.getText();
       String name = nametxt.getText();
