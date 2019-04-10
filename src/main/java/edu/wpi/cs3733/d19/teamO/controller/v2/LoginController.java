@@ -10,6 +10,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
+import animatefx.animation.Shake;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
@@ -65,10 +66,9 @@ public class LoginController implements Controller {
     // if info typed was right, you go to main window screen
     if (check) {
       eventBus.post(new ChangeMainViewEvent(homeControllerFactory.create()));
-      //switchScenes("./v2/Main.fxml", loginButton.getScene().getWindow());
     } else {
       loginFail.setText("Incorrect username or password");
-      //bounceTextAnimation(loginFail);
+      new Shake(loginFail).play();
     }
   }
 
