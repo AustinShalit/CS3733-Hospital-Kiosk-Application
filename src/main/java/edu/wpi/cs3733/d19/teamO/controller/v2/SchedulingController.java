@@ -19,6 +19,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
+import edu.wpi.cs3733.d19.teamO.component.SchedulingMapView;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.SchedulingRequest;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
@@ -66,6 +67,8 @@ public class SchedulingController implements Controller {
   Tab mapTab;
   @FXML
   Tab tableTab;
+  @FXML
+  SchedulingMapView schedulingMapView;
 
   @Inject
   private Database database;
