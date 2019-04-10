@@ -16,7 +16,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -33,7 +32,6 @@ import edu.wpi.cs3733.d19.teamO.entity.pathfinding.StepByStep;
 @FxmlController(url = "Navigation.fxml")
 public class NavigationController implements Controller {
 
-  Database database = new Database();
 
   @FXML
   BorderPane root;
@@ -91,7 +89,7 @@ public class NavigationController implements Controller {
   }
 
   @FXML
-  @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
+  @SuppressWarnings({"PMD.AvoidInstantiatingObjectsInLoops", "UseStringBufferForStringAppends"})
   void onGoButtonAction() throws SQLException {
     map.getEdges().getChildren().removeAll(bfsPath);
 
@@ -143,12 +141,14 @@ public class NavigationController implements Controller {
 
     map.getEdges().getChildren().addAll(bfsPath);
 
-     ArrayList<String> list= stepByStep.getStepByStep(path);
-     String instruction = "";
+    ArrayList<String> list = stepByStep.getStepByStep(path);
+    String instruction = "";
+    StringBuilder stringBuilder = new StringBuilder("");
     for (String s: list) {
-      instruction += s + "\n";
+      stringBuilder.append(s);
+      stringBuilder.append('\n');
     }
-    System.out.println(instruction);
+    instruction = stringBuilder.toString();
     instructions.setText(instruction);
   }
 

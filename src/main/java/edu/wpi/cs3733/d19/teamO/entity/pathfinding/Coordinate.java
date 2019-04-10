@@ -17,8 +17,13 @@ public class Coordinate {
     return ycoord;
   }
 
+  /**
+   * gets the distance in ft between the two coordinates.
+   * @param coordinate end.
+   * @return distance ft.
+   */
   public double getDist(Coordinate coordinate) {
-    double xsquare = Math.pow((this.xcoord - coordinate.getXcoord()), 2);
+    double xsquare = Math.pow(this.xcoord - coordinate.getXcoord(), 2);
     double ysquare = Math.pow(this.ycoord - coordinate.getYcoord(), 2);
     double dist = Math.sqrt(xsquare + ysquare);
 

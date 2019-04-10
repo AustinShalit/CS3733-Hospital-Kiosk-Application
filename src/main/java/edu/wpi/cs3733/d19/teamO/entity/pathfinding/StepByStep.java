@@ -55,7 +55,7 @@ public class StepByStep {
    * @return list of instructions.
    */
   public ArrayList<String> getStepByStep(List<Node> nodes) {
-    ArrayList<String> instructions = new ArrayList<>();
+
 
     ArrayList<Coordinate> coordinates = new ArrayList<>();
 
@@ -77,14 +77,17 @@ public class StepByStep {
     compass.add("North West");
     ArrayList<Double> distance = new ArrayList<>();
 
-
+    ArrayList<String> instructions = new ArrayList<>();
     for (int i = 0; i < coordinates.size() - 1; i++) {
       String direction = getDirection(coordinates.get(i), coordinates.get(i + 1));
       cardinalDirections.add(direction);
       double diff = coordinates.get(i).getDist(coordinates.get(i + 1));
       distance.add(diff);
     }
-    instructions.add("Walk" + cardinalDirections.get(0) + "");
+    instructions.add("Walk " + cardinalDirections.get(0) + " ");
+    double totalDist = 0;
+    String last = "other";
+    String forward = "forward";
 
     for (int i = 0; i < cardinalDirections.size() - 1; i++) {
       String current = cardinalDirections.get(i);
@@ -94,26 +97,38 @@ public class StepByStep {
       int end = compass.indexOf(next);
       int diff = end - start;
 
-      instructions.add("Walk " + Double.toString(Math.round(distance.get(i))) + " ft then");
 
-      if (diff == 1 || diff == -7 ) {
-        instructions.add("take a slight right");
-      } else if (diff == 2 || diff == -6) {
-        instructions.add("take a right");
-      } else if (diff == 3 || diff == -5) {
-        instructions.add("take a hard right");
-      } else if (diff == -1 || diff == 7) {
-        instructions.add("take a slight left");
-      } else if (diff == -2 || diff == 6) {
-        instructions.add("take a left");
-      } else if (diff == -3 || diff == 5) {
-        instructions.add("take a hard left");
-      } else if (diff == 0) {
-        instructions.add("go forward");
+      if (!last.equals(forward)) {
+        instructions.add("Walk " + Double.toString(Math.round(distance.get(i))) + " ft then");
       }
 
 
-
+      if (diff == 1 || diff == -7 ) {
+        instructions.add("take a slight right");
+        last = "other";
+      } else if (diff == 2 || diff == -6) {
+        instructions.add("take a right");
+        last = "other";
+      } else if (diff == 3 || diff == -5) {
+        instructions.add("take a hard right");
+        last = "other";
+      } else if (diff == -1 || diff == 7) {
+        instructions.add("take a slight left");
+        last = "other";
+      } else if (diff == -2 || diff == 6) {
+        instructions.add("take a left");
+        last = "other";
+      } else if (diff == -3 || diff == 5) {
+        instructions.add("take a hard left");
+        last = "other";
+      } else if (diff == 0) {
+        if (!last.equals(forward)) {
+          instructions.add("go forward");
+          totalDist += Math.round(distance.get(i));
+          last = "forward";
+        }
+        last = "forward";
+      }
     }
 
     return instructions;
