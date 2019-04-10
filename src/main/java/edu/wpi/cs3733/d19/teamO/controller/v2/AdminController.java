@@ -25,9 +25,6 @@ public class AdminController implements Controller {
   @Inject
   private EventBus eventBus;
 
-  @Inject
-  private NodeTableController.Factory nodeTableControllerFactory;
-
   @FXML
   void initialize() {
     System.out.println("weiogeigbiawoegbaoweigbaweiogbaewogbaewogiwe");
