@@ -2,6 +2,8 @@ package edu.wpi.cs3733.d19.teamO.component;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javafx.animation.Interpolator;
 import javafx.event.ActionEvent;
@@ -17,15 +19,18 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.StrokeLineCap;
 import javafx.util.Duration;
 import net.kurobako.gesturefx.GesturePane;
 
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 
-
+@SuppressWarnings("PMD.TooManyFields")
 public class MapView extends StackPane {
 
   private int level = 1;
@@ -55,6 +60,15 @@ public class MapView extends StackPane {
   @FXML
   Label coordY;
 
+  Group startAndEndNodes = new Group();
+
+  Group pathEdges = new Group();
+
+  List<Node> path;
+
+  public void setPath(List<Node> path) {
+    this.path = path;
+  }
 
   /**
    * The constructor for the MapView class.
@@ -146,6 +160,7 @@ public class MapView extends StackPane {
   @FXML
   @SuppressWarnings("PMD.CyclomaticComplexity")
   void onFloorSelectAction(ActionEvent e) throws IOException {
+
     Object src = e.getSource();
 
     if (src.equals(levelF1) || src.equals(levelF2) || src.equals(levelF3)
@@ -183,6 +198,7 @@ public class MapView extends StackPane {
 
     backgroundImage.setImage(new Image(getClass().getResource(filename).openStream()));
 
+    drawPath();
 
   }
 
@@ -281,4 +297,64 @@ public class MapView extends StackPane {
     edges.getChildren().clear();
   }
 
+  /**
+   * Deletes and redraws (if applicable) the Navigation path
+   * given to the map based on the current floor.
+   */
+  @SuppressWarnings({"PMD.AvoidInstantiatingObjectsInLoops"})
+  public void drawPath() {
+    nodeGroup.getChildren().removeAll(startAndEndNodes);
+    edges.getChildren().removeAll(pathEdges);
+
+    pathEdges = new Group();
+    startAndEndNodes = new Group();
+
+    if (path != null) {
+      clearNodes();
+      addNodesToPane(path.stream().filter(node -> node.getFloorInt() == level)
+          .collect(Collectors.toSet()));
+
+      Node lastNode = null;
+      for (Node node : path) {
+        if (lastNode != null) {
+          addLine(node, lastNode, Color.BLACK, 5);
+        } else if (node.getFloorInt() == level) {
+          Circle circle = new Circle(node.getXcoord(), node.getYcoord(), 8, Color.GREEN);
+          circle.setStroke(Color.BLACK);
+          startAndEndNodes.getChildren().add(circle);
+        }
+        lastNode = node;
+      }
+
+      if (lastNode.getFloorInt() == level) {
+        Rectangle rectangle = new Rectangle(lastNode.getXcoord() - 8, lastNode.getYcoord() - 8,
+            16, 16);
+        rectangle.setFill(Color.RED);
+        rectangle.setStroke(Color.BLACK);
+        startAndEndNodes.getChildren().add(rectangle);
+      }
+
+
+      lastNode = null;
+      for (Node node : path) {
+        if (lastNode != null) {
+          addLine(node, lastNode, Color.color(0.96, 0.74, 0.22), 2.5);
+        }
+        lastNode = node;
+      }
+    }
+    nodeGroup.getChildren().addAll(startAndEndNodes);
+    edges.getChildren().addAll(pathEdges);
+  }
+
+  private void addLine(Node node, Node lastNode, Paint paint, double width) {
+    if (lastNode.getFloorInt() == level && node.getFloorInt() == level) {
+      Line line = new Line(node.getXcoord(), node.getYcoord(),
+          lastNode.getXcoord(), lastNode.getYcoord());
+      line.setStrokeWidth(width);
+      line.setStroke(paint);
+      line.setStrokeLineCap(StrokeLineCap.ROUND);
+      pathEdges.getChildren().add(line);
+    }
+  }
 }

@@ -3,6 +3,8 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -13,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <?import edu.wpi.cs3733.d19.teamO.component.MapView?>
-<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.v2.NavigationController">
+<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.v2.NavigationController">
   <left>
     <StackPane prefWidth="200.0" BorderPane.alignment="CENTER">
       <children>
@@ -98,6 +100,11 @@
                     <Font name="System Bold" size="18.0" />
                   </font>
                 </JFXButton>
+                <ScrollPane hbarPolicy="NEVER" prefHeight="200">
+                  <content>
+                    <Label fx:id="instructions" />
+                  </content>
+                </ScrollPane>
               </children>
             </VBox>
           </children>
