@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class SchedulingRequestDaoDbTest {
 
   private static final Node nodeA = new Node("A", 1, 2, "0", "B",
-      Node.NodeType.HALL, "AL", "AS");
+      Node.NodeType.CLASSROOM, "AL", "AS");
   private static final LocalDateTime aStart = LocalDateTime.of(2019, 4, 1,
       3, 30);
   private static final LocalDateTime aEnd = LocalDateTime.of(2019, 4, 1,
@@ -123,7 +123,7 @@ class SchedulingRequestDaoDbTest {
     sanitationDao.insert(schedulingRequest);
 
     Node nodeB = new Node("B", 4, 6, "1", "B",
-        Node.NodeType.REST, "BL", "BS");
+        Node.NodeType.CLASSROOM, "BL", "BS");
 
     nodeDao.insert(nodeB);
 

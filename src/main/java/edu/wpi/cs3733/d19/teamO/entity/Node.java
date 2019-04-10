@@ -20,7 +20,11 @@ public class Node {
     REST("Restroom"),
     RETL("Retail"),
     SERV("Service"),
-    STAI("Stair Case");
+    STAI("Stair Case"),
+    WORKZONE("Workzone"),
+    PANTRY("Pantry"),
+    CLASSROOM("Classroom"),
+    AUDITORIUM("Auditorium");
 
     private static final Map<String, NodeType> lookup = new ConcurrentHashMap<>();
 
@@ -34,6 +38,10 @@ public class Node {
 
     NodeType(final String name) {
       this.name = name;
+    }
+
+    public boolean isSchedulable() {
+      return this == WORKZONE || this == CLASSROOM || this == AUDITORIUM;
     }
 
     @Override
