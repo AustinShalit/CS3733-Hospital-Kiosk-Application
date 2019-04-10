@@ -24,7 +24,7 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 @FxmlController(url = "MapEdit.fxml")
 public class MapEditController implements Controller {
   String nodeID;
-  int newID=100;
+  int newID = 100;
   // Collection<Node> nodes;
 
   @FXML
@@ -43,8 +43,8 @@ public class MapEditController implements Controller {
   AnchorPane tableView;
   @FXML
   JFXTextField xcoordField;
-//  @FXML
-//  JFXTextField nodeIDField;
+  //  @FXML
+  //  JFXTextField nodeIDField;
   @FXML
   JFXTextField ycoordField;
   @FXML
@@ -79,7 +79,7 @@ public class MapEditController implements Controller {
     map.addNodesToPane(database.getFloor("1"));
     map.selectedNodeProperty().addListener((observable, oldValue, newValue) -> {
       nodeID = newValue.getNodeId();
-//      nodeIDField.setText(newValue.getNodeId());
+      //      nodeIDField.setText(newValue.getNodeId());
       xcoordField.setText(Integer.toString(newValue.getXcoord()));
       ycoordField.setText(Integer.toString(newValue.getYcoord()));
       floorField.setText(newValue.getFloor());
