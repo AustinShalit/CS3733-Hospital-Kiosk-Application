@@ -128,27 +128,17 @@ class ServiceRequest {
     return location.getLongName();
   }
 
-  public String getTimeDifference(){
+  public int getTimeDifference(){
     if(timeRequested.isAfter(timeCompleted)){
-      return "Invalid time period";
-    }else if(timeCompleted.minusMinutes(120).isBefore(timeRequested)){
-      return "Request over two hours";
-    }else {
-      int second = timeCompleted.getSecond() - timeRequested.getSecond();
-      int hour = timeCompleted.getHour() - timeRequested.getHour();
-      int minute = timeCompleted.getMinute() - timeRequested.getMinute();
-      if(second < 0){
-        second += 60;
-        minute -= 1;
-      }
-      if(minute < 0){
-        minute += 60;
-        hour -= 1;
-      }
-      if(hour < 0) {
-          hour += 24;
-      }
-      return (hour + "hours" + minute + "minutes" + second + "seconds");
+      return -1; //"Invalid time period";
+    }else if(timeCompleted.minusMinutes(120).isAfter(timeRequested)){
+      return 1; //"Request over two hours";
+    }else if(timeCompleted.minusMinutes(60).isAfter(timeRequested)){
+      return 2; //"Request from an hour to two hours";
+    }else if(timeCompleted.minusMinutes(30).isAfter(timeRequested)){
+      return 3; //"Request from half hour to an hour";
+    }else{
+      return 4; //"Request less than half hour";
     }
   }
 

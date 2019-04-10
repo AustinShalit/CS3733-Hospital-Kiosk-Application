@@ -95,7 +95,8 @@ public class GiftController implements Controller {
     reportLabel.setText("The number of requests for gift of teddy: " + tSize
         + "of candy: " + cSize
         + "of balloons: " + bSize
-        + "of other gifts: " + oSize);
+        + "of other gifts: " + oSize
+        + generateTimeReport());
   }
 
   /**
@@ -126,6 +127,40 @@ public class GiftController implements Controller {
     // otherwise, some input was invalid
     DialogHelper.showErrorAlert("Error.", "Please make sure all fields are filled out.");
     return null;
+  }
+
+  private String generateTimeReport(){
+    int i = 0;
+    int j = 0;
+    int k = 0;
+    int x = 0;
+    int y = 0;
+    int cnt = 0;
+    for(GiftRequest gR: db.getAllGiftRequests()){
+      cnt = gR.getTimeDifference();
+      switch(cnt){
+        case 1:
+          i++;
+          break;
+        case 2:
+          j++;
+          break;
+        case 3:
+          k++;
+          break;
+        case 4:
+          x++;
+          break;
+        default:
+          y++;
+          break;
+      }
+    }
+    return ("Invalid time request: " + y
+        + "Request over two hours" + i
+        + "Request from an hour to two hours" + j
+        + "Request from half hour to an hour" + k
+        + "Request less than half hour" + x);
   }
 
   @Override

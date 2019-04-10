@@ -48,6 +48,8 @@ public class ExternalTransportationController implements Controller {
   @FXML
   private JFXButton backbtn;
   @FXML
+  private JFXButton btn;
+  @FXML
   private Label reportLabel;
 
   @Inject
@@ -95,7 +97,8 @@ public class ExternalTransportationController implements Controller {
     int oSize = db.getExternalTransportationRequestsByCategory("OTHERS").size();
     reportLabel.setText("The number of requests for transporting by ambulance: " + aSize
         + "by helicopter: " + hSize
-        + "by other transportation: " + oSize);
+        + "by other transportation: " + oSize
+        + generateTimeReport());
   }
 
   /**
@@ -126,6 +129,40 @@ public class ExternalTransportationController implements Controller {
     // otherwise, some input was invalid
     DialogHelper.showErrorAlert("Error.", "Please make sure all fields are filled out.");
     return null;
+  }
+
+  private String generateTimeReport(){
+    int i = 0;
+    int j = 0;
+    int k = 0;
+    int x = 0;
+    int y = 0;
+    int cnt = 0;
+    for(ExternalTransportationRequest eTR: db.getAllExternalTransportationRequests()){
+      cnt = eTR.getTimeDifference();
+      switch(cnt){
+        case 1:
+          i++;
+          break;
+        case 2:
+          j++;
+          break;
+        case 3:
+          k++;
+          break;
+        case 4:
+          x++;
+          break;
+        default:
+          y++;
+          break;
+      }
+    }
+    return ("Invalid time request: " + y
+            + "Request over two hours" + i
+            + "Request from an hour to two hours" + j
+            + "Request from half hour to an hour" + k
+            + "Request less than half hour" + x);
   }
 
   @Override
