@@ -5,8 +5,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.google.inject.Inject;
-
 import javafx.animation.Interpolator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,6 +19,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
@@ -30,9 +29,8 @@ import net.kurobako.gesturefx.GesturePane;
 
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
-import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
-
+@SuppressWarnings("PMD.TooManyFields")
 public class MapView extends StackPane {
 
   private int level = 1;
@@ -66,7 +64,7 @@ public class MapView extends StackPane {
 
   Group pathEdges = new Group();
 
-  List<Node> path = null;
+  List<Node> path;
 
   public void setPath(List<Node> path) {
     this.path = path;
@@ -255,7 +253,7 @@ public class MapView extends StackPane {
   @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
   public void addNodesToPane(final Collection<Node> nodes) {
 
-    for (Node node: nodes) {
+    for (Node node : nodes) {
       Circle circle = new Circle(node.getXcoord(), node.getYcoord(), 5, Color.color(0, 0.31, 0.53));
       circle.setStroke(Color.BLACK);
       nodeGroup.getChildren().add(circle);
@@ -299,6 +297,11 @@ public class MapView extends StackPane {
     edges.getChildren().clear();
   }
 
+  /**
+   * Deletes and redraws (if applicable) the Navigation path
+   * given to the map based on the current floor.
+   */
+  @SuppressWarnings({"PMD.AvoidInstantiatingObjectsInLoops"})
   public void drawPath() {
     nodeGroup.getChildren().removeAll(startAndEndNodes);
     edges.getChildren().removeAll(pathEdges);
@@ -306,23 +309,16 @@ public class MapView extends StackPane {
     pathEdges = new Group();
     startAndEndNodes = new Group();
 
-    if(path != null) {
+    if (path != null) {
       clearNodes();
-      addNodesToPane(path.stream().filter(node -> node.getFloorInt() == level).collect(Collectors.toSet()));
+      addNodesToPane(path.stream().filter(node -> node.getFloorInt() == level)
+          .collect(Collectors.toSet()));
 
       Node lastNode = null;
       for (Node node : path) {
         if (lastNode != null) {
-          if(lastNode.getFloorInt() == level && node.getFloorInt() == level) {
-            Line line = new Line(node.getXcoord(), node.getYcoord(),
-                lastNode.getXcoord(), lastNode.getYcoord());
-            line.setStrokeWidth(5);
-            line.setStroke(Color.BLACK);
-            line.setStrokeLineCap(StrokeLineCap.ROUND);
-            pathEdges.getChildren().add(line);
-          }
-
-        } else if (node.getFloorInt() == level){
+          addLine(node, lastNode, Color.BLACK, 5);
+        } else if (node.getFloorInt() == level) {
           Circle circle = new Circle(node.getXcoord(), node.getYcoord(), 8, Color.GREEN);
           circle.setStroke(Color.BLACK);
           startAndEndNodes.getChildren().add(circle);
@@ -330,8 +326,9 @@ public class MapView extends StackPane {
         lastNode = node;
       }
 
-      if(lastNode.getFloorInt() == level) {
-        Rectangle rectangle = new Rectangle(lastNode.getXcoord() - 8, lastNode.getYcoord() - 8, 16, 16);
+      if (lastNode.getFloorInt() == level) {
+        Rectangle rectangle = new Rectangle(lastNode.getXcoord() - 8, lastNode.getYcoord() - 8,
+            16, 16);
         rectangle.setFill(Color.RED);
         rectangle.setStroke(Color.BLACK);
         startAndEndNodes.getChildren().add(rectangle);
@@ -340,13 +337,8 @@ public class MapView extends StackPane {
 
       lastNode = null;
       for (Node node : path) {
-        if (lastNode != null && lastNode.getFloorInt() == level && node.getFloorInt() == level) {
-          Line line = new Line(node.getXcoord(), node.getYcoord(),
-              lastNode.getXcoord(), lastNode.getYcoord());
-          line.setStrokeWidth(2.5);
-          line.setStroke(Color.color(0.96, 0.74, 0.22));
-          line.setStrokeLineCap(StrokeLineCap.ROUND);
-          pathEdges.getChildren().add(line);
+        if (lastNode != null) {
+          addLine(node, lastNode, Color.color(0.96, 0.74, 0.22), 2.5);
         }
         lastNode = node;
       }
@@ -355,4 +347,14 @@ public class MapView extends StackPane {
     edges.getChildren().addAll(pathEdges);
   }
 
+  private void addLine(Node node, Node lastNode, Paint paint, double width) {
+    if (lastNode.getFloorInt() == level && node.getFloorInt() == level) {
+      Line line = new Line(node.getXcoord(), node.getYcoord(),
+          lastNode.getXcoord(), lastNode.getYcoord());
+      line.setStrokeWidth(width);
+      line.setStroke(paint);
+      line.setStrokeLineCap(StrokeLineCap.ROUND);
+      pathEdges.getChildren().add(line);
+    }
+  }
 }

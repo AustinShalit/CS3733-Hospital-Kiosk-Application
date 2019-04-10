@@ -12,14 +12,8 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
 import javafx.fxml.FXML;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.StrokeLineCap;
 
 import edu.wpi.cs3733.d19.teamO.component.MapView;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
@@ -73,7 +67,6 @@ public class NavigationController implements Controller {
   }
 
   @FXML
-  @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
   void onGoButtonAction() throws SQLException {
 
     PathfindingContext<Node> pathfindingContext = new PathfindingContext<>();

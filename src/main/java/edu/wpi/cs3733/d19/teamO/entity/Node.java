@@ -150,21 +150,27 @@ public class Node {
   }
 
   /**
-   *
-   * @return An integer value representing the level the Node is on.
+   * Returns an integer value corresponding the level of the node.
+   * @return An integer value representing the level the Node is on:
+   *     Invalid floor == -3
+   *     L2 == -2
+   *     L1 == -1
+   *     G == 0
+   *     1 == 1
+   *     2 == 2
    */
   public int getFloorInt() {
-    if(floor.equals("1")) {
+    if ("1".equals(floor)) {
       return 1;
-    } else if(floor.equals("2")) {
+    } else if ("2".equals(floor)) {
       return 2;
-    } else if (floor.equals("3")) {
+    } else if ("3".equals(floor)) {
       return 3;
-    } else if (floor.equals("G")) {
+    } else if ("G".equals(floor)) {
       return 0;
-    } else if (floor.equals("L1")) {
+    } else if ("L1".equals(floor)) {
       return -1;
-    } else if (floor.equals("L2")) {
+    } else if ("L2".equals(floor)) {
       return -2;
     } else {
       return -3;
