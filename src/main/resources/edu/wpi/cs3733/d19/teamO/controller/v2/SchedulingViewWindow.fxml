@@ -12,7 +12,7 @@
         <Font size="32.0" />
       </font>
     </Label>
-    <TableView fx:id="requestsTableView" layoutX="50.0" layoutY="62.0" prefHeight="338.0" prefWidth="250.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="57.0">
+    <TableView fx:id="table" layoutX="50.0" layoutY="62.0" prefHeight="338.0" prefWidth="250.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="57.0">
       <columns>
         <TableColumn fx:id="idTableCol" editable="false" maxWidth="300.0" minWidth="50.0" prefWidth="0.0" text="ID" />
         <TableColumn fx:id="startTimeCol" editable="false" maxWidth="300.0" minWidth="50.0" prefWidth="0.0" text="StartTime" />
