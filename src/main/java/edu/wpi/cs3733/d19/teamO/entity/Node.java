@@ -148,4 +148,26 @@ public class Node {
   public int hashCode() {
     return Objects.hash(nodeId, xcoord, ycoord, floor, building, nodeType, longName, shortName);
   }
+
+  /**
+   *
+   * @return An integer value representing the level the Node is on.
+   */
+  public int getFloorInt() {
+    if(floor.equals("1")) {
+      return 1;
+    } else if(floor.equals("2")) {
+      return 2;
+    } else if (floor.equals("3")) {
+      return 3;
+    } else if (floor.equals("G")) {
+      return 0;
+    } else if (floor.equals("L1")) {
+      return -1;
+    } else if (floor.equals("L2")) {
+      return -2;
+    } else {
+      return -3;
+    }
+  }
 }

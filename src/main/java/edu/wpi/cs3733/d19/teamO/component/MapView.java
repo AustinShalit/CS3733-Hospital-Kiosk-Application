@@ -2,6 +2,10 @@ package edu.wpi.cs3733.d19.teamO.component;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.google.inject.Inject;
 
 import javafx.animation.Interpolator;
 import javafx.event.ActionEvent;
@@ -19,11 +23,14 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.StrokeLineCap;
 import javafx.util.Duration;
 import net.kurobako.gesturefx.GesturePane;
 
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
+import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 
 public class MapView extends StackPane {
@@ -55,6 +62,15 @@ public class MapView extends StackPane {
   @FXML
   private Label coordY;
 
+  Group startAndEndNodes = new Group();
+
+  Group pathEdges = new Group();
+
+  List<Node> path = null;
+
+  public void setPath(List<Node> path) {
+    this.path = path;
+  }
 
   /**
    * The constructor for the MapView class.
@@ -146,6 +162,7 @@ public class MapView extends StackPane {
   @FXML
   @SuppressWarnings("PMD.CyclomaticComplexity")
   void onFloorSelectAction(ActionEvent e) throws IOException {
+
     Object src = e.getSource();
 
     if (src.equals(levelF1) || src.equals(levelF2) || src.equals(levelF3)
@@ -183,6 +200,7 @@ public class MapView extends StackPane {
 
     backgroundImage.setImage(new Image(getClass().getResource(filename).openStream()));
 
+    drawPath();
 
   }
 
@@ -279,6 +297,62 @@ public class MapView extends StackPane {
 
   public void clearEdges() {
     edges.getChildren().clear();
+  }
+
+  public void drawPath() {
+    nodeGroup.getChildren().removeAll(startAndEndNodes);
+    edges.getChildren().removeAll(pathEdges);
+
+    pathEdges = new Group();
+    startAndEndNodes = new Group();
+
+    if(path != null) {
+      clearNodes();
+      addNodesToPane(path.stream().filter(node -> node.getFloorInt() == level).collect(Collectors.toSet()));
+
+      Node lastNode = null;
+      for (Node node : path) {
+        if (lastNode != null) {
+          if(lastNode.getFloorInt() == level && node.getFloorInt() == level) {
+            Line line = new Line(node.getXcoord(), node.getYcoord(),
+                lastNode.getXcoord(), lastNode.getYcoord());
+            line.setStrokeWidth(5);
+            line.setStroke(Color.BLACK);
+            line.setStrokeLineCap(StrokeLineCap.ROUND);
+            pathEdges.getChildren().add(line);
+          }
+
+        } else if (node.getFloorInt() == level){
+          Circle circle = new Circle(node.getXcoord(), node.getYcoord(), 8, Color.GREEN);
+          circle.setStroke(Color.BLACK);
+          startAndEndNodes.getChildren().add(circle);
+        }
+        lastNode = node;
+      }
+
+      if(lastNode.getFloorInt() == level) {
+        Rectangle rectangle = new Rectangle(lastNode.getXcoord() - 8, lastNode.getYcoord() - 8, 16, 16);
+        rectangle.setFill(Color.RED);
+        rectangle.setStroke(Color.BLACK);
+        startAndEndNodes.getChildren().add(rectangle);
+      }
+
+
+      lastNode = null;
+      for (Node node : path) {
+        if (lastNode != null && lastNode.getFloorInt() == level && node.getFloorInt() == level) {
+          Line line = new Line(node.getXcoord(), node.getYcoord(),
+              lastNode.getXcoord(), lastNode.getYcoord());
+          line.setStrokeWidth(2.5);
+          line.setStroke(Color.color(0.96, 0.74, 0.22));
+          line.setStrokeLineCap(StrokeLineCap.ROUND);
+          pathEdges.getChildren().add(line);
+        }
+        lastNode = node;
+      }
+    }
+    nodeGroup.getChildren().addAll(startAndEndNodes);
+    edges.getChildren().addAll(pathEdges);
   }
 
 }
