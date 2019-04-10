@@ -4,17 +4,12 @@ import java.util.Optional;
 
 import com.jfoenix.controls.JFXComboBox;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextInputDialog;
 import javafx.util.Callback;
-import javafx.util.Duration;
 
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
@@ -95,33 +90,6 @@ public final class DialogHelper {
     // wait for selection
     comboBox.valueProperty().addListener((observable, oldValue, newValue)
         -> comboBox.setButtonCell(cellFactory.call(null)));
-  }
-
-  /**
-   * The method bounces the label to the left and right rapidly.
-   */
-  public static void bounceTextAnimation(Label label) {
-    KeyFrame init = new KeyFrame(Duration.ZERO, new KeyValue(label.translateXProperty(),
-        0));
-
-    KeyFrame left = new KeyFrame(Duration.seconds(.1), new KeyValue(label.translateXProperty(),
-        -10));
-    KeyFrame right = new KeyFrame(Duration.seconds(.1), new KeyValue(label.translateXProperty(),
-        10));
-
-    Timeline timelineLeft = new Timeline(init, left);
-    timelineLeft.setCycleCount(2);
-
-    Timeline timelineRight = new Timeline(init, right);
-    timelineRight.setCycleCount(2);
-
-    for (int i = 2; i < 12; i++) {
-      if (i % 2 == 0) {
-        timelineLeft.play();
-      } else if (i % 3 == 0) {
-        timelineRight.play();
-      }
-    }
   }
 
   /**
