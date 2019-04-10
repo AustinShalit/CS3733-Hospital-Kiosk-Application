@@ -94,22 +94,22 @@ public class StepByStep {
       int end = compass.indexOf(next);
       int diff = end - start;
 
-      instructions.add("Walk " + Double.toString(distance.get(i)) + " ft then");
+      instructions.add("Walk " + Double.toString(Math.round(distance.get(i))) + " ft then");
 
       if (diff == 1 || diff == -7 ) {
-        instructions.add("Slight Right");
+        instructions.add("take a slight right");
       } else if (diff == 2 || diff == -6) {
-        instructions.add("Right");
+        instructions.add("take a right");
       } else if (diff == 3 || diff == -5) {
-        instructions.add("Hard Right");
+        instructions.add("take a hard right");
       } else if (diff == -1 || diff == 7) {
-        instructions.add("Slight Left");
+        instructions.add("take a slight left");
       } else if (diff == -2 || diff == 6) {
-        instructions.add("Left");
+        instructions.add("take a left");
       } else if (diff == -3 || diff == 5) {
-        instructions.add("Hard Left");
+        instructions.add("take a hard left");
       } else if (diff == 0) {
-        instructions.add("Forward");
+        instructions.add("go forward");
       }
 
 
