@@ -32,6 +32,7 @@ dependencies {
     implementation(group = "com.jfoenix", name = "jfoenix", version = "8.0.8")
     implementation(group = "com.opencsv", name = "opencsv", version = "4.5")
     implementation(group = "de.jensd", name = "fontawesomefx", version = "8.9")
+    implementation(group = "io.github.typhon0", name = "AnimateFX", version = "1.2.1")
     implementation(group = "net.aksingh", name = "owm-japis", version = "2.5.2.3")
     implementation(group = "net.kurobako", name = "gesturefx", version = "0.3.0")
     implementation(group = "net.sf.sociaal", name = "freetts", version = "1.2.2")
