@@ -13,15 +13,9 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
 import javafx.fxml.FXML;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.StrokeLineCap;
 
 import edu.wpi.cs3733.d19.teamO.component.MapView;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
@@ -91,7 +85,6 @@ public class NavigationController implements Controller {
   @FXML
   @SuppressWarnings({"PMD.AvoidInstantiatingObjectsInLoops", "UseStringBufferForStringAppends"})
   void onGoButtonAction() throws SQLException {
-    map.getEdges().getChildren().removeAll(bfsPath);
 
     PathfindingContext<Node> pathfindingContext = new PathfindingContext<>();
     MutableGraph<Node> graph = GraphBuilder.undirected().allowsSelfLoops(false).build();
@@ -150,6 +143,8 @@ public class NavigationController implements Controller {
     }
     instruction = stringBuilder.toString();
     instructions.setText(instruction);
+    map.setPath(path);
+    map.drawPath();
   }
 
   void validateGoButton() {
