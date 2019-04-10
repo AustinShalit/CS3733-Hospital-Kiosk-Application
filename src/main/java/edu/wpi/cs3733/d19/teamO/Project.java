@@ -11,7 +11,6 @@ import com.google.inject.Injector;
 import com.sun.javafx.application.PlatformImpl;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -61,8 +60,7 @@ public class Project extends Application {
     loader.setControllerFactory(injector::getInstance);
     root = loader.load();
 
-    Platform.runLater(()
-        -> eventBus.post(new ChangeMainViewEvent(loginControllerFactory.create(), false)));
+    eventBus.post(new ChangeMainViewEvent(loginControllerFactory.create(), false));
 
     primaryStage.setTitle("Team O Kiosk Application");
     primaryStage.setScene(new Scene(root));
