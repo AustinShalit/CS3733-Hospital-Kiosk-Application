@@ -8,7 +8,7 @@
 .form {
     -fx-background-color: #ffffff;
     -fx-border-radius: 4px;
-    -fx-effect: dropshadow(three-pass-box, rgba(110,110,110,0.25), 10, 0, 0, 0);
+    -fx-effect: dropshadow(three-pass-box, rgba(110, 110, 110, 0.25), 10, 0, 0, 0);
     -fx-spacing: 36px;
     -fx-pref-height: 500px;
     -fx-pref-width: 650px;
@@ -67,7 +67,7 @@
 
 .jfx-text-field:focused {
     -fx-border-color: #0067b1;
-    -jfx-focus-color: rgba(0,103,177,0.2);
+    -jfx-focus-color: rgba(0, 103, 177, 0.2);
 }
 
 .jfx-text-area {

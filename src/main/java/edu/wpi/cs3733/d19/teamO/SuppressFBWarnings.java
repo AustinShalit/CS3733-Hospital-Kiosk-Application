@@ -8,7 +8,6 @@ public @interface SuppressFBWarnings {
   /**
    * The set of FindBugs warnings that are to be suppressed in
    * annotated element. The value can be a bug category, kind or pattern.
-   *
    */
   String[] value() default {};
 

@@ -203,12 +203,14 @@ public class ExternalTransportationRequestDaoDb implements ExternalTransportatio
   public Set<ExternalTransportationRequest> getNumberByCategory(String type) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement
-          = connection.prepareStatement(queries.getProperty("external_transportation_request.category"));
+          = connection.prepareStatement(queries.getProperty(
+              "external_transportation_request.category"));
       statement.setString(1, type);
       try (ResultSet resultSet = statement.executeQuery()) {
         Set<ExternalTransportationRequest> externalTransportationRequests = new HashSet<>();
         while (resultSet.next()) {
-          externalTransportationRequests.add(extractExternalTransportationRequestFromResultSet(resultSet));
+          externalTransportationRequests.add(
+              extractExternalTransportationRequestFromResultSet(resultSet));
         }
         return externalTransportationRequests;
       }

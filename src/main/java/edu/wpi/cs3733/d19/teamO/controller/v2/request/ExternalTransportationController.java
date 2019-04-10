@@ -89,15 +89,15 @@ public class ExternalTransportationController implements Controller {
           "Unable to submit External transportation request.");
     }
   }
-  
+
   @FXML
-  void onReportAction(){
-    int aSize = db.getExternalTransportationRequestsByCategory("AMBULANCE").size();
-    int hSize = db.getExternalTransportationRequestsByCategory("HELICOPTER").size();
-    int oSize = db.getExternalTransportationRequestsByCategory("OTHERS").size();
-    reportLabel.setText("The number of requests for transporting by ambulance: " + aSize
-        + "by helicopter: " + hSize
-        + "by other transportation: " + oSize
+  void onReportAction() {
+    int ambulance = db.getExternalTransportationRequestsByCategory("AMBULANCE").size();
+    int helicopter = db.getExternalTransportationRequestsByCategory("HELICOPTER").size();
+    int others = db.getExternalTransportationRequestsByCategory("OTHERS").size();
+    reportLabel.setText("The number of requests for transporting by ambulance: " + ambulance
+        + "by helicopter: " + helicopter
+        + "by other transportation: " + others
         + generateTimeReport());
   }
 
@@ -131,38 +131,38 @@ public class ExternalTransportationController implements Controller {
     return null;
   }
 
-  private String generateTimeReport(){
-    int i = 0;
-    int j = 0;
-    int k = 0;
-    int x = 0;
-    int y = 0;
+  private String generateTimeReport() {
+    int twoHourCounter = 0;
+    int oneHourCounter = 0;
+    int halfHourCounter = 0;
+    int lessHalfHourCounter = 0;
+    int invalidCounter = 0;
     int cnt = 0;
-    for(ExternalTransportationRequest eTR: db.getAllExternalTransportationRequests()){
-      cnt = eTR.getTimeDifference();
-      switch(cnt){
+    for (ExternalTransportationRequest external : db.getAllExternalTransportationRequests()) {
+      cnt = external.getTimeDifference();
+      switch (cnt) {
         case 1:
-          i++;
+          twoHourCounter++;
           break;
         case 2:
-          j++;
+          oneHourCounter++;
           break;
         case 3:
-          k++;
+          halfHourCounter++;
           break;
         case 4:
-          x++;
+          lessHalfHourCounter++;
           break;
         default:
-          y++;
+          invalidCounter++;
           break;
       }
     }
-    return ("Invalid time request: " + y
-            + "Request over two hours" + i
-            + "Request from an hour to two hours" + j
-            + "Request from half hour to an hour" + k
-            + "Request less than half hour" + x);
+    return "Invalid time request: " + invalidCounter
+        + "Request over two hours" + twoHourCounter
+        + "Request from an hour to two hours" + oneHourCounter
+        + "Request from half hour to an hour" + halfHourCounter
+        + "Request less than half hour" + lessHalfHourCounter;
   }
 
   @Override

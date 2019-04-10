@@ -154,33 +154,8 @@ class GiftRequestDaoDbTest {
     }
   }
 
-  @Nested
-  class Creation {
-    @Test
-    void createTableTest(TestInfo testInfo) {
-      DatabaseConnectionFactory dcf
-          = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
-          testInfo.getDisplayName());
-
-      assertDoesNotThrow(() -> new NodeDaoDb(dcf));
-      assertDoesNotThrow(() -> new GiftRequestDaoDb(dcf));
-    }
-
-    @Test
-    void existingTableTest(TestInfo testInfo) {
-      DatabaseConnectionFactory dcf
-          = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
-          testInfo.getDisplayName());
-
-      assertDoesNotThrow(() -> new NodeDaoDb(dcf));
-
-      assertDoesNotThrow(() -> new GiftRequestDaoDb(dcf));
-      assertDoesNotThrow(() -> new GiftRequestDaoDb(dcf));
-    }
-  }
-
   @Test
-  void categoryTest(){
+  void categoryTest() {
     nodeDao.insert(testNode2);
     giftRequestDaoDb.insert(testITRequest1);
     giftRequestDaoDb.insert(testITRequest1);

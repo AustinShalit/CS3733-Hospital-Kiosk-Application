@@ -158,37 +158,12 @@ class ExternalTransportationRequestDaoDbTest {
     }
   }
 
-  @Nested
-  class Creation {
-    @Test
-    void createTableTest(TestInfo testInfo) {
-      DatabaseConnectionFactory dcf
-          = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
-          testInfo.getDisplayName());
-
-      assertDoesNotThrow(() -> new NodeDaoDb(dcf));
-      assertDoesNotThrow(() -> new ExternalTransportationRequestDaoDb(dcf));
-    }
-
-    @Test
-    void existingTableTest(TestInfo testInfo) {
-      DatabaseConnectionFactory dcf
-          = new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
-          testInfo.getDisplayName());
-
-      assertDoesNotThrow(() -> new NodeDaoDb(dcf));
-
-      assertDoesNotThrow(() -> new SanitationRequestDaoDb(dcf));
-      assertDoesNotThrow(() -> new ExternalTransportationRequestDaoDb(dcf));
-    }
-  }
-
   @Test
-  void categoryTest(){
+  void categoryTest() {
     nodeDao.insert(testNode1);
     nodeDao.insert(testNode2);
     itrequestdao.insert(testITRequest1);
     itrequestdao.insert(testITRequest2);
-    assertEquals(1,itrequestdao.getNumberByCategory("AMBULANCE").size());
+    assertEquals(1, itrequestdao.getNumberByCategory("AMBULANCE").size());
   }
 }

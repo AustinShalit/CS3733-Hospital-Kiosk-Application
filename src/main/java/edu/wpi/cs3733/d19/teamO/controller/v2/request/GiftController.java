@@ -87,15 +87,15 @@ public class GiftController implements Controller {
   }
 
   @FXML
-  void onReportAction(){
-    int tSize = db.getNumberbyCategory("TEDDYBEAR").size();
-    int cSize = db.getNumberbyCategory("CANDY").size();
-    int bSize = db.getNumberbyCategory("BALLOONS").size();
-    int oSize = db.getNumberbyCategory("OTHERS").size();
-    reportLabel.setText("The number of requests for gift of teddy: " + tSize
-        + "of candy: " + cSize
-        + "of balloons: " + bSize
-        + "of other gifts: " + oSize
+  void onReportAction() {
+    int teddybear = db.getNumberbyCategory("TEDDYBEAR").size();
+    int candy = db.getNumberbyCategory("CANDY").size();
+    int balloons = db.getNumberbyCategory("BALLOONS").size();
+    int others = db.getNumberbyCategory("OTHERS").size();
+    reportLabel.setText("The number of requests for gift of teddy: " + teddybear
+        + "of candy: " + candy
+        + "of balloons: " + balloons
+        + "of other gifts: " + others
         + generateTimeReport());
   }
 
@@ -129,38 +129,38 @@ public class GiftController implements Controller {
     return null;
   }
 
-  private String generateTimeReport(){
-    int i = 0;
-    int j = 0;
-    int k = 0;
-    int x = 0;
-    int y = 0;
+  private String generateTimeReport() {
+    int twoHourCounter = 0;
+    int oneHourCounter = 0;
+    int halfHourCounter = 0;
+    int lessHalfHourCounter = 0;
+    int invalidCounter = 0;
     int cnt = 0;
-    for(GiftRequest gR: db.getAllGiftRequests()){
-      cnt = gR.getTimeDifference();
-      switch(cnt){
+    for (GiftRequest giftRequest : db.getAllGiftRequests()) {
+      cnt = giftRequest.getTimeDifference();
+      switch (cnt) {
         case 1:
-          i++;
+          twoHourCounter++;
           break;
         case 2:
-          j++;
+          oneHourCounter++;
           break;
         case 3:
-          k++;
+          halfHourCounter++;
           break;
         case 4:
-          x++;
+          lessHalfHourCounter++;
           break;
         default:
-          y++;
+          invalidCounter++;
           break;
       }
     }
-    return ("Invalid time request: " + y
-        + "Request over two hours" + i
-        + "Request from an hour to two hours" + j
-        + "Request from half hour to an hour" + k
-        + "Request less than half hour" + x);
+    return "Invalid time request: " + invalidCounter
+        + "Request over two hours" + twoHourCounter
+        + "Request from an hour to two hours" + oneHourCounter
+        + "Request from half hour to an hour" + halfHourCounter
+        + "Request less than half hour" + lessHalfHourCounter;
   }
 
   @Override

@@ -128,16 +128,16 @@ class ServiceRequest {
     return location.getLongName();
   }
 
-  public int getTimeDifference(){
-    if(timeRequested.isAfter(timeCompleted)){
+  public int getTimeDifference() {
+    if (timeRequested.isAfter(timeCompleted)) {
       return -1; //"Invalid time period";
-    }else if(timeCompleted.minusMinutes(120).isAfter(timeRequested)){
+    } else if (timeCompleted.minusMinutes(120).isAfter(timeRequested)) {
       return 1; //"Request over two hours";
-    }else if(timeCompleted.minusMinutes(60).isAfter(timeRequested)){
+    } else if (timeCompleted.minusMinutes(60).isAfter(timeRequested)) {
       return 2; //"Request from an hour to two hours";
-    }else if(timeCompleted.minusMinutes(30).isAfter(timeRequested)){
+    } else if (timeCompleted.minusMinutes(30).isAfter(timeRequested)) {
       return 3; //"Request from half hour to an hour";
-    }else{
+    } else {
       return 4; //"Request less than half hour";
     }
   }

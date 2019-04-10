@@ -337,7 +337,7 @@ public class Database {
       FloristRequest floristRequest) {
     return floristRequestDao.update(floristRequest);
   }
-  
+
   /*
    * Patient info
    */
@@ -440,6 +440,7 @@ public class Database {
       String type) {
     return etransportationDao.getNumberByCategory(type);
   }
+
   /*
    * Gift Request
    */
@@ -467,7 +468,7 @@ public class Database {
   }
 
   public Set<GiftRequest> getNumberbyCategory(
-      String type){
+      String type) {
     return giftRequestDao.getNumberByCategory(type);
   }
 
