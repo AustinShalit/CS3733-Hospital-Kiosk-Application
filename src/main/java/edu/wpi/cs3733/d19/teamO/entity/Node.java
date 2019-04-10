@@ -159,6 +159,7 @@ public class Node {
 
   /**
    * Returns an integer value corresponding the level of the node.
+   *
    * @return An integer value representing the level the Node is on:
    *     Invalid floor == -3
    *     L2 == -2
