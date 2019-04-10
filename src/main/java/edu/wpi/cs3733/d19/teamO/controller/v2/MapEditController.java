@@ -16,7 +16,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 import edu.wpi.cs3733.d19.teamO.component.MapView2;
+
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
+
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
@@ -56,10 +58,12 @@ public class MapEditController implements Controller {
   @FXML
   JFXTextField shortNameField;
   @FXML
+
   JFXTextField nodeIDField;
   @FXML
   JFXTextField nodeIDField2;
   @FXML
+
   Label status;
   @FXML
   JFXComboBox<Node.NodeType> nodeTypeComboBox;
@@ -76,12 +80,15 @@ public class MapEditController implements Controller {
   @FXML
   void initialize() {
 
+
     map.setNodes(database.getAllNodes());
     map.setCurrentNodes(database.getAllNodes());
     map.addNodesToPane(database.getFloor("1"));
     map.selectedNodeProperty().addListener((observable, oldValue, newValue) -> {
       nodeID = newValue.getNodeId();
+
       nodeIDField.setText(newValue.getNodeId());
+
       xcoordField.setText(Integer.toString(newValue.getXcoord()));
       ycoordField.setText(Integer.toString(newValue.getYcoord()));
       floorField.setText(newValue.getFloor());
@@ -91,7 +98,9 @@ public class MapEditController implements Controller {
       shortNameField.setText(newValue.getShortName());
       validateButton();
       status.setText("");
+
       nodeIDField2.setText("");
+
     });
 
     // set tab pane to span entire width
@@ -118,7 +127,9 @@ public class MapEditController implements Controller {
     if ( xcoordField.getText().isEmpty() || ycoordField.getText().isEmpty()
         || floorField.getText().isEmpty() || buildingField.getText().isEmpty()
         || nodeTypeComboBox.getValue() == null || longNameField.getText().isEmpty()
+
         || shortNameField.getText().isEmpty() || nodeIDField.getText().isEmpty()) {
+
       addButton.setDisable(true);
       connectButton.setDisable(true);
       deleteButton.setDisable(true);
@@ -177,6 +188,7 @@ public class MapEditController implements Controller {
     }
   }
 
+
   @FXML
   void connectNodeAction() {
     String udNodeID1 = nodeIDField.getText();
@@ -193,6 +205,7 @@ public class MapEditController implements Controller {
       status.setText("Succeed!");
     }
   }
+
 
 
   private Node getNewNode(String s) {
