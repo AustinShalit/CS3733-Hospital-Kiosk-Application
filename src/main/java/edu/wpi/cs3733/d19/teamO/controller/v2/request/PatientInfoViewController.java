@@ -7,6 +7,7 @@ import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 
+import animatefx.animation.Shake;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
@@ -108,6 +109,11 @@ public class PatientInfoViewController implements Controller {
 
   @FXML
   void onDeleteEntryButtonAction() {
+    if (requestsTableView.getSelectionModel().isEmpty()) {
+      new Shake(deleteEntryButton).play();
+      return;
+    }
+
     PatientInfoRequest selectedItem =
         requestsTableView.getSelectionModel().getSelectedItem();
     requestsTableView.getItems().remove(selectedItem);
