@@ -52,16 +52,20 @@ public class DefaultInformationLoader {
   }
 
   private void loadEmployeesAndLogins() {
-    Employee adminWong = new Employee(1234, "Admin", Employee.EmployeeType.ADMIN);
-    Employee teamO = new Employee(12, "TeamO", Employee.EmployeeType.DEFAULT);
+    Employee adminWong = new Employee(1, "Admin", Employee.EmployeeType.ADMIN);
+    Employee staff = new Employee(2, "Staff", Employee.EmployeeType.ADMIN);
+    Employee teamO = new Employee(3, "TeamO", Employee.EmployeeType.DEFAULT);
     // Insert employees
     database.insertEmployee(adminWong);
+    database.insertEmployee(staff);
     database.insertEmployee(teamO);
 
     Login user1 = new Login("admin", "wong", adminWong);
-    Login user2 = new Login("teamo", "won", teamO);
+    Login user2 = new Login("staff", "staff", staff);
+    Login user3 = new Login("teamo", "won", teamO);
 
     database.insertLogin(user1);
     database.insertLogin(user2);
+    database.insertLogin(user3);
   }
 }
