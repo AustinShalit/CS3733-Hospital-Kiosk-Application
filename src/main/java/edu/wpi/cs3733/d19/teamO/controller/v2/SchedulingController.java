@@ -153,6 +153,7 @@ public class SchedulingController implements Controller {
     // if input is valid, parse it and return a new SanitationRequest
     if (Objects.nonNull(startTime.getValue())
         && Objects.nonNull(endTime.getValue())
+        && startTime.getValue().isBefore(endTime.getValue())
         && Objects.nonNull(date.getValue())
         && (!(nameField.getText().isEmpty()))
         && Objects.nonNull(roomComboBox.getValue())
@@ -165,6 +166,13 @@ public class SchedulingController implements Controller {
       Node roomNode = roomComboBox.getValue();
 
       return new SchedulingRequest(start, end, now, now, name, roomNode);
+    }
+
+    if (startTime.getValue().isAfter(endTime.getValue())) {
+      showErrorAlert("Error.",
+          "Please make sure the end time is after the start time"
+      );
+      return null;
     }
 
     // otherwise, some input was invalid
