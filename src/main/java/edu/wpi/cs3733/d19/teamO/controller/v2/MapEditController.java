@@ -16,9 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 import edu.wpi.cs3733.d19.teamO.component.MapView2;
-
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
-
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
@@ -111,7 +109,7 @@ public class MapEditController implements Controller {
   }
 
   /**
-   *  A cool comboBox of nodetype.
+   * A cool comboBox of nodetype.
    */
   @SuppressWarnings("PMD.UnusedPrivateMethod")
   @FXML
@@ -120,11 +118,11 @@ public class MapEditController implements Controller {
   }
 
   /**
-   *  Check if all fields filled.
+   * Check if all fields filled.
    */
   @FXML
   public void validateButton() {
-    if ( xcoordField.getText().isEmpty() || ycoordField.getText().isEmpty()
+    if (xcoordField.getText().isEmpty() || ycoordField.getText().isEmpty()
         || floorField.getText().isEmpty() || buildingField.getText().isEmpty()
         || nodeTypeComboBox.getValue() == null || longNameField.getText().isEmpty()
 
@@ -200,12 +198,11 @@ public class MapEditController implements Controller {
     } else {
       Node node1 = nodeFromDB1.get();
       Node node2 = nodeFromDB2.get();
-      Edge newEdge = new Edge("Ken" +  Integer.toString(newID), node1, node2);
+      Edge newEdge = new Edge("Ken" + Integer.toString(newID), node1, node2);
       database.insertEdge(newEdge);
       status.setText("Succeed!");
     }
   }
-
 
 
   private Node getNewNode(String s) {
