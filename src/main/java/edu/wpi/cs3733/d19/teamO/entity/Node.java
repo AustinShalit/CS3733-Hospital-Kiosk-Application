@@ -20,7 +20,11 @@ public class Node {
     REST("Restroom"),
     RETL("Retail"),
     SERV("Service"),
-    STAI("Stair Case");
+    STAI("Stair Case"),
+    WORKZONE("Workzone"),
+    PANTRY("Pantry"),
+    CLASSROOM("Classroom"),
+    AUDITORIUM("Auditorium");
 
     private static final Map<String, NodeType> lookup = new ConcurrentHashMap<>();
 
