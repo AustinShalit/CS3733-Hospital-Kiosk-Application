@@ -140,7 +140,7 @@ public class HomeController implements Controller {
     DecimalFormat df = new DecimalFormat("##");
 
     Platform.runLater(()
-        -> weatherLabel.setText("From " + df.format(min) + " F to " + df.format(max) + " F"));
+        -> weatherLabel.setText(df.format(min) + " F to " + df.format(max) + " F"));
   }
 
   @FXML

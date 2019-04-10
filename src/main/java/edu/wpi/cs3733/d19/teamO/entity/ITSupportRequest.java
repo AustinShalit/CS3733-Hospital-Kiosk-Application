@@ -7,9 +7,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ITSupportRequest extends ServiceRequest {
   public enum ITSupportRequestType {
-    STRETCHER("Stretcher"),
-    DISABLED("Disabled"),
-    DELIVERY("Delivery"),
+    TV("TV"),
+    INTERNET("Internet"),
+    COMPUTER("Computer"),
     OTHERS("Others");
 
     private static final Map<String,
