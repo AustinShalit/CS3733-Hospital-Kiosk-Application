@@ -39,6 +39,7 @@ public class MapView2 extends StackPane {
   Collection<Node> nodes;
   Collection<Node> currentNodes;
 
+
   public void setCurrentNodes(Collection<Node> currentNodes) {
     this.currentNodes = currentNodes;
   }

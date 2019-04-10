@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d19.teamO.controller.v2;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
@@ -23,6 +24,7 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 @FxmlController(url = "MapEdit.fxml")
 public class MapEditController implements Controller {
   String nodeID;
+  int newID=100;
   // Collection<Node> nodes;
 
   @FXML
@@ -41,6 +43,8 @@ public class MapEditController implements Controller {
   AnchorPane tableView;
   @FXML
   JFXTextField xcoordField;
+//  @FXML
+//  JFXTextField nodeIDField;
   @FXML
   JFXTextField ycoordField;
   @FXML
@@ -75,6 +79,7 @@ public class MapEditController implements Controller {
     map.addNodesToPane(database.getFloor("1"));
     map.selectedNodeProperty().addListener((observable, oldValue, newValue) -> {
       nodeID = newValue.getNodeId();
+//      nodeIDField.setText(newValue.getNodeId());
       xcoordField.setText(Integer.toString(newValue.getXcoord()));
       ycoordField.setText(Integer.toString(newValue.getYcoord()));
       floorField.setText(newValue.getFloor());
@@ -126,7 +131,7 @@ public class MapEditController implements Controller {
 
   @FXML
   void addNodeAction() {
-    Node newNode = new Node("Austin",
+    Node newNode = new Node(Integer.toString(newID),
         Integer.parseInt(xcoordField.getText()),
         Integer.parseInt(ycoordField.getText()),
         floorField.getText(),
@@ -139,21 +144,34 @@ public class MapEditController implements Controller {
     map.setNodes(database.getAllNodes());
     map.clearNodes();
     map.addNodesToPane(database.getFloor(map.getLevel()));
+    newID++;
   }
 
   @FXML
   void deleteNodeAction() {
-    database.deleteNode(database.getNode(nodeID).get());
-    status.setText("Succeed!");
-    map.clearNodes();
-    map.setNodes(database.getAllNodes());
-    map.clearNodes();
-    map.addNodesToPane(database.getFloor(map.getLevel()));
+    String delNodeID = nodeID;
+    Optional<Node> opt = database.getNode(delNodeID);
+    if (!opt.isPresent()) {
+      status.setText("ERROR: InvalidNodeID");
+    } else {
+      Node deleteNode = opt.get();
+      database.deleteNode(deleteNode);
+      status.setText("Succeed!");
+      map.setNodes(database.getAllNodes());
+      map.clearNodes();
+      map.addNodesToPane(database.getFloor(map.getLevel()));
+    }
   }
+
 
   @FXML
   void updateNodeAction() {
-    Node updateNode = new Node(nodeID,
+    String udNodeID = nodeID;
+    Optional<Node> nodeFromDB = database.getNode(udNodeID);
+    if (!nodeFromDB.isPresent()) {
+      status.setText("ERROR: InvalidNodeID");
+    } else {
+      Node updateNode = new Node(nodeID,
           Integer.parseInt(xcoordField.getText()),
           Integer.parseInt(ycoordField.getText()),
           floorField.getText(),
@@ -161,11 +179,12 @@ public class MapEditController implements Controller {
           nodeTypeComboBox.getValue(),
           longNameField.getText(),
           shortNameField.getText());
-    database.updateNode(updateNode);
-    status.setText("Succeed!");
-    map.setNodes(database.getAllNodes());
-    map.clearNodes();
-    map.addNodesToPane(database.getFloor(map.getLevel()));
+      database.updateNode(updateNode);
+      status.setText("Succeed!");
+      map.setNodes(database.getAllNodes());
+      map.clearNodes();
+      map.addNodesToPane(database.getFloor(map.getLevel()));
+    }
   }
 
   //  @FXML

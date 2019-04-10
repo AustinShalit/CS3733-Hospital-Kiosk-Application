@@ -44,6 +44,7 @@
                     <Insets bottom="5.0" />
                   </VBox.margin>
                 </Text>
+                <!--<JFXTextField onKeyReleased="#validateButton" prefHeight="25.0" prefWidth="132.0" fx:id="nodeIDField" />-->
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="X-Coordinate">
                   <font>
                     <Font size="15.0" />

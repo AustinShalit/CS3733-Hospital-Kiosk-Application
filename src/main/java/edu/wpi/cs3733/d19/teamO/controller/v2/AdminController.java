@@ -29,6 +29,8 @@ public class AdminController implements Controller {
 
   @Inject
   private EditNodeDatabaseController.Factory editNodeDatabaseFactory;
+  @Inject
+  private MapEditController.Factory mapEditControllerFactory;
 
 
   @FXML
