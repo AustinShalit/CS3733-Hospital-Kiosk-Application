@@ -29,9 +29,9 @@
               </StackPane>
             </JFXRippler>
           </right>
-               <padding>
-                  <Insets bottom="9.0" left="9.0" right="9.0" top="9.0" />
-               </padding>
+          <padding>
+            <Insets bottom="9.0" left="9.0" right="9.0" top="9.0" />
+          </padding>
         </JFXToolbar>
       </top>
     </BorderPane>

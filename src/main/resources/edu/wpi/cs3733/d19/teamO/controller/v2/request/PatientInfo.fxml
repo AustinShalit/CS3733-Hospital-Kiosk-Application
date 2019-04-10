@@ -68,9 +68,9 @@
           <font>
             <Font size="12.0" />
           </font>
-               <GridPane.margin>
-                  <Insets left="9.0" top="9.0" />
-               </GridPane.margin>
+          <GridPane.margin>
+            <Insets left="9.0" top="9.0" />
+          </GridPane.margin>
         </JFXButton>
       </children>
     </GridPane>
