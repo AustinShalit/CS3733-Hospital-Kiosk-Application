@@ -5,22 +5,16 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="root" styleClass="BorderPane" stylesheets="@style/LoginStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.v2.LoginController">
+<BorderPane fx:id="root" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="BorderPane" stylesheets="@style/LoginStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.v2.LoginController">
   <center>
-    <VBox alignment="CENTER" BorderPane.alignment="CENTER">
-      <Label alignment="CENTER" text="Login" textFill="WHITE">
-        <font>
-          <Font size="44.0" />
-        </font>
-        <VBox.margin>
-          <Insets />
-        </VBox.margin>
-      </Label>
-      <Label alignment="CENTER" contentDisplay="CENTER" text="Welcome to our kiosk. Please enter your credentials" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+    <VBox alignment="CENTER" prefHeight="384.0" prefWidth="799.0" stylesheets="@style/LoginStyle.css" BorderPane.alignment="CENTER">
+      <Label fx:id="welcomeLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="61.0" prefWidth="799.0" stylesheets="@style/LoginStyle.css" text="Welcome to our kiosk. Please enter your credentials" textAlignment="CENTER" textFill="#141414" wrapText="true">
         <font>
           <Font size="20.0" />
         </font>
@@ -28,18 +22,18 @@
           <Insets bottom="15.0" />
         </VBox.margin>
       </Label>
-      <JFXTextField fx:id="username" focusColor="#32b92d" maxWidth="350.0" prefHeight="50.0" prefWidth="350.0" promptText="Username" style="-fx-background-color: white; -fx-background-radius: 5;">
+      <JFXTextField fx:id="username" focusColor="#32b92d" maxWidth="350.0" prefHeight="50.0" prefWidth="350.0" promptText="Username" style="-fx-background-color: white; -fx-background-radius: 5;" stylesheets="@style/LoginStyle.css">
         <VBox.margin>
           <Insets bottom="15.0" />
         </VBox.margin>
       </JFXTextField>
-      <JFXPasswordField fx:id="password" focusColor="#32b92d" maxWidth="350.0" prefHeight="50.0" promptText="Password" style="-fx-background-color: white; -fx-border-radius: 5; -fx-background-radius: 5;">
+      <JFXPasswordField fx:id="password" focusColor="#32b92d" maxWidth="350.0" prefHeight="50.0" promptText="Password" style="-fx-background-color: white; -fx-border-radius: 5; -fx-background-radius: 5;" stylesheets="@style/LoginStyle.css">
         <VBox.margin>
           <Insets bottom="10.0" />
         </VBox.margin>
       </JFXPasswordField>
-      <Label fx:id="loginFail" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="281.0" textFill="WHITE" />
-      <JFXButton fx:id="loginButton" buttonType="RAISED" defaultButton="true" maxWidth="350.0" onAction="#loginButtonAction" ripplerFill="WHITE" style="-fx-background-color: #32B92D; -fx-background-radius: 5;" text="Login" textFill="WHITE">
+      <Label fx:id="loginFail" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="281.0" stylesheets="@style/LoginStyle.css" textFill="WHITE" />
+      <JFXButton id="small-button" fx:id="loginButton" buttonType="RAISED" defaultButton="true" maxWidth="350.0" onAction="#loginButtonAction" ripplerFill="WHITE" style="-fx-background-radius: 5;" stylesheets="@style/KioskStyle.css" text="Login" textFill="WHITE">
         <VBox.margin>
           <Insets top="10.0" />
         </VBox.margin>
@@ -47,6 +41,14 @@
           <Font name="System Bold" size="21.0" />
         </font>
       </JFXButton>
+         <Text strokeType="OUTSIDE" strokeWidth="0.0" />
     </VBox>
   </center>
+   <top>
+      <BorderPane stylesheets="@style/LoginStyle.css" BorderPane.alignment="TOP_LEFT">
+         <bottom>
+            <ImageView fx:id="Logo" fitHeight="62.0" fitWidth="290.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="TOP_LEFT" />
+         </bottom>
+      </BorderPane>
+   </top>
 </BorderPane>

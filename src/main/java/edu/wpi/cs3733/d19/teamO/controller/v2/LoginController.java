@@ -35,6 +35,10 @@ public class LoginController implements Controller {
   private JFXPasswordField password;
   @FXML
   private Label loginFail;
+  @FXML
+  private Label welcomeLabel;
+  @FXML
+  private Label loginLabel;
 
   @Inject
   private EventBus eventBus;
