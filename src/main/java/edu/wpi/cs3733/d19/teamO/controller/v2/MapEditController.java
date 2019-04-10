@@ -188,7 +188,7 @@ public class MapEditController implements Controller {
     } else {
       Node node1 = nodeFromDB1.get();
       Node node2 = nodeFromDB2.get();
-      Edge newEdge = new Edge("Ken"+ Integer.toString(newID), node1, node2);
+      Edge newEdge = new Edge("Ken" +  Integer.toString(newID), node1, node2);
       database.insertEdge(newEdge);
       status.setText("Succeed!");
     }
