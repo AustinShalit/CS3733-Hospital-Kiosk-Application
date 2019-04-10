@@ -116,3 +116,23 @@
 .jfx-combo-box:focused {
     -jfx-focus-color: #0067b1;
 }
+
+.logo {
+    -fx-image: url("bwh-logo.png");
+}
+
+#login {
+    -fx-background-image: url("0014.jpg");
+    -fx-background-size: cover;
+}
+
+#loginfail {
+    -fx-text-fill: red;
+}
+
+#loginform {
+    -fx-opacity: 1.0;
+    -fx-padding: 10px;
+    -fx-spacing: 10px;
+    -fx-border-radius: 4px;
+}

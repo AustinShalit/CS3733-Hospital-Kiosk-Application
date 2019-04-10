@@ -6,10 +6,10 @@
     /*-fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);*/
 /*}*/
 
-.BorderPane {
+.root {
     -fx-font-family: Calibri;
     -fx-background-color: #F1F1F1;
-    -fx-background-image: url("Final_background.JPG");
+    -fx-background-image: url("TechBackground.png");
     -fx-background-size: cover;
 }
 
