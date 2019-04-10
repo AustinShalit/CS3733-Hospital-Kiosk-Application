@@ -5,6 +5,7 @@
 <?import com.jfoenix.controls.JFXRippler?>
 <?import com.jfoenix.controls.JFXToolbar?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
@@ -13,7 +14,7 @@
   <children>
     <BorderPane fx:id="contentPane">
       <top>
-        <JFXToolbar fx:id="toolbar" style="-fx-border-color: #d2d2d2; -fx-background-color: #F1F1F1;" BorderPane.alignment="CENTER">
+        <JFXToolbar fx:id="toolbar" style="-fx-border-color: #d2d2d2; -fx-background-color: #F1F1F1;" stylesheets="@style/KioskStyle.css" BorderPane.alignment="CENTER">
           <left>
             <JFXButton id="small-button" onAction="#onHomeButtonAction" prefWidth="63.0" ripplerFill="#004e86" style="-fx-background-color: #0067B1;" stylesheets="@style/KioskStyle.css" text="Home" textFill="WHITE" BorderPane.alignment="CENTER">
               <font>
@@ -32,6 +33,9 @@
           <padding>
             <Insets bottom="9.0" left="9.0" right="9.0" top="9.0" />
           </padding>
+          <center>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="logo" BorderPane.alignment="CENTER" />
+          </center>
         </JFXToolbar>
       </top>
     </BorderPane>

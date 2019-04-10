@@ -23,6 +23,7 @@ public class DefaultInformationLoader {
   public void loadIfEmpty() {
     if (database.getAllNodes().size() == 0) {
       loadNodes();
+      loadSchedulingNodes();
     }
     if (database.getAllEdges().size() == 0) {
       loadEdges();
@@ -36,6 +37,15 @@ public class DefaultInformationLoader {
     NodeCsvReaderWriter ncrw = new NodeCsvReaderWriter();
     List<Node> nodes = ncrw.readNodes(new InputStreamReader(DefaultInformationLoader.class
         .getResourceAsStream("nodesv4.csv"), UTF_8));
+    for (Node node : nodes) {
+      database.insertNode(node);
+    }
+  }
+
+  private void loadSchedulingNodes() {
+    NodeCsvReaderWriter ncrw = new NodeCsvReaderWriter();
+    List<Node> nodes = ncrw.readNodes(new InputStreamReader(DefaultInformationLoader.class
+        .getResourceAsStream("schedulingNodes.csv"), UTF_8));
     for (Node node : nodes) {
       database.insertNode(node);
     }

@@ -31,11 +31,11 @@ public class MapView extends StackPane {
   private int level = 1;
 
   @FXML
-  private GesturePane gesturePane;
+  GesturePane gesturePane;
   @FXML
-  private ImageView backgroundImage;
+  ImageView backgroundImage;
   @FXML
-  private Group nodeGroup;
+  Group nodeGroup;
   @FXML
   private Group edges;
   @FXML
@@ -51,9 +51,9 @@ public class MapView extends StackPane {
   @FXML
   private Button levelG;
   @FXML
-  private Label coordX;
+  Label coordX;
   @FXML
-  private Label coordY;
+  Label coordY;
 
 
   /**
@@ -237,7 +237,7 @@ public class MapView extends StackPane {
   @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
   public void addNodesToPane(final Collection<Node> nodes) {
 
-    for (Node node: nodes) {
+    for (Node node : nodes) {
       Circle circle = new Circle(node.getXcoord(), node.getYcoord(), 5, Color.color(0, 0.31, 0.53));
       circle.setStroke(Color.BLACK);
       nodeGroup.getChildren().add(circle);

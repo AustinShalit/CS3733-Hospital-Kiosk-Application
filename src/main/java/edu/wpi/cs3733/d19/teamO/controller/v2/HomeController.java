@@ -24,7 +24,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
 import net.aksingh.owmjapis.api.APIException;
 import net.aksingh.owmjapis.core.OWM;
@@ -40,7 +40,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 public class HomeController implements Controller {
 
   @FXML
-  private VBox root;
+  private BorderPane root;
   @FXML
   private JFXButton navigationButton;
   @FXML
@@ -137,10 +137,10 @@ public class HomeController implements Controller {
     Image weather = new Image(image);
     tempImage.setImage(weather);
 
-    DecimalFormat df = new DecimalFormat("#.##");
+    DecimalFormat df = new DecimalFormat("##");
 
     Platform.runLater(()
-        -> weatherLabel.setText("From " + df.format(min) + " F to " + df.format(max) + " F"));
+        -> weatherLabel.setText(df.format(min) + " F to " + df.format(max) + " F"));
   }
 
   @FXML
