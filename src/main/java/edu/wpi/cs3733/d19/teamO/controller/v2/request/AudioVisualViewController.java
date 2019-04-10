@@ -14,6 +14,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 
+import edu.wpi.cs3733.d19.teamO.controller.v2.CheckRequestsController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.Controller;
 import edu.wpi.cs3733.d19.teamO.controller.v2.DialogHelper;
 import edu.wpi.cs3733.d19.teamO.controller.v2.FxmlController;
@@ -62,6 +63,8 @@ public class AudioVisualViewController implements Controller {
   private Database db;
   @Inject
   private RequestController.Factory requestControllerFactory;
+  @Inject
+  private CheckRequestsController.Factory checkRequestsControllerFactory;
 
   @FXML
   void initialize() {
@@ -88,7 +91,7 @@ public class AudioVisualViewController implements Controller {
 
   @FXML
   void goBackButtonAction() {
-    eventBus.post(new ChangeMainViewEvent(requestControllerFactory.create()));
+    eventBus.post(new ChangeMainViewEvent(checkRequestsControllerFactory.create()));
   }
 
   @FXML

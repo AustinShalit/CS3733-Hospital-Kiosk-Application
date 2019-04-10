@@ -54,7 +54,7 @@ public class RequestController implements Controller {
   @FXML
   private JFXButton religious;
   @FXML
-  private JFXButton jyans;
+  private JFXButton animalSupport;
   @FXML
   private JFXButton florist;
 
@@ -67,8 +67,6 @@ public class RequestController implements Controller {
   @FXML
   private JFXButton viewRequest;
 
-  @FXML
-  private JFXButton viewResolveButton;
 
   @Inject
   private EventBus eventBus;
@@ -88,8 +86,6 @@ public class RequestController implements Controller {
   private InterpreterController.Factory interpreterControllerFactory;
   @Inject
   private ReligiousServiceController.Factory religiousServiceControllerFactory;
-  @Inject
-  private ReligiousServiceViewController.Factory religiousServiceViewControllerFactory;
   @Inject
   private SupportAnimalController.Factory supportAnimalControllerFactory;
   @Inject
@@ -138,11 +134,6 @@ public class RequestController implements Controller {
   @FXML
   void floristAction(ActionEvent event) {
     eventBus.post(new ChangeMainViewEvent(floristRequestControllerFactory.create()));
-  }
-
-  @FXML
-  void viewAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(religiousServiceViewControllerFactory.create()));
   }
 
 
