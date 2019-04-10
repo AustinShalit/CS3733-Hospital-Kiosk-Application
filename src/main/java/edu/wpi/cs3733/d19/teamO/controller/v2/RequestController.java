@@ -19,7 +19,6 @@ import edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationCont
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InterpreterController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.PatientInfoController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.ReligiousServiceController;
-import edu.wpi.cs3733.d19.teamO.controller.v2.request.ReligiousServiceViewController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.SupportAnimalController;
 
 @FxmlController(url = "ServiceRequest.fxml")

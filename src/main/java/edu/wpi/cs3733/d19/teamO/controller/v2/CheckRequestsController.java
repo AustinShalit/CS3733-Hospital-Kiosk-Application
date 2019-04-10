@@ -22,7 +22,7 @@ import edu.wpi.cs3733.d19.teamO.controller.v2.request.SupportAnimalViewControlle
 
 @FxmlController(url = "CheckRequests.fxml")
 @SuppressWarnings({"PMD.TooManyFields", "PMD.TooManyMethods"})
-public class CheckRequestsController implements Controller{
+public class CheckRequestsController implements Controller {
 
   @FXML
   private VBox root;

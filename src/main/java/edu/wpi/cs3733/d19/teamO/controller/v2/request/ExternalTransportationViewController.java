@@ -18,7 +18,6 @@ import edu.wpi.cs3733.d19.teamO.controller.v2.CheckRequestsController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.Controller;
 import edu.wpi.cs3733.d19.teamO.controller.v2.DialogHelper;
 import edu.wpi.cs3733.d19.teamO.controller.v2.FxmlController;
-import edu.wpi.cs3733.d19.teamO.controller.v2.RequestController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.ExternalTransportationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
@@ -61,8 +60,6 @@ public class ExternalTransportationViewController implements Controller {
   private EventBus eventBus;
   @Inject
   private Database db;
-  @Inject
-  private RequestController.Factory requestControllerFactory;
   @Inject
   private CheckRequestsController.Factory checkRequestsControllerFactory;
 
