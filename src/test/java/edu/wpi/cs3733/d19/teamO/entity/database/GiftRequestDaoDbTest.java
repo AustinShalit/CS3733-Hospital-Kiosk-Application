@@ -41,7 +41,7 @@ class GiftRequestDaoDbTest {
       new GiftRequest(2, LocalDateTime.now(), LocalDateTime.now(), testNode2,
           "Bill", GiftRequest.GiftRequestType.BALLOONS,
           "This is a description", "Ken");
-  private GiftRequestDaoDb itrequestdao;
+  private GiftRequestDaoDb giftRequestDaoDb;
   private NodeDao nodeDao;
 
   @Inject
@@ -50,65 +50,61 @@ class GiftRequestDaoDbTest {
   @BeforeEach
   void setup() throws SQLException {
     nodeDao = new NodeDaoDb(dcf);
-    GiftRequestDaoDb internalTransportationRequestDaoDb =
-        new GiftRequestDaoDb(dcf);
 
     nodeDao.insert(testNode1);
-    internalTransportationRequestDaoDb.insert(testITRequest1);
-
-
-    itrequestdao = new GiftRequestDaoDb(dcf);
+    giftRequestDaoDb = new GiftRequestDaoDb(dcf);
+    giftRequestDaoDb.insert(testITRequest1);
   }
 
   @Test
   void getTest() {
-    itrequestdao.insert(testITRequest1);
+    giftRequestDaoDb.insert(testITRequest1);
 
-    assertTrue(itrequestdao.get(testITRequest1.getId()).isPresent());
+    assertTrue(giftRequestDaoDb.get(testITRequest1.getId()).isPresent());
   }
 
   @Test
   void getDifferentObjectTest() {
-    itrequestdao.insert(testITRequest1);
+    giftRequestDaoDb.insert(testITRequest1);
 
     assertNotSame(testITRequest1,
-        itrequestdao.get(testITRequest1.getId()).orElseThrow(IllegalStateException::new));
+        giftRequestDaoDb.get(testITRequest1.getId()).orElseThrow(IllegalStateException::new));
   }
 
   @Test
   void checkEqual() {
-    itrequestdao.insert(testITRequest1);
+    giftRequestDaoDb.insert(testITRequest1);
 
-    assertEquals(testITRequest1, itrequestdao.get(testITRequest1.getId()).get());
+    assertEquals(testITRequest1, giftRequestDaoDb.get(testITRequest1.getId()).get());
   }
 
   @Test
   void getNotExistingTest() {
-    assertFalse(itrequestdao.get(987).isPresent());
+    assertFalse(giftRequestDaoDb.get(987).isPresent());
   }
 
   @Test
   void insertTest() {
     nodeDao.insert(testNode2);
 
-    assertTrue(itrequestdao.insert(testITRequest2));
+    assertTrue(giftRequestDaoDb.insert(testITRequest2));
   }
 
   @Test
   void deleteTest() {
-    itrequestdao.insert(testITRequest1);
-    assertTrue(itrequestdao.delete(testITRequest1));
+    giftRequestDaoDb.insert(testITRequest1);
+    assertTrue(giftRequestDaoDb.delete(testITRequest1));
   }
 
   @Test
   void deleteNotExistingTest() {
-    assertFalse(itrequestdao.delete(new GiftRequest(987, null,
+    assertFalse(giftRequestDaoDb.delete(new GiftRequest(987, null,
         null, testNode1, null, null, null, null)));
   }
 
   @Test
   void updateTest() {
-    itrequestdao.insert(testITRequest1);
+    giftRequestDaoDb.insert(testITRequest1);
 
     GiftRequest update = new GiftRequest(testITRequest1.getId(),
         LocalDateTime.now(), LocalDateTime.now(),
@@ -116,15 +112,15 @@ class GiftRequestDaoDbTest {
         GiftRequest.GiftRequestType.OTHERS,
         "A different description", "Austin");
 
-    assertTrue(itrequestdao.update(update));
-    assertNotEquals(testITRequest1, itrequestdao.get(testITRequest1.getId()));
+    assertTrue(giftRequestDaoDb.update(update));
+    assertNotEquals(testITRequest1, giftRequestDaoDb.get(testITRequest1.getId()));
   }
 
   @Test
   void updateNotExistingTest() {
     Node newNode = new Node("9876", 0, 0, "2", "Fuller",
         Node.NodeType.DEPT, "longname", "shortname");
-    assertFalse(itrequestdao.update(new GiftRequest(987, LocalDateTime.now(),
+    assertFalse(giftRequestDaoDb.update(new GiftRequest(987, LocalDateTime.now(),
         LocalDateTime.now(), newNode, "Jane",
         GiftRequest.GiftRequestType.TEDDYBEAR,
         "This request doesnt exist", "Jill")));
@@ -133,28 +129,37 @@ class GiftRequestDaoDbTest {
   @Test
   void getAllTest() {
     nodeDao.insert(testNode2);
-    itrequestdao.insert(testITRequest2);
+    giftRequestDaoDb.insert(testITRequest2);
 
-    assertEquals(2, itrequestdao.getAll().size());
+    assertEquals(2, giftRequestDaoDb.getAll().size());
   }
 
   @Test
   void getAllEmptyTest() {
-    itrequestdao.delete(testITRequest1);
+    giftRequestDaoDb.delete(testITRequest1);
 
-    assertTrue(itrequestdao.getAll().isEmpty());
+    assertTrue(giftRequestDaoDb.getAll().isEmpty());
   }
 
   @Test
   void autoIncrementTest() {
     for (int i = 0; i < 10; i++) {
-      itrequestdao.insert(testITRequest1);
+      giftRequestDaoDb.insert(testITRequest1);
     }
 
-    Set<GiftRequest> internalTransportationRequestSet = itrequestdao.getAll();
+    Set<GiftRequest> internalTransportationRequestSet = giftRequestDaoDb.getAll();
     for (GiftRequest sr : internalTransportationRequestSet) {
       // make sure the id is in the correct range
       assertTrue(sr.getId() < 11 || sr.getId() > 1);
     }
+  }
+
+  @Test
+  void categoryTest() {
+    nodeDao.insert(testNode2);
+    giftRequestDaoDb.insert(testITRequest1);
+    giftRequestDaoDb.insert(testITRequest1);
+    giftRequestDaoDb.insert(testITRequest2);
+    assertEquals(3, giftRequestDaoDb.getNumberByCategory("TEDDYBEAR").size());
   }
 }
