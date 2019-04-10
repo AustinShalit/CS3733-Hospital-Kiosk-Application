@@ -14,13 +14,18 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../style/KioskStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationController">
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="root" stylesheets="@../style/KioskStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.v2.request.InternalTransportationController">
   <center>
-    <VBox alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="480.0" prefWidth="650.0" styleClass="form" stylesheets="@../style/KioskStyle.css" BorderPane.alignment="CENTER">
+    <VBox alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="form" stylesheets="@../style/KioskStyle.css" BorderPane.alignment="CENTER">
       <children>
+        <Label id="heading" text="Add Internal Transportation Request">
+          <font>
+            <Font name="System Bold" size="36.0" />
+          </font>
+        </Label>
         <JFXTextField fx:id="nametxt" labelFloat="true" maxWidth="200.0" prefHeight="31.0" promptText="Enter Name" styleClass="jfx-text-field">
           <VBox.margin>
-            <Insets top="30.0" />
+            <Insets />
           </VBox.margin>
         </JFXTextField>
         <JFXComboBox fx:id="locationbox" prefHeight="30.0" prefWidth="200.0" promptText="Pick Location" styleClass="jfx-combo-box">
@@ -38,7 +43,7 @@
             <Insets />
           </VBox.margin>
         </JFXTextArea>
-        <JFXButton id="small-button" fx:id="submitbtn" onAction="#onSubmitButtonAction" prefHeight="30.0" text="Submit" />
+        <JFXButton id="small-button" fx:id="submitbtn" onAction="#onSubmitButtonAction" prefHeight="30.0" text="SUBMIT" />
       </children>
       <padding>
         <Insets bottom="36.0" />
@@ -56,11 +61,6 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       </rowConstraints>
       <children>
-        <Label id="heading" text="Add Internal Transportation Request" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-          <font>
-            <Font name="System Bold" size="36.0" />
-          </font>
-        </Label>
         <JFXButton id="small-button" fx:id="backbtn" onAction="#onbackButtonAction" prefHeight="37.0" prefWidth="100.0" text="Go Back" GridPane.valignment="TOP">
           <font>
             <Font size="12.0" />
