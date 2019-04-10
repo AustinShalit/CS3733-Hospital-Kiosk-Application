@@ -49,23 +49,17 @@ public class NavigationController implements Controller {
   @FXML
   Label instructions;
 
-  Group bfsPath;
-
   StepByStep stepByStep;
 
+  
   @Inject
   private Database database;
 
   @FXML
   void initialize() throws IOException {
-
-    bfsPath = new Group();
-    stepByStep = new StepByStep();
-
-    map.addNodesToPane(database.getAllNodes());
-
     DialogHelper.populateComboBox(database, fromComboBox);
     DialogHelper.populateComboBox(database, toComboBox);
+    stepByStep = new StepByStep();
   }
 
   @Override
@@ -95,45 +89,6 @@ public class NavigationController implements Controller {
         fromComboBox.getValue(),
         toComboBox.getValue());
 
-    bfsPath = new Group();
-
-    Node lastNode = null;
-    for (Node node : path) {
-      if (lastNode != null) {
-        Line line = new Line(node.getXcoord(), node.getYcoord(),
-            lastNode.getXcoord(), lastNode.getYcoord());
-        line.setStrokeWidth(5);
-        line.setStroke(Color.BLACK);
-        line.setStrokeLineCap(StrokeLineCap.ROUND);
-        bfsPath.getChildren().add(line);
-      } else {
-        Rectangle rectangle = new Rectangle(node.getXcoord() - 8, node.getYcoord() - 8, 16, 16);
-        rectangle.setFill(Color.RED);
-        rectangle.setStroke(Color.BLACK);
-        bfsPath.getChildren().add(rectangle);
-      }
-      lastNode = node;
-    }
-
-    Circle circle = new Circle(lastNode.getXcoord(), lastNode.getYcoord(), 8, Color.GREEN);
-    circle.setStroke(Color.BLACK);
-    bfsPath.getChildren().add(0, circle);
-
-    lastNode = null;
-    for (Node node : path) {
-      if (lastNode != null) {
-        Line line = new Line(node.getXcoord(), node.getYcoord(),
-            lastNode.getXcoord(), lastNode.getYcoord());
-        line.setStrokeWidth(2.5);
-        line.setStroke(Color.color(0.96, 0.74, 0.22));
-        line.setStrokeLineCap(StrokeLineCap.ROUND);
-        bfsPath.getChildren().add(line);
-      }
-      lastNode = node;
-    }
-
-    map.getEdges().getChildren().addAll(bfsPath);
-
     ArrayList<String> list = stepByStep.getStepByStep(path);
     String instruction = "";
     StringBuilder stringBuilder = new StringBuilder("");
@@ -143,6 +98,7 @@ public class NavigationController implements Controller {
     }
     instruction = stringBuilder.toString();
     instructions.setText(instruction);
+
     map.setPath(path);
     map.drawPath();
   }
