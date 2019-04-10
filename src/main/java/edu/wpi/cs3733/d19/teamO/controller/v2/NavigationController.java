@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d19.teamO.controller.v2;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.common.graph.GraphBuilder;
@@ -13,15 +14,18 @@ import com.jfoenix.controls.JFXComboBox;
 
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
 import edu.wpi.cs3733.d19.teamO.component.MapView;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 import edu.wpi.cs3733.d19.teamO.entity.pathfinding.PathfindingContext;
+import edu.wpi.cs3733.d19.teamO.entity.pathfinding.StepByStep;
 
 @FxmlController(url = "Navigation.fxml")
 public class NavigationController implements Controller {
+
 
   @FXML
   BorderPane root;
@@ -42,7 +46,12 @@ public class NavigationController implements Controller {
   JFXButton goButton;
   @FXML
   MapView map;
+  @FXML
+  Label instructions;
 
+  StepByStep stepByStep;
+
+  
   @Inject
   private Database database;
 
@@ -50,6 +59,7 @@ public class NavigationController implements Controller {
   void initialize() throws IOException {
     DialogHelper.populateComboBox(database, fromComboBox);
     DialogHelper.populateComboBox(database, toComboBox);
+    stepByStep = new StepByStep();
   }
 
   @Override
@@ -67,6 +77,7 @@ public class NavigationController implements Controller {
   }
 
   @FXML
+  @SuppressWarnings({"PMD.AvoidInstantiatingObjectsInLoops", "UseStringBufferForStringAppends"})
   void onGoButtonAction() throws SQLException {
 
     PathfindingContext<Node> pathfindingContext = new PathfindingContext<>();
@@ -77,6 +88,16 @@ public class NavigationController implements Controller {
     List<Node> path = pathfindingContext.getPath(ImmutableGraph.copyOf(graph),
         fromComboBox.getValue(),
         toComboBox.getValue());
+
+    ArrayList<String> list = stepByStep.getStepByStep(path);
+    String instruction = "";
+    StringBuilder stringBuilder = new StringBuilder("");
+    for (String s: list) {
+      stringBuilder.append(s);
+      stringBuilder.append('\n');
+    }
+    instruction = stringBuilder.toString();
+    instructions.setText(instruction);
 
     map.setPath(path);
     map.drawPath();
