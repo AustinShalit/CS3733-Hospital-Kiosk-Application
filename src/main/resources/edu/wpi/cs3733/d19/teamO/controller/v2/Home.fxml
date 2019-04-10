@@ -91,7 +91,7 @@
       </HBox>
       <VBox alignment="CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="989.0">
         <Pane prefHeight="200.0" prefWidth="200.0" />
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Scrolling announcements" wrappingWidth="154.8701171875" />
+        <!--<Text strokeType="OUTSIDE" strokeWidth="0.0" text="Scrolling announcements" wrappingWidth="154.8701171875" />-->
         <Pane prefHeight="200.0" prefWidth="325.0" />
       </VBox>
       <BorderPane.margin>
