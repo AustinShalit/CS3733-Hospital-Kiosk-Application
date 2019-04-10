@@ -16,4 +16,12 @@ interface EdgeDao extends Dao<String, Edge> {
    * @return A Set containing the all Edges the node is a part of
    */
   Set<Edge> getEdgesFor(Node node);
+
+  /**
+   * Get all edges that are in specific floor.
+   *
+   * @param floor The string of floor
+   * @return the set of edges that contain nodes in specific floor
+   */
+  Set<Edge> getFloor(String floor);
 }

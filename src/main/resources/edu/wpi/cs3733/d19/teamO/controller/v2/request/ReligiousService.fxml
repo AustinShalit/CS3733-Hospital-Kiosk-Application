@@ -14,9 +14,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../style/KioskStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.v2.request.SupportAnimalController">
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.v2.request.ReligiousServiceController">
   <center>
-    <VBox alignment="TOP_CENTER" maxHeight="441.0" maxWidth="-Infinity" prefHeight="419.0" prefWidth="662.0" styleClass="form" stylesheets="@../style/KioskStyle.css" BorderPane.alignment="TOP_CENTER">
+    <VBox alignment="TOP_CENTER" maxHeight="441.0" maxWidth="662.0" prefHeight="441.0" prefWidth="662.0" BorderPane.alignment="CENTER">
       <children>
         <JFXTextField fx:id="nametxt" labelFloat="true" maxWidth="200.0" prefHeight="31.0" promptText="Enter Name">
           <VBox.margin>
@@ -25,25 +25,24 @@
         </JFXTextField>
         <JFXComboBox fx:id="locationbox" promptText="Pick Location">
           <VBox.margin>
-            <Insets />
+            <Insets top="45.0" />
           </VBox.margin>
         </JFXComboBox>
         <JFXComboBox fx:id="categorybox" promptText="Pick Category">
           <VBox.margin>
-            <Insets />
+            <Insets top="45.0" />
           </VBox.margin>
         </JFXComboBox>
         <JFXTextArea fx:id="descriptiontxt" maxHeight="160.0" maxWidth="325.0" prefHeight="160.0" prefWidth="325.0" promptText="Description...">
           <VBox.margin>
-            <Insets />
+            <Insets top="45.0" />
           </VBox.margin>
         </JFXTextArea>
-        <JFXButton id="small-button" fx:id="submitbtn" onAction="#onSubmitButtonAction" stylesheets="@../style/KioskStyle.css" text="Submit" />
       </children>
     </VBox>
   </center>
   <top>
-    <GridPane id="title-grid" prefHeight="83.0" prefWidth="600.0" stylesheets="@../style/KioskStyle.css" BorderPane.alignment="CENTER">
+    <GridPane prefHeight="83.0" prefWidth="600.0" BorderPane.alignment="CENTER">
       <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -53,29 +52,30 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       </rowConstraints>
       <children>
-        <Label id="heading" text="Add Support Animal Request" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+        <Label text="Add Religious Service Request" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowSpan="2">
           <font>
             <Font name="System Bold" size="36.0" />
           </font>
         </Label>
-        <JFXButton id="small-button" fx:id="backbtn" onAction="#onbackButtonAction" prefHeight="32.0" prefWidth="65.0" stylesheets="@../style/KioskStyle.css" text="Go Back" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+        <JFXButton fx:id="backbtn" onAction="#onbackButtonAction" prefHeight="19.0" prefWidth="65.0" text="Go Back">
           <font>
             <Font size="12.0" />
           </font>
-          <GridPane.margin>
-            <Insets left="9.0" top="9.0" />
-          </GridPane.margin>
         </JFXButton>
       </children>
     </GridPane>
   </top>
   <left>
-    <AnchorPane prefHeight="251.0" prefWidth="69.0" stylesheets="@../style/KioskStyle.css" BorderPane.alignment="CENTER" />
+    <AnchorPane prefHeight="251.0" prefWidth="69.0" BorderPane.alignment="CENTER" />
   </left>
   <right>
-    <AnchorPane prefHeight="293.0" prefWidth="69.0" stylesheets="@../style/KioskStyle.css" BorderPane.alignment="CENTER" />
+    <AnchorPane prefHeight="293.0" prefWidth="69.0" BorderPane.alignment="CENTER" />
   </right>
   <bottom>
-    <AnchorPane prefHeight="62.0" prefWidth="800.0" stylesheets="@../style/KioskStyle.css" BorderPane.alignment="CENTER" />
+    <AnchorPane prefHeight="62.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+      <children>
+        <JFXButton fx:id="submitbtn" layoutX="260.0" layoutY="-1.0" onAction="#onSubmitButtonAction" text="Submit" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="273.0" AnchorPane.topAnchor="10.0" />
+      </children>
+    </AnchorPane>
   </bottom>
 </BorderPane>

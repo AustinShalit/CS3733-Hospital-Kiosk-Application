@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Set;
 
+import com.google.inject.Inject;
+
 import edu.wpi.cs3733.d19.teamO.entity.AudioVisualRequest;
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Employee;
@@ -17,6 +19,7 @@ import edu.wpi.cs3733.d19.teamO.entity.InterpreterRequest;
 import edu.wpi.cs3733.d19.teamO.entity.Login;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.PatientInfoRequest;
+import edu.wpi.cs3733.d19.teamO.entity.ReligiousServiceRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SchedulingRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
@@ -38,12 +41,15 @@ public class Database {
   private final SupportAnimalRequestDao supportAnimalRequestDao;
   private final ExternalTransportationRequestDao etransportationDao;
   private final GiftRequestDao giftRequestDao;
+  private final ReligiousServiceRequestDao rserviceDao;
+
   private final ITSupportRequestDao itSupportDao;
   private final FloristRequestDao floristRequestDao;
   private final EmployeeDao employeeDao;
   private final InterpreterRequestDao interpreterDao;
 
-  Database(DatabaseConnectionFactory dcf) throws SQLException {
+  @Inject
+  Database(final DatabaseConnectionFactory dcf) throws SQLException {
     this.nodeDao = new NodeDaoDb(dcf);
     this.edgeDao = new EdgeDaoDb(dcf);
     this.securityRequestDao = new SecurityRequestDaoDb(dcf);
@@ -54,26 +60,13 @@ public class Database {
     this.audioVisualRequestDao = new AudioVisualRequestDaoDb(dcf);
     this.patientInfoRequestDao = new PatientInfoRequestDaoDb(dcf);
     this.etransportationDao = new ExternalTransportationRequestDaoDb(dcf);
+    this.rserviceDao = new ReligiousServiceRequestDaoDb(dcf);
     this.supportAnimalRequestDao = new SupportAnimalRequestDaoDb(dcf);
     this.itSupportDao = new ITSupportRequestDaoDb(dcf);
     this.employeeDao = new EmployeeDaoDb(dcf);
     this.loginDao = new LoginDaoDb(dcf);
     this.interpreterDao = new InterpreterRequestDaoDb(dcf);
     this.giftRequestDao = new GiftRequestDaoDb(dcf);
-  }
-
-  /**
-   * Create a new database in memory.
-   *
-   * @param memoryName The name of the database
-   */
-  public Database(String memoryName) throws SQLException {
-    this(new DatabaseConnectionFactoryEmbedded(DatabaseConnectionFactoryEmbedded.MEMORY_PROTOCOL,
-        memoryName));
-  }
-
-  public Database() throws SQLException {
-    this(new DatabaseConnectionFactoryEmbedded());
   }
 
   /*
@@ -132,6 +125,10 @@ public class Database {
 
   public Set<Edge> getEdgesFor(Node node) {
     return edgeDao.getEdgesFor(node);
+  }
+
+  public Set<Edge> getEdgeByFloor(String floor) {
+    return edgeDao.getFloor(floor);
   }
 
   /*
@@ -344,7 +341,7 @@ public class Database {
       FloristRequest floristRequest) {
     return floristRequestDao.update(floristRequest);
   }
-  
+
   /*
    * Patient info
    */
@@ -467,6 +464,32 @@ public class Database {
   public boolean updateGiftRequest(
       GiftRequest giftRequest) {
     return giftRequestDao.update(giftRequest);
+  }
+
+  /*
+   * Religious Service
+   */
+  public Optional<ReligiousServiceRequest> getReligiousServiceRequest(int id) {
+    return rserviceDao.get(id);
+  }
+
+  public Set<ReligiousServiceRequest> getAllReligiousServiceRequests() {
+    return rserviceDao.getAll();
+  }
+
+  public boolean insertReligiousServiceRequest(
+      ReligiousServiceRequest religiousServiceRequest) {
+    return rserviceDao.insert(religiousServiceRequest);
+  }
+
+  public boolean deleteReligiousServiceRequest(
+      ReligiousServiceRequest religiousServiceRequest) {
+    return rserviceDao.delete(religiousServiceRequest);
+  }
+
+  public boolean updateReligiousServiceRequest(
+      ReligiousServiceRequest religiousServiceRequest) {
+    return rserviceDao.update(religiousServiceRequest);
   }
 
   /*

@@ -34,17 +34,13 @@ class EdgeDaoDb implements EdgeDao {
     }
   }
 
-  private DatabaseConnectionFactory dcf;
-  private NodeDaoDb nodeDaoDb;
+  private final DatabaseConnectionFactory dcf;
+  private final NodeDaoDb nodeDaoDb;
 
   EdgeDaoDb(final DatabaseConnectionFactory dcf) throws SQLException {
     this.dcf = dcf;
     nodeDaoDb = new NodeDaoDb(dcf);
     createTable();
-  }
-
-  EdgeDaoDb() throws SQLException {
-    this(new DatabaseConnectionFactoryEmbedded());
   }
 
   @Override
@@ -174,5 +170,24 @@ class EdgeDaoDb implements EdgeDao {
       logger.log(Level.WARNING, "Failed to create table", ex);
       throw ex;
     }
+  }
+
+  @Override
+  public Set<Edge> getFloor(String floor) {
+    try (Connection connection = dcf.getConnection()) {
+      PreparedStatement statement
+          = connection.prepareStatement(queries.getProperty("edge.select_floor"));
+      statement.setString(1, floor);
+      try (ResultSet resultSet = statement.executeQuery()) {
+        Set<Edge> edges = new HashSet<>();
+        while (resultSet.next()) {
+          edges.add(extractEdgeFromResultSet(resultSet));
+        }
+        return edges;
+      }
+    } catch (SQLException ex) {
+      logger.log(Level.WARNING, "Failed to get Nodes", ex);
+    }
+    return Collections.emptySet();
   }
 }

@@ -16,20 +16,20 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import edu.wpi.cs3733.d19.teamO.entity.GiftRequest;
+import edu.wpi.cs3733.d19.teamO.entity.ReligiousServiceRequest;
 
-public class GiftRequestDaoDb implements GiftRequestDao {
+public class ReligiousServiceRequestDaoDb implements ReligiousServiceRequestDao {
 
   private static final String QUERY_FILE_NAME =
-      "gift_request_queries.properties";
+      "religious_service_request_queries.properties";
 
   private static final Logger logger =
-      Logger.getLogger(GiftRequestDaoDb.class.getName());
+      Logger.getLogger(ReligiousServiceRequestDaoDb.class.getName());
   private static final Properties queries;
 
   static {
     queries = new Properties();
-    try (InputStream is = GiftRequestDaoDb.class
+    try (InputStream is = ReligiousServiceRequestDaoDb.class
         .getResourceAsStream(QUERY_FILE_NAME)) {
       queries.load(is);
     } catch (IOException ex) {
@@ -38,103 +38,107 @@ public class GiftRequestDaoDb implements GiftRequestDao {
   }
 
   private static final String TABLE_NAME = queries.getProperty(
-      "gift_request.table_name");
-  private final DatabaseConnectionFactory dcf;
-  private final NodeDaoDb nodeDaoDb;
+      "religious_service_request.table_name");
+  private DatabaseConnectionFactory dcf;
+  private NodeDaoDb nodeDaoDb;
 
-  GiftRequestDaoDb(final DatabaseConnectionFactory dcf) throws SQLException {
+  ReligiousServiceRequestDaoDb(final DatabaseConnectionFactory dcf) throws SQLException {
     this.dcf = dcf;
     nodeDaoDb = new NodeDaoDb(dcf);
     createTable();
   }
 
+  ReligiousServiceRequestDaoDb() throws SQLException {
+    this(new DatabaseConnectionFactoryEmbedded());
+  }
+
   @Override
-  public Optional<GiftRequest> get(final Integer id) {
+  public Optional<ReligiousServiceRequest> get(final Integer id) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement(
-          queries.getProperty("gift_request.select")
+          queries.getProperty("religious_service_request.select")
       );
 
       statement.setInt(1, id);
 
       try (ResultSet resultSet = statement.executeQuery()) {
         if (resultSet.next()) {
-          return Optional.of(extractGiftRequestFromResultSet(resultSet));
+          return Optional.of(extractReligiousServiceRequestFromResultSet(resultSet));
         }
       }
     } catch (SQLException exception) {
-      logger.log(Level.WARNING, "Failed to get GiftRequest", exception);
+      logger.log(Level.WARNING, "Failed to get ReligiousServiceRequest", exception);
     }
     return Optional.empty();
   }
 
   @Override
-  public Set<GiftRequest> getAll() {
+  public Set<ReligiousServiceRequest> getAll() {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement(
-          queries.getProperty("gift_request.select_all")
+          queries.getProperty("religious_service_request.select_all")
       );
 
       try (ResultSet resultSet = statement.executeQuery()) {
-        Set<GiftRequest> giftRequests = new HashSet<>();
+        Set<ReligiousServiceRequest> religiousServiceRequests = new HashSet<>();
         while (resultSet.next()) {
-          giftRequests.add(extractGiftRequestFromResultSet(
+          religiousServiceRequests.add(extractReligiousServiceRequestFromResultSet(
               resultSet));
         }
-        return giftRequests;
+        return religiousServiceRequests;
       }
     } catch (SQLException ex) {
-      logger.log(Level.WARNING, "Failed to get GiftRequests", ex);
+      logger.log(Level.WARNING, "Failed to get ReligiousServiceRequests", ex);
     }
     return Collections.emptySet();
   }
 
-  private GiftRequest extractGiftRequestFromResultSet(
+  private ReligiousServiceRequest extractReligiousServiceRequestFromResultSet(
       final ResultSet resultSet) throws SQLException {
-    return new GiftRequest(
+    return new ReligiousServiceRequest(
         resultSet.getInt("sr_id"),
         resultSet.getTimestamp("TIMEREQUESTED").toLocalDateTime(),
         resultSet.getTimestamp("TIMECOMPLETED").toLocalDateTime(),
         nodeDaoDb.get(resultSet
             .getString("LOCATIONNODEID"))
             .orElseThrow(() -> new SQLException(
-                "Could not get node for gift request")),
+                "Could not get node for religious service request")),
         resultSet.getString("WHOCOMPLETED"),
-        GiftRequest.GiftRequestType.get(
-            resultSet.getString("GIFT_TYPE")),
+        ReligiousServiceRequest.ReligiousServiceRequestType.get(
+            resultSet.getString("RELIGIOUSSERVICETYPE")),
         resultSet.getString("DESCRIPTION"),
         resultSet.getString("NAME")
     );
   }
 
   @Override
-  public boolean insert(final GiftRequest giftRequest) {
+  public boolean insert(final ReligiousServiceRequest religiousServiceRequest) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement(
-          queries.getProperty("gift_request.insert"),
+          queries.getProperty("religious_service_request.insert"),
           Statement.RETURN_GENERATED_KEYS
       );
       statement.setTimestamp(1,
-          Timestamp.valueOf(giftRequest.getTimeRequested()));
+          Timestamp.valueOf(religiousServiceRequest.getTimeRequested()));
       statement.setTimestamp(2,
-          Timestamp.valueOf(giftRequest.getTimeCompleted()));
-      statement.setString(3, giftRequest.getWhoCompleted());
+          Timestamp.valueOf(religiousServiceRequest.getTimeCompleted()));
+      statement.setString(3, religiousServiceRequest.getWhoCompleted());
       statement.setString(4,
-          giftRequest.getLocationNode().getNodeId());
-      statement.setString(5, giftRequest.getType().name());
-      statement.setString(6, giftRequest.getDescription());
-      statement.setString(7, giftRequest.getPerson());
+          religiousServiceRequest.getLocationNode().getNodeId());
+      statement.setString(5, religiousServiceRequest.getType().name());
+      statement.setString(6, religiousServiceRequest.getDescription());
+      statement.setString(7, religiousServiceRequest.getPerson());
 
       statement.executeUpdate();
       try (ResultSet keys = statement.getGeneratedKeys()) {
         if (!keys.next()) {
           return false;
         }
-        giftRequest.setId(keys.getInt(1));
+        religiousServiceRequest.setId(keys.getInt(1));
         return true;
       }
     } catch (SQLException exception) {
-      logger.log(Level.WARNING, "Failed to insert GiftRequest", exception);
+      logger.log(Level.WARNING, "Failed to insert ReligiousServiceRequest", exception);
     }
     return false;
   }
@@ -150,7 +154,7 @@ public class GiftRequestDaoDb implements GiftRequestDao {
             + " does not exist. Creating");
         PreparedStatement statement
             = connection.prepareStatement(queries.getProperty(
-            "gift_request.create_table"));
+            "religious_service_request.create_table"));
         statement.executeUpdate();
         logger.info("Table " + TABLE_NAME + " created");
       } else {
@@ -163,38 +167,38 @@ public class GiftRequestDaoDb implements GiftRequestDao {
   }
 
   @Override
-  public boolean update(GiftRequest giftRequest) {
+  public boolean update(ReligiousServiceRequest religiousServiceRequest) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement(
-          queries.getProperty("gift_request.update")
+          queries.getProperty("religious_service_request.update")
       );
       statement.setTimestamp(1,
-          Timestamp.valueOf(giftRequest.getTimeRequested()));
+          Timestamp.valueOf(religiousServiceRequest.getTimeRequested()));
       statement.setTimestamp(2,
-          Timestamp.valueOf(giftRequest.getTimeCompleted()));
-      statement.setString(3, giftRequest.getWhoCompleted());
-      statement.setString(4, giftRequest.getLocationNode().getNodeId());
-      statement.setString(5, giftRequest.getType().name());
-      statement.setString(6, giftRequest.getDescription());
-      statement.setString(7, giftRequest.getPerson());
-      statement.setInt(8, giftRequest.getId());
+          Timestamp.valueOf(religiousServiceRequest.getTimeCompleted()));
+      statement.setString(3, religiousServiceRequest.getWhoCompleted());
+      statement.setString(4, religiousServiceRequest.getLocationNode().getNodeId());
+      statement.setString(5, religiousServiceRequest.getType().name());
+      statement.setString(6, religiousServiceRequest.getDescription());
+      statement.setString(7, religiousServiceRequest.getPerson());
+      statement.setInt(8, religiousServiceRequest.getId());
 
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
-      logger.log(Level.WARNING, "Failed to update GiftRequest", ex);
+      logger.log(Level.WARNING, "Failed to update ReligiousServiceRequest", ex);
     }
     return false;
   }
 
   @Override
-  public boolean delete(GiftRequest giftRequest) {
+  public boolean delete(ReligiousServiceRequest religiousServiceRequest) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement(
-          queries.getProperty("gift_request.delete"));
-      statement.setInt(1, giftRequest.getId());
+          queries.getProperty("religious_service_request.delete"));
+      statement.setInt(1, religiousServiceRequest.getId());
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
-      logger.log(Level.WARNING, "FAILED to delete GiftRequest");
+      logger.log(Level.WARNING, "FAILED to delete ReligiousServiceRequest");
     }
     return false;
   }

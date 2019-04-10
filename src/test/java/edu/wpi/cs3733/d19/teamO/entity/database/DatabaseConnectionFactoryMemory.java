@@ -11,18 +11,17 @@ import edu.wpi.cs3733.d19.teamO.FileManager;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-final class DatabaseConnectionFactoryEmbedded implements DatabaseConnectionFactory {
+final class DatabaseConnectionFactoryMemory implements DatabaseConnectionFactory {
 
   private static final Logger kLogger
-      = Logger.getLogger(DatabaseConnectionFactoryEmbedded.class.getName());
+      = Logger.getLogger(DatabaseConnectionFactoryMemory.class.getName());
 
   private static final String EMBEDDED_PROTOCOL = "jdbc:derby:";
+  private static final String MEMORY_PROTOCOL = EMBEDDED_PROTOCOL + "memory:";
 
-  private final String protocol;
   private final String name;
 
-  private DatabaseConnectionFactoryEmbedded(final String protocol, final String name) {
-    this.protocol = checkNotNull(protocol);
+  DatabaseConnectionFactoryMemory(final String name) {
     this.name = checkNotNull(name);
 
     Properties properties = System.getProperties();
@@ -35,16 +34,16 @@ final class DatabaseConnectionFactoryEmbedded implements DatabaseConnectionFacto
     }
   }
 
-  DatabaseConnectionFactoryEmbedded() {
-    this(EMBEDDED_PROTOCOL, "database");
+  DatabaseConnectionFactoryMemory() {
+    this("database");
   }
 
   @Override
   public Connection getConnection() throws SQLException {
     try {
-      return DriverManager.getConnection(protocol
+      return DriverManager.getConnection(MEMORY_PROTOCOL
           + name
-          + ";derby.language.sequence.preallocator=1;create=true");
+          + ";create=true");
     } catch (SQLException ex) {
       kLogger.log(Level.SEVERE, "Exception getting connection to database", ex);
       throw ex;
@@ -54,7 +53,7 @@ final class DatabaseConnectionFactoryEmbedded implements DatabaseConnectionFacto
   @Override
   public void drop() throws SQLException {
     try {
-      DriverManager.getConnection(protocol
+      DriverManager.getConnection(MEMORY_PROTOCOL
           + name
           + ";drop=true");
     } catch (SQLException ex) {

@@ -14,4 +14,9 @@ interface DatabaseConnectionFactory {
    * @throws SQLException If there was a problem establishing a connection
    */
   Connection getConnection() throws SQLException;
+
+  /**
+   * Shutdown the SQL database.
+   */
+  void drop() throws SQLException;
 }

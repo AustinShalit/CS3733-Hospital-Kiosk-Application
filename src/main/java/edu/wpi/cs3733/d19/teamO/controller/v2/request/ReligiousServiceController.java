@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.d19.teamO.controller.v2.request;
 
 import java.time.LocalDateTime;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,14 +21,12 @@ import edu.wpi.cs3733.d19.teamO.controller.v2.DialogHelper;
 import edu.wpi.cs3733.d19.teamO.controller.v2.FxmlController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.RequestController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
-import edu.wpi.cs3733.d19.teamO.entity.FloristRequest;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
+import edu.wpi.cs3733.d19.teamO.entity.ReligiousServiceRequest;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
-@FxmlController(url = "FloristRequest.fxml")
-public class FloristRequestController implements Controller {
-
-  private static final Logger logger = Logger.getLogger(FloristRequestController.class.getName());
+@FxmlController(url = "ReligiousService.fxml")
+public class ReligiousServiceController implements Controller {
 
   @FXML
   private BorderPane root;
@@ -38,7 +35,7 @@ public class FloristRequestController implements Controller {
   @FXML
   private JFXComboBox<Node> locationbox;
   @FXML
-  private JFXComboBox<FloristRequest.FloristRequestType> categorybox;
+  private JFXComboBox<ReligiousServiceRequest.ReligiousServiceRequestType> categorybox;
   @FXML
   private JFXTextArea descriptiontxt;
   @FXML
@@ -56,7 +53,7 @@ public class FloristRequestController implements Controller {
   @FXML
   void initialize() {
     DialogHelper.populateComboBox(db, locationbox);
-    categorybox.getItems().setAll(FloristRequest.FloristRequestType
+    categorybox.getItems().setAll(ReligiousServiceRequest.ReligiousServiceRequestType
         .values());
   }
 
@@ -67,30 +64,31 @@ public class FloristRequestController implements Controller {
 
   @FXML
   void onSubmitButtonAction() {
-    FloristRequest florist = parseUserFloristRequest();
-    if (florist == null) {
+    ReligiousServiceRequest religious = parseUserRSRequest();
+    if (religious == null) {
+      Logger logger = Logger.getLogger(ReligiousServiceController.class.getName());
       logger.log(Level.WARNING,
-          "Unable to parse florist Request.",
-          "Unable to parse florist Request.");
+          "Unable to parse religious service Request.",
+          "Unable to parse religious service Request.");
       return;
     }
 
-    if (db.insertFloristRequest(florist)) {
-      String message = "Successfully submitted florist request.";
+    if (db.insertReligiousServiceRequest(religious)) {
+      String message = "Successfully submitted religious service request.";
       DialogHelper.showInformationAlert("Success!", message);
     } else {
       DialogHelper.showErrorAlert("Error.",
-          "Unable to submit florist request.");
+          "Unable to submit religious service request.");
     }
   }
 
   /**
-   * Parse input the user has inputted for the florist request.
+   * Parse input the user has inputted for the religious service request.
    *
-   * @return If valid input, A florist Request representing the users input. Otherwise null.
+   * @return If valid input, A ReligiousServiceRequest representing the users input. Otherwise null.
    */
-  private FloristRequest parseUserFloristRequest() {
-    // if input is valid, parse it and return a new florist request
+  private ReligiousServiceRequest parseUserRSRequest() {
+    // if input is valid, parse it and return a new ReligiousServiceRequest
     if (!descriptiontxt.getText().isEmpty()
         && !nametxt.getText().isEmpty()
         && Objects.nonNull(locationbox.getValue())
@@ -99,14 +97,13 @@ public class FloristRequestController implements Controller {
       LocalDateTime now = LocalDateTime.now();
       Node node = (Node) locationbox.getValue();
 
-      String type = categorybox.getValue().toString().toUpperCase(new Locale("EN"));
-      FloristRequest.FloristRequestType floristRequest =
-          FloristRequest.FloristRequestType.valueOf(type);
+      ReligiousServiceRequest.ReligiousServiceRequestType religiousRequestType =
+          categorybox.getValue();
 
       String description = descriptiontxt.getText();
       String name = nametxt.getText();
 
-      return new FloristRequest(now, node, floristRequest, description, name);
+      return new ReligiousServiceRequest(now, node, religiousRequestType, description, name);
     }
 
     // otherwise, some input was invalid
@@ -120,6 +117,6 @@ public class FloristRequestController implements Controller {
   }
 
   public interface Factory {
-    FloristRequestController create();
+    ReligiousServiceController create();
   }
 }
