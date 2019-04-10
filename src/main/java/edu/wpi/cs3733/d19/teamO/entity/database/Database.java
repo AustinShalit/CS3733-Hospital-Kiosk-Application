@@ -127,6 +127,10 @@ public class Database {
     return edgeDao.getEdgesFor(node);
   }
 
+  public Set<Edge> getEdgeByFloor(String floor) {
+    return edgeDao.getFloor(floor);
+  }
+
   /*
    * Sanitation
    */
