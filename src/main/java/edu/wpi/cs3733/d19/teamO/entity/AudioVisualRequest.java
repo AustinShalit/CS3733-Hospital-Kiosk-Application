@@ -7,9 +7,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class AudioVisualRequest extends ServiceRequest {
   public enum AudioVisualRequestType {
-    STRETCHER("Stretcher"),
-    DISABLED("Disabled"),
-    DELIVERY("Delivery"),
+    PROJECTOR("Projector"),
+    SPEAKER("Speaker"),
+    MIC("Mic"),
     OTHERS("Others");
 
     private static final Map<String,
