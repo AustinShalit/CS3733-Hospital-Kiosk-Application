@@ -134,7 +134,7 @@ public class SchedulingController implements Controller {
 
     if (startTime.getValue().isAfter(endTime.getValue())) {
       showErrorAlert("Error.",
-          "Please make sure the end time is after the start time :)"
+          "Please make sure the end time is after the start time"
       );
       return null;
     }
