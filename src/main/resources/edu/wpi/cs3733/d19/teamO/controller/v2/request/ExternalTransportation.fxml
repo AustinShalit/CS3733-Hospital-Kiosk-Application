@@ -16,8 +16,13 @@
 
 <BorderPane fx:id="root" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" styleClass="root" stylesheets="@../style/KioskStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.v2.request.ExternalTransportationController">
   <center>
-    <VBox alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="650.0" spacing="30.0" styleClass="form" BorderPane.alignment="TOP_CENTER">
+    <VBox alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="760.0" spacing="30.0" styleClass="form" BorderPane.alignment="TOP_CENTER">
       <children>
+        <Label id="heading" maxHeight="-Infinity" maxWidth="-Infinity" text="Add External Transportation Request">
+          <font>
+            <Font name="System Bold" size="36.0" />
+          </font>
+        </Label>
         <JFXTextField fx:id="nametxt" focusColor="#0067b1" labelFloat="true" maxWidth="200.0" prefHeight="32.0" promptText="Enter Name">
           <VBox.margin>
             <Insets />
@@ -75,11 +80,6 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       </rowConstraints>
       <children>
-        <Label id="heading" text="Add External Transportation Request" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-          <font>
-            <Font name="System Bold" size="36.0" />
-          </font>
-        </Label>
         <JFXButton id="small-button" fx:id="backbtn" onAction="#onbackButtonAction" prefHeight="36.0" prefWidth="100.0" text="Go Back" GridPane.valignment="TOP">
           <font>
             <Font size="12.0" />

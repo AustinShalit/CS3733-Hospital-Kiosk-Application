@@ -3,6 +3,8 @@
     -fx-background-color: #F1F1F1;
     -fx-background-image: url("TechBackground.png");
     -fx-background-size: cover;
+    -fx-max-height: 4000px;
+    -fx-max-width: 4000px;
 }
 
 .form {
@@ -10,9 +12,20 @@
     -fx-border-radius: 4px;
     -fx-effect: dropshadow(three-pass-box, rgba(110,110,110,0.25), 10, 0, 0, 0);
     -fx-spacing: 36px;
-    -fx-pref-height: 500px;
-    -fx-pref-width: 650px;
     -fx-fill-width: false;
+    -fx-padding: 30px;
+    -fx-alignment: top-center;
+}
+
+#requestview {
+    -fx-spacing: 10px;
+    -fx-padding: 30px 40px 30px 40px
+}
+
+#requestbuttons {
+    -fx-hgap: 40px;
+    -fx-pref-width: 720px;
+    -fx-pref-height: 60px;
 }
 
 #title-grid {
@@ -43,6 +56,8 @@
 #small-button {
     -fx-background-color: #0067B1;
     -fx-pref-width: 100px;
+    -fx-min-height: 32px;
+    -fx-pref-height: 37px;
     -fx-font-size: 16px;
     -fx-font-weight: bold;
 }
@@ -50,6 +65,10 @@
 #small-button:hover {
     -fx-background-color: #004E86;
     -fx-border-width: 0;
+}
+
+#table-button {
+    -fx-padding: 10px 20px 10px 20px;
 }
 
 .jfx-text-field {
