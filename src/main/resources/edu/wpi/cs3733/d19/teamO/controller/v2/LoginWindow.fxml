@@ -41,14 +41,14 @@
           <Font name="System Bold" size="21.0" />
         </font>
       </JFXButton>
-         <Text strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" />
     </VBox>
   </center>
-   <top>
-      <BorderPane stylesheets="@style/LoginStyle.css" BorderPane.alignment="TOP_LEFT">
-         <bottom>
-            <ImageView fx:id="Logo" fitHeight="62.0" fitWidth="290.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="TOP_LEFT" />
-         </bottom>
-      </BorderPane>
-   </top>
+  <top>
+    <BorderPane stylesheets="@style/LoginStyle.css" BorderPane.alignment="TOP_LEFT">
+      <bottom>
+        <ImageView fx:id="Logo" fitHeight="62.0" fitWidth="290.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="TOP_LEFT" />
+      </bottom>
+    </BorderPane>
+  </top>
 </BorderPane>

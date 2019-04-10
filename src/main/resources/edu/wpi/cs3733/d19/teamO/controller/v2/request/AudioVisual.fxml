@@ -45,9 +45,9 @@
         </JFXTextArea>
         <JFXButton id="small-button" fx:id="submitbtn" onAction="#onSubmitButtonAction" stylesheets="@../style/KioskStyle.css" text="SUBMIT" />
       </children>
-         <padding>
-            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-         </padding>
+      <padding>
+        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+      </padding>
     </VBox>
   </center>
   <top>

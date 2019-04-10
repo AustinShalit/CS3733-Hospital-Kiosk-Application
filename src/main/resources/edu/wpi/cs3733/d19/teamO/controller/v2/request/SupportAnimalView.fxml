@@ -15,40 +15,40 @@
 
 <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="root" stylesheets="@../style/KioskStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.v2.request.SupportAnimalViewController">
   <center>
-      <VBox id="requestview" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="form" BorderPane.alignment="CENTER">
-         <children>
+    <VBox id="requestview" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="form" BorderPane.alignment="CENTER">
+      <children>
         <Label id="heading" fx:id="titleLabel" text="View Support Animal Requests">
           <font>
             <Font name="System Bold" size="36.0" />
           </font>
         </Label>
-          <TableView fx:id="requestsTableView" maxHeight="-Infinity" maxWidth="-Infinity">
-            <columns>
-              <TableColumn fx:id="idTableCol" prefWidth="52.0" text="ID" />
-              <TableColumn fx:id="nameCol" prefWidth="89.0" text="Name" />
-              <TableColumn fx:id="categoryTableCol" prefWidth="84.0" text="Category" />
-              <TableColumn fx:id="timeRequestedCol" prefWidth="120.0" text="Time Requested" />
-              <TableColumn fx:id="locationTableCol" prefWidth="85.0" text="Location" />
-              <TableColumn fx:id="whoCompletedCol" prefWidth="90.0" text="Assigned To" />
-              <TableColumn fx:id="descriptionCol" prefWidth="199.0" text="Description" />
-            </columns>
-          </TableView>
-          <GridPane id="requestbuttons">
-            <columnConstraints>
-              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            </columnConstraints>
-            <rowConstraints>
-              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            </rowConstraints>
-            <children>
-              <JFXButton id="table-button" fx:id="assignButton" onAction="#onAssignButtonAction" text="Assign Employee" GridPane.halignment="CENTER" GridPane.rowSpan="2" />
-              <JFXButton id="table-button" fx:id="completedButton" onAction="#onCompletedButtonAction" text="Complete Request" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowSpan="2" />
-            </children>
-          </GridPane>
-         </children>
-      </VBox>
+        <TableView fx:id="requestsTableView" maxHeight="-Infinity" maxWidth="-Infinity">
+          <columns>
+            <TableColumn fx:id="idTableCol" prefWidth="52.0" text="ID" />
+            <TableColumn fx:id="nameCol" prefWidth="89.0" text="Name" />
+            <TableColumn fx:id="categoryTableCol" prefWidth="84.0" text="Category" />
+            <TableColumn fx:id="timeRequestedCol" prefWidth="120.0" text="Time Requested" />
+            <TableColumn fx:id="locationTableCol" prefWidth="85.0" text="Location" />
+            <TableColumn fx:id="whoCompletedCol" prefWidth="90.0" text="Assigned To" />
+            <TableColumn fx:id="descriptionCol" prefWidth="199.0" text="Description" />
+          </columns>
+        </TableView>
+        <GridPane id="requestbuttons">
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+          <children>
+            <JFXButton id="table-button" fx:id="assignButton" onAction="#onAssignButtonAction" text="Assign Employee" GridPane.halignment="CENTER" GridPane.rowSpan="2" />
+            <JFXButton id="table-button" fx:id="completedButton" onAction="#onCompletedButtonAction" text="Complete Request" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowSpan="2" />
+          </children>
+        </GridPane>
+      </children>
+    </VBox>
   </center>
   <top>
     <GridPane id="title-grid" prefHeight="81.0" prefWidth="800.0" BorderPane.alignment="CENTER">
@@ -62,9 +62,10 @@
       </rowConstraints>
       <children>
         <JFXButton id="small-button" fx:id="goBackButton" onAction="#goBackButtonAction" text="Go Back" GridPane.halignment="LEFT" GridPane.valignment="TOP">
-               <GridPane.margin>
-                  <Insets left="9.0" top="9.0" />
-               </GridPane.margin></JFXButton>
+          <GridPane.margin>
+            <Insets left="9.0" top="9.0" />
+          </GridPane.margin>
+        </JFXButton>
       </children>
     </GridPane>
   </top>
