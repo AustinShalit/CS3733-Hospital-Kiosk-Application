@@ -93,6 +93,7 @@ public class SchedulingRequest {
 
   /**
    * Used to check if the meeting is during a certain time.
+   *
    * @param localDateTime The time to check
    * @return True if the meeting is during the supplied time, False otherwise.
    */
@@ -103,8 +104,9 @@ public class SchedulingRequest {
 
   /**
    * Used to check if the given time range is during this meeting.
+   *
    * @param startTime the start of the time range
-   * @param endTime the end of the time range
+   * @param endTime   the end of the time range
    * @return True if the meeting is during the supplied time range, False otherwise.
    */
   public boolean isDuring(LocalDateTime startTime, LocalDateTime endTime) {
