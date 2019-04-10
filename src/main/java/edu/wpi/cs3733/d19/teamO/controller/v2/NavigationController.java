@@ -33,6 +33,8 @@ import edu.wpi.cs3733.d19.teamO.entity.pathfinding.StepByStep;
 @FxmlController(url = "Navigation.fxml")
 public class NavigationController implements Controller {
 
+  Database database = new Database();
+
   @FXML
   BorderPane root;
 
