@@ -15,6 +15,7 @@ import com.jfoenix.controls.JFXTextField;
 
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
 import edu.wpi.cs3733.d19.teamO.controller.v2.Controller;
@@ -44,6 +45,8 @@ public class GiftController implements Controller {
   private JFXButton submitbtn;
   @FXML
   private JFXButton backbtn;
+  @FXML
+  private Label reportLabel;
 
   @Inject
   private EventBus eventBus;
@@ -83,6 +86,19 @@ public class GiftController implements Controller {
     }
   }
 
+  @FXML
+  void onReportAction() {
+    int teddybear = db.getNumberbyCategory("TEDDYBEAR").size();
+    int candy = db.getNumberbyCategory("CANDY").size();
+    int balloons = db.getNumberbyCategory("BALLOONS").size();
+    int others = db.getNumberbyCategory("OTHERS").size();
+    reportLabel.setText("The number of requests for gift of teddy: " + teddybear
+        + "of candy: " + candy
+        + "of balloons: " + balloons
+        + "of other gifts: " + others
+        + generateTimeReport());
+  }
+
   /**
    * Parse input the user has inputted for the sanitation request.
    *
@@ -111,6 +127,40 @@ public class GiftController implements Controller {
     // otherwise, some input was invalid
     DialogHelper.showErrorAlert("Error.", "Please make sure all fields are filled out.");
     return null;
+  }
+
+  private String generateTimeReport() {
+    int twoHourCounter = 0;
+    int oneHourCounter = 0;
+    int halfHourCounter = 0;
+    int lessHalfHourCounter = 0;
+    int invalidCounter = 0;
+    int cnt = 0;
+    for (GiftRequest giftRequest : db.getAllGiftRequests()) {
+      cnt = giftRequest.getTimeDifference();
+      switch (cnt) {
+        case 1:
+          twoHourCounter++;
+          break;
+        case 2:
+          oneHourCounter++;
+          break;
+        case 3:
+          halfHourCounter++;
+          break;
+        case 4:
+          lessHalfHourCounter++;
+          break;
+        default:
+          invalidCounter++;
+          break;
+      }
+    }
+    return "Invalid time request: " + invalidCounter
+        + "Request over two hours" + twoHourCounter
+        + "Request from an hour to two hours" + oneHourCounter
+        + "Request from half hour to an hour" + halfHourCounter
+        + "Request less than half hour" + lessHalfHourCounter;
   }
 
   @Override
