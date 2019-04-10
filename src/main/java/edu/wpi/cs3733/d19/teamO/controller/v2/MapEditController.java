@@ -23,7 +23,7 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 @FxmlController(url = "MapEdit.fxml")
 public class MapEditController implements Controller {
   String nodeID;
- // Collection<Node> nodes;
+  // Collection<Node> nodes;
 
   @FXML
   MapView2 map;
@@ -67,10 +67,10 @@ public class MapEditController implements Controller {
 
   @FXML
   void initialize() throws IOException {
-  //  map = new MapView2();
-   // database.getAllNodes();
-   map.setNodes(database.getAllNodes());
-   map.setCurrentNodes(database.getAllNodes());
+    //  map = new MapView2();
+    // database.getAllNodes();
+    map.setNodes(database.getAllNodes());
+    map.setCurrentNodes(database.getAllNodes());
     map.addNodesToPane(database.getFloor("1"));
     map.selectedNodeProperty().addListener((observable, oldValue, newValue) -> {
       nodeID = newValue.getNodeId();
@@ -91,11 +91,17 @@ public class MapEditController implements Controller {
     });
   }
 
+  /**
+   *  A cool comboBox of nodetype.
+   */
   @FXML
   private void comboBox() {
     nodeTypeComboBox.getItems().addAll(Node.NodeType.values());
   }
 
+  /**
+   *  Check if all fields filled.
+   */
   @FXML
   public void validateButton() {
     if ( xcoordField.getText().isEmpty() || ycoordField.getText().isEmpty()
@@ -131,24 +137,14 @@ public class MapEditController implements Controller {
 
   @FXML
   void deleteNodeAction() {
-//    String delNodeLongName = longNameField.getText();
-//    Optional<Node> opt = database.getNode(delNodeLongName);
-//    if (!opt.isPresent()) {
-//      status.setText("ERROR: InvalidNodeID");
-//    } else {
-//      Node deleteNode = opt.get();
-      database.deleteNode(database.getNode(nodeID).get());
-      status.setText("Succeed!");
+    database.deleteNode(database.getNode(nodeID).get());
+    status.setText("Succeed!");
 
   }
 
   @FXML
   void updateNodeAction() {
- //   String udNodeID = nodeIDField.getText();
-   // Optional<Node> nodeFromDB = database.getNode(udNodeID);
-
-   //   Node node = nodeFromDB.get();
-      Node updateNode = new Node(nodeID,
+    Node updateNode = new Node(nodeID,
           Integer.parseInt(xcoordField.getText()),
           Integer.parseInt(ycoordField.getText()),
           floorField.getText(),
@@ -156,28 +152,28 @@ public class MapEditController implements Controller {
           nodeTypeComboBox.getValue(),
           longNameField.getText(),
           shortNameField.getText());
-      database.updateNode(updateNode);
-      status.setText("Succeed!");
+    database.updateNode(updateNode);
+    status.setText("Succeed!");
 
   }
 
-//  @FXML
-//  void connectNodeAction() {
-//    String udNodeID1 = nodeIDField.getText();
-//    Optional<Node> nodeFromDB1 = database.getNode(udNodeID1);
-//    String udNodeID2 = connectNodeID1.getText();
-//    Optional<Node> nodeFromDB2 = database.getNode(udNodeID2);
-//    if (!nodeFromDB1.isPresent() || !nodeFromDB2.isPresent()) {
-//      status.setText("ERROR: InvalidNodeID");
-//    } else {
-//      Node node1 = nodeFromDB1.get();
-//      Node node2 = nodeFromDB2.get();
-//      Edge newEdge = new Edge(edgeID.getText(), node1, node2);
-//      database.insertEdge(newEdge);
-//      status.setText("Succeed!");
-//    }
-//
-//  }
+  //  @FXML
+  //  void connectNodeAction() {
+  //    String udNodeID1 = nodeIDField.getText();
+  //    Optional<Node> nodeFromDB1 = database.getNode(udNodeID1);
+  //    String udNodeID2 = connectNodeID1.getText();
+  //    Optional<Node> nodeFromDB2 = database.getNode(udNodeID2);
+  //    if (!nodeFromDB1.isPresent() || !nodeFromDB2.isPresent()) {
+  //      status.setText("ERROR: InvalidNodeID");
+  //    } else {
+  //      Node node1 = nodeFromDB1.get();
+  //      Node node2 = nodeFromDB2.get();
+  //      Edge newEdge = new Edge(edgeID.getText(), node1, node2);
+  //      database.insertEdge(newEdge);
+  //      status.setText("Succeed!");
+  //    }
+  //
+  // }
 
 
 

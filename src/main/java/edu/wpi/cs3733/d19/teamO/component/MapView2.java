@@ -1,10 +1,9 @@
 package edu.wpi.cs3733.d19.teamO.component;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Collection;
 
-import com.google.inject.Inject;
+
 
 import javafx.animation.Interpolator;
 import javafx.beans.property.SimpleObjectProperty;
@@ -28,7 +27,7 @@ import net.kurobako.gesturefx.GesturePane;
 
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
-import edu.wpi.cs3733.d19.teamO.entity.database.Database;
+
 
 import static java.lang.Math.abs;
 
@@ -71,7 +70,7 @@ public class MapView2 extends StackPane {
   @FXML
   private Circle circle;
 
-  private SimpleObjectProperty<Node> selectedNode = new SimpleObjectProperty<>();
+  private final SimpleObjectProperty<Node> selectedNode = new SimpleObjectProperty<>();
 
 
   /**
@@ -120,8 +119,9 @@ public class MapView2 extends StackPane {
       circle.setCenterX(pointOnMap.getX());
       circle.setCenterY(pointOnMap.getY());
       circle.setVisible(true);
-    //  Node[] nodesArray = nodes.toArray(new Node[nodes.size()]);
-      selectedNode.set(new Node("Austin",currentX,currentY,level,"",null,"",""));
+      //  Node[] nodesArray = nodes.toArray(new Node[nodes.size()]);
+      selectedNode.set(new Node("Austin", currentX, currentY, level, "",
+          null, "", ""));
       for (Node n : nodes) {
         if (abs(n.getXcoord() - currentX) < 8 && abs(n.getYcoord() - currentY) < 8) {
           selectedNode.set(n);
@@ -140,37 +140,37 @@ public class MapView2 extends StackPane {
   }
 
   void resetButtonBackground(String l) {
-    if (l.equals("1")) {
+    if ("1".equals(l)) {
       levelL1.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelL2.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelF2.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelF3.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelG.setStyle("-fx-background-color: rgba(249,249,255,0)");
-    } else if (l.equals("2")) {
+    } else if  ("2".equals(l)) {
       levelL1.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelL2.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelF1.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelF3.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelG.setStyle("-fx-background-color: rgba(249,249,255,0)");
-    } else if (l.equals("3")) {
+    } else if ("3".equals(l)) {
       levelL1.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelL2.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelF1.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelF2.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelG.setStyle("-fx-background-color: rgba(249,249,255,0)");
-    } else if (l.equals("G")) {
+    } else if ("G".equals(l)) {
       levelL1.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelL2.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelF1.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelF2.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelF3.setStyle("-fx-background-color: rgba(249,249,255,0)");
-    } else if (l.equals("L1")) {
+    } else if ("L1".equals(l)) {
       levelG.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelL2.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelF1.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelF2.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelF3.setStyle("-fx-background-color: rgba(249,249,255,0)");
-    } else if (l.equals("L2")) {
+    } else if  ("L2".equals(l)) {
       levelL1.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelG.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelF1.setStyle("-fx-background-color: rgba(249,249,255,0)");
@@ -308,9 +308,10 @@ public class MapView2 extends StackPane {
    */
   @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
   public void addNodesToPane(final Collection<Node> n) {
-    if(n!=null) {
+    if (n != null) {
       for (Node node : n) {
-        Circle circle = new Circle(node.getXcoord(), node.getYcoord(), 5, Color.color(0, 0.31, 0.53));
+        Circle circle = new Circle(node.getXcoord(), node.getYcoord(), 5,
+            Color.color(0, 0.31, 0.53));
         circle.setStroke(Color.BLACK);
         nodeGroup.getChildren().add(circle);
       }
@@ -321,8 +322,9 @@ public class MapView2 extends StackPane {
   public void clearNodes() {
     nodeGroup.getChildren().clear();
   }
-  private void findCurrentNode(String lv){
-    if(currentNodes!=null&&nodes!=null) {
+
+  private void findCurrentNode(String lv) {
+    if (currentNodes != null && nodes != null) {
       currentNodes.clear();
 
       for (Node n : nodes) {
