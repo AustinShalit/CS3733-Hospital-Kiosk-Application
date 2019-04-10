@@ -65,6 +65,15 @@ class ServiceRequest {
     this.whoCompleted = "";
   }
 
+  ServiceRequest(int id, LocalDateTime timeRequested, LocalDateTime timeCompleted,
+                 String description) {
+    this.id = id;
+    this.timeRequested = timeRequested;
+    this.timeCompleted = timeCompleted;
+    this.description = description;
+    location = defaultNode();
+  }
+
   ServiceRequest(int id) {
     this.id = id;
 

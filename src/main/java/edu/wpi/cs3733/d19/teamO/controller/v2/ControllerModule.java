@@ -12,6 +12,7 @@ import com.google.inject.spi.TypeListener;
 
 import javafx.fxml.FXMLLoader;
 
+import edu.wpi.cs3733.d19.teamO.SuppressFBWarnings;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.AudioVisualController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.AudioVisualViewController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.ExternalTransportationController;
@@ -28,13 +29,17 @@ import edu.wpi.cs3733.d19.teamO.controller.v2.request.InterpreterController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.InterpreterViewController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.PatientInfoController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.PatientInfoViewController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.PrescriptionRequestController;
+import edu.wpi.cs3733.d19.teamO.controller.v2.request.PrescriptionViewController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.ReligiousServiceController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.ReligiousServiceViewController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.SupportAnimalController;
 import edu.wpi.cs3733.d19.teamO.controller.v2.request.SupportAnimalViewController;
 
+@SuppressFBWarnings
 @SuppressWarnings("PMD.CouplingBetweenObjects")
 public class ControllerModule extends AbstractModule {
+
   @Override
   protected void configure() {
     bindListener(Matchers.any(), new TypeListener() {
@@ -77,6 +82,8 @@ public class ControllerModule extends AbstractModule {
     install(new FactoryModuleBuilder().build(PatientInfoController.Factory.class));
     install(new FactoryModuleBuilder().build(PatientInfoViewController.Factory.class));
 
+    install(new FactoryModuleBuilder().build(PrescriptionRequestController.Factory.class));
+    install(new FactoryModuleBuilder().build(PrescriptionViewController.Factory.class));
 
     install(new FactoryModuleBuilder().build(ExternalTransportationController.Factory.class));
     install(new FactoryModuleBuilder().build(ExternalTransportationViewController.Factory.class));
