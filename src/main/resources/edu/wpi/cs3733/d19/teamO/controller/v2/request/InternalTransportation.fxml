@@ -40,9 +40,9 @@
         </JFXTextArea>
         <JFXButton id="small-button" fx:id="submitbtn" onAction="#onSubmitButtonAction" prefHeight="30.0" text="Submit" />
       </children>
-         <padding>
-            <Insets bottom="36.0" />
-         </padding>
+      <padding>
+        <Insets bottom="36.0" />
+      </padding>
     </VBox>
   </center>
   <top>
@@ -65,9 +65,9 @@
           <font>
             <Font size="12.0" />
           </font>
-               <GridPane.margin>
-                  <Insets left="9.0" top="9.0" />
-               </GridPane.margin>
+          <GridPane.margin>
+            <Insets left="9.0" top="9.0" />
+          </GridPane.margin>
         </JFXButton>
       </children>
     </GridPane>
