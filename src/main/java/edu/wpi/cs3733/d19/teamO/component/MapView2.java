@@ -121,7 +121,7 @@ public class MapView2 extends StackPane {
       circle.setCenterY(pointOnMap.getY());
       circle.setVisible(true);
       //  Node[] nodesArray = nodes.toArray(new Node[nodes.size()]);
-      selectedNode.set(new Node("Austin", currentX, currentY, level, "",
+      selectedNode.set(new Node("Auto-Generated", currentX, currentY, level, "",
           null, "", ""));
       for (Node n : nodes) {
         if (abs(n.getXcoord() - currentX) < 8 && abs(n.getYcoord() - currentY) < 8) {
