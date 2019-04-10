@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.d19.teamO.controller.v2;
 
-import java.io.IOException;
 import java.util.Optional;
 
 import com.google.inject.Inject;
@@ -70,7 +69,7 @@ public class MapEditController implements Controller {
   private Database database;
 
   @FXML
-  void initialize() throws IOException {
+  void initialize() {
 
     //  map = new MapView2();
     // database.getAllNodes();
@@ -131,14 +130,7 @@ public class MapEditController implements Controller {
 
   @FXML
   void addNodeAction() {
-    Node newNode = new Node(Integer.toString(newID),
-        Integer.parseInt(xcoordField.getText()),
-        Integer.parseInt(ycoordField.getText()),
-        floorField.getText(),
-        buildingField.getText(),
-        nodeTypeComboBox.getValue(),
-        longNameField.getText(),
-        shortNameField.getText());
+    Node newNode = getNewNode(Integer.toString(newID));
     database.insertNode(newNode);
     status.setText("Succeed!");
     map.setNodes(database.getAllNodes());
@@ -150,6 +142,7 @@ public class MapEditController implements Controller {
   @FXML
   void deleteNodeAction() {
     String delNodeID = nodeID;
+    database.getEdgesFor(getNewNode(delNodeID)).forEach(database::deleteEdge);
     Optional<Node> opt = database.getNode(delNodeID);
     if (!opt.isPresent()) {
       status.setText("ERROR: InvalidNodeID");
@@ -171,14 +164,7 @@ public class MapEditController implements Controller {
     if (!nodeFromDB.isPresent()) {
       status.setText("ERROR: InvalidNodeID");
     } else {
-      Node updateNode = new Node(nodeID,
-          Integer.parseInt(xcoordField.getText()),
-          Integer.parseInt(ycoordField.getText()),
-          floorField.getText(),
-          buildingField.getText(),
-          nodeTypeComboBox.getValue(),
-          longNameField.getText(),
-          shortNameField.getText());
+      Node updateNode = getNewNode(nodeID);
       database.updateNode(updateNode);
       status.setText("Succeed!");
       map.setNodes(database.getAllNodes());
@@ -205,7 +191,16 @@ public class MapEditController implements Controller {
   //
   // }
 
-
+  private Node getNewNode(String s) {
+    return new Node(s,
+        Integer.parseInt(xcoordField.getText()),
+        Integer.parseInt(ycoordField.getText()),
+        floorField.getText(),
+        buildingField.getText(),
+        nodeTypeComboBox.getValue(),
+        longNameField.getText(),
+        shortNameField.getText());
+  }
 
   @Override
   public Parent getRoot() {
