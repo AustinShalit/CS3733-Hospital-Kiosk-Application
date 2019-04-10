@@ -28,16 +28,6 @@ import edu.wpi.cs3733.d19.teamO.entity.Node;
 
 public class SchedulingMapView extends MapView {
 
-  @FXML
-  private GesturePane gesturePane;
-  @FXML
-  private ImageView backgroundImage;
-
-  @FXML
-  private Label coordX;
-  @FXML
-  private Label coordY;
-
 
   /**
    * The constructor for the MapView class.
@@ -72,16 +62,5 @@ public class SchedulingMapView extends MapView {
     gesturePane.setScrollBarEnabled(false);
 
     setMapImage(new Image(getClass().getResource("SchedulingMap.jpg").openStream()));
-  }
-
-  /**
-   * Set the image to the map.
-   *
-   * @param image image is the map file
-   */
-  public void setMapImage(final Image image) {
-    backgroundImage.setImage(image);
-    gesturePane.zoomTo(0.1, new Point2D(backgroundImage.getImage().getWidth() / 2,
-        backgroundImage.getImage().getHeight() / 2));
   }
 }

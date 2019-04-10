@@ -31,9 +31,9 @@ public class MapView extends StackPane {
   private int level = 1;
 
   @FXML
-  private GesturePane gesturePane;
+  GesturePane gesturePane;
   @FXML
-  private ImageView backgroundImage;
+  ImageView backgroundImage;
   @FXML
   Group nodeGroup;
   @FXML
