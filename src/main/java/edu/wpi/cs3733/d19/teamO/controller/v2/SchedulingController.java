@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d19.teamO.controller.v2;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -118,6 +119,7 @@ public class SchedulingController implements Controller {
     }
 
     if (database.insertSchedulingrequest(request)) {
+      updateMapViewNodeOverlay();
       String message = "Successfully submitted scheduling request.";
       showInformationAlert("Success!", message);
 
@@ -166,7 +168,12 @@ public class SchedulingController implements Controller {
     // Set of available nodes
     Set<Node> availableNodes = database.getAllAvailableNodes(start, end);
     // Set of unavailable nodes
-    Set<Node> unavailableNodes = database.getAllNodes();
+    Set<Node> unavailableNodes = new HashSet<>();
+    for (Node n : database.getAllNodes()) {
+      if (n.getNodeType().isSchedulable()) {
+        unavailableNodes.add(n);
+      }
+    }
     for (Node avNode : availableNodes) {
       unavailableNodes.remove(avNode);
     }

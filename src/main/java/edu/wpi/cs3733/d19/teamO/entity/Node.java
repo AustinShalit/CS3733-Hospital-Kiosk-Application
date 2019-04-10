@@ -40,6 +40,10 @@ public class Node {
       this.name = name;
     }
 
+    public boolean isSchedulable() {
+      return this == WORKZONE || this == CLASSROOM || this == AUDITORIUM;
+    }
+
     @Override
     public String toString() {
       return name;
