@@ -47,8 +47,6 @@ public class SchedulingController implements Controller {
   @FXML
   JFXButton towerButton;
   @FXML
-  AnchorPane tableView;
-  @FXML
   JFXTextField nameField;
   @FXML
   JFXComboBox<Node> roomComboBox;
@@ -70,6 +68,9 @@ public class SchedulingController implements Controller {
   @Inject
   private Database database;
 
+  @Inject
+  private SchedulingViewController.Factory schedulingViewControllerFactory;
+
   @FXML
   void initialize() {
     DialogHelper.populateComboBox(database, roomComboBox);
@@ -81,9 +82,8 @@ public class SchedulingController implements Controller {
     });
   }
 
-  public void showCurrentSchedule() throws IOException {
-    AnchorPane content = FXMLLoader.load(getClass().getResource("SchedulingViewWindow.fxml"));
-    tableTab.setContent(content);
+  public void showCurrentSchedule() {
+    tableTab.setContent(schedulingViewControllerFactory.create().getRoot());
   }
 
   /**
@@ -104,6 +104,7 @@ public class SchedulingController implements Controller {
     if (database.insertSchedulingrequest(request)) {
       String message = "Successfully submitted scheduling request.";
       showInformationAlert("Success!", message);
+
     } else {
       showErrorAlert("Error.", "Unable to submit scheduling request.");
     }

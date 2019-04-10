@@ -225,7 +225,7 @@
               <content>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0">
                   <children>
-                    <AnchorPane fx:id="tableVIew" onMouseClicked="#showCurrentSchedule" prefHeight="643.0" prefWidth="1066.0" style="-fx-background-color: #2600ff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                    <AnchorPane onMouseClicked="#showCurrentSchedule" prefHeight="643.0" prefWidth="1066.0" style="-fx-background-color: #2600ff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                   </children>
                 </AnchorPane>
               </content>

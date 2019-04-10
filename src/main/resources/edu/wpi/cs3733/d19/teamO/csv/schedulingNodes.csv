@@ -1,0 +1,17 @@
+nodeID,xcoord,ycoord,floor,building,nodeType,longName,shortName
+1,524,980,,,,,WorkZone 3
+2,1404,875,,,,,WorkZone 2
+3,1367,1718,,,,,WorkZone 1
+4,449,1877,,,,,WorkZone 4
+5,1806,2519,,,,,WorkZone 5
+6,2619,2723,,,,,Pantry
+7,2520,2381,,,,,Mission Hill Conference Room
+8,2507,2147,,,,,Classroom1
+9,3209,2170,,,,,Mission Hill Auditorium
+10,3082,1665,,,,,Classroom 2
+11,2944,1282,,,,,Classroom 3
+12,2617,753,,,,,Classroom 4
+13,2458,1291,,,,,Classroom 5
+14,2318,755,,,,,Classroom 6
+15,2183,1284,,,,,Classroom 7
+16,1974,736,,,,,Classroom 8
