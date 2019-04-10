@@ -92,7 +92,12 @@ public class SchedulingRequestDaoDb implements SchedulingRequestDao {
   public Set<Node> allAvailableNodes(LocalDateTime localDateTime) {
     Set<SchedulingRequest> schedulingRequests = getAll();
     Set<Node> nodes = nodeDaoDb.getAll();
-    Set<Node> availableNodes = new HashSet<>(nodes);
+    Set<Node> availableNodes = new HashSet<>();
+    for (Node n : nodes) {
+      if (n.getNodeType().isSchedulable()) {
+        availableNodes.add(n);
+      }
+    }
     for (SchedulingRequest schedulingRequest : schedulingRequests) {
       if (schedulingRequest.isDuring(localDateTime)) {
         availableNodes.remove(schedulingRequest.getRoom());
@@ -105,7 +110,12 @@ public class SchedulingRequestDaoDb implements SchedulingRequestDao {
   public Set<Node> allAvailableNodes(LocalDateTime start, LocalDateTime end) {
     Set<SchedulingRequest> schedulingRequests = getAll();
     Set<Node> nodes = nodeDaoDb.getAll();
-    Set<Node> availableNodes = new HashSet<>(nodes);
+    Set<Node> availableNodes = new HashSet<>();
+    for (Node n : nodes) {
+      if (n.getNodeType().isSchedulable()) {
+        availableNodes.add(n);
+      }
+    }
     for (SchedulingRequest schedulingRequest : schedulingRequests) {
       if (schedulingRequest.isDuring(start, end)) {
         availableNodes.remove(schedulingRequest.getRoom());
