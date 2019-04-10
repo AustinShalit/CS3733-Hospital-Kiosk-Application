@@ -3,6 +3,7 @@ package edu.wpi.cs3733.d19.teamO.controller.v2;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.Set;
 
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
@@ -19,6 +20,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
+import edu.wpi.cs3733.d19.teamO.component.SchedulingMapView;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.SchedulingRequest;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
@@ -64,6 +66,8 @@ public class SchedulingController implements Controller {
   Tab mapTab;
   @FXML
   Tab tableTab;
+  @FXML
+  SchedulingMapView schedulingMapView;
 
   @Inject
   private Database database;
@@ -80,6 +84,18 @@ public class SchedulingController implements Controller {
       tabPane.setTabMinWidth(tabPane.getWidth() / 2);
       tabPane.setTabMaxWidth(tabPane.getWidth() / 2);
     });
+
+    date.valueProperty().addListener((observable, oldValue, newValue) -> {
+        updateMapViewNodeOverlay();
+    });
+
+    startTime.valueProperty().addListener(((observable, oldValue, newValue) -> {
+      updateMapViewNodeOverlay();
+    }));
+
+    endTime.valueProperty().addListener(((observable, oldValue, newValue) -> {
+      updateMapViewNodeOverlay();
+    }));
   }
 
   public void showCurrentSchedule() {
@@ -135,6 +151,28 @@ public class SchedulingController implements Controller {
     // otherwise, some input was invalid
     showErrorAlert("Error.", "Please make sure all fields are filled out.");
     return null;
+  }
+
+  void updateMapViewNodeOverlay() {
+    if (Objects.isNull(date.getValue())
+    || Objects.isNull(startTime.getValue())
+    || Objects.isNull(endTime.getValue())
+    || endTime.getValue().isBefore(startTime.getValue())) {
+      return;
+    }
+
+    LocalDateTime start = LocalDateTime.of(date.getValue(), startTime.getValue());
+    LocalDateTime end = LocalDateTime.of(date.getValue(), endTime.getValue());
+    // Set of available nodes
+    Set<Node> availableNodes = database.getAllAvailableNodes(start, end);
+    // Set of unavailable nodes
+    Set<Node> unavailableNodes = database.getAllNodes();
+    for (Node avNode : availableNodes) {
+      unavailableNodes.remove(avNode);
+    }
+    schedulingMapView.setAvailableNodes(availableNodes);
+    schedulingMapView.setUnavailableNodes(unavailableNodes);
+    schedulingMapView.redrawNodes();
   }
 
   @Override
