@@ -51,7 +51,7 @@ public class NavigationController implements Controller {
 
   StepByStep stepByStep;
 
-  
+
   @Inject
   private Database database;
 

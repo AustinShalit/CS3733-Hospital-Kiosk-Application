@@ -6,6 +6,7 @@ import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 
+import animatefx.animation.Shake;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
@@ -109,6 +110,11 @@ public class SupportAnimalViewController implements Controller {
 
   @FXML
   void onCompletedButtonAction() {
+    if (requestsTableView.getSelectionModel().isEmpty()) {
+      new Shake(completedButton).play();
+      return;
+    }
+
     SupportAnimalRequest selectedItem =
         requestsTableView.getSelectionModel().getSelectedItem();
     requestsTableView.getItems().remove(selectedItem);
