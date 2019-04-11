@@ -62,7 +62,7 @@ public class LoginController implements Controller {
     boolean check = false;
     // checks every Login info in set
     for (Login l : info) {
-      if (l.equals(login)) {
+      if (l.equalsLog(login)) {
         check = true;
       }
     }
@@ -84,7 +84,7 @@ public class LoginController implements Controller {
   private Login parseUserLogin() {
     // checks if input is valid, parses it and returns a new Login
     if (!username.getText().isEmpty() && !password.getText().isEmpty()) {
-      return new Login(username.getText(), password.getText());
+      return new Login(username.getText(), password.getText(), null , null);
     }
 
     // otherwise

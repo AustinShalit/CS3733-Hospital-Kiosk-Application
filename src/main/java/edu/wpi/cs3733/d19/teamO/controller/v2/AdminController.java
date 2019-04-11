@@ -31,6 +31,8 @@ public class AdminController implements Controller {
   private EditNodeDatabaseController.Factory editNodeDatabaseFactory;
   @Inject
   private MapEditController.Factory mapEditControllerFactory;
+  @Inject
+  private EmployeeController.Factory employeeControllerFactory;
 
 
   @FXML
@@ -45,7 +47,7 @@ public class AdminController implements Controller {
 
   @FXML
   void employeeOnAction() {
-
+    eventBus.post(new ChangeMainViewEvent(employeeControllerFactory.create()));
   }
 
   @FXML

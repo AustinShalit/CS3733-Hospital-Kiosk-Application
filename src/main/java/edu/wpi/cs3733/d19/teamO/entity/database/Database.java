@@ -9,7 +9,6 @@ import com.google.inject.Inject;
 
 import edu.wpi.cs3733.d19.teamO.entity.AudioVisualRequest;
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
-import edu.wpi.cs3733.d19.teamO.entity.Employee;
 import edu.wpi.cs3733.d19.teamO.entity.ExternalTransportationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.FloristRequest;
 import edu.wpi.cs3733.d19.teamO.entity.GiftRequest;
@@ -45,7 +44,6 @@ public class Database {
 
   private final ITSupportRequestDao itSupportDao;
   private final FloristRequestDao floristRequestDao;
-  private final EmployeeDao employeeDao;
   private final InterpreterRequestDao interpreterDao;
 
   @Inject
@@ -63,7 +61,6 @@ public class Database {
     this.rserviceDao = new ReligiousServiceRequestDaoDb(dcf);
     this.supportAnimalRequestDao = new SupportAnimalRequestDaoDb(dcf);
     this.itSupportDao = new ITSupportRequestDaoDb(dcf);
-    this.employeeDao = new EmployeeDaoDb(dcf);
     this.loginDao = new LoginDaoDb(dcf);
     this.interpreterDao = new InterpreterRequestDaoDb(dcf);
     this.giftRequestDao = new GiftRequestDaoDb(dcf);
@@ -180,8 +177,8 @@ public class Database {
   /*
    * Login
    */
-  public Optional<Login> getLogin(String username) {
-    return loginDao.get(username);
+  public Optional<Login> getLogin(int id) {
+    return loginDao.get(id);
   }
 
   public Set<Login> getAllLogin() {
@@ -239,29 +236,6 @@ public class Database {
    */
   public boolean schedulingRequestWouldConflict(SchedulingRequest schedulingRequest) {
     return schedulingRequestDao.wouldConflict(schedulingRequest);
-  }
-
-  /*
-   * Employee
-   */
-  public Optional<Employee> getEmployee(int id) {
-    return employeeDao.get(id);
-  }
-
-  public Set<Employee> getAllEmployees() {
-    return employeeDao.getAll();
-  }
-
-  public boolean insertEmployee(Employee employee) {
-    return employeeDao.insert(employee);
-  }
-
-  public boolean deleteEmployee(Employee employee) {
-    return employeeDao.delete(employee);
-  }
-
-  public boolean updateEmployee(Employee employee) {
-    return employeeDao.update(employee);
   }
 
   /*

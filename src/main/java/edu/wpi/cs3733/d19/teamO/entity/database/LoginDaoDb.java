@@ -33,13 +33,15 @@ public class LoginDaoDb implements LoginDao {
     }
   }
 
-  private final DatabaseConnectionFactory dcf;
-  private final EmployeeDaoDb employeeDaoDb;
+  private DatabaseConnectionFactory dcf;
 
   LoginDaoDb(final DatabaseConnectionFactory dcf) throws SQLException {
     this.dcf = dcf;
-    employeeDaoDb = new EmployeeDaoDb(dcf);
     createTable();
+  }
+
+  LoginDaoDb() throws SQLException {
+    this(new DatabaseConnectionFactoryEmbedded());
   }
 
   @Override
@@ -79,10 +81,11 @@ public class LoginDaoDb implements LoginDao {
 
   private Login extractLoginFromResultSet(final ResultSet resultSet) throws SQLException {
     return new Login(
+        resultSet.getInt("id"),
         resultSet.getString("username"),
         resultSet.getString("password"),
-        employeeDaoDb.get(resultSet.getInt("emp_id"))
-            .orElseThrow(() -> new SQLException("Could not get associated employee"))
+        resultSet.getString("user"),
+        Login.EmployeeType.get(resultSet.getString("type"))
     );
   }
 
@@ -91,9 +94,12 @@ public class LoginDaoDb implements LoginDao {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement(
           queries.getProperty("login.insert"));
-      statement.setString(1, login.getUsername());
-      statement.setString(2, login.getPassword());
-      statement.setInt(3, login.getEmployee().getId());
+      statement.setInt(1, login.getId());
+      statement.setString(2, login.getUsername());
+      statement.setString(3, login.getPassword());
+      statement.setString(4, login.getUser());
+      statement.setString(5, login.getType().name());
+
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
       logger.log(Level.WARNING, "Failed to insert Login", ex);
@@ -107,9 +113,11 @@ public class LoginDaoDb implements LoginDao {
       PreparedStatement statement = connection.prepareStatement(
           queries.getProperty("login.update"));
 
-      statement.setString(1, login.getUsername());
-      statement.setString(2, login.getPassword());
-      statement.setInt(3, login.getEmployee().getId());
+      statement.setInt(1, login.getId());
+      statement.setString(2, login.getUsername());
+      statement.setString(3, login.getPassword());
+      statement.setString(4, login.getUser());
+      statement.setString(5, login.getType().name());
 
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
@@ -123,7 +131,7 @@ public class LoginDaoDb implements LoginDao {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement(
           queries.getProperty("login.delete"));
-      statement.setString(1, login.getUsername());
+      statement.setInt(1, login.getId());
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
       logger.log(Level.WARNING, "Failed to delete Login");
