@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@v2/style/KioskStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.MapEditAddController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@style/KioskStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.MapEditAddController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="227.0" minWidth="10.0" prefWidth="200.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="235.0" minWidth="10.0" prefWidth="219.0" />
@@ -29,93 +29,93 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
   <children>
-    <Label stylesheets="@v2/style/KioskStyle.css" text="NodeID:" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+    <Label stylesheets="@style/KioskStyle.css" text="NodeID:" GridPane.halignment="CENTER" GridPane.rowIndex="1">
       <font>
         <Font size="22.0" />
       </font>
     </Label>
-    <Label stylesheets="@v2/style/KioskStyle.css" text="x-coord:" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+    <Label stylesheets="@style/KioskStyle.css" text="x-coord:" GridPane.halignment="CENTER" GridPane.rowIndex="2">
       <font>
         <Font size="22.0" />
       </font>
     </Label>
-    <Label stylesheets="@v2/style/KioskStyle.css" text="y-coord:" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+    <Label stylesheets="@style/KioskStyle.css" text="y-coord:" GridPane.halignment="CENTER" GridPane.rowIndex="3">
       <font>
         <Font size="22.0" />
       </font>
     </Label>
-    <Label stylesheets="@v2/style/KioskStyle.css" text="Building:" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+    <Label stylesheets="@style/KioskStyle.css" text="Building:" GridPane.halignment="CENTER" GridPane.rowIndex="5">
       <font>
         <Font size="22.0" />
       </font>
     </Label>
-    <Label stylesheets="@v2/style/KioskStyle.css" text="Floor:" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+    <Label stylesheets="@style/KioskStyle.css" text="Floor:" GridPane.halignment="CENTER" GridPane.rowIndex="4">
       <font>
         <Font size="22.0" />
       </font>
     </Label>
-    <Label stylesheets="@v2/style/KioskStyle.css" text="Node Type:" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+    <Label stylesheets="@style/KioskStyle.css" text="Node Type:" GridPane.halignment="CENTER" GridPane.rowIndex="6">
       <font>
         <Font size="22.0" />
       </font>
     </Label>
-    <Label stylesheets="@v2/style/KioskStyle.css" text="Long Name:" GridPane.halignment="CENTER" GridPane.rowIndex="7">
+    <Label stylesheets="@style/KioskStyle.css" text="Long Name:" GridPane.halignment="CENTER" GridPane.rowIndex="7">
       <font>
         <Font size="22.0" />
       </font>
     </Label>
-    <Label stylesheets="@v2/style/KioskStyle.css" text="Short Name:" GridPane.halignment="CENTER" GridPane.rowIndex="8">
+    <Label stylesheets="@style/KioskStyle.css" text="Short Name:" GridPane.halignment="CENTER" GridPane.rowIndex="8">
       <font>
         <Font size="22.0" />
       </font>
     </Label>
-    <JFXTextField fx:id="addNodeID" onKeyReleased="#validateButton" stylesheets="@v2/style/KioskStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
+    <JFXTextField fx:id="addNodeID" onKeyReleased="#validateButton" stylesheets="@style/KioskStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="1">
       <font>
         <Font size="18.0" />
       </font>
     </JFXTextField>
-    <JFXTextField fx:id="addX" onKeyReleased="#validateButton" stylesheets="@v2/style/KioskStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="2">
+    <JFXTextField fx:id="addX" onKeyReleased="#validateButton" stylesheets="@style/KioskStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="2">
       <font>
         <Font size="18.0" />
       </font>
     </JFXTextField>
-    <JFXTextField fx:id="addY" onKeyReleased="#validateButton" stylesheets="@v2/style/KioskStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="3">
+    <JFXTextField fx:id="addY" onKeyReleased="#validateButton" stylesheets="@style/KioskStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="3">
       <font>
         <Font size="18.0" />
       </font>
     </JFXTextField>
-    <JFXTextField fx:id="addBuilding" onKeyReleased="#validateButton" stylesheets="@v2/style/KioskStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="5">
+    <JFXTextField fx:id="addBuilding" onKeyReleased="#validateButton" stylesheets="@style/KioskStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="5">
       <font>
         <Font size="18.0" />
       </font>
     </JFXTextField>
-    <JFXTextField fx:id="addFloor" onKeyReleased="#validateButton" stylesheets="@v2/style/KioskStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="4">
+    <JFXTextField fx:id="addFloor" onKeyReleased="#validateButton" stylesheets="@style/KioskStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="4">
       <font>
         <Font size="18.0" />
       </font>
     </JFXTextField>
-    <JFXComboBox fx:id="nodeType" onAction="#validateButton" onMouseClicked="#comboBoxAction" prefHeight="33.0" prefWidth="229.0" stylesheets="@v2/style/KioskStyle.css" unFocusColor="BLACK" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-    <JFXTextField fx:id="longName" onKeyReleased="#validateButton" stylesheets="@v2/style/KioskStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="7">
+    <JFXComboBox fx:id="nodeType" onAction="#validateButton" onMouseClicked="#comboBoxAction" prefHeight="33.0" prefWidth="229.0" stylesheets="@style/KioskStyle.css" unFocusColor="BLACK" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+    <JFXTextField fx:id="longName" onKeyReleased="#validateButton" stylesheets="@style/KioskStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="7">
       <font>
         <Font size="18.0" />
       </font>
     </JFXTextField>
-    <JFXTextField fx:id="shortName" onKeyReleased="#validateButton" stylesheets="@v2/style/KioskStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="8">
+    <JFXTextField fx:id="shortName" onKeyReleased="#validateButton" stylesheets="@style/KioskStyle.css" GridPane.columnIndex="1" GridPane.rowIndex="8">
       <font>
         <Font size="18.0" />
       </font>
     </JFXTextField>
-    <JFXButton id="small-button" fx:id="addButton" disable="true" onAction="#addNodeAction" ripplerFill="BLACK" stylesheets="@v2/style/KioskStyle.css" text="Add" GridPane.columnIndex="2" GridPane.rowIndex="9">
+    <JFXButton id="small-button" fx:id="addButton" disable="true" onAction="#addNodeAction" ripplerFill="BLACK" stylesheets="@style/KioskStyle.css" text="Add" GridPane.columnIndex="2" GridPane.rowIndex="9">
       <font>
         <Font size="14.0" />
       </font>
     </JFXButton>
-    <JFXButton id="small-button" fx:id="cancel" onAction="#cancelButtonAction" stylesheets="@v2/style/KioskStyle.css" text="Cancel" GridPane.columnIndex="3" GridPane.rowIndex="9">
+    <JFXButton id="small-button" fx:id="cancel" onAction="#cancelButtonAction" stylesheets="@style/KioskStyle.css" text="Cancel" GridPane.columnIndex="3" GridPane.rowIndex="9">
       <font>
         <Font size="14.0" />
       </font>
     </JFXButton>
-    <Label fx:id="status" prefHeight="59.0" prefWidth="203.0" stylesheets="@v2/style/KioskStyle.css" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="9">
+    <Label fx:id="status" prefHeight="59.0" prefWidth="203.0" stylesheets="@style/KioskStyle.css" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="9">
       <font>
         <Font size="18.0" />
       </font>

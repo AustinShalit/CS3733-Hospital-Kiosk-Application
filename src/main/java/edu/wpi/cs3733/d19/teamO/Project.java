@@ -16,10 +16,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import edu.wpi.cs3733.d19.teamO.controller.v2.ControllerModule;
-import edu.wpi.cs3733.d19.teamO.controller.v2.LoginController;
-import edu.wpi.cs3733.d19.teamO.controller.v2.MainController;
-import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
+import edu.wpi.cs3733.d19.teamO.controller.ControllerModule;
+import edu.wpi.cs3733.d19.teamO.controller.LoginController;
+import edu.wpi.cs3733.d19.teamO.controller.MainController;
+import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.DefaultInformationLoader;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 import edu.wpi.cs3733.d19.teamO.entity.database.DatabaseModule;
