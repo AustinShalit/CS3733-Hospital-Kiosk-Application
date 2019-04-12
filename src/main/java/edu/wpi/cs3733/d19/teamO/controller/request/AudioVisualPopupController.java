@@ -6,28 +6,19 @@ import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 
-import edu.wpi.cs3733.d19.teamO.controller.AdminController;
-import edu.wpi.cs3733.d19.teamO.controller.CheckRequestsController;
 import edu.wpi.cs3733.d19.teamO.controller.Controller;
 import edu.wpi.cs3733.d19.teamO.controller.DialogHelper;
 import edu.wpi.cs3733.d19.teamO.controller.FxmlController;
-import edu.wpi.cs3733.d19.teamO.controller.LoginController;
-import edu.wpi.cs3733.d19.teamO.controller.RequestController;
-import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.AudioVisualRequest;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
@@ -53,13 +44,7 @@ public class AudioVisualPopupController implements Controller {
   private JFXButton backbtn;
 
   @Inject
-  private EventBus eventBus;
-  @Inject
-  private AudioVisualController.Factory audioVisualFactory;
-  @Inject
   private Database db;
-  @Inject
-  private RequestController.Factory requestControllerFactory;
 
   @FXML
   void initialize() {

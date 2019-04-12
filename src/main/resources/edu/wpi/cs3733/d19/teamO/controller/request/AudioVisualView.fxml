@@ -54,7 +54,7 @@
                 <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
               </padding>
             </JFXButton>
-                  <JFXButton fx:id="addButton" onAction="#onAddButtonAction" GridPane.rowSpan="2" />
+            <JFXButton id="table-button" fx:id="addButton" onAction="#onAddButtonAction" text="New Request" GridPane.halignment="CENTER" GridPane.rowSpan="2" GridPane.valignment="CENTER" />
           </children>
         </GridPane>
       </children>

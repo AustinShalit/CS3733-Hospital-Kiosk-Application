@@ -8,6 +8,8 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPopup;
 
 import animatefx.animation.Shake;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -18,15 +20,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.stage.Window;
 
 import edu.wpi.cs3733.d19.teamO.controller.CheckRequestsController;
 import edu.wpi.cs3733.d19.teamO.controller.Controller;
 import edu.wpi.cs3733.d19.teamO.controller.DialogHelper;
 import edu.wpi.cs3733.d19.teamO.controller.FxmlController;
-import edu.wpi.cs3733.d19.teamO.controller.OptionsPopupController;
 import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.AudioVisualRequest;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
@@ -100,6 +98,7 @@ public class AudioVisualViewController implements Controller {
       column.setPrefWidth(1000); // must be a value larger than the starting window size
     }
 
+    // Initialize the Add Request Popup
     optionsPopup = new JFXPopup(audioVisualPopupFactory.create().root);
     optionsPopup.setOnAutoHide(
         new EventHandler<Event>() {
@@ -110,6 +109,23 @@ public class AudioVisualViewController implements Controller {
             root.setEffect(reset);
             requestsTableView.getItems().clear();
             requestsTableView.getItems().setAll(db.getAllAudioVisualRequests());
+          }
+        }
+    );
+
+    // Disable complete request and assign employee button if no request is selected
+    requestsTableView.getSelectionModel().selectedItemProperty().addListener(
+        new ChangeListener<AudioVisualRequest>() {
+          @Override
+          public void changed(ObservableValue<? extends AudioVisualRequest> observable,
+                              AudioVisualRequest oldValue, AudioVisualRequest newValue) {
+            if (newValue == null) {
+              assignButton.setDisable(true);
+              completedButton.setDisable(true);
+            } else {
+              assignButton.setDisable(false);
+              completedButton.setDisable(false);
+            }
           }
         }
     );
@@ -162,7 +178,6 @@ public class AudioVisualViewController implements Controller {
     requestsTableView.getItems().remove(selectedItem);
 
     db.deleteAudioVisualRequest(selectedItem);
-
   }
 
   @Override

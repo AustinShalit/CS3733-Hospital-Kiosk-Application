@@ -10,7 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 
 import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
-import edu.wpi.cs3733.d19.teamO.controller.request.AudioVisualController;
+import edu.wpi.cs3733.d19.teamO.controller.request.AudioVisualViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ExternalTransportationController;
 import edu.wpi.cs3733.d19.teamO.controller.request.FloristRequestController;
 import edu.wpi.cs3733.d19.teamO.controller.request.GiftController;
@@ -72,7 +72,7 @@ public class RequestController implements Controller {
   @Inject
   private InternalTransportationController.Factory internalTransportationControllerFactory;
   @Inject
-  private AudioVisualController.Factory audioVisualControllerFactory;
+  private AudioVisualViewController.Factory audioVisualViewControllerFactory;
   @Inject
   private PatientInfoController.Factory patientInfoControllerFactory;
   @Inject
@@ -97,7 +97,7 @@ public class RequestController implements Controller {
 
   @FXML
   void audioVisualAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(audioVisualControllerFactory.create()));
+    eventBus.post(new ChangeMainViewEvent(audioVisualViewControllerFactory.create()));
   }
 
   @FXML
