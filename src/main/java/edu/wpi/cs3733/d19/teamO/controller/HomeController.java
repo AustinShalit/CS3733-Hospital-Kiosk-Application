@@ -3,8 +3,10 @@ package edu.wpi.cs3733.d19.teamO.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.Inet4Address;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.UnknownHostException;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 
@@ -31,6 +33,9 @@ import net.aksingh.owmjapis.core.OWM;
 import net.aksingh.owmjapis.model.CurrentWeather;
 
 import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
+import edu.wpi.cs3733.d19.teamO.entity.Node;
+import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
+import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -59,6 +64,8 @@ public class HomeController implements Controller {
   private ImageView tempImage;
   @Inject
   private EventBus eventBus;
+  @Inject
+  private Database database;
   @Inject
   private RequestController.Factory requestControllerFactory;
   @Inject
@@ -165,6 +172,9 @@ public class HomeController implements Controller {
         "Are you sure you want to alert security?")) {
       System.out.println("Notifying");
       // TODO send to database
+      Node node = new Node("notExist",0,0,"0","0",Node.NodeType.WORKZONE,"not","existed");
+      SecurityRequest sr = new SecurityRequest(LocalDateTime.now(), node);
+      database.insertSecurityRequest(sr);
     }
   }
 
