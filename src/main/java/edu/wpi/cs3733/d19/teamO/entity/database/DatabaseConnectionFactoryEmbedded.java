@@ -13,7 +13,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 final class DatabaseConnectionFactoryEmbedded implements DatabaseConnectionFactory {
 
-  private static final Logger kLogger
+  private static final Logger logger
       = Logger.getLogger(DatabaseConnectionFactoryEmbedded.class.getName());
 
   private static final String EMBEDDED_PROTOCOL = "jdbc:derby:";
@@ -31,7 +31,7 @@ final class DatabaseConnectionFactoryEmbedded implements DatabaseConnectionFacto
     try {
       Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance();
     } catch (InstantiationException | IllegalAccessException | ClassNotFoundException ex) {
-      kLogger.log(Level.SEVERE, "Derby embedded driver not found!", ex);
+      logger.log(Level.SEVERE, "Derby embedded driver not found!", ex);
     }
   }
 
@@ -46,13 +46,14 @@ final class DatabaseConnectionFactoryEmbedded implements DatabaseConnectionFacto
           + name
           + ";derby.language.sequence.preallocator=1;create=true");
     } catch (SQLException ex) {
-      kLogger.log(Level.SEVERE, "Exception getting connection to database", ex);
+      logger.log(Level.SEVERE, "Exception getting connection to database", ex);
       throw ex;
     }
   }
 
   @Override
   public void drop() throws SQLException {
+    logger.config("Dropping database: " + name);
     try {
       DriverManager.getConnection(protocol
           + name
