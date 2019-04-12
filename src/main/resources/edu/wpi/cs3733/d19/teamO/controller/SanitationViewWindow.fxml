@@ -9,17 +9,17 @@
 <?import javafx.scene.text.Font?>
 
 
-<BorderPane stylesheets="@v2/style/KioskStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.SanitationViewWindowController">
+<BorderPane stylesheets="@style/KioskStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.SanitationViewWindowController">
   <center>
-    <AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@v2/style/KioskStyle.css">
+    <AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@style/KioskStyle.css">
       <children>
-        <Button id="small-button" fx:id="goBackButton" mnemonicParsing="false" onAction="#goBackButtonAction" stylesheets="@v2/style/KioskStyle.css" text="Back" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
-        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="56.0" prefHeight="39.0" prefWidth="505.0" stylesheets="@v2/style/KioskStyle.css" text="Sanitation Requests" AnchorPane.leftAnchor="56.0" AnchorPane.rightAnchor="56.0">
+        <Button id="small-button" fx:id="goBackButton" mnemonicParsing="false" onAction="#goBackButtonAction" stylesheets="@style/KioskStyle.css" text="Back" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="56.0" prefHeight="39.0" prefWidth="505.0" stylesheets="@style/KioskStyle.css" text="Sanitation Requests" AnchorPane.leftAnchor="56.0" AnchorPane.rightAnchor="56.0">
           <font>
             <Font size="32.0" />
           </font>
         </Label>
-        <TableView fx:id="requestsTableView" layoutX="50.0" layoutY="62.0" prefHeight="338.0" prefWidth="250.0" stylesheets="@v2/style/KioskStyle.css" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="57.0">
+        <TableView fx:id="requestsTableView" layoutX="50.0" layoutY="62.0" prefHeight="338.0" prefWidth="250.0" stylesheets="@style/KioskStyle.css" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="57.0">
           <columns>
             <TableColumn fx:id="idTableCol" editable="false" maxWidth="300.0" minWidth="50.0" prefWidth="0.0" text="ID" />
             <TableColumn fx:id="timeRequestedCol" editable="false" maxWidth="300.0" minWidth="50.0" prefWidth="0.0" text="TimeRequested" />
