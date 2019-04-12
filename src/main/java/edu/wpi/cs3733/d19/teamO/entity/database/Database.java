@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.google.inject.Inject;
 
@@ -27,7 +29,9 @@ import edu.wpi.cs3733.d19.teamO.entity.SupportAnimalRequest;
 
 @SuppressWarnings({"PMD.TooManyMethods", "PMD.GodClass", "PMD.ExcessivePublicCount",
     "PMD.CyclomaticComplexity", "PMD.TooManyFields"})
-public class Database {
+public class Database implements AutoCloseable {
+
+  private static final Logger logger = Logger.getLogger(Database.class.getName());
 
   private final NodeDao nodeDao;
   private final EdgeDao edgeDao;
@@ -42,11 +46,12 @@ public class Database {
   private final ExternalTransportationRequestDao etransportationDao;
   private final GiftRequestDao giftRequestDao;
   private final ReligiousServiceRequestDao rserviceDao;
-
   private final ITSupportRequestDao itSupportDao;
   private final FloristRequestDao floristRequestDao;
   private final EmployeeDao employeeDao;
   private final InterpreterRequestDao interpreterDao;
+
+  private final DatabaseConnectionFactory dcf;
 
   @Inject
   Database(final DatabaseConnectionFactory dcf) throws SQLException {
@@ -67,6 +72,18 @@ public class Database {
     this.loginDao = new LoginDaoDb(dcf);
     this.interpreterDao = new InterpreterRequestDaoDb(dcf);
     this.giftRequestDao = new GiftRequestDaoDb(dcf);
+
+    this.dcf = dcf;
+  }
+
+  @Override
+  public void close() {
+    logger.config("Closing database connection");
+    try {
+      dcf.drop();
+    } catch (SQLException ex) {
+      logger.log(Level.SEVERE, "Could not shutdown database!", ex);
+    }
   }
 
   /*
