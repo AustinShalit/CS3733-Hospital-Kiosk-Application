@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.d19.teamO.controller.v2;
+package edu.wpi.cs3733.d19.teamO.controller;
 
 import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
@@ -14,7 +14,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 
-import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
+import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.Login;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
