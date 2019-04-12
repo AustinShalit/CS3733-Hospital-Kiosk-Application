@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.d19.teamO.controller.v2;
 
 import java.util.Objects;
-import java.util.logging.Logger;
 
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
@@ -21,9 +20,6 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 @FxmlController(url = "UpdateEmployee.fxml")
 @SuppressWarnings("PMD.TooManyFields")
 public class UpdateEmployeeController implements Controller {
-
-  private static final Logger logger =
-      Logger.getLogger(UpdateEmployeeController.class.getName());
 
   @FXML
   private VBox upRoot;
@@ -45,7 +41,7 @@ public class UpdateEmployeeController implements Controller {
   @Inject
   private Database db;
 
-  private ObjectProperty<Login> login = new SimpleObjectProperty<>();
+  private final ObjectProperty<Login> login = new SimpleObjectProperty<>();
 
   @FXML
   void initialize() {
@@ -56,7 +52,7 @@ public class UpdateEmployeeController implements Controller {
       upUsernamefield.setText(newValue.getUsername());
       upPasswordfield.setText(newValue.getPassword());
       upPositionbox.setValue(newValue.getType());
-      upIdfield.setText("" + newValue.getId());
+      upIdfield.setText(String.valueOf(newValue.getId()));
     });
   }
 

@@ -37,7 +37,7 @@ public class Login {
     }
   }
 
-  private final Integer id;
+  private final int id;
   private String username;
   private String password;
   private String name;
@@ -52,7 +52,7 @@ public class Login {
    * @param name     User's Name
    * @param type     Position Type
    */
-  public Login(Integer id, String username, String password, String name, EmployeeType type) {
+  public Login(int id, String username, String password, String name, EmployeeType type) {
     this.id = id;
     this.username = username;
     this.password = password;
@@ -76,7 +76,7 @@ public class Login {
     this.type = type;
   }
 
-  public Integer getId() {
+  public int getId() {
     return id;
   }
 

@@ -7,25 +7,24 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import net.kurobako.gesturefx.GesturePane?>
-<fx:root type="javafx.scene.layout.StackPane" xmlns="http://javafx.com/javafx/8.0.171"
-         xmlns:fx="http://javafx.com/fxml/1">
-    <GesturePane fx:id="gesturePane">
-        <StackPane>
-            <ImageView fx:id="backgroundImage" pickOnBounds="true" preserveRatio="true">
-            </ImageView>
-            <Pane onMouseMoved="#onMouseMove">
-                <Group fx:id="nodeGroup"/>
-            </Pane>
-        </StackPane>
-    </GesturePane>
-    <Label fx:id="coordX" text="X-coord" StackPane.alignment="BOTTOM_LEFT">
-        <padding>
-            <Insets bottom="10.0" left="5.0"/>
-        </padding>
-    </Label>
-    <Label fx:id="coordY" text="Y-coord" StackPane.alignment="BOTTOM_LEFT">
-        <padding>
-            <Insets bottom="10.0" left="60.0"/>
-        </padding>
-    </Label>
+<fx:root type="javafx.scene.layout.StackPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+  <GesturePane fx:id="gesturePane">
+    <StackPane>
+      <ImageView fx:id="backgroundImage" pickOnBounds="true" preserveRatio="true">
+      </ImageView>
+      <Pane onMouseMoved="#onMouseMove">
+        <Group fx:id="nodeGroup" />
+      </Pane>
+    </StackPane>
+  </GesturePane>
+  <Label fx:id="coordX" text="X-coord" StackPane.alignment="BOTTOM_LEFT">
+    <padding>
+      <Insets bottom="10.0" left="5.0" />
+    </padding>
+  </Label>
+  <Label fx:id="coordY" text="Y-coord" StackPane.alignment="BOTTOM_LEFT">
+    <padding>
+      <Insets bottom="10.0" left="60.0" />
+    </padding>
+  </Label>
 </fx:root>

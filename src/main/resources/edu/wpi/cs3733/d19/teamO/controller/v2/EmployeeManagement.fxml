@@ -69,7 +69,7 @@
       </bottom>
     </BorderPane>
   </center>
-  <!--   <left>-->
-  <!--    <fx:include source="AddEmployee.fxml" />-->
-  <!--   </left>-->
+  <!-- <left> -->
+  <!-- <fx:include source="AddEmployee.fxml" /> -->
+  <!-- </left> -->
 </BorderPane>

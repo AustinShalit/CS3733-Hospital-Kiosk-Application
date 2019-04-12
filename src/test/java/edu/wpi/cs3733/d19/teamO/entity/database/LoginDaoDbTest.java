@@ -3,6 +3,7 @@ package edu.wpi.cs3733.d19.teamO.entity.database;
 import java.sql.SQLException;
 
 import com.google.inject.Inject;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,10 +18,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ExtendWith(DatabaseExtension.class)
 class LoginDaoDbTest {
 
-  private static final Employee testEmployee1 = new Employee(123, "Dev",
-      Employee.EmployeeType.ADMIN);
-  private static final Login testLogin1 = new Login("dev", "hello",
-      testEmployee1);
+  private static final Login testLogin1 = new Login(1, "dev", "hello", "Dev",
+      Login.EmployeeType.ADMIN);
 
   private LoginDao dao;
 
@@ -29,8 +28,6 @@ class LoginDaoDbTest {
 
   @BeforeEach
   void setup() throws SQLException {
-    EmployeeDaoDb employeeDao = new EmployeeDaoDb(dcf);
-    employeeDao.insert(testEmployee1);
     dao = new LoginDaoDb(dcf);
   }
 
@@ -38,7 +35,7 @@ class LoginDaoDbTest {
   void getTest() {
     dao.insert(testLogin1);
 
-    assertTrue(dao.get(testLogin1.getUsername()).isPresent());
+    assertTrue(dao.get(testLogin1.getId()).isPresent());
   }
 
   @Test
@@ -46,23 +43,17 @@ class LoginDaoDbTest {
     dao.insert(testLogin1);
 
     assertNotSame(testLogin1,
-        dao.get(testLogin1.getUsername()).orElseThrow(IllegalStateException::new));
+        dao.get(testLogin1.getId()).orElseThrow(IllegalStateException::new));
   }
 
   @Test
   void getNotExistingTest() {
-    assertFalse(dao.get(testLogin1.getUsername()).isPresent());
+    assertFalse(dao.get(testLogin1.getId()).isPresent());
   }
 
   @Test
   void insertTest() {
     assertTrue(dao.insert(testLogin1));
-  }
-
-  @Test
-  void insertTwiceTest() {
-    dao.insert(testLogin1);
-    assertFalse(dao.insert(testLogin1));
   }
 
   @Test
@@ -80,7 +71,8 @@ class LoginDaoDbTest {
   void updateTest() {
     dao.insert(testLogin1);
 
-    Login update = new Login(testLogin1.getUsername(), "meow", testEmployee1);
+    Login update = new Login(testLogin1.getId(), "dev", "meow", "Dev",
+        Login.EmployeeType.ADMIN);
     assertTrue(dao.update(update));
   }
 

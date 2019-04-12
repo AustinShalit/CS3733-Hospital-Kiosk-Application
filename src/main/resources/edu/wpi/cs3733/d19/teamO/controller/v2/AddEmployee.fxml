@@ -11,57 +11,53 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<VBox fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-      minWidth="-Infinity" prefHeight="720.0" prefWidth="400.0"
-      xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="edu.wpi.cs3733.d19.teamO.controller.v2.AddEmployeeController">
-    <children>
-        <GridPane prefHeight="320.0" prefWidth="450.0">
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-            </rowConstraints>
-            <children>
-                <Label fx:id="titlelbl" text="Add Employee" GridPane.columnSpan="2"
-                       GridPane.halignment="CENTER">
-                    <font>
-                        <Font name="System Bold" size="38.0"/>
-                    </font>
-                </Label>
-            </children>
-        </GridPane>
-        <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="450.0">
-            <children>
-                <JFXTextField fx:id="namefield" maxWidth="200.0" promptText="Enter Name">
-                    <VBox.margin>
-                        <Insets top="75.0"/>
-                    </VBox.margin>
-                </JFXTextField>
-                <JFXTextField fx:id="usernamefield" maxWidth="200.0" promptText="Enter Username">
-                    <VBox.margin>
-                        <Insets top="75.0"/>
-                    </VBox.margin>
-                </JFXTextField>
-                <JFXTextField fx:id="passwordfield" maxWidth="200.0" promptText="Enter Password">
-                    <VBox.margin>
-                        <Insets top="75.0"/>
-                    </VBox.margin>
-                </JFXTextField>
-                <JFXComboBox fx:id="positionbox" promptText="Select Position">
-                    <VBox.margin>
-                        <Insets top="75.0"/>
-                    </VBox.margin>
-                </JFXComboBox>
-                <JFXButton fx:id="submitbtn" onAction="#onSubmitButtonAction" text="Submit">
-                    <VBox.margin>
-                        <Insets top="100.0"/>
-                    </VBox.margin>
-                </JFXButton>
-            </children>
-        </VBox>
-        <Pane prefHeight="338.0" prefWidth="450.0"/>
-    </children>
+<VBox fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.v2.AddEmployeeController">
+  <children>
+    <GridPane prefHeight="320.0" prefWidth="450.0">
+      <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+      <children>
+        <Label fx:id="titlelbl" text="Add Employee" GridPane.columnSpan="2" GridPane.halignment="CENTER">
+          <font>
+            <Font name="System Bold" size="38.0" />
+          </font>
+        </Label>
+      </children>
+    </GridPane>
+    <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="450.0">
+      <children>
+        <JFXTextField fx:id="namefield" maxWidth="200.0" promptText="Enter Name">
+          <VBox.margin>
+            <Insets top="75.0" />
+          </VBox.margin>
+        </JFXTextField>
+        <JFXTextField fx:id="usernamefield" maxWidth="200.0" promptText="Enter Username">
+          <VBox.margin>
+            <Insets top="75.0" />
+          </VBox.margin>
+        </JFXTextField>
+        <JFXTextField fx:id="passwordfield" maxWidth="200.0" promptText="Enter Password">
+          <VBox.margin>
+            <Insets top="75.0" />
+          </VBox.margin>
+        </JFXTextField>
+        <JFXComboBox fx:id="positionbox" promptText="Select Position">
+          <VBox.margin>
+            <Insets top="75.0" />
+          </VBox.margin>
+        </JFXComboBox>
+        <JFXButton fx:id="submitbtn" onAction="#onSubmitButtonAction" text="Submit">
+          <VBox.margin>
+            <Insets top="100.0" />
+          </VBox.margin>
+        </JFXButton>
+      </children>
+    </VBox>
+    <Pane prefHeight="338.0" prefWidth="450.0" />
+  </children>
 </VBox>
