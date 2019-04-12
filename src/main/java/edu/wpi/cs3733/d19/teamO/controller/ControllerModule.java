@@ -34,7 +34,7 @@ import edu.wpi.cs3733.d19.teamO.controller.request.ReligiousServiceViewControlle
 import edu.wpi.cs3733.d19.teamO.controller.request.SupportAnimalController;
 import edu.wpi.cs3733.d19.teamO.controller.request.SupportAnimalViewController;
 
-@SuppressWarnings("PMD.CouplingBetweenObjects")
+@SuppressWarnings({"PMD.CouplingBetweenObjects", "PMD.ExcessiveImports"})
 public class ControllerModule extends AbstractModule {
   @Override
   protected void configure() {

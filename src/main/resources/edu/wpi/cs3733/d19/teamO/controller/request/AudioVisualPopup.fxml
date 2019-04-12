@@ -12,39 +12,39 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.request.AudioVisualPopupController">
-   <center>
-     <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="form" stylesheets="@../style/KioskStyle.css" BorderPane.alignment="TOP_CENTER">
-       <children>
-         <Label id="heading" stylesheets="@../style/KioskStyle.css" text="Add Audio/Visual Request">
-           <font>
-             <Font name="System Bold" size="36.0" />
-           </font>
-         </Label>
-         <JFXTextField fx:id="nametxt" labelFloat="true" maxHeight="-Infinity" maxWidth="200.0" minHeight="-Infinity" prefColumnCount="0" prefHeight="31.0" promptText="Enter Name" stylesheets="@../style/KioskStyle.css">
-           <VBox.margin>
-             <Insets />
-           </VBox.margin>
-         </JFXTextField>
-         <JFXComboBox fx:id="locationbox" minHeight="-Infinity" minWidth="-Infinity" promptText="Pick Location" stylesheets="@../style/KioskStyle.css">
-           <VBox.margin>
-             <Insets />
-           </VBox.margin>
-         </JFXComboBox>
-         <JFXComboBox fx:id="categorybox" minHeight="-Infinity" promptText="Pick Category" stylesheets="@../style/KioskStyle.css">
-           <VBox.margin>
-             <Insets />
-           </VBox.margin>
-         </JFXComboBox>
-         <JFXTextArea fx:id="descriptiontxt" maxHeight="160.0" maxWidth="325.0" prefHeight="160.0" prefWidth="325.0" promptText="Description..." stylesheets="@../style/KioskStyle.css">
-           <VBox.margin>
-             <Insets />
-           </VBox.margin>
-         </JFXTextArea>
-         <JFXButton id="small-button" fx:id="submitbtn" onAction="#onSubmitButtonAction" stylesheets="@../style/KioskStyle.css" text="SUBMIT" />
-       </children>
-       <padding>
-         <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-       </padding>
-     </VBox>
-   </center>
+  <center>
+    <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="form" stylesheets="@../style/KioskStyle.css" BorderPane.alignment="TOP_CENTER">
+      <children>
+        <Label id="heading" stylesheets="@../style/KioskStyle.css" text="Add Audio/Visual Request">
+          <font>
+            <Font name="System Bold" size="36.0" />
+          </font>
+        </Label>
+        <JFXTextField fx:id="nametxt" labelFloat="true" maxHeight="-Infinity" maxWidth="200.0" minHeight="-Infinity" prefColumnCount="0" prefHeight="31.0" promptText="Enter Name" stylesheets="@../style/KioskStyle.css">
+          <VBox.margin>
+            <Insets />
+          </VBox.margin>
+        </JFXTextField>
+        <JFXComboBox fx:id="locationbox" minHeight="-Infinity" minWidth="-Infinity" promptText="Pick Location" stylesheets="@../style/KioskStyle.css">
+          <VBox.margin>
+            <Insets />
+          </VBox.margin>
+        </JFXComboBox>
+        <JFXComboBox fx:id="categorybox" minHeight="-Infinity" promptText="Pick Category" stylesheets="@../style/KioskStyle.css">
+          <VBox.margin>
+            <Insets />
+          </VBox.margin>
+        </JFXComboBox>
+        <JFXTextArea fx:id="descriptiontxt" maxHeight="160.0" maxWidth="325.0" prefHeight="160.0" prefWidth="325.0" promptText="Description..." stylesheets="@../style/KioskStyle.css">
+          <VBox.margin>
+            <Insets />
+          </VBox.margin>
+        </JFXTextArea>
+        <JFXButton id="small-button" fx:id="submitbtn" onAction="#onSubmitButtonAction" stylesheets="@../style/KioskStyle.css" text="SUBMIT" />
+      </children>
+      <padding>
+        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+      </padding>
+    </VBox>
+  </center>
 </BorderPane>
