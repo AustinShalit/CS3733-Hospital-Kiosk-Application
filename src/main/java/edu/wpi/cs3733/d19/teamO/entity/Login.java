@@ -42,39 +42,39 @@ public class Login {
   private final Integer id;
   private final String username;
   private final String password;
-  private final String user;
+  private final String name;
   private final EmployeeType type;
 
   /**
-   * Constructor with associated employee known.
+   * Constructor for Login, Create a Login
    *
    * @param id       Login's integer ID
    * @param username Username
    * @param password Password
-   * @param user     User's Name
+   * @param name     User's Name
    * @param type     Position Type
    */
-  public Login(Integer id, String username, String password, String user, EmployeeType type) {
+  public Login(Integer id, String username, String password, String name, EmployeeType type) {
     this.id = id;
     this.username = username;
     this.password = password;
-    this.user = user;
+    this.name = name;
     this.type = type;
   }
 
   /**
-   * Constructor with unknown employee.
+   * Constructor for Login, Initialization of Login
    *
    * @param username Username
    * @param password Password
-   * @param user     User's Name
+   * @param name     User's Name
    * @param type     Position Type
    */
-  public Login(String username, String password, String user, EmployeeType type) {
+  public Login(String username, String password, String name, EmployeeType type) {
     this.id = -1;
     this.username = username;
     this.password = password;
-    this.user = user;
+    this.name = name;
     this.type = type;
   }
 
@@ -88,7 +88,7 @@ public class Login {
     return password;
   }
 
-  public String getUser() { return user; }
+  public String getName() { return name; }
 
   public EmployeeType getType() { return type; }
 
@@ -99,7 +99,7 @@ public class Login {
         + "id=" + getId()
         + ", username=" + getUsername()
         + ", password=" + getPassword()
-        + ", user=" + getUser()
+        + ", user=" + getName()
         + ", type='" + type + '\''
         + '}';
   }
@@ -116,7 +116,7 @@ public class Login {
     return getId() == that.getId()
         && username.equals(that.username)
         && password.equals(that.password)
-        && user.equals(that.user)
+        && name.equals(that.name)
         && type == that.type;
   }
 
@@ -134,6 +134,6 @@ public class Login {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, username, password, user, type);
+    return Objects.hash(id, username, password, name, type);
   }
 }

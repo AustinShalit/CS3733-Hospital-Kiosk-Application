@@ -45,11 +45,11 @@ public class LoginDaoDb implements LoginDao {
   }
 
   @Override
-  public Optional<Login> get(final String username) {
+  public Optional<Login> get(final Integer id) {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement(
           queries.getProperty("login.select"));
-      statement.setString(1, username);
+      statement.setInt(1, id);
       try (ResultSet resultSet = statement.executeQuery()) {
         if (resultSet.next()) {
           return Optional.of(extractLoginFromResultSet(resultSet));
@@ -84,7 +84,7 @@ public class LoginDaoDb implements LoginDao {
         resultSet.getInt("id"),
         resultSet.getString("username"),
         resultSet.getString("password"),
-        resultSet.getString("user"),
+        resultSet.getString("name"),
         Login.EmployeeType.get(resultSet.getString("type"))
     );
   }
@@ -94,11 +94,10 @@ public class LoginDaoDb implements LoginDao {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement = connection.prepareStatement(
           queries.getProperty("login.insert"));
-      statement.setInt(1, login.getId());
-      statement.setString(2, login.getUsername());
-      statement.setString(3, login.getPassword());
-      statement.setString(4, login.getUser());
-      statement.setString(5, login.getType().name());
+      statement.setString(1, login.getUsername());
+      statement.setString(2, login.getPassword());
+      statement.setString(3, login.getName());
+      statement.setString(4, login.getType().name());
 
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
@@ -113,11 +112,11 @@ public class LoginDaoDb implements LoginDao {
       PreparedStatement statement = connection.prepareStatement(
           queries.getProperty("login.update"));
 
-      statement.setInt(1, login.getId());
-      statement.setString(2, login.getUsername());
-      statement.setString(3, login.getPassword());
-      statement.setString(4, login.getUser());
-      statement.setString(5, login.getType().name());
+      statement.setString(1, login.getUsername());
+      statement.setString(2, login.getPassword());
+      statement.setString(3, login.getName());
+      statement.setString(4, login.getType().name());
+      statement.setInt(5, login.getId());
 
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {

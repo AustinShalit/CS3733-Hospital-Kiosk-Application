@@ -49,7 +49,7 @@ public class UpdateEmployeeController implements Controller{
     upPositionbox.getItems().setAll(Login.EmployeeType.values());
 
     login.addListener(((observable, oldValue, newValue) -> {
-      upNamefield.setText(newValue.getUser());
+      upNamefield.setText(newValue.getName());
       upUsernamefield.setText(newValue.getUsername());
       upPasswordfield.setText(newValue.getPassword());
       upPositionbox.setValue(newValue.getType());
