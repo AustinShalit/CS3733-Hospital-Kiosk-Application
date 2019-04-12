@@ -13,6 +13,7 @@ import com.google.inject.spi.TypeListener;
 import javafx.fxml.FXMLLoader;
 
 import edu.wpi.cs3733.d19.teamO.controller.request.AudioVisualController;
+import edu.wpi.cs3733.d19.teamO.controller.request.AudioVisualPopupController;
 import edu.wpi.cs3733.d19.teamO.controller.request.AudioVisualViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ExternalTransportationController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ExternalTransportationViewController;
@@ -65,7 +66,7 @@ public class ControllerModule extends AbstractModule {
     install(new FactoryModuleBuilder().build(AdminController.Factory.class));
     install(new FactoryModuleBuilder().build(CheckRequestsController.Factory.class));
 
-
+    install(new FactoryModuleBuilder().build(AudioVisualPopupController.Factory.class));
     install(new FactoryModuleBuilder().build(AudioVisualController.Factory.class));
     install(new FactoryModuleBuilder().build(AudioVisualViewController.Factory.class));
 

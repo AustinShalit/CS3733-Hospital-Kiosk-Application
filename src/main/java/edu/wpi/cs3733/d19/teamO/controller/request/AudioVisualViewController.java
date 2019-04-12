@@ -5,20 +5,28 @@ import java.time.LocalDateTime;
 import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPopup;
 
 import animatefx.animation.Shake;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.Window;
 
 import edu.wpi.cs3733.d19.teamO.controller.CheckRequestsController;
 import edu.wpi.cs3733.d19.teamO.controller.Controller;
 import edu.wpi.cs3733.d19.teamO.controller.DialogHelper;
 import edu.wpi.cs3733.d19.teamO.controller.FxmlController;
+import edu.wpi.cs3733.d19.teamO.controller.OptionsPopupController;
 import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.AudioVisualRequest;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
@@ -31,6 +39,8 @@ public class AudioVisualViewController implements Controller {
   private BorderPane root;
   @FXML
   private JFXButton goBackButton;
+  @FXML
+  private JFXButton addButton;
   @FXML
   private JFXButton assignButton;
   @FXML
@@ -63,6 +73,10 @@ public class AudioVisualViewController implements Controller {
   private Database db;
   @Inject
   private CheckRequestsController.Factory checkRequestsControllerFactory;
+  @Inject
+  private AudioVisualPopupController.Factory audioVisualPopupFactory;
+
+  private JFXPopup optionsPopup;
 
   @FXML
   void initialize() {
@@ -85,11 +99,39 @@ public class AudioVisualViewController implements Controller {
     for (TableColumn column : requestsTableView.getColumns()) {
       column.setPrefWidth(1000); // must be a value larger than the starting window size
     }
+
+    optionsPopup = new JFXPopup(audioVisualPopupFactory.create().root);
+    optionsPopup.setOnAutoHide(
+        new EventHandler<Event>() {
+          @Override
+          public void handle(Event event) {
+            ColorAdjust reset = new ColorAdjust();
+            reset.setBrightness(0);
+            root.setEffect(reset);
+            requestsTableView.getItems().clear();
+            requestsTableView.getItems().setAll(db.getAllAudioVisualRequests());
+          }
+        }
+    );
   }
 
   @FXML
   void goBackButtonAction() {
     eventBus.post(new ChangeMainViewEvent(checkRequestsControllerFactory.create()));
+  }
+
+  @FXML
+  void onAddButtonAction() {
+    ColorAdjust colorAdjust = new ColorAdjust();
+    colorAdjust.setBrightness(-0.2);
+    root.setEffect(colorAdjust);
+    optionsPopup.show(root);
+    optionsPopup.setX(
+        (getRoot().getLayoutBounds().getWidth() - optionsPopup.getWidth()) / 2
+    );
+    optionsPopup.setY(
+        (getRoot().getLayoutBounds().getHeight() - optionsPopup.getHeight()) / 2
+    );
   }
 
   @FXML
