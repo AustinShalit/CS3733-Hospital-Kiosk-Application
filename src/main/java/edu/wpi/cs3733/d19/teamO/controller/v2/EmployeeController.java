@@ -20,7 +20,7 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 @FxmlController(url = "EmployeeManagement.fxml")
 @SuppressWarnings("PMD.TooManyFields")
-public class EmployeeController implements Controller{
+public class EmployeeController implements Controller {
 
   @FXML
   private BorderPane root;
@@ -62,25 +62,20 @@ public class EmployeeController implements Controller{
   void initialize() {
     usernameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
     passwordCol.setCellValueFactory(new PropertyValueFactory<>("password"));
-    positionCol.setCellValueFactory(new PropertyValueFactory<>("employeeType"));
-    nameCol.setCellValueFactory(new PropertyValueFactory<>("user"));
+    positionCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+    nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 
     employeeTableView.getItems().setAll(db.getAllLogin());
+    employeeTableView.getSortOrder().add(nameCol); // sort by name
 
     employeeTableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-    employeeTableView.getSelectionModel().getSelectedItems().addListener((ListChangeListener<Login>) c -> {
-      if (updateEmployeeController != null) {
-        updateEmployeeController.setLogin(employeeTableView.getSelectionModel().getSelectedItem());
-      }
-    });
-    // sorts table by name
-//    employeeTableView.getSortOrder().add(nameCol);
-
-    // makes columns auto-resize
-//    for (TableColumn column : employeeTableView.getColumns()) {
-//      column.setPrefWidth(1000); // must be a value larger than the starting window size
-//    }
-
+    employeeTableView.getSelectionModel().getSelectedItems()
+        .addListener((ListChangeListener<Login>) c -> {
+          if (updateEmployeeController != null) {
+            updateEmployeeController.setLogin(
+                employeeTableView.getSelectionModel().getSelectedItem());
+          }
+        });
   }
 
   @FXML

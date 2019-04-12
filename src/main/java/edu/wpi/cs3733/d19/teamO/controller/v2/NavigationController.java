@@ -92,7 +92,7 @@ public class NavigationController implements Controller {
     ArrayList<String> list = stepByStep.getStepByStep(path);
     String instruction = "";
     StringBuilder stringBuilder = new StringBuilder("");
-    for (String s: list) {
+    for (String s : list) {
       stringBuilder.append(s);
       stringBuilder.append('\n');
     }

@@ -51,7 +51,7 @@ public class AddEmployeeController implements Controller {
   @FXML
   void onSubmitButtonAction() {
     Login external = parseUserEmployee();
-    if(external == null) {
+    if (external == null) {
       logger.log(Level.WARNING,
           "Unable to parse Employee Data.",
           "Unable to parse Employee Data.");
@@ -75,7 +75,7 @@ public class AddEmployeeController implements Controller {
   @FXML
   private Login parseUserEmployee() {
     // if input is valid, parse it and return a new Employee
-    if(!namefield.getText().isEmpty()
+    if (!namefield.getText().isEmpty()
         && !usernamefield.getText().isEmpty()
         && !passwordfield.getText().isEmpty()
         && Objects.nonNull(positionbox.getValue())) {

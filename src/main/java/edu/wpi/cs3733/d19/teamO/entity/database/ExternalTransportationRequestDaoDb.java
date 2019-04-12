@@ -204,7 +204,7 @@ public class ExternalTransportationRequestDaoDb implements ExternalTransportatio
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement
           = connection.prepareStatement(queries.getProperty(
-              "external_transportation_request.category"));
+          "external_transportation_request.category"));
       statement.setString(1, type);
       try (ResultSet resultSet = statement.executeQuery()) {
         Set<ExternalTransportationRequest> externalTransportationRequests = new HashSet<>();

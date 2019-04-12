@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 import com.google.inject.Inject;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

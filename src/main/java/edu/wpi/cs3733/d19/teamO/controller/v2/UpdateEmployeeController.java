@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d19.teamO.controller.v2;
 
+import java.util.Objects;
 import java.util.logging.Logger;
 
 import com.google.inject.Inject;
@@ -19,7 +20,7 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 @FxmlController(url = "UpdateEmployee.fxml")
 @SuppressWarnings("PMD.TooManyFields")
-public class UpdateEmployeeController implements Controller{
+public class UpdateEmployeeController implements Controller {
 
   private static final Logger logger =
       Logger.getLogger(UpdateEmployeeController.class.getName());
@@ -32,6 +33,8 @@ public class UpdateEmployeeController implements Controller{
   private JFXTextField upUsernamefield;
   @FXML
   private JFXTextField upPasswordfield;
+  @FXML
+  private JFXTextField upIdfield;
   @FXML
   private JFXComboBox<Login.EmployeeType> upPositionbox;
   @FXML
@@ -48,17 +51,35 @@ public class UpdateEmployeeController implements Controller{
   void initialize() {
     upPositionbox.getItems().setAll(Login.EmployeeType.values());
 
-    login.addListener(((observable, oldValue, newValue) -> {
+    login.addListener((observable, oldValue, newValue) -> {
       upNamefield.setText(newValue.getName());
       upUsernamefield.setText(newValue.getUsername());
       upPasswordfield.setText(newValue.getPassword());
       upPositionbox.setValue(newValue.getType());
-    }));
+      upIdfield.setText("" + newValue.getId());
+    });
   }
 
   @FXML
   void onSubmitAction() {
-
+    if (!upNamefield.getText().isEmpty()
+        && !upPasswordfield.getText().isEmpty()
+        && !upUsernamefield.getText().isEmpty()
+        && Objects.nonNull(upPositionbox.getValue())) {
+      int idInt = Integer.parseInt(upIdfield.getText());
+      Login lg = db.getLogin(idInt).get();
+      lg.setUsername(upUsernamefield.getText());
+      lg.setPassword(upPasswordfield.getText());
+      lg.setName(upNamefield.getText());
+      lg.setType(upPositionbox.getValue());
+      if (db.updateLogin(lg)) {
+        DialogHelper.showInformationAlert("Success!",
+            "Successfully updated Employee.");
+      } else {
+        DialogHelper.showErrorAlert("Error.",
+            "Unable to  Employee");
+      }
+    }
   }
 
   public Login getLogin() {

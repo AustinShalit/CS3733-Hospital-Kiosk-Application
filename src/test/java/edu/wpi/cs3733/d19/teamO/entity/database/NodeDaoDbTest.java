@@ -3,7 +3,6 @@ package edu.wpi.cs3733.d19.teamO.entity.database;
 import java.sql.SQLException;
 
 import com.google.inject.Inject;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

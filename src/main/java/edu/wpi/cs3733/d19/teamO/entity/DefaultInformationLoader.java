@@ -63,11 +63,11 @@ public class DefaultInformationLoader {
 
   private void loadEmployeesAndLogins() {
 
-    Login user1 = new Login("admin","wong", "AdminTest",
+    Login user1 = new Login("admin", "wong", "AdminTest",
         Login.EmployeeType.ADMIN);
     Login user2 = new Login("staff", "staff", "StaffTest",
         Login.EmployeeType.SECURITY);
-    Login user3 = new Login("teamo","won", "TeamOTest",
+    Login user3 = new Login("teamo", "won", "TeamOTest",
         Login.EmployeeType.DEFAULT);
 
     database.insertLogin(user1);

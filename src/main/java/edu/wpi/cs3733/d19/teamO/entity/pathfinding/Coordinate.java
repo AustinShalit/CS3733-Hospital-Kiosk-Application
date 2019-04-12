@@ -19,6 +19,7 @@ public class Coordinate {
 
   /**
    * gets the distance in ft between the two coordinates.
+   *
    * @param coordinate end.
    * @return distance ft.
    */

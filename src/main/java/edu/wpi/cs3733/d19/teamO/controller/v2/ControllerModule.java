@@ -100,7 +100,6 @@ public class ControllerModule extends AbstractModule {
     install(new FactoryModuleBuilder().build(SupportAnimalViewController.Factory.class));
 
 
-
     install(new FactoryModuleBuilder().build(ITSupportController.Factory.class));
     install(new FactoryModuleBuilder().build(ITSupportViewController.Factory.class));
 

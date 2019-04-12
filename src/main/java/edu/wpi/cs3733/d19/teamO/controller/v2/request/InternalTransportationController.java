@@ -89,7 +89,7 @@ public class InternalTransportationController implements Controller {
    * Parse input the user has inputted for the sanitation request.
    *
    * @return If valid input, A InternalTransportationRequest representing the users input
-   *         Otherwise null.
+   *                         Otherwise null.
    */
   private InternalTransportationRequest parseUserITRequest() {
     // if input is valid, parse it and return a new InternalTransportationRequest

@@ -16,8 +16,9 @@ public class StepByStep {
 
   /**
    * This returns a String direction between a start and end node.
+   *
    * @param start the starting node.
-   * @param end the end node.
+   * @param end   the end node.
    * @return a String diretion.
    */
   public String getDirection(Coordinate start, Coordinate end) {
@@ -25,7 +26,6 @@ public class StepByStep {
     int ydif = start.getYcoord() - end.getYcoord();
 
     double theta = Math.atan2(ydif, xdif) * 180 / Math.PI;
-
 
 
     if (theta > 22.5 && theta <= 67.5) {
@@ -51,6 +51,7 @@ public class StepByStep {
 
   /**
    * Creates a list of instruction from a list of nodes.
+   *
    * @param nodes list of nodes.
    * @return list of instructions.
    */
@@ -59,7 +60,7 @@ public class StepByStep {
 
     ArrayList<Coordinate> coordinates = new ArrayList<>();
 
-    for (Node node: nodes) {
+    for (Node node : nodes) {
       Coordinate newCoord = new Coordinate(node.getXcoord(), node.getYcoord());
       coordinates.add(newCoord);
     }
@@ -103,7 +104,7 @@ public class StepByStep {
       }
 
 
-      if (diff == 1 || diff == -7 ) {
+      if (diff == 1 || diff == -7) {
         instructions.add("take a slight right");
         last = "other";
       } else if (diff == 2 || diff == -6) {
@@ -133,7 +134,6 @@ public class StepByStep {
 
     return instructions;
   }
-
 
 
 }

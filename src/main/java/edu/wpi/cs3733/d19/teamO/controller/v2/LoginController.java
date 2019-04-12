@@ -84,7 +84,7 @@ public class LoginController implements Controller {
   private Login parseUserLogin() {
     // checks if input is valid, parses it and returns a new Login
     if (!username.getText().isEmpty() && !password.getText().isEmpty()) {
-      return new Login(username.getText(), password.getText(), null , null);
+      return new Login(username.getText(), password.getText(), null, null);
     }
 
     // otherwise

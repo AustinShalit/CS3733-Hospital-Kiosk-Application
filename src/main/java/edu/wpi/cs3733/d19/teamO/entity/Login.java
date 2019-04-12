@@ -4,8 +4,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.google.common.base.MoreObjects;
-
 public class Login {
 
   public enum EmployeeType {
@@ -40,13 +38,13 @@ public class Login {
   }
 
   private final Integer id;
-  private final String username;
-  private final String password;
-  private final String name;
-  private final EmployeeType type;
+  private String username;
+  private String password;
+  private String name;
+  private EmployeeType type;
 
   /**
-   * Constructor for Login, Create a Login
+   * Constructor for Login, Create a Login.
    *
    * @param id       Login's integer ID
    * @param username Username
@@ -63,7 +61,7 @@ public class Login {
   }
 
   /**
-   * Constructor for Login, Initialization of Login
+   * Constructor for Login, Initialization of Login.
    *
    * @param username Username
    * @param password Password
@@ -78,7 +76,9 @@ public class Login {
     this.type = type;
   }
 
-  public Integer getId() { return id; }
+  public Integer getId() {
+    return id;
+  }
 
   public String getUsername() {
     return username;
@@ -88,10 +88,29 @@ public class Login {
     return password;
   }
 
-  public String getName() { return name; }
+  public String getName() {
+    return name;
+  }
 
-  public EmployeeType getType() { return type; }
+  public EmployeeType getType() {
+    return type;
+  }
 
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setType(EmployeeType type) {
+    this.type = type;
+  }
 
   @Override
   public String toString() {
@@ -120,6 +139,11 @@ public class Login {
         && type == that.type;
   }
 
+  /**
+   * Function to check the username and password.
+   *
+   * @param o Object
+   */
   public boolean equalsLog(Object o) {
     if (this == o) {
       return true;

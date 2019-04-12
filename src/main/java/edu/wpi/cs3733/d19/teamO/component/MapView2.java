@@ -3,8 +3,6 @@ package edu.wpi.cs3733.d19.teamO.component;
 import java.io.IOException;
 import java.util.Collection;
 
-
-
 import javafx.animation.Interpolator;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
@@ -27,7 +25,6 @@ import net.kurobako.gesturefx.GesturePane;
 
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
-
 
 import static java.lang.Math.abs;
 
@@ -149,7 +146,7 @@ public class MapView2 extends StackPane {
       levelF2.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelF3.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelG.setStyle("-fx-background-color: rgba(249,249,255,0)");
-    } else if  ("2".equals(l)) {
+    } else if ("2".equals(l)) {
       levelL1.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelL2.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelF1.setStyle("-fx-background-color: rgba(249,249,255,0)");
@@ -173,7 +170,7 @@ public class MapView2 extends StackPane {
       levelF1.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelF2.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelF3.setStyle("-fx-background-color: rgba(249,249,255,0)");
-    } else if  ("L2".equals(l)) {
+    } else if ("L2".equals(l)) {
       levelL1.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelG.setStyle("-fx-background-color: rgba(249,249,255,0)");
       levelF1.setStyle("-fx-background-color: rgba(249,249,255,0)");
