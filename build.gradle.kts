@@ -11,16 +11,18 @@ plugins {
     id("com.github.spotbugs") version "1.7.1"
     pmd
     id("com.diffplug.gradle.spotless") version "3.20.0"
-    id("com.palantir.git-version") version "0.11.0"
+    id("org.ajoberstar.reckon") version "0.9.0"
     id("com.github.johnrengelman.shadow") version "5.0.0"
     id("com.gradle.build-scan") version "2.2.1"
     idea
 }
 
-val gitVersion: groovy.lang.Closure<*> by extra
-
 group = "edu.wpi.cs3733.d19.teamO"
-version = gitVersion()
+
+reckon {
+    scopeFromProp()
+    snapshotFromProp()
+}
 
 repositories {
     mavenCentral()
