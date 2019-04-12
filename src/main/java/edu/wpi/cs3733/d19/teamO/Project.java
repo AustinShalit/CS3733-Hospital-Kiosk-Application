@@ -77,6 +77,13 @@ public class Project extends Application {
     Thread.setDefaultUncaughtExceptionHandler(this::onThreadException);
   }
 
+  @Override
+  public void stop() {
+    logger.config("Application stopping");
+    database.close();
+    logger.config("Application stop finished");
+  }
+
   /**
    * The version of this build.
    *
