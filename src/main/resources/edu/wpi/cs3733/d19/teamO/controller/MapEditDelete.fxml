@@ -7,7 +7,8 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
-<GridPane prefHeight="200.0" prefWidth="611.0" stylesheets="@v2/style/KioskStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.MapEditDeleteController">
+
+<GridPane prefHeight="200.0" prefWidth="611.0" stylesheets="@style/KioskStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.MapEditDeleteController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="189.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="338.0" minWidth="10.0" prefWidth="289.0" />
@@ -19,27 +20,27 @@
     <RowConstraints maxHeight="271.0" minHeight="10.0" prefHeight="77.0" vgrow="SOMETIMES" />
   </rowConstraints>
   <children>
-    <JFXButton id="small-button" fx:id="deleteButton" disable="true" onAction="#deleteNodeAction" stylesheets="@v2/style/KioskStyle.css" text="Delete" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+    <JFXButton id="small-button" fx:id="deleteButton" disable="true" onAction="#deleteNodeAction" stylesheets="@style/KioskStyle.css" text="Delete" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
       <font>
         <Font size="14.0" />
       </font>
     </JFXButton>
-    <JFXButton id="small-button" fx:id="cancel" onAction="#cancelButtonAction" stylesheets="@v2/style/KioskStyle.css" text="Cancel" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+    <JFXButton id="small-button" fx:id="cancel" onAction="#cancelButtonAction" stylesheets="@style/KioskStyle.css" text="Cancel" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
       <font>
         <Font size="14.0" />
       </font>
     </JFXButton>
-    <Label fx:id="status" prefHeight="52.0" prefWidth="242.0" stylesheets="@v2/style/KioskStyle.css" text=" " textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="1">
+    <Label fx:id="status" prefHeight="52.0" prefWidth="242.0" stylesheets="@style/KioskStyle.css" text=" " textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="1">
       <font>
         <Font size="13.0" />
       </font>
     </Label>
-    <JFXTextField fx:id="deleteNodeID" onKeyReleased="#validateButton" stylesheets="@v2/style/KioskStyle.css" GridPane.columnIndex="1" GridPane.valignment="BOTTOM">
+    <JFXTextField fx:id="deleteNodeID" onKeyReleased="#validateButton" stylesheets="@style/KioskStyle.css" GridPane.columnIndex="1" GridPane.valignment="BOTTOM">
       <font>
         <Font size="18.0" />
       </font>
     </JFXTextField>
-    <Label stylesheets="@v2/style/KioskStyle.css" text="NodeID:" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
+    <Label stylesheets="@style/KioskStyle.css" text="NodeID:" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
       <font>
         <Font size="22.0" />
       </font>
