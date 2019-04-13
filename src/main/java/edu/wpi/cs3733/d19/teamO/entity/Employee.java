@@ -144,7 +144,7 @@ public class Employee {
    *
    * @param o Object
    */
-  public boolean equalsLog(Object o) {
+  public boolean loginEquals(Object o) {
     if (this == o) {
       return true;
     }
