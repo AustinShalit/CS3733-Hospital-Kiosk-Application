@@ -17,7 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
 import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
-import edu.wpi.cs3733.d19.teamO.entity.Login;
+import edu.wpi.cs3733.d19.teamO.entity.Employee;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 @FxmlController(url = "LoginWindow.fxml")
@@ -50,19 +50,19 @@ public class LoginController implements Controller {
   @FXML
   void loginButtonAction() {
     // gets the user input
-    Login login = parseUserLogin();
-    if (login == null) {
+    Employee employee = parseUserLogin();
+    if (employee == null) {
       logger.log(Level.WARNING,
           "Unable to parse Username and Password.",
-          "Unable to parse User Login info");
+          "Unable to parse User Employee info");
       return;
     }
 
-    Set<Login> info = db.getAllLogin();
+    Set<Employee> info = db.getAllEmployee();
     boolean check = false;
-    // checks every Login info in set
-    for (Login l : info) {
-      if (l.equals(login)) {
+    // checks every Employee info in set
+    for (Employee l : info) {
+      if (l.equalsLog(employee)) {
         check = true;
       }
     }
@@ -77,14 +77,14 @@ public class LoginController implements Controller {
   }
 
   /**
-   * Validate the username and password fields and return a Login object.
+   * Validate the username and password fields and return a Employee object.
    *
    * @return A new login object if valid input, otherwise null.
    */
-  private Login parseUserLogin() {
-    // checks if input is valid, parses it and returns a new Login
+  private Employee parseUserLogin() {
+    // checks if input is valid, parses it and returns a new Employee
     if (!username.getText().isEmpty() && !password.getText().isEmpty()) {
-      return new Login(username.getText(), password.getText());
+      return new Employee(username.getText(), password.getText(), null, null);
     }
 
     // otherwise
