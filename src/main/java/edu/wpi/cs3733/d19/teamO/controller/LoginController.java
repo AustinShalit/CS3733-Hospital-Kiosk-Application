@@ -62,7 +62,7 @@ public class LoginController implements Controller {
     boolean check = false;
     // checks every Employee info in set
     for (Employee l : info) {
-      if (l.equalsLog(employee)) {
+      if (l.loginEquals(employee)) {
         check = true;
       }
     }

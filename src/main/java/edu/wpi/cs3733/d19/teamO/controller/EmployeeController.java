@@ -4,6 +4,7 @@ import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 
+import animatefx.animation.Shake;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -44,6 +45,8 @@ public class EmployeeController implements Controller {
   private TableColumn<Employee, Employee.EmployeeType> positionCol;
   @FXML
   private TableColumn<Employee, String> nameCol;
+  @FXML
+  private Label infoLabel;
 
   @Inject
   private EventBus eventBus;
@@ -64,6 +67,8 @@ public class EmployeeController implements Controller {
     passwordCol.setCellValueFactory(new PropertyValueFactory<>("password"));
     positionCol.setCellValueFactory(new PropertyValueFactory<>("type"));
     nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+    updateEmployeeController = updateEmployeeControllerFactory.create();
 
     employeeTableView.getItems().setAll(db.getAllEmployee());
     employeeTableView.getSortOrder().add(nameCol); // sort by name
@@ -90,6 +95,12 @@ public class EmployeeController implements Controller {
 
   @FXML
   void delEmpOnAction() {
+    if (employeeTableView.getSelectionModel().getSelectedItem() == null) {
+      selectEmplyeeShake();
+      return;
+    }
+
+    infoLabel.setText("");
     Employee selectedEmployee = employeeTableView.getSelectionModel().getSelectedItem();
     employeeTableView.getItems().remove(selectedEmployee);
 
@@ -98,8 +109,18 @@ public class EmployeeController implements Controller {
 
   @FXML
   void updateEmpOnAction() {
-    updateEmployeeController = updateEmployeeControllerFactory.create();
+    if (employeeTableView.getSelectionModel().getSelectedItem() == null) {
+      selectEmplyeeShake();
+      return;
+    }
+
+    infoLabel.setText("");
     root.setLeft(updateEmployeeController.getRoot());
+  }
+
+  void selectEmplyeeShake() {
+    infoLabel.setText("Please select an Employee.");
+    new Shake(infoLabel).play();
   }
 
   @Override

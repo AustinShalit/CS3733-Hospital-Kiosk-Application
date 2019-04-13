@@ -61,9 +61,10 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           </rowConstraints>
           <children>
-            <JFXButton fx:id="addEmpButton" onAction="#addEmpOnAction" stylesheets="@style/KioskStyle.css" text="Add Employee" GridPane.halignment="CENTER" GridPane.rowSpan="2" />
+            <Label fx:id="infoLabel" text=" " textFill="RED" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
+            <JFXButton fx:id="addEmpButton" onAction="#addEmpOnAction" text="Add Employee" GridPane.halignment="CENTER" GridPane.rowSpan="2" />
             <JFXButton fx:id="delEmpButton" onAction="#delEmpOnAction" text="Delete Employee" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowSpan="2" />
-            <JFXButton fx:id="updateEmpButton" onAction="#updateEmpOnAction" stylesheets="@style/KioskStyle.css" text="Update Employee" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowSpan="2" />
+            <JFXButton fx:id="updateEmpButton" onAction="#updateEmpOnAction" text="Update Employee" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowSpan="2" />
           </children>
         </GridPane>
       </bottom>

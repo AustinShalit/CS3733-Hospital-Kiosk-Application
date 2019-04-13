@@ -6,20 +6,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.inject.Inject;
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 import edu.wpi.cs3733.d19.teamO.entity.Employee;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 @FxmlController(url = "AddEmployee.fxml")
-@SuppressWarnings("PMD.TooManyFields")
 public class AddEmployeeController implements Controller {
 
   private static final Logger logger =
@@ -28,24 +25,20 @@ public class AddEmployeeController implements Controller {
   @FXML
   private VBox root;
   @FXML
-  private JFXTextField namefield;
+  private JFXTextField nameField;
   @FXML
-  private JFXTextField usernamefield;
+  private JFXTextField usernameField;
   @FXML
-  private JFXTextField passwordfield;
+  private JFXTextField passwordField;
   @FXML
-  private JFXComboBox<Employee.EmployeeType> positionbox;
-  @FXML
-  private Label titlelbl;
-  @FXML
-  private JFXButton submitbtn;
+  private JFXComboBox<Employee.EmployeeType> positionBox;
 
   @Inject
   private Database db;
 
   @FXML
   void initialize() {
-    positionbox.getItems().setAll(Employee.EmployeeType.values());
+    positionBox.getItems().setAll(Employee.EmployeeType.values());
   }
 
   @FXML
@@ -75,15 +68,15 @@ public class AddEmployeeController implements Controller {
   @FXML
   private Employee parseUserEmployee() {
     // if input is valid, parse it and return a new Employee
-    if (!namefield.getText().isEmpty()
-        && !usernamefield.getText().isEmpty()
-        && !passwordfield.getText().isEmpty()
-        && Objects.nonNull(positionbox.getValue())) {
+    if (!nameField.getText().isEmpty()
+        && !usernameField.getText().isEmpty()
+        && !passwordField.getText().isEmpty()
+        && Objects.nonNull(positionBox.getValue())) {
 
-      String name = namefield.getText();
-      String username = usernamefield.getText();
-      String password = passwordfield.getText();
-      String type = positionbox.getValue().toString().toUpperCase(new Locale("EN"));
+      String name = nameField.getText();
+      String username = usernameField.getText();
+      String password = passwordField.getText();
+      String type = positionBox.getValue().toString().toUpperCase(new Locale("EN"));
       Employee.EmployeeType externalEmployeeType = Employee.EmployeeType.valueOf(type);
       Employee newemp = new Employee(username, password, name, externalEmployeeType);
 
@@ -105,6 +98,4 @@ public class AddEmployeeController implements Controller {
   public interface Factory {
     AddEmployeeController create();
   }
-
 }
-
