@@ -60,6 +60,7 @@ public class NavigationController implements Controller {
     DialogHelper.populateComboBox(database, fromComboBox);
     DialogHelper.populateComboBox(database, toComboBox);
     stepByStep = new StepByStep();
+    validateGoButton();
   }
 
   @Override
