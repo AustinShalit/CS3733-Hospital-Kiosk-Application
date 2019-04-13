@@ -24,17 +24,17 @@
   <children>
     <HBox alignment="CENTER" prefHeight="48.0" prefWidth="600.0" GridPane.columnSpan="3" GridPane.rowIndex="2">
       <children>
-            <JFXButton fx:id="completedButton" onAction="#onCompletedButtonAction" prefHeight="25.0" prefWidth="177.0" text="Mark as completed" />
-            <JFXButton fx:id="assignButton" onAction="#onAssignButtonAction" prefHeight="25.0" prefWidth="177.0" text="Assign employee" />
+        <JFXButton fx:id="completedButton" onAction="#onCompletedButtonAction" prefHeight="25.0" prefWidth="177.0" text="Mark as completed" />
+        <JFXButton fx:id="assignButton" onAction="#onAssignButtonAction" prefHeight="25.0" prefWidth="177.0" text="Assign employee" />
       </children>
     </HBox>
     <TableView fx:id="requestsTableView" prefHeight="254.0" prefWidth="248.0" GridPane.columnSpan="3" GridPane.rowIndex="1">
       <columns>
         <TableColumn fx:id="idTableCol" editable="false" maxWidth="300.0" minWidth="50.0" prefWidth="0.0" text="ID" />
         <TableColumn fx:id="timeRequestedCol" editable="false" maxWidth="300.0" minWidth="50.0" prefWidth="0.0" text="Time Requested" />
-            <TableColumn fx:id="timeCompletedCol" editable="false" maxWidth="300.0" minWidth="50.0" prefWidth="0.0" text="Time Completed" />
+        <TableColumn fx:id="timeCompletedCol" editable="false" maxWidth="300.0" minWidth="50.0" prefWidth="0.0" text="Time Completed" />
         <TableColumn fx:id="whoCompletedCol" editable="false" maxWidth="300.0" minWidth="50.0" prefWidth="0.0" text="Assigned To" />
-            <TableColumn fx:id="locationTableCol" editable="false" maxWidth="300.0" minWidth="50.0" prefWidth="0.0" text="Location" />
+        <TableColumn fx:id="locationTableCol" editable="false" maxWidth="300.0" minWidth="50.0" prefWidth="0.0" text="Location" />
       </columns>
     </TableView>
     <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="47.0" prefWidth="498.0" text="SecurityRequests" GridPane.columnIndex="1" GridPane.columnSpan="2">
@@ -42,6 +42,6 @@
         <Font size="32.0" />
       </font>
     </Label>
-      <JFXButton fx:id="goBackButton" />
+    <JFXButton fx:id="goBackButton" />
   </children>
 </GridPane>

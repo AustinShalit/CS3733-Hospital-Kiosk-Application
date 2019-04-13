@@ -2,7 +2,6 @@ package edu.wpi.cs3733.d19.teamO.controller;
 
 import java.time.LocalDateTime;
 
-import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 
@@ -46,10 +45,6 @@ public class SecurityViewController implements Controller {
 
   @Inject
   private Database db;
-  @Inject
-  private EventBus eventBus;
-//  @Inject
-//  private CheckRequestsController.Factory checkRequestControllerFactory;
 
   @FXML
   void initialize() {
