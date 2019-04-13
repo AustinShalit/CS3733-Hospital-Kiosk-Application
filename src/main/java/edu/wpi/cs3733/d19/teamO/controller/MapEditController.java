@@ -16,7 +16,6 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 import edu.wpi.cs3733.d19.teamO.component.MapView2;
@@ -78,9 +77,9 @@ public class MapEditController implements Controller {
   @FXML
   TableColumn<Node, String> nodeIdCol;
   @FXML
-  TableColumn<Node, Integer> xCoordCol;
+  TableColumn<Node, Integer> coordXcol;
   @FXML
-  TableColumn<Node, Integer> yCoordCol;
+  TableColumn<Node, Integer> coordYcol;
   @FXML
   TableColumn<Node, String> floorCol;
   @FXML
@@ -177,7 +176,6 @@ public class MapEditController implements Controller {
     map.addNodesToPane(database.getFloor(map.getLevel()));
 
     tableView.getItems().setAll(nodes); //todo use observer
-    newID++;
   }
 
   @FXML
@@ -250,8 +248,8 @@ public class MapEditController implements Controller {
    */
   private void setupTableView() {
     nodeIdCol.setCellValueFactory(new PropertyValueFactory<>("nodeId"));
-    xCoordCol.setCellValueFactory(new PropertyValueFactory<>("Xcoord"));
-    yCoordCol.setCellValueFactory(new PropertyValueFactory<>("Ycoord"));
+    coordXcol.setCellValueFactory(new PropertyValueFactory<>("Xcoord"));
+    coordYcol.setCellValueFactory(new PropertyValueFactory<>("Ycoord"));
     floorCol.setCellValueFactory(new PropertyValueFactory<>("Floor"));
     buildingCol.setCellValueFactory(new PropertyValueFactory<>("Building"));
     typeCol.setCellValueFactory(new PropertyValueFactory<>("NodeType"));

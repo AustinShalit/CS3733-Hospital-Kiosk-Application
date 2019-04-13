@@ -223,8 +223,8 @@
                     <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                       <columns>
                         <TableColumn fx:id="nodeIdCol" prefWidth="75.0" text="NodeID" />
-                        <TableColumn prefWidth="75.0" text="X-Coordinate" fx:id="xCoordCol" />
-                        <TableColumn fx:id="yCoordCol" prefWidth="75.0" text="Y-Coordinate" />
+                        <TableColumn prefWidth="75.0" text="X-Coordinate" fx:id="coordXcol" />
+                        <TableColumn fx:id="coordYcol" prefWidth="75.0" text="Y-Coordinate" />
                         <TableColumn fx:id="floorCol" prefWidth="75.0" text="Floor" />
                         <TableColumn fx:id="buildingCol" prefWidth="75.0" text="Building" />
                         <TableColumn fx:id="typeCol" prefWidth="75.0" text="Type" />
