@@ -9,8 +9,6 @@ import java.util.logging.Logger;
 
 import com.google.inject.Inject;
 
-import javafx.scene.control.TableColumn;
-
 import edu.wpi.cs3733.d19.teamO.entity.AudioVisualRequest;
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Employee;

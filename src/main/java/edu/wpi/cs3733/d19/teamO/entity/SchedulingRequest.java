@@ -87,7 +87,7 @@ public class SchedulingRequest {
     return room;
   }
 
-  public String getRoomName(){
+  public String getRoomName() {
     return room.getShortName();
   }
 
