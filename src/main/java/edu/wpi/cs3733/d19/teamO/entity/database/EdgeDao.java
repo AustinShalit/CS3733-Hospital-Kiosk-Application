@@ -24,4 +24,9 @@ interface EdgeDao extends Dao<String, Edge> {
    * @return the set of edges that contain nodes in specific floor
    */
   Set<Edge> getFloor(String floor);
+
+  /**
+   * Get a String representing an unused id in the edge database table.
+   */
+  String getFreeEdgeId();
 }

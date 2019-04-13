@@ -120,6 +120,10 @@ public class Database implements AutoCloseable {
     return nodeDao.getFloor(floor);
   }
 
+  public String getFreeNodeId() {
+    return nodeDao.getFreeNodeId();
+  }
+
   /*
    * Edge
    */
@@ -149,6 +153,10 @@ public class Database implements AutoCloseable {
 
   public Set<Edge> getEdgeByFloor(String floor) {
     return edgeDao.getFloor(floor);
+  }
+
+  public String getFreeEdgeId() {
+    return edgeDao.getFreeEdgeId();
   }
 
   /*
