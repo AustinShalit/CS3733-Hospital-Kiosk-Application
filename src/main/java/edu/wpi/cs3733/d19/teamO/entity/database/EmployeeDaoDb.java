@@ -33,7 +33,7 @@ public class EmployeeDaoDb implements EmployeeDao {
     }
   }
 
-  private DatabaseConnectionFactory dcf;
+  private final DatabaseConnectionFactory dcf;
 
   EmployeeDaoDb(final DatabaseConnectionFactory dcf) throws SQLException {
     this.dcf = dcf;
