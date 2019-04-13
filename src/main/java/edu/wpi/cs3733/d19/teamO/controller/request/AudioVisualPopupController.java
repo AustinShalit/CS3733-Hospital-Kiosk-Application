@@ -26,7 +26,7 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 @FxmlController(url = "AudioVisualPopup.fxml")
 public class AudioVisualPopupController implements Controller {
 
-  private static final Logger logger = Logger.getLogger(AudioVisualController.class.getName());
+  private static final Logger logger = Logger.getLogger(AudioVisualPopupController.class.getName());
 
   @FXML
   BorderPane root;
@@ -92,7 +92,7 @@ public class AudioVisualPopupController implements Controller {
         && Objects.nonNull(categorybox.getValue())) {
 
       LocalDateTime now = LocalDateTime.now();
-      Node node = (Node) locationbox.getValue();
+      Node node = locationbox.getValue();
 
       String type = categorybox.getValue().toString().toUpperCase(new Locale("EN"));
       AudioVisualRequest.AudioVisualRequestType audioVisualType =
