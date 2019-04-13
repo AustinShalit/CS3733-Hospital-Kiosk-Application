@@ -99,7 +99,6 @@ public class ExternalTransportationPopupController implements Controller {
    * Parse input the user has inputted for the external transportation request.
    *
    * @return If valid input, an external transport request representing the users input.
-   * Otherwise null.
    */
   private ExternalTransportationRequest parseUserITRequest() {
     // if input is valid, parse it and return a new SanitationRequest

@@ -35,7 +35,7 @@
         </TableView>
         <GridPane id="requestbuttons" prefHeight="0.0">
           <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           </columnConstraints>
@@ -46,7 +46,7 @@
           <children>
             <JFXButton id="table-button" fx:id="assignButton" onAction="#onAssignButtonAction" text="Assign Employee" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowSpan="2" />
             <JFXButton id="table-button" fx:id="completedButton" onAction="#onCompletedButtonAction" text="Complete Request" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowSpan="2" />
-                  <JFXButton id="table-button" fx:id="addButton" mnemonicParsing="false" onAction="#onAddButtonAction" ripplerFill="WHITE" text="New Request" GridPane.halignment="CENTER" GridPane.rowSpan="2" />
+            <JFXButton id="table-button" fx:id="addButton" mnemonicParsing="false" onAction="#onAddButtonAction" ripplerFill="WHITE" text="New Request" GridPane.halignment="CENTER" GridPane.rowSpan="2" />
           </children>
         </GridPane>
       </children>
