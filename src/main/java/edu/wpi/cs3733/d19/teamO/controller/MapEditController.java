@@ -26,6 +26,8 @@ public class MapEditController implements Controller {
   String nodeID;
   int newID = 100;
   private boolean updateMode = true;
+  private boolean connectMode;
+  private String udNodeID1 = " ";
   // Collection<Node> nodes;
 
   @FXML
@@ -57,12 +59,8 @@ public class MapEditController implements Controller {
   @FXML
   JFXTextField shortNameField;
   @FXML
-
   JFXTextField nodeIDField;
   @FXML
-  JFXTextField nodeIDField2;
-  @FXML
-
   Label status;
   @FXML
   JFXComboBox<Node.NodeType> nodeTypeComboBox;
@@ -99,8 +97,9 @@ public class MapEditController implements Controller {
       validateButton();
       status.setText("");
 
-      nodeIDField2.setText("");
-
+      if (connectMode) {
+        connectNodeAction();
+      }
     });
 
     // set tab pane to span entire width
@@ -210,18 +209,31 @@ public class MapEditController implements Controller {
 
   @FXML
   void connectNodeAction() {
-    String udNodeID1 = nodeIDField.getText();
-    Optional<Node> nodeFromDB1 = database.getNode(udNodeID1);
-    String udNodeID2 = nodeIDField2.getText();
-    Optional<Node> nodeFromDB2 = database.getNode(udNodeID2);
-    if (!nodeFromDB1.isPresent() || !nodeFromDB2.isPresent()) {
-      status.setText("ERROR: InvalidNodeID");
+
+    if (!connectMode) {
+      udNodeID1 = nodeIDField.getText();
+      Optional<Node> nodeFromDB1 = database.getNode(udNodeID1);
+      if (!nodeFromDB1.isPresent()) {
+        status.setText("ERROR: InvalidNodeID");
+      } else {
+        connectMode = true;
+        status.setText("Please choose the other node");
+      }
     } else {
-      Node node1 = nodeFromDB1.get();
-      Node node2 = nodeFromDB2.get();
-      Edge newEdge = new Edge("Ken" + Integer.toString(newID), node1, node2);
-      database.insertEdge(newEdge);
-      status.setText("Succeed!");
+      String udNodeID2 = nodeIDField.getText();
+      Optional<Node> nodeFromDB2 = database.getNode(udNodeID2);
+      Optional<Node> nodeFromDB1 = database.getNode(udNodeID1);
+      if (!nodeFromDB2.isPresent() || !nodeFromDB1.isPresent()) {
+        status.setText("ERROR: InvalidNodeID");
+      } else {
+        Node node1 = nodeFromDB1.get();
+        Node node2 = nodeFromDB2.get();
+        Edge newEdge = new Edge("Ken" + Integer.toString(newID), node1, node2);
+        database.insertEdge(newEdge);
+        status.setText("Succeed!");
+        connectMode = false;
+      }
+
     }
   }
 
