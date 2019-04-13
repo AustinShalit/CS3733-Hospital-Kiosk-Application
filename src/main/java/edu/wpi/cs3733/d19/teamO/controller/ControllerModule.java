@@ -64,7 +64,7 @@ public class ControllerModule extends AbstractModule {
     install(new FactoryModuleBuilder().build(RequestController.Factory.class));
     install(new FactoryModuleBuilder().build(AdminController.Factory.class));
     install(new FactoryModuleBuilder().build(CheckRequestsController.Factory.class));
-
+    install(new FactoryModuleBuilder().build(SettingsController.Factory.class));
 
     install(new FactoryModuleBuilder().build(AudioVisualController.Factory.class));
     install(new FactoryModuleBuilder().build(AudioVisualViewController.Factory.class));

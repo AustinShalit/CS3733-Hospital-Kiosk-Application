@@ -9,6 +9,6 @@ import com.google.common.graph.Graph;
  *
  * @param <T> The type of graph the search algorithm is searching
  */
-interface GraphSearchAlgorithm<T> {
+public interface GraphSearchAlgorithm<T> {
   List<T> getPath(Graph<T> graph, T start, T goal);
 }

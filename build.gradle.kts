@@ -27,9 +27,13 @@ reckon {
 repositories {
     mavenCentral()
     jcenter()
+    maven {
+        url = uri("http://maven.bestsolution.at/efxclipse-releases")
+    }
 }
 
 dependencies {
+    implementation(group = "com.dlsc.preferencesfx", name = "preferencesfx-core", version = "2.1.0")
     implementation(group = "com.google.code.gson", name = "gson", version = "2.8.5")
     implementation(group = "com.google.guava", name = "guava", version = "27.1-jre")
     implementation(group = "com.google.inject", name = "guice", version = "4.2.2")
