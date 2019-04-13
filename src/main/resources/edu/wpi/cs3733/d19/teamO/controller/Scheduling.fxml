@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTimePicker?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import edu.wpi.cs3733.d19.teamO.component.MapView?>
+
+<?import edu.wpi.cs3733.d19.teamO.component.SchedulingMapView?>
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.SchedulingController">
+  <left>
+    <StackPane maxWidth="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <children>
+        <HBox alignment="CENTER">
+          <children>
+            <VBox alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
+              <children>
+                <GridPane alignment="CENTER" vgap="5.0">
+                  <columnConstraints>
+                    <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
+                    <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  </rowConstraints>
+                  <padding>
+                    <Insets bottom="5.0" />
+                  </padding>
+                  <VBox.margin>
+                    <Insets bottom="3.0" />
+                  </VBox.margin>
+                </GridPane>
+                <GridPane>
+                  <columnConstraints>
+                    <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
+                    <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  </rowConstraints>
+                  <padding>
+                    <Insets bottom="5.0" />
+                  </padding>
+                  <VBox.margin>
+                    <Insets bottom="3.0" />
+                  </VBox.margin>
+                </GridPane>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+                  <font>
+                    <Font size="36.0" />
+                  </font>
+                </Text>
+                <JFXTextField fx:id="nameField" prefHeight="25.0" prefWidth="132.0">
+                  <VBox.margin>
+                    <Insets bottom="5.0" left="30.0" right="30.0" />
+                  </VBox.margin>
+                </JFXTextField>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room">
+                  <font>
+                    <Font size="36.0" />
+                  </font>
+                  <VBox.margin>
+                    <Insets />
+                  </VBox.margin>
+                </Text>
+                <JFXComboBox fx:id="roomComboBox" focusColor="#004e86" prefHeight="39.0" prefWidth="97.0">
+                  <VBox.margin>
+                    <Insets bottom="5.0" />
+                  </VBox.margin>
+                </JFXComboBox>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
+                  <font>
+                    <Font size="36.0" />
+                  </font>
+                  <VBox.margin>
+                    <Insets />
+                  </VBox.margin>
+                </Text>
+                <JFXDatePicker fx:id="date" defaultColor="#004e86" prefHeight="40.0">
+                  <VBox.margin>
+                    <Insets bottom="3.0" />
+                  </VBox.margin>
+                </JFXDatePicker>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="From">
+                  <VBox.margin>
+                    <Insets bottom="5.0" />
+                  </VBox.margin>
+                  <font>
+                    <Font size="36.0" />
+                  </font>
+                </Text>
+                <JFXTimePicker fx:id="startTime" defaultColor="#004e86" prefHeight="40.0">
+                  <VBox.margin>
+                    <Insets bottom="5.0" />
+                  </VBox.margin>
+                </JFXTimePicker>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="To">
+                  <VBox.margin>
+                    <Insets />
+                  </VBox.margin>
+                  <font>
+                    <Font size="36.0" />
+                  </font>
+                </Text>
+                <JFXTimePicker fx:id="endTime" defaultColor="#004e86" prefHeight="40.0">
+                  <VBox.margin>
+                    <Insets bottom="10.0" />
+                  </VBox.margin>
+                </JFXTimePicker>
+                <JFXButton fx:id="goButton" onAction="#onSubmitButtonAction" prefHeight="40.0" prefWidth="294.0" ripplerFill="#013c78" style="-fx-background-color: #012d5a;" text="GO" textFill="WHITE">
+                  <VBox.margin>
+                    <Insets bottom="3.0" />
+                  </VBox.margin>
+                  <font>
+                    <Font name="System Bold" size="15.0" />
+                  </font>
+                </JFXButton>
+              </children>
+            </VBox>
+          </children>
+        </HBox>
+      </children>
+    </StackPane>
+  </left>
+  <top>
+    <StackPane prefHeight="21.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+  </top>
+  <right>
+    <StackPane prefHeight="360.0" prefWidth="14.0" BorderPane.alignment="CENTER" />
+  </right>
+  <bottom>
+    <StackPane prefHeight="19.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+  </bottom>
+  <center>
+    <VBox BorderPane.alignment="CENTER">
+      <children>
+        <JFXTabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" tabMinWidth="100.0" VBox.vgrow="ALWAYS">
+          <tabs>
+            <Tab fx:id="mapTab" closable="false" text="Map">
+              <content>
+                <SchedulingMapView fx:id="schedulingMapView" style="-fx-background-color: WHITE;" GridPane.rowIndex="1" GridPane.rowSpan="4">
+                  <GridPane.margin>
+                    <Insets bottom="50.0" left="10.0" right="10.0" top="50.0" />
+                  </GridPane.margin>
+                </SchedulingMapView>
+              </content>
+            </Tab>
+            <Tab fx:id="tableTab" closable="false" onSelectionChanged="#showCurrentSchedule" text="Table">
+              <content>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                  <children>
+                    <AnchorPane onMouseClicked="#showCurrentSchedule" prefHeight="643.0" prefWidth="1066.0" style="-fx-background-color: #2600ff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  </children>
+                </AnchorPane>
+              </content>
+            </Tab>
+          </tabs>
+        </JFXTabPane>
+      </children>
+    </VBox>
+  </center>
+</BorderPane>
