@@ -253,8 +253,8 @@ public class MapEditController implements Controller {
     floorCol.setCellValueFactory(new PropertyValueFactory<>("Floor"));
     buildingCol.setCellValueFactory(new PropertyValueFactory<>("Building"));
     typeCol.setCellValueFactory(new PropertyValueFactory<>("NodeType"));
-    shortNameCol.setCellValueFactory(new PropertyValueFactory<>("LongName"));
-    longNameCol.setCellValueFactory(new PropertyValueFactory<>("ShortName"));
+    shortNameCol.setCellValueFactory(new PropertyValueFactory<>("ShortName"));
+    longNameCol.setCellValueFactory(new PropertyValueFactory<>("LongName"));
 
     tableView.getItems().setAll(database.getAllNodes());
 
