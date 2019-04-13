@@ -12,4 +12,8 @@ interface NodeDao extends Dao<String, Node> {
   Set<Node> getAllRooms(String type);
 
   Set<Node> getFloor(String floor);
+
+  String getFreeNodeId();
+
+  boolean isNodeIdIn(String id, Set<Node> nodes);
 }

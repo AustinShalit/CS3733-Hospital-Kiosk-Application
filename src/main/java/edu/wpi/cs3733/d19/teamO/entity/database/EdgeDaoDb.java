@@ -14,6 +14,8 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.apache.commons.lang3.RandomStringUtils;
+
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 
@@ -189,5 +191,38 @@ class EdgeDaoDb implements EdgeDao {
       logger.log(Level.WARNING, "Failed to get Nodes", ex);
     }
     return Collections.emptySet();
+  }
+
+  /**
+   * Get a String representing an unused id in the edge database table.
+   */
+  @Override
+  public String getFreeEdgeId() {
+    Set<Edge> allEdges = getAll();
+
+    while (true) {
+      String rand = RandomStringUtils.randomAlphanumeric(10);
+
+      if (!isEdgeIdIn(rand, allEdges)) {
+        return rand;
+      }
+    }
+
+  }
+
+  /**
+   * Returns true if the given id is in the list of edges, false otherwise.
+   */
+  @Override
+  public boolean isEdgeIdIn(String id, Set<Edge> edges) {
+    for (Edge e : edges) {
+      String currId = e.getEdgeId();
+
+      if (id.equals(currId)) {
+        return true;
+      }
+    }
+
+    return false;
   }
 }
