@@ -3,13 +3,15 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
 <?import edu.wpi.cs3733.d19.teamO.component.MapView2?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -18,10 +20,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<?import javafx.scene.control.Label?>
-<?import edu.wpi.cs3733.d19.teamO.component.MapView2?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TableColumn?>
 <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.MapEditController">
   <left>
     <StackPane maxWidth="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -52,7 +50,7 @@
                     <Font size="15.0" />
                   </font>
                 </Text>
-                <JFXTextField fx:id="nodeIDField" editable="false" onKeyReleased="#validateButton" prefHeight="25.0" prefWidth="132.0" text="Auto-Generated">
+                <JFXTextField fx:id="nodeIDField" editable="false" text="Auto-Generated" onKeyReleased="#validateButton" prefHeight="25.0" prefWidth="132.0">
                   <VBox.margin>
                     <Insets bottom="5.0" left="30.0" right="30.0" />
                   </VBox.margin>
@@ -79,7 +77,7 @@
                     <Font size="15.0" />
                   </font>
                 </Text>
-                <JFXTextField fx:id="ycoordField" onAction="#onEnter" onKeyReleased="#validateButton" prefHeight="25.0" prefWidth="132.0">
+                <JFXTextField fx:id="ycoordField" onKeyReleased="#validateButton" prefHeight="25.0" prefWidth="132.0" onAction="#onEnter">
                   <VBox.margin>
                     <Insets bottom="5.0" left="30.0" right="30.0" />
                   </VBox.margin>
