@@ -79,7 +79,7 @@ public class MapEditController implements Controller {
   @FXML
   void initialize() {
 
-
+    nodeTypeComboBox.getItems().addAll(Node.NodeType.values());
     map.setNodes(database.getAllNodes());
     map.setCurrentNodes(database.getAllNodes());
     map.addNodesToPane(database.getFloor("1"));
@@ -94,7 +94,6 @@ public class MapEditController implements Controller {
       buildingField.setText(newValue.getBuilding());
 
       nodeTypeComboBox.setValue(newValue.getNodeType());
-      nodeTypeComboBox.requestFocus();
       longNameField.setText(newValue.getLongName());
       shortNameField.setText(newValue.getShortName());
       validateButton();
@@ -109,15 +108,6 @@ public class MapEditController implements Controller {
       tabPane.setTabMinWidth(tabPane.getWidth() / 2);
       tabPane.setTabMaxWidth(tabPane.getWidth() / 2);
     });
-  }
-
-  /**
-   * A cool comboBox of nodetype.
-   */
-  @SuppressWarnings("PMD.UnusedPrivateMethod")
-  @FXML
-  private void comboBox() {
-    nodeTypeComboBox.getItems().addAll(Node.NodeType.values());
   }
 
   /**
