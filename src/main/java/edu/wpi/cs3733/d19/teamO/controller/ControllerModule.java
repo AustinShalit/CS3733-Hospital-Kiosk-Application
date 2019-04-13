@@ -16,6 +16,7 @@ import edu.wpi.cs3733.d19.teamO.controller.request.AudioVisualController;
 import edu.wpi.cs3733.d19.teamO.controller.request.AudioVisualPopupController;
 import edu.wpi.cs3733.d19.teamO.controller.request.AudioVisualViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ExternalTransportationController;
+import edu.wpi.cs3733.d19.teamO.controller.request.ExternalTransportationPopupController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ExternalTransportationViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.FloristRequestController;
 import edu.wpi.cs3733.d19.teamO.controller.request.FloristRequestViewController;
@@ -79,7 +80,7 @@ public class ControllerModule extends AbstractModule {
     install(new FactoryModuleBuilder().build(PatientInfoController.Factory.class));
     install(new FactoryModuleBuilder().build(PatientInfoViewController.Factory.class));
 
-
+    install(new FactoryModuleBuilder().build(ExternalTransportationPopupController.Factory.class));
     install(new FactoryModuleBuilder().build(ExternalTransportationController.Factory.class));
     install(new FactoryModuleBuilder().build(ExternalTransportationViewController.Factory.class));
 

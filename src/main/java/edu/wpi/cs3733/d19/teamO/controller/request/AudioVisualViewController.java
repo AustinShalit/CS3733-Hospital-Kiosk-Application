@@ -8,10 +8,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPopup;
 
 import animatefx.animation.Shake;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
@@ -101,31 +97,27 @@ public class AudioVisualViewController implements Controller {
     // Initialize the Add Request Popup
     optionsPopup = new JFXPopup(audioVisualPopupFactory.create().root);
     optionsPopup.setOnAutoHide(
-        new EventHandler<Event>() {
-          @Override
-          public void handle(Event event) {
-            ColorAdjust reset = new ColorAdjust();
-            reset.setBrightness(0);
-            root.setEffect(reset);
-            requestsTableView.getItems().clear();
-            requestsTableView.getItems().setAll(db.getAllAudioVisualRequests());
-          }
+        event -> {
+          ColorAdjust reset = new ColorAdjust();
+          reset.setBrightness(0);
+          root.setEffect(reset);
+          requestsTableView.getItems().clear();
+          requestsTableView.getItems().setAll(db.getAllAudioVisualRequests());
         }
     );
 
+    assignButton.setDisable(true);
+    completedButton.setDisable(true);
+
     // Disable complete request and assign employee button if no request is selected
     requestsTableView.getSelectionModel().selectedItemProperty().addListener(
-        new ChangeListener<AudioVisualRequest>() {
-          @Override
-          public void changed(ObservableValue<? extends AudioVisualRequest> observable,
-                              AudioVisualRequest oldValue, AudioVisualRequest newValue) {
-            if (newValue == null) {
-              assignButton.setDisable(true);
-              completedButton.setDisable(true);
-            } else {
-              assignButton.setDisable(false);
-              completedButton.setDisable(false);
-            }
+        (observable, oldValue, newValue) -> {
+          if (newValue == null) {
+            assignButton.setDisable(true);
+            completedButton.setDisable(true);
+          } else {
+            assignButton.setDisable(false);
+            completedButton.setDisable(false);
           }
         }
     );
@@ -143,10 +135,10 @@ public class AudioVisualViewController implements Controller {
     root.setEffect(colorAdjust);
     optionsPopup.show(root);
     optionsPopup.setX(
-        (getRoot().getLayoutBounds().getWidth() - optionsPopup.getWidth()) / 2
+        (root.getLayoutBounds().getWidth() - optionsPopup.getWidth()) / 2
     );
     optionsPopup.setY(
-        (getRoot().getLayoutBounds().getHeight() - optionsPopup.getHeight()) / 2
+        (root.getLayoutBounds().getHeight() - optionsPopup.getHeight()) / 2
     );
   }
 

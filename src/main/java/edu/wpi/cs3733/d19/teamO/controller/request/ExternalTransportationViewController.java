@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPopup;
 
 import animatefx.animation.Shake;
 import javafx.fxml.FXML;
@@ -13,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.BorderPane;
 
 import edu.wpi.cs3733.d19.teamO.controller.CheckRequestsController;
@@ -63,6 +65,10 @@ public class ExternalTransportationViewController implements Controller {
   private Database db;
   @Inject
   private CheckRequestsController.Factory checkRequestsControllerFactory;
+  @Inject
+  private ExternalTransportationPopupController.Factory externalTransportPopupFactory;
+
+  private JFXPopup addPopup;
 
   @FXML
   void initialize() {
@@ -85,11 +91,53 @@ public class ExternalTransportationViewController implements Controller {
     for (TableColumn column : requestsTableView.getColumns()) {
       column.setPrefWidth(1000); // must be a value larger than the starting window size
     }
+
+    // Initialize the Add Request Popup
+    addPopup = new JFXPopup(externalTransportPopupFactory.create().root);
+    addPopup.setOnAutoHide(
+        event -> {
+          ColorAdjust reset = new ColorAdjust();
+          reset.setBrightness(0);
+          root.setEffect(reset);
+          requestsTableView.getItems().clear();
+          requestsTableView.getItems().setAll(db.getAllExternalTransportationRequests());
+        }
+    );
+
+    assignButton.setDisable(true);
+    completedButton.setDisable(true);
+
+    // Disable complete request and assign employee button if no request is selected
+    requestsTableView.getSelectionModel().selectedItemProperty().addListener(
+        (observable, oldValue, newValue) -> {
+          if (newValue == null) {
+            assignButton.setDisable(true);
+            completedButton.setDisable(true);
+          } else {
+            assignButton.setDisable(false);
+            completedButton.setDisable(false);
+          }
+        }
+    );
   }
 
   @FXML
   void goBackButtonAction() {
     eventBus.post(new ChangeMainViewEvent(checkRequestsControllerFactory.create()));
+  }
+
+  @FXML
+  void onAddButtonAction() {
+    ColorAdjust colorAdjust = new ColorAdjust();
+    colorAdjust.setBrightness(-0.2);
+    root.setEffect(colorAdjust);
+    addPopup.show(root);
+    addPopup.setX(
+        (root.getLayoutBounds().getWidth() - addPopup.getWidth()) / 2
+    );
+    addPopup.setY(
+        (root.getLayoutBounds().getHeight() - addPopup.getHeight()) / 2
+    );
   }
 
   @FXML

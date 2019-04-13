@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 
 import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.controller.request.AudioVisualViewController;
-import edu.wpi.cs3733.d19.teamO.controller.request.ExternalTransportationController;
+import edu.wpi.cs3733.d19.teamO.controller.request.ExternalTransportationViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.FloristRequestController;
 import edu.wpi.cs3733.d19.teamO.controller.request.GiftController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ITSupportController;
@@ -78,7 +78,7 @@ public class RequestController implements Controller {
   @Inject
   private ITSupportController.Factory itSupportControllerFactory;
   @Inject
-  private ExternalTransportationController.Factory externalTransportationControllerFactory;
+  private ExternalTransportationViewController.Factory externalTransportationViewControllerFactory;
   @Inject
   private GiftController.Factory giftControllerFactory;
   @Inject
@@ -112,7 +112,7 @@ public class RequestController implements Controller {
 
   @FXML
   void externalTransportationAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(externalTransportationControllerFactory.create()));
+    eventBus.post(new ChangeMainViewEvent(externalTransportationViewControllerFactory.create()));
   }
 
   @FXML
