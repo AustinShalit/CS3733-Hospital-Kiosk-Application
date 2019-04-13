@@ -24,7 +24,7 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 @FxmlController(url = "MapEdit.fxml")
 public class MapEditController implements Controller {
   String nodeID;
-  int newID = 100;
+
   // Collection<Node> nodes;
 
   @FXML
@@ -77,8 +77,6 @@ public class MapEditController implements Controller {
 
   @FXML
   void initialize() {
-
-
     map.setNodes(database.getAllNodes());
     map.setCurrentNodes(database.getAllNodes());
     map.addNodesToPane(database.getFloor("1"));
@@ -143,13 +141,12 @@ public class MapEditController implements Controller {
 
   @FXML
   void addNodeAction() {
-    Node newNode = getNewNode(Integer.toString(newID));
+    Node newNode = getNewNode(database.getFreeNodeId());
     database.insertNode(newNode);
     status.setText("Succeed!");
     map.setNodes(database.getAllNodes());
     map.clearNodes();
     map.addNodesToPane(database.getFloor(map.getLevel()));
-    newID++;
   }
 
   @FXML
@@ -198,7 +195,7 @@ public class MapEditController implements Controller {
     } else {
       Node node1 = nodeFromDB1.get();
       Node node2 = nodeFromDB2.get();
-      Edge newEdge = new Edge("Ken" + Integer.toString(newID), node1, node2);
+      Edge newEdge = new Edge(database.getFreeEdgeId(), node1, node2);
       database.insertEdge(newEdge);
       status.setText("Succeed!");
     }
