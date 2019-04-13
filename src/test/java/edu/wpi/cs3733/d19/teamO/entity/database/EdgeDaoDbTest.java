@@ -146,4 +146,16 @@ class EdgeDaoDbTest {
     dao.insert(EDGE_AB);
     assertEquals(2, dao.getFloor("2").size());
   }
+
+  @Test
+  void testIsEdgeIdIn() {
+    dao.insert(EDGE_AB);
+    assertTrue(dao.isEdgeIdIn(EDGE_AB.getEdgeId(), dao.getAll()));
+  }
+
+  @Test
+  void testGetFreEdgeeId() {
+    dao.insert(EDGE_AB);
+    assertFalse(dao.isEdgeIdIn(dao.getFreeEdgeId(), dao.getAll()));
+  }
 }
