@@ -9,7 +9,6 @@
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
@@ -38,8 +37,8 @@
         <Font size="15.0" />
       </font>
     </JFXButton>
-    <JFXButton fx:id="backButton" onAction="#onBackButtonAction" ripplerFill="#d4d2d136" style="-fx-border-color: #d4d2d1;" text="Back" />
-    <JFXButton fx:id="genPathButton" alignment="CENTER" onAction="#onGenPathButtonAction" ripplerFill="#b5b5b536" style="-fx-background-color: e4e4e4;" text="Generate Path" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+    <JFXButton fx:id="backButton" ripplerFill="#d4d2d136" style="-fx-border-color: #d4d2d1;" text="Back" />
+    <JFXButton fx:id="genPathButton" alignment="CENTER" ripplerFill="#b5b5b536" style="-fx-background-color: e4e4e4;" text="Generate Path" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
       <font>
         <Font size="16.0" />
       </font>
@@ -56,7 +55,7 @@
                 <Font size="24.0" />
               </font>
             </Label>
-            <JFXRadioButton fx:id="startCurrLocJFXRadio" disable="true" onAction="#onStartCurrLocRadioAction" prefWidth="190.0" text="Current Location">
+            <JFXRadioButton fx:id="startCurrLocJFXRadio" disable="true" prefWidth="190.0" text="Current Location">
               <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
               </padding>
@@ -67,7 +66,7 @@
                 <Font size="17.0" />
               </font>
             </JFXRadioButton>
-            <JFXRadioButton fx:id="startSelLocJFXRadio" onAction="#onStartSelLocRadioAction" prefWidth="190.0" text="Select a Location" toggleGroup="$startLocationToggle">
+            <JFXRadioButton fx:id="startSelLocJFXRadio" prefWidth="190.0" text="Select a Location" toggleGroup="$startLocationToggle">
               <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
               </padding>
@@ -75,7 +74,7 @@
                 <Font size="17.0" />
               </font>
             </JFXRadioButton>
-            <JFXComboBox fx:id="startSelLocJFXCombo" disable="true" editable="true" onAction="#onStartSelLocComboAction" prefHeight="38.0" prefWidth="210.0" promptText="Room # or Name" />
+            <JFXComboBox fx:id="startSelLocJFXCombo" disable="true" editable="true" prefHeight="38.0" prefWidth="210.0" promptText="Room # or Name" />
           </children>
         </VBox>
       </children>
@@ -92,7 +91,7 @@
                 <Font size="24.0" />
               </font>
             </Label>
-            <JFXRadioButton fx:id="endCurrLocJFXRadio" disable="true" onAction="#onEndCurrLocRadioAction" prefWidth="190.0" text="Current Location">
+            <JFXRadioButton fx:id="endCurrLocJFXRadio" disable="true" prefWidth="190.0" text="Current Location">
               <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
               </padding>
@@ -103,7 +102,7 @@
                 <Font size="17.0" />
               </font>
             </JFXRadioButton>
-            <JFXRadioButton fx:id="endSelLocJFXRadio" onAction="#onEndSelLocRadioAction" prefWidth="190.0" text="Select a Location" toggleGroup="$endLocationToggle">
+            <JFXRadioButton fx:id="endSelLocJFXRadio" prefWidth="190.0" text="Select a Location" toggleGroup="$endLocationToggle">
               <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
               </padding>
@@ -111,7 +110,7 @@
                 <Font size="17.0" />
               </font>
             </JFXRadioButton>
-            <JFXComboBox fx:id="endSelLocJFXCombo" disable="true" editable="true" onAction="#onEndSelLocComboAction" prefHeight="38.0" prefWidth="210.0" promptText="Room # or Name" />
+            <JFXComboBox fx:id="endSelLocJFXCombo" disable="true" editable="true" prefHeight="38.0" prefWidth="210.0" promptText="Room # or Name" />
           </children>
         </VBox>
       </children>
