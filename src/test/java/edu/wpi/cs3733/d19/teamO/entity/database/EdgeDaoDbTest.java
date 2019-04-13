@@ -148,14 +148,8 @@ class EdgeDaoDbTest {
   }
 
   @Test
-  void testIsEdgeIdIn() {
-    dao.insert(EDGE_AB);
-    assertTrue(dao.isEdgeIdIn(EDGE_AB.getEdgeId(), dao.getAll()));
-  }
-
-  @Test
-  void testGetFreEdgeeId() {
-    dao.insert(EDGE_AB);
-    assertFalse(dao.isEdgeIdIn(dao.getFreeEdgeId(), dao.getAll()));
+  void testGetFreeEdgeId() {
+    String id = dao.getFreeEdgeId();
+    assertTrue(dao.insert(new Edge(id, NODE_A, NODE_B)));
   }
 }

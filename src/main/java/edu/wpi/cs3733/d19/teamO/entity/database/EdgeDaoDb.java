@@ -13,6 +13,7 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
@@ -193,36 +194,16 @@ class EdgeDaoDb implements EdgeDao {
     return Collections.emptySet();
   }
 
-  /**
-   * Get a String representing an unused id in the edge database table.
-   */
   @Override
   public String getFreeEdgeId() {
-    Set<Edge> allEdges = getAll();
+    Set<String> allEdges = getAll().stream().map(Edge::getEdgeId).collect(Collectors.toSet());
 
     while (true) {
       String rand = RandomStringUtils.randomAlphanumeric(10);
 
-      if (!isEdgeIdIn(rand, allEdges)) {
+      if (!allEdges.contains(rand)) {
         return rand;
       }
     }
-
-  }
-
-  /**
-   * Returns true if the given id is in the list of edges, false otherwise.
-   */
-  @Override
-  public boolean isEdgeIdIn(String id, Set<Edge> edges) {
-    for (Edge e : edges) {
-      String currId = e.getEdgeId();
-
-      if (id.equals(currId)) {
-        return true;
-      }
-    }
-
-    return false;
   }
 }

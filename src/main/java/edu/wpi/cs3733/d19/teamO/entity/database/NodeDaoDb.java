@@ -13,6 +13,7 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
@@ -205,31 +206,14 @@ class NodeDaoDb implements NodeDao {
    */
   @Override
   public String getFreeNodeId() {
-    Set<Node> allNodes = getAll();
+    Set<String> allNodes = getAll().stream().map(Node::getNodeId).collect(Collectors.toSet());
 
     while (true) {
       String rand = RandomStringUtils.randomAlphanumeric(10);
 
-      if (!isNodeIdIn(rand, allNodes)) {
+      if (!allNodes.contains(rand)) {
         return rand;
       }
     }
-
-  }
-
-  /**
-   * Returns true if the given id is in the list of nodes, false otherwise.
-   */
-  @Override
-  public boolean isNodeIdIn(String id, Set<Node> nodes) {
-    for (Node n : nodes) {
-      String currId = n.getNodeId();
-
-      if (id.equals(currId)) {
-        return true;
-      }
-    }
-
-    return false;
   }
 }
