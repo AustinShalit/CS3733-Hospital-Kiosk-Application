@@ -107,9 +107,9 @@ public class EmployeeController implements Controller {
 
   @FXML
   void updateEmpOnAction() {
-    if(employeeTableView.getSelectionModel().getSelectedItem() == null) {
-    selectEmplyeeShake();
-    return;
+    if (employeeTableView.getSelectionModel().getSelectedItem() == null) {
+      selectEmplyeeShake();
+      return;
     }
 
     infoLabel.setText("");
