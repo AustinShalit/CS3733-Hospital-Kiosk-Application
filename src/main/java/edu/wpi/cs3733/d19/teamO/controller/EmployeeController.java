@@ -68,6 +68,8 @@ public class EmployeeController implements Controller {
     positionCol.setCellValueFactory(new PropertyValueFactory<>("type"));
     nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 
+    updateEmployeeController = updateEmployeeControllerFactory.create();
+
     employeeTableView.getItems().setAll(db.getAllEmployee());
     employeeTableView.getSortOrder().add(nameCol); // sort by name
 
@@ -113,7 +115,6 @@ public class EmployeeController implements Controller {
     }
 
     infoLabel.setText("");
-    updateEmployeeController = updateEmployeeControllerFactory.create();
     root.setLeft(updateEmployeeController.getRoot());
   }
 
