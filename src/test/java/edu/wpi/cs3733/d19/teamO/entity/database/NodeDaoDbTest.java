@@ -135,4 +135,11 @@ class NodeDaoDbTest {
     dao.insert(TEST_NODE3);
     assertEquals(2, dao.getFloor("L2").size());
   }
+
+  @Test
+  void testGetFreeNodeId() {
+    String id = dao.getFreeNodeId();
+    assertTrue(dao.insert(new Node(id, 0, 0, "", "",
+        Node.NodeType.DEPT, "", "")));
+  }
 }
