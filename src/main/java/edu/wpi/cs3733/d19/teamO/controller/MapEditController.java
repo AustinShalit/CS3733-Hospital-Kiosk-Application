@@ -31,7 +31,6 @@ public class MapEditController implements Controller {
   private boolean updateMode = true;
   private boolean connectMode;
   private String udNodeID1 = " ";
-  int newID = 100;
   // Collection<Node> nodes;
 
   @FXML
