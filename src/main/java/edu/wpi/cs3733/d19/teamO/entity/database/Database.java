@@ -18,7 +18,6 @@ import edu.wpi.cs3733.d19.teamO.entity.GiftRequest;
 import edu.wpi.cs3733.d19.teamO.entity.ITSupportRequest;
 import edu.wpi.cs3733.d19.teamO.entity.InternalTransportationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.InterpreterRequest;
-import edu.wpi.cs3733.d19.teamO.entity.Login;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.PatientInfoRequest;
 import edu.wpi.cs3733.d19.teamO.entity.ReligiousServiceRequest;
@@ -38,7 +37,7 @@ public class Database implements AutoCloseable {
   private final SecurityRequestDao securityRequestDao;
   private final SanitationRequestDao sanitationRequestDao;
   private final SchedulingRequestDao schedulingRequestDao;
-  private final LoginDao loginDao;
+  private final EmployeeDao employeeDao;
   private final InternalTransportationRequestDao itransportationDao;
   private final AudioVisualRequestDao audioVisualRequestDao;
   private final PatientInfoRequestDaoDb patientInfoRequestDao;
@@ -48,7 +47,6 @@ public class Database implements AutoCloseable {
   private final ReligiousServiceRequestDao rserviceDao;
   private final ITSupportRequestDao itSupportDao;
   private final FloristRequestDao floristRequestDao;
-  private final EmployeeDao employeeDao;
   private final InterpreterRequestDao interpreterDao;
 
   private final DatabaseConnectionFactory dcf;
@@ -69,7 +67,6 @@ public class Database implements AutoCloseable {
     this.supportAnimalRequestDao = new SupportAnimalRequestDaoDb(dcf);
     this.itSupportDao = new ITSupportRequestDaoDb(dcf);
     this.employeeDao = new EmployeeDaoDb(dcf);
-    this.loginDao = new LoginDaoDb(dcf);
     this.interpreterDao = new InterpreterRequestDaoDb(dcf);
     this.giftRequestDao = new GiftRequestDaoDb(dcf);
 
@@ -203,26 +200,26 @@ public class Database implements AutoCloseable {
   }
 
   /*
-   * Login
+   * Employee
    */
-  public Optional<Login> getLogin(String username) {
-    return loginDao.get(username);
+  public Optional<Employee> getEmployee(int id) {
+    return employeeDao.get(id);
   }
 
-  public Set<Login> getAllLogin() {
-    return loginDao.getAll();
+  public Set<Employee> getAllEmployee() {
+    return employeeDao.getAll();
   }
 
-  public boolean insertLogin(Login login) {
-    return loginDao.insert(login);
+  public boolean insertEmployee(Employee employee) {
+    return employeeDao.insert(employee);
   }
 
-  public boolean deleteLogin(Login login) {
-    return loginDao.delete(login);
+  public boolean deleteEmployee(Employee employee) {
+    return employeeDao.delete(employee);
   }
 
-  public boolean updateLogin(Login login) {
-    return loginDao.update(login);
+  public boolean updateEmployee(Employee employee) {
+    return employeeDao.update(employee);
   }
 
   /*
@@ -264,29 +261,6 @@ public class Database implements AutoCloseable {
    */
   public boolean schedulingRequestWouldConflict(SchedulingRequest schedulingRequest) {
     return schedulingRequestDao.wouldConflict(schedulingRequest);
-  }
-
-  /*
-   * Employee
-   */
-  public Optional<Employee> getEmployee(int id) {
-    return employeeDao.get(id);
-  }
-
-  public Set<Employee> getAllEmployees() {
-    return employeeDao.getAll();
-  }
-
-  public boolean insertEmployee(Employee employee) {
-    return employeeDao.insert(employee);
-  }
-
-  public boolean deleteEmployee(Employee employee) {
-    return employeeDao.delete(employee);
-  }
-
-  public boolean updateEmployee(Employee employee) {
-    return employeeDao.update(employee);
   }
 
   /*
