@@ -40,9 +40,9 @@
     <cursor>
       <Cursor fx:constant="DEFAULT" />
     </cursor>
-      <font>
-         <Font size="23.0" />
-      </font>
+    <font>
+      <Font size="23.0" />
+    </font>
   </JFXButton>
   <JFXButton fx:id="levelF2" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#onFloorSelectAction" onMouseEntered="#onMouseMove" prefHeight="50.0" prefWidth="50.0" ripplerFill="BLACK" text="2" textAlignment="CENTER" textFill="WHITE" StackPane.alignment="BOTTOM_RIGHT">
     <opaqueInsets>
@@ -51,9 +51,9 @@
     <StackPane.margin>
       <Insets bottom="255.0" right="20.0" />
     </StackPane.margin>
-      <font>
-         <Font size="23.0" />
-      </font>
+    <font>
+      <Font size="23.0" />
+    </font>
   </JFXButton>
   <JFXButton fx:id="levelF1" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#onFloorSelectAction" onMouseEntered="#onMouseMove" prefHeight="50.0" prefWidth="50.0" ripplerFill="BLACK" text="1" textAlignment="CENTER" textFill="WHITE" StackPane.alignment="BOTTOM_RIGHT">
     <opaqueInsets>
@@ -62,9 +62,9 @@
     <StackPane.margin>
       <Insets bottom="195.0" right="20.0" />
     </StackPane.margin>
-      <font>
-         <Font size="23.0" />
-      </font>
+    <font>
+      <Font size="23.0" />
+    </font>
   </JFXButton>
   <JFXButton fx:id="levelG" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#onFloorSelectAction" onMouseEntered="#onMouseMove" prefHeight="50.0" prefWidth="50.0" ripplerFill="BLACK" text="G" textAlignment="CENTER" textFill="WHITE" StackPane.alignment="BOTTOM_RIGHT">
     <opaqueInsets>
@@ -73,9 +73,9 @@
     <StackPane.margin>
       <Insets bottom="135.0" right="20.0" />
     </StackPane.margin>
-      <font>
-         <Font size="23.0" />
-      </font>
+    <font>
+      <Font size="23.0" />
+    </font>
   </JFXButton>
   <JFXButton fx:id="levelL1" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#onFloorSelectAction" onMouseEntered="#onMouseMove" prefHeight="50.0" prefWidth="50.0" ripplerFill="BLACK" text="L1" textAlignment="CENTER" textFill="WHITE" StackPane.alignment="BOTTOM_RIGHT">
     <opaqueInsets>
@@ -84,9 +84,9 @@
     <StackPane.margin>
       <Insets bottom="75.0" right="20.0" />
     </StackPane.margin>
-      <font>
-         <Font size="21.0" />
-      </font>
+    <font>
+      <Font size="21.0" />
+    </font>
   </JFXButton>
   <JFXButton fx:id="levelL2" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#onFloorSelectAction" onMouseEntered="#onMouseMove" prefHeight="50.0" prefWidth="50.0" ripplerFill="BLACK" text="L2" textAlignment="CENTER" textFill="WHITE" StackPane.alignment="BOTTOM_RIGHT">
     <opaqueInsets>
@@ -98,9 +98,9 @@
     <cursor>
       <Cursor fx:constant="DEFAULT" />
     </cursor>
-      <font>
-         <Font size="21.0" />
-      </font>
+    <font>
+      <Font size="21.0" />
+    </font>
   </JFXButton>
   <Label fx:id="coordX" text="X-coord" StackPane.alignment="BOTTOM_LEFT">
     <padding>
