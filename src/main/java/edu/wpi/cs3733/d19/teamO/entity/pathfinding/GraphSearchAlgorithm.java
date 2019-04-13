@@ -10,5 +10,13 @@ import com.google.common.graph.Graph;
  * @param <T> The type of graph the search algorithm is searching
  */
 public interface GraphSearchAlgorithm<T> {
+  /**
+   * The unique name of this search algorithm.
+   */
+  String getName();
+
+  /**
+   * Given a graph, get the path between the start and end nodes.
+   */
   List<T> getPath(Graph<T> graph, T start, T goal);
 }

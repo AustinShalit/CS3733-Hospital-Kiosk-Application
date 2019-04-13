@@ -38,7 +38,13 @@ public final class PreferencesUtilities {
       throw new IllegalArgumentException("The property must have a value");
     }
 
-    preferences.put(property.getName(), serializer.apply(value));
+    System.out.println(value);
+
+    String name = serializer.apply(value);
+
+    System.out.println(name);
+
+    preferences.put(property.getName(), name);
   }
 
   /**

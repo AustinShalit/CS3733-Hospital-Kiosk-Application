@@ -10,6 +10,11 @@ import com.google.common.graph.Graph;
 
 class BreadthFirstSearchAlgorithm<T> extends UninformedGraphSearchAlgorithm<T> {
   @Override
+  public String getName() {
+    return "Breadth First Search";
+  }
+
+  @Override
   public List<T> getPath(final Graph<T> graph, final T start, final T goal) {
     final Queue<T> frontier = new LinkedList<>();
     final Map<T, T> cameFrom = new HashMap<>();

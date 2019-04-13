@@ -1,7 +1,5 @@
 package edu.wpi.cs3733.d19.teamO;
 
-import java.util.prefs.Preferences;
-
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.Group;
 import com.dlsc.preferencesfx.model.Setting;
@@ -12,26 +10,33 @@ import javafx.beans.property.SimpleObjectProperty;
 
 import edu.wpi.cs3733.d19.teamO.entity.pathfinding.GraphSearchAlgorithm;
 import edu.wpi.cs3733.d19.teamO.entity.pathfinding.GraphSearchAlgorithms;
-import edu.wpi.cs3733.d19.teamO.entity.setting.PreferencesUtilities;
 
 public final class AppPreferences {
 
   private final ObjectProperty<GraphSearchAlgorithm> graphSearchAlgorithm
-      = new SimpleObjectProperty<>();
+      = new SimpleObjectProperty<>(this, "graphSearchAlgorithm", GraphSearchAlgorithms.INITIAL);
 
   private final Category settings = Category.of("App Settings",
       Group.of("Path Planning",
-          Setting.of("Search Algorithm", GraphSearchAlgorithms.getItems(), graphSearchAlgorithm)
+          Setting.of("Search Algorithm",
+              GraphSearchAlgorithms.getInstance().getItems(),
+              graphSearchAlgorithm)
       )
   );
 
   public AppPreferences() {
-    Preferences preferences = Preferences.userNodeForPackage(getClass());
-    PreferencesUtilities.read(graphSearchAlgorithm, preferences, GraphSearchAlgorithms::forName);
-
-    graphSearchAlgorithm.addListener(observable -> PreferencesUtilities.save(graphSearchAlgorithm,
+    /*
+    Preferences preferences = Preferences.userNodeForPackage(AppPreferences.class);
+    PreferencesUtilities.read(graphSearchAlgorithm,
         preferences,
-        algorithm -> algorithm.getClass().getName()));
+        GraphSearchAlgorithms.getInstance()::forName);
+
+    graphSearchAlgorithm.addListener(((observable, oldValue, newValue) -> {
+      PreferencesUtilities.save(graphSearchAlgorithm,
+          preferences,
+          GraphSearchAlgorithm::getName);
+    }));
+    */
   }
 
   public Category getSettings() {
