@@ -17,9 +17,9 @@ import edu.wpi.cs3733.d19.teamO.controller.request.ITSupportViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.InternalTransportationViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.InterpreterViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.PatientInfoViewController;
+import edu.wpi.cs3733.d19.teamO.controller.request.PrescriptionViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ReligiousServiceViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.SupportAnimalViewController;
-import edu.wpi.cs3733.d19.teamO.controller.v2.request.PrescriptionViewController;
 
 @FxmlController(url = "CheckRequests.fxml")
 @SuppressWarnings({"PMD.TooManyFields", "PMD.TooManyMethods"})

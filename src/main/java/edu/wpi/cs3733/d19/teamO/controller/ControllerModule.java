@@ -12,7 +12,6 @@ import com.google.inject.spi.TypeListener;
 
 import javafx.fxml.FXMLLoader;
 
-import edu.wpi.cs3733.d19.teamO.SuppressFBWarnings;
 import edu.wpi.cs3733.d19.teamO.controller.request.AudioVisualController;
 import edu.wpi.cs3733.d19.teamO.controller.request.AudioVisualViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ExternalTransportationController;
@@ -29,15 +28,14 @@ import edu.wpi.cs3733.d19.teamO.controller.request.InterpreterController;
 import edu.wpi.cs3733.d19.teamO.controller.request.InterpreterViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.PatientInfoController;
 import edu.wpi.cs3733.d19.teamO.controller.request.PatientInfoViewController;
+import edu.wpi.cs3733.d19.teamO.controller.request.PrescriptionRequestController;
+import edu.wpi.cs3733.d19.teamO.controller.request.PrescriptionViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ReligiousServiceController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ReligiousServiceViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.SupportAnimalController;
 import edu.wpi.cs3733.d19.teamO.controller.request.SupportAnimalViewController;
-import edu.wpi.cs3733.d19.teamO.controller.v2.request.PrescriptionRequestController;
-import edu.wpi.cs3733.d19.teamO.controller.v2.request.PrescriptionViewController;
 
-@SuppressFBWarnings
-@SuppressWarnings("PMD.CouplingBetweenObjects")
+@SuppressWarnings({"PMD.CouplingBetweenObjects", "PMD.ExcessiveImports"})
 public class ControllerModule extends AbstractModule {
   @Override
   protected void configure() {
@@ -101,7 +99,6 @@ public class ControllerModule extends AbstractModule {
 
     install(new FactoryModuleBuilder().build(SupportAnimalController.Factory.class));
     install(new FactoryModuleBuilder().build(SupportAnimalViewController.Factory.class));
-
 
 
     install(new FactoryModuleBuilder().build(ITSupportController.Factory.class));

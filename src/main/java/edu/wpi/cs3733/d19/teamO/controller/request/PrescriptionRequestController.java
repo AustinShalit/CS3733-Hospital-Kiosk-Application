@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.d19.teamO.controller.v2.request;
+package edu.wpi.cs3733.d19.teamO.controller.request;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -17,11 +17,11 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
-import edu.wpi.cs3733.d19.teamO.controller.v2.Controller;
-import edu.wpi.cs3733.d19.teamO.controller.v2.DialogHelper;
-import edu.wpi.cs3733.d19.teamO.controller.v2.FxmlController;
-import edu.wpi.cs3733.d19.teamO.controller.v2.RequestController;
-import edu.wpi.cs3733.d19.teamO.controller.v2.event.ChangeMainViewEvent;
+import edu.wpi.cs3733.d19.teamO.controller.Controller;
+import edu.wpi.cs3733.d19.teamO.controller.DialogHelper;
+import edu.wpi.cs3733.d19.teamO.controller.FxmlController;
+import edu.wpi.cs3733.d19.teamO.controller.RequestController;
+import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.PrescriptionRequest;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
