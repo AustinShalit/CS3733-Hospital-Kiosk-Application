@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 <?import javafx.scene.text.Text?>
 
 <BorderPane id="login" fx:id="root" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="root" stylesheets="@style/KioskStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.LoginController">
@@ -24,12 +23,12 @@
           <Insets bottom="15.0" />
         </VBox.margin>
       </Label>
-      <JFXTextField fx:id="username" focusColor="#0067b1" maxWidth="350.0" prefHeight="50.0" prefWidth="350.0" promptText="Username" styleClass="jfx-text-field">
+      <JFXTextField fx:id="username" focusColor="#0067b1" maxWidth="350.0" prefHeight="50.0" prefWidth="350.0" promptText="Username" styleClass="jfx-text-field" text="admin">
         <VBox.margin>
           <Insets bottom="15.0" />
         </VBox.margin>
       </JFXTextField>
-      <JFXPasswordField fx:id="password" focusColor="#0067b1" maxWidth="350.0" prefHeight="50.0" promptText="Password" styleClass="jfx-text-field">
+      <JFXPasswordField fx:id="password" focusColor="#0067b1" maxWidth="350.0" prefHeight="50.0" promptText="Password" styleClass="jfx-text-field" text="wong">
         <VBox.margin>
           <Insets bottom="10.0" />
         </VBox.margin>

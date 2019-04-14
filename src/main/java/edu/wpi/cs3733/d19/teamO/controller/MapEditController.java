@@ -28,6 +28,9 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 public class MapEditController implements Controller {
   String nodeID;
 
+  int newID = 100;
+  private boolean updateMode = true;
+
   // Collection<Node> nodes;
 
   @FXML
@@ -98,10 +101,14 @@ public class MapEditController implements Controller {
   @FXML
   void initialize() {
 
+
+    nodeTypeComboBox.getItems().addAll(Node.NodeType.values());
+
     // Setup the table view
     setupTableView();
 
     // Setup side view
+
     map.setNodes(database.getAllNodes());
     map.setCurrentNodes(database.getAllNodes());
     map.addNodesToPane(database.getFloor("1"));
@@ -114,6 +121,7 @@ public class MapEditController implements Controller {
       ycoordField.setText(Integer.toString(newValue.getYcoord()));
       floorField.setText(newValue.getFloor());
       buildingField.setText(newValue.getBuilding());
+
       nodeTypeComboBox.setValue(newValue.getNodeType());
       longNameField.setText(newValue.getLongName());
       shortNameField.setText(newValue.getShortName());
@@ -132,15 +140,6 @@ public class MapEditController implements Controller {
   }
 
   /**
-   * A cool comboBox of nodetype.
-   */
-  @SuppressWarnings("PMD.UnusedPrivateMethod")
-  @FXML
-  private void comboBox() {
-    nodeTypeComboBox.getItems().addAll(Node.NodeType.values());
-  }
-
-  /**
    * Check if all fields filled.
    */
   @FXML
@@ -154,13 +153,11 @@ public class MapEditController implements Controller {
       addButton.setDisable(true);
       connectButton.setDisable(true);
       deleteButton.setDisable(true);
-      updateButton.setDisable(true);
 
     } else {
       addButton.setDisable(false);
       connectButton.setDisable(false);
       deleteButton.setDisable(false);
-      updateButton.setDisable(false);
     }
   }
 
@@ -198,18 +195,48 @@ public class MapEditController implements Controller {
 
   @FXML
   void updateNodeAction() {
-    String udNodeID = nodeID;
-    Optional<Node> nodeFromDB = database.getNode(udNodeID);
-    if (!nodeFromDB.isPresent()) {
-      status.setText("ERROR: InvalidNodeID");
+    if (updateMode) {
+      map.setCircleVisibility(false);
+      String udNodeID = nodeID;
+      //database.getEdgesFor(getNewNode(udNodeID)).forEach(database::deleteEdge);
+      Optional<Node> opt = database.getNode(udNodeID);
+      if (!opt.isPresent()) {
+        status.setText("ERROR: InvalidNodeID");
+      } else {
+        Node deleteNode = opt.get();
+        map.setCircleDrag(deleteNode.getXcoord(), deleteNode.getYcoord());
+        map.setCircleDragVisibility(true);
+        Node updateNode = new Node(nodeIDField.getText(),
+            50000,
+            50000,
+            floorField.getText(),
+            buildingField.getText(),
+            nodeTypeComboBox.getValue(),
+            longNameField.getText(),
+            shortNameField.getText());
+        database.updateNode(updateNode);
+        //database.deleteNode(deleteNode);
+        map.setNodes(database.getAllNodes());
+        map.clearNodes();
+        map.addNodesToPane(database.getFloor(map.getLevel()));
+        map.setGesturePane(false);
+        map.setDragStatus(true);
+        updateButton.setText("Confirm");
+        updateMode = false;
+      }
     } else {
-      Node updateNode = getNewNode(nodeID);
+      Node updateNode = getNewNode(nodeIDField.getText());
       database.updateNode(updateNode);
-      status.setText("Succeed!");
       map.setNodes(database.getAllNodes());
       map.clearNodes();
       map.addNodesToPane(database.getFloor(map.getLevel()));
+      updateButton.setText("Update");
+      updateMode = true;
+      map.setDragStatus(false);
+      map.setGesturePane(true);
+      map.setCircleDragVisibility(false);
     }
+
   }
 
 
@@ -230,6 +257,11 @@ public class MapEditController implements Controller {
     }
   }
 
+  @FXML
+  void onEnter() {
+    map.setCircleDrag( Integer.parseInt(xcoordField.getText()),
+        Integer.parseInt(ycoordField.getText()));
+  }
 
   private Node getNewNode(String s) {
     return new Node(s,
