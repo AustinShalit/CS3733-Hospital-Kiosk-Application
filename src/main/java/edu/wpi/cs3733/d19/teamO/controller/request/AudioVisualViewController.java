@@ -16,6 +16,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Screen;
 
 import edu.wpi.cs3733.d19.teamO.controller.CheckRequestsController;
 import edu.wpi.cs3733.d19.teamO.controller.Controller;
@@ -132,10 +133,10 @@ public class AudioVisualViewController implements Controller {
     root.setEffect(colorAdjust);
     optionsPopup.show(root);
     optionsPopup.setX(
-        (getRoot().getLayoutBounds().getWidth() - optionsPopup.getWidth()) / 2
+        (Screen.getPrimary().getVisualBounds().getWidth() - optionsPopup.getWidth()) / 2
     );
     optionsPopup.setY(
-        (getRoot().getLayoutBounds().getHeight() - optionsPopup.getHeight()) / 2
+        (Screen.getPrimary().getVisualBounds().getHeight() - optionsPopup.getHeight()) / 2
     );
   }
 
