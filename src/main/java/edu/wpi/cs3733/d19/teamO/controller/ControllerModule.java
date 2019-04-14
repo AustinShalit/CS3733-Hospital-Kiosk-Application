@@ -25,6 +25,7 @@ import edu.wpi.cs3733.d19.teamO.controller.request.GiftViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ITSupportController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ITSupportViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.InternalTransportationController;
+import edu.wpi.cs3733.d19.teamO.controller.request.InternalTransportationPopupController;
 import edu.wpi.cs3733.d19.teamO.controller.request.InternalTransportationViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.InterpreterController;
 import edu.wpi.cs3733.d19.teamO.controller.request.InterpreterPopupController;
@@ -89,8 +90,11 @@ public class ControllerModule extends AbstractModule {
 
     install(new FactoryModuleBuilder().build(AudioVisualController.Factory.class));
     install(new FactoryModuleBuilder().build(AudioVisualViewController.Factory.class));
+
+    install(new FactoryModuleBuilder().build(InternalTransportationPopupController.Factory.class));
     install(new FactoryModuleBuilder().build(InternalTransportationController.Factory.class));
     install(new FactoryModuleBuilder().build(InternalTransportationViewController.Factory.class));
+
     install(new FactoryModuleBuilder().build(PatientInfoController.Factory.class));
     install(new FactoryModuleBuilder().build(PatientInfoViewController.Factory.class));
 
