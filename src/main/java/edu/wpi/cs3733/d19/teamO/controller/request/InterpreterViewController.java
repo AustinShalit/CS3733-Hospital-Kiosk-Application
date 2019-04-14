@@ -70,12 +70,12 @@ public class InterpreterViewController implements Controller {
 
   @FXML
   void initialize() {
-    idTableCol.setCellValueFactory(new PropertyValueFactory<>("sr_id"));
+    idTableCol.setCellValueFactory(new PropertyValueFactory<>("id"));
     timeRequestedCol.setCellValueFactory(new PropertyValueFactory<>("timeRequested"));
     //timeCompletedCol.setCellValueFactory(new PropertyValueFactory<>("timeCompletedString"));
     whoCompletedCol.setCellValueFactory(new PropertyValueFactory<>("whoCompleted"));
     locationTableCol.setCellValueFactory(new PropertyValueFactory<>("locationNodeIdString"));
-    categoryTableCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+    categoryTableCol.setCellValueFactory(new PropertyValueFactory<>("language"));
     descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
 
     requestsTableView.getItems().setAll(db.getAllInterpreterRequests());
