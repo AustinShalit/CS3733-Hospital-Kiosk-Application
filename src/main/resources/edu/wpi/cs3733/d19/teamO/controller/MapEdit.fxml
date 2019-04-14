@@ -3,9 +3,10 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTabPane?>
-<?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import edu.wpi.cs3733.d19.teamO.component.MapView2?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.GridPane?>
@@ -14,6 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+
 
 
 
@@ -51,7 +53,7 @@
                     <Font size="15.0" />
                   </font>
                 </Text>
-                <JFXTextField fx:id="nodeIDField" editable="false" text="Auto-Generated" onKeyReleased="#validateButton" prefHeight="25.0" prefWidth="132.0">
+                <JFXTextField fx:id="nodeIDField" editable="false" onKeyReleased="#validateButton" prefHeight="25.0" prefWidth="132.0" text="Auto-Generated">
                   <VBox.margin>
                     <Insets bottom="5.0" left="30.0" right="30.0" />
                   </VBox.margin>
@@ -68,7 +70,7 @@
 
                   </VBox.margin>
                 </Text>
-                <JFXTextField onKeyReleased="#validateButton" prefHeight="25.0" prefWidth="132.0" fx:id="xcoordField">
+                <JFXTextField onAction="#onEnter" onKeyReleased="#validateButton" prefHeight="25.0" prefWidth="132.0" fx:id="xcoordField">
                   <VBox.margin>
                     <Insets bottom="5.0" left="30.0" right="30.0" />
                   </VBox.margin>
@@ -78,7 +80,7 @@
                     <Font size="15.0" />
                   </font>
                 </Text>
-                <JFXTextField fx:id="ycoordField" onKeyReleased="#validateButton" prefHeight="25.0" prefWidth="132.0">
+                <JFXTextField fx:id="ycoordField" onKeyReleased="#validateButton" prefHeight="25.0" prefWidth="132.0" onAction="#onEnter">
                   <VBox.margin>
                     <Insets bottom="5.0" left="30.0" right="30.0" />
                   </VBox.margin>
@@ -109,7 +111,7 @@
                   </font>
                 </Text>
 
-                <JFXComboBox fx:id="nodeTypeComboBox" editable="false" focusColor="#004e86" onMouseClicked="#comboBox" onMouseExited="#validateButton" prefHeight="35.0" prefWidth="146.0" promptText=" ">
+                <JFXComboBox fx:id="nodeTypeComboBox" editable="false" focusColor="#004e86" onMouseExited="#validateButton" prefHeight="35.0" prefWidth="146.0" promptText=" ">
 
                   <VBox.margin>
                     <Insets bottom="5.0" />
@@ -171,7 +173,7 @@
                     <Insets bottom="6.0" />
                   </VBox.margin>
                 </JFXButton>
-                <JFXButton fx:id="updateButton" disable="true" onAction="#updateNodeAction" prefHeight="40.0" prefWidth="294.0" ripplerFill="#013c78" style="-fx-background-color: #012d5a;" text="Update" textFill="WHITE">
+                <JFXButton fx:id="updateButton" disable="false" onAction="#updateNodeAction" prefHeight="40.0" prefWidth="294.0" ripplerFill="#013c78" style="-fx-background-color: #012d5a;" text="Update" textFill="WHITE">
                   <VBox.margin>
                     <Insets bottom="6.0" />
                   </VBox.margin>
