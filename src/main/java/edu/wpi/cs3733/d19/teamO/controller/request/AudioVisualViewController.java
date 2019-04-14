@@ -135,10 +135,10 @@ public class AudioVisualViewController implements Controller {
     root.setEffect(colorAdjust);
     optionsPopup.show(root);
     optionsPopup.setX(
-        (root.getLayoutBounds().getWidth() - optionsPopup.getWidth()) / 2
+        (root.getScene().getWindow().getWidth() - optionsPopup.getWidth()) / 2
     );
     optionsPopup.setY(
-        (root.getLayoutBounds().getHeight() - optionsPopup.getHeight()) / 2
+        (root.getScene().getWindow().getHeight() - optionsPopup.getHeight()) / 2
     );
   }
 

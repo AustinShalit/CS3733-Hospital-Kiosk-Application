@@ -20,7 +20,7 @@ import edu.wpi.cs3733.d19.teamO.controller.request.InterpreterController;
 import edu.wpi.cs3733.d19.teamO.controller.request.PatientInfoController;
 import edu.wpi.cs3733.d19.teamO.controller.request.PrescriptionRequestController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ReligiousServiceController;
-import edu.wpi.cs3733.d19.teamO.controller.request.SanitationController;
+import edu.wpi.cs3733.d19.teamO.controller.request.SanitationViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.SupportAnimalController;
 
 @FxmlController(url = "ServiceRequest.fxml")
@@ -94,7 +94,7 @@ public class RequestController implements Controller {
   @Inject
   private PrescriptionRequestController.Factory prescriptionRequestControllerFactory;
   @Inject
-  private SanitationController.Factory sanitationControllerFactory;
+  private SanitationViewController.Factory sanitationControllerFactory;
 
   @FXML
   void internalTransportationAction(ActionEvent event) {

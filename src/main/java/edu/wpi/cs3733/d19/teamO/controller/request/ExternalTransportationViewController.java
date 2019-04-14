@@ -133,10 +133,10 @@ public class ExternalTransportationViewController implements Controller {
     root.setEffect(colorAdjust);
     addPopup.show(root);
     addPopup.setX(
-        (root.getLayoutBounds().getWidth() - addPopup.getWidth()) / 2
+        (root.getScene().getWindow().getWidth() - addPopup.getWidth()) / 2
     );
     addPopup.setY(
-        (root.getLayoutBounds().getHeight() - addPopup.getHeight()) / 2
+        (root.getScene().getWindow().getHeight() - addPopup.getHeight()) / 2
     );
   }
 

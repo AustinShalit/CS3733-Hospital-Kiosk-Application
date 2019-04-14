@@ -109,7 +109,7 @@ public class ExternalTransportationPopupController implements Controller {
         && Objects.nonNull(categorybox.getValue())) {
 
       LocalDateTime now = LocalDateTime.now();
-      Node node = (Node) locationbox.getValue();
+      Node node = locationbox.getValue();
 
       String type = categorybox.getValue().toString().toUpperCase(new Locale("EN"));
       ExternalTransportationRequest.ExternalTransportationRequestType externalRequestType =
