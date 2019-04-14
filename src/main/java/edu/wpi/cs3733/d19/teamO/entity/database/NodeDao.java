@@ -27,4 +27,9 @@ interface NodeDao extends Dao<String, Node> {
    * Get a String representing an unused id in the node database table.
    */
   String getFreeNodeId();
+
+  //boolean insertPolygonNode();
+
+  //boolean updatePolygonNode();
+
 }

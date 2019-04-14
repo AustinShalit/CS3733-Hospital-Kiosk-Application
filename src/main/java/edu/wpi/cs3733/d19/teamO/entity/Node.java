@@ -1,10 +1,14 @@
 package edu.wpi.cs3733.d19.teamO.entity;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.google.common.base.MoreObjects;
+
+import javafx.scene.shape.Polygon;
 
 public class Node {
 
@@ -69,6 +73,7 @@ public class Node {
   private final NodeType nodeType;
   private final String longName;
   private final String shortName;
+  private final Polygon polygon;
 
   /**
    * Create a node.
@@ -84,6 +89,21 @@ public class Node {
     this.nodeType = nodeType;
     this.longName = longName;
     this.shortName = shortName;
+    this.polygon = new Polygon();
+  }
+
+  public Node(final String nodeId, final int xcoord, final int ycoord, final String floor,
+              final String building, final NodeType nodeType, final String longName,
+              final String shortName, final Polygon polygon) {
+    this.nodeId = nodeId;
+    this.xcoord = xcoord;
+    this.ycoord = ycoord;
+    this.floor = floor;
+    this.building = building;
+    this.nodeType = nodeType;
+    this.longName = longName;
+    this.shortName = shortName;
+    this.polygon = polygon;
   }
 
   public String getNodeId() {
@@ -184,5 +204,27 @@ public class Node {
     } else {
       return -3;
     }
+  }
+
+  /**
+   * Given a string of x y coordinates representing a polygon, parse
+   * them and return a new polygon with those coordinates.
+   * @param polygonString "1 3;3 5;"
+   * @return
+   */
+  public static Polygon parsePolygonFromString(String polygonString) {
+    Polygon polygon = new Polygon();
+    List<Double> points = new LinkedList<Double>();
+    String[] split = polygonString.split(";");
+
+    for(String pair : split) {
+      double x = Double.parseDouble(pair.split(" ")[0]);
+      double y = Double.parseDouble(pair.split(" ")[1]);
+      points.add(x);
+      points.add(y);
+    }
+    polygon.getPoints().addAll(points);
+
+    return polygon;
   }
 }

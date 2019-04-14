@@ -139,6 +139,7 @@ class NodeDaoDb implements NodeDao {
         Node.NodeType.get(resultSet.getString("type")),
         resultSet.getString("long_name"),
         resultSet.getString("short_name")
+        //resultSet.getString("polygon_coordinates")
     );
   }
 
