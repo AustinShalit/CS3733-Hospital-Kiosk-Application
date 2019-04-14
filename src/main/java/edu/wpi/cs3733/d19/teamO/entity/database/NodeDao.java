@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d19.teamO.entity.database;
 
+import java.util.List;
 import java.util.Set;
 
 import edu.wpi.cs3733.d19.teamO.entity.Node;
@@ -27,4 +28,6 @@ interface NodeDao extends Dao<String, Node> {
    * Get a String representing an unused id in the node database table.
    */
   String getFreeNodeId();
+
+  List<Node> getAllByLongname();
 }
