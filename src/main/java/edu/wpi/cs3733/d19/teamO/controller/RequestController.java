@@ -19,7 +19,7 @@ import edu.wpi.cs3733.d19.teamO.controller.request.InternalTransportationViewCon
 import edu.wpi.cs3733.d19.teamO.controller.request.InterpreterViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.PatientInfoViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.PrescriptionViewController;
-import edu.wpi.cs3733.d19.teamO.controller.request.ReligiousServiceController;
+import edu.wpi.cs3733.d19.teamO.controller.request.ReligiousServiceViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.SanitationViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.SupportAnimalController;
 
@@ -80,7 +80,7 @@ public class RequestController implements Controller {
   @Inject
   private InterpreterViewController.Factory interpreterControllerFactory;
   @Inject
-  private ReligiousServiceController.Factory religiousServiceControllerFactory;
+  private ReligiousServiceViewController.Factory religiousServiceControllerFactory;
   @Inject
   private SupportAnimalController.Factory supportAnimalControllerFactory;
   @Inject
