@@ -155,6 +155,7 @@ public class MapView2 extends StackPane {
             selectedNode.set(n);
             break;
           }
+
         }
         findCurrentEdge(level);
 
@@ -167,9 +168,10 @@ public class MapView2 extends StackPane {
             selectedEdge.set(ed);
             break;
           }
-        }
 
+        }
       }
+
     });
     gesturePane.setFitMode(GesturePane.FitMode.COVER);
     gesturePane.setScrollBarEnabled(false);
@@ -449,6 +451,7 @@ public class MapView2 extends StackPane {
   public void setCircleDragVisibility(boolean visibility) {
     circleDrag.setVisible(visibility);
   }
+  
 
   private void updateDisplay() {
     clearNodes();
@@ -458,6 +461,7 @@ public class MapView2 extends StackPane {
     findCurrentEdge(level);
     addEdgesToPane(currentEdges);
   }
+
 
 
 }

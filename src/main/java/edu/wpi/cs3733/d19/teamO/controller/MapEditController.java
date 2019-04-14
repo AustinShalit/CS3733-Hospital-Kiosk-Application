@@ -27,9 +27,11 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 @FxmlController(url = "MapEdit.fxml")
 public class MapEditController implements Controller {
   String nodeID;
+
   private boolean updateMode = true;
   private boolean connectMode;
   private String udNodeID1 = " ";
+
   // Collection<Node> nodes;
 
   @FXML
@@ -99,11 +101,16 @@ public class MapEditController implements Controller {
   @FXML
   void initialize() {
 
+
+    nodeTypeComboBox.getItems().addAll(Node.NodeType.values());
+
     // Setup the table view
     setupTableView();
 
     // Setup side view
+
     nodeTypeComboBox.getItems().addAll(Node.NodeType.values());
+
     map.setNodes(database.getAllNodes());
     map.setCurrentNodes(database.getAllNodes());
     map.setDatabaseEdge(database.getAllEdges());
@@ -158,11 +165,11 @@ public class MapEditController implements Controller {
       connectButton.setDisable(true);
       deleteButton.setDisable(true);
       updateButton.setDisable(true);
+
     } else {
       addButton.setDisable(false);
       connectButton.setDisable(false);
       deleteButton.setDisable(false);
-      updateButton.setDisable(false);
     }
   }
 
@@ -231,11 +238,11 @@ public class MapEditController implements Controller {
         addButton.setDisable(true);
         deleteButton.setDisable(true);
         connectButton.setDisable(true);
+
       }
     } else {
       Node updateNode = getNewNode(nodeIDField.getText());
       database.updateNode(updateNode);
-      status.setText("Succeed!");
       map.setNodes(database.getAllNodes());
       map.clearEdges();
       map.addEdgesToPane(database.getEdgeByFloor(map.getLevel()));
@@ -249,6 +256,7 @@ public class MapEditController implements Controller {
       addButton.setDisable(false);
       deleteButton.setDisable(false);
       connectButton.setDisable(false);
+
     }
 
   }
