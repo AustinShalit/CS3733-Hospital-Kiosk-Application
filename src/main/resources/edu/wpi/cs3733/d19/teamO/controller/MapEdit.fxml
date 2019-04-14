@@ -3,12 +3,13 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTabPane?>
-<?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import edu.wpi.cs3733.d19.teamO.component.MapView2?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -17,13 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-
-<?import javafx.scene.control.Label?>
-<?import edu.wpi.cs3733.d19.teamO.component.MapView2?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TableColumn?>
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.MapEditController">
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.MapEditController">
   <left>
     <StackPane maxWidth="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
       <children>
@@ -146,7 +141,7 @@
                     <Font size="14.0" />
                   </font>
                 </Label>
-                <JFXButton fx:id="addButton" disable="true" onAction="#addNodeAction" prefHeight="40.0" prefWidth="294.0" ripplerFill="#013c78" style="-fx-background-color: #012d5a;" text="Add" textFill="WHITE">
+                <JFXButton fx:id="addButton" disable="true" onAction="#addNodeAction" prefHeight="40.0" prefWidth="294.0" ripplerFill="#9cd1ff" style="-fx-background-color: #012d5a;" text="Add" textFill="WHITE">
                   <font>
                     <Font name="System Bold" size="15.0" />
                   </font>
@@ -154,7 +149,7 @@
                     <Insets bottom="6.0" />
                   </VBox.margin>
                 </JFXButton>
-                <JFXButton fx:id="deleteButton" disable="true" onAction="#deleteNodeAction" prefHeight="40.0" prefWidth="294.0" ripplerFill="#013c78" style="-fx-background-color: #012d5a;" text="Delete" textFill="WHITE">
+                <JFXButton fx:id="deleteButton" disable="true" onAction="#deleteNodeAction" prefHeight="40.0" prefWidth="294.0" ripplerFill="#9cd1ff" style="-fx-background-color: #012d5a;" text="Delete" textFill="WHITE">
                   <font>
                     <Font name="System Bold" size="15.0" />
                   </font>
@@ -162,7 +157,7 @@
                     <Insets bottom="6.0" />
                   </VBox.margin>
                 </JFXButton>
-                <JFXButton fx:id="updateButton" disable="false" onAction="#updateNodeAction" prefHeight="40.0" prefWidth="294.0" ripplerFill="#013c78" style="-fx-background-color: #012d5a;" text="Update" textFill="WHITE">
+                <JFXButton fx:id="updateButton" disable="true" onAction="#updateNodeAction" prefHeight="40.0" prefWidth="294.0" ripplerFill="#9cd1ff" style="-fx-background-color: #012d5a;" text="Update" textFill="WHITE">
                   <VBox.margin>
                     <Insets bottom="6.0" />
                   </VBox.margin>
@@ -171,11 +166,22 @@
                   </font>
                 </JFXButton>
 
-                <JFXButton fx:id="connectButton" disable="true" onAction="#connectNodeAction" prefHeight="40.0" prefWidth="294.0" ripplerFill="#013c78" style="-fx-background-color: #012d5a;" text="Connect" textFill="WHITE">
+                <JFXButton fx:id="connectButton" disable="true" onAction="#connectNodeAction" prefHeight="40.0" prefWidth="294.0" ripplerFill="#9cd1ff" style="-fx-background-color: #012d5a;" text="Connect" textFill="WHITE">
 
                   <font>
                     <Font name="System Bold" size="15.0" />
                   </font>
+                  <VBox.margin>
+                    <Insets bottom="6.0" />
+                  </VBox.margin>
+                </JFXButton>
+                <JFXButton disable="false" prefHeight="40.0" prefWidth="294.0" ripplerFill="#780101" style="-fx-background-color: #5a0005;" text="Delete Edge" textFill="WHITE">
+                  <font>
+                    <Font name="System Bold" size="15.0" />
+                  </font>
+                  <VBox.margin>
+                    <Insets top="5.0" />
+                  </VBox.margin>
                 </JFXButton>
               </children>
             </VBox>
@@ -214,7 +220,7 @@
                     <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                       <columns>
                         <TableColumn fx:id="nodeIdCol" prefWidth="75.0" text="NodeID" />
-                        <TableColumn prefWidth="75.0" text="X-Coordinate" fx:id="coordXcol" />
+                        <TableColumn fx:id="coordXcol" prefWidth="75.0" text="X-Coordinate" />
                         <TableColumn fx:id="coordYcol" prefWidth="75.0" text="Y-Coordinate" />
                         <TableColumn fx:id="floorCol" prefWidth="75.0" text="Floor" />
                         <TableColumn fx:id="buildingCol" prefWidth="75.0" text="Building" />

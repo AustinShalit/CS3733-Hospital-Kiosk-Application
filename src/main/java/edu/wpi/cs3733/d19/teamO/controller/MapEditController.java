@@ -45,7 +45,9 @@ public class MapEditController implements Controller {
   @FXML
   JFXButton connectButton;
   @FXML
-  AnchorPane tableView;
+  JFXButton edgeDeletetButton;
+  @FXML
+  TableView<Node> tableView;
   @FXML
   JFXTextField xcoordField;
   //  @FXML
@@ -104,10 +106,12 @@ public class MapEditController implements Controller {
     nodeTypeComboBox.getItems().addAll(Node.NodeType.values());
     map.setNodes(database.getAllNodes());
     map.setCurrentNodes(database.getAllNodes());
+    map.setDatabaseEdge(database.getAllEdges());
+    map.setCurrentEdges(database.getAllEdges());
     map.addNodesToPane(database.getFloor("1"));
+    map.addEdgesToPane(database.getEdgeByFloor(map.getLevel()));
     map.selectedNodeProperty().addListener((observable, oldValue, newValue) -> {
       nodeID = newValue.getNodeId();
-
       nodeIDField.setText(newValue.getNodeId());
 
       xcoordField.setText(Integer.toString(newValue.getXcoord()));
@@ -118,12 +122,18 @@ public class MapEditController implements Controller {
       nodeTypeComboBox.setValue(newValue.getNodeType());
       longNameField.setText(newValue.getLongName());
       shortNameField.setText(newValue.getShortName());
-      validateButton();
-      status.setText("");
+      if (updateMode) {
+        validateButton();
+      }
+      //status.setText("");
 
       if (connectMode) {
         connectNodeAction();
       }
+    });
+
+    map.selectedEdgeProperty().addListener((observable, oldValue, newValue) -> {
+      status.setText(newValue.getEdgeId());
     });
 
     // set tab pane to span entire width
@@ -147,11 +157,12 @@ public class MapEditController implements Controller {
       addButton.setDisable(true);
       connectButton.setDisable(true);
       deleteButton.setDisable(true);
-
+      updateButton.setDisable(true);
     } else {
       addButton.setDisable(false);
       connectButton.setDisable(false);
       deleteButton.setDisable(false);
+      updateButton.setDisable(false);
     }
   }
 
@@ -217,12 +228,17 @@ public class MapEditController implements Controller {
         map.setDragStatus(true);
         updateButton.setText("Confirm");
         updateMode = false;
+        addButton.setDisable(true);
+        deleteButton.setDisable(true);
+        connectButton.setDisable(true);
       }
     } else {
       Node updateNode = getNewNode(nodeIDField.getText());
       database.updateNode(updateNode);
       status.setText("Succeed!");
       map.setNodes(database.getAllNodes());
+      map.clearEdges();
+      map.addEdgesToPane(database.getEdgeByFloor(map.getLevel()));
       map.clearNodes();
       map.addNodesToPane(database.getFloor(map.getLevel()));
       updateButton.setText("Update");
@@ -230,6 +246,9 @@ public class MapEditController implements Controller {
       map.setDragStatus(false);
       map.setGesturePane(true);
       map.setCircleDragVisibility(false);
+      addButton.setDisable(false);
+      deleteButton.setDisable(false);
+      connectButton.setDisable(false);
     }
 
   }
@@ -258,6 +277,8 @@ public class MapEditController implements Controller {
         Node node2 = nodeFromDB2.get();
         Edge newEdge = new Edge(database.getFreeEdgeId(), node1, node2);
         database.insertEdge(newEdge);
+        map.clearEdges();
+        map.addEdgesToPane(database.getEdgeByFloor(map.getLevel()));
         status.setText("Succeed!");
         connectMode = false;
       }
@@ -270,6 +291,7 @@ public class MapEditController implements Controller {
     map.setCircleDrag( Integer.parseInt(xcoordField.getText()),
         Integer.parseInt(ycoordField.getText()));
   }
+
 
   private Node getNewNode(String s) {
     return new Node(s,
