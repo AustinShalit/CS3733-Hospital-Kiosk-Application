@@ -45,7 +45,7 @@ public class MapEditController implements Controller {
   @FXML
   JFXButton connectButton;
   @FXML
-  JFXButton edgeDeletetButton;
+  JFXButton edgeDeleteButton;
   @FXML
   TableView<Node> tableView;
   @FXML
@@ -290,6 +290,11 @@ public class MapEditController implements Controller {
   void onEnter() {
     map.setCircleDrag( Integer.parseInt(xcoordField.getText()),
         Integer.parseInt(ycoordField.getText()));
+  }
+
+  @FXML
+  void onEdgeDelete(){
+
   }
 
 

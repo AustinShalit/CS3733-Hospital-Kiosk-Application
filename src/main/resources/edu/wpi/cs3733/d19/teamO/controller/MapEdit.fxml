@@ -175,7 +175,7 @@
                     <Insets bottom="6.0" />
                   </VBox.margin>
                 </JFXButton>
-                <JFXButton disable="false" prefHeight="40.0" prefWidth="294.0" ripplerFill="#780101" style="-fx-background-color: #5a0005;" text="Delete Edge" textFill="WHITE">
+                <JFXButton fx:id="edgeDeleteButton" disable="false" onAction="#onEdgeDelete" prefHeight="40.0" prefWidth="294.0" ripplerFill="#780101" style="-fx-background-color: #5a0005;" text="Delete Edge" textFill="WHITE">
                   <font>
                     <Font name="System Bold" size="15.0" />
                   </font>
