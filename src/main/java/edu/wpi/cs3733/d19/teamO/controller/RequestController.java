@@ -21,7 +21,7 @@ import edu.wpi.cs3733.d19.teamO.controller.request.PatientInfoViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.PrescriptionViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ReligiousServiceViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.SanitationViewController;
-import edu.wpi.cs3733.d19.teamO.controller.request.SupportAnimalController;
+import edu.wpi.cs3733.d19.teamO.controller.request.SupportAnimalViewController;
 
 @FxmlController(url = "ServiceRequest.fxml")
 @SuppressWarnings({"PMD.TooManyFields", "PMD.TooManyMethods"})
@@ -82,7 +82,7 @@ public class RequestController implements Controller {
   @Inject
   private ReligiousServiceViewController.Factory religiousServiceControllerFactory;
   @Inject
-  private SupportAnimalController.Factory supportAnimalControllerFactory;
+  private SupportAnimalViewController.Factory supportAnimalControllerFactory;
   @Inject
   private FloristRequestController.Factory floristRequestControllerFactory;
   @Inject

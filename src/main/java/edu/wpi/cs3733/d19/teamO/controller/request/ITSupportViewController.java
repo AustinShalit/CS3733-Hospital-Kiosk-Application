@@ -66,7 +66,7 @@ public class ITSupportViewController implements Controller {
   @Inject
   private RequestController.Factory checkRequestsControllerFactory;
   @Inject
-  private ITSupportPopupController.Factory ITPopupFactory;
+  private ITSupportPopupController.Factory itPopupFactory;
 
   private JFXPopup addPopup;
 
@@ -93,7 +93,7 @@ public class ITSupportViewController implements Controller {
     }
 
     // Initialize the Add Request Popup
-    addPopup = new JFXPopup(ITPopupFactory.create().root);
+    addPopup = new JFXPopup(itPopupFactory.create().root);
     addPopup.setOnAutoHide(
         event -> {
           ColorAdjust reset = new ColorAdjust();

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.request.SupportAnimalPopupController">
+  <center>
+    <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="form" stylesheets="@../style/KioskStyle.css" BorderPane.alignment="TOP_CENTER">
+      <children>
+        <Label id="heading" text="Add Support Animal Request">
+          <font>
+            <Font name="System Bold" size="36.0" />
+          </font>
+        </Label>
+        <JFXTextField fx:id="nametxt" labelFloat="true" maxWidth="200.0" prefHeight="31.0" promptText="Enter Name">
+          <VBox.margin>
+            <Insets />
+          </VBox.margin>
+        </JFXTextField>
+        <JFXComboBox fx:id="locationbox" promptText="Pick Location">
+          <VBox.margin>
+            <Insets />
+          </VBox.margin>
+        </JFXComboBox>
+        <JFXComboBox fx:id="categorybox" promptText="Pick Category">
+          <VBox.margin>
+            <Insets />
+          </VBox.margin>
+        </JFXComboBox>
+        <JFXTextArea fx:id="descriptiontxt" maxHeight="160.0" maxWidth="325.0" prefHeight="160.0" prefWidth="325.0" promptText="Description...">
+          <VBox.margin>
+            <Insets />
+          </VBox.margin>
+        </JFXTextArea>
+        <JFXButton id="small-button" fx:id="submitbtn" onAction="#onSubmitButtonAction" stylesheets="@../style/KioskStyle.css" text="SUBMIT" />
+      </children>
+    </VBox>
+  </center>
+</BorderPane>

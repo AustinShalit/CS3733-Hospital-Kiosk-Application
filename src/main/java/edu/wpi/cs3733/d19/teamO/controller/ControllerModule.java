@@ -44,6 +44,7 @@ import edu.wpi.cs3733.d19.teamO.controller.request.SanitationController;
 import edu.wpi.cs3733.d19.teamO.controller.request.SanitationPopupController;
 import edu.wpi.cs3733.d19.teamO.controller.request.SanitationViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.SupportAnimalController;
+import edu.wpi.cs3733.d19.teamO.controller.request.SupportAnimalPopupController;
 import edu.wpi.cs3733.d19.teamO.controller.request.SupportAnimalViewController;
 
 @SuppressWarnings({"PMD.CouplingBetweenObjects", "PMD.ExcessiveImports"})
@@ -121,6 +122,8 @@ public class ControllerModule extends AbstractModule {
     install(new FactoryModuleBuilder().build(ReligiousServicePopupController.Factory.class));
     install(new FactoryModuleBuilder().build(ReligiousServiceController.Factory.class));
     install(new FactoryModuleBuilder().build(ReligiousServiceViewController.Factory.class));
+
+    install(new FactoryModuleBuilder().build(SupportAnimalPopupController.Factory.class));
     install(new FactoryModuleBuilder().build(SupportAnimalController.Factory.class));
     install(new FactoryModuleBuilder().build(SupportAnimalViewController.Factory.class));
 
