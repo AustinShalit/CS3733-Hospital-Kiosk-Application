@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
 import java.util.Optional;
+import java.util.Set;
 
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
@@ -12,7 +13,9 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 
 import edu.wpi.cs3733.d19.teamO.component.MapView2;
@@ -24,7 +27,7 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 @FxmlController(url = "MapEdit.fxml")
 public class MapEditController implements Controller {
   String nodeID;
-  int newID = 100;
+
   // Collection<Node> nodes;
 
   @FXML
@@ -40,7 +43,7 @@ public class MapEditController implements Controller {
   @FXML
   JFXButton connectButton;
   @FXML
-  AnchorPane tableView;
+  TableView<Node> tableView;
   @FXML
   JFXTextField xcoordField;
   //  @FXML
@@ -56,7 +59,6 @@ public class MapEditController implements Controller {
   @FXML
   JFXTextField shortNameField;
   @FXML
-
   JFXTextField nodeIDField;
   @FXML
   JFXTextField nodeIDField2;
@@ -72,13 +74,34 @@ public class MapEditController implements Controller {
   @FXML
   Tab tableTab;
 
+  @FXML
+  TableColumn<Node, String> nodeIdCol;
+  @FXML
+  TableColumn<Node, Integer> coordXcol;
+  @FXML
+  TableColumn<Node, Integer> coordYcol;
+  @FXML
+  TableColumn<Node, String> floorCol;
+  @FXML
+  TableColumn<Node, String> buildingCol;
+  @FXML
+  TableColumn<Node, String> typeCol;
+  @FXML
+  TableColumn<Node, String> shortNameCol;
+  @FXML
+  TableColumn<Node, String> longNameCol;
+
+
   @Inject
   private Database database;
 
   @FXML
   void initialize() {
 
+    // Setup the table view
+    setupTableView();
 
+    // Setup side view
     map.setNodes(database.getAllNodes());
     map.setCurrentNodes(database.getAllNodes());
     map.addNodesToPane(database.getFloor("1"));
@@ -143,13 +166,16 @@ public class MapEditController implements Controller {
 
   @FXML
   void addNodeAction() {
-    Node newNode = getNewNode(Integer.toString(newID));
+    Node newNode = getNewNode(database.getFreeNodeId());
     database.insertNode(newNode);
     status.setText("Succeed!");
-    map.setNodes(database.getAllNodes());
+
+    Set<Node> nodes = database.getAllNodes();
+    map.setNodes(nodes);
     map.clearNodes();
     map.addNodesToPane(database.getFloor(map.getLevel()));
-    newID++;
+
+    tableView.getItems().setAll(nodes); //todo use observer
   }
 
   @FXML
@@ -198,7 +224,7 @@ public class MapEditController implements Controller {
     } else {
       Node node1 = nodeFromDB1.get();
       Node node2 = nodeFromDB2.get();
-      Edge newEdge = new Edge("Ken" + Integer.toString(newID), node1, node2);
+      Edge newEdge = new Edge(database.getFreeEdgeId(), node1, node2);
       database.insertEdge(newEdge);
       status.setText("Succeed!");
     }
@@ -214,6 +240,32 @@ public class MapEditController implements Controller {
         nodeTypeComboBox.getValue(),
         longNameField.getText(),
         shortNameField.getText());
+  }
+
+  /**
+   * Setup the table view for use in this controller. Initializes the columns,
+   * fills with data, sorts and enables auto resizing.
+   */
+  private void setupTableView() {
+    nodeIdCol.setCellValueFactory(new PropertyValueFactory<>("nodeId"));
+    coordXcol.setCellValueFactory(new PropertyValueFactory<>("Xcoord"));
+    coordYcol.setCellValueFactory(new PropertyValueFactory<>("Ycoord"));
+    floorCol.setCellValueFactory(new PropertyValueFactory<>("Floor"));
+    buildingCol.setCellValueFactory(new PropertyValueFactory<>("Building"));
+    typeCol.setCellValueFactory(new PropertyValueFactory<>("NodeType"));
+    shortNameCol.setCellValueFactory(new PropertyValueFactory<>("ShortName"));
+    longNameCol.setCellValueFactory(new PropertyValueFactory<>("LongName"));
+
+    tableView.getItems().setAll(database.getAllNodes());
+
+    // sort by id
+    tableView.getSortOrder().add(nodeIdCol);
+
+    // make columns auto-resize
+    tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+    for (TableColumn column : tableView.getColumns()) {
+      column.setPrefWidth(1000); // must be a value larger than the starting window size
+    }
   }
 
   @Override
