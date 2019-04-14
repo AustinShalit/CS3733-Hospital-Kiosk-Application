@@ -6,18 +6,18 @@ import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class SanitationRequest extends ServiceRequest {
-
   public enum SanitationRequestType {
     SPILL("Spill"),
     VOMIT("Vomit"),
     BEDDING("Bedding"),
     OTHERS("Others");
 
-    private static final Map<String, SanitationRequest.SanitationRequestType> lookup
+    private static final Map<String,
+        SanitationRequestType> lookup
         = new ConcurrentHashMap<>();
 
     static {
-      for (SanitationRequest.SanitationRequestType type : values()) {
+      for (SanitationRequestType type : values()) {
         lookup.put(type.name(), type);
       }
     }
@@ -33,46 +33,44 @@ public class SanitationRequest extends ServiceRequest {
       return name;
     }
 
-    public static SanitationRequest.SanitationRequestType get(final String name) {
+    public static SanitationRequestType get(final String name) {
       return lookup.get(name);
     }
   }
 
+  private final String person;
   private final SanitationRequestType type;
 
   /**
-   * Create a SanitationRequest.
+   * Create a Sanitation Request.
    */
-  public SanitationRequest(int id, LocalDateTime timeRequested, LocalDateTime timeCompleted,
-                           Node location, String whoCompleted,
-                           SanitationRequestType type, String description) {
+  public SanitationRequest(int id, LocalDateTime timeRequested,
+                           LocalDateTime timeCompleted, Node location,
+                           String whoCompleted, SanitationRequestType type,
+                           String description, String person) {
     super(id, timeRequested, timeCompleted, whoCompleted, description, location);
     this.type = type;
+    this.person = person;
   }
 
-  public SanitationRequest(LocalDateTime timeRequested, LocalDateTime timeCompleted,
-                           Node location, String whoCompleted,
-                           SanitationRequestType type, String description) {
-    super(-1, timeRequested, timeCompleted, whoCompleted, description, location);
+  /**
+   * Initialization of Sanitation Request.
+   */
+  public SanitationRequest(LocalDateTime timeRequested, Node location,
+                           SanitationRequestType type, String description,
+                           String person) {
+    super(timeRequested, description, location);
     this.type = type;
-  }
-
-  public SanitationRequest(int id, LocalDateTime timeRequested, Node locationNode,
-                           SanitationRequestType type, String description) {
-    super(id, timeRequested, description, locationNode);
-    this.type = type;
-  }
-
-  public SanitationRequest(LocalDateTime timeRequested, Node locationNode,
-                           SanitationRequestType type, String description) {
-    super(timeRequested, description, locationNode);
-    this.type = type;
+    this.person = person;
   }
 
   public SanitationRequestType getType() {
     return type;
   }
 
+  public String getPerson() {
+    return person;
+  }
 
   @Override
   public boolean equals(Object o) {
@@ -89,13 +87,14 @@ public class SanitationRequest extends ServiceRequest {
         && getLocationNode().equals(that.getLocationNode())
         && getWhoCompleted().equals(that.getWhoCompleted())
         && type == that.type
-        && getDescription().equals(that.getDescription());
+        && getDescription().equals(that.getDescription())
+        && person.equals(that.person);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(getId(), getTimeRequested(), getTimeCompleted(), getLocationNode(),
-        getWhoCompleted(), type, getDescription());
+        getWhoCompleted(), type, getDescription(), person);
   }
 
   @Override
@@ -107,7 +106,10 @@ public class SanitationRequest extends ServiceRequest {
         + ", locationNode=" + getLocationNode().toString()
         + ", whoCompleted=" + getWhoCompleted()
         + ", type=" + type
-        + ", description='" + getDescription() + '\''
+        + ", description=" + getDescription()
+        + ", personName=" + person + '\''
         + '}';
   }
+
 }
+
