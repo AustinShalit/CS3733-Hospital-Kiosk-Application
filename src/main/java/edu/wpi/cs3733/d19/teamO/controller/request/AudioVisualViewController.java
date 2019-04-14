@@ -132,6 +132,8 @@ public class AudioVisualViewController implements Controller {
     colorAdjust.setBrightness(-0.2);
     root.setEffect(colorAdjust);
     optionsPopup.show(root);
+
+    // Center the popup on the screen
     optionsPopup.setX(
         (Screen.getPrimary().getVisualBounds().getWidth() - optionsPopup.getWidth()) / 2
     );

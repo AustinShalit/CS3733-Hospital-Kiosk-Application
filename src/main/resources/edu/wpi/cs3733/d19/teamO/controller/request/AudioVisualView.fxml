@@ -56,9 +56,10 @@
               </padding>
             </JFXButton>
             <JFXButton id="table-button" fx:id="addButton" onAction="#onAddButtonAction" text="New Request" GridPane.halignment="CENTER" GridPane.rowSpan="2" GridPane.valignment="CENTER">
-                     <graphic>
-                        <FontAwesomeIconView fill="#f6bd38" glyphName="PLUS" />
-                     </graphic></JFXButton>
+              <graphic>
+                <FontAwesomeIconView fill="#f6bd38" glyphName="PLUS" />
+              </graphic>
+            </JFXButton>
           </children>
         </GridPane>
       </children>
