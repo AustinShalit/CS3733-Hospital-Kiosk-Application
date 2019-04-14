@@ -1,22 +1,28 @@
 package edu.wpi.cs3733.d19.teamO.entity.pathfinding;
 
-import java.util.List;
+import java.util.function.Supplier;
 
-import com.google.common.graph.Graph;
+import edu.wpi.cs3733.d19.teamO.entity.Node;
 
-/**
- * A search algorithm to find the path between two nodes in a graph.
- *
- * @param <T> The type of graph the search algorithm is searching
- */
-public interface GraphSearchAlgorithm<T> {
-  /**
-   * The unique name of this search algorithm.
-   */
-  String getName();
+public enum GraphSearchAlgorithm {
+  BFS("Breadth First Search", BreadthFirstSearchAlgorithm::new),
+  DFS("Depth First Search", DepthFirstSearchAlgorithm::new);
 
-  /**
-   * Given a graph, get the path between the start and end nodes.
-   */
-  List<T> getPath(Graph<T> graph, T start, T goal);
+  private final String name;
+  private final Supplier<IGraphSearchAlgorithm<Node>> algorithmSupplier;
+
+  GraphSearchAlgorithm(final String name,
+                       final Supplier<IGraphSearchAlgorithm<Node>> algorithmSupplier) {
+    this.name = name;
+    this.algorithmSupplier = algorithmSupplier;
+  }
+
+  public IGraphSearchAlgorithm<Node> getAlgorithm() {
+    return algorithmSupplier.get();
+  }
+
+  @Override
+  public String toString() {
+    return name;
+  }
 }

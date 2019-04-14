@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
-import com.dlsc.preferencesfx.PreferencesFx;
 import com.google.inject.Inject;
 
 import javafx.fxml.FXML;
@@ -20,10 +19,7 @@ public final class SettingsController implements Controller {
 
   @FXML
   void initialize() {
-    PreferencesFx preferencesFx
-        = PreferencesFx.of(AppPreferences.class, appPreferences.getSettings());
-
-    root.getChildren().add(preferencesFx.getView());
+    root.getChildren().add(appPreferences.createPreferences().getView());
   }
 
   @Override

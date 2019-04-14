@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * Abstract class for uninformed graph search algorithms.
  */
-abstract class UninformedGraphSearchAlgorithm<T> implements GraphSearchAlgorithm<T> {
+abstract class UninformedGraphSearchAlgorithm<T> implements IGraphSearchAlgorithm<T> {
 
   /**
    * Given a map of nodes and the goal, construct a path of nodes to follow.

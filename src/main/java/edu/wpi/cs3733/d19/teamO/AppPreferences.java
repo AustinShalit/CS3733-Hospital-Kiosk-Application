@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d19.teamO;
 
+import com.dlsc.preferencesfx.PreferencesFx;
 import com.dlsc.preferencesfx.model.Category;
 import com.dlsc.preferencesfx.model.Group;
 import com.dlsc.preferencesfx.model.Setting;
@@ -7,40 +8,25 @@ import com.dlsc.preferencesfx.model.Setting;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
 
 import edu.wpi.cs3733.d19.teamO.entity.pathfinding.GraphSearchAlgorithm;
-import edu.wpi.cs3733.d19.teamO.entity.pathfinding.GraphSearchAlgorithms;
 
 public final class AppPreferences {
 
   private final ObjectProperty<GraphSearchAlgorithm> graphSearchAlgorithm
-      = new SimpleObjectProperty<>(this, "graphSearchAlgorithm", GraphSearchAlgorithms.INITIAL);
+      = new SimpleObjectProperty<>(this,
+      "graphSearchAlgorithm",
+      GraphSearchAlgorithm.BFS);
 
-  private final Category settings = Category.of("App Settings",
-      Group.of("Path Planning",
-          Setting.of("Search Algorithm",
-              GraphSearchAlgorithms.getInstance().getItems(),
-              graphSearchAlgorithm)
-      )
-  );
-
-  public AppPreferences() {
-    /*
-    Preferences preferences = Preferences.userNodeForPackage(AppPreferences.class);
-    PreferencesUtilities.read(graphSearchAlgorithm,
-        preferences,
-        GraphSearchAlgorithms.getInstance()::forName);
-
-    graphSearchAlgorithm.addListener(((observable, oldValue, newValue) -> {
-      PreferencesUtilities.save(graphSearchAlgorithm,
-          preferences,
-          GraphSearchAlgorithm::getName);
-    }));
-    */
-  }
-
-  public Category getSettings() {
-    return settings;
+  public PreferencesFx createPreferences() {
+    return PreferencesFx.of(AppPreferences.class, Category.of("App Settings",
+        Group.of("Path Planning",
+            Setting.of("Search Algorithm",
+                FXCollections.observableArrayList(GraphSearchAlgorithm.values()),
+                graphSearchAlgorithm)
+        )
+    ));
   }
 
   public GraphSearchAlgorithm getGraphSearchAlgorithm() {
