@@ -34,7 +34,7 @@
                 <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
               </rowConstraints>
               <children>
-                <JFXButton fx:id="checksanitation" prefHeight="115.0" prefWidth="300.0" ripplerFill="#013c78" stylesheets="@style/KioskStyle.css" text="SANITATION" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                <JFXButton fx:id="checksanitation" onAction="#sanitationViewAction" prefHeight="115.0" prefWidth="300.0" ripplerFill="#013c78" stylesheets="@style/KioskStyle.css" text="SANITATION" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                   <GridPane.margin>
                     <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                   </GridPane.margin>
@@ -42,7 +42,7 @@
                     <Font name="Calibri" size="20.0" />
                   </font>
                 </JFXButton>
-                <JFXButton fx:id="checkperscription" onAction="#prescriptionViewAction" prefHeight="115.0" prefWidth="300.0" ripplerFill="#013c78" stylesheets="@style/KioskStyle.css" text="PRESCRIPTION" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                <JFXButton fx:id="checkPrescription" onAction="#prescriptionViewAction" prefHeight="115.0" prefWidth="300.0" ripplerFill="#013c78" stylesheets="@style/KioskStyle.css" text="PRESCRIPTION" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                   <GridPane.margin>
                     <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                   </GridPane.margin>

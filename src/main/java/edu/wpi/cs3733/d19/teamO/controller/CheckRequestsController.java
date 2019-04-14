@@ -17,7 +17,9 @@ import edu.wpi.cs3733.d19.teamO.controller.request.ITSupportViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.InternalTransportationViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.InterpreterViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.PatientInfoViewController;
+import edu.wpi.cs3733.d19.teamO.controller.request.PrescriptionViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ReligiousServiceViewController;
+import edu.wpi.cs3733.d19.teamO.controller.request.SanitationViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.SupportAnimalViewController;
 
 @FxmlController(url = "CheckRequests.fxml")
@@ -30,25 +32,21 @@ public class CheckRequestsController implements Controller {
   @FXML
   private JFXButton checksanitation;
   @FXML
-  private JFXButton checkperscription;
+  private JFXButton checkPrescription;
   @FXML
   private JFXButton checkinterpreter;
-
   @FXML
   private JFXButton checkinternalTransportation;
   @FXML
   private JFXButton checkexternalTransportation;
   @FXML
   private JFXButton checkpatientInfo;
-
   @FXML
   private JFXButton checkgift;
   @FXML
   private JFXButton checkaudioVisual;
   @FXML
   private JFXButton checkitSupport;
-
-
   @FXML
   private JFXButton checkreligious;
   @FXML
@@ -72,7 +70,7 @@ public class CheckRequestsController implements Controller {
   @Inject
   private InternalTransportationViewController.Factory internalTransportationViewControllerFactory;
   @Inject
-  private ExternalTransportationViewController.Factory externalTransporationViewControllerFactory;
+  private ExternalTransportationViewController.Factory externalTransportationViewControllerFactory;
   @Inject
   private PatientInfoViewController.Factory patientInfoViewControllerFactory;
   @Inject
@@ -87,10 +85,19 @@ public class CheckRequestsController implements Controller {
   private ITSupportViewController.Factory itSupportViewControllerFactory;
   @Inject
   private FloristRequestViewController.Factory floristRequestViewControllerFactory;
+  @Inject
+  private PrescriptionViewController.Factory prescriptionViewControllerFactory;
+  @Inject
+  private SanitationViewController.Factory sanitationViewControllerFactory;
 
   @FXML
   void prescriptionViewAction() {
+    eventBus.post(new ChangeMainViewEvent(prescriptionViewControllerFactory.create()));
+  }
 
+  @FXML
+  void sanitationViewAction() {
+    eventBus.post(new ChangeMainViewEvent(sanitationViewControllerFactory.create()));
   }
 
   @FXML
@@ -105,7 +112,7 @@ public class CheckRequestsController implements Controller {
 
   @FXML
   void etransViewAction() {
-    eventBus.post(new ChangeMainViewEvent(externalTransporationViewControllerFactory.create()));
+    eventBus.post(new ChangeMainViewEvent(externalTransportationViewControllerFactory.create()));
   }
 
   @FXML
