@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="BorderPane" stylesheets="@../style/KioskStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.request.PrescriptionRequestController">
+  <center>
+    <GridPane BorderPane.alignment="CENTER">
+      <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+      <children>
+        <GridPane id="\@style/LoginStyle.css">
+          <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+          </rowConstraints>
+          <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date of Submission">
+              <font>
+                <Font name="System Italic" size="15.0" />
+              </font>
+            </Text>
+            <Label fx:id="submissionDate" GridPane.rowIndex="1" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Employee Name" GridPane.rowIndex="2">
+              <font>
+                <Font name="System Italic" size="15.0" />
+              </font>
+              <GridPane.margin>
+                <Insets top="10.0" />
+              </GridPane.margin>
+            </Text>
+            <JFXTextField fx:id="employeeName" focusColor="#08fb00" prefWidth="150.0" promptText="Your name..." GridPane.rowIndex="3" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Name" GridPane.rowIndex="4">
+              <font>
+                <Font name="System Italic" size="15.0" />
+              </font>
+              <GridPane.margin>
+                <Insets top="10.0" />
+              </GridPane.margin>
+            </Text>
+            <JFXTextField fx:id="patientName" focusColor="#08fb00" prefWidth="150.0" promptText="Patient's name..." GridPane.rowIndex="5" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Patient DOB" GridPane.rowIndex="6">
+              <font>
+                <Font name="System Italic" size="15.0" />
+              </font>
+              <GridPane.margin>
+                <Insets top="10.0" />
+              </GridPane.margin>
+            </Text>
+            <JFXDatePicker fx:id="patientDOB" defaultColor="BLACK" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="181.0" promptText="Patient's date of birth..." GridPane.rowIndex="7" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Medication Name" GridPane.rowIndex="8">
+              <font>
+                <Font name="System Italic" size="15.0" />
+              </font>
+              <GridPane.margin>
+                <Insets top="10.0" />
+              </GridPane.margin>
+            </Text>
+            <JFXTextField fx:id="medName" focusColor="#08fb00" prefWidth="150.0" GridPane.rowIndex="9" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Medication Dosage" GridPane.rowIndex="10">
+              <font>
+                <Font name="System Italic" size="15.0" />
+              </font>
+              <GridPane.margin>
+                <Insets top="10.0" />
+              </GridPane.margin>
+            </Text>
+            <JFXTextField fx:id="medDosage" focusColor="#08fb00" prefWidth="150.0" GridPane.rowIndex="11" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Current Directions" GridPane.rowIndex="12">
+              <font>
+                <Font name="System Italic" size="15.0" />
+              </font>
+              <GridPane.margin>
+                <Insets top="10.0" />
+              </GridPane.margin>
+            </Text>
+            <JFXTextArea fx:id="medDescription" maxHeight="160.0" maxWidth="1.7976931348623157E308" prefHeight="55.0" prefWidth="325.0" promptText="Description..." GridPane.rowIndex="13" />
+          </children>
+          <padding>
+            <Insets left="400.0" right="400.0" />
+          </padding>
+          <GridPane.margin>
+            <Insets />
+          </GridPane.margin>
+        </GridPane>
+      </children>
+    </GridPane>
+  </center>
+  <top>
+    <GridPane prefHeight="83.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      </rowConstraints>
+      <children>
+        <Label text="Prescription Request" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowSpan="2">
+          <font>
+            <Font name="System Bold" size="36.0" />
+          </font>
+        </Label>
+        <JFXButton fx:id="backButton" onAction="#onBackButtonAction" prefHeight="48.0" prefWidth="140.0" ripplerFill="BLACK" style="-fx-border-color: #000000; -fx-background-color: #DDDADA;" text="Go Back">
+          <font>
+            <Font name="System Bold" size="18.0" />
+          </font>
+        </JFXButton>
+      </children>
+      <BorderPane.margin>
+        <Insets left="10.0" right="10.0" top="10.0" />
+      </BorderPane.margin>
+    </GridPane>
+  </top>
+  <left>
+    <AnchorPane prefHeight="251.0" prefWidth="69.0" BorderPane.alignment="CENTER" />
+  </left>
+  <right>
+    <AnchorPane prefHeight="293.0" prefWidth="69.0" BorderPane.alignment="CENTER" />
+  </right>
+  <bottom>
+    <AnchorPane prefHeight="62.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+      <children>
+        <JFXButton fx:id="submitButton" layoutX="553.0" layoutY="33.0" onAction="#onSubmitButtonAction" prefHeight="33.0" prefWidth="227.0" ripplerFill="BLACK" style="-fx-border-color: #000000; -fx-background-color: #DDDAAA;" text="Submit" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="550.0" AnchorPane.rightAnchor="550.0" AnchorPane.topAnchor="15.0">
+          <font>
+            <Font name="System Bold" size="15.0" />
+          </font>
+        </JFXButton>
+      </children>
+    </AnchorPane>
+  </bottom>
+  <padding>
+    <Insets bottom="10.0" />
+  </padding>
+</BorderPane>
