@@ -87,6 +87,10 @@ public class SchedulingRequest {
     return room;
   }
 
+  public String getRoomName() {
+    return room.getShortName();
+  }
+
   public void setId(int id) {
     this.id = id;
   }
