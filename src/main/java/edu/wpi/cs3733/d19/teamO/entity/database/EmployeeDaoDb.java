@@ -88,9 +88,6 @@ public class EmployeeDaoDb implements EmployeeDao {
         resultSet.getString("username"),
         resultSet.getString("password"),
         resultSet.getString("name"),
-        Employee.EmployeeType.get(
-            resultSet.getString("type")
-        ),
         new Gson().fromJson(resultSet.getString("attr"), EmployeeAttributes.class)
     );
   }
@@ -105,8 +102,7 @@ public class EmployeeDaoDb implements EmployeeDao {
       statement.setString(1, employee.getUsername());
       statement.setString(2, employee.getPassword());
       statement.setString(3, employee.getName());
-      statement.setString(4, employee.getType().name());
-      statement.setString(5, employee.getEmployeeAttributes().toString());
+      statement.setString(4, employee.getEmployeeAttributes().toString());
 
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
@@ -124,9 +120,8 @@ public class EmployeeDaoDb implements EmployeeDao {
       statement.setString(1, employee.getUsername());
       statement.setString(2, employee.getPassword());
       statement.setString(3, employee.getName());
-      statement.setString(4, employee.getType().name());
-      statement.setString(5, employee.getEmployeeAttributes().toString());
-      statement.setInt(6, employee.getId());
+      statement.setString(4, employee.getEmployeeAttributes().toString());
+      statement.setInt(5, employee.getId());
 
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {

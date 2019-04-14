@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import edu.wpi.cs3733.d19.teamO.entity.Employee;
+import edu.wpi.cs3733.d19.teamO.entity.EmployeeAttributes;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -18,8 +19,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ExtendWith(DatabaseExtension.class)
 class EmployeeDaoDbTest {
 
-  private static final Employee TEST_EMPLOYEE_1 = new Employee(1, "dev", "hello", "Dev",
-      Employee.EmployeeType.ADMIN);
+  private static final Employee TEST_EMPLOYEE_1 = new Employee(
+      1,
+      "dev",
+      "hello",
+      "Dev",
+      new EmployeeAttributes(Employee.EmployeeType.ADMIN)
+  );
 
   private EmployeeDao dao;
 
@@ -71,8 +77,13 @@ class EmployeeDaoDbTest {
   void updateTest() {
     dao.insert(TEST_EMPLOYEE_1);
 
-    Employee update = new Employee(TEST_EMPLOYEE_1.getId(), "dev", "meow", "Dev",
-        Employee.EmployeeType.ADMIN);
+    Employee update = new Employee(
+        TEST_EMPLOYEE_1.getId(),
+        "dev",
+        "meow",
+        "Dev",
+        new EmployeeAttributes(Employee.EmployeeType.ADMIN)
+    );
     assertTrue(dao.update(update));
   }
 
