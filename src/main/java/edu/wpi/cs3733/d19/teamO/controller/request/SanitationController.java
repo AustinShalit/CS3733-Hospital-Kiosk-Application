@@ -67,7 +67,7 @@ public class SanitationController implements Controller {
 
   @FXML
   void onSubmitButtonAction() {
-    SanitationRequest sanitation = parseUserITRequest();
+    SanitationRequest sanitation = parseSanitationRequest();
     if (sanitation == null) {
       logger.log(Level.WARNING,
           "Unable to parse Sanitation Request.",
@@ -90,7 +90,7 @@ public class SanitationController implements Controller {
    * @return If valid input, A SanitationRequest representing the users input
    *         Otherwise null.
    */
-  private SanitationRequest parseUserITRequest() {
+  private SanitationRequest parseSanitationRequest() {
     // if input is valid, parse it and return a new SanitationRequest
     if (!descriptiontxt.getText().isEmpty()
         && !nametxt.getText().isEmpty()
@@ -98,7 +98,7 @@ public class SanitationController implements Controller {
         && Objects.nonNull(categorybox.getValue())) {
 
       LocalDateTime now = LocalDateTime.now();
-      Node node = (Node) locationbox.getValue();
+      Node node = locationbox.getValue();
 
       String type = categorybox.getValue().toString().toUpperCase(new Locale("EN"));
       SanitationRequest.SanitationRequestType sanitationRequestType =
