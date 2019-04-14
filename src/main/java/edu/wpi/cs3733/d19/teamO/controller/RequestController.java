@@ -17,7 +17,7 @@ import edu.wpi.cs3733.d19.teamO.controller.request.GiftController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ITSupportController;
 import edu.wpi.cs3733.d19.teamO.controller.request.InternalTransportationViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.InterpreterViewController;
-import edu.wpi.cs3733.d19.teamO.controller.request.PatientInfoController;
+import edu.wpi.cs3733.d19.teamO.controller.request.PatientInfoViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.PrescriptionViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ReligiousServiceController;
 import edu.wpi.cs3733.d19.teamO.controller.request.SanitationViewController;
@@ -70,7 +70,7 @@ public class RequestController implements Controller {
   @Inject
   private AudioVisualViewController.Factory audioVisualViewControllerFactory;
   @Inject
-  private PatientInfoController.Factory patientInfoControllerFactory;
+  private PatientInfoViewController.Factory patientInfoControllerFactory;
   @Inject
   private ITSupportController.Factory itSupportControllerFactory;
   @Inject
