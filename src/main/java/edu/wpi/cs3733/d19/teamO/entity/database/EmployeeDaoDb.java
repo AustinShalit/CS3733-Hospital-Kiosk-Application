@@ -14,7 +14,10 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.google.gson.Gson;
+
 import edu.wpi.cs3733.d19.teamO.entity.Employee;
+import edu.wpi.cs3733.d19.teamO.entity.EmployeeAttributes;
 
 public class EmployeeDaoDb implements EmployeeDao {
   private static final Logger logger = Logger.getLogger(LoginDaoDb.class.getName());
@@ -84,7 +87,8 @@ public class EmployeeDaoDb implements EmployeeDao {
         resultSet.getString("name"),
         Employee.EmployeeType.get(
             resultSet.getString("type")
-        )
+        ),
+        new Gson().fromJson(resultSet.getString("attr"), EmployeeAttributes.class)
     );
   }
 
@@ -97,6 +101,7 @@ public class EmployeeDaoDb implements EmployeeDao {
       statement.setInt(1, employee.getId());
       statement.setString(2, employee.getName());
       statement.setString(3, employee.getType().name());
+      statement.setString(4, employee.getEmployeeAttributes().toString());
 
       return statement.executeUpdate() == 1;
     } catch (SQLException exception) {
@@ -113,7 +118,8 @@ public class EmployeeDaoDb implements EmployeeDao {
       );
       statement.setString(1, employee.getName());
       statement.setString(2, employee.getType().name());
-      statement.setInt(3, employee.getId());
+      statement.setString(3, employee.getEmployeeAttributes().toString());
+      statement.setInt(4, employee.getId());
 
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {

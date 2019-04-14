@@ -40,6 +40,7 @@ public class Employee {
   private final Integer id;
   private final String name;
   private final EmployeeType type;
+  private EmployeeAttributes employeeAttributes;
 
   /**
    * Constructor for Employee.
@@ -48,10 +49,27 @@ public class Employee {
    * @param name Employee name
    * @param type Permissions type
    */
-  public Employee(Integer id, String name, EmployeeType type) {
+  public Employee(Integer id,
+                  String name,
+                  EmployeeType type,
+                  EmployeeAttributes employeeAttributes) {
     this.id = id;
     this.name = name;
     this.type = type;
+    this.employeeAttributes = employeeAttributes;
+  }
+
+  /**
+   * Constructor for Employee.
+   *
+   * @param id   Employee's integer ID
+   * @param name Employee name
+   * @param type Permissions type
+   */
+  public Employee(Integer id,
+                  String name,
+                  EmployeeType type) {
+    this(id, name, type, new EmployeeAttributes(false));
   }
 
   public Integer getId() {
@@ -64,6 +82,10 @@ public class Employee {
 
   public EmployeeType getType() {
     return type;
+  }
+
+  public EmployeeAttributes getEmployeeAttributes() {
+    return employeeAttributes;
   }
 
   @Override
