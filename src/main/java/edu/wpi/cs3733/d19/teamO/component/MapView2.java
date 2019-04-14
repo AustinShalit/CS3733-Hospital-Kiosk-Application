@@ -38,6 +38,8 @@ public class MapView2 extends StackPane {
   private String currentLevel = "1";
   Collection<Node> nodes;
   Collection<Node> currentNodes;
+  Collection<Edge> edges;
+  Collection<Node> currentEd;
 
 
   public void setCurrentNodes(Collection<Node> currentNodes) {
@@ -51,7 +53,7 @@ public class MapView2 extends StackPane {
   @FXML
   private Group nodeGroup;
   @FXML
-  private Group edges;
+  private Group edgesGroup;
   @FXML
   private Button levelL1;
   @FXML
@@ -351,6 +353,7 @@ public class MapView2 extends StackPane {
             Color.color(0, 0.31, 0.53));
         circle.setStroke(Color.BLACK);
         nodeGroup.getChildren().add(circle);
+        //nodeGroup.getChildren().
       }
     }
   }
@@ -373,7 +376,7 @@ public class MapView2 extends StackPane {
   }
 
   public void setEdges(Group edges) {
-    this.edges = edges;
+    this.edgesGroup = edges;
   }
 
   /**
@@ -382,7 +385,7 @@ public class MapView2 extends StackPane {
    * @return The edges Group field of this MapView2.
    */
   public Group getEdges() {
-    return edges;
+    return edgesGroup;
   }
 
   /**
@@ -395,12 +398,12 @@ public class MapView2 extends StackPane {
     for (Edge edge : edgeCollection) {
       Line line = new Line(edge.getStartNode().getXcoord(), edge.getStartNode().getYcoord(),
           edge.getEndNode().getXcoord(), edge.getEndNode().getYcoord());
-      edges.getChildren().add(line);
+      edgesGroup.getChildren().add(line);
     }
   }
 
   public void clearEdges() {
-    edges.getChildren().clear();
+    edgesGroup.getChildren().clear();
   }
 
   public String getLevel() {
