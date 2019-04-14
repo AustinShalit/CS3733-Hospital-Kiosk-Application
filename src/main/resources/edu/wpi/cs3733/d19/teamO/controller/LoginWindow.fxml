@@ -23,12 +23,12 @@
           <Insets bottom="15.0" />
         </VBox.margin>
       </Label>
-      <JFXTextField fx:id="username" focusColor="#0067b1" maxWidth="350.0" prefHeight="50.0" prefWidth="350.0" promptText="Username" styleClass="jfx-text-field" text="admin">
+      <JFXTextField fx:id="username" focusColor="#0067b1" maxWidth="350.0" prefHeight="50.0" prefWidth="350.0" promptText="Username" styleClass="jfx-text-field">
         <VBox.margin>
           <Insets bottom="15.0" />
         </VBox.margin>
       </JFXTextField>
-      <JFXPasswordField fx:id="password" focusColor="#0067b1" maxWidth="350.0" prefHeight="50.0" promptText="Password" styleClass="jfx-text-field" text="wong">
+      <JFXPasswordField fx:id="password" focusColor="#0067b1" maxWidth="350.0" prefHeight="50.0" promptText="Password" styleClass="jfx-text-field">
         <VBox.margin>
           <Insets bottom="10.0" />
         </VBox.margin>
