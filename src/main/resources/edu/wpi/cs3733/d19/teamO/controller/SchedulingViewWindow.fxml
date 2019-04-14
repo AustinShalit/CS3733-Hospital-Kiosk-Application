@@ -20,7 +20,7 @@
         <TableColumn fx:id="timeRequestedCol" editable="false" maxWidth="300.0" minWidth="50.0" prefWidth="0.0" text="TimeRequested" />
         <TableColumn fx:id="timeCompletedCol" editable="false" maxWidth="300.0" minWidth="50.0" prefWidth="0.0" text="TimeCompleted" />
         <TableColumn fx:id="whoRequestedCol" editable="false" maxWidth="300.0" minWidth="50.0" prefWidth="0.0" text="WhoRequested" />
-        <TableColumn fx:id="locationTableCol" editable="false" maxWidth="300.0" minWidth="50.0" prefWidth="0.0" text="LocationNodeID" />
+        <TableColumn fx:id="roomCol" editable="false" maxWidth="300.0" minWidth="50.0" prefWidth="0.0" text="RoomName" />
       </columns>
     </TableView>
   </children>
