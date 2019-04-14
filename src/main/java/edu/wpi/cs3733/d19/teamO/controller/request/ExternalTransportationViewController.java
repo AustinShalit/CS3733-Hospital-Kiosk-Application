@@ -20,6 +20,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Screen;
 
 import edu.wpi.cs3733.d19.teamO.controller.CheckRequestsController;
 import edu.wpi.cs3733.d19.teamO.controller.Controller;
@@ -143,10 +144,10 @@ public class ExternalTransportationViewController implements Controller {
     root.setEffect(colorAdjust);
     addPopup.show(root);
     addPopup.setX(
-        (getRoot().getLayoutBounds().getWidth() - addPopup.getWidth()) / 2
+        (Screen.getPrimary().getVisualBounds().getWidth() - addPopup.getWidth()) / 2
     );
     addPopup.setY(
-        (getRoot().getLayoutBounds().getHeight() - addPopup.getHeight()) / 2
+        (Screen.getPrimary().getVisualBounds().getHeight() - addPopup.getHeight()) / 2
     );
   }
 

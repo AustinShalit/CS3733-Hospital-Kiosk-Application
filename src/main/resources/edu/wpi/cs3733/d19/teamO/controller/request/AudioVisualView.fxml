@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -54,7 +55,10 @@
                 <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
               </padding>
             </JFXButton>
-            <JFXButton id="table-button" fx:id="addButton" onAction="#onAddButtonAction" text="New Request" GridPane.halignment="CENTER" GridPane.rowSpan="2" GridPane.valignment="CENTER" />
+            <JFXButton id="table-button" fx:id="addButton" onAction="#onAddButtonAction" text="New Request" GridPane.halignment="CENTER" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+                     <graphic>
+                        <FontAwesomeIconView fill="#f6bd38" glyphName="PLUS" />
+                     </graphic></JFXButton>
           </children>
         </GridPane>
       </children>
