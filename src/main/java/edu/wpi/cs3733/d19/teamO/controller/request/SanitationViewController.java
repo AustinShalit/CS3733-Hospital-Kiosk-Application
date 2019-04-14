@@ -131,12 +131,12 @@ public class SanitationViewController implements Controller {
     ColorAdjust colorAdjust = new ColorAdjust();
     colorAdjust.setBrightness(-0.2);
     root.setEffect(colorAdjust);
-    addPopup.show(root);
+    addPopup.show(getRoot());
     addPopup.setX(
-        (root.getScene().getWindow().getWidth() - addPopup.getWidth()) / 2
+        (getRoot().getScene().getWidth() - addPopup.getWidth()) / 2
     );
     addPopup.setY(
-        (root.getScene().getWindow().getHeight() - addPopup.getHeight()) / 2
+        (getRoot().getScene().getHeight() - addPopup.getHeight()) / 2
     );
   }
 
