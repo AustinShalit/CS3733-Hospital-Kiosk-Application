@@ -116,16 +116,16 @@ class EmployeeDaoDbTest {
 
   @Test
   void employeeAttributesFromStringTest() {
-    EmployeeAttributes a = new EmployeeAttributes();
-    a.setCanFulfillSupportAnimal(true);
-    a.setEmployeeType(Employee.EmployeeType.ADMIN);
+    EmployeeAttributes control = new EmployeeAttributes();
+    control.setCanFulfillSupportAnimal(true);
+    control.setEmployeeType(Employee.EmployeeType.ADMIN);
     String testString = "{\"canFulfillSupportAnimal\":true,\"employeeType\":\"ADMIN\"}";
     assertEquals(
-        a.getCanFulfillSupportAnimal(),
+        control.getCanFulfillSupportAnimal(),
         EmployeeAttributes.fromString(testString).getCanFulfillSupportAnimal()
     );
     assertEquals(
-        a.getEmployeeType(),
+        control.getEmployeeType(),
         EmployeeAttributes.fromString(testString).getEmployeeType()
     );
   }
