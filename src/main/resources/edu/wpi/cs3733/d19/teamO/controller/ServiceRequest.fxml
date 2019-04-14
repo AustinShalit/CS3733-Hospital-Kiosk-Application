@@ -34,7 +34,7 @@
                 <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
               </rowConstraints>
               <children>
-                <JFXButton prefHeight="100.0" prefWidth="318.0" ripplerFill="#013c78" stylesheets="@style/KioskStyle.css" text="SANITATION" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                <JFXButton fx:id="sanitation" onAction="#sanitationAction" prefHeight="100.0" prefWidth="318.0" ripplerFill="#013c78" stylesheets="@style/KioskStyle.css" text="SANITATION" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
                   <GridPane.margin>
                     <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                   </GridPane.margin>

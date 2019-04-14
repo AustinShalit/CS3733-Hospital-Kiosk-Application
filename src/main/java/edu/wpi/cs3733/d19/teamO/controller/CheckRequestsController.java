@@ -18,6 +18,7 @@ import edu.wpi.cs3733.d19.teamO.controller.request.InternalTransportationViewCon
 import edu.wpi.cs3733.d19.teamO.controller.request.InterpreterViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.PatientInfoViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ReligiousServiceViewController;
+import edu.wpi.cs3733.d19.teamO.controller.request.SanitationViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.SupportAnimalViewController;
 
 @FxmlController(url = "CheckRequests.fxml")
@@ -87,10 +88,17 @@ public class CheckRequestsController implements Controller {
   private ITSupportViewController.Factory itSupportViewControllerFactory;
   @Inject
   private FloristRequestViewController.Factory floristRequestViewControllerFactory;
+  @Inject
+  private SanitationViewController.Factory sanitationViewControllerFactory;
 
   @FXML
   void prescriptionViewAction() {
 
+  }
+
+  @FXML
+  void sanitationViewAction() {
+    eventBus.post(new ChangeMainViewEvent(sanitationViewControllerFactory.create()));
   }
 
   @FXML
