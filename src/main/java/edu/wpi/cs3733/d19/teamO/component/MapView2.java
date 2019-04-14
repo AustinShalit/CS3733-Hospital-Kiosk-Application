@@ -31,9 +31,9 @@ import edu.wpi.cs3733.d19.teamO.entity.Node;
 
 import static java.lang.Math.abs;
 
-@SuppressWarnings("PMD.TooManyFields")
+@SuppressWarnings({"PMD.TooManyFields", "PMD.TooManyMethods"})
 public class MapView2 extends StackPane {
-
+  private boolean dragStatus;
   private String level = "1";
   private String currentLevel = "1";
   Collection<Node> nodes;
@@ -70,6 +70,8 @@ public class MapView2 extends StackPane {
   private Label coordY;
   @FXML
   private Circle circle;
+  @FXML
+  private Circle circleDrag;
 
   private final SimpleObjectProperty<Node> selectedNode = new SimpleObjectProperty<>();
 
@@ -100,7 +102,6 @@ public class MapView2 extends StackPane {
 
   @FXML
   void initialize() throws IOException {
-    //addNodesToPane(findCurrentNode(level));
     gesturePane.setMinScale(0.1);
     gesturePane.setOnMouseClicked(e -> {
       Point2D pointOnMap = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
@@ -119,18 +120,24 @@ public class MapView2 extends StackPane {
       coordY.setText(Double.toString(currentY));
       circle.setCenterX(pointOnMap.getX());
       circle.setCenterY(pointOnMap.getY());
-      circle.setVisible(true);
+
       //  Node[] nodesArray = nodes.toArray(new Node[nodes.size()]);
 
-      selectedNode.set(new Node("Auto-Generated", currentX, currentY, level, "",
-
-          null, "", ""));
-      for (Node n : nodes) {
-        if (abs(n.getXcoord() - currentX) < 8 && abs(n.getYcoord() - currentY) < 8) {
-          selectedNode.set(n);
-          break;
+      if (!dragStatus) {
+        circle.setVisible(true);
+        selectedNode.set(new Node("Auto-Generated", currentX, currentY, level, "",
+            null, "", ""));
+        findCurrentNode(level);
+        for (Node n : currentNodes) {
+          if (abs(n.getXcoord() - currentX) < 8 && abs(n.getYcoord() - currentY) < 8) {
+            selectedNode.set(n);
+            break;
+          }
         }
       }
+
+
+
 
     });
     gesturePane.setFitMode(GesturePane.FitMode.COVER);
@@ -263,6 +270,33 @@ public class MapView2 extends StackPane {
   }
 
   @FXML
+  void onMouseDrag(MouseEvent event) {
+    if (dragStatus) {
+      selectedNode.set(new Node(selectedNode.get().getNodeId(), (int) event.getX(),
+          (int) event.getY(), level, selectedNode.get().getBuilding(),
+          selectedNode.get().getNodeType(), selectedNode.get().getLongName(),
+          selectedNode.get().getShortName()));
+      circleDrag.setCenterX(event.getX());
+      circleDrag.setCenterY(event.getY());
+
+    }
+  }
+
+  public void setCircleDrag(int x, int y) {
+    circleDrag.setCenterX(x);
+    circleDrag.setCenterY(y);
+  }
+
+  public void setDragStatus(boolean status) {
+    dragStatus = status;
+  }
+
+  public void setGesturePane(boolean status) {
+    gesturePane.setGestureEnabled(status);
+  }
+
+
+  @FXML
   void onMouseMove(MouseEvent e) {
     Object src = e.getSource();
     resetButtonBackground(level);
@@ -372,4 +406,14 @@ public class MapView2 extends StackPane {
   public String getLevel() {
     return level;
   }
+
+  public void setCircleVisibility(boolean visibility) {
+    circle.setVisible(visibility);
+  }
+
+  public void setCircleDragVisibility(boolean visibility) {
+    circleDrag.setVisible(visibility);
+  }
+
+
 }
