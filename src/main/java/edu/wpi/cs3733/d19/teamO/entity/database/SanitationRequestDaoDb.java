@@ -20,21 +20,25 @@ import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
 
 public class SanitationRequestDaoDb implements SanitationRequestDao {
 
-  private static final String QUERY_FILE_NAME = "sanitation_request_queries.properties";
+  private static final String QUERY_FILE_NAME =
+      "sanitation_request_queries.properties";
 
-  private static final Logger logger = Logger.getLogger(SanitationRequestDaoDb.class.getName());
+  private static final Logger logger =
+      Logger.getLogger(SanitationRequestDaoDb.class.getName());
   private static final Properties queries;
 
   static {
     queries = new Properties();
-    try (InputStream is = SanitationRequestDaoDb.class.getResourceAsStream(QUERY_FILE_NAME)) {
+    try (InputStream is = SanitationRequestDaoDb.class
+        .getResourceAsStream(QUERY_FILE_NAME)) {
       queries.load(is);
     } catch (IOException ex) {
       logger.log(Level.SEVERE, "Unable to load property file: " + QUERY_FILE_NAME, ex);
     }
   }
 
-  private static final String TABLE_NAME = queries.getProperty("sanitation_request.table_name");
+  private static final String TABLE_NAME = queries.getProperty(
+      "sanitation_request.table_name");
   private final DatabaseConnectionFactory dcf;
   private final NodeDaoDb nodeDaoDb;
 
@@ -72,31 +76,34 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
       );
 
       try (ResultSet resultSet = statement.executeQuery()) {
-        Set<SanitationRequest> sanitationRequest = new HashSet<>();
+        Set<SanitationRequest> sanitationRequests = new HashSet<>();
         while (resultSet.next()) {
-          sanitationRequest.add(extractSanitationRequestFromResultSet(resultSet));
+          sanitationRequests.add(extractSanitationRequestFromResultSet(
+              resultSet));
         }
-        return sanitationRequest;
+        return sanitationRequests;
       }
     } catch (SQLException ex) {
-      logger.log(Level.WARNING, "Failed to get SanitationRequests", ex);
+      logger.log(Level.WARNING, "Failed to get Sanitation Requests", ex);
     }
     return Collections.emptySet();
   }
 
-  private SanitationRequest extractSanitationRequestFromResultSet(final ResultSet resultSet)
-      throws SQLException {
+  private SanitationRequest extractSanitationRequestFromResultSet(
+      final ResultSet resultSet) throws SQLException {
     return new SanitationRequest(
         resultSet.getInt("sr_id"),
         resultSet.getTimestamp("TIMEREQUESTED").toLocalDateTime(),
         resultSet.getTimestamp("TIMECOMPLETED").toLocalDateTime(),
         nodeDaoDb.get(resultSet
             .getString("LOCATIONNODEID"))
-            .orElseThrow(() -> new SQLException("Could not get node for sanitation request")),
+            .orElseThrow(() -> new SQLException(
+                "Could not get node for sanitation request")),
         resultSet.getString("WHOCOMPLETED"),
         SanitationRequest.SanitationRequestType.get(
             resultSet.getString("SANITATIONTYPE")),
-        resultSet.getString("DESCRIPTION")
+        resultSet.getString("DESCRIPTION"),
+        resultSet.getString("NAME")
     );
   }
 
@@ -112,9 +119,11 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
       statement.setTimestamp(2,
           Timestamp.valueOf(sanitationRequest.getTimeCompleted()));
       statement.setString(3, sanitationRequest.getWhoCompleted());
-      statement.setString(4, sanitationRequest.getLocationNode().getNodeId());
+      statement.setString(4,
+          sanitationRequest.getLocationNode().getNodeId());
       statement.setString(5, sanitationRequest.getType().name());
       statement.setString(6, sanitationRequest.getDescription());
+      statement.setString(7, sanitationRequest.getPerson());
 
       statement.executeUpdate();
       try (ResultSet keys = statement.getGeneratedKeys()) {
@@ -140,7 +149,8 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
             + TABLE_NAME
             + " does not exist. Creating");
         PreparedStatement statement
-            = connection.prepareStatement(queries.getProperty("sanitation_request.create_table"));
+            = connection.prepareStatement(queries.getProperty(
+            "sanitation_request.create_table"));
         statement.executeUpdate();
         logger.info("Table " + TABLE_NAME + " created");
       } else {
@@ -166,7 +176,9 @@ public class SanitationRequestDaoDb implements SanitationRequestDao {
       statement.setString(4, sanitationRequest.getLocationNode().getNodeId());
       statement.setString(5, sanitationRequest.getType().name());
       statement.setString(6, sanitationRequest.getDescription());
-      statement.setInt(7, sanitationRequest.getId());
+      statement.setString(7, sanitationRequest.getPerson());
+      statement.setInt(8, sanitationRequest.getId());
+
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
       logger.log(Level.WARNING, "Failed to update SanitationRequest", ex);
