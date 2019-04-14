@@ -18,7 +18,7 @@ import edu.wpi.cs3733.d19.teamO.controller.request.ITSupportController;
 import edu.wpi.cs3733.d19.teamO.controller.request.InternalTransportationController;
 import edu.wpi.cs3733.d19.teamO.controller.request.InterpreterController;
 import edu.wpi.cs3733.d19.teamO.controller.request.PatientInfoController;
-import edu.wpi.cs3733.d19.teamO.controller.request.PrescriptionRequestController;
+import edu.wpi.cs3733.d19.teamO.controller.request.PrescriptionViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ReligiousServiceController;
 import edu.wpi.cs3733.d19.teamO.controller.request.SanitationViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.SupportAnimalController;
@@ -86,7 +86,7 @@ public class RequestController implements Controller {
   @Inject
   private FloristRequestController.Factory floristRequestControllerFactory;
   @Inject
-  private PrescriptionRequestController.Factory prescriptionRequestControllerFactory;
+  private PrescriptionViewController.Factory prescriptionRequestControllerFactory;
   @Inject
   private SanitationViewController.Factory sanitationControllerFactory;
 
