@@ -19,6 +19,7 @@ import edu.wpi.cs3733.d19.teamO.controller.request.ExternalTransportationControl
 import edu.wpi.cs3733.d19.teamO.controller.request.ExternalTransportationPopupController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ExternalTransportationViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.FloristRequestController;
+import edu.wpi.cs3733.d19.teamO.controller.request.FloristRequestPopupController;
 import edu.wpi.cs3733.d19.teamO.controller.request.FloristRequestViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.GiftController;
 import edu.wpi.cs3733.d19.teamO.controller.request.GiftPopupController;
@@ -130,6 +131,8 @@ public class ControllerModule extends AbstractModule {
     install(new FactoryModuleBuilder().build(ITSupportPopupController.Factory.class));
     install(new FactoryModuleBuilder().build(ITSupportController.Factory.class));
     install(new FactoryModuleBuilder().build(ITSupportViewController.Factory.class));
+
+    install(new FactoryModuleBuilder().build(FloristRequestPopupController.Factory.class));
     install(new FactoryModuleBuilder().build(FloristRequestController.Factory.class));
     install(new FactoryModuleBuilder().build(FloristRequestViewController.Factory.class));
 

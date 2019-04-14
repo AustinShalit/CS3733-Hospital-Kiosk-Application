@@ -12,7 +12,7 @@ import javafx.scene.layout.VBox;
 import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.controller.request.AudioVisualViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ExternalTransportationViewController;
-import edu.wpi.cs3733.d19.teamO.controller.request.FloristRequestController;
+import edu.wpi.cs3733.d19.teamO.controller.request.FloristRequestViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.GiftViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ITSupportViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.InternalTransportationViewController;
@@ -84,7 +84,7 @@ public class RequestController implements Controller {
   @Inject
   private SupportAnimalViewController.Factory supportAnimalControllerFactory;
   @Inject
-  private FloristRequestController.Factory floristRequestControllerFactory;
+  private FloristRequestViewController.Factory floristRequestControllerFactory;
   @Inject
   private PrescriptionViewController.Factory prescriptionRequestControllerFactory;
   @Inject
