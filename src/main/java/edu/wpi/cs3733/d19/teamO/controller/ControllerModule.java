@@ -28,6 +28,8 @@ import edu.wpi.cs3733.d19.teamO.controller.request.InterpreterController;
 import edu.wpi.cs3733.d19.teamO.controller.request.InterpreterViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.PatientInfoController;
 import edu.wpi.cs3733.d19.teamO.controller.request.PatientInfoViewController;
+import edu.wpi.cs3733.d19.teamO.controller.request.PrescriptionRequestController;
+import edu.wpi.cs3733.d19.teamO.controller.request.PrescriptionViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ReligiousServiceController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ReligiousServiceViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.SanitationController;
@@ -82,6 +84,10 @@ public class ControllerModule extends AbstractModule {
     install(new FactoryModuleBuilder().build(InternalTransportationViewController.Factory.class));
     install(new FactoryModuleBuilder().build(PatientInfoController.Factory.class));
     install(new FactoryModuleBuilder().build(PatientInfoViewController.Factory.class));
+
+    install(new FactoryModuleBuilder().build(PrescriptionRequestController.Factory.class));
+    install(new FactoryModuleBuilder().build(PrescriptionViewController.Factory.class));
+
     install(new FactoryModuleBuilder().build(ExternalTransportationController.Factory.class));
     install(new FactoryModuleBuilder().build(ExternalTransportationViewController.Factory.class));
     install(new FactoryModuleBuilder().build(GiftController.Factory.class));
@@ -92,6 +98,8 @@ public class ControllerModule extends AbstractModule {
     install(new FactoryModuleBuilder().build(ReligiousServiceViewController.Factory.class));
     install(new FactoryModuleBuilder().build(SupportAnimalController.Factory.class));
     install(new FactoryModuleBuilder().build(SupportAnimalViewController.Factory.class));
+
+
     install(new FactoryModuleBuilder().build(ITSupportController.Factory.class));
     install(new FactoryModuleBuilder().build(ITSupportViewController.Factory.class));
     install(new FactoryModuleBuilder().build(FloristRequestController.Factory.class));

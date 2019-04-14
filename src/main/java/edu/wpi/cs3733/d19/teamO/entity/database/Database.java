@@ -20,6 +20,7 @@ import edu.wpi.cs3733.d19.teamO.entity.InternalTransportationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.InterpreterRequest;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.PatientInfoRequest;
+import edu.wpi.cs3733.d19.teamO.entity.PrescriptionRequest;
 import edu.wpi.cs3733.d19.teamO.entity.ReligiousServiceRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SanitationRequest;
 import edu.wpi.cs3733.d19.teamO.entity.SchedulingRequest;
@@ -45,6 +46,7 @@ public class Database implements AutoCloseable {
   private final ExternalTransportationRequestDao etransportationDao;
   private final GiftRequestDao giftRequestDao;
   private final ReligiousServiceRequestDao rserviceDao;
+  private final PrescriptionRequestDao prescriptionDao;
   private final ITSupportRequestDao itSupportDao;
   private final FloristRequestDao floristRequestDao;
   private final InterpreterRequestDao interpreterDao;
@@ -69,6 +71,7 @@ public class Database implements AutoCloseable {
     this.employeeDao = new EmployeeDaoDb(dcf);
     this.interpreterDao = new InterpreterRequestDaoDb(dcf);
     this.giftRequestDao = new GiftRequestDaoDb(dcf);
+    this.prescriptionDao = new PrescriptionRequestDaoDb(dcf);
 
     this.dcf = dcf;
   }
@@ -522,5 +525,28 @@ public class Database implements AutoCloseable {
 
   public boolean updateSupportAnimalRequest(SupportAnimalRequest request) {
     return supportAnimalRequestDao.update(request);
+  }
+
+  /*
+   * Prescription Request
+   */
+  public Optional<PrescriptionRequest> getPrescriptionRequest(int id) {
+    return prescriptionDao.get(id);
+  }
+
+  public Set<PrescriptionRequest> getAllPrescriptionRequest() {
+    return prescriptionDao.getAll();
+  }
+
+  public boolean insertPrescriptionRequest(PrescriptionRequest request) {
+    return prescriptionDao.insert(request);
+  }
+
+  public boolean updatePrescriptionRequest(PrescriptionRequest request) {
+    return prescriptionDao.update(request);
+  }
+
+  public boolean deletePrescriptionRequest(PrescriptionRequest request) {
+    return prescriptionDao.delete(request);
   }
 }

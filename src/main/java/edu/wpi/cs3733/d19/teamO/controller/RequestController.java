@@ -18,6 +18,7 @@ import edu.wpi.cs3733.d19.teamO.controller.request.ITSupportController;
 import edu.wpi.cs3733.d19.teamO.controller.request.InternalTransportationController;
 import edu.wpi.cs3733.d19.teamO.controller.request.InterpreterController;
 import edu.wpi.cs3733.d19.teamO.controller.request.PatientInfoController;
+import edu.wpi.cs3733.d19.teamO.controller.request.PrescriptionRequestController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ReligiousServiceController;
 import edu.wpi.cs3733.d19.teamO.controller.request.SanitationController;
 import edu.wpi.cs3733.d19.teamO.controller.request.SupportAnimalController;
@@ -32,7 +33,7 @@ public class RequestController implements Controller {
   @FXML
   private JFXButton sanitation;
   @FXML
-  private JFXButton perscription;
+  private JFXButton prescription;
   @FXML
   private JFXButton interpreter;
 
@@ -91,6 +92,8 @@ public class RequestController implements Controller {
   @Inject
   private FloristRequestController.Factory floristRequestControllerFactory;
   @Inject
+  private PrescriptionRequestController.Factory prescriptionRequestControllerFactory;
+  @Inject
   private SanitationController.Factory sanitationControllerFactory;
 
   @FXML
@@ -147,6 +150,11 @@ public class RequestController implements Controller {
   @FXML
   void supportAnimalAction(ActionEvent event) {
     eventBus.post(new ChangeMainViewEvent(supportAnimalControllerFactory.create()));
+  }
+
+  @FXML
+  void prescriptionAction() {
+    eventBus.post(new ChangeMainViewEvent(prescriptionRequestControllerFactory.create()));
   }
 
 
