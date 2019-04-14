@@ -102,7 +102,7 @@ public class MapView extends StackPane {
     gesturePane.setFitMode(GesturePane.FitMode.COVER);
     gesturePane.setScrollBarEnabled(false);
     resetButtonBackground(99);
-    levelF1.setStyle("-fx-background-color: rgba(17,0,255,0.4)");
+    levelF1.setStyle("-fx-background-color: rgb(1,45,90)");
 
     onFloorSelectAction(new ActionEvent(levelF1, levelF1));
 
@@ -110,48 +110,48 @@ public class MapView extends StackPane {
 
   void resetButtonBackground(int level) {
     if (level == 1) {
-      levelL1.setStyle("-fx-background-color: rgba(249,249,255,0)");
-      levelL2.setStyle("-fx-background-color: rgba(249,249,255,0)");
-      levelF2.setStyle("-fx-background-color: rgba(249,249,255,0)");
-      levelF3.setStyle("-fx-background-color: rgba(249,249,255,0)");
-      levelG.setStyle("-fx-background-color: rgba(249,249,255,0)");
+      levelL1.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelL2.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF2.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF3.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelG.setStyle("-fx-background-color: rgb(0,103,177)");
     } else if (level == 2) {
-      levelL1.setStyle("-fx-background-color: rgba(249,249,255,0)");
-      levelL2.setStyle("-fx-background-color: rgba(249,249,255,0)");
-      levelF1.setStyle("-fx-background-color: rgba(249,249,255,0)");
-      levelF3.setStyle("-fx-background-color: rgba(249,249,255,0)");
-      levelG.setStyle("-fx-background-color: rgba(249,249,255,0)");
+      levelL1.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelL2.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF1.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF3.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelG.setStyle("-fx-background-color: rgb(0,103,177)");
     } else if (level == 3) {
-      levelL1.setStyle("-fx-background-color: rgba(249,249,255,0)");
-      levelL2.setStyle("-fx-background-color: rgba(249,249,255,0)");
-      levelF1.setStyle("-fx-background-color: rgba(249,249,255,0)");
-      levelF2.setStyle("-fx-background-color: rgba(249,249,255,0)");
-      levelG.setStyle("-fx-background-color: rgba(249,249,255,0)");
+      levelL1.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelL2.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF1.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF2.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelG.setStyle("-fx-background-color: rgb(0,103,177)");
     } else if (level == 0) {
-      levelL1.setStyle("-fx-background-color: rgba(249,249,255,0)");
-      levelL2.setStyle("-fx-background-color: rgba(249,249,255,0)");
-      levelF1.setStyle("-fx-background-color: rgba(249,249,255,0)");
-      levelF2.setStyle("-fx-background-color: rgba(249,249,255,0)");
-      levelF3.setStyle("-fx-background-color: rgba(249,249,255,0)");
+      levelL1.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelL2.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF1.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF2.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF3.setStyle("-fx-background-color: rgb(0,103,177)");
     } else if (level == -1) {
-      levelG.setStyle("-fx-background-color: rgba(249,249,255,0)");
-      levelL2.setStyle("-fx-background-color: rgba(249,249,255,0)");
-      levelF1.setStyle("-fx-background-color: rgba(249,249,255,0)");
-      levelF2.setStyle("-fx-background-color: rgba(249,249,255,0)");
-      levelF3.setStyle("-fx-background-color: rgba(249,249,255,0)");
+      levelG.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelL2.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF1.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF2.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF3.setStyle("-fx-background-color: rgb(0,103,177)");
     } else if (level == -2) {
-      levelL1.setStyle("-fx-background-color: rgba(249,249,255,0)");
-      levelG.setStyle("-fx-background-color: rgba(249,249,255,0)");
-      levelF1.setStyle("-fx-background-color: rgba(249,249,255,0)");
-      levelF2.setStyle("-fx-background-color: rgba(249,249,255,0)");
-      levelF3.setStyle("-fx-background-color: rgba(249,249,255,0)");
+      levelL1.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelG.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF1.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF2.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF3.setStyle("-fx-background-color: rgb(0,103,177)");
     } else {
-      levelL1.setStyle("-fx-background-color: rgba(249,249,255,0)");
-      levelG.setStyle("-fx-background-color: rgba(249,249,255,0)");
-      levelF1.setStyle("-fx-background-color: rgba(249,249,255,0)");
-      levelF2.setStyle("-fx-background-color: rgba(249,249,255,0)");
-      levelF3.setStyle("-fx-background-color: rgba(249,249,255,0)");
-      levelL2.setStyle("-fx-background-color: rgba(249,249,255,0)");
+      levelL1.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelG.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF1.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF2.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF3.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelL2.setStyle("-fx-background-color: rgb(0,103,177)");
     }
 
   }
@@ -167,7 +167,7 @@ public class MapView extends StackPane {
         || src.equals(levelG) || src.equals(levelL1) || src.equals(levelL2)) {
       resetButtonBackground(level);
       // If the src of this ActionEvent is from our supported buttons
-      ((Button) src).setStyle("-fx-background-color:  rgba(17,0,255,0.4)"); // style button
+      ((Button) src).setStyle("-fx-background-color: rgb(1,45,90)"); // style button
     } else {
       // If the src of this ActionEvent is from an unsupported button, return.
       System.out.println(e.getSource());
@@ -208,29 +208,29 @@ public class MapView extends StackPane {
     resetButtonBackground(level);
     int currentLevel = 1;
     if (src.equals(levelF1)) {
-      levelF1.setStyle("-fx-background-color:  rgba(17,0,255,0.2)");
+      levelF1.setStyle("-fx-background-color: rgb(0,78,134)");
       currentLevel = 1;
     } else if (src.equals(levelF2)) {
-      levelF2.setStyle("-fx-background-color:  rgba(17,0,255,0.2)");
+      levelF2.setStyle("-fx-background-color: rgb(0,78,134)");
       currentLevel = 2;
     } else if (src.equals(levelF3)) {
-      levelF3.setStyle("-fx-background-color:  rgba(17,0,255,0.2)");
+      levelF3.setStyle("-fx-background-color: rgb(0,78,134)");
       currentLevel = 3;
     } else if (src.equals(levelL1)) {
-      levelL1.setStyle("-fx-background-color:  rgba(17,0,255,0.2)");
+      levelL1.setStyle("-fx-background-color: rgb(0,78,134)");
       currentLevel = -1;
     } else if (src.equals(levelL2)) {
-      levelL2.setStyle("-fx-background-color:  rgba(17,0,255,0.2)");
+      levelL2.setStyle("-fx-background-color: rgb(0,78,134)");
       currentLevel = -2;
     } else if (src.equals(levelG)) {
-      levelG.setStyle("-fx-background-color:  rgba(17,0,255,0.2)");
+      levelG.setStyle("-fx-background-color: rgb(0,78,134)");
       currentLevel = 0;
     } else {
       return;
     }
 
     if (currentLevel == level) {
-      ((Button) src).setStyle("-fx-background-color:  rgba(17,0,255,0.4)"); // style button
+      ((Button) src).setStyle("-fx-background-color: rgb(1,45,90)"); // style button
     }
   }
 
