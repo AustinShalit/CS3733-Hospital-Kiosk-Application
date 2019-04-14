@@ -28,12 +28,16 @@ import edu.wpi.cs3733.d19.teamO.controller.request.InterpreterController;
 import edu.wpi.cs3733.d19.teamO.controller.request.InterpreterViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.PatientInfoController;
 import edu.wpi.cs3733.d19.teamO.controller.request.PatientInfoViewController;
+import edu.wpi.cs3733.d19.teamO.controller.request.PrescriptionRequestController;
+import edu.wpi.cs3733.d19.teamO.controller.request.PrescriptionViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ReligiousServiceController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ReligiousServiceViewController;
+import edu.wpi.cs3733.d19.teamO.controller.request.SanitationController;
+import edu.wpi.cs3733.d19.teamO.controller.request.SanitationViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.SupportAnimalController;
 import edu.wpi.cs3733.d19.teamO.controller.request.SupportAnimalViewController;
 
-@SuppressWarnings("PMD.CouplingBetweenObjects")
+@SuppressWarnings({"PMD.CouplingBetweenObjects", "PMD.ExcessiveImports"})
 public class ControllerModule extends AbstractModule {
   @Override
   protected void configure() {
@@ -64,6 +68,9 @@ public class ControllerModule extends AbstractModule {
     install(new FactoryModuleBuilder().build(RequestController.Factory.class));
     install(new FactoryModuleBuilder().build(AdminController.Factory.class));
     install(new FactoryModuleBuilder().build(CheckRequestsController.Factory.class));
+    install(new FactoryModuleBuilder().build(AddEmployeeController.Factory.class));
+    install(new FactoryModuleBuilder().build(UpdateEmployeeController.Factory.class));
+    install(new FactoryModuleBuilder().build(EmployeeController.Factory.class));
     install(new FactoryModuleBuilder().build(SettingsController.Factory.class));
 
     install(new FactoryModuleBuilder().build(AudioVisualController.Factory.class));
@@ -71,39 +78,39 @@ public class ControllerModule extends AbstractModule {
 
     install(new FactoryModuleBuilder().build(AdminController.Factory.class));
     install(new FactoryModuleBuilder().build(MapEditController.Factory.class));
+    install(new FactoryModuleBuilder().build(SchedulingController.Factory.class));
+    install(new FactoryModuleBuilder().build(SchedulingViewController.Factory.class));
+    install(new FactoryModuleBuilder().build(EditNodeDatabaseController.Factory.class));
 
+
+    install(new FactoryModuleBuilder().build(AudioVisualController.Factory.class));
+    install(new FactoryModuleBuilder().build(AudioVisualViewController.Factory.class));
     install(new FactoryModuleBuilder().build(InternalTransportationController.Factory.class));
     install(new FactoryModuleBuilder().build(InternalTransportationViewController.Factory.class));
-
     install(new FactoryModuleBuilder().build(PatientInfoController.Factory.class));
     install(new FactoryModuleBuilder().build(PatientInfoViewController.Factory.class));
 
+    install(new FactoryModuleBuilder().build(PrescriptionRequestController.Factory.class));
+    install(new FactoryModuleBuilder().build(PrescriptionViewController.Factory.class));
 
     install(new FactoryModuleBuilder().build(ExternalTransportationController.Factory.class));
     install(new FactoryModuleBuilder().build(ExternalTransportationViewController.Factory.class));
-
     install(new FactoryModuleBuilder().build(GiftController.Factory.class));
     install(new FactoryModuleBuilder().build(GiftViewController.Factory.class));
-    install(new FactoryModuleBuilder().build(SchedulingController.Factory.class));
-    install(new FactoryModuleBuilder().build(SchedulingViewController.Factory.class));
-
-
     install(new FactoryModuleBuilder().build(InterpreterController.Factory.class));
     install(new FactoryModuleBuilder().build(InterpreterViewController.Factory.class));
     install(new FactoryModuleBuilder().build(ReligiousServiceController.Factory.class));
     install(new FactoryModuleBuilder().build(ReligiousServiceViewController.Factory.class));
-
     install(new FactoryModuleBuilder().build(SupportAnimalController.Factory.class));
     install(new FactoryModuleBuilder().build(SupportAnimalViewController.Factory.class));
 
 
-
     install(new FactoryModuleBuilder().build(ITSupportController.Factory.class));
     install(new FactoryModuleBuilder().build(ITSupportViewController.Factory.class));
-
     install(new FactoryModuleBuilder().build(FloristRequestController.Factory.class));
     install(new FactoryModuleBuilder().build(FloristRequestViewController.Factory.class));
+    install(new FactoryModuleBuilder().build(SanitationController.Factory.class));
+    install(new FactoryModuleBuilder().build(SanitationViewController.Factory.class));
 
-    install(new FactoryModuleBuilder().build(EditNodeDatabaseController.Factory.class));
   }
 }

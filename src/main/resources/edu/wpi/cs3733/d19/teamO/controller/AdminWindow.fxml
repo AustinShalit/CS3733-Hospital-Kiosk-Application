@@ -49,7 +49,7 @@
                 <Font size="40.0" />
               </font>
             </JFXButton>
-            <JFXButton fx:id="employeeButton" prefHeight="368.0" prefWidth="740.0" style="-fx-background-color: #004E86;" stylesheets="@style/KioskStyle.css" text="EMPLOYEE MANAGEMENT" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <JFXButton fx:id="employeeButton" onAction="#employeeOnAction" prefHeight="368.0" prefWidth="740.0" style="-fx-background-color: #004E86;" stylesheets="@style/KioskStyle.css" text="EMPLOYEE MANAGEMENT" GridPane.columnIndex="1" GridPane.rowIndex="1">
               <GridPane.margin>
                 <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
               </GridPane.margin>
