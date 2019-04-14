@@ -28,8 +28,8 @@ public class DefaultInformationLoader {
     if (database.getAllEdges().size() == 0) {
       loadEdges();
     }
-    if (database.getAllEmployees().size() == 0 || database.getAllLogin().size() == 0) {
-      loadEmployeesAndLogins();
+    if (database.getAllEmployee().size() == 0) {
+      loadEmployees();
     }
   }
 
@@ -61,21 +61,17 @@ public class DefaultInformationLoader {
     }
   }
 
-  private void loadEmployeesAndLogins() {
-    Employee adminWong = new Employee(1, "Admin", Employee.EmployeeType.ADMIN);
-    Employee staff = new Employee(2, "Staff", Employee.EmployeeType.ADMIN);
-    Employee teamO = new Employee(3, "TeamO", Employee.EmployeeType.DEFAULT);
-    // Insert employees
-    database.insertEmployee(adminWong);
-    database.insertEmployee(staff);
-    database.insertEmployee(teamO);
+  private void loadEmployees() {
 
-    Login user1 = new Login("admin", "wong", adminWong);
-    Login user2 = new Login("staff", "staff", staff);
-    Login user3 = new Login("teamo", "won", teamO);
+    Employee user1 = new Employee("admin", "wong", "AdminTest",
+        Employee.EmployeeType.ADMIN);
+    Employee user2 = new Employee("staff", "staff", "StaffTest",
+        Employee.EmployeeType.SECURITY);
+    Employee user3 = new Employee("teamo", "won", "TeamOTest",
+        Employee.EmployeeType.DEFAULT);
 
-    database.insertLogin(user1);
-    database.insertLogin(user2);
-    database.insertLogin(user3);
+    database.insertEmployee(user1);
+    database.insertEmployee(user2);
+    database.insertEmployee(user3);
   }
 }

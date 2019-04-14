@@ -32,16 +32,16 @@ class SanitationRequestDaoDbTest {
       "FL3", "Central", Node.NodeType.DEPT, "LONGNAME",
       "SHORTNAME");
 
-  private static final SanitationRequest testSanitationRequest1 =
+  private static final SanitationRequest testSanitation1 =
       new SanitationRequest(1, LocalDateTime.now(), LocalDateTime.now(), testNode1,
-          "Bob", SanitationRequest.SanitationRequestType.BEDDING,
-          "This is a description");
+          "Bob", SanitationRequest.SanitationRequestType.VOMIT,
+          "This is a description", "Dev");
 
-  private static final SanitationRequest testSanitationRequest2 =
+  private static final SanitationRequest testSanitation2 =
       new SanitationRequest(2, LocalDateTime.now(), LocalDateTime.now(), testNode2,
-          "Bill",
-          SanitationRequest.SanitationRequestType.BEDDING, "This is a description");
-  private SanitationRequestDaoDb sanitationDao;
+          "Bill", SanitationRequest.SanitationRequestType.SPILL,
+          "This is a description", "Ken");
+  private SanitationRequestDaoDb sanitationdao;
   private NodeDao nodeDao;
 
   @Inject
@@ -50,106 +50,108 @@ class SanitationRequestDaoDbTest {
   @BeforeEach
   void setup() throws SQLException {
     nodeDao = new NodeDaoDb(dcf);
-    SanitationRequestDaoDb sanitationRequestDaoDb = new SanitationRequestDaoDb(dcf);
+    SanitationRequestDaoDb sanitationRequestDaoDb =
+        new SanitationRequestDaoDb(dcf);
 
     nodeDao.insert(testNode1);
-    sanitationRequestDaoDb.insert(testSanitationRequest1);
+    sanitationRequestDaoDb.insert(testSanitation1);
 
 
-    sanitationDao = new SanitationRequestDaoDb(dcf);
+    sanitationdao = new SanitationRequestDaoDb(dcf);
   }
 
   @Test
   void getTest() {
-    sanitationDao.insert(testSanitationRequest1);
+    sanitationdao.insert(testSanitation1);
 
-    assertTrue(sanitationDao.get(testSanitationRequest1.getId()).isPresent());
+    assertTrue(sanitationdao.get(testSanitation1.getId()).isPresent());
   }
 
   @Test
   void getDifferentObjectTest() {
-    sanitationDao.insert(testSanitationRequest1);
+    sanitationdao.insert(testSanitation1);
 
-    assertNotSame(testSanitationRequest1,
-        sanitationDao.get(testSanitationRequest1.getId()).orElseThrow(IllegalStateException::new));
+    assertNotSame(testSanitation1,
+        sanitationdao.get(testSanitation1.getId()).orElseThrow(IllegalStateException::new));
   }
 
   @Test
   void checkEqual() {
-    sanitationDao.insert(testSanitationRequest1);
+    sanitationdao.insert(testSanitation1);
 
-    assertEquals(testSanitationRequest1, sanitationDao.get(testSanitationRequest1.getId()).get());
+    assertEquals(testSanitation1, sanitationdao.get(testSanitation1.getId()).get());
   }
 
   @Test
   void getNotExistingTest() {
-    assertFalse(sanitationDao.get(987).isPresent());
+    assertFalse(sanitationdao.get(987).isPresent());
   }
 
   @Test
   void insertTest() {
     nodeDao.insert(testNode2);
 
-    assertTrue(sanitationDao.insert(testSanitationRequest2));
+    assertTrue(sanitationdao.insert(testSanitation2));
   }
 
   @Test
   void deleteTest() {
-    sanitationDao.insert(testSanitationRequest1);
-    assertTrue(sanitationDao.delete(testSanitationRequest1));
+    sanitationdao.insert(testSanitation1);
+    assertTrue(sanitationdao.delete(testSanitation1));
   }
 
   @Test
   void deleteNotExistingTest() {
-    assertFalse(sanitationDao.delete(new SanitationRequest(987, null,
-        null, testNode1, null, null, null)));
+    assertFalse(sanitationdao.delete(new SanitationRequest(987, null,
+        null, testNode1, null, null, null, null)));
   }
 
   @Test
   void updateTest() {
-    sanitationDao.insert(testSanitationRequest1);
+    sanitationdao.insert(testSanitation1);
 
-    SanitationRequest update = new SanitationRequest(testSanitationRequest1.getId(),
+    SanitationRequest update = new SanitationRequest(testSanitation1.getId(),
         LocalDateTime.now(), LocalDateTime.now(),
         testNode1, "Fred",
         SanitationRequest.SanitationRequestType.OTHERS,
-        "A different description");
+        "A different description", "Austin");
 
-    assertTrue(sanitationDao.update(update));
-    assertNotEquals(testSanitationRequest1, sanitationDao.get(testSanitationRequest1.getId()));
+    assertTrue(sanitationdao.update(update));
+    assertNotEquals(testSanitation1, sanitationdao.get(testSanitation1.getId()));
   }
 
   @Test
   void updateNotExistingTest() {
     Node newNode = new Node("9876", 0, 0, "2", "Fuller",
         Node.NodeType.DEPT, "longname", "shortname");
-    assertFalse(sanitationDao.update(new SanitationRequest(987, LocalDateTime.now(),
+    assertFalse(sanitationdao.update(new SanitationRequest(987, LocalDateTime.now(),
         LocalDateTime.now(), newNode, "Jane",
-        SanitationRequest.SanitationRequestType.SPILL, "This request doesnt exist")));
+        SanitationRequest.SanitationRequestType.BEDDING,
+        "This request doesnt exist", "Jill")));
   }
 
   @Test
   void getAllTest() {
     nodeDao.insert(testNode2);
-    sanitationDao.insert(testSanitationRequest2);
+    sanitationdao.insert(testSanitation2);
 
-    assertEquals(2, sanitationDao.getAll().size());
+    assertEquals(2, sanitationdao.getAll().size());
   }
 
   @Test
   void getAllEmptyTest() {
-    sanitationDao.delete(testSanitationRequest1);
+    sanitationdao.delete(testSanitation1);
 
-    assertTrue(sanitationDao.getAll().isEmpty());
+    assertTrue(sanitationdao.getAll().isEmpty());
   }
 
   @Test
   void autoIncrementTest() {
     for (int i = 0; i < 10; i++) {
-      sanitationDao.insert(testSanitationRequest1);
+      sanitationdao.insert(testSanitation1);
     }
 
-    Set<SanitationRequest> sanitationRequestSet = sanitationDao.getAll();
+    Set<SanitationRequest> sanitationRequestSet = sanitationdao.getAll();
     for (SanitationRequest sr : sanitationRequestSet) {
       // make sure the id is in the correct range
       assertTrue(sr.getId() < 11 || sr.getId() > 1);
