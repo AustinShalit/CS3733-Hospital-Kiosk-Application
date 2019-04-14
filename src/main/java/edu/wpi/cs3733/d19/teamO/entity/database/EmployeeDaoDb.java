@@ -88,7 +88,7 @@ public class EmployeeDaoDb implements EmployeeDao {
         resultSet.getString("username"),
         resultSet.getString("password"),
         resultSet.getString("name"),
-        new Gson().fromJson(resultSet.getString("attr"), EmployeeAttributes.class)
+        EmployeeAttributes.fromString(resultSet.getString("attr"))
     );
   }
 

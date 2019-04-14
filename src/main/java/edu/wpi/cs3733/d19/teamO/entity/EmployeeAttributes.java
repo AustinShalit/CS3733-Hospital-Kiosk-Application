@@ -22,6 +22,26 @@ public class EmployeeAttributes {
     this(false, employeeType);
   }
 
+  public static EmployeeAttributes fromString(String from) {
+    return new Gson().fromJson(from, EmployeeAttributes.class);
+  }
+
+  public boolean getCanFulfillSupportAnimal() {
+    return canFulfillSupportAnimal;
+  }
+
+  public void setCanFulfillSupportAnimal(boolean canFulfillSupportAnimal) {
+    this.canFulfillSupportAnimal = canFulfillSupportAnimal;
+  }
+
+  public Employee.EmployeeType getEmployeeType() {
+    return employeeType;
+  }
+
+  public void setEmployeeType(Employee.EmployeeType employeeType) {
+    this.employeeType = employeeType;
+  }
+
   @Override
   public String toString() {
     Gson gson = new Gson();
