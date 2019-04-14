@@ -16,7 +16,7 @@ import edu.wpi.cs3733.d19.teamO.controller.request.FloristRequestController;
 import edu.wpi.cs3733.d19.teamO.controller.request.GiftController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ITSupportController;
 import edu.wpi.cs3733.d19.teamO.controller.request.InternalTransportationController;
-import edu.wpi.cs3733.d19.teamO.controller.request.InterpreterController;
+import edu.wpi.cs3733.d19.teamO.controller.request.InterpreterViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.PatientInfoController;
 import edu.wpi.cs3733.d19.teamO.controller.request.PrescriptionViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ReligiousServiceController;
@@ -78,7 +78,7 @@ public class RequestController implements Controller {
   @Inject
   private GiftController.Factory giftControllerFactory;
   @Inject
-  private InterpreterController.Factory interpreterControllerFactory;
+  private InterpreterViewController.Factory interpreterControllerFactory;
   @Inject
   private ReligiousServiceController.Factory religiousServiceControllerFactory;
   @Inject
