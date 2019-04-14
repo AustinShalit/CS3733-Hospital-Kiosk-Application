@@ -92,12 +92,11 @@ public class Employee {
    * @param name     User's Name
    * @param type     Position Type
    */
-  public Employee(String username, String password, String name, EmployeeType type) {
-    this.id = -1;
-    this.username = username;
-    this.password = password;
-    this.name = name;
-    this.type = type;
+  public Employee(String username,
+                  String password,
+                  String name,
+                  EmployeeType type) {
+    this(-1, username, password, name, type, new EmployeeAttributes(false));
   }
 
   public int getId() {
