@@ -12,6 +12,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
@@ -51,6 +52,13 @@ public class AudioVisualPopupController implements Controller {
     DialogHelper.populateComboBox(db, locationbox);
     categorybox.getItems().setAll(AudioVisualRequest.AudioVisualRequestType
         .values());
+
+    submitbtn.disableProperty().bind(
+        Bindings.isEmpty(nametxt.textProperty())
+            .or(Bindings.isNull(locationbox.valueProperty()))
+            .or(Bindings.isNull(categorybox.valueProperty()))
+            .or(Bindings.isEmpty(descriptiontxt.textProperty()))
+    );
   }
 
   @FXML

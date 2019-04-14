@@ -60,12 +60,6 @@ public class RequestController implements Controller {
   private JFXButton florist;
 
   @FXML
-  private JFXButton other2;
-  @FXML
-  private JFXButton other3;
-  @FXML
-  private JFXButton other4;
-  @FXML
   private JFXButton viewRequest;
 
 

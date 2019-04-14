@@ -17,10 +17,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.BorderPane;
 
-import edu.wpi.cs3733.d19.teamO.controller.CheckRequestsController;
 import edu.wpi.cs3733.d19.teamO.controller.Controller;
 import edu.wpi.cs3733.d19.teamO.controller.DialogHelper;
 import edu.wpi.cs3733.d19.teamO.controller.FxmlController;
+import edu.wpi.cs3733.d19.teamO.controller.RequestController;
 import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.AudioVisualRequest;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
@@ -66,7 +66,7 @@ public class AudioVisualViewController implements Controller {
   @Inject
   private Database db;
   @Inject
-  private CheckRequestsController.Factory checkRequestsControllerFactory;
+  private RequestController.Factory checkRequestsControllerFactory;
   @Inject
   private AudioVisualPopupController.Factory audioVisualPopupFactory;
 
