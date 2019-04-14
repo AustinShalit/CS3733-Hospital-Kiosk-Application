@@ -13,7 +13,7 @@ import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.controller.request.AudioVisualViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ExternalTransportationViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.FloristRequestController;
-import edu.wpi.cs3733.d19.teamO.controller.request.GiftController;
+import edu.wpi.cs3733.d19.teamO.controller.request.GiftViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ITSupportController;
 import edu.wpi.cs3733.d19.teamO.controller.request.InternalTransportationViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.InterpreterViewController;
@@ -76,7 +76,7 @@ public class RequestController implements Controller {
   @Inject
   private ExternalTransportationViewController.Factory externalTransportationViewControllerFactory;
   @Inject
-  private GiftController.Factory giftControllerFactory;
+  private GiftViewController.Factory giftControllerFactory;
   @Inject
   private InterpreterViewController.Factory interpreterControllerFactory;
   @Inject

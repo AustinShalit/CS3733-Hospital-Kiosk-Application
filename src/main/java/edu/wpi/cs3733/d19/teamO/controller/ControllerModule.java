@@ -21,6 +21,7 @@ import edu.wpi.cs3733.d19.teamO.controller.request.ExternalTransportationViewCon
 import edu.wpi.cs3733.d19.teamO.controller.request.FloristRequestController;
 import edu.wpi.cs3733.d19.teamO.controller.request.FloristRequestViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.GiftController;
+import edu.wpi.cs3733.d19.teamO.controller.request.GiftPopupController;
 import edu.wpi.cs3733.d19.teamO.controller.request.GiftViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ITSupportController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ITSupportViewController;
@@ -106,6 +107,8 @@ public class ControllerModule extends AbstractModule {
     install(new FactoryModuleBuilder().build(ExternalTransportationPopupController.Factory.class));
     install(new FactoryModuleBuilder().build(ExternalTransportationController.Factory.class));
     install(new FactoryModuleBuilder().build(ExternalTransportationViewController.Factory.class));
+
+    install(new FactoryModuleBuilder().build(GiftPopupController.Factory.class));
     install(new FactoryModuleBuilder().build(GiftController.Factory.class));
     install(new FactoryModuleBuilder().build(GiftViewController.Factory.class));
 
