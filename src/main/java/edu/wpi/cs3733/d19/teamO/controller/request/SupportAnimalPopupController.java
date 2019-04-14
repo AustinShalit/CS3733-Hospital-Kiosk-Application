@@ -54,7 +54,6 @@ public class SupportAnimalPopupController implements Controller {
         Bindings.isEmpty(nametxt.textProperty())
             .or(Bindings.isNull(locationbox.valueProperty()))
             .or(Bindings.isNull(categorybox.valueProperty()))
-            .or(Bindings.isEmpty(descriptiontxt.textProperty()))
     );
   }
 
@@ -91,8 +90,7 @@ public class SupportAnimalPopupController implements Controller {
    */
   private SupportAnimalRequest parseRequest() {
     // if input is valid, parse it and return a new Request
-    if (!descriptiontxt.getText().isEmpty()
-        && !nametxt.getText().isEmpty()
+    if (!nametxt.getText().isEmpty()
         && Objects.nonNull(locationbox.getValue())
         && Objects.nonNull(categorybox.getValue())) {
 

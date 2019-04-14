@@ -59,7 +59,6 @@ public class PatientInfoPopupController implements Controller {
             .or(Bindings.isNull(patientDOB.valueProperty()))
             .or(Bindings.isNull(locationComboBox.valueProperty()))
             .or(Bindings.isNull(sexbox.valueProperty()))
-            .or(Bindings.isEmpty(descriptiontxt.textProperty()))
     );
   }
 

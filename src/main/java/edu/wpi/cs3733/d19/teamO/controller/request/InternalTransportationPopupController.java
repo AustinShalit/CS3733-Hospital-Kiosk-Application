@@ -56,7 +56,6 @@ public class InternalTransportationPopupController implements Controller {
         Bindings.isEmpty(nametxt.textProperty())
             .or(Bindings.isNull(locationbox.valueProperty()))
             .or(Bindings.isNull(categorybox.valueProperty()))
-            .or(Bindings.isEmpty(descriptiontxt.textProperty()))
     );
   }
 
@@ -94,8 +93,7 @@ public class InternalTransportationPopupController implements Controller {
    */
   private InternalTransportationRequest parseUserITRequest() {
     // if input is valid, parse it and return a new InternalTransportationRequest
-    if (!descriptiontxt.getText().isEmpty()
-        && !nametxt.getText().isEmpty()
+    if (!nametxt.getText().isEmpty()
         && Objects.nonNull(locationbox.getValue())
         && Objects.nonNull(categorybox.getValue())) {
 

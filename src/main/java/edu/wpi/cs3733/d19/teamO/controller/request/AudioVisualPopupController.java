@@ -57,7 +57,6 @@ public class AudioVisualPopupController implements Controller {
         Bindings.isEmpty(nametxt.textProperty())
             .or(Bindings.isNull(locationbox.valueProperty()))
             .or(Bindings.isNull(categorybox.valueProperty()))
-            .or(Bindings.isEmpty(descriptiontxt.textProperty()))
     );
   }
 
@@ -94,13 +93,12 @@ public class AudioVisualPopupController implements Controller {
    */
   private AudioVisualRequest parseUserAVRequest() {
     // if input is valid, parse it and return a new SanitationRequest
-    if (!descriptiontxt.getText().isEmpty()
-        && !nametxt.getText().isEmpty()
+    if (!nametxt.getText().isEmpty()
         && Objects.nonNull(locationbox.getValue())
         && Objects.nonNull(categorybox.getValue())) {
 
       LocalDateTime now = LocalDateTime.now();
-      Node node = (Node) locationbox.getValue();
+      Node node = locationbox.getValue();
 
       String type = categorybox.getValue().toString().toUpperCase(new Locale("EN"));
       AudioVisualRequest.AudioVisualRequestType audioVisualType =
@@ -113,7 +111,8 @@ public class AudioVisualPopupController implements Controller {
     }
 
     // otherwise, some input was invalid
-    DialogHelper.showErrorAlert("Error.", "Please make sure all fields are filled out.");
+    DialogHelper.showErrorAlert("Error.",
+        "Please make sure all required fields are filled out.");
     return null;
   }
 

@@ -52,7 +52,6 @@ public class ReligiousServicePopupController implements Controller {
         Bindings.isEmpty(nametxt.textProperty())
             .or(Bindings.isNull(locationbox.valueProperty()))
             .or(Bindings.isNull(categorybox.valueProperty()))
-            .or(Bindings.isEmpty(descriptiontxt.textProperty()))
     );
   }
 
@@ -90,8 +89,7 @@ public class ReligiousServicePopupController implements Controller {
    */
   private ReligiousServiceRequest parseUserRSRequest() {
     // if input is valid, parse it and return a new ReligiousServiceRequest
-    if (!descriptiontxt.getText().isEmpty()
-        && !nametxt.getText().isEmpty()
+    if (!nametxt.getText().isEmpty()
         && Objects.nonNull(locationbox.getValue())
         && Objects.nonNull(categorybox.getValue())) {
 

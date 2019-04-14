@@ -49,7 +49,6 @@ public class InterpreterPopupController implements Controller {
     submitbtn.disableProperty().bind(
         Bindings.isNull(locationbox.valueProperty())
             .or(Bindings.isNull(categorybox.valueProperty()))
-            .or(Bindings.isEmpty(descriptiontxt.textProperty()))
     );
   }
 
@@ -85,8 +84,7 @@ public class InterpreterPopupController implements Controller {
    */
   private InterpreterRequest parseUserInterpreterRequest() {
     // if input is valid, parse it and return a new SanitationRequest
-    if (!descriptiontxt.getText().isEmpty()
-        && Objects.nonNull(locationbox.getValue())
+    if (Objects.nonNull(locationbox.getValue())
         && Objects.nonNull(categorybox.getValue())) {
 
       LocalDateTime now = LocalDateTime.now();

@@ -57,7 +57,6 @@ public class ITSupportPopupController implements Controller {
         Bindings.isEmpty(nametxt.textProperty())
             .or(Bindings.isNull(locationbox.valueProperty()))
             .or(Bindings.isNull(categorybox.valueProperty()))
-            .or(Bindings.isEmpty(descriptiontxt.textProperty()))
     );
   }
 
@@ -94,13 +93,12 @@ public class ITSupportPopupController implements Controller {
    */
   private ITSupportRequest parseUserITSupportRequest() {
     // if input is valid, parse it and return a new SanitationRequest
-    if (!descriptiontxt.getText().isEmpty()
-        && !nametxt.getText().isEmpty()
+    if (!nametxt.getText().isEmpty()
         && Objects.nonNull(locationbox.getValue())
         && Objects.nonNull(categorybox.getValue())) {
 
       LocalDateTime now = LocalDateTime.now();
-      Node node = (Node) locationbox.getValue();
+      Node node = locationbox.getValue();
 
       String type = categorybox.getValue().toString().toUpperCase(new Locale("EN"));
       ITSupportRequest.ITSupportRequestType itSupportRequestType =
