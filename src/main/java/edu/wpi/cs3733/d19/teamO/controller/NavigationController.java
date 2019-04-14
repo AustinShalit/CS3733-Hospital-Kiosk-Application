@@ -60,6 +60,7 @@ public class NavigationController implements Controller {
     DialogHelper.populateComboBox(database, fromComboBox);
     DialogHelper.populateComboBox(database, toComboBox);
     stepByStep = new StepByStep();
+    validateGoButton();
   }
 
   @Override
@@ -79,6 +80,12 @@ public class NavigationController implements Controller {
   @FXML
   @SuppressWarnings({"PMD.AvoidInstantiatingObjectsInLoops", "UseStringBufferForStringAppends"})
   void onGoButtonAction() throws SQLException {
+
+    if (toComboBox.getValue().equals(fromComboBox.getValue())) {
+      DialogHelper.showInformationAlert("Must Select Different Start/End Destinations",
+          "Please select different start and end destinations to generate a valid path.");
+      return;
+    }
 
     PathfindingContext<Node> pathfindingContext = new PathfindingContext<>();
     MutableGraph<Node> graph = GraphBuilder.undirected().allowsSelfLoops(false).build();

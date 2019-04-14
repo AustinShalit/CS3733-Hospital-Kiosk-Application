@@ -139,6 +139,13 @@ class NodeDaoDbTest {
   }
 
   @Test
+  void testGetFreeNodeId() {
+    String id = dao.getFreeNodeId();
+    assertTrue(dao.insert(new Node(id, 0, 0, "", "",
+        Node.NodeType.DEPT, "", "")));
+  }
+
+  @Test
   void checkSortTest() {
     dao.insert(TEST_NODE);
     dao.insert(TEST_NODE2);

@@ -15,6 +15,9 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+
+import org.apache.commons.lang3.RandomStringUtils;
 
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 
@@ -198,6 +201,22 @@ class NodeDaoDb implements NodeDao {
       logger.log(Level.WARNING, "Failed to get Nodes", ex);
     }
     return Collections.emptySet();
+  }
+
+  /**
+   * Get a String representing an unused id in the node database table.
+   */
+  @Override
+  public String getFreeNodeId() {
+    Set<String> allNodes = getAll().stream().map(Node::getNodeId).collect(Collectors.toSet());
+
+    while (true) {
+      String rand = RandomStringUtils.randomAlphanumeric(10);
+
+      if (!allNodes.contains(rand)) {
+        return rand;
+      }
+    }
   }
 
   @Override
