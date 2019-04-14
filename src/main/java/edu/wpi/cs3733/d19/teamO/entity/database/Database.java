@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d19.teamO.entity.database;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Level;
@@ -115,6 +116,10 @@ public class Database implements AutoCloseable {
 
   public Set<Node> getFloor(String floor) {
     return nodeDao.getFloor(floor);
+  }
+
+  public List<Node> getAllByLongName() {
+    return nodeDao.getAllByLongname();
   }
 
   /*

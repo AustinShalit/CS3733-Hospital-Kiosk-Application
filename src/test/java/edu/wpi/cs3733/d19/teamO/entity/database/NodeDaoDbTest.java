@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.d19.teamO.entity.database;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.google.inject.Inject;
 
@@ -19,11 +21,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class NodeDaoDbTest {
 
   private static final Node TEST_NODE = new Node("TEST", 0, 0, "0", "B", Node.NodeType.CONF,
-      "LN", "SN");
+      "LNA", "SN");
   private static final Node TEST_NODE2 = new Node("123", 0, 0, "L2", "B", Node.NodeType.CONF,
-      "LN", "SN");
+      "LNB", "SN");
   private static final Node TEST_NODE3 = new Node("456", 0, 0, "L2", "B", Node.NodeType.HALL,
-      "LN", "SN");
+      "LNC", "SN");
 
   private NodeDao dao;
 
@@ -134,5 +136,17 @@ class NodeDaoDbTest {
     dao.insert(TEST_NODE2);
     dao.insert(TEST_NODE3);
     assertEquals(2, dao.getFloor("L2").size());
+  }
+
+  @Test
+  void checkSortTest() {
+    dao.insert(TEST_NODE);
+    dao.insert(TEST_NODE2);
+    dao.insert(TEST_NODE3);
+    List<Node> node = new ArrayList<>();
+    node.add(TEST_NODE);
+    node.add(TEST_NODE2);
+    node.add(TEST_NODE3);
+    assertEquals(node, dao.getAllByLongname());
   }
 }

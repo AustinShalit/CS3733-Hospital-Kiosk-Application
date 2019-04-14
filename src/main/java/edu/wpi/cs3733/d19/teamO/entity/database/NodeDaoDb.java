@@ -6,8 +6,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.Set;
@@ -196,5 +198,23 @@ class NodeDaoDb implements NodeDao {
       logger.log(Level.WARNING, "Failed to get Nodes", ex);
     }
     return Collections.emptySet();
+  }
+
+  @Override
+  public List<Node> getAllByLongname() {
+    try (Connection connection = dcf.getConnection()) {
+      PreparedStatement statement
+          = connection.prepareStatement(queries.getProperty("node.select_all_by_Longname"));
+      try (ResultSet resultSet = statement.executeQuery()) {
+        List<Node> nodes = new ArrayList<>();
+        while (resultSet.next()) {
+          nodes.add(extractNodeFromResultSet(resultSet));
+        }
+        return nodes;
+      }
+    } catch (SQLException ex) {
+      logger.log(Level.WARNING, "Failed to get Nodes", ex);
+    }
+    return Collections.emptyList();
   }
 }
