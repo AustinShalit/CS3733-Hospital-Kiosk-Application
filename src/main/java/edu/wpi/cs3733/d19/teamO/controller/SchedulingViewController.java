@@ -40,7 +40,7 @@ public class SchedulingViewController implements Controller {
   @FXML
   private TableColumn<SchedulingRequest, String> whoRequestedCol;
   @FXML
-  private TableColumn<SchedulingRequest, String> locationTableCol;
+  private TableColumn<SchedulingRequest, String> roomCol;
 
   @Inject
   private Database db;
@@ -53,7 +53,7 @@ public class SchedulingViewController implements Controller {
     timeRequestedCol.setCellValueFactory(new PropertyValueFactory<>("timeRequested"));
     timeCompletedCol.setCellValueFactory(new PropertyValueFactory<>("timeCompleted"));
     whoRequestedCol.setCellValueFactory(new PropertyValueFactory<>("whoReserved"));
-    locationTableCol.setCellValueFactory(new PropertyValueFactory<>("room"));
+    roomCol.setCellValueFactory(new PropertyValueFactory<>("roomName"));
 
 
     table.getItems().setAll(db.getAllSchedulingRequests());
