@@ -37,23 +37,31 @@ public class Employee {
     }
   }
 
-  private final Integer id;
-  private final String name;
-  private final EmployeeType type;
+  private final int id;
+  private String username;
+  private String password;
+  private String name;
+  private EmployeeType type;
   private EmployeeAttributes employeeAttributes;
 
   /**
-   * Constructor for Employee.
+   * Constructor for Employee, Create a Employee.
    *
-   * @param id   Employee's integer ID
-   * @param name Employee name
-   * @param type Permissions type
+   * @param id       Employee's integer ID
+   * @param username Username
+   * @param password Password
+   * @param name     User's Name
+   * @param type     Position Type
    */
-  public Employee(Integer id,
+  public Employee(int id,
+                  String username,
+                  String password,
                   String name,
                   EmployeeType type,
                   EmployeeAttributes employeeAttributes) {
     this.id = id;
+    this.username = username;
+    this.password = password;
     this.name = name;
     this.type = type;
     this.employeeAttributes = employeeAttributes;
@@ -62,18 +70,46 @@ public class Employee {
   /**
    * Constructor for Employee.
    *
-   * @param id   Employee's integer ID
-   * @param name Employee name
-   * @param type Permissions type
+   * @param id       Employee's integer ID
+   * @param username Username
+   * @param password Password
+   * @param name     User's Name
+   * @param type     Position Type
    */
-  public Employee(Integer id,
+  public Employee(int id,
+                  String username,
+                  String password,
                   String name,
                   EmployeeType type) {
-    this(id, name, type, new EmployeeAttributes(false));
+    this(id, username, password, name, type, new EmployeeAttributes(false));
   }
 
-  public Integer getId() {
+  /**
+   * Constructor for Employee, Initialization of Employee.
+   *
+   * @param username Username
+   * @param password Password
+   * @param name     User's Name
+   * @param type     Position Type
+   */
+  public Employee(String username, String password, String name, EmployeeType type) {
+    this.id = -1;
+    this.username = username;
+    this.password = password;
+    this.name = name;
+    this.type = type;
+  }
+
+  public int getId() {
     return id;
+  }
+
+  public String getUsername() {
+    return username;
+  }
+
+  public String getPassword() {
+    return password;
   }
 
   public String getName() {
@@ -88,9 +124,32 @@ public class Employee {
     return employeeAttributes;
   }
 
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setType(EmployeeType type) {
+    this.type = type;
+  }
+
   @Override
   public String toString() {
-    return this.name + ": " + this.type.toString();
+    return "Employee{"
+        + "id=" + getId()
+        + ", username=" + getUsername()
+        + ", password=" + getPassword()
+        + ", user=" + getName()
+        + ", type='" + type
+        + ", attr=" + getEmployeeAttributes().toString()
+        + '}';
   }
 
   @Override
@@ -102,13 +161,32 @@ public class Employee {
       return false;
     }
     Employee that = (Employee) o;
-    return id.equals(that.id)
+    return getId() == that.getId()
+        && username.equals(that.username)
+        && password.equals(that.password)
         && name.equals(that.name)
-        && type.equals(that.type);
+        && type == that.type;
+  }
+
+  /**
+   * Function to check the username and password.
+   *
+   * @param o Object
+   */
+  public boolean loginEquals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Employee that = (Employee) o;
+    return username.equals(that.username)
+        && password.equals(that.password);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, name, type);
+    return Objects.hash(id, username, password, name, type, employeeAttributes);
   }
 }

@@ -13,6 +13,9 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+
+import org.apache.commons.lang3.RandomStringUtils;
 
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
@@ -189,5 +192,18 @@ class EdgeDaoDb implements EdgeDao {
       logger.log(Level.WARNING, "Failed to get Nodes", ex);
     }
     return Collections.emptySet();
+  }
+
+  @Override
+  public String getFreeEdgeId() {
+    Set<String> allEdges = getAll().stream().map(Edge::getEdgeId).collect(Collectors.toSet());
+
+    while (true) {
+      String rand = RandomStringUtils.randomAlphanumeric(10);
+
+      if (!allEdges.contains(rand)) {
+        return rand;
+      }
+    }
   }
 }
