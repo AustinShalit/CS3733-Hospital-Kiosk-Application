@@ -53,18 +53,18 @@ public class Project extends Application {
     injector.injectMembers(this);
 
     floors.registerAll(
-      new Floor(3, "3",
+        new Floor(3, "3",
           new Image(Floors.class.getResource("03_thethirdfloor.png").openStream())),
-      new Floor(2, "2",
-        new Image(Floors.class.getResource("02_thesecondfloor.png").openStream())),
-      new Floor(1, "1",
-        new Image(Floors.class.getResource("01_thefirstfloor.png").openStream())),
-      new Floor(0, "G",
-        new Image(Floors.class.getResource("00_thegroundfloor.png").openStream())),
-      new Floor(-1, "L1",
-        new Image(Floors.class.getResource("00_thelowerlevel1.png").openStream())),
-      new Floor(-2, "L2",
-        new Image(Floors.class.getResource("00_thelowerlevel2.png").openStream()))
+        new Floor(2, "2",
+          new Image(Floors.class.getResource("02_thesecondfloor.png").openStream())),
+        new Floor(1, "1",
+          new Image(Floors.class.getResource("01_thefirstfloor.png").openStream())),
+        new Floor(0, "G",
+          new Image(Floors.class.getResource("00_thegroundfloor.png").openStream())),
+        new Floor(-1, "L1",
+          new Image(Floors.class.getResource("00_thelowerlevel1.png").openStream())),
+        new Floor(-2, "L2",
+          new Image(Floors.class.getResource("00_thelowerlevel2.png").openStream()))
     );
 
     new DefaultInformationLoader(database).loadIfEmpty();
