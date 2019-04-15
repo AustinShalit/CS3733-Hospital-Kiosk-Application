@@ -59,7 +59,7 @@ public class NavigationController implements Controller {
         toComboBox.valueProperty()
     ));
 
-    path.addListener(((observable, oldValue, newValue) -> {
+    path.addListener((observable, oldValue, newValue) -> {
       List<String> steps = new StepByStep().getStepByStep(newValue);
       StringBuilder stringBuilder = new StringBuilder();
       for (String s : steps) {
@@ -67,18 +67,25 @@ public class NavigationController implements Controller {
         stringBuilder.append('\n');
       }
       instructionsLabel.setText(stringBuilder.toString());
-    }));
+    });
 
     map.getPathView().pathProperty().bind(path);
 
-    Floor floor3 = new Floor(3, "3", new Image(NewMapView.class.getResource("03_thethirdfloor.png").openStream()));
-    Floor floor2 = new Floor(2, "2", new Image(NewMapView.class.getResource("02_thesecondfloor.png").openStream()));
-    Floor floor1 = new Floor(1, "1", new Image(NewMapView.class.getResource("01_thefirstfloor.png").openStream()));
-    Floor floorG = new Floor(0, "G", new Image(NewMapView.class.getResource("00_thegroundfloor.png").openStream()));
-    Floor floorL1 = new Floor(-1, "L1", new Image(NewMapView.class.getResource("00_thelowerlevel1.png").openStream()));
-    Floor floorL2 = new Floor(-2, "L2", new Image(NewMapView.class.getResource("00_thelowerlevel2.png").openStream()));
+    Floor floor3 = new Floor(3, "3",
+        new Image(NewMapView.class.getResource("03_thethirdfloor.png").openStream()));
+    Floor floor2 = new Floor(2, "2",
+        new Image(NewMapView.class.getResource("02_thesecondfloor.png").openStream()));
+    Floor floor1 = new Floor(1, "1",
+        new Image(NewMapView.class.getResource("01_thefirstfloor.png").openStream()));
+    Floor floorG = new Floor(0, "G",
+        new Image(NewMapView.class.getResource("00_thegroundfloor.png").openStream()));
+    Floor floorL1 = new Floor(-1, "L1",
+        new Image(NewMapView.class.getResource("00_thelowerlevel1.png").openStream()));
+    Floor floorL2 = new Floor(-2, "L2",
+        new Image(NewMapView.class.getResource("00_thelowerlevel2.png").openStream()));
 
-    map.setFloors(FXCollections.observableArrayList(floor3, floor2, floor1, floorG, floorL1, floorL2));
+    map.setFloors(FXCollections.observableArrayList(floor3, floor2, floor1, floorG, floorL1,
+        floorL2));
     map.setFloor(floor1);
   }
 
@@ -99,9 +106,6 @@ public class NavigationController implements Controller {
         pathfindingContext.getPath(ImmutableGraph.copyOf(graph),
         fromComboBox.getValue(),
         toComboBox.getValue())));
-
-//    map.setPath(path);
-//    map.drawPath();
   }
 
   @Override

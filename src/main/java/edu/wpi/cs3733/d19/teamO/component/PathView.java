@@ -18,10 +18,10 @@ public class PathView extends MapElementGroup {
 
   private static final Logger logger = Logger.getLogger(PathView.class.getName());
 
-  private ListProperty<Node> path = new SimpleListProperty<>();
+  private final ListProperty<Node> path = new SimpleListProperty<>();
 
   public PathView() {
-    path.addListener(((observable, oldValue, newValue) -> redrawPath()));
+    path.addListener((observable, oldValue, newValue) -> redrawPath());
   }
 
   private void redrawPath() {
@@ -58,12 +58,12 @@ public class PathView extends MapElementGroup {
   }
 
   private Shape createEndNode(final Node node) {
-      Rectangle rectangle = new Rectangle(node.getXcoord() - 8, node.getYcoord() - 8,
-          16, 16);
-      rectangle.setFill(Color.RED);
-      rectangle.setStroke(Color.BLACK);
-      rectangle.setUserData(node);
-      return rectangle;
+    Rectangle rectangle = new Rectangle(node.getXcoord() - 8, node.getYcoord() - 8,
+        16, 16);
+    rectangle.setFill(Color.RED);
+    rectangle.setStroke(Color.BLACK);
+    rectangle.setUserData(node);
+    return rectangle;
   }
 
   private Shape createNode(final Node node) {

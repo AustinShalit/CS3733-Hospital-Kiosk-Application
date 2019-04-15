@@ -18,11 +18,15 @@ import edu.wpi.cs3733.d19.teamO.entity.Floor;
 
 public abstract class MapElementGroup extends Group {
 
-  private ObjectProperty<Floor> floor = new SimpleObjectProperty<>();
-  private MapProperty<Integer, ObservableList<Node>> elements = new SimpleMapProperty<>(FXCollections.observableHashMap());
+  private final ObjectProperty<Floor> floor = new SimpleObjectProperty<>();
+  private final MapProperty<Integer, ObservableList<Node>> elements
+      = new SimpleMapProperty<>(FXCollections.observableHashMap());
 
+  /**
+   * Create a new MapElementGroup.
+   */
   public MapElementGroup() {
-    floor.addListener(((observable, oldValue, newValue) -> redraw(newValue)));
+    floor.addListener((observable, oldValue, newValue) -> redraw(newValue));
     elements.addListener((MapChangeListener<Integer, ObservableList<Node>>) change -> {
       if (change.wasAdded()) {
         change.getValueAdded().addListener((ListChangeListener<? super Node>) observable

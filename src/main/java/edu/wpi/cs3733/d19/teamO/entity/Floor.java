@@ -7,6 +7,9 @@ public class Floor {
   private final String id;
   private final Image mapImage;
 
+  /**
+   * Create a new floor.
+   */
   public Floor(int number, String id, Image mapImage) {
     this.number = number;
     this.id = id;

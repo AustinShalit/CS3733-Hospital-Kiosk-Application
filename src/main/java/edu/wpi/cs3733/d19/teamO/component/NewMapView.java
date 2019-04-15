@@ -15,7 +15,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.StackPane;
@@ -43,8 +42,8 @@ public class NewMapView extends StackPane {
   @FXML
   private Label coordY;
 
-  private ObjectProperty<Floor> floor = new SimpleObjectProperty<>();
-  private ListProperty<Floor> floors = new SimpleListProperty<>();
+  private final ObjectProperty<Floor> floor = new SimpleObjectProperty<>();
+  private final ListProperty<Floor> floors = new SimpleListProperty<>();
 
   /**
    * The constructor for the MapView class.
@@ -83,7 +82,7 @@ public class NewMapView extends StackPane {
     gesturePane.setFitMode(GesturePane.FitMode.COVER);
     gesturePane.setScrollBarEnabled(false);
 
-    floors.addListener(((observable, oldValue, newValue) -> {
+    floors.addListener((observable, oldValue, newValue) -> {
       floorButtonBox.getChildren().clear();
       newValue.forEach(f -> {
         JFXButton button = new JFXButton(f.getId());
@@ -93,14 +92,14 @@ public class NewMapView extends StackPane {
         button.setUserData(f);
         floorButtonBox.getChildren().add(button);
       });
-    }));
+    });
 
-    floor.addListener(((observable, oldValue, newValue) ->  {
+    floor.addListener((observable, oldValue, newValue) ->  {
       backgroundImage.setImage(newValue.getMapImage());
       floorButtonBox.getChildren().forEach(floorButton
           -> floorButton.pseudoClassStateChanged(SELECTED,
           newValue.equals(floorButton.getUserData())));
-    }));
+    });
 
     pathView.floorProperty().bind(floor);
   }
