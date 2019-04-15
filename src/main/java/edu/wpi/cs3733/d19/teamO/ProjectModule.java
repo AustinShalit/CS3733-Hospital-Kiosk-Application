@@ -7,5 +7,7 @@ public class ProjectModule extends AbstractModule {
   @Override
   protected void configure() {
     bind(EventBus.class).asEagerSingleton();
+
+    bind(AppPreferences.class).asEagerSingleton();
   }
 }

@@ -35,7 +35,7 @@ class BreadthFirstSearchAlgorithmTest {
 
   @Test
   void pathStartIsFirstTest() {
-    GraphSearchAlgorithm<String> algorithm = new BreadthFirstSearchAlgorithm<>();
+    IGraphSearchAlgorithm<String> algorithm = new BreadthFirstSearchAlgorithm<>();
 
     List<String> path = algorithm.getPath(graph, "A", "E");
 
@@ -44,7 +44,7 @@ class BreadthFirstSearchAlgorithmTest {
 
   @Test
   void pathGoalIsLastTest() {
-    GraphSearchAlgorithm<String> algorithm = new BreadthFirstSearchAlgorithm<>();
+    IGraphSearchAlgorithm<String> algorithm = new BreadthFirstSearchAlgorithm<>();
 
     List<String> path = algorithm.getPath(graph, "A", "E");
 
@@ -53,7 +53,7 @@ class BreadthFirstSearchAlgorithmTest {
 
   @Test
   void getPathTest() {
-    GraphSearchAlgorithm<String> algorithm = new BreadthFirstSearchAlgorithm<>();
+    IGraphSearchAlgorithm<String> algorithm = new BreadthFirstSearchAlgorithm<>();
 
     List<String> path = algorithm.getPath(graph, "A", "E");
 
