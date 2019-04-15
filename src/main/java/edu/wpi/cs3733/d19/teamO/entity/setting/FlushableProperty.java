@@ -29,4 +29,5 @@ public class FlushableProperty<T> extends SimpleObjectProperty<T> {
   public void flush() {
     property.setValue(getValue());
   }
+
 }

@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
-import com.dlsc.preferencesfx.PreferencesFx;
 import com.google.inject.Inject;
 
 import javafx.event.ActionEvent;
@@ -9,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 
 import edu.wpi.cs3733.d19.teamO.AppPreferences;
+import edu.wpi.cs3733.d19.teamO.component.ExtendedPropertySheet;
 
 @FxmlController(url = "Settings.fxml")
 public final class SettingsController implements Controller {
@@ -18,24 +18,14 @@ public final class SettingsController implements Controller {
   @Inject
   private AppPreferences appPreferences;
 
-  private PreferencesFx preferencesFx;
-
   @FXML
   void initialize() {
-    preferencesFx = appPreferences.createPreferences();
-
-    preferencesFx.show();
-    //root.setCenter(preferencesFx.getView());
+    root.setCenter(new ExtendedPropertySheet(appPreferences.getSettings()));
   }
 
   @Override
   public Parent getRoot() {
     return root;
-  }
-
-  @FXML
-  void save(ActionEvent event) {
-    preferencesFx.saveSettings();
   }
 
   public interface Factory {
