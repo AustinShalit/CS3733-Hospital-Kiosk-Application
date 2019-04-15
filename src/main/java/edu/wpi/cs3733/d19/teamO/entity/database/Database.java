@@ -122,11 +122,6 @@ public class Database implements AutoCloseable {
     return nodeDao.getFreeNodeId();
   }
 
-  @Deprecated
-  public List<Node> getAllByLongName() {
-    return nodeDao.getAllByLongname();
-  }
-
   public List<Node> getAllNodesByLongName() {
     return nodeDao.getAllByLongname();
   }
