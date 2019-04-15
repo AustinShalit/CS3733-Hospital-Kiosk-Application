@@ -10,18 +10,18 @@ import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 
 import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
-import edu.wpi.cs3733.d19.teamO.controller.request.AudioVisualController;
-import edu.wpi.cs3733.d19.teamO.controller.request.ExternalTransportationController;
-import edu.wpi.cs3733.d19.teamO.controller.request.FloristRequestController;
-import edu.wpi.cs3733.d19.teamO.controller.request.GiftController;
-import edu.wpi.cs3733.d19.teamO.controller.request.ITSupportController;
-import edu.wpi.cs3733.d19.teamO.controller.request.InternalTransportationController;
-import edu.wpi.cs3733.d19.teamO.controller.request.InterpreterController;
-import edu.wpi.cs3733.d19.teamO.controller.request.PatientInfoController;
-import edu.wpi.cs3733.d19.teamO.controller.request.PrescriptionRequestController;
-import edu.wpi.cs3733.d19.teamO.controller.request.ReligiousServiceController;
-import edu.wpi.cs3733.d19.teamO.controller.request.SanitationController;
-import edu.wpi.cs3733.d19.teamO.controller.request.SupportAnimalController;
+import edu.wpi.cs3733.d19.teamO.controller.request.AudioVisualViewController;
+import edu.wpi.cs3733.d19.teamO.controller.request.ExternalTransportationViewController;
+import edu.wpi.cs3733.d19.teamO.controller.request.FloristRequestViewController;
+import edu.wpi.cs3733.d19.teamO.controller.request.GiftViewController;
+import edu.wpi.cs3733.d19.teamO.controller.request.ITSupportViewController;
+import edu.wpi.cs3733.d19.teamO.controller.request.InternalTransportationViewController;
+import edu.wpi.cs3733.d19.teamO.controller.request.InterpreterViewController;
+import edu.wpi.cs3733.d19.teamO.controller.request.PatientInfoViewController;
+import edu.wpi.cs3733.d19.teamO.controller.request.PrescriptionViewController;
+import edu.wpi.cs3733.d19.teamO.controller.request.ReligiousServiceViewController;
+import edu.wpi.cs3733.d19.teamO.controller.request.SanitationViewController;
+import edu.wpi.cs3733.d19.teamO.controller.request.SupportAnimalViewController;
 
 @FxmlController(url = "ServiceRequest.fxml")
 @SuppressWarnings({"PMD.TooManyFields", "PMD.TooManyMethods"})
@@ -60,41 +60,35 @@ public class RequestController implements Controller {
   private JFXButton florist;
 
   @FXML
-  private JFXButton other2;
-  @FXML
-  private JFXButton other3;
-  @FXML
-  private JFXButton other4;
-  @FXML
   private JFXButton viewRequest;
 
 
   @Inject
   private EventBus eventBus;
   @Inject
-  private InternalTransportationController.Factory internalTransportationControllerFactory;
+  private InternalTransportationViewController.Factory internalTransportationControllerFactory;
   @Inject
-  private AudioVisualController.Factory audioVisualControllerFactory;
+  private AudioVisualViewController.Factory audioVisualViewControllerFactory;
   @Inject
-  private PatientInfoController.Factory patientInfoControllerFactory;
+  private PatientInfoViewController.Factory patientInfoControllerFactory;
   @Inject
-  private ITSupportController.Factory itSupportControllerFactory;
+  private ITSupportViewController.Factory itSupportControllerFactory;
   @Inject
-  private ExternalTransportationController.Factory externalTransportationControllerFactory;
+  private ExternalTransportationViewController.Factory externalTransportationViewControllerFactory;
   @Inject
-  private GiftController.Factory giftControllerFactory;
+  private GiftViewController.Factory giftControllerFactory;
   @Inject
-  private InterpreterController.Factory interpreterControllerFactory;
+  private InterpreterViewController.Factory interpreterControllerFactory;
   @Inject
-  private ReligiousServiceController.Factory religiousServiceControllerFactory;
+  private ReligiousServiceViewController.Factory religiousServiceControllerFactory;
   @Inject
-  private SupportAnimalController.Factory supportAnimalControllerFactory;
+  private SupportAnimalViewController.Factory supportAnimalControllerFactory;
   @Inject
-  private FloristRequestController.Factory floristRequestControllerFactory;
+  private FloristRequestViewController.Factory floristRequestControllerFactory;
   @Inject
-  private PrescriptionRequestController.Factory prescriptionRequestControllerFactory;
+  private PrescriptionViewController.Factory prescriptionRequestControllerFactory;
   @Inject
-  private SanitationController.Factory sanitationControllerFactory;
+  private SanitationViewController.Factory sanitationControllerFactory;
 
   @FXML
   void internalTransportationAction(ActionEvent event) {
@@ -108,7 +102,7 @@ public class RequestController implements Controller {
 
   @FXML
   void audioVisualAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(audioVisualControllerFactory.create()));
+    eventBus.post(new ChangeMainViewEvent(audioVisualViewControllerFactory.create()));
   }
 
   @FXML
@@ -123,7 +117,7 @@ public class RequestController implements Controller {
 
   @FXML
   void externalTransportationAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(externalTransportationControllerFactory.create()));
+    eventBus.post(new ChangeMainViewEvent(externalTransportationViewControllerFactory.create()));
   }
 
   @FXML

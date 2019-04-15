@@ -26,11 +26,12 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 @SuppressWarnings("PMD.TooManyFields")
 @FxmlController(url = "MapEdit.fxml")
 public class MapEditController implements Controller {
-  private String nodeID;
+  String nodeID;
   private String edgeID;
   private boolean updateMode = true;
   private boolean connectMode;
   private String udNodeID1 = " ";
+  int newID = 100;
   // Collection<Node> nodes;
 
   @FXML
@@ -100,11 +101,13 @@ public class MapEditController implements Controller {
   @FXML
   void initialize() {
 
+
+    nodeTypeComboBox.getItems().addAll(Node.NodeType.values());
+
     // Setup the table view
     setupTableView();
 
     // Setup side view
-    nodeTypeComboBox.getItems().addAll(Node.NodeType.values());
     map.setNodes(database.getAllNodes());
     map.setCurrentNodes(database.getAllNodes());
     map.setDatabaseEdge(database.getAllEdges());
@@ -164,7 +167,6 @@ public class MapEditController implements Controller {
       addButton.setDisable(false);
       connectButton.setDisable(false);
       deleteButton.setDisable(false);
-      updateButton.setDisable(false);
     }
   }
 
@@ -237,7 +239,6 @@ public class MapEditController implements Controller {
     } else {
       Node updateNode = getNewNode(nodeIDField.getText());
       database.updateNode(updateNode);
-      status.setText("Succeed!");
       map.setNodes(database.getAllNodes());
       map.clearEdges();
       map.addEdgesToPane(database.getEdgeByFloor(map.getLevel()));
@@ -308,7 +309,6 @@ public class MapEditController implements Controller {
         map.addEdgesToPane(database.getEdgeByFloor(map.getLevel()));
       }
   }
-
 
   private Node getNewNode(String s) {
     return new Node(s,

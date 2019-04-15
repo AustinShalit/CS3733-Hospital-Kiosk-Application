@@ -66,7 +66,7 @@ public final class DialogHelper {
    */
   public static void populateComboBox(
       Database database, JFXComboBox<Node> comboBox) {
-    comboBox.getItems().addAll(database.getAllNodes());
+    comboBox.getItems().addAll(database.getAllByLongName());
     Callback<ListView<Node>, ListCell<Node>> cellFactory =
         new Callback<ListView<Node>, ListCell<Node>>() {
           @Override

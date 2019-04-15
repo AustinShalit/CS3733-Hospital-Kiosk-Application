@@ -170,7 +170,6 @@ public class MapView2 extends StackPane {
             break;
           }
         }
-
       }
     });
     gesturePane.setFitMode(GesturePane.FitMode.COVER);
@@ -460,6 +459,5 @@ public class MapView2 extends StackPane {
     findCurrentEdge(level);
     addEdgesToPane(currentEdges);
   }
-
 
 }
