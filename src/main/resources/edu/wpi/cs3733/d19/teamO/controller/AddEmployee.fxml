@@ -1,58 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="400.0" stylesheets="@style/KioskStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.AddEmployeeController">
-  <GridPane prefHeight="320.0" prefWidth="450.0">
-    <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-    </columnConstraints>
-    <rowConstraints>
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    </rowConstraints>
-    <Label text="Add Employee" GridPane.columnSpan="2" GridPane.halignment="CENTER">
-      <font>
-        <Font name="System Bold" size="38.0" />
-      </font>
-    </Label>
-  </GridPane>
-  <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="450.0">
-    <JFXTextField fx:id="nameField" maxWidth="200.0" promptText="Enter Name">
-      <VBox.margin>
-        <Insets top="75.0" />
-      </VBox.margin>
-    </JFXTextField>
-    <JFXTextField fx:id="usernameField" maxWidth="200.0" promptText="Enter Username">
-      <VBox.margin>
-        <Insets top="75.0" />
-      </VBox.margin>
-    </JFXTextField>
-    <JFXTextField fx:id="passwordField" maxWidth="200.0" promptText="Enter Password">
-      <VBox.margin>
-        <Insets top="75.0" />
-      </VBox.margin>
-    </JFXTextField>
-    <JFXComboBox fx:id="positionBox" promptText="Select Position">
-      <VBox.margin>
-        <Insets top="75.0" />
-      </VBox.margin>
-    </JFXComboBox>
-    <JFXButton onAction="#onSubmitButtonAction" text="Submit">
-      <VBox.margin>
-        <Insets top="100.0" />
-      </VBox.margin>
-    </JFXButton>
-  </VBox>
-  <Pane prefHeight="338.0" prefWidth="450.0" />
-</VBox>
+<BorderPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.AddEmployeeController">
+   <center>
+      <VBox fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="form" stylesheets="@style/KioskStyle.css">
+       <Label id="heading" text="Add Employee">
+         <font>
+           <Font name="System Bold" size="38.0" />
+         </font>
+       </Label>
+         <HBox maxHeight="-Infinity" maxWidth="-Infinity">
+            <children>
+              <VBox alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" spacing="36.0">
+                <JFXTextField fx:id="nameField" maxWidth="200.0" promptText="Enter Name">
+                  <VBox.margin>
+                    <Insets />
+                  </VBox.margin>
+                </JFXTextField>
+                <JFXTextField fx:id="usernameField" maxWidth="200.0" promptText="Enter Username">
+                  <VBox.margin>
+                    <Insets />
+                  </VBox.margin>
+                </JFXTextField>
+                <JFXTextField fx:id="passwordField" maxWidth="200.0" promptText="Enter Password">
+                  <VBox.margin>
+                    <Insets />
+                  </VBox.margin>
+                </JFXTextField>
+                <JFXComboBox fx:id="positionBox" promptText="Select Position">
+                  <VBox.margin>
+                    <Insets />
+                  </VBox.margin>
+                </JFXComboBox>
+                  <padding>
+                     <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                  </padding>
+              </VBox>
+               <VBox fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" spacing="36.0">
+                  <padding>
+                     <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                  </padding>
+                  <children>
+                     <Label text="Service Request Permissions">
+                        <font>
+                           <Font name="System Bold" size="15.0" />
+                        </font>
+                        <VBox.margin>
+                           <Insets bottom="-30.0" />
+                        </VBox.margin>
+                     </Label>
+                     <GridPane>
+                        <columnConstraints>
+                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                        </columnConstraints>
+                        <rowConstraints>
+                           <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        </rowConstraints>
+                        <children>
+                           <JFXCheckBox fx:id="supportAnimalBox" checkedColor="#004e86" text="Support Animal" />
+                        </children>
+                     </GridPane>
+                  </children>
+               </VBox>
+            </children>
+         </HBox>
+       <JFXButton id="small-button" fx:id="submitbtn" onAction="#onSubmitButtonAction" text="Submit">
+         <VBox.margin>
+           <Insets />
+         </VBox.margin>
+       </JFXButton>
+      </VBox>
+   </center>
+</BorderPane>

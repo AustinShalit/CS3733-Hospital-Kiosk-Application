@@ -15,82 +15,82 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.UpdateEmployeeController">
-   <center>
-      <VBox fx:id="upRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="form" stylesheets="@style/KioskStyle.css">
-        <children>
+  <center>
+    <VBox fx:id="upRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="form" stylesheets="@style/KioskStyle.css">
+      <children>
         <Label id="heading" fx:id="upTitlelbl" text="Update Employee">
           <font>
             <Font name="System Bold" size="38.0" />
           </font>
         </Label>
-            <HBox>
-               <children>
-                <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" spacing="36.0">
+        <HBox>
+          <children>
+            <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" spacing="36.0">
+              <children>
+                <JFXTextField fx:id="upNamefield" maxWidth="200.0" promptText="Enter Name">
+                  <VBox.margin>
+                    <Insets />
+                  </VBox.margin>
+                </JFXTextField>
+                <JFXTextField fx:id="upIdfield" editable="false" maxWidth="100.0" promptText="ID">
+                  <VBox.margin>
+                    <Insets />
+                  </VBox.margin>
+                </JFXTextField>
+                <JFXTextField fx:id="upUsernamefield" maxWidth="200.0" promptText="Enter Username">
+                  <VBox.margin>
+                    <Insets />
+                  </VBox.margin>
+                </JFXTextField>
+                <JFXTextField fx:id="upPasswordfield" maxWidth="200.0" promptText="Enter Password">
+                  <VBox.margin>
+                    <Insets />
+                  </VBox.margin>
+                </JFXTextField>
+                <JFXComboBox fx:id="upPositionbox" promptText="Select Position">
+                  <VBox.margin>
+                    <Insets />
+                  </VBox.margin>
+                </JFXComboBox>
+              </children>
+              <padding>
+                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+              </padding>
+            </VBox>
+            <VBox spacing="36.0">
+              <children>
+                <Label text="Service Request Permissions">
+                  <font>
+                    <Font name="System Bold" size="15.0" />
+                  </font>
+                  <VBox.margin>
+                    <Insets bottom="-30.0" />
+                  </VBox.margin>
+                </Label>
+                <GridPane>
+                  <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  </rowConstraints>
                   <children>
-                    <JFXTextField fx:id="upNamefield" maxWidth="200.0" promptText="Enter Name">
-                      <VBox.margin>
-                        <Insets />
-                      </VBox.margin>
-                    </JFXTextField>
-                    <JFXTextField fx:id="upIdfield" editable="false" maxWidth="100.0" promptText="ID">
-                      <VBox.margin>
-                        <Insets />
-                      </VBox.margin>
-                    </JFXTextField>
-                    <JFXTextField fx:id="upUsernamefield" maxWidth="200.0" promptText="Enter Username">
-                      <VBox.margin>
-                        <Insets />
-                      </VBox.margin>
-                    </JFXTextField>
-                    <JFXTextField fx:id="upPasswordfield" maxWidth="200.0" promptText="Enter Password">
-                      <VBox.margin>
-                        <Insets />
-                      </VBox.margin>
-                    </JFXTextField>
-                    <JFXComboBox fx:id="upPositionbox" promptText="Select Position">
-                      <VBox.margin>
-                        <Insets />
-                      </VBox.margin>
-                    </JFXComboBox>
+                    <JFXCheckBox fx:id="supportAnimalBox" checkedColor="#004e86" text="Support Animal" />
                   </children>
-                     <padding>
-                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-                     </padding>
-                </VBox>
-                  <VBox spacing="36.0">
-                     <children>
-                        <Label text="Service Request Permissions">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="-30.0" />
-                           </VBox.margin>
-                        </Label>
-                        <GridPane>
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
-                           <children>
-                              <JFXCheckBox fx:id="supportAnimalBox" checkedColor="#004e86" text="Support Animal" />
-                           </children>
-                        </GridPane>
-                     </children>
-                     <padding>
-                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-                     </padding>
-                  </VBox>
-               </children>
-            </HBox>
-        <JFXButton fx:id="upSubmitbtn" onAction="#onSubmitAction" text="Submit">
+                </GridPane>
+              </children>
+              <padding>
+                <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+              </padding>
+            </VBox>
+          </children>
+        </HBox>
+        <JFXButton id="small-button" fx:id="upSubmitbtn" onAction="#onSubmitAction" text="Submit">
           <VBox.margin>
             <Insets />
           </VBox.margin>
         </JFXButton>
-        </children>
-      </VBox>
-   </center>
+      </children>
+    </VBox>
+  </center>
 </BorderPane>

@@ -62,6 +62,7 @@ public class EmployeeController implements Controller {
   private UpdateEmployeeController.Factory updateEmployeeControllerFactory;
 
   private UpdateEmployeeController updateEmployeeController;
+  private JFXPopup addPopup;
   private JFXPopup updatePopup;
 
   @FXML
@@ -85,7 +86,17 @@ public class EmployeeController implements Controller {
           }
         });
 
+    addPopup = new JFXPopup(addEmployeeControllerFactory.create().root);
     updatePopup = new JFXPopup(updateEmployeeController.upRoot);
+    addPopup.setOnAutoHide(
+        event -> {
+          ColorAdjust reset = new ColorAdjust();
+          reset.setBrightness(0);
+          root.setEffect(reset);
+          employeeTableView.getItems().clear();
+          employeeTableView.getItems().setAll(db.getAllEmployee());
+        }
+    );
     updatePopup.setOnAutoHide(
         event -> {
           ColorAdjust reset = new ColorAdjust();
@@ -95,6 +106,7 @@ public class EmployeeController implements Controller {
           employeeTableView.getItems().setAll(db.getAllEmployee());
         }
     );
+
     updateEmpButton.setDisable(true);
     delEmpButton.setDisable(true);
 
@@ -119,7 +131,17 @@ public class EmployeeController implements Controller {
 
   @FXML
   void addEmpOnAction() {
-    root.setLeft(addEmployeeControllerFactory.create().getRoot());
+    // root.setLeft(addEmployeeControllerFactory.create().getRoot());
+    ColorAdjust colorAdjust = new ColorAdjust();
+    colorAdjust.setBrightness(-0.2);
+    root.setEffect(colorAdjust);
+    addPopup.show(root);
+    addPopup.setX(
+        (root.getScene().getWindow().getWidth() - addPopup.getWidth()) / 2
+    );
+    addPopup.setY(
+        (root.getScene().getWindow().getHeight() - addPopup.getHeight()) / 2
+    );
   }
 
   @FXML

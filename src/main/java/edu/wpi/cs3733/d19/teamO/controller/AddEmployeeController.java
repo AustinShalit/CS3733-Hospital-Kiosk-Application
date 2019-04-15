@@ -6,14 +6,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.inject.Inject;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 
 import edu.wpi.cs3733.d19.teamO.entity.Employee;
+import edu.wpi.cs3733.d19.teamO.entity.EmployeeAttributes;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 @FxmlController(url = "AddEmployee.fxml")
@@ -23,7 +27,7 @@ public class AddEmployeeController implements Controller {
       Logger.getLogger(AddEmployeeController.class.getName());
 
   @FXML
-  private VBox root;
+  VBox root;
   @FXML
   private JFXTextField nameField;
   @FXML
@@ -32,6 +36,10 @@ public class AddEmployeeController implements Controller {
   private JFXTextField passwordField;
   @FXML
   private JFXComboBox<Employee.EmployeeType> positionBox;
+  @FXML
+  private JFXButton submitbtn;
+  @FXML
+  private JFXCheckBox supportAnimalBox;
 
   @Inject
   private Database db;
@@ -39,6 +47,13 @@ public class AddEmployeeController implements Controller {
   @FXML
   void initialize() {
     positionBox.getItems().setAll(Employee.EmployeeType.values());
+
+    submitbtn.disableProperty().bind(
+        Bindings.isEmpty(nameField.textProperty())
+        .or(Bindings.isEmpty(usernameField.textProperty()))
+        .or(Bindings.isEmpty(passwordField.textProperty()))
+        .or(Bindings.isNull(positionBox.valueProperty()))
+    );
   }
 
   @FXML
@@ -50,6 +65,13 @@ public class AddEmployeeController implements Controller {
           "Unable to parse Employee Data.");
       return;
     }
+
+    nameField.setText(null);
+    usernameField.setText(null);
+    passwordField.setText(null);
+    positionBox.getSelectionModel().clearSelection();
+    positionBox.setValue(null);
+    supportAnimalBox.setSelected(false);
 
     if (db.insertEmployee(external)) {
       DialogHelper.showInformationAlert("Success!",
@@ -78,7 +100,9 @@ public class AddEmployeeController implements Controller {
       String password = passwordField.getText();
       String type = positionBox.getValue().toString().toUpperCase(new Locale("EN"));
       Employee.EmployeeType externalEmployeeType = Employee.EmployeeType.valueOf(type);
+      boolean canSupportAnimal = supportAnimalBox.isSelected();
       Employee newemp = new Employee(username, password, name, externalEmployeeType);
+      newemp.getEmployeeAttributes().setCanFulfillSupportAnimal(canSupportAnimal);
 
       return newemp;
     }
