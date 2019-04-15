@@ -178,12 +178,12 @@ public class MapView2 extends StackPane {
 
 
           if (result < 15
-              && currentX <= largeOfTwo(ed.getStartNode().getXcoord(), ed.getEndNode().getXcoord())
+              && currentX <= Math.max(ed.getStartNode().getXcoord(), ed.getEndNode().getXcoord())
               + 2
-              && currentX >= smallOfTwo(ed.getStartNode().getXcoord(), ed.getEndNode().getXcoord())
-              - 2 && currentY <= largeOfTwo(ed.getStartNode().getYcoord(), ed.getEndNode()
+              && currentX >= Math.min(ed.getStartNode().getXcoord(), ed.getEndNode().getXcoord())
+              - 2 && currentY <= Math.max(ed.getStartNode().getYcoord(), ed.getEndNode()
               .getYcoord()) + 2
-              && currentY >= smallOfTwo(ed.getStartNode().getYcoord(),
+              && currentY >= Math.min(ed.getStartNode().getYcoord(),
               ed.getEndNode().getYcoord()) - 2 ) {
             selectedEdge.set(ed.getEdgeId());
             break;
@@ -477,21 +477,5 @@ public class MapView2 extends StackPane {
     clearEdges();
     findCurrentEdge(level);
     addEdgesToPane(currentEdges);
-  }
-
-  private int largeOfTwo(int a, int b) {
-    if (a >= b) {
-      return a;
-    } else {
-      return b;
-    }
-  }
-
-  private int smallOfTwo(int a, int b) {
-    if (a <= b) {
-      return a;
-    } else {
-      return b;
-    }
   }
 }
