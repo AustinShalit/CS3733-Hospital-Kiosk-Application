@@ -152,7 +152,7 @@ public class Node {
   }
 
   /**
-   * Convert the polygon coordinates into a string that can be put into the database.
+   * Convert the polygon coordinates into a string that can be stored in the database.
    */
   public String polygonCoordsToString() {
     if (this.polygon == null) {
@@ -249,17 +249,17 @@ public class Node {
    * Given a string of x y coordinates representing a polygon, parse
    * them and return a new polygon with those coordinates.
    *
-   * @param polygonString A string of the format: "x y;x y". ex: "1.0 3.0;3.0 5.0;"
-   * @return
+   * @param coordinateString A string of the format: "x y;x y". ex: "1.0 3.0;3.0 5.0"
+   * @return A polygon with its points set to the input string
    */
-  public static Polygon parsePolygonFromString(String polygonString) {
-    if (polygonString == null || polygonString.equals("")) {
+  public static Polygon parsePolygonFromString(String coordinateString) {
+    if (coordinateString == null || coordinateString.equals("")) {
       return null;
     }
 
     Polygon polygon = new Polygon();
     List<Double> points = new LinkedList<Double>();
-    String[] split = polygonString.split(";");
+    String[] split = coordinateString.split(";");
 
     for (String pair : split) {
       double coordX = Double.parseDouble(pair.split(" ")[0]);
