@@ -21,6 +21,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 
 import edu.wpi.cs3733.d19.teamO.component.NewMapView;
+import edu.wpi.cs3733.d19.teamO.entity.Floor;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 import edu.wpi.cs3733.d19.teamO.entity.pathfinding.PathfindingContext;
@@ -45,7 +46,7 @@ public class NavigationController implements Controller {
   @Inject
   private Database database;
 
-  private ListProperty<String> instructions = new SimpleListProperty<>();
+  private final ListProperty<Node> path = new SimpleListProperty<>();
 
   @FXML
   void initialize() throws IOException {
@@ -58,21 +59,24 @@ public class NavigationController implements Controller {
         toComboBox.valueProperty()
     ));
 
-    instructions.addListener(((observable, oldValue, newValue) -> {
+    path.addListener(((observable, oldValue, newValue) -> {
+      List<String> steps = new StepByStep().getStepByStep(newValue);
       StringBuilder stringBuilder = new StringBuilder();
-      for (String s : newValue) {
+      for (String s : steps) {
         stringBuilder.append(s);
         stringBuilder.append('\n');
       }
       instructionsLabel.setText(stringBuilder.toString());
     }));
 
-    NewMapView.Floor floor3 = new NewMapView.Floor("3", new Image(NewMapView.class.getResource("03_thethirdfloor.png").openStream()));
-    NewMapView.Floor floor2 = new NewMapView.Floor("2", new Image(NewMapView.class.getResource("02_thesecondfloor.png").openStream()));
-    NewMapView.Floor floor1 = new NewMapView.Floor("1", new Image(NewMapView.class.getResource("01_thefirstfloor.png").openStream()));
-    NewMapView.Floor floorG = new NewMapView.Floor("G", new Image(NewMapView.class.getResource("00_thegroundfloor.png").openStream()));
-    NewMapView.Floor floorL1 = new NewMapView.Floor("L1", new Image(NewMapView.class.getResource("00_thelowerlevel1.png").openStream()));
-    NewMapView.Floor floorL2 = new NewMapView.Floor("L2", new Image(NewMapView.class.getResource("00_thelowerlevel2.png").openStream()));
+    map.getPathView().pathProperty().bind(path);
+
+    Floor floor3 = new Floor(3, "3", new Image(NewMapView.class.getResource("03_thethirdfloor.png").openStream()));
+    Floor floor2 = new Floor(2, "2", new Image(NewMapView.class.getResource("02_thesecondfloor.png").openStream()));
+    Floor floor1 = new Floor(1, "1", new Image(NewMapView.class.getResource("01_thefirstfloor.png").openStream()));
+    Floor floorG = new Floor(0, "G", new Image(NewMapView.class.getResource("00_thegroundfloor.png").openStream()));
+    Floor floorL1 = new Floor(-1, "L1", new Image(NewMapView.class.getResource("00_thelowerlevel1.png").openStream()));
+    Floor floorL2 = new Floor(-2, "L2", new Image(NewMapView.class.getResource("00_thelowerlevel2.png").openStream()));
 
     map.setFloors(FXCollections.observableArrayList(floor3, floor2, floor1, floorG, floorL1, floorL2));
     map.setFloor(floor1);
@@ -91,11 +95,10 @@ public class NavigationController implements Controller {
     database.getAllNodes().forEach(graph::addNode);
     database.getAllEdges().forEach(e -> graph.putEdge(e.getStartNode(), e.getEndNode()));
 
-    List<Node> path = pathfindingContext.getPath(ImmutableGraph.copyOf(graph),
+    path.setValue(FXCollections.observableArrayList(
+        pathfindingContext.getPath(ImmutableGraph.copyOf(graph),
         fromComboBox.getValue(),
-        toComboBox.getValue());
-
-    instructions.setValue(FXCollections.observableList(new StepByStep().getStepByStep(path)));
+        toComboBox.getValue())));
 
 //    map.setPath(path);
 //    map.drawPath();

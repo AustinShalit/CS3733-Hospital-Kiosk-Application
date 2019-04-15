@@ -9,14 +9,11 @@ import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
-import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,10 +23,12 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import net.kurobako.gesturefx.GesturePane;
 
+import edu.wpi.cs3733.d19.teamO.entity.Floor;
+
 @SuppressWarnings("Duplicates")
 public class NewMapView extends StackPane {
 
-  private static PseudoClass SELECTED = PseudoClass.getPseudoClass("selected");
+  private static final PseudoClass SELECTED = PseudoClass.getPseudoClass("selected");
 
   @FXML
   private GesturePane gesturePane;
@@ -38,7 +37,7 @@ public class NewMapView extends StackPane {
   @FXML
   private VBox floorButtonBox;
   @FXML
-  private Group pathGroup;
+  private PathView pathView;
   @FXML
   private Label coordX;
   @FXML
@@ -87,7 +86,7 @@ public class NewMapView extends StackPane {
     floors.addListener(((observable, oldValue, newValue) -> {
       floorButtonBox.getChildren().clear();
       newValue.forEach(f -> {
-        JFXButton button = new JFXButton(f.id.get());
+        JFXButton button = new JFXButton(f.getId());
         button.setPrefSize(55, 55);
         button.setOnAction(event -> floor.setValue(f));
         button.getStyleClass().add("map-floor-btn");
@@ -97,15 +96,17 @@ public class NewMapView extends StackPane {
     }));
 
     floor.addListener(((observable, oldValue, newValue) ->  {
-      backgroundImage.setImage(newValue.mapImage.getValue());
-//      if (oldValue == null) {
-//        gesturePane.zoomTo(0.1, new Point2D(backgroundImage.getImage().getWidth() / 2,
-//            backgroundImage.getImage().getHeight() / 2));
-//      }
+      backgroundImage.setImage(newValue.getMapImage());
       floorButtonBox.getChildren().forEach(floorButton
           -> floorButton.pseudoClassStateChanged(SELECTED,
           newValue.equals(floorButton.getUserData())));
     }));
+
+    pathView.floorProperty().bind(floor);
+  }
+
+  public PathView getPathView() {
+    return pathView;
   }
 
   public Floor getFloor() {
@@ -130,39 +131,5 @@ public class NewMapView extends StackPane {
 
   public void setFloors(ObservableList<Floor> floors) {
     this.floors.set(floors);
-  }
-
-  public static class Floor {
-    private final StringProperty id;
-    private final ObjectProperty<Image> mapImage;
-
-    public Floor(String id, Image mapImage) {
-      this.id = new SimpleStringProperty(id);
-      this.mapImage = new SimpleObjectProperty<>(mapImage);
-    }
-
-    public String getId() {
-      return id.get();
-    }
-
-    public StringProperty idProperty() {
-      return id;
-    }
-
-    public void setId(String id) {
-      this.id.set(id);
-    }
-
-    public Image getMapImage() {
-      return mapImage.get();
-    }
-
-    public ObjectProperty<Image> mapImageProperty() {
-      return mapImage;
-    }
-
-    public void setMapImage(Image mapImage) {
-      this.mapImage.set(mapImage);
-    }
   }
 }
