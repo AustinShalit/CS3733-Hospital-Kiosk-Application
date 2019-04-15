@@ -63,8 +63,6 @@ class NodeCsvReaderWriterTest {
     List<Node> nodes
         = nodeCsvReaderWriter.readNodes(Files.newBufferedReader(TEST_DATA_FILE2.toPath()));
 
-    System.out.println(nodes.get(0));
-
     assertAll(
         () -> assertEquals(1, nodes.size()),
         () -> assertTrue(nodes.contains(NODE_D))

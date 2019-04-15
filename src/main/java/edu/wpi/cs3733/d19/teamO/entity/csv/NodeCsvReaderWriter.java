@@ -135,7 +135,6 @@ public class NodeCsvReaderWriter {
     }
 
     private static Node toNode(final NodeVo vo) {
-      System.out.println(vo.polygonCoords);
       return new Node(
           vo.nodeId,
           vo.xcoord,
