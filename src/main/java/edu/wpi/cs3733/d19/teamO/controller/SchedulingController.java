@@ -134,10 +134,12 @@ public class SchedulingController implements Controller {
     }
 
     if (database.insertSchedulingrequest(request)) {
-      updateMapViewNodeOverlay();
       String message = "Successfully submitted scheduling request.";
       showInformationAlert("Success!", message);
 
+      updateMapViewNodeOverlay();
+      showCurrentSchedule();
+      showCalendar();
     } else {
       showErrorAlert("Error.", "Unable to submit scheduling request.");
     }
