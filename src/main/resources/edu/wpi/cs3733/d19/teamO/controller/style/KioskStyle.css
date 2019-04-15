@@ -1,11 +1,12 @@
+
+/* JavaFX Container Style */
 .root {
-    -fx-font-family: Calibri;
     -fx-background-color: #F1F1F1;
     -fx-background-image: url("TechBackground.png");
     -fx-background-size: cover;
-    -fx-max-height: 4000px;
-    -fx-max-width: 4000px;
 }
+
+/* JavaFX Component Style */
 
 .form {
     -fx-background-color: #ffffff;
@@ -19,28 +20,6 @@
     -o-animation-direction: normal;
     animation-direction: normal;
     -fx-alignment: top-center;
-}
-
-#requestview {
-    -fx-spacing: 10px;
-    -fx-padding: 30px 40px 30px 40px
-}
-
-#requestbuttons {
-    -fx-hgap: 40px;
-    -fx-pref-width: 720px;
-    -fx-pref-height: 60px;
-}
-
-#title-grid {
-    -fx-pref-height: 140px;
-    -fx-pref-width: 1280px;
-}
-
-#heading {
-    -fx-font-family: "Palatino Linotype";
-    -fx-font-size: 42px;
-    -fx-text-fill: #1D1A1B;
 }
 
 .button {
@@ -57,23 +36,7 @@
     -fx-border-width: 0 0 10px 0;
 }
 
-#small-button {
-    -fx-background-color: #0067B1;
-    -fx-pref-width: 100px;
-    -fx-min-height: 32px;
-    -fx-pref-height: 37px;
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-}
-
-#small-button:hover {
-    -fx-background-color: #004E86;
-    -fx-border-width: 0;
-}
-
-#table-button {
-    -fx-padding: 10px 20px 10px 20px;
-}
+/* JFX Component Style */
 
 .jfx-text-field {
     -fx-background-color: #f8f8f8;
@@ -121,8 +84,69 @@
     -jfx-focus-color: #0067b1;
 }
 
+/* Custom Styles */
+
 .logo {
     -fx-image: url("bwh-logo.png");
+}
+
+.weatherbox {
+    -fx-background-color: linear-gradient(from 50% 0% to 50% 75%, #012d5a 0%, black 100%);
+    -fx-border-color: #2f2f2f;
+    -fx-border-width: 1px;
+    -fx-border-radius: 4px;
+}
+
+.map-floor-btn {
+    -fx-background-color: rgb(0, 103, 177);
+}
+
+.map-floor-btn:hover {
+    -fx-background-color: rgb(0, 78, 134);
+    -fx-border-color: rgb(0, 78, 134);
+    -fx-border-width: 0;
+}
+
+/* Items */
+
+#requestview {
+    -fx-spacing: 10px;
+    -fx-padding: 30px 40px 30px 40px
+}
+
+#requestbuttons {
+    -fx-hgap: 40px;
+    -fx-pref-width: 720px;
+    -fx-pref-height: 60px;
+}
+
+#title-grid {
+    -fx-pref-height: 140px;
+    -fx-pref-width: 1280px;
+}
+
+#heading {
+    -fx-font-family: "Palatino Linotype";
+    -fx-font-size: 42px;
+    -fx-text-fill: #1D1A1B;
+}
+
+#small-button {
+    -fx-background-color: #0067B1;
+    -fx-pref-width: 100px;
+    -fx-min-height: 32px;
+    -fx-pref-height: 37px;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+#small-button:hover {
+    -fx-background-color: #004E86;
+    -fx-border-width: 0;
+}
+
+#table-button {
+    -fx-padding: 10px 20px 10px 20px;
 }
 
 #login {
@@ -152,13 +176,6 @@
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-font-size: 32px;
-}
-
-.weatherbox {
-    -fx-background-color: linear-gradient(from 50% 0% to 50% 75%, #012d5a 0%, black 100%);
-    -fx-border-color: #2f2f2f;
-    -fx-border-width: 1px;
-    -fx-border-radius: 4px;
 }
 
 #temp {

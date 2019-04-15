@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.google.common.graph.GraphBuilder;
@@ -16,9 +17,10 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 
-import edu.wpi.cs3733.d19.teamO.component.MapView;
+import edu.wpi.cs3733.d19.teamO.component.NewMapView;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 import edu.wpi.cs3733.d19.teamO.entity.pathfinding.PathfindingContext;
@@ -36,7 +38,7 @@ public class NavigationController implements Controller {
   @FXML
   private JFXButton goButton;
   @FXML
-  private MapView map;
+  private NewMapView map;
   @FXML
   private Label instructionsLabel;
 
@@ -46,7 +48,7 @@ public class NavigationController implements Controller {
   private ListProperty<String> instructions = new SimpleListProperty<>();
 
   @FXML
-  void initialize() {
+  void initialize() throws IOException {
     DialogHelper.populateComboBox(database, fromComboBox);
     DialogHelper.populateComboBox(database, toComboBox);
 
@@ -64,6 +66,13 @@ public class NavigationController implements Controller {
       }
       instructionsLabel.setText(stringBuilder.toString());
     }));
+
+    NewMapView.Floor floor1 = new NewMapView.Floor("1", new Image(NewMapView.class.getResource("01_thefirstfloor.png").openStream()));
+    NewMapView.Floor floor2 = new NewMapView.Floor("2", new Image(NewMapView.class.getResource("02_thesecondfloor.png").openStream()));
+    NewMapView.Floor floor3 = new NewMapView.Floor("3", new Image(NewMapView.class.getResource("03_thethirdfloor.png").openStream()));
+
+    map.setFloors(FXCollections.observableArrayList(floor1, floor2, floor3));
+    map.setFloor(floor2);
   }
 
   @FXML
@@ -85,8 +94,8 @@ public class NavigationController implements Controller {
 
     instructions.setValue(FXCollections.observableList(new StepByStep().getStepByStep(path)));
 
-    map.setPath(path);
-    map.drawPath();
+//    map.setPath(path);
+//    map.drawPath();
   }
 
   @Override

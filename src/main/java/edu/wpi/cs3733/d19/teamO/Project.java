@@ -59,6 +59,7 @@ public class Project extends Application {
     FXMLLoader loader = new FXMLLoader(MainController.class.getResource("Main.fxml"));
     loader.setControllerFactory(injector::getInstance);
     root = loader.load();
+    root.getStylesheets().add(Project.class.getResource("controller/style/KioskStyle.css").toExternalForm());
 
     eventBus.post(new ChangeMainViewEvent(loginControllerFactory.create(), false));
 
