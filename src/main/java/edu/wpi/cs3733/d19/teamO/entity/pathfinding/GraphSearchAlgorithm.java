@@ -1,14 +1,47 @@
 package edu.wpi.cs3733.d19.teamO.entity.pathfinding;
 
-import java.util.List;
+import com.google.common.base.MoreObjects;
 
-import com.google.common.graph.Graph;
+import edu.wpi.cs3733.d19.teamO.entity.Node;
 
 /**
- * A search algorithm to find the path between two nodes in a graph.
- *
- * @param <T> The type of graph the search algorithm is searching
+ * A GraphSearchAlgorithm is a way of traversing a map.
  */
-interface GraphSearchAlgorithm<T> {
-  List<T> getPath(Graph<T> graph, T start, T goal);
+public class GraphSearchAlgorithm {
+
+  private final String name;
+  private final IGraphSearchAlgorithm<Node> algorithm;
+
+  /**
+   * Creates a new GraphSearchAlgorithm with the given name.
+   *
+   * @param name        the name of the theme
+   * @param algorithm   the algorithm oto use
+   */
+  public GraphSearchAlgorithm(String name, IGraphSearchAlgorithm<Node> algorithm) {
+    this.name = name;
+    this.algorithm = algorithm;
+  }
+
+  /**
+   * Gets the name of this theme.
+   */
+  public String getName() {
+    return name;
+  }
+
+  /**
+   * Gets the style sheets in this theme.
+   */
+  public IGraphSearchAlgorithm<Node> getAlgorithm() {
+    return algorithm;
+  }
+
+  @Override
+  public String toString() {
+    return MoreObjects.toStringHelper(this)
+        .add("name", name)
+        .add("algorithm", algorithm)
+        .toString();
+  }
 }

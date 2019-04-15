@@ -9,6 +9,11 @@ import com.google.common.graph.Graph;
 
 class DepthFirstSearchAlgorithm<T> extends UninformedGraphSearchAlgorithm<T> {
   @Override
+  public String getName() {
+    return "Depth First Search";
+  }
+
+  @Override
   public List<T> getPath(final Graph<T> graph, final T start, final T goal) {
     final Stack<T> frontier = new Stack<>();
     final Map<T, T> cameFrom = new HashMap<>();
