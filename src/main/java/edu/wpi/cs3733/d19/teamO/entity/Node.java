@@ -147,6 +147,8 @@ public class Node {
     return polygon;
   }
 
+  public List<Double> getPolygonPoints() { return polygon.getPoints(); }
+
   /**
    * Convert the polygon coordinates into a string that can be put into the database.
    */
