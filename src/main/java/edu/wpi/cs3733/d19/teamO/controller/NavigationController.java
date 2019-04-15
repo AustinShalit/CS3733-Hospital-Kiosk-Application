@@ -67,12 +67,15 @@ public class NavigationController implements Controller {
       instructionsLabel.setText(stringBuilder.toString());
     }));
 
-    NewMapView.Floor floor1 = new NewMapView.Floor("1", new Image(NewMapView.class.getResource("01_thefirstfloor.png").openStream()));
-    NewMapView.Floor floor2 = new NewMapView.Floor("2", new Image(NewMapView.class.getResource("02_thesecondfloor.png").openStream()));
     NewMapView.Floor floor3 = new NewMapView.Floor("3", new Image(NewMapView.class.getResource("03_thethirdfloor.png").openStream()));
+    NewMapView.Floor floor2 = new NewMapView.Floor("2", new Image(NewMapView.class.getResource("02_thesecondfloor.png").openStream()));
+    NewMapView.Floor floor1 = new NewMapView.Floor("1", new Image(NewMapView.class.getResource("01_thefirstfloor.png").openStream()));
+    NewMapView.Floor floorG = new NewMapView.Floor("G", new Image(NewMapView.class.getResource("00_thegroundfloor.png").openStream()));
+    NewMapView.Floor floorL1 = new NewMapView.Floor("L1", new Image(NewMapView.class.getResource("00_thelowerlevel1.png").openStream()));
+    NewMapView.Floor floorL2 = new NewMapView.Floor("L2", new Image(NewMapView.class.getResource("00_thelowerlevel2.png").openStream()));
 
-    map.setFloors(FXCollections.observableArrayList(floor1, floor2, floor3));
-    map.setFloor(floor2);
+    map.setFloors(FXCollections.observableArrayList(floor3, floor2, floor1, floorG, floorL1, floorL2));
+    map.setFloor(floor1);
   }
 
   @FXML

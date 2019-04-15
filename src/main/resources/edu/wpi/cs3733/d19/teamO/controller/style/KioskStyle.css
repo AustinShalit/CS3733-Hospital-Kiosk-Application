@@ -107,6 +107,10 @@
     -fx-border-width: 0;
 }
 
+.map-floor-btn:selected {
+    -fx-background-color: rgb(1,45,90);
+}
+
 /* Items */
 
 #requestview {

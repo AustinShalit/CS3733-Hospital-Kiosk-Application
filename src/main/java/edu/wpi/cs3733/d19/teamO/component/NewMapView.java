@@ -12,6 +12,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
+import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
@@ -25,7 +26,10 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import net.kurobako.gesturefx.GesturePane;
 
+@SuppressWarnings("Duplicates")
 public class NewMapView extends StackPane {
+
+  private static PseudoClass SELECTED = PseudoClass.getPseudoClass("selected");
 
   @FXML
   private GesturePane gesturePane;
@@ -87,16 +91,20 @@ public class NewMapView extends StackPane {
         button.setPrefSize(55, 55);
         button.setOnAction(event -> floor.setValue(f));
         button.getStyleClass().add("map-floor-btn");
+        button.setUserData(f);
         floorButtonBox.getChildren().add(button);
       });
     }));
 
     floor.addListener(((observable, oldValue, newValue) ->  {
       backgroundImage.setImage(newValue.mapImage.getValue());
-      if (oldValue == null) {
-        gesturePane.zoomTo(0.1, new Point2D(backgroundImage.getImage().getWidth() / 2,
-            backgroundImage.getImage().getHeight() / 2));
-      }
+//      if (oldValue == null) {
+//        gesturePane.zoomTo(0.1, new Point2D(backgroundImage.getImage().getWidth() / 2,
+//            backgroundImage.getImage().getHeight() / 2));
+//      }
+      floorButtonBox.getChildren().forEach(floorButton
+          -> floorButton.pseudoClassStateChanged(SELECTED,
+          newValue.equals(floorButton.getUserData())));
     }));
   }
 
