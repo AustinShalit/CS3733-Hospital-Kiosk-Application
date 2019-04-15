@@ -101,7 +101,7 @@ public class NewMapView extends StackPane {
           newValue.equals(floorButton.getUserData())));
     });
 
-    pathView.floorProperty().bind(floor);
+    pathView.floorProperty().bindBidirectional(floor);
   }
 
   public PathView getPathView() {

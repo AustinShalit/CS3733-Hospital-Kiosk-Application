@@ -5,7 +5,18 @@ import java.util.logging.Logger;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
@@ -37,6 +48,11 @@ public class PathView extends MapElementGroup {
     for (int i = 1; i < path.size() - 1; i++) {
       if (previous.getFloorInt() == path.get(i).getFloorInt()) {
         addElement(path.get(i).getFloorInt(), createEdge(previous, path.get(i)));
+      } else {
+        addElement(previous.getFloorInt(),
+            createTextFloorHint(previous, "To floor " + path.get(i).getFloor()));
+        addElement(path.get(i).getFloorInt(),
+            createTextFloorHint(path.get(i), "From floor " + previous.getFloor()));
       }
       addElement(path.get(i).getFloorInt(), createNode(path.get(i)));
       previous = path.get(i);
@@ -80,6 +96,22 @@ public class PathView extends MapElementGroup {
     line.setStroke(Color.color(0.96, 0.74, 0.22));
     line.setStrokeLineCap(StrokeLineCap.ROUND);
     return line;
+  }
+
+  private Label createTextFloorHint(final Node node, final String hint) {
+    Label label = new Label(hint);
+    label.setTranslateX(node.getXcoord() + 8);
+    label.setTranslateY(node.getYcoord() + 8);
+    label.setAlignment(Pos.CENTER);
+    label.setTextFill(Color.WHITE);
+    label.setPadding(new Insets(0, 5, 0, 5));
+    label.setBackground(new Background(new BackgroundFill(Paint.valueOf("0067B1"),
+        new CornerRadii(5, 5, 5, 5, false),
+        Insets.EMPTY)));
+    label.setBorder(new Border(new BorderStroke(Color.rgb(1, 45, 90),
+        BorderStrokeStyle.SOLID, new CornerRadii(5, 5, 5, 5, false),
+        BorderWidths.DEFAULT)));
+    return label;
   }
 
   public ObservableList<Node> getPath() {
