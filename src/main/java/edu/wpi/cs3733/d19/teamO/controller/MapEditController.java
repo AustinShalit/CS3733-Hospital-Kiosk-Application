@@ -139,7 +139,7 @@ public class MapEditController implements Controller {
 
     map.selectedEdgeProperty().addListener((observable, oldValue, newValue) -> {
       edgeID = newValue;
-      displayEdgeID.setText(newValue);
+      displayEdgeID.setText("Node ID: " + newValue);
     });
 
     // set tab pane to span entire width
