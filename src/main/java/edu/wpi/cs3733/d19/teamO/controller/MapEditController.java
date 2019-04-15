@@ -138,8 +138,8 @@ public class MapEditController implements Controller {
     });
 
     map.selectedEdgeProperty().addListener((observable, oldValue, newValue) -> {
-      edgeID = newValue.getEdgeId();
-      displayEdgeID.setText(newValue.getEdgeId());
+      edgeID = newValue;
+      displayEdgeID.setText(newValue);
     });
 
     // set tab pane to span entire width
@@ -278,10 +278,9 @@ public class MapEditController implements Controller {
       Optional<Node> nodeFromDB1 = database.getNode(udNodeID1);
       if (!nodeFromDB2.isPresent() || !nodeFromDB1.isPresent()) {
         status.setText("ERROR: InvalidNodeID");
-      }
-      else if (udNodeID1==udNodeID2) {
+      } else if (udNodeID1.equals(udNodeID2)) {
         status.setText("ERROR: Start and end node are same");
-      } else{
+      } else {
         Node node1 = nodeFromDB1.get();
         Node node2 = nodeFromDB2.get();
         Edge newEdge = new Edge(database.getFreeEdgeId(), node1, node2);

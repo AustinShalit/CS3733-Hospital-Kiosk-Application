@@ -200,9 +200,10 @@
   </right>
   <bottom>
     <StackPane prefHeight="19.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-         <children>
-            <Label fx:id="displayEdgeID"/>
-         </children></StackPane>
+      <children>
+        <Label fx:id="displayEdgeID" text="666" />
+      </children>
+    </StackPane>
   </bottom>
   <center>
     <VBox BorderPane.alignment="CENTER">
