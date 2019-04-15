@@ -11,7 +11,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
+import javafx.scene.shape.Polygon;
 import javafx.util.Duration;
 import net.kurobako.gesturefx.GesturePane;
 
@@ -77,31 +77,30 @@ public class SchedulingMapView extends MapView {
    */
   @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
   public void redrawNodes() {
-    Set<Circle> circles = new HashSet<>();
-    int size = 20;
+    Set<Polygon> polygons = new HashSet<>();
 
     for (Node availableNode : availableNodes) {
-      circles.add(
-          new Circle(
-              availableNode.getXcoord(),
-              availableNode.getYcoord(),
-              size,
-              Color.color(0, 1.0, 0)
-          )
-      );
+      Polygon polygon = new Polygon();
+      polygon.getPoints().setAll(availableNode.getPolygonPoints());
+      polygon.setFill(Color.color(0.0, 1.0, 0.0, 0.5));
+
+      polygon.setStroke(Color.color(0.0, 0.0, 0.0));
+      polygon.setStrokeWidth(3);
+
+      polygons.add(polygon);
     }
 
     for (Node unavailableNode : unavailableNodes) {
-      circles.add(
-          new Circle(
-              unavailableNode.getXcoord(),
-              unavailableNode.getYcoord(),
-              size,
-              Color.color(1.0, 0, 0)
-          )
-      );
+      Polygon polygon = new Polygon();
+      polygon.getPoints().setAll(unavailableNode.getPolygonPoints());
+      polygon.setFill(Color.color(1.0, 0.0, 0.0, 0.5));
+
+      polygon.setStroke(Color.color(0.0, 0.0, 0.0));
+      polygon.setStrokeWidth(3);
+
+      polygons.add(polygon);
     }
 
-    nodeGroup.getChildren().setAll(circles);
+    nodeGroup.getChildren().setAll(polygons);
   }
 }
