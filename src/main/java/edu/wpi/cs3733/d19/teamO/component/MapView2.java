@@ -38,10 +38,19 @@ public class MapView2 extends StackPane {
   private String currentLevel = "1";
   Collection<Node> nodes;
   Collection<Node> currentNodes;
-
+  Collection<Edge> databaseEdge;
+  Collection<Edge> currentEdges;
 
   public void setCurrentNodes(Collection<Node> currentNodes) {
     this.currentNodes = currentNodes;
+  }
+
+  public void setDatabaseEdge(Collection<Edge> databaseEdge) {
+    this.databaseEdge = databaseEdge;
+  }
+
+  public void setCurrentEdges(Collection<Edge> currentEdges) {
+    this.currentEdges = currentEdges;
   }
 
   @FXML
@@ -74,7 +83,7 @@ public class MapView2 extends StackPane {
   private Circle circleDrag;
 
   private final SimpleObjectProperty<Node> selectedNode = new SimpleObjectProperty<>();
-
+  private final SimpleObjectProperty<Edge> selectedEdge = new SimpleObjectProperty<>();
 
   /**
    * The constructor for the MapView2 class.
@@ -100,15 +109,30 @@ public class MapView2 extends StackPane {
     this.selectedNode.set(selectedNode);
   }
 
+  public void setSelectedNode(Edge selectedEdge) {
+    this.selectedEdge.set(selectedEdge);
+  }
+
+  public Edge getSelectedEdge() {
+    return selectedEdge.get();
+  }
+
+  public SimpleObjectProperty<Edge> selectedEdgeProperty() {
+    return selectedEdge;
+  }
+
+
+
   @FXML
   void initialize() throws IOException {
     gesturePane.setMinScale(0.1);
+    gesturePane.reset();
+
     gesturePane.setOnMouseClicked(e -> {
       Point2D pointOnMap = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
           .orElse(gesturePane.targetPointAtViewportCentre());
 
       if (e.getButton() == MouseButton.PRIMARY && e.getClickCount() == 2) {
-
         // increment of scale makes more sense exponentially instead of linearly
         gesturePane.animate(Duration.millis(200))
             .interpolateWith(Interpolator.EASE_BOTH)
@@ -134,18 +158,26 @@ public class MapView2 extends StackPane {
             break;
           }
         }
+        findCurrentEdge(level);
+
+        for (Edge ed : currentEdges) {
+          if (abs((((ed.getEndNode().getXcoord() - ed.getStartNode().getXcoord()) / 2)
+              + ed.getEndNode().getXcoord()) - currentX) <= abs(ed.getEndNode().getXcoord( )
+              - ed.getStartNode().getXcoord()) && abs((((ed.getEndNode().getYcoord( )
+              - ed.getStartNode().getYcoord()) / 2) + ed.getEndNode().getYcoord())
+              - currentY) <= abs(ed.getEndNode().getYcoord() - ed.getStartNode().getYcoord())) {
+            selectedEdge.set(ed);
+            break;
+          }
+        }
       }
-
-
-
-
     });
     gesturePane.setFitMode(GesturePane.FitMode.COVER);
     gesturePane.setScrollBarEnabled(false);
     resetButtonBackground("99");
     levelF1.setStyle("-fx-background-color: rgb(1,45,90)");
-
     onFloorSelectAction(new ActionEvent(levelF1, levelF1));
+
 
   }
 
@@ -224,44 +256,32 @@ public class MapView2 extends StackPane {
       filename = "01_thefirstfloor.png";
       circle.setVisible(false);
       level = "1";
-      clearNodes();
-      findCurrentNode(level);
-      addNodesToPane(currentNodes);
+      updateDisplay();
     } else if (src.equals(levelF2)) {
       filename = "02_thesecondfloor.png";
       circle.setVisible(false);
       level = "2";
-      clearNodes();
-      findCurrentNode(level);
-      addNodesToPane(currentNodes);
+      updateDisplay();
     } else if (src.equals(levelF3)) {
       filename = "03_thethirdfloor.png";
       circle.setVisible(false);
       level = "3";
-      clearNodes();
-      findCurrentNode(level);
-      addNodesToPane(currentNodes);
+      updateDisplay();
     } else if (src.equals(levelL1)) {
       filename = "00_thelowerlevel1.png";
       circle.setVisible(false);
       level = "L1";
-      clearNodes();
-      findCurrentNode(level);
-      addNodesToPane(currentNodes);
+      updateDisplay();
     } else if (src.equals(levelL2)) {
       filename = "00_thelowerlevel2.png";
       circle.setVisible(false);
       level = "L2";
-      clearNodes();
-      findCurrentNode(level);
-      addNodesToPane(currentNodes);
+      updateDisplay();
     } else if (src.equals(levelG)) {
       filename = "00_thegroundfloor.png";
       circle.setVisible(false);
       level = "G";
-      clearNodes();
-      findCurrentNode(level);
-      addNodesToPane(currentNodes);
+      updateDisplay();
     }
 
     backgroundImage.setImage(new Image(getClass().getResource(filename).openStream()));
@@ -351,6 +371,7 @@ public class MapView2 extends StackPane {
             Color.color(0, 0.31, 0.53));
         circle.setStroke(Color.BLACK);
         nodeGroup.getChildren().add(circle);
+        //nodeGroup.getChildren().
       }
     }
   }
@@ -367,6 +388,19 @@ public class MapView2 extends StackPane {
       for (Node n : nodes) {
         if (lv.equals(n.getFloor())) {
           currentNodes.add(n);
+        }
+      }
+    }
+  }
+
+  private void findCurrentEdge(String lv) {
+    if (currentEdges != null && databaseEdge != null) {
+      currentEdges.clear();
+
+      for (Edge e : databaseEdge) {
+        if (lv.equals(e.getStartNode().getFloor())) {
+          currentEdges.add(e);
+
         }
       }
     }
@@ -392,10 +426,12 @@ public class MapView2 extends StackPane {
    */
   @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
   public void addEdgesToPane(final Collection<Edge> edgeCollection) {
-    for (Edge edge : edgeCollection) {
-      Line line = new Line(edge.getStartNode().getXcoord(), edge.getStartNode().getYcoord(),
-          edge.getEndNode().getXcoord(), edge.getEndNode().getYcoord());
-      edges.getChildren().add(line);
+    if (edgeCollection != null) {
+      for (Edge edge : edgeCollection) {
+        Line line = new Line(edge.getStartNode().getXcoord(), edge.getStartNode().getYcoord(),
+            edge.getEndNode().getXcoord(), edge.getEndNode().getYcoord());
+        edges.getChildren().add(line);
+      }
     }
   }
 
@@ -415,5 +451,13 @@ public class MapView2 extends StackPane {
     circleDrag.setVisible(visibility);
   }
 
+  private void updateDisplay() {
+    clearNodes();
+    findCurrentNode(level);
+    addNodesToPane(currentNodes);
+    clearEdges();
+    findCurrentEdge(level);
+    addEdgesToPane(currentEdges);
+  }
 
 }
