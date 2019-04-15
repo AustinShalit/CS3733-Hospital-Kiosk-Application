@@ -94,6 +94,7 @@ public class MapView extends StackPane {
   @FXML
   void initialize() throws IOException {
     gesturePane.setMinScale(0.1);
+    gesturePane.reset();
     gesturePane.setOnMouseClicked(e -> {
       Point2D pointOnMap = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
           .orElse(gesturePane.targetPointAtViewportCentre());
