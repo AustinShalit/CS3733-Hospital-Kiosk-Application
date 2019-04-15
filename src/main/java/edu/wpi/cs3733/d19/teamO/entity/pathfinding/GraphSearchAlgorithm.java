@@ -1,21 +1,47 @@
 package edu.wpi.cs3733.d19.teamO.entity.pathfinding;
 
-import java.util.function.Supplier;
+import com.google.common.base.MoreObjects;
 
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 
-public enum GraphSearchAlgorithm {
-  BFS(BreadthFirstSearchAlgorithm::new),
-  DFS(DepthFirstSearchAlgorithm::new);
+/**
+ * A GraphSearchAlgorithm is a way of traversing a map.
+ */
+public class GraphSearchAlgorithm {
 
-  //private final String name;
-  private final Supplier<IGraphSearchAlgorithm<Node>> algorithmSupplier;
+  private final String name;
+  private final IGraphSearchAlgorithm<Node> algorithm;
 
-  GraphSearchAlgorithm(final Supplier<IGraphSearchAlgorithm<Node>> algorithmSupplier) {
-    this.algorithmSupplier = algorithmSupplier;
+  /**
+   * Creates a new GraphSearchAlgorithm with the given name.
+   *
+   * @param name        the name of the theme
+   * @param algorithm   the algorithm oto use
+   */
+  public GraphSearchAlgorithm(String name, IGraphSearchAlgorithm<Node> algorithm) {
+    this.name = name;
+    this.algorithm = algorithm;
   }
 
+  /**
+   * Gets the name of this theme.
+   */
+  public String getName() {
+    return name;
+  }
+
+  /**
+   * Gets the style sheets in this theme.
+   */
   public IGraphSearchAlgorithm<Node> getAlgorithm() {
-    return algorithmSupplier.get();
+    return algorithm;
+  }
+
+  @Override
+  public String toString() {
+    return MoreObjects.toStringHelper(this)
+        .add("name", name)
+        .add("algorithm", algorithm)
+        .toString();
   }
 }

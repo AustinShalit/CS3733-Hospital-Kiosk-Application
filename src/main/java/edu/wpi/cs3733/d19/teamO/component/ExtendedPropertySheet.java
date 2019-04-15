@@ -18,6 +18,8 @@ import javafx.util.Callback;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 
+import edu.wpi.cs3733.d19.teamO.entity.pathfinding.GraphSearchAlgorithm;
+import edu.wpi.cs3733.d19.teamO.entity.pathfinding.GraphSearchAlgorithms;
 import edu.wpi.cs3733.d19.teamO.entity.setting.Category;
 import edu.wpi.cs3733.d19.teamO.entity.setting.FlushableProperty;
 import edu.wpi.cs3733.d19.teamO.entity.setting.Group;
@@ -29,13 +31,12 @@ import edu.wpi.cs3733.d19.teamO.util.Debouncer;
 /**
  * A version of {@link PropertySheet} that has better support for editing numbers (using {@link
  * NumberField} and {@link IntegerField} for doubles and integers, respectively) and booleans (using
- * {@link ToggleSwitch}), and themes.
+ * {@link ToggleSwitch}), and others.
  */
 public class ExtendedPropertySheet extends PropertySheet {
 
   /**
-   * A custom editor factory that uses custom editors for text, numbers, booleans, and {@link Theme
-   * Themes}.
+   * A custom editor factory that uses custom editors for text, numbers, booleans, and others.
    */
   public static final Callback<Item, PropertyEditor<?>> CUSTOM_EDITOR_FACTORY
       = new DefaultPropertyEditorFactory() {
@@ -52,6 +53,9 @@ public class ExtendedPropertySheet extends PropertySheet {
       }
       if (item.getType() == Boolean.class) {
         return new ToggleSwitchEditor(item);
+      }
+      if (item.getType() == GraphSearchAlgorithm.class) {
+        return new GraphSearchAlgorithmPropertyEditor(item);
       }
       if (item.getType() == Theme.class) {
         return new ThemePropertyEditor(item);
@@ -277,6 +281,40 @@ public class ExtendedPropertySheet extends PropertySheet {
       getEditor().setSelected(value);
     }
 
+  }
+
+  private static class GraphSearchAlgorithmPropertyEditor
+      extends AbstractPropertyEditor<GraphSearchAlgorithm, ComboBox<GraphSearchAlgorithm>> {
+
+    private static class GraphSearchAlgorithmStringConverter
+        extends StringConverter<GraphSearchAlgorithm> {
+
+      @Override
+      public String toString(GraphSearchAlgorithm object) {
+        return object.getName();
+      }
+
+      @Override
+      public GraphSearchAlgorithm fromString(String string) {
+        return GraphSearchAlgorithms.getDefault().forName(string);
+      }
+    }
+
+    GraphSearchAlgorithmPropertyEditor(PropertySheet.Item property) {
+      super(property, new ComboBox<>());
+      getEditor().setItems(GraphSearchAlgorithms.getDefault().getItems());
+      getEditor().setConverter(new GraphSearchAlgorithmStringConverter());
+    }
+
+    @Override
+    protected ObservableValue<GraphSearchAlgorithm> getObservableValue() {
+      return getEditor().getSelectionModel().selectedItemProperty();
+    }
+
+    @Override
+    public void setValue(GraphSearchAlgorithm value) {
+      getEditor().getSelectionModel().select(value);
+    }
   }
 
   private static class ThemePropertyEditor extends AbstractPropertyEditor<Theme, ComboBox<Theme>> {

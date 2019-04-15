@@ -21,7 +21,6 @@ import edu.wpi.cs3733.d19.teamO.AppPreferences;
 import edu.wpi.cs3733.d19.teamO.component.MapView;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
-import edu.wpi.cs3733.d19.teamO.entity.pathfinding.GraphSearchAlgorithm;
 import edu.wpi.cs3733.d19.teamO.entity.pathfinding.IGraphSearchAlgorithm;
 import edu.wpi.cs3733.d19.teamO.entity.pathfinding.StepByStep;
 
@@ -91,7 +90,7 @@ public class NavigationController implements Controller {
     }
 
     //IGraphSearchAlgorithm<Node> algorithm = appPreferences.getGraphSearchAlgorithm().getAlgorithm();
-    IGraphSearchAlgorithm<Node> algorithm = GraphSearchAlgorithm.BFS.getAlgorithm();
+    IGraphSearchAlgorithm<Node> algorithm = appPreferences.getGraphSearchAlgorithm().getAlgorithm();
         MutableGraph<Node> graph = GraphBuilder.undirected().allowsSelfLoops(false).build();
     database.getAllNodes().forEach(graph::addNode);
     database.getAllEdges().forEach(e -> graph.putEdge(e.getStartNode(), e.getEndNode()));
