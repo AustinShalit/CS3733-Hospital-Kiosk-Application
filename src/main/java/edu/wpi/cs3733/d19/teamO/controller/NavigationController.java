@@ -17,12 +17,11 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 
 import edu.wpi.cs3733.d19.teamO.AppPreferences;
 import edu.wpi.cs3733.d19.teamO.component.NewMapView;
-import edu.wpi.cs3733.d19.teamO.entity.Floor;
+import edu.wpi.cs3733.d19.teamO.entity.Floors;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 import edu.wpi.cs3733.d19.teamO.entity.pathfinding.IGraphSearchAlgorithm;
@@ -48,6 +47,8 @@ public class NavigationController implements Controller {
   private Database database;
   @Inject
   private AppPreferences appPreferences;
+  @Inject
+  private Floors floors;
 
   private final ListProperty<Node> path = new SimpleListProperty<>();
 
@@ -74,22 +75,8 @@ public class NavigationController implements Controller {
 
     map.getPathView().pathProperty().bind(path);
 
-    Floor floor3 = new Floor(3, "3",
-        new Image(NewMapView.class.getResource("03_thethirdfloor.png").openStream()));
-    Floor floor2 = new Floor(2, "2",
-        new Image(NewMapView.class.getResource("02_thesecondfloor.png").openStream()));
-    Floor floor1 = new Floor(1, "1",
-        new Image(NewMapView.class.getResource("01_thefirstfloor.png").openStream()));
-    Floor floorG = new Floor(0, "G",
-        new Image(NewMapView.class.getResource("00_thegroundfloor.png").openStream()));
-    Floor floorL1 = new Floor(-1, "L1",
-        new Image(NewMapView.class.getResource("00_thelowerlevel1.png").openStream()));
-    Floor floorL2 = new Floor(-2, "L2",
-        new Image(NewMapView.class.getResource("00_thelowerlevel2.png").openStream()));
-
-    map.setFloors(FXCollections.observableArrayList(floor3, floor2, floor1, floorG, floorL1,
-        floorL2));
-    map.setFloor(floor1);
+    map.setFloors(floors.getItems().sorted());
+    floors.forName("1").ifPresent(map::setFloor);
   }
 
   @FXML

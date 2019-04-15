@@ -86,7 +86,7 @@ public class NewMapView extends StackPane {
     floors.addListener((observable, oldValue, newValue) -> {
       floorButtonBox.getChildren().clear();
       newValue.forEach(f -> {
-        JFXButton button = new JFXButton(f.getId());
+        JFXButton button = new JFXButton(f.getName());
         button.setPrefSize(55, 55);
         button.setOnAction(event -> floor.setValue(f));
         button.getStyleClass().add("map-floor-btn");

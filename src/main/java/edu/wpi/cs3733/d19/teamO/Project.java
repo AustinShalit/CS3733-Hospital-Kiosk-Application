@@ -14,6 +14,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import edu.wpi.cs3733.d19.teamO.controller.ControllerModule;
@@ -21,6 +22,8 @@ import edu.wpi.cs3733.d19.teamO.controller.LoginController;
 import edu.wpi.cs3733.d19.teamO.controller.MainController;
 import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.DefaultInformationLoader;
+import edu.wpi.cs3733.d19.teamO.entity.Floor;
+import edu.wpi.cs3733.d19.teamO.entity.Floors;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 import edu.wpi.cs3733.d19.teamO.entity.database.DatabaseModule;
 
@@ -34,18 +37,35 @@ public class Project extends Application {
   @Inject
   private Database database;
   @Inject
+  private Floors floors;
+  @Inject
   private LoginController.Factory loginControllerFactory;
 
   private Injector injector;
   private Parent root;
 
   @Override
-  public void init() {
+  public void init() throws IOException {
     logger.config("Application init");
 
     injector = Guice.createInjector(new ProjectModule(), new ControllerModule(),
         new DatabaseModule());
     injector.injectMembers(this);
+
+    floors.registerAll(
+      new Floor(3, "3",
+          new Image(Floors.class.getResource("03_thethirdfloor.png").openStream())),
+      new Floor(2, "2",
+        new Image(Floors.class.getResource("02_thesecondfloor.png").openStream())),
+      new Floor(1, "1",
+        new Image(Floors.class.getResource("01_thefirstfloor.png").openStream())),
+      new Floor(0, "G",
+        new Image(Floors.class.getResource("00_thegroundfloor.png").openStream())),
+      new Floor(-1, "L1",
+        new Image(Floors.class.getResource("00_thelowerlevel1.png").openStream())),
+      new Floor(-2, "L2",
+        new Image(Floors.class.getResource("00_thelowerlevel2.png").openStream()))
+    );
 
     new DefaultInformationLoader(database).loadIfEmpty();
 

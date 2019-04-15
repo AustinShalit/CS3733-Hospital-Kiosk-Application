@@ -1,18 +1,20 @@
 package edu.wpi.cs3733.d19.teamO.entity;
 
+import org.jetbrains.annotations.NotNull;
+
 import javafx.scene.image.Image;
 
-public class Floor {
+public class Floor implements Comparable<Floor> {
   private final int number;
-  private final String id;
+  private final String name;
   private final Image mapImage;
 
   /**
    * Create a new floor.
    */
-  public Floor(int number, String id, Image mapImage) {
+  public Floor(int number, String name, Image mapImage) {
     this.number = number;
-    this.id = id;
+    this.name = name;
     this.mapImage = mapImage;
   }
 
@@ -20,11 +22,16 @@ public class Floor {
     return number;
   }
 
-  public String getId() {
-    return id;
+  public String getName() {
+    return name;
   }
 
   public Image getMapImage() {
     return mapImage;
+  }
+
+  @Override
+  public int compareTo(@NotNull Floor o) {
+    return Integer.compare(o.number, number);
   }
 }
