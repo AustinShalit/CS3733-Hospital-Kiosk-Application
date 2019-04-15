@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.d19.teamO.entity.pathfinding;
 
 import java.util.Objects;
-import java.util.logging.Logger;
 
 import edu.wpi.cs3733.d19.teamO.util.Registry;
 
@@ -9,8 +8,6 @@ import edu.wpi.cs3733.d19.teamO.util.Registry;
  * Keeps track of the GraphSearchAlgorithms available to the application.
  */
 public final class GraphSearchAlgorithms extends Registry<GraphSearchAlgorithm> {
-
-  private static final Logger log = Logger.getLogger(GraphSearchAlgorithms.class.getName());
 
   // TODO replace with DI eg Guice
   private static GraphSearchAlgorithms defaultInstance;

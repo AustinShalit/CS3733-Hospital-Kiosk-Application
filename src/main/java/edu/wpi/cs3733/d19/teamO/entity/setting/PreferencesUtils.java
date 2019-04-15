@@ -13,6 +13,7 @@ import javafx.beans.property.StringProperty;
 /**
  * Utilities for saving and loading JavaFX properties to and from a {@link Preferences} object.
  */
+@SuppressWarnings("PMD.TooManyMethods")
 public final class PreferencesUtils {
 
   private PreferencesUtils() {
@@ -167,5 +168,4 @@ public final class PreferencesUtils {
   public static void read(StringProperty property, Preferences preferences) {
     read(property, preferences, s -> s);
   }
-
 }

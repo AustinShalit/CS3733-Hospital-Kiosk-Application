@@ -5,8 +5,13 @@
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import edu.wpi.cs3733.d19.teamO.component.MapView2?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -15,13 +20,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-
-<?import javafx.scene.control.Label?>
-<?import edu.wpi.cs3733.d19.teamO.component.MapView2?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TableColumn?>
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.MapEditController">
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.MapEditController">
   <left>
     <StackPane maxWidth="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
       <children>
@@ -68,7 +67,7 @@
 
                   </VBox.margin>
                 </Text>
-                <JFXTextField onKeyReleased="#validateButton" prefHeight="25.0" prefWidth="132.0" fx:id="xcoordField">
+                <JFXTextField onAction="#onEnter" onKeyReleased="#validateButton" prefHeight="25.0" prefWidth="132.0" fx:id="xcoordField">
                   <VBox.margin>
                     <Insets bottom="5.0" left="30.0" right="30.0" />
                   </VBox.margin>
@@ -78,7 +77,7 @@
                     <Font size="15.0" />
                   </font>
                 </Text>
-                <JFXTextField fx:id="ycoordField" onKeyReleased="#validateButton" prefHeight="25.0" prefWidth="132.0">
+                <JFXTextField fx:id="ycoordField" onAction="#onEnter" onKeyReleased="#validateButton" prefHeight="25.0" prefWidth="132.0">
                   <VBox.margin>
                     <Insets bottom="5.0" left="30.0" right="30.0" />
                   </VBox.margin>
@@ -109,7 +108,7 @@
                   </font>
                 </Text>
 
-                <JFXComboBox fx:id="nodeTypeComboBox" editable="false" focusColor="#004e86" onMouseClicked="#comboBox" onMouseExited="#validateButton" prefHeight="35.0" prefWidth="146.0" promptText=" ">
+                <JFXComboBox fx:id="nodeTypeComboBox" editable="false" focusColor="#004e86" onMouseExited="#validateButton" prefHeight="35.0" prefWidth="146.0" promptText=" ">
 
                   <VBox.margin>
                     <Insets bottom="5.0" />
@@ -136,17 +135,6 @@
                   </VBox.margin>
                 </JFXTextField>
 
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="2nd NodeID">
-                  <font>
-                    <Font size="15.0" />
-                  </font>
-                </Text>
-                <JFXTextField fx:id="nodeIDField2" onKeyReleased="#validateButton" prefHeight="25.0" prefWidth="132.0">
-                  <VBox.margin>
-                    <Insets left="30.0" right="30.0" />
-                  </VBox.margin>
-                </JFXTextField>
-
                 <Label fx:id="status" textFill="RED">
                   <VBox.margin>
                     <Insets bottom="5.0" />
@@ -155,7 +143,7 @@
                     <Font size="14.0" />
                   </font>
                 </Label>
-                <JFXButton fx:id="addButton" disable="true" onAction="#addNodeAction" prefHeight="40.0" prefWidth="294.0" ripplerFill="#013c78" style="-fx-background-color: #012d5a;" text="Add" textFill="WHITE">
+                <JFXButton fx:id="addButton" disable="true" onAction="#addNodeAction" prefHeight="40.0" prefWidth="294.0" ripplerFill="#9cd1ff" style="-fx-background-color: #012d5a;" text="Add" textFill="WHITE">
                   <font>
                     <Font name="System Bold" size="15.0" />
                   </font>
@@ -163,7 +151,7 @@
                     <Insets bottom="6.0" />
                   </VBox.margin>
                 </JFXButton>
-                <JFXButton fx:id="deleteButton" disable="true" onAction="#deleteNodeAction" prefHeight="40.0" prefWidth="294.0" ripplerFill="#013c78" style="-fx-background-color: #012d5a;" text="Delete" textFill="WHITE">
+                <JFXButton fx:id="deleteButton" disable="true" onAction="#deleteNodeAction" prefHeight="40.0" prefWidth="294.0" ripplerFill="#9cd1ff" style="-fx-background-color: #012d5a;" text="Delete" textFill="WHITE">
                   <font>
                     <Font name="System Bold" size="15.0" />
                   </font>
@@ -171,7 +159,7 @@
                     <Insets bottom="6.0" />
                   </VBox.margin>
                 </JFXButton>
-                <JFXButton fx:id="updateButton" disable="true" onAction="#updateNodeAction" prefHeight="40.0" prefWidth="294.0" ripplerFill="#013c78" style="-fx-background-color: #012d5a;" text="Update" textFill="WHITE">
+                <JFXButton fx:id="updateButton" disable="true" onAction="#updateNodeAction" prefHeight="40.0" prefWidth="294.0" ripplerFill="#9cd1ff" style="-fx-background-color: #012d5a;" text="Update" textFill="WHITE">
                   <VBox.margin>
                     <Insets bottom="6.0" />
                   </VBox.margin>
@@ -180,11 +168,22 @@
                   </font>
                 </JFXButton>
 
-                <JFXButton fx:id="connectButton" disable="true" onAction="#connectNodeAction" prefHeight="40.0" prefWidth="294.0" ripplerFill="#013c78" style="-fx-background-color: #012d5a;" text="Connect" textFill="WHITE">
+                <JFXButton fx:id="connectButton" disable="true" onAction="#connectNodeAction" prefHeight="40.0" prefWidth="294.0" ripplerFill="#9cd1ff" style="-fx-background-color: #012d5a;" text="Connect" textFill="WHITE">
 
                   <font>
                     <Font name="System Bold" size="15.0" />
                   </font>
+                  <VBox.margin>
+                    <Insets bottom="6.0" />
+                  </VBox.margin>
+                </JFXButton>
+                <JFXButton fx:id="edgeDeleteButton" disable="false" onAction="#onEdgeDelete" prefHeight="40.0" prefWidth="294.0" ripplerFill="#780101" style="-fx-background-color: #5a0005;" text="Delete Edge" textFill="WHITE">
+                  <font>
+                    <Font name="System Bold" size="15.0" />
+                  </font>
+                  <VBox.margin>
+                    <Insets top="5.0" />
+                  </VBox.margin>
                 </JFXButton>
               </children>
             </VBox>
@@ -200,7 +199,11 @@
     <StackPane prefHeight="360.0" prefWidth="14.0" BorderPane.alignment="CENTER" />
   </right>
   <bottom>
-    <StackPane prefHeight="19.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+    <StackPane prefHeight="19.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <children>
+        <Label fx:id="displayEdgeID" text="666" />
+      </children>
+    </StackPane>
   </bottom>
   <center>
     <VBox BorderPane.alignment="CENTER">
@@ -223,7 +226,7 @@
                     <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                       <columns>
                         <TableColumn fx:id="nodeIdCol" prefWidth="75.0" text="NodeID" />
-                        <TableColumn prefWidth="75.0" text="X-Coordinate" fx:id="coordXcol" />
+                        <TableColumn fx:id="coordXcol" prefWidth="75.0" text="X-Coordinate" />
                         <TableColumn fx:id="coordYcol" prefWidth="75.0" text="Y-Coordinate" />
                         <TableColumn fx:id="floorCol" prefWidth="75.0" text="Floor" />
                         <TableColumn fx:id="buildingCol" prefWidth="75.0" text="Building" />

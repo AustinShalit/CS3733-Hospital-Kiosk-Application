@@ -51,6 +51,7 @@ public class SchedulingMapView extends MapView {
     unavailableNodes = new HashSet<>();
 
     gesturePane.setMinScale(0.1);
+    gesturePane.reset();
     gesturePane.setOnMouseClicked(e -> {
       Point2D pointOnMap = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
           .orElse(gesturePane.targetPointAtViewportCentre());
@@ -68,7 +69,7 @@ public class SchedulingMapView extends MapView {
     gesturePane.setFitMode(GesturePane.FitMode.COVER);
     gesturePane.setScrollBarEnabled(false);
 
-    setMapImage(new Image(getClass().getResource("SchedulingMap.jpg").openStream()));
+    backgroundImage.setImage(new Image(getClass().getResource("SchedulingMap.jpg").openStream()));
   }
 
   /**

@@ -59,6 +59,7 @@ public class PatientInfoController implements Controller {
   void initialize() {
     sexbox.getItems().setAll(PatientInfoRequest.PatientInfoSex.values());
     DialogHelper.populateComboBox(db, locationComboBox);
+    patientDOB.setEditable(true);
   }
 
   @FXML

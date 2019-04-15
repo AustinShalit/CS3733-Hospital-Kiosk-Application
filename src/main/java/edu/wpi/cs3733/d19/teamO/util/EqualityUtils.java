@@ -14,7 +14,6 @@ public final class EqualityUtils {
    *
    * @param o1 the first object to compare
    * @param o2 the second object to compare
-   *
    * @return true if the two objects are logically different
    */
   public static boolean isDifferent(Object o1, Object o2) {
@@ -27,10 +26,9 @@ public final class EqualityUtils {
    * @param array1 the first array to compare
    * @param array2 the second array to compare
    * @param <T>    the component type of the arrays.
-   *
    * @return true if the two arrays are logically different
    */
-  public static <T> boolean isDifferent(T[] array1, T[] array2) { //NOPMD varargs for last array parameter
+  public static <T> boolean isDifferent(T[] array1, T[] array2) { //NOPMD varargs
     return !isEqual(array1, array2);
   }
 
@@ -41,9 +39,9 @@ public final class EqualityUtils {
    *
    * @param o1 the first object to compare
    * @param o2 the second object to compare
-   *
    * @return true if the two objects are logically equivalent
    */
+  @SuppressWarnings("PMD.CyclomaticComplexity")
   public static boolean isEqual(Object o1, Object o2) {
     if (o1 == null || o2 == null) {
       return o1 == o2; //NOPMD comparing objects using ==; one of these is null so PMD is being dumb
@@ -90,15 +88,15 @@ public final class EqualityUtils {
   }
 
   /**
-   * Checks if two object arrays are logically equal. This does a deep comparison of the two arrays.
+   * Checks if two object arrays are logically equal. This does a deep comparison of the two
+   * arrays.
    *
    * @param array1 the first array to compare
    * @param array2 the second array to compare
    * @param <T>    the component type of the arrays
-   *
    * @return true if the two arrays are logically equal
    */
-  public static <T> boolean isEqual(T[] array1, T[] array2) { //NOPMD varargs for last array parameter
+  public static <T> boolean isEqual(T[] array1, T[] array2) { //NOPMD varargs
     return Arrays.deepEquals(array1, array2);
   }
 }

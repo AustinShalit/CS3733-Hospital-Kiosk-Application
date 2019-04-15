@@ -41,7 +41,8 @@ public final class Setting<T> {
    * @param <T>         the type of the value to configure
    * @return a new setting
    */
-  public static <T> Setting<T> of(String name, String description, Property<T> property, Class<? extends T> type) {
+  public static <T> Setting<T> of(String name, String description, Property<T> property,
+                                  Class<? extends T> type) {
     return new Setting<>(name, description, property, type);
   }
 
@@ -93,7 +94,8 @@ public final class Setting<T> {
   public void setValue(T value) {
     if (type != null && !type.isInstance(value)) {
       throw new IllegalArgumentException(
-          String.format("Value is not a %s: '%s' (is: %s)", type.getName(), value, value.getClass().getName()));
+          String.format("Value is not a %s: '%s' (is: %s)", type.getName(), value,
+              value.getClass().getName()));
     }
     property.setValue(value);
   }

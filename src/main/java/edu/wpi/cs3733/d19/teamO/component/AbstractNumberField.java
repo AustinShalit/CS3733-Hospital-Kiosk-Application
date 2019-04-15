@@ -1,13 +1,13 @@
 package edu.wpi.cs3733.d19.teamO.component;
 
-import edu.wpi.cs3733.d19.teamO.util.PropertyUtils;
-
 import java.util.Objects;
 
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
+
+import edu.wpi.cs3733.d19.teamO.util.PropertyUtils;
 
 /**
  * A type of text field that only accepts valid numbers.
@@ -53,10 +53,10 @@ public abstract class AbstractNumberField<N extends Number> extends TextField {
   }
 
   /**
-   * Checks if the given string is a valid start to an acceptable number in text form.
-   * This differs from {@link #isCompleteNumber(String) isCompleteNumber} because this checks if the
-   * text is only a valid <i>beginning</i> of a string representation of a number. For example, this
-   * method could accept a single "-" because it's a valid start to a negative number.
+   * Checks if the given string is a valid start to an acceptable number in text form. This differs
+   * from {@link #isCompleteNumber(String) isCompleteNumber} because this checks if the text is only
+   * a valid <i>beginning</i> of a string representation of a number. For example, this method could
+   * accept a single "-" because it's a valid start to a negative number.
    */
   protected abstract boolean isStartOfNumber(String text);
 

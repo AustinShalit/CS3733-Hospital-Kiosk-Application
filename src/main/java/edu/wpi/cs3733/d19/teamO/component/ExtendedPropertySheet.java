@@ -38,36 +38,36 @@ public class ExtendedPropertySheet extends PropertySheet {
   /**
    * A custom editor factory that uses custom editors for text, numbers, booleans, and others.
    */
-  public static final Callback<Item, PropertyEditor<?>> CUSTOM_EDITOR_FACTORY
+  private static final Callback<Item, PropertyEditor<?>> CUSTOM_EDITOR_FACTORY
       = new DefaultPropertyEditorFactory() {
-    @Override
-    public PropertyEditor<?> call(Item item) {
-      if (item.getType() == String.class) {
-        return new TextPropertyEditor(item);
-      }
-      if (item.getType() == Integer.class) {
-        return new IntegerPropertyEditor(item);
-      }
-      if (Number.class.isAssignableFrom(item.getType())) {
-        return new NumberPropertyEditor(item);
-      }
-      if (item.getType() == Boolean.class) {
-        return new ToggleSwitchEditor(item);
-      }
-      if (item.getType() == GraphSearchAlgorithm.class) {
-        return new GraphSearchAlgorithmPropertyEditor(item);
-      }
-      if (item.getType() == Theme.class) {
-        return new ThemePropertyEditor(item);
-      }
-      return super.call(item);
-    }
-  };
+        @Override
+        public PropertyEditor<?> call(Item item) {
+          if (item.getType() == String.class) {
+            return new TextPropertyEditor(item);
+          }
+          if (item.getType() == Integer.class) {
+            return new IntegerPropertyEditor(item);
+          }
+          if (Number.class.isAssignableFrom(item.getType())) {
+            return new NumberPropertyEditor(item);
+          }
+          if (item.getType() == Boolean.class) {
+            return new ToggleSwitchEditor(item);
+          }
+          if (item.getType() == GraphSearchAlgorithm.class) {
+            return new GraphSearchAlgorithmPropertyEditor(item);
+          }
+          if (item.getType() == Theme.class) {
+            return new ThemePropertyEditor(item);
+          }
+          return super.call(item);
+        }
+      };
 
   /**
    * Creates an empty property sheet.
    */
-  public ExtendedPropertySheet() {
+  private ExtendedPropertySheet() {
     super();
     setModeSwitcherVisible(false);
     setSearchBoxVisible(false);
@@ -78,6 +78,7 @@ public class ExtendedPropertySheet extends PropertySheet {
    * Creates a property sheet for editing the settings in a category. This does <i>not</i> include
    * settings for subcategories.
    */
+  @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
   public ExtendedPropertySheet(Category settingsCategory) {
     this();
     setMode(PropertySheet.Mode.CATEGORY);
@@ -117,7 +118,7 @@ public class ExtendedPropertySheet extends PropertySheet {
      * @param property the property the item represents
      * @param name     the name of the item to display in the property sheet
      */
-    public PropertyItem(Property<T> property, String name) {
+    PropertyItem(Property<T> property, String name) {
       this.property = property;
       this.name = name;
     }
@@ -191,17 +192,19 @@ public class ExtendedPropertySheet extends PropertySheet {
 
   }
 
-  private abstract static class DebouncedPropertyEditor<T, C extends Control> extends AbstractPropertyEditor<T, C> {
+  private abstract static class DebouncedPropertyEditor<T, C extends Control>
+      extends AbstractPropertyEditor<T, C> {
 
     private static final Duration DEFAULT_DEBOUNCE_DELAY = Duration.millis(250);
 
-    public DebouncedPropertyEditor(Item property, C control) {
+    DebouncedPropertyEditor(Item property, C control) {
       super(property, control);
       property.getObservableValue()
           .filter(v -> v instanceof FlushableProperty)
           .map(v -> (FlushableProperty<? super T>) v)
           .ifPresent(flushable -> {
-            Debouncer debouncer = new Debouncer(() -> Platform.runLater(flushable::flush), DEFAULT_DEBOUNCE_DELAY);
+            Debouncer debouncer
+                = new Debouncer(() -> Platform.runLater(flushable::flush), DEFAULT_DEBOUNCE_DELAY);
             getObservableValue().addListener((__, oldValue, newValue) -> debouncer.run());
           });
     }
@@ -229,7 +232,8 @@ public class ExtendedPropertySheet extends PropertySheet {
 
   }
 
-  private static class IntegerPropertyEditor extends DebouncedPropertyEditor<Integer, IntegerField> {
+  private static class IntegerPropertyEditor
+      extends DebouncedPropertyEditor<Integer, IntegerField> {
 
     IntegerPropertyEditor(Item item) {
       super(item, new IntegerField((Integer) item.getValue()));
@@ -356,7 +360,7 @@ public class ExtendedPropertySheet extends PropertySheet {
     private final Setting<?> setting;
     private final Group group;
 
-    public SettingsItem(Group group, Setting<?> setting) {
+    SettingsItem(Group group, Setting<?> setting) {
       this.setting = setting;
       this.group = group;
     }

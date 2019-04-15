@@ -33,6 +33,7 @@ repositories {
 }
 
 dependencies {
+    implementation(group = "com.calendarfx", name = "view", version = "8.5.0")
     implementation(group = "com.google.code.gson", name = "gson", version = "2.8.5")
     implementation(group = "com.google.guava", name = "guava", version = "27.1-jre")
     implementation(group = "com.google.inject", name = "guice", version = "4.2.2")
@@ -77,7 +78,7 @@ application {
 
 tasks.withType<Test> {
     useJUnitPlatform {
-        maxParallelForks = Runtime.getRuntime().availableProcessors()
+        maxParallelForks = Math.max(1, Runtime.getRuntime().availableProcessors() - 2)
         if (project.hasProperty("skipUI")) {
             excludeTags("UI")
         }
@@ -145,6 +146,7 @@ pmd {
 spotless {
     kotlinGradle {
         ktlint("0.31.0")
+        target("**/*.gradle.kts")
         trimTrailingWhitespace()
         indentWithSpaces()
         endWithNewline()

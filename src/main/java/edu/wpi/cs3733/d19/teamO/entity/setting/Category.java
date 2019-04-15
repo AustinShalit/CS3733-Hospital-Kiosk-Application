@@ -48,11 +48,13 @@ public final class Category {
    * @param groups        the groups of settings in this category
    * @return a new category
    */
-  public static Category of(String name, Collection<Category> subcategories, Collection<Group> groups) {
+  public static Category of(String name, Collection<Category> subcategories,
+                            Collection<Group> groups) {
     return new Category(name, ImmutableList.copyOf(subcategories), ImmutableList.copyOf(groups));
   }
 
-  private Category(String name, ImmutableList<Category> subcategories, ImmutableList<Group> groups) {
+  private Category(String name, ImmutableList<Category> subcategories,
+                   ImmutableList<Group> groups) {
     Objects.requireNonNull(name, "A category name cannot be null");
     if (name.chars().allMatch(Character::isWhitespace)) {
       throw new IllegalArgumentException("A category name cannot be empty");

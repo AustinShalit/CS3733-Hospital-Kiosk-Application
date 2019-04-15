@@ -9,13 +9,13 @@ import java.util.concurrent.TimeUnit;
 import javafx.util.Duration;
 
 /**
- * A simple class for debouncing method calls. Debouncing is used to prevent an expensive method from being called
- * in rapid succession, only allowing it to run after a certain amount of time has passed without it being called
- * again.
+ * A simple class for debouncing method calls. Debouncing is used to prevent an expensive method
+ * from being called in rapid succession, only allowing it to run after a certain amount of time has
+ * passed without it being called again.
  */
 public class Debouncer implements Runnable {
 
-  private ScheduledFuture<?> future = null;
+  private ScheduledFuture<?> future;
   private final ScheduledExecutorService executorService;
 
   private final Runnable target;
@@ -38,7 +38,8 @@ public class Debouncer implements Runnable {
     if (future != null && !future.isDone()) {
       future.cancel(false);
     }
-    future = executorService.schedule(target, (long) debounceDelay.toMillis(), TimeUnit.MILLISECONDS);
+    future = executorService.schedule(target,
+        (long) debounceDelay.toMillis(), TimeUnit.MILLISECONDS);
   }
 
   /**

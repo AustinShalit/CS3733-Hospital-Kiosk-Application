@@ -27,8 +27,8 @@ public final class TypeUtils {
   }
 
   /**
-   * If 'value' can be cast into 'cls',
-   * returns an Optional of that casted value. Otherwise, returns Empty.
+   * If 'value' can be cast into 'cls', returns an Optional of that casted value. Otherwise, returns
+   * Empty.
    */
   public static <T> Optional<T> optionalCast(Object value, Class<T> cls) {
     return cls.isAssignableFrom(value.getClass())
@@ -74,10 +74,10 @@ public final class TypeUtils {
   }
 
   /**
-   * Gets the primitive type for a boxed class, eg {@code primitiveForBoxedType(Integer.class) -> int.class}.
+   * Gets the primitive type for a boxed class, eg {@code primitiveForBoxedType(Integer.class) ->
+   * int.class}.
    *
    * @param boxed the boxed type
-   *
    * @return the primitive type associated with the given boxed type
    */
   public static Class<?> primitiveForBoxedType(Class<?> boxed) {
@@ -89,13 +89,12 @@ public final class TypeUtils {
    *
    * @param type the type to create a new instance of
    * @param <T>  the type of the object to be created
-   *
    * @return a new instance of {@code T} created with a constructor matching the given arguments
-   *
    * @throws IllegalAccessException if the constructor matching the given arguments is not public
    * @throws InstantiationException if the class is abstract
    */
-  public static <T> T tryInstantiate(Class<T> type) throws IllegalAccessException, InstantiationException {
+  public static <T> T tryInstantiate(Class<T> type)
+      throws IllegalAccessException, InstantiationException {
     return type.newInstance();
   }
 }
