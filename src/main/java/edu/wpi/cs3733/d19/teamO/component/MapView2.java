@@ -126,6 +126,8 @@ public class MapView2 extends StackPane {
   @FXML
   void initialize() throws IOException {
     gesturePane.setMinScale(0.1);
+    gesturePane.reset();
+
     gesturePane.setOnMouseClicked(e -> {
       Point2D pointOnMap = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
           .orElse(gesturePane.targetPointAtViewportCentre());
@@ -175,8 +177,8 @@ public class MapView2 extends StackPane {
     gesturePane.setScrollBarEnabled(false);
     resetButtonBackground("99");
     levelF1.setStyle("-fx-background-color: rgb(1,45,90)");
-
     onFloorSelectAction(new ActionEvent(levelF1, levelF1));
+
 
   }
 

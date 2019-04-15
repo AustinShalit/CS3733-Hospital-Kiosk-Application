@@ -26,7 +26,8 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 @SuppressWarnings("PMD.TooManyFields")
 @FxmlController(url = "MapEdit.fxml")
 public class MapEditController implements Controller {
-  String nodeID;
+  private String nodeID;
+  private String edgeID;
   private boolean updateMode = true;
   private boolean connectMode;
   private String udNodeID1 = " ";
@@ -133,6 +134,7 @@ public class MapEditController implements Controller {
     });
 
     map.selectedEdgeProperty().addListener((observable, oldValue, newValue) -> {
+      edgeID = newValue.getEdgeId();
       status.setText(newValue.getEdgeId());
     });
 
@@ -293,8 +295,18 @@ public class MapEditController implements Controller {
   }
 
   @FXML
-  void onEdgeDelete(){
-
+  void onEdgeDelete() {
+      Optional<Edge> opt = database.getEdge(edgeID);
+      if (!opt.isPresent()) {
+        status.setText("ERROR: InvalidNodeID");
+      } else {
+        Edge deleteEdge = opt.get();
+        database.deleteEdge(deleteEdge);
+        status.setText("Succeed!");
+        map.setDatabaseEdge(database.getAllEdges());
+        map.clearEdges();
+        map.addEdgesToPane(database.getEdgeByFloor(map.getLevel()));
+      }
   }
 
 
