@@ -3,7 +3,9 @@ package edu.wpi.cs3733.d19.teamO.controller;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import com.google.common.graph.GraphBuilder;
 import com.google.common.graph.ImmutableGraph;
@@ -15,6 +17,8 @@ import com.jfoenix.controls.JFXComboBox;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 
 import edu.wpi.cs3733.d19.teamO.component.MapView;
@@ -31,9 +35,9 @@ public class NavigationController implements Controller {
   BorderPane root;
 
   @FXML
-  JFXButton bathroomButton;
+  JFXButton restroomButton;
   @FXML
-  JFXButton elevatorButton;
+  JFXButton walkwayButton;
   @FXML
   JFXButton exitButton;
   @FXML
@@ -50,15 +54,20 @@ public class NavigationController implements Controller {
   Label instructions;
 
   StepByStep stepByStep;
-
+  boolean addRest = false;
+  boolean addWalk = false;
+  boolean addExit = false;
+  boolean addInfo = false;
 
   @Inject
   private Database database;
 
+  List<Node.NodeType> filteredNodeTypes;
+
   @FXML
   void initialize() throws IOException {
-    DialogHelper.populateComboBox(database, fromComboBox);
-    DialogHelper.populateComboBox(database, toComboBox);
+    filteredNodeTypes = new ArrayList<>(Arrays.asList(Node.NodeType.values()));
+    refreshCombobox();
     stepByStep = new StepByStep();
     validateGoButton();
   }
@@ -116,5 +125,74 @@ public class NavigationController implements Controller {
     } else {
       goButton.setDisable(true);
     }
+  }
+
+  @FXML
+  void setRestroomButton(){
+    if(addRest) {
+      filteredNodeTypes.add(Node.NodeType.REST);
+      restroomButton.setStyle("-fx-background-color: #0067B1");
+      refreshCombobox();
+      addRest = false;
+    }else {
+      filteredNodeTypes.remove(Node.NodeType.REST);
+      refreshCombobox();
+      restroomButton.setStyle("-fx-background-color: #012d5a");
+      addRest = true;
+    }
+  }
+
+  @FXML
+  void setWalkwayButton(){
+    if(addWalk) {
+      filteredNodeTypes.add(Node.NodeType.ELEV);
+      filteredNodeTypes.add(Node.NodeType.STAI);
+      filteredNodeTypes.add(Node.NodeType.HALL);
+      walkwayButton.setStyle("-fx-background-color: #0067B1");
+      refreshCombobox();
+      addWalk = false;
+    }else {
+      filteredNodeTypes.remove(Node.NodeType.ELEV);
+      filteredNodeTypes.remove(Node.NodeType.STAI);
+      filteredNodeTypes.remove(Node.NodeType.HALL);
+      refreshCombobox();
+      walkwayButton.setStyle("-fx-background-color: #012d5a");
+      addWalk = true;
+    }
+  }
+
+  @FXML
+  void setExitButton(){
+    if(addExit) {
+      filteredNodeTypes.add(Node.NodeType.EXIT);
+      exitButton.setStyle("-fx-background-color: #0067B1");
+      refreshCombobox();
+      addExit = false;
+    }else {
+      filteredNodeTypes.remove(Node.NodeType.EXIT);
+      refreshCombobox();
+      exitButton.setStyle("-fx-background-color: #012d5a");
+      addExit = true;
+    }
+  }
+
+  @FXML
+  void setInformationButton(){
+    if(addInfo) {
+      filteredNodeTypes.add(Node.NodeType.INFO);
+      informationButton.setStyle("-fx-background-color: #0067B1");
+      refreshCombobox();
+      addInfo = false;
+    }else {
+      filteredNodeTypes.remove(Node.NodeType.INFO);
+      refreshCombobox();
+      informationButton.setStyle("-fx-background-color: #012d5a");
+      addInfo = true;
+    }
+  }
+
+  void refreshCombobox(){
+    DialogHelper.populateComboBox(database, fromComboBox, filteredNodeTypes);
+    DialogHelper.populateComboBox(database, toComboBox, filteredNodeTypes);
   }
 }
