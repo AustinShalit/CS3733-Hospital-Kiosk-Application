@@ -1,8 +1,5 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.google.common.graph.GraphBuilder;
@@ -12,6 +9,10 @@ import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
@@ -26,61 +27,47 @@ import edu.wpi.cs3733.d19.teamO.entity.pathfinding.StepByStep;
 @FxmlController(url = "Navigation.fxml")
 public class NavigationController implements Controller {
 
-
   @FXML
-  BorderPane root;
-
+  private BorderPane root;
   @FXML
-  JFXButton bathroomButton;
+  private JFXComboBox<Node> fromComboBox;
   @FXML
-  JFXButton elevatorButton;
+  private JFXComboBox<Node> toComboBox;
   @FXML
-  JFXButton exitButton;
+  private JFXButton goButton;
   @FXML
-  JFXButton informationButton;
+  private MapView map;
   @FXML
-  JFXComboBox<Node> fromComboBox;
-  @FXML
-  JFXComboBox<Node> toComboBox;
-  @FXML
-  JFXButton goButton;
-  @FXML
-  MapView map;
-  @FXML
-  Label instructions;
-
-  StepByStep stepByStep;
-
+  private Label instructionsLabel;
 
   @Inject
   private Database database;
 
+  private ListProperty<String> instructions = new SimpleListProperty<>();
+
   @FXML
-  void initialize() throws IOException {
+  void initialize() {
     DialogHelper.populateComboBox(database, fromComboBox);
     DialogHelper.populateComboBox(database, toComboBox);
-    stepByStep = new StepByStep();
-    validateGoButton();
-  }
 
-  @Override
-  public Parent getRoot() {
-    return root;
-  }
+    goButton.disableProperty().bind(Bindings.createBooleanBinding(
+        () -> fromComboBox.getValue() == null || toComboBox.getValue() == null,
+        fromComboBox.valueProperty(),
+        toComboBox.valueProperty()
+    ));
 
-  public interface Factory {
-    NavigationController create();
+    instructions.addListener(((observable, oldValue, newValue) -> {
+      StringBuilder stringBuilder = new StringBuilder();
+      for (String s : newValue) {
+        stringBuilder.append(s);
+        stringBuilder.append('\n');
+      }
+      instructionsLabel.setText(stringBuilder.toString());
+    }));
   }
 
   @FXML
-  void onComboAction() {
-    validateGoButton();
-  }
-
-  @FXML
-  @SuppressWarnings({"PMD.AvoidInstantiatingObjectsInLoops", "UseStringBufferForStringAppends"})
-  void onGoButtonAction() throws SQLException {
-
+  void onGoButtonAction() {
     if (toComboBox.getValue().equals(fromComboBox.getValue())) {
       DialogHelper.showInformationAlert("Must Select Different Start/End Destinations",
           "Please select different start and end destinations to generate a valid path.");
@@ -96,25 +83,18 @@ public class NavigationController implements Controller {
         fromComboBox.getValue(),
         toComboBox.getValue());
 
-    ArrayList<String> list = stepByStep.getStepByStep(path);
-    String instruction = "";
-    StringBuilder stringBuilder = new StringBuilder("");
-    for (String s: list) {
-      stringBuilder.append(s);
-      stringBuilder.append('\n');
-    }
-    instruction = stringBuilder.toString();
-    instructions.setText(instruction);
+    instructions.setValue(FXCollections.observableList(new StepByStep().getStepByStep(path)));
 
     map.setPath(path);
     map.drawPath();
   }
 
-  void validateGoButton() {
-    if (fromComboBox.getValue() != null && toComboBox.getValue() != null) {
-      goButton.setDisable(false);
-    } else {
-      goButton.setDisable(true);
-    }
+  @Override
+  public Parent getRoot() {
+    return root;
+  }
+
+  public interface Factory {
+    NavigationController create();
   }
 }
