@@ -42,6 +42,8 @@ dependencies {
     implementation(group = "net.aksingh", name = "owm-japis", version = "2.5.2.3")
     implementation(group = "net.kurobako", name = "gesturefx", version = "0.3.0")
     implementation(group = "net.sf.sociaal", name = "freetts", version = "1.2.2")
+    implementation(group = "org.controlsfx", name = "controlsfx", version = "8.40.14")
+    implementation(group = "org.fxmisc.easybind", name = "easybind", version = "1.0.3")
 
     fun derby(name: String, version: String = "10.14.2.0") =
             create(group = "org.apache.derby", name = name, version = version)
@@ -141,6 +143,7 @@ pmd {
 spotless {
     kotlinGradle {
         ktlint("0.31.0")
+        target("**/*.gradle.kts")
         trimTrailingWhitespace()
         indentWithSpaces()
         endWithNewline()

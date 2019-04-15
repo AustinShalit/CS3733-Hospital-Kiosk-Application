@@ -358,6 +358,43 @@ public class MapView extends StackPane {
     edges.getChildren().addAll(pathEdges);
   }
 
+  /**
+   * Zoom to the given node.
+   * @param n The node need to zoom to.
+   * @throws IOException throw if there is error.
+   */
+  public void zoomTo(Node n) throws IOException {
+    gesturePane.reset();
+    switchFloor(n.getFloor());
+    gesturePane.zoomTo(1.2, new Point2D(n.getXcoord(),
+        n.getYcoord()));
+  }
+
+  private void switchFloor(String s) throws IOException {
+    switch (s) {
+      case "1":
+        onFloorSelectAction(new ActionEvent(levelF1, levelF1));
+        break;
+      case "2":
+        onFloorSelectAction(new ActionEvent(levelF2, levelF2));
+        break;
+      case "3":
+        onFloorSelectAction(new ActionEvent(levelF3, levelF3));
+        break;
+      case "G":
+        onFloorSelectAction(new ActionEvent(levelG, levelG));
+        break;
+      case "L1":
+        onFloorSelectAction(new ActionEvent(levelL1, levelL1));
+        break;
+      case "L2":
+        onFloorSelectAction(new ActionEvent(levelL2, levelL2));
+        break;
+      default:
+        break;
+    }
+  }
+
   private void addLine(Node node, Node lastNode, Paint paint, double width) {
     if (lastNode.getFloorInt() == level && node.getFloorInt() == level) {
       Line line = new Line(node.getXcoord(), node.getYcoord(),
