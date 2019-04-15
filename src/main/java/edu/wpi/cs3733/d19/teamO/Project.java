@@ -57,23 +57,17 @@ public class Project extends Application {
         new DatabaseModule());
     injector.injectMembers(this);
 
-    floors.registerAll(
-        new Floor(3, "3",
-          new Image(Floors.class.getResource("03_thethirdfloor.png").openStream())),
-        new Floor(2, "2",
-          new Image(Floors.class.getResource("02_thesecondfloor.png").openStream())),
-        new Floor(1, "1",
-          new Image(Floors.class.getResource("01_thefirstfloor.png").openStream())),
-        new Floor(0, "G",
-          new Image(Floors.class.getResource("00_thegroundfloor.png").openStream())),
-        new Floor(-1, "L1",
-          new Image(Floors.class.getResource("00_thelowerlevel1.png").openStream())),
-        new Floor(-2, "L2",
-          new Image(Floors.class.getResource("00_thelowerlevel2.png").openStream()))
-    );
+    notifyPreloader(
+        new ProjectPreloader.StateNotification("Loading floor maps", 0.45));
+    registerMap(3, "3", "03_thethirdfloor.png", 0.5);
+    registerMap(2, "2", "02_thesecondfloor.png", 0.55);
+    registerMap(1, "1", "01_thefirstfloor.png", 0.6);
+    registerMap(0, "G", "00_thegroundfloor.png", 0.65);
+    registerMap(-1, "L1", "00_thelowerlevel1.png", 0.7);
+    registerMap(-2, "L2", "00_thelowerlevel2.png", 0.75);
 
     notifyPreloader(
-        new ProjectPreloader.StateNotification("Loading database", 0.6));
+        new ProjectPreloader.StateNotification("Loading default database", 0.8));
     new DefaultInformationLoader(database).loadIfEmpty();
     notifyPreloader(
         new ProjectPreloader.StateNotification("Starting", 1.0));
@@ -143,5 +137,13 @@ public class Project extends Application {
         logger.log(Level.SEVERE, "Failed to show exception alert", throwable);
       }
     });
+  }
+
+  private void registerMap(int number, String name, String filename, double progress)
+      throws IOException {
+    notifyPreloader(new ProjectPreloader.StateNotification("Loading floor map: " + filename,
+        progress));
+    floors.register(new Floor(number, name,
+        new Image(Floors.class.getResource(filename).openStream())));
   }
 }
