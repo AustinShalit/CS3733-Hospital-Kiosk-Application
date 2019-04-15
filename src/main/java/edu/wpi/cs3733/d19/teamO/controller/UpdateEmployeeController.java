@@ -39,7 +39,7 @@ public class UpdateEmployeeController implements Controller {
   @FXML
   private JFXButton upSubmitbtn;
   @FXML
-  private JFXCheckBox AVBox;
+  private JFXCheckBox avBox;
   @FXML
   private JFXCheckBox externalTransportBox;
   @FXML
@@ -51,7 +51,7 @@ public class UpdateEmployeeController implements Controller {
   @FXML
   private JFXCheckBox interpreterBox;
   @FXML
-  private JFXCheckBox ITSupportBox;
+  private JFXCheckBox itSupportBox;
   @FXML
   private JFXCheckBox patientInfoBox;
   @FXML
@@ -81,7 +81,7 @@ public class UpdateEmployeeController implements Controller {
         upPasswordfield.setText(newValue.getPassword());
         upPositionbox.setValue(newValue.getType());
         upIdfield.setText(String.valueOf(newValue.getId()));
-        AVBox.setSelected(newValue.getEmployeeAttributes().getCanFulfillAudioVisual());
+        avBox.setSelected(newValue.getEmployeeAttributes().getCanFulfillAudioVisual());
         externalTransportBox.setSelected(
             newValue.getEmployeeAttributes().getCanFulfillExternalTransport());
         floristBox.setSelected(newValue.getEmployeeAttributes().getCanFulfillFlorist());
@@ -89,7 +89,7 @@ public class UpdateEmployeeController implements Controller {
         internalTransportBox.setSelected(
             newValue.getEmployeeAttributes().getCanFulfillInternalTransport());
         interpreterBox.setSelected(newValue.getEmployeeAttributes().getCanFulfillInterpreter());
-        ITSupportBox.setSelected(newValue.getEmployeeAttributes().getCanFulfillITSupport());
+        itSupportBox.setSelected(newValue.getEmployeeAttributes().getCanFulfillITSupport());
         patientInfoBox.setSelected(newValue.getEmployeeAttributes().getCanFulfillPatientInfo());
         prescriptionBox.setSelected(newValue.getEmployeeAttributes().getCanFulfillPrescription());
         religiousBox.setSelected(newValue.getEmployeeAttributes().getCanFulfillReligious());
@@ -112,13 +112,13 @@ public class UpdateEmployeeController implements Controller {
       lg.setPassword(upPasswordfield.getText());
       lg.setName(upNamefield.getText());
       lg.setType(upPositionbox.getValue());
-      lg.getEmployeeAttributes().setCanFulfillAudioVisual(AVBox.isSelected());
+      lg.getEmployeeAttributes().setCanFulfillAudioVisual(avBox.isSelected());
       lg.getEmployeeAttributes().setCanFulfillExternalTransport(externalTransportBox.isSelected());
       lg.getEmployeeAttributes().setCanFulfillFlorist(floristBox.isSelected());
       lg.getEmployeeAttributes().setCanFulfillGift(giftBox.isSelected());
       lg.getEmployeeAttributes().setCanFulfillInternalTransport(internalTransportBox.isSelected());
       lg.getEmployeeAttributes().setCanFulfillInterpreter(interpreterBox.isSelected());
-      lg.getEmployeeAttributes().setCanFulfillITSupport(ITSupportBox.isSelected());
+      lg.getEmployeeAttributes().setCanFulfillITSupport(itSupportBox.isSelected());
       lg.getEmployeeAttributes().setCanFulfillPatientInfo(patientInfoBox.isSelected());
       lg.getEmployeeAttributes().setCanFulfillPrescription(prescriptionBox.isSelected());
       lg.getEmployeeAttributes().setCanFulfillReligious(religiousBox.isSelected());

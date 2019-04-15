@@ -20,6 +20,7 @@ import edu.wpi.cs3733.d19.teamO.entity.Employee;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 @FxmlController(url = "AddEmployee.fxml")
+@SuppressWarnings("PMD.TooManyFields")
 public class AddEmployeeController implements Controller {
 
   private static final Logger logger =
@@ -38,7 +39,7 @@ public class AddEmployeeController implements Controller {
   @FXML
   private JFXButton submitbtn;
   @FXML
-  private JFXCheckBox aVBox;
+  private JFXCheckBox avBox;
   @FXML
   private JFXCheckBox externalTransportBox;
   @FXML
@@ -50,7 +51,7 @@ public class AddEmployeeController implements Controller {
   @FXML
   private JFXCheckBox interpreterBox;
   @FXML
-  private JFXCheckBox iTSupportBox;
+  private JFXCheckBox itSupportBox;
   @FXML
   private JFXCheckBox patientInfoBox;
   @FXML
@@ -94,13 +95,13 @@ public class AddEmployeeController implements Controller {
     passwordField.setText(null);
     positionBox.getSelectionModel().clearSelection();
     positionBox.setValue(null);
-    AVBox.setSelected(false);
+    avBox.setSelected(false);
     externalTransportBox.setSelected(false);
     floristBox.setSelected(false);
     giftBox.setSelected(false);
     internalTransportBox.setSelected(false);
     interpreterBox.setSelected(false);
-    ITSupportBox.setSelected(false);
+    itSupportBox.setSelected(false);
     patientInfoBox.setSelected(false);
     prescriptionBox.setSelected(false);
     religiousBox.setSelected(false);
@@ -137,7 +138,7 @@ public class AddEmployeeController implements Controller {
       Employee.EmployeeType externalEmployeeType = Employee.EmployeeType.valueOf(type);
 
       Employee newemp = new Employee(username, password, name, externalEmployeeType);
-      newemp.getEmployeeAttributes().setCanFulfillAudioVisual(AVBox.isSelected());
+      newemp.getEmployeeAttributes().setCanFulfillAudioVisual(avBox.isSelected());
       newemp.getEmployeeAttributes().setCanFulfillExternalTransport(
           externalTransportBox.isSelected());
       newemp.getEmployeeAttributes().setCanFulfillFlorist(floristBox.isSelected());
@@ -145,7 +146,7 @@ public class AddEmployeeController implements Controller {
       newemp.getEmployeeAttributes().setCanFulfillInternalTransport(
           internalTransportBox.isSelected());
       newemp.getEmployeeAttributes().setCanFulfillInterpreter(interpreterBox.isSelected());
-      newemp.getEmployeeAttributes().setCanFulfillITSupport(ITSupportBox.isSelected());
+      newemp.getEmployeeAttributes().setCanFulfillITSupport(itSupportBox.isSelected());
       newemp.getEmployeeAttributes().setCanFulfillPatientInfo(patientInfoBox.isSelected());
       newemp.getEmployeeAttributes().setCanFulfillPrescription(prescriptionBox.isSelected());
       newemp.getEmployeeAttributes().setCanFulfillReligious(religiousBox.isSelected());

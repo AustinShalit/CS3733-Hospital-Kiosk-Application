@@ -20,6 +20,24 @@ public class EmployeeAttributes {
   private boolean canFulfillSupportAnimal;
   Employee.EmployeeType employeeType;
 
+  /**
+   * Constructor.
+   * @param canFulfillAudioVisual A/V
+   * @param canFulfillExternalTransport External Transport
+   * @param canFulfillFlorist Florist
+   * @param canFulfillGift Gift
+   * @param canFulfillInternalTransport Internal Transport
+   * @param canFulfillInterpreter Interpreter
+   * @param canFulfillITSupport IT Support
+   * @param canFulfillPatientInfo Patient Info
+   * @param canFulfillPrescription Prescription
+   * @param canFulfillReligious Religious
+   * @param canFulfillSanitation Sanitation
+   * @param canFulfillSecurity Security
+   * @param canFulfillSupportAnimal Support Animal
+   * @param employeeType Type of Employee
+   */
+  @SuppressWarnings("PMD.ExcessiveParameterList")
   public EmployeeAttributes(boolean canFulfillAudioVisual,
                             boolean canFulfillExternalTransport,
                             boolean canFulfillFlorist,
@@ -51,11 +69,13 @@ public class EmployeeAttributes {
   }
 
   public EmployeeAttributes() {
-    this(false, false, false, false, false, false, false, false, false, false, false, false, false, Employee.EmployeeType.DEFAULT);
+    this(false, false, false, false, false, false, false, false, false,
+        false, false, false, false, Employee.EmployeeType.DEFAULT);
   }
 
   public EmployeeAttributes(Employee.EmployeeType employeeType) {
-    this(false, false, false, false, false, false, false, false, false, false, false, false, false, employeeType);
+    this(false, false, false, false, false, false, false, false, false, false,
+        false, false, false, employeeType);
   }
 
   public static EmployeeAttributes fromString(String from) {
