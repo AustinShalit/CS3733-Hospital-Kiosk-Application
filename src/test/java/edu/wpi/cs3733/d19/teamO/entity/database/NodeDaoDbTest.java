@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.d19.teamO.entity.database;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.google.inject.Inject;
 
@@ -22,11 +24,11 @@ class NodeDaoDbTest {
       + "1144.0 1266.0;928.0 1266.0;928.0 1332.0;786.0 1332.0;786.0 1486.0;198.0 1482.0";
 
   private static final Node TEST_NODE = new Node("TEST", 0, 0, "0", "B", Node.NodeType.CONF,
-      "LN", "SN", Node.parsePolygonFromString(db_coords));
+      "LNA", "SN", Node.parsePolygonFromString(db_coords));
   private static final Node TEST_NODE2 = new Node("123", 0, 0, "L2", "B", Node.NodeType.CONF,
-      "LN", "SN");
+      "LNB", "SN");
   private static final Node TEST_NODE3 = new Node("456", 0, 0, "L2", "B", Node.NodeType.HALL,
-      "LN", "SN");
+      "LNC", "SN");
 
   private NodeDao dao;
 
@@ -151,5 +153,17 @@ class NodeDaoDbTest {
     dao.insert(TEST_NODE);
     assertEquals(TEST_NODE.getPolygon().getPoints(),
         dao.get("TEST").get().getPolygon().getPoints());
+  }
+
+  @Test
+  void checkSortTest() {
+    dao.insert(TEST_NODE);
+    dao.insert(TEST_NODE2);
+    dao.insert(TEST_NODE3);
+    List<Node> node = new ArrayList<>();
+    node.add(TEST_NODE);
+    node.add(TEST_NODE2);
+    node.add(TEST_NODE3);
+    assertEquals(node, dao.getAllByLongname());
   }
 }

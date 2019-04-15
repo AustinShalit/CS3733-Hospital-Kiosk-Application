@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.request.PrescriptionRequestPopupController">
+  <center>
+    <VBox maxHeight="-Infinity" maxWidth="-Infinity" styleClass="form" stylesheets="@../style/KioskStyle.css">
+      <children>
+        <Label id="heading" text="Prescription Request">
+          <font>
+            <Font name="System Bold" size="36.0" />
+          </font>
+        </Label>
+        <Group>
+          <children>
+            <JFXTextField fx:id="employeeName" focusColor="#0067b1" layoutY="20.0" prefWidth="150.0" promptText="Employee Name" />
+          </children>
+        </Group>
+        <Group>
+          <children>
+            <JFXTextField fx:id="patientName" focusColor="#0067b1" layoutY="20.0" prefWidth="150.0" promptText="Patient Name" />
+          </children>
+        </Group>
+        <Group>
+          <children>
+            <JFXDatePicker fx:id="patientDOB" defaultColor="#0067b1" layoutY="20.0" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="181.0" promptText="Patient's date of birth" />
+          </children>
+        </Group>
+        <Group>
+          <children>
+            <JFXTextField fx:id="medName" focusColor="#0067b1" layoutY="20.0" prefWidth="150.0" promptText="Medication Name" />
+          </children>
+        </Group>
+        <Group>
+          <children>
+            <JFXTextField fx:id="medDosage" focusColor="#0067b1" layoutY="20.0" prefWidth="150.0" promptText="Medication Dosage" />
+          </children>
+        </Group>
+        <Group>
+          <children>
+            <JFXTextArea fx:id="medDescription" focusColor="#0067b1" layoutY="20.0" maxHeight="160.0" maxWidth="1.7976931348623157E308" prefHeight="55.0" prefWidth="325.0" promptText="Description..." />
+          </children>
+        </Group>
+        <JFXButton id="small-button" fx:id="submitButton" onAction="#onSubmitButtonAction" prefHeight="33.0" prefWidth="227.0" ripplerFill="BLACK" text="Submit">
+          <font>
+            <Font name="System Bold" size="15.0" />
+          </font>
+        </JFXButton>
+      </children>
+    </VBox>
+  </center>
+  <padding>
+    <Insets bottom="10.0" />
+  </padding>
+</BorderPane>

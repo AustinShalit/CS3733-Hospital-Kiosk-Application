@@ -6,30 +6,28 @@ import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
 import edu.wpi.cs3733.d19.teamO.controller.Controller;
 import edu.wpi.cs3733.d19.teamO.controller.DialogHelper;
 import edu.wpi.cs3733.d19.teamO.controller.FxmlController;
-import edu.wpi.cs3733.d19.teamO.controller.RequestController;
-import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.PrescriptionRequest;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
-@FxmlController(url = "PrescriptionRequest.fxml")
-public class PrescriptionRequestController implements Controller {
+@FxmlController(url = "PrescriptionRequestPopup.fxml")
+public class PrescriptionRequestPopupController implements Controller {
 
   private static final Logger logger = Logger.getLogger(
-      PrescriptionRequestController.class.getName());
+      PrescriptionRequestPopupController.class.getName());
 
   @FXML
   private JFXTextField patientName;
@@ -44,24 +42,23 @@ public class PrescriptionRequestController implements Controller {
   @FXML
   private JFXTextField employeeName;
   @FXML
-  private Label submissionDate;
+  private JFXButton submitButton;
   @FXML
-  private BorderPane root;
+  BorderPane root;
 
   @Inject
-  private EventBus eventBus;
-  @Inject
   private Database db;
-  @Inject
-  private RequestController.Factory requestControllerFactory;
 
   @FXML
   void initialize() {
-    submissionDate.setText(LocalDate.now().toString());
-  }
-
-  public void onBackButtonAction() {
-    eventBus.post(new ChangeMainViewEvent(requestControllerFactory.create()));
+    submitButton.disableProperty().bind(
+        Bindings.isEmpty(patientName.textProperty())
+            .or(Bindings.isEmpty(medName.textProperty()))
+            .or(Bindings.isNull(patientDOB.valueProperty()))
+            .or(Bindings.isEmpty(medDosage.textProperty()))
+            .or(Bindings.isEmpty(medDescription.textProperty()))
+            .or(Bindings.isEmpty(employeeName.textProperty()))
+    );
   }
 
   /**
@@ -75,6 +72,13 @@ public class PrescriptionRequestController implements Controller {
           "Unable to parse Prescription Request.");
       return;
     }
+
+    patientName.setText(null);
+    medName.setText(null);
+    patientDOB.setValue(null);
+    medDosage.setText(null);
+    medName.setText(null);
+    medDescription.setText(null);
 
     if (db.insertPrescriptionRequest(request)) {
       String message = "Successfully submitted request.";
@@ -95,6 +99,12 @@ public class PrescriptionRequestController implements Controller {
         && !medDescription.getText().isEmpty()
 
     ) {
+
+      if (patientDOB.getValue().isAfter(LocalDate.now())) {
+        DialogHelper.showErrorAlert("Error.",
+            "Please enter a valid date.");
+        return null;
+      }
 
       LocalDateTime now = LocalDateTime.now();
       String empName = employeeName.getText();
@@ -120,6 +130,6 @@ public class PrescriptionRequestController implements Controller {
   }
 
   public interface Factory {
-    PrescriptionRequestController create();
+    PrescriptionRequestPopupController create();
   }
 }
