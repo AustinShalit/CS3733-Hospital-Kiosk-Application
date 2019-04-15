@@ -90,6 +90,7 @@ public class ControllerModule extends AbstractModule {
     install(new FactoryModuleBuilder().build(MapEditController.Factory.class));
     install(new FactoryModuleBuilder().build(SchedulingController.Factory.class));
     install(new FactoryModuleBuilder().build(SchedulingViewController.Factory.class));
+    install(new FactoryModuleBuilder().build(SchedulingCalendarController.Factory.class));
     install(new FactoryModuleBuilder().build(EditNodeDatabaseController.Factory.class));
 
 
