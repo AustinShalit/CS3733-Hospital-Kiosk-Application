@@ -1,11 +1,11 @@
 package edu.wpi.cs3733.d19.teamO.controller.request;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -13,6 +13,7 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
@@ -20,19 +21,17 @@ import javafx.scene.layout.BorderPane;
 import edu.wpi.cs3733.d19.teamO.controller.Controller;
 import edu.wpi.cs3733.d19.teamO.controller.DialogHelper;
 import edu.wpi.cs3733.d19.teamO.controller.FxmlController;
-import edu.wpi.cs3733.d19.teamO.controller.RequestController;
-import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.PatientInfoRequest;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
-@FxmlController(url = "PatientInfo.fxml")
-public class PatientInfoController implements Controller {
+@FxmlController(url = "PatientInfoPopup.fxml")
+public class PatientInfoPopupController implements Controller {
 
-  private static final Logger logger = Logger.getLogger(PatientInfoController.class.getName());
+  private static final Logger logger = Logger.getLogger(PatientInfoPopupController.class.getName());
 
   @FXML
-  private BorderPane root;
+  BorderPane root;
   @FXML
   private JFXTextField nametxt;
   @FXML
@@ -45,26 +44,22 @@ public class PatientInfoController implements Controller {
   private JFXTextArea descriptiontxt;
   @FXML
   private JFXButton submitbtn;
-  @FXML
-  private JFXButton backbtn;
 
   @Inject
-  private EventBus eventBus;
-  @Inject
   private Database db;
-  @Inject
-  private RequestController.Factory requestControllerFactory;
 
   @FXML
   void initialize() {
     sexbox.getItems().setAll(PatientInfoRequest.PatientInfoSex.values());
     DialogHelper.populateComboBox(db, locationComboBox);
     patientDOB.setEditable(true);
-  }
 
-  @FXML
-  void onbackButtonAction() {
-    eventBus.post(new ChangeMainViewEvent(requestControllerFactory.create()));
+    submitbtn.disableProperty().bind(
+        Bindings.isEmpty(nametxt.textProperty())
+            .or(Bindings.isNull(patientDOB.valueProperty()))
+            .or(Bindings.isNull(locationComboBox.valueProperty()))
+            .or(Bindings.isNull(sexbox.valueProperty()))
+    );
   }
 
   @FXML
@@ -81,6 +76,15 @@ public class PatientInfoController implements Controller {
       DialogHelper.showErrorAlert("Error.",
           "Please make sure all fields are filled out.");
     }
+
+    nametxt.setText(null);
+    patientDOB.setValue(null);
+    sexbox.getSelectionModel().clearSelection();
+    sexbox.setValue(null);
+    locationComboBox.getSelectionModel().clearSelection();
+    locationComboBox.setValue(null);
+    descriptiontxt.setText(null);
+
   }
 
   /**
@@ -94,6 +98,12 @@ public class PatientInfoController implements Controller {
         || Objects.isNull(patientDOB.getValue()) // check if patientDOB is filled out
         || Objects.isNull(locationComboBox.getValue()) // check that location field is filled out
         || Objects.isNull(sexbox.getValue())) { // check if patient sex is selected
+      return null;
+    }
+
+    if (patientDOB.getValue().isAfter(LocalDate.now())) {
+      DialogHelper.showErrorAlert("Error.",
+          "Please enter valid date.");
       return null;
     }
 
@@ -111,7 +121,7 @@ public class PatientInfoController implements Controller {
   }
 
   public interface Factory {
-    PatientInfoController create();
+    PatientInfoPopupController create();
   }
 
 }
