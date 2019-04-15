@@ -68,6 +68,8 @@ public class MapEditController implements Controller {
   @FXML
   Label status;
   @FXML
+  Label displayEdgeID;
+  @FXML
   JFXComboBox<Node.NodeType> nodeTypeComboBox;
   @FXML
   TabPane tabPane;
@@ -137,7 +139,7 @@ public class MapEditController implements Controller {
 
     map.selectedEdgeProperty().addListener((observable, oldValue, newValue) -> {
       edgeID = newValue.getEdgeId();
-      status.setText(newValue.getEdgeId());
+      displayEdgeID.setText(newValue.getEdgeId());
     });
 
     // set tab pane to span entire width
@@ -276,7 +278,10 @@ public class MapEditController implements Controller {
       Optional<Node> nodeFromDB1 = database.getNode(udNodeID1);
       if (!nodeFromDB2.isPresent() || !nodeFromDB1.isPresent()) {
         status.setText("ERROR: InvalidNodeID");
-      } else {
+      }
+      else if (udNodeID1==udNodeID2) {
+        status.setText("ERROR: Start and end node are same");
+      } else{
         Node node1 = nodeFromDB1.get();
         Node node2 = nodeFromDB2.get();
         Edge newEdge = new Edge(database.getFreeEdgeId(), node1, node2);

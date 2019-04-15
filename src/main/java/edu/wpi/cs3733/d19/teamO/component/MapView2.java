@@ -161,11 +161,14 @@ public class MapView2 extends StackPane {
         findCurrentEdge(level);
 
         for (Edge ed : currentEdges) {
-          if (abs((((ed.getEndNode().getXcoord() - ed.getStartNode().getXcoord()) / 2)
-              + ed.getEndNode().getXcoord()) - currentX) <= abs(ed.getEndNode().getXcoord( )
-              - ed.getStartNode().getXcoord()) && abs((((ed.getEndNode().getYcoord( )
-              - ed.getStartNode().getYcoord()) / 2) + ed.getEndNode().getYcoord())
-              - currentY) <= abs(ed.getEndNode().getYcoord() - ed.getStartNode().getYcoord())) {
+          int edgeX = abs(ed.getStartNode().getXcoord()-ed.getEndNode().getXcoord());
+          int edgeY = abs(ed.getStartNode().getYcoord()-ed.getEndNode().getYcoord());
+          double k = 0;
+          if (edgeX!=0){
+            k = edgeY/edgeX;
+          }
+          double b = edgeY-k*edgeX;
+          if (abs(currentX*k+b-currentY)<10) {
             selectedEdge.set(ed);
             break;
           }
