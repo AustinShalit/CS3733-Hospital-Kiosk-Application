@@ -4,7 +4,6 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import edu.wpi.cs3733.d19.teamO.component.MapView2?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
@@ -13,24 +12,24 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<?import javafx.scene.control.Label?>
+<!--<?import edu.wpi.cs3733.d19.teamO.component.MapView2?>-->
 <?import edu.wpi.cs3733.d19.teamO.component.MapView2?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TableColumn?>
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.MapEditController">
+
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.MapEditController">
   <left>
     <StackPane maxWidth="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
       <children>
-        <HBox alignment="CENTER">
+        <HBox alignment="CENTER" prefHeight="679.0" prefWidth="187.0">
           <children>
-            <VBox alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
+            <VBox alignment="TOP_CENTER" prefHeight="661.0" prefWidth="160.0" HBox.hgrow="ALWAYS">
               <children>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MAP">
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MAP" wrappingWidth="63.0908203125">
                   <font>
                     <Font size="30.0" />
                   </font>
@@ -201,7 +200,10 @@
     <StackPane prefHeight="360.0" prefWidth="14.0" BorderPane.alignment="CENTER" />
   </right>
   <bottom>
-    <StackPane prefHeight="19.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+    <StackPane prefHeight="19.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <JFXButton fx:id="exportButton" onAction="#onExportButtonAction" text="Export CSV" StackPane.alignment="CENTER_RIGHT" />
+         </children></StackPane>
   </bottom>
   <center>
     <VBox BorderPane.alignment="CENTER">
