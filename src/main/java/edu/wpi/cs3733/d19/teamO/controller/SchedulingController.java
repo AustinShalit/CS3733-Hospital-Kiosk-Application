@@ -6,9 +6,9 @@ import java.util.Objects;
 import java.util.Set;
 
 import com.google.inject.Inject;
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTimePicker;
 
@@ -17,7 +17,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Callback;
 
@@ -29,32 +28,27 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 import static edu.wpi.cs3733.d19.teamO.controller.DialogHelper.showErrorAlert;
 import static edu.wpi.cs3733.d19.teamO.controller.DialogHelper.showInformationAlert;
 
-@SuppressWarnings("PMD.TooManyFields")
 @FxmlController(url = "Scheduling.fxml")
 public class SchedulingController implements Controller {
 
   @FXML
-  BorderPane root;
+  private BorderPane root;
   @FXML
-  JFXTextField nameField;
+  private JFXTextField nameField;
   @FXML
-  JFXComboBox<Node> roomComboBox;
+  private JFXComboBox<Node> roomComboBox;
   @FXML
-  JFXDatePicker date;
+  private JFXDatePicker date;
   @FXML
-  JFXTimePicker startTime;
+  private JFXTimePicker startTime;
   @FXML
-  JFXTimePicker endTime;
+  private JFXTimePicker endTime;
   @FXML
-  JFXButton goButton;
+  private JFXTabPane tabPane;
   @FXML
-  TabPane tabPane;
+  private Tab tableTab;
   @FXML
-  Tab mapTab;
-  @FXML
-  Tab tableTab;
-  @FXML
-  SchedulingMapView schedulingMapView;
+  private SchedulingMapView schedulingMapView;
 
   @Inject
   private Database database;
@@ -98,21 +92,13 @@ public class SchedulingController implements Controller {
 
     // set tab pane to span entire width
     tabPane.widthProperty().addListener((observable, oldValue, newValue) -> {
-      tabPane.setTabMinWidth(tabPane.getWidth() / 2);
-      tabPane.setTabMaxWidth(tabPane.getWidth() / 2);
+      tabPane.setTabMinWidth(newValue.doubleValue() / 2);
+      tabPane.setTabMaxWidth(newValue.doubleValue() / 2);
     });
 
-    date.valueProperty().addListener((observable, oldValue, newValue) -> {
-      updateMapViewNodeOverlay();
-    });
-
-    startTime.valueProperty().addListener((observable, oldValue, newValue) -> {
-      updateMapViewNodeOverlay();
-    });
-
-    endTime.valueProperty().addListener((observable, oldValue, newValue) -> {
-      updateMapViewNodeOverlay();
-    });
+    date.valueProperty().addListener((observable, oldValue, newValue) -> updateMapViewNodeOverlay());
+    startTime.valueProperty().addListener((observable, oldValue, newValue) -> updateMapViewNodeOverlay());
+    endTime.valueProperty().addListener((observable, oldValue, newValue) -> updateMapViewNodeOverlay());
   }
 
   public void showCurrentSchedule() {
@@ -180,7 +166,7 @@ public class SchedulingController implements Controller {
     return null;
   }
 
-  void updateMapViewNodeOverlay() {
+  private void updateMapViewNodeOverlay() {
     if (Objects.isNull(date.getValue())
         || Objects.isNull(startTime.getValue())
         || Objects.isNull(endTime.getValue())
