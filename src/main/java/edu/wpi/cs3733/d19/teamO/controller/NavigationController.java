@@ -79,7 +79,7 @@ public class NavigationController implements Controller {
 
   @FXML
   @SuppressWarnings({"PMD.AvoidInstantiatingObjectsInLoops", "UseStringBufferForStringAppends"})
-  void onGoButtonAction() throws SQLException {
+  void onGoButtonAction() throws SQLException, IOException {
 
     if (toComboBox.getValue().equals(fromComboBox.getValue())) {
       DialogHelper.showInformationAlert("Must Select Different Start/End Destinations",
@@ -105,7 +105,7 @@ public class NavigationController implements Controller {
     }
     instruction = stringBuilder.toString();
     instructions.setText(instruction);
-
+    map.zoomTo(fromComboBox.getValue());
     map.setPath(path);
     map.drawPath();
   }
