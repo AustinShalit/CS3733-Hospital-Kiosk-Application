@@ -9,7 +9,9 @@ import javafx.animation.Interpolator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -17,6 +19,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.layout.BorderWidths;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -30,7 +39,7 @@ import net.kurobako.gesturefx.GesturePane;
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 
-@SuppressWarnings("PMD.TooManyFields")
+@SuppressWarnings({"PMD.TooManyFields", "PMD.ExcessiveImports", "PMD.TooManyMethods"})
 public class MapView extends StackPane {
 
   private int level = 1;
@@ -319,6 +328,7 @@ public class MapView extends StackPane {
       for (Node node : path) {
         if (lastNode != null) {
           addLine(node, lastNode, Color.BLACK, 5);
+          addTextField(node, lastNode);
         } else if (node.getFloorInt() == level) {
           Circle circle = new Circle(node.getXcoord(), node.getYcoord(), 8, Color.GREEN);
           circle.setStroke(Color.BLACK);
@@ -356,6 +366,36 @@ public class MapView extends StackPane {
       line.setStroke(paint);
       line.setStrokeLineCap(StrokeLineCap.ROUND);
       pathEdges.getChildren().add(line);
+    }
+  }
+
+  private void addTextField(Node node, Node lastNode) {
+    if (lastNode.getFloorInt() != node.getFloorInt()) {
+      Label label = null;
+      if (lastNode.getFloorInt() == level) {
+        label = new Label("To Floor " + node.getFloor());
+        label.setTranslateX(lastNode.getXcoord() + 8);
+        label.setTranslateY(lastNode.getYcoord() + 8);
+      } else if (node.getFloorInt() == level) {
+        label = new Label("From Floor " + lastNode.getFloor());
+        label.setTranslateX(node.getXcoord() + 8);
+        label.setTranslateY(node.getYcoord() + 8);
+      }
+
+      if (label != null) {
+        label.setAlignment(Pos.CENTER);
+        label.setPrefWidth(USE_COMPUTED_SIZE);
+        label.setTextFill(Color.WHITE);
+        label.setPadding(new Insets(0, 5, 0, 5));
+        label.setBackground(new Background(new BackgroundFill(Paint.valueOf("0067B1"),
+            new CornerRadii(5, 5, 5, 5, false),
+            Insets.EMPTY)));
+        label.setBorder(new Border(new BorderStroke(Color.rgb(1, 45, 90),
+            BorderStrokeStyle.SOLID, new CornerRadii(5, 5, 5, 5, false),
+            BorderWidths.DEFAULT)));
+        nodeGroup.getChildren().add(label);
+      }
+
     }
   }
 }
