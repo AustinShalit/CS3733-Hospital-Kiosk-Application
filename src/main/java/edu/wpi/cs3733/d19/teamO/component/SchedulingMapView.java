@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javafx.animation.Interpolator;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +25,7 @@ public class SchedulingMapView extends MapView {
 
   private Set<Node> availableNodes;
   private Set<Node> unavailableNodes;
+  private final ObjectProperty<Node> selectedNode = new SimpleObjectProperty<>();
 
   public void setAvailableNodes(Set<Node> availableNodes) {
     this.availableNodes = availableNodes;
@@ -43,6 +46,14 @@ public class SchedulingMapView extends MapView {
     fxmlLoader.setRoot(this);
     fxmlLoader.setController(this);
     fxmlLoader.load();
+  }
+
+  public Node getSelectedNode() {
+    return selectedNode.get();
+  }
+
+  public ObjectProperty<Node> selectedNodeProperty() {
+    return selectedNode;
   }
 
   @FXML
@@ -89,18 +100,21 @@ public class SchedulingMapView extends MapView {
       polygon.setStrokeWidth(3);
 
       // hover effects
-      polygon.hoverProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean show) -> {
-        if(polygon.isHover()) {
-          polygon.setFill(Color.rgb(0, 180, 0, 0.5));
-          polygon.setOnMouseClicked(mouseEvent ->
-              System.out.println("mouse was clicked")
-          );
+      polygon.hoverProperty().addListener(
+          (ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean show) -> {
+            if (polygon.isHover()) {
+              polygon.setFill(Color.rgb(0, 180, 0, 0.5));
 
-        } else {
-          polygon.setFill(Color.rgb(0, 255, 0, 0.5));
+              // set the combobox to the selected node
+              polygon.setOnMouseClicked(mouseEvent ->
+                  selectedNode.setValue(availableNode)
+              );
 
-        }
-      });
+            } else {
+              polygon.setFill(Color.rgb(0, 255, 0, 0.5));
+
+            }
+          });
 
       polygons.add(polygon);
     }
@@ -116,16 +130,24 @@ public class SchedulingMapView extends MapView {
       polygons.add(polygon);
 
       // hover effects
-      polygon.hoverProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean show) -> {
-        if(polygon.isHover()) {
-          polygon.setFill(Color.rgb(180, 0, 0, 0.5));
-        } else {
-          polygon.setFill(Color.rgb(255, 0, 0, 0.5));
+      polygon.hoverProperty().addListener(
+          (ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean show) -> {
+            if (polygon.isHover()) {
+              polygon.setFill(Color.rgb(180, 0, 0, 0.5));
 
-        }
-      });
+              // set the combobox to the selected node
+              polygon.setOnMouseClicked(mouseEvent ->
+                  selectedNode.setValue(unavailableNode)
+              );
+
+            } else {
+              polygon.setFill(Color.rgb(255, 0, 0, 0.5));
+
+            }
+          });
     }
 
     nodeGroup.getChildren().setAll(polygons);
   }
+
 }

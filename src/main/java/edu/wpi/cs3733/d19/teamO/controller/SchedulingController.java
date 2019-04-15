@@ -94,6 +94,9 @@ public class SchedulingController implements Controller {
     roomComboBox.valueProperty().addListener((observable, oldValue, newValue)
         -> roomComboBox.setButtonCell(cellFactory.call(null)));
 
+    // wait for  user to select a polygon
+    roomComboBox.valueProperty().bindBidirectional(schedulingMapView.selectedNodeProperty());
+
     // set tab pane to span entire width
     tabPane.widthProperty().addListener((observable, oldValue, newValue) -> {
       tabPane.setTabMinWidth(newValue.doubleValue() / tabPane.getTabs().size());
