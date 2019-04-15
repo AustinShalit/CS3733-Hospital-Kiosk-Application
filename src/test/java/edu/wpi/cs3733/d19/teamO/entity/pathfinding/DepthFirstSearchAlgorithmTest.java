@@ -35,7 +35,7 @@ class DepthFirstSearchAlgorithmTest {
 
   @Test
   void pathStartIsFirstTest() {
-    GraphSearchAlgorithm<String> algorithm = new DepthFirstSearchAlgorithm<>();
+    IGraphSearchAlgorithm<String> algorithm = new DepthFirstSearchAlgorithm<>();
 
     List<String> path = algorithm.getPath(graph, "A", "E");
 
@@ -44,7 +44,7 @@ class DepthFirstSearchAlgorithmTest {
 
   @Test
   void pathGoalIsLastTest() {
-    GraphSearchAlgorithm<String> algorithm = new DepthFirstSearchAlgorithm<>();
+    IGraphSearchAlgorithm<String> algorithm = new DepthFirstSearchAlgorithm<>();
 
     List<String> path = algorithm.getPath(graph, "A", "E");
 
@@ -53,7 +53,7 @@ class DepthFirstSearchAlgorithmTest {
 
   @Test
   void getPathTest() {
-    GraphSearchAlgorithm<String> algorithm = new DepthFirstSearchAlgorithm<>();
+    IGraphSearchAlgorithm<String> algorithm = new DepthFirstSearchAlgorithm<>();
 
     List<String> path = algorithm.getPath(graph, "A", "E");
 

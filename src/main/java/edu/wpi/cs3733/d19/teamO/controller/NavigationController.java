@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,10 +16,11 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
+import edu.wpi.cs3733.d19.teamO.AppPreferences;
 import edu.wpi.cs3733.d19.teamO.component.MapView;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
-import edu.wpi.cs3733.d19.teamO.entity.pathfinding.PathfindingContext;
+import edu.wpi.cs3733.d19.teamO.entity.pathfinding.IGraphSearchAlgorithm;
 import edu.wpi.cs3733.d19.teamO.entity.pathfinding.StepByStep;
 
 @FxmlController(url = "Navigation.fxml")
@@ -51,7 +51,8 @@ public class NavigationController implements Controller {
 
   StepByStep stepByStep;
 
-
+  @Inject
+  private AppPreferences appPreferences;
   @Inject
   private Database database;
 
@@ -79,7 +80,7 @@ public class NavigationController implements Controller {
 
   @FXML
   @SuppressWarnings({"PMD.AvoidInstantiatingObjectsInLoops", "UseStringBufferForStringAppends"})
-  void onGoButtonAction() throws SQLException, IOException {
+  void onGoButtonAction() IOException {
 
     if (toComboBox.getValue().equals(fromComboBox.getValue())) {
       DialogHelper.showInformationAlert("Must Select Different Start/End Destinations",
@@ -87,18 +88,18 @@ public class NavigationController implements Controller {
       return;
     }
 
-    PathfindingContext<Node> pathfindingContext = new PathfindingContext<>();
+    IGraphSearchAlgorithm<Node> algorithm = appPreferences.getGraphSearchAlgorithm().getAlgorithm();
     MutableGraph<Node> graph = GraphBuilder.undirected().allowsSelfLoops(false).build();
     database.getAllNodes().forEach(graph::addNode);
     database.getAllEdges().forEach(e -> graph.putEdge(e.getStartNode(), e.getEndNode()));
 
-    List<Node> path = pathfindingContext.getPath(ImmutableGraph.copyOf(graph),
+    List<Node> path = algorithm.getPath(ImmutableGraph.copyOf(graph),
         fromComboBox.getValue(),
         toComboBox.getValue());
 
     ArrayList<String> list = stepByStep.getStepByStep(path);
-    String instruction = "";
-    StringBuilder stringBuilder = new StringBuilder("");
+    String instruction;
+    StringBuilder stringBuilder = new StringBuilder();
     for (String s: list) {
       stringBuilder.append(s);
       stringBuilder.append('\n');
