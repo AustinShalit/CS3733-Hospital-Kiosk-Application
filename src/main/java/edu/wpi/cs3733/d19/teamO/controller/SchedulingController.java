@@ -48,6 +48,8 @@ public class SchedulingController implements Controller {
   @FXML
   private Tab tableTab;
   @FXML
+  private Tab calendarTab;
+  @FXML
   private SchedulingMapView schedulingMapView;
 
   @Inject
@@ -55,6 +57,8 @@ public class SchedulingController implements Controller {
 
   @Inject
   private SchedulingViewController.Factory schedulingViewControllerFactory;
+  @Inject
+  private SchedulingCalendarController.Factory schedulingCalendarControllerFactory;
 
   @FXML
   void initialize() {
@@ -92,17 +96,26 @@ public class SchedulingController implements Controller {
 
     // set tab pane to span entire width
     tabPane.widthProperty().addListener((observable, oldValue, newValue) -> {
-      tabPane.setTabMinWidth(newValue.doubleValue() / 2);
-      tabPane.setTabMaxWidth(newValue.doubleValue() / 2);
+      tabPane.setTabMinWidth(newValue.doubleValue() / tabPane.getTabs().size());
+      tabPane.setTabMaxWidth(newValue.doubleValue() / tabPane.getTabs().size());
     });
 
-    date.valueProperty().addListener((observable, oldValue, newValue) -> updateMapViewNodeOverlay());
-    startTime.valueProperty().addListener((observable, oldValue, newValue) -> updateMapViewNodeOverlay());
-    endTime.valueProperty().addListener((observable, oldValue, newValue) -> updateMapViewNodeOverlay());
+    date.valueProperty().addListener((observable, oldValue, newValue)
+        -> updateMapViewNodeOverlay());
+    startTime.valueProperty().addListener((observable, oldValue, newValue)
+        -> updateMapViewNodeOverlay());
+    endTime.valueProperty().addListener((observable, oldValue, newValue)
+        -> updateMapViewNodeOverlay());
   }
 
-  public void showCurrentSchedule() {
+  @FXML
+  void showCurrentSchedule() {
     tableTab.setContent(schedulingViewControllerFactory.create().getRoot());
+  }
+
+  @FXML
+  void showCalendar() {
+    calendarTab.setContent(schedulingCalendarControllerFactory.create().getRoot());
   }
 
   /**
