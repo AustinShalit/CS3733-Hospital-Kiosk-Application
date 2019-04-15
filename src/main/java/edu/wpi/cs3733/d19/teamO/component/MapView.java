@@ -366,7 +366,7 @@ public class MapView extends StackPane {
   public void zoomTo(Node n) throws IOException {
     gesturePane.reset();
     switchFloor(n.getFloor());
-    gesturePane.zoomTo(2, new Point2D(n.getXcoord(),
+    gesturePane.zoomTo(1.2, new Point2D(n.getXcoord(),
         n.getYcoord()));
   }
 
