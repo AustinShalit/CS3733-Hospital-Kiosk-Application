@@ -167,6 +167,7 @@ public class MapEditController implements Controller {
       addButton.setDisable(false);
       connectButton.setDisable(false);
       deleteButton.setDisable(false);
+      updateButton.setDisable(false);
     }
   }
 
@@ -297,17 +298,17 @@ public class MapEditController implements Controller {
 
   @FXML
   void onEdgeDelete() {
-      Optional<Edge> opt = database.getEdge(edgeID);
-      if (!opt.isPresent()) {
-        status.setText("ERROR: InvalidNodeID");
-      } else {
-        Edge deleteEdge = opt.get();
-        database.deleteEdge(deleteEdge);
-        status.setText("Succeed!");
-        map.setDatabaseEdge(database.getAllEdges());
-        map.clearEdges();
-        map.addEdgesToPane(database.getEdgeByFloor(map.getLevel()));
-      }
+    Optional<Edge> opt = database.getEdge(edgeID);
+    if (!opt.isPresent()) {
+      status.setText("ERROR: InvalidNodeID");
+    } else {
+      Edge deleteEdge = opt.get();
+      database.deleteEdge(deleteEdge);
+      status.setText("Succeed!");
+      map.setDatabaseEdge(database.getAllEdges());
+      map.clearEdges();
+      map.addEdgesToPane(database.getEdgeByFloor(map.getLevel()));
+    }
   }
 
   private Node getNewNode(String s) {
