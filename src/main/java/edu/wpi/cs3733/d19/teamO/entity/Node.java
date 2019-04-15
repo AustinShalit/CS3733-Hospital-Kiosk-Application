@@ -220,12 +220,12 @@ public class Node {
    * Returns an integer value corresponding the level of the node.
    *
    * @return An integer value representing the level the Node is on:
-   * Invalid floor == -3
-   * L2 == -2
-   * L1 == -1
-   * G == 0
-   * 1 == 1
-   * 2 == 2
+   *     Invalid floor == -3
+   *     L2 == -2
+   *     L1 == -1
+   *     G == 0
+   *     1 == 1
+   *     2 == 2
    */
   public int getFloorInt() {
     if ("1".equals(floor)) {

@@ -130,7 +130,8 @@ public class SchedulingController implements Controller {
     }
 
     if (database.schedulingRequestWouldConflict(request)) {
-      showErrorAlert("Error.", "Please choose different times.");
+      showErrorAlert("Error.", "This room is already booked. "
+          + "Please choose different times.");
       return;
     }
 
