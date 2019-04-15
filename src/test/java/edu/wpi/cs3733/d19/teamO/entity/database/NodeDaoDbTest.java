@@ -125,9 +125,9 @@ class NodeDaoDbTest {
     dao.insert(TEST_NODE);
     dao.insert(TEST_NODE2);
     dao.insert(TEST_NODE3);
-    dao.update(new Node("456", 0, 0, "0", "B", Node.NodeType.BATH,
+    dao.update(new Node("456", 0, 0, "0", "B", Node.NodeType.REST,
         "LN", "SN"));
-    assertEquals(1, dao.getAllRooms("BATH").size());
+    assertEquals(1, dao.getAllRooms("REST").size());
   }
 
   @Test
