@@ -7,7 +7,6 @@
 /*}*/
 
 .root {
-    -fx-font-family: Calibri;
     -fx-background-color: #F1F1F1;
     -fx-background-image: url("TechBackground.png");
     -fx-background-size: cover;
