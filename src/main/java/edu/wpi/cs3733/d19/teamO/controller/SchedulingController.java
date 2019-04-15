@@ -141,7 +141,7 @@ public class SchedulingController implements Controller {
       updateMapViewNodeOverlay();
       showCurrentSchedule();
 
-      if(calendarTab.isSelected()) {
+      if (calendarTab.isSelected()) {
         showCalendar(); // temp fix bc calendar takes a while to load
       }
     } else {
