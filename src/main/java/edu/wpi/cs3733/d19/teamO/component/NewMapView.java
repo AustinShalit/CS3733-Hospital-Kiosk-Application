@@ -60,6 +60,7 @@ public class NewMapView extends StackPane {
   @FXML
   void initialize() {
     gesturePane.setMinScale(0.1);
+    gesturePane.reset();
     gesturePane.setOnMouseMoved(event -> {
       Point2D pointOnMap = gesturePane.targetPointAt(new Point2D(event.getX(), event.getY()))
           .orElse(gesturePane.targetPointAtViewportCentre());

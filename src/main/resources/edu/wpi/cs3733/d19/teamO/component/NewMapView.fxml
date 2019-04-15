@@ -19,7 +19,11 @@
       </Pane>
     </StackPane>
   </GesturePane>
-  <VBox fx:id="floorButtonBox" alignment="CENTER" maxWidth="55.0" prefHeight="0.0" spacing="10.0" StackPane.alignment="CENTER_RIGHT" />
+  <VBox fx:id="floorButtonBox" alignment="BOTTOM_RIGHT" maxWidth="60.0" prefHeight="0.0" spacing="10.0" StackPane.alignment="CENTER_RIGHT">
+    <padding>
+      <Insets bottom="5.0" right="5.0" />
+    </padding>
+  </VBox>
   <Label fx:id="coordX" text="X-coord" StackPane.alignment="BOTTOM_LEFT">
     <padding>
       <Insets bottom="10.0" left="5.0" />
