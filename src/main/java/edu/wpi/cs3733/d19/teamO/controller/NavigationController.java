@@ -20,11 +20,12 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 
+import edu.wpi.cs3733.d19.teamO.AppPreferences;
 import edu.wpi.cs3733.d19.teamO.component.NewMapView;
 import edu.wpi.cs3733.d19.teamO.entity.Floor;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
-import edu.wpi.cs3733.d19.teamO.entity.pathfinding.PathfindingContext;
+import edu.wpi.cs3733.d19.teamO.entity.pathfinding.IGraphSearchAlgorithm;
 import edu.wpi.cs3733.d19.teamO.entity.pathfinding.StepByStep;
 
 @FxmlController(url = "Navigation.fxml")
@@ -45,6 +46,8 @@ public class NavigationController implements Controller {
 
   @Inject
   private Database database;
+  @Inject
+  private AppPreferences appPreferences;
 
   private final ListProperty<Node> path = new SimpleListProperty<>();
 
@@ -97,13 +100,13 @@ public class NavigationController implements Controller {
       return;
     }
 
-    PathfindingContext<Node> pathfindingContext = new PathfindingContext<>();
+    IGraphSearchAlgorithm<Node> algorithm = appPreferences.getGraphSearchAlgorithm().getAlgorithm();
     MutableGraph<Node> graph = GraphBuilder.undirected().allowsSelfLoops(false).build();
     database.getAllNodes().forEach(graph::addNode);
     database.getAllEdges().forEach(e -> graph.putEdge(e.getStartNode(), e.getEndNode()));
 
     path.setValue(FXCollections.observableArrayList(
-        pathfindingContext.getPath(ImmutableGraph.copyOf(graph),
+        algorithm.getPath(ImmutableGraph.copyOf(graph),
         fromComboBox.getValue(),
         toComboBox.getValue())));
   }
