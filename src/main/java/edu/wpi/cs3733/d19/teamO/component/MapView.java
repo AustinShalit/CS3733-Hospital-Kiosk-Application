@@ -383,8 +383,9 @@ public class MapView extends StackPane {
 
       if (label != null) {
         label.setAlignment(Pos.CENTER);
-        label.setPrefWidth(label.getText().length() * 7);
+        label.setPrefWidth(USE_COMPUTED_SIZE);
         label.setTextFill(Color.WHITE);
+        label.setPadding(new Insets(0, 5, 0, 5));
         label.setBackground(new Background(new BackgroundFill(Paint.valueOf("0067B1"),
             new CornerRadii(5, 5, 5, 5, false),
             Insets.EMPTY)));
