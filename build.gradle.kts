@@ -27,9 +27,6 @@ reckon {
 repositories {
     mavenCentral()
     jcenter()
-    maven {
-        url = uri("http://maven.bestsolution.at/efxclipse-releases")
-    }
 }
 
 dependencies {
