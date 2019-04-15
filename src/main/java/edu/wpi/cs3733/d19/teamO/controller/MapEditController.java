@@ -245,6 +245,7 @@ public class MapEditController implements Controller {
       map.addEdgesToPane(database.getEdgeByFloor(map.getLevel()));
       map.clearNodes();
       map.addNodesToPane(database.getFloor(map.getLevel()));
+      map.setDatabaseEdge(database.getAllEdges());
       updateButton.setText("Update");
       updateMode = true;
       map.setDragStatus(false);
@@ -281,6 +282,7 @@ public class MapEditController implements Controller {
         Node node2 = nodeFromDB2.get();
         Edge newEdge = new Edge(database.getFreeEdgeId(), node1, node2);
         database.insertEdge(newEdge);
+        map.setDatabaseEdge(database.getAllEdges());
         map.clearEdges();
         map.addEdgesToPane(database.getEdgeByFloor(map.getLevel()));
         status.setText("Succeed!");
