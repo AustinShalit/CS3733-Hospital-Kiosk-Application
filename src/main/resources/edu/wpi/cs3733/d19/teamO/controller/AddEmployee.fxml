@@ -15,73 +15,73 @@
 <?import javafx.scene.text.Font?>
 
 <BorderPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.AddEmployeeController">
-   <center>
-      <VBox fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="form" stylesheets="@style/KioskStyle.css">
-       <Label id="heading" text="Add Employee">
-         <font>
-           <Font name="System Bold" size="38.0" />
-         </font>
-       </Label>
-         <HBox maxHeight="-Infinity" maxWidth="-Infinity">
+  <center>
+    <VBox fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="form" stylesheets="@style/KioskStyle.css">
+      <Label id="heading" text="Add Employee">
+        <font>
+          <Font name="System Bold" size="38.0" />
+        </font>
+      </Label>
+      <HBox maxHeight="-Infinity" maxWidth="-Infinity">
+        <children>
+          <VBox alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" spacing="36.0">
+            <JFXTextField fx:id="nameField" maxWidth="200.0" promptText="Enter Name">
+              <VBox.margin>
+                <Insets />
+              </VBox.margin>
+            </JFXTextField>
+            <JFXTextField fx:id="usernameField" maxWidth="200.0" promptText="Enter Username">
+              <VBox.margin>
+                <Insets />
+              </VBox.margin>
+            </JFXTextField>
+            <JFXTextField fx:id="passwordField" maxWidth="200.0" promptText="Enter Password">
+              <VBox.margin>
+                <Insets />
+              </VBox.margin>
+            </JFXTextField>
+            <JFXComboBox fx:id="positionBox" promptText="Select Position">
+              <VBox.margin>
+                <Insets />
+              </VBox.margin>
+            </JFXComboBox>
+            <padding>
+              <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+            </padding>
+          </VBox>
+          <VBox fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" spacing="36.0">
+            <padding>
+              <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+            </padding>
             <children>
-              <VBox alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" spacing="36.0">
-                <JFXTextField fx:id="nameField" maxWidth="200.0" promptText="Enter Name">
-                  <VBox.margin>
-                    <Insets />
-                  </VBox.margin>
-                </JFXTextField>
-                <JFXTextField fx:id="usernameField" maxWidth="200.0" promptText="Enter Username">
-                  <VBox.margin>
-                    <Insets />
-                  </VBox.margin>
-                </JFXTextField>
-                <JFXTextField fx:id="passwordField" maxWidth="200.0" promptText="Enter Password">
-                  <VBox.margin>
-                    <Insets />
-                  </VBox.margin>
-                </JFXTextField>
-                <JFXComboBox fx:id="positionBox" promptText="Select Position">
-                  <VBox.margin>
-                    <Insets />
-                  </VBox.margin>
-                </JFXComboBox>
-                  <padding>
-                     <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-                  </padding>
-              </VBox>
-               <VBox fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" spacing="36.0">
-                  <padding>
-                     <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-                  </padding>
-                  <children>
-                     <Label text="Service Request Permissions">
-                        <font>
-                           <Font name="System Bold" size="15.0" />
-                        </font>
-                        <VBox.margin>
-                           <Insets bottom="-30.0" />
-                        </VBox.margin>
-                     </Label>
-                     <GridPane>
-                        <columnConstraints>
-                           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                        </columnConstraints>
-                        <rowConstraints>
-                           <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                        </rowConstraints>
-                        <children>
-                           <JFXCheckBox fx:id="supportAnimalBox" checkedColor="#004e86" text="Support Animal" />
-                        </children>
-                     </GridPane>
-                  </children>
-               </VBox>
+              <Label text="Service Request Permissions">
+                <font>
+                  <Font name="System Bold" size="15.0" />
+                </font>
+                <VBox.margin>
+                  <Insets bottom="-30.0" />
+                </VBox.margin>
+              </Label>
+              <GridPane>
+                <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                </columnConstraints>
+                <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                </rowConstraints>
+                <children>
+                  <JFXCheckBox fx:id="supportAnimalBox" checkedColor="#004e86" text="Support Animal" />
+                </children>
+              </GridPane>
             </children>
-         </HBox>
-       <JFXButton id="small-button" fx:id="submitbtn" onAction="#onSubmitButtonAction" text="Submit">
-         <VBox.margin>
-           <Insets />
-         </VBox.margin>
-       </JFXButton>
-      </VBox>
-   </center>
+          </VBox>
+        </children>
+      </HBox>
+      <JFXButton id="small-button" fx:id="submitbtn" onAction="#onSubmitButtonAction" text="Submit">
+        <VBox.margin>
+          <Insets />
+        </VBox.margin>
+      </JFXButton>
+    </VBox>
+  </center>
 </BorderPane>

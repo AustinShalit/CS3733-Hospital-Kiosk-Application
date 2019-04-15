@@ -151,11 +151,16 @@ public class EmployeeController implements Controller {
       return;
     }
 
-    infoLabel.setText("");
-    Employee selectedEmployee = employeeTableView.getSelectionModel().getSelectedItem();
-    employeeTableView.getItems().remove(selectedEmployee);
+    boolean check = DialogHelper.showConfirmDialog("Confirm Employee Deletion.",
+        "Confirm Employee Deletion.",
+        "Are you sure you would like to delete the selected employee?");
+    if (check) {
+      infoLabel.setText("");
+      Employee selectedEmployee = employeeTableView.getSelectionModel().getSelectedItem();
+      employeeTableView.getItems().remove(selectedEmployee);
 
-    db.deleteEmployee(selectedEmployee);
+      db.deleteEmployee(selectedEmployee);
+    }
   }
 
   @FXML

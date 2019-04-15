@@ -17,7 +17,6 @@ import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
 
 import edu.wpi.cs3733.d19.teamO.entity.Employee;
-import edu.wpi.cs3733.d19.teamO.entity.EmployeeAttributes;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 @FxmlController(url = "AddEmployee.fxml")
