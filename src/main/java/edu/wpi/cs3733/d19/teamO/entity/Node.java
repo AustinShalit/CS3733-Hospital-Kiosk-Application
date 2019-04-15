@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d19.teamO.entity;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import com.google.common.base.MoreObjects;
 
 import javafx.scene.shape.Polygon;
 
+@SuppressWarnings("PMD.UseStringBufferForStringAppends")
 public class Node {
 
   public enum NodeType {
@@ -89,9 +91,12 @@ public class Node {
     this.nodeType = nodeType;
     this.longName = longName;
     this.shortName = shortName;
-    this.polygon = new Polygon();
+    this.polygon = null;
   }
 
+  /**
+   * Alternate constructor for a node with polygon points.
+   */
   public Node(final String nodeId, final int xcoord, final int ycoord, final String floor,
               final String building, final NodeType nodeType, final String longName,
               final String shortName, final Polygon polygon) {
@@ -138,6 +143,33 @@ public class Node {
     return shortName;
   }
 
+  public Polygon getPolygon() {
+    return polygon;
+  }
+
+  /**
+   * Convert the polygon coordinates into a string that can be put into the database.
+   */
+  public String polygonCoordsToString() {
+    if (this.polygon == null) {
+      return "";
+    }
+    String formatted = "";
+
+    for (int i = 0; i < this.polygon.getPoints().size() - 1; i = i + 2) {
+      double coordX = this.polygon.getPoints().get(i);
+      double coordY = this.polygon.getPoints().get(i + 1);
+
+      formatted += coordX + " " + coordY;
+
+      if (i != this.polygon.getPoints().size() - 2) {
+        formatted += ";";
+      }
+    }
+
+    return formatted;
+  }
+
   @Override
   public String toString() {
     return MoreObjects.toStringHelper(this)
@@ -149,6 +181,7 @@ public class Node {
         .add("nodeType", nodeType)
         .add("longName", longName)
         .add("shortName", shortName)
+        .add("polygonCoordinates", polygonCoordsToString())
         .toString();
   }
 
@@ -169,12 +202,14 @@ public class Node {
         && building.equals(node.building)
         && nodeType == node.nodeType
         && longName.equals(node.longName)
-        && shortName.equals(node.shortName);
+        && shortName.equals(node.shortName)
+        && polygonEquals(polygon, node.polygon);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(nodeId, xcoord, ycoord, floor, building, nodeType, longName, shortName);
+    return Objects.hash(nodeId, xcoord, ycoord, floor, building, nodeType,
+        longName, shortName, polygon);
   }
 
   /**
@@ -209,22 +244,41 @@ public class Node {
   /**
    * Given a string of x y coordinates representing a polygon, parse
    * them and return a new polygon with those coordinates.
-   * @param polygonString "1 3;3 5;"
+   *
+   * @param polygonString A string of the format: "x y;x y". ex: "1.0 3.0;3.0 5.0;"
    * @return
    */
   public static Polygon parsePolygonFromString(String polygonString) {
+    if (polygonString == null || polygonString.equals("")) {
+      return null;
+    }
+
     Polygon polygon = new Polygon();
     List<Double> points = new LinkedList<Double>();
     String[] split = polygonString.split(";");
 
-    for(String pair : split) {
-      double x = Double.parseDouble(pair.split(" ")[0]);
-      double y = Double.parseDouble(pair.split(" ")[1]);
-      points.add(x);
-      points.add(y);
+    for (String pair : split) {
+      double coordX = Double.parseDouble(pair.split(" ")[0]);
+      double coordY = Double.parseDouble(pair.split(" ")[1]);
+      points.add(coordX);
+      points.add(coordY);
     }
     polygon.getPoints().addAll(points);
 
     return polygon;
+  }
+
+  /**
+   * Returns true if the coordinates of both polygons are the same.
+   */
+  @SuppressWarnings("PMD.CompareObjectsWithEquals")
+  private boolean polygonEquals(Polygon p1, Polygon p2) {
+    if (p1 == p2) {
+      return true;
+    }
+    if (p1 == null || p2 == null) {
+      return false;
+    }
+    return Arrays.equals(p1.getPoints().toArray(), p2.getPoints().toArray());
   }
 }

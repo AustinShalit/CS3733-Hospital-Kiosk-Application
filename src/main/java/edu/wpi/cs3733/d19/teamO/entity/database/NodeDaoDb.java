@@ -90,6 +90,7 @@ class NodeDaoDb implements NodeDao {
       statement.setString(6, node.getNodeType().name());
       statement.setString(7, node.getLongName());
       statement.setString(8, node.getShortName());
+      statement.setString(9, node.polygonCoordsToString());
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
       logger.log(Level.WARNING, "Failed to insert Node", ex);
@@ -108,7 +109,8 @@ class NodeDaoDb implements NodeDao {
       statement.setString(5, node.getNodeType().name());
       statement.setString(6, node.getLongName());
       statement.setString(7, node.getShortName());
-      statement.setString(8, node.getNodeId());
+      statement.setString(8, node.polygonCoordsToString());
+      statement.setString(9, node.getNodeId());
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
       logger.log(Level.WARNING, "Failed to update Node", ex);
@@ -138,8 +140,8 @@ class NodeDaoDb implements NodeDao {
         resultSet.getString("building"),
         Node.NodeType.get(resultSet.getString("type")),
         resultSet.getString("long_name"),
-        resultSet.getString("short_name")
-        //resultSet.getString("polygon_coordinates")
+        resultSet.getString("short_name"),
+        Node.parsePolygonFromString(resultSet.getString("polygon_coordinates"))
     );
   }
 

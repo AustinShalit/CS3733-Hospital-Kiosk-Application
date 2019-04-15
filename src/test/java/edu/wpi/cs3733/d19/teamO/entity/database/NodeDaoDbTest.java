@@ -18,8 +18,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ExtendWith(DatabaseExtension.class)
 class NodeDaoDbTest {
 
+  private static final String db_coords = "198.0 556.0;1032.0 558.0;1031.0 966.0;1144.0 1044.0;"
+      + "1144.0 1266.0;928.0 1266.0;928.0 1332.0;786.0 1332.0;786.0 1486.0;198.0 1482.0";
+
   private static final Node TEST_NODE = new Node("TEST", 0, 0, "0", "B", Node.NodeType.CONF,
-      "LN", "SN");
+      "LN", "SN", Node.parsePolygonFromString(db_coords));
   private static final Node TEST_NODE2 = new Node("123", 0, 0, "L2", "B", Node.NodeType.CONF,
       "LN", "SN");
   private static final Node TEST_NODE3 = new Node("456", 0, 0, "L2", "B", Node.NodeType.HALL,
@@ -141,5 +144,12 @@ class NodeDaoDbTest {
     String id = dao.getFreeNodeId();
     assertTrue(dao.insert(new Node(id, 0, 0, "", "",
         Node.NodeType.DEPT, "", "")));
+  }
+
+  @Test
+  void testPolygon() {
+    dao.insert(TEST_NODE);
+    assertEquals(TEST_NODE.getPolygon().getPoints(),
+        dao.get("TEST").get().getPolygon().getPoints());
   }
 }
