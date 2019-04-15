@@ -25,6 +25,8 @@ import edu.wpi.cs3733.d19.teamO.entity.pathfinding.PathfindingContext;
 import edu.wpi.cs3733.d19.teamO.entity.pathfinding.StepByStep;
 
 @FxmlController(url = "Navigation.fxml")
+@SuppressWarnings({"PMD.TooManyFields", "PMD.RedundantFieldInitializer"})
+
 public class NavigationController implements Controller {
 
 
@@ -125,13 +127,13 @@ public class NavigationController implements Controller {
   }
 
   @FXML
-  void setRestroomButton(){
-    if(addRest) {
+  void setRestroomButton() {
+    if (addRest) {
       filteredNodeTypes.add(Node.NodeType.REST);
       restroomButton.setStyle("-fx-background-color: #0067B1");
       refreshCombobox();
       addRest = false;
-    }else {
+    } else {
       filteredNodeTypes.remove(Node.NodeType.REST);
       refreshCombobox();
       restroomButton.setStyle("-fx-background-color: #012d5a");
@@ -140,15 +142,15 @@ public class NavigationController implements Controller {
   }
 
   @FXML
-  void setWalkwayButton(){
-    if(addWalk) {
+  void setWalkwayButton() {
+    if (addWalk) {
       filteredNodeTypes.add(Node.NodeType.ELEV);
       filteredNodeTypes.add(Node.NodeType.STAI);
       filteredNodeTypes.add(Node.NodeType.HALL);
       walkwayButton.setStyle("-fx-background-color: #0067B1");
       refreshCombobox();
       addWalk = false;
-    }else {
+    } else {
       filteredNodeTypes.remove(Node.NodeType.ELEV);
       filteredNodeTypes.remove(Node.NodeType.STAI);
       filteredNodeTypes.remove(Node.NodeType.HALL);
@@ -159,13 +161,13 @@ public class NavigationController implements Controller {
   }
 
   @FXML
-  void setExitButton(){
-    if(addExit) {
+  void setExitButton() {
+    if (addExit) {
       filteredNodeTypes.add(Node.NodeType.EXIT);
       exitButton.setStyle("-fx-background-color: #0067B1");
       refreshCombobox();
       addExit = false;
-    }else {
+    } else {
       filteredNodeTypes.remove(Node.NodeType.EXIT);
       refreshCombobox();
       exitButton.setStyle("-fx-background-color: #012d5a");
@@ -174,13 +176,13 @@ public class NavigationController implements Controller {
   }
 
   @FXML
-  void setInformationButton(){
-    if(addInfo) {
+  void setInformationButton() {
+    if (addInfo) {
       filteredNodeTypes.add(Node.NodeType.INFO);
       informationButton.setStyle("-fx-background-color: #0067B1");
       refreshCombobox();
       addInfo = false;
-    }else {
+    } else {
       filteredNodeTypes.remove(Node.NodeType.INFO);
       refreshCombobox();
       informationButton.setStyle("-fx-background-color: #012d5a");
@@ -188,7 +190,7 @@ public class NavigationController implements Controller {
     }
   }
 
-  void refreshCombobox(){
+  void refreshCombobox() {
     DialogHelper.populateComboBox(database, fromComboBox, filteredNodeTypes);
     DialogHelper.populateComboBox(database, toComboBox, filteredNodeTypes);
   }
