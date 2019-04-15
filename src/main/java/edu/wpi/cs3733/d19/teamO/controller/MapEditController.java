@@ -27,10 +27,11 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 @FxmlController(url = "MapEdit.fxml")
 public class MapEditController implements Controller {
   String nodeID;
-
-  int newID = 100;
+  private String edgeID;
   private boolean updateMode = true;
-
+  private boolean connectMode;
+  private String udNodeID1 = " ";
+  int newID = 100;
   // Collection<Node> nodes;
 
   @FXML
@@ -45,6 +46,8 @@ public class MapEditController implements Controller {
   JFXButton updateButton;
   @FXML
   JFXButton connectButton;
+  @FXML
+  JFXButton edgeDeleteButton;
   @FXML
   TableView<Node> tableView;
   @FXML
@@ -64,9 +67,6 @@ public class MapEditController implements Controller {
   @FXML
   JFXTextField nodeIDField;
   @FXML
-  JFXTextField nodeIDField2;
-  @FXML
-
   Label status;
   @FXML
   JFXComboBox<Node.NodeType> nodeTypeComboBox;
@@ -108,13 +108,14 @@ public class MapEditController implements Controller {
     setupTableView();
 
     // Setup side view
-
     map.setNodes(database.getAllNodes());
     map.setCurrentNodes(database.getAllNodes());
+    map.setDatabaseEdge(database.getAllEdges());
+    map.setCurrentEdges(database.getAllEdges());
     map.addNodesToPane(database.getFloor("1"));
+    map.addEdgesToPane(database.getEdgeByFloor(map.getLevel()));
     map.selectedNodeProperty().addListener((observable, oldValue, newValue) -> {
       nodeID = newValue.getNodeId();
-
       nodeIDField.setText(newValue.getNodeId());
 
       xcoordField.setText(Integer.toString(newValue.getXcoord()));
@@ -125,11 +126,19 @@ public class MapEditController implements Controller {
       nodeTypeComboBox.setValue(newValue.getNodeType());
       longNameField.setText(newValue.getLongName());
       shortNameField.setText(newValue.getShortName());
-      validateButton();
-      status.setText("");
+      if (updateMode) {
+        validateButton();
+      }
+      //status.setText("");
 
-      nodeIDField2.setText("");
+      if (connectMode) {
+        connectNodeAction();
+      }
+    });
 
+    map.selectedEdgeProperty().addListener((observable, oldValue, newValue) -> {
+      edgeID = newValue.getEdgeId();
+      status.setText(newValue.getEdgeId());
     });
 
     // set tab pane to span entire width
@@ -153,11 +162,12 @@ public class MapEditController implements Controller {
       addButton.setDisable(true);
       connectButton.setDisable(true);
       deleteButton.setDisable(true);
-
+      updateButton.setDisable(true);
     } else {
       addButton.setDisable(false);
       connectButton.setDisable(false);
       deleteButton.setDisable(false);
+      updateButton.setDisable(false);
     }
   }
 
@@ -223,18 +233,27 @@ public class MapEditController implements Controller {
         map.setDragStatus(true);
         updateButton.setText("Confirm");
         updateMode = false;
+        addButton.setDisable(true);
+        deleteButton.setDisable(true);
+        connectButton.setDisable(true);
       }
     } else {
       Node updateNode = getNewNode(nodeIDField.getText());
       database.updateNode(updateNode);
       map.setNodes(database.getAllNodes());
+      map.clearEdges();
+      map.addEdgesToPane(database.getEdgeByFloor(map.getLevel()));
       map.clearNodes();
       map.addNodesToPane(database.getFloor(map.getLevel()));
+      map.setDatabaseEdge(database.getAllEdges());
       updateButton.setText("Update");
       updateMode = true;
       map.setDragStatus(false);
       map.setGesturePane(true);
       map.setCircleDragVisibility(false);
+      addButton.setDisable(false);
+      deleteButton.setDisable(false);
+      connectButton.setDisable(false);
     }
 
   }
@@ -242,18 +261,34 @@ public class MapEditController implements Controller {
 
   @FXML
   void connectNodeAction() {
-    String udNodeID1 = nodeIDField.getText();
-    Optional<Node> nodeFromDB1 = database.getNode(udNodeID1);
-    String udNodeID2 = nodeIDField2.getText();
-    Optional<Node> nodeFromDB2 = database.getNode(udNodeID2);
-    if (!nodeFromDB1.isPresent() || !nodeFromDB2.isPresent()) {
-      status.setText("ERROR: InvalidNodeID");
+
+    if (!connectMode) {
+      udNodeID1 = nodeIDField.getText();
+      Optional<Node> nodeFromDB1 = database.getNode(udNodeID1);
+      if (!nodeFromDB1.isPresent()) {
+        status.setText("ERROR: InvalidNodeID");
+      } else {
+        connectMode = true;
+        status.setText("Please choose the other node");
+      }
     } else {
-      Node node1 = nodeFromDB1.get();
-      Node node2 = nodeFromDB2.get();
-      Edge newEdge = new Edge(database.getFreeEdgeId(), node1, node2);
-      database.insertEdge(newEdge);
-      status.setText("Succeed!");
+      String udNodeID2 = nodeIDField.getText();
+      Optional<Node> nodeFromDB2 = database.getNode(udNodeID2);
+      Optional<Node> nodeFromDB1 = database.getNode(udNodeID1);
+      if (!nodeFromDB2.isPresent() || !nodeFromDB1.isPresent()) {
+        status.setText("ERROR: InvalidNodeID");
+      } else {
+        Node node1 = nodeFromDB1.get();
+        Node node2 = nodeFromDB2.get();
+        Edge newEdge = new Edge(database.getFreeEdgeId(), node1, node2);
+        database.insertEdge(newEdge);
+        map.setDatabaseEdge(database.getAllEdges());
+        map.clearEdges();
+        map.addEdgesToPane(database.getEdgeByFloor(map.getLevel()));
+        status.setText("Succeed!");
+        connectMode = false;
+      }
+
     }
   }
 
@@ -261,6 +296,21 @@ public class MapEditController implements Controller {
   void onEnter() {
     map.setCircleDrag( Integer.parseInt(xcoordField.getText()),
         Integer.parseInt(ycoordField.getText()));
+  }
+
+  @FXML
+  void onEdgeDelete() {
+    Optional<Edge> opt = database.getEdge(edgeID);
+    if (!opt.isPresent()) {
+      status.setText("ERROR: InvalidNodeID");
+    } else {
+      Edge deleteEdge = opt.get();
+      database.deleteEdge(deleteEdge);
+      status.setText("Succeed!");
+      map.setDatabaseEdge(database.getAllEdges());
+      map.clearEdges();
+      map.addEdgesToPane(database.getEdgeByFloor(map.getLevel()));
+    }
   }
 
   private Node getNewNode(String s) {

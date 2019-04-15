@@ -30,6 +30,7 @@ repositories {
 }
 
 dependencies {
+    implementation(group = "com.calendarfx", name = "view", version = "8.5.0")
     implementation(group = "com.google.code.gson", name = "gson", version = "2.8.5")
     implementation(group = "com.google.guava", name = "guava", version = "27.1-jre")
     implementation(group = "com.google.inject", name = "guice", version = "4.2.2")
