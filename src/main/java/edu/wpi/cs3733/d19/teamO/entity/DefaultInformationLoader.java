@@ -36,7 +36,7 @@ public class DefaultInformationLoader {
   private void loadNodes() {
     NodeCsvReaderWriter ncrw = new NodeCsvReaderWriter();
     List<Node> nodes = ncrw.readNodes(new InputStreamReader(DefaultInformationLoader.class
-        .getResourceAsStream("nodesv4.csv"), UTF_8));
+        .getResourceAsStream("nodes.csv"), UTF_8));
     for (Node node : nodes) {
       database.insertNode(node);
     }
@@ -55,7 +55,7 @@ public class DefaultInformationLoader {
     EdgeCsvReaderWriter ecrw = new EdgeCsvReaderWriter(database);
     List<Edge> edges = ecrw.readEdges(
         new InputStreamReader(DefaultInformationLoader.class
-            .getResourceAsStream("edgesv5.csv"), UTF_8));
+            .getResourceAsStream("edges.csv"), UTF_8));
     for (Edge edge : edges) {
       database.insertEdge(edge);
     }
