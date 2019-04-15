@@ -38,6 +38,30 @@ public class AddEmployeeController implements Controller {
   @FXML
   private JFXButton submitbtn;
   @FXML
+  private JFXCheckBox aVBox;
+  @FXML
+  private JFXCheckBox externalTransportBox;
+  @FXML
+  private JFXCheckBox floristBox;
+  @FXML
+  private JFXCheckBox giftBox;
+  @FXML
+  private JFXCheckBox internalTransportBox;
+  @FXML
+  private JFXCheckBox interpreterBox;
+  @FXML
+  private JFXCheckBox iTSupportBox;
+  @FXML
+  private JFXCheckBox patientInfoBox;
+  @FXML
+  private JFXCheckBox prescriptionBox;
+  @FXML
+  private JFXCheckBox religiousBox;
+  @FXML
+  private JFXCheckBox sanitationBox;
+  @FXML
+  private JFXCheckBox securityBox;
+  @FXML
   private JFXCheckBox supportAnimalBox;
 
   @Inject
@@ -70,6 +94,18 @@ public class AddEmployeeController implements Controller {
     passwordField.setText(null);
     positionBox.getSelectionModel().clearSelection();
     positionBox.setValue(null);
+    AVBox.setSelected(false);
+    externalTransportBox.setSelected(false);
+    floristBox.setSelected(false);
+    giftBox.setSelected(false);
+    internalTransportBox.setSelected(false);
+    interpreterBox.setSelected(false);
+    ITSupportBox.setSelected(false);
+    patientInfoBox.setSelected(false);
+    prescriptionBox.setSelected(false);
+    religiousBox.setSelected(false);
+    sanitationBox.setSelected(false);
+    securityBox.setSelected(false);
     supportAnimalBox.setSelected(false);
 
     if (db.insertEmployee(external)) {
@@ -99,9 +135,23 @@ public class AddEmployeeController implements Controller {
       String password = passwordField.getText();
       String type = positionBox.getValue().toString().toUpperCase(new Locale("EN"));
       Employee.EmployeeType externalEmployeeType = Employee.EmployeeType.valueOf(type);
-      boolean canSupportAnimal = supportAnimalBox.isSelected();
+
       Employee newemp = new Employee(username, password, name, externalEmployeeType);
-      newemp.getEmployeeAttributes().setCanFulfillSupportAnimal(canSupportAnimal);
+      newemp.getEmployeeAttributes().setCanFulfillAudioVisual(AVBox.isSelected());
+      newemp.getEmployeeAttributes().setCanFulfillExternalTransport(
+          externalTransportBox.isSelected());
+      newemp.getEmployeeAttributes().setCanFulfillFlorist(floristBox.isSelected());
+      newemp.getEmployeeAttributes().setCanFulfillGift(giftBox.isSelected());
+      newemp.getEmployeeAttributes().setCanFulfillInternalTransport(
+          internalTransportBox.isSelected());
+      newemp.getEmployeeAttributes().setCanFulfillInterpreter(interpreterBox.isSelected());
+      newemp.getEmployeeAttributes().setCanFulfillITSupport(ITSupportBox.isSelected());
+      newemp.getEmployeeAttributes().setCanFulfillPatientInfo(patientInfoBox.isSelected());
+      newemp.getEmployeeAttributes().setCanFulfillPrescription(prescriptionBox.isSelected());
+      newemp.getEmployeeAttributes().setCanFulfillReligious(religiousBox.isSelected());
+      newemp.getEmployeeAttributes().setCanFulfillSanitation(sanitationBox.isSelected());
+      newemp.getEmployeeAttributes().setCanFulfillSecurity(securityBox.isSelected());
+      newemp.getEmployeeAttributes().setCanFulfillSupportAnimal(supportAnimalBox.isSelected());
 
       return newemp;
     }

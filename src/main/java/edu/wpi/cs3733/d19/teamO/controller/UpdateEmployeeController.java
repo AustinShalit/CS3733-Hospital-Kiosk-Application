@@ -39,6 +39,30 @@ public class UpdateEmployeeController implements Controller {
   @FXML
   private JFXButton upSubmitbtn;
   @FXML
+  private JFXCheckBox AVBox;
+  @FXML
+  private JFXCheckBox externalTransportBox;
+  @FXML
+  private JFXCheckBox floristBox;
+  @FXML
+  private JFXCheckBox giftBox;
+  @FXML
+  private JFXCheckBox internalTransportBox;
+  @FXML
+  private JFXCheckBox interpreterBox;
+  @FXML
+  private JFXCheckBox ITSupportBox;
+  @FXML
+  private JFXCheckBox patientInfoBox;
+  @FXML
+  private JFXCheckBox prescriptionBox;
+  @FXML
+  private JFXCheckBox religiousBox;
+  @FXML
+  private JFXCheckBox sanitationBox;
+  @FXML
+  private JFXCheckBox securityBox;
+  @FXML
   private JFXCheckBox supportAnimalBox;
 
   @Inject
@@ -57,6 +81,20 @@ public class UpdateEmployeeController implements Controller {
         upPasswordfield.setText(newValue.getPassword());
         upPositionbox.setValue(newValue.getType());
         upIdfield.setText(String.valueOf(newValue.getId()));
+        AVBox.setSelected(newValue.getEmployeeAttributes().getCanFulfillAudioVisual());
+        externalTransportBox.setSelected(
+            newValue.getEmployeeAttributes().getCanFulfillExternalTransport());
+        floristBox.setSelected(newValue.getEmployeeAttributes().getCanFulfillFlorist());
+        giftBox.setSelected(newValue.getEmployeeAttributes().getCanFulfillGift());
+        internalTransportBox.setSelected(
+            newValue.getEmployeeAttributes().getCanFulfillInternalTransport());
+        interpreterBox.setSelected(newValue.getEmployeeAttributes().getCanFulfillInterpreter());
+        ITSupportBox.setSelected(newValue.getEmployeeAttributes().getCanFulfillITSupport());
+        patientInfoBox.setSelected(newValue.getEmployeeAttributes().getCanFulfillPatientInfo());
+        prescriptionBox.setSelected(newValue.getEmployeeAttributes().getCanFulfillPrescription());
+        religiousBox.setSelected(newValue.getEmployeeAttributes().getCanFulfillReligious());
+        sanitationBox.setSelected(newValue.getEmployeeAttributes().getCanFulfillSanitation());
+        securityBox.setSelected(newValue.getEmployeeAttributes().getCanFulfillSecurity());
         supportAnimalBox.setSelected(newValue.getEmployeeAttributes().getCanFulfillSupportAnimal());
       }
     });
@@ -74,6 +112,18 @@ public class UpdateEmployeeController implements Controller {
       lg.setPassword(upPasswordfield.getText());
       lg.setName(upNamefield.getText());
       lg.setType(upPositionbox.getValue());
+      lg.getEmployeeAttributes().setCanFulfillAudioVisual(AVBox.isSelected());
+      lg.getEmployeeAttributes().setCanFulfillExternalTransport(externalTransportBox.isSelected());
+      lg.getEmployeeAttributes().setCanFulfillFlorist(floristBox.isSelected());
+      lg.getEmployeeAttributes().setCanFulfillGift(giftBox.isSelected());
+      lg.getEmployeeAttributes().setCanFulfillInternalTransport(internalTransportBox.isSelected());
+      lg.getEmployeeAttributes().setCanFulfillInterpreter(interpreterBox.isSelected());
+      lg.getEmployeeAttributes().setCanFulfillITSupport(ITSupportBox.isSelected());
+      lg.getEmployeeAttributes().setCanFulfillPatientInfo(patientInfoBox.isSelected());
+      lg.getEmployeeAttributes().setCanFulfillPrescription(prescriptionBox.isSelected());
+      lg.getEmployeeAttributes().setCanFulfillReligious(religiousBox.isSelected());
+      lg.getEmployeeAttributes().setCanFulfillSanitation(sanitationBox.isSelected());
+      lg.getEmployeeAttributes().setCanFulfillSecurity(securityBox.isSelected());
       lg.getEmployeeAttributes().setCanFulfillSupportAnimal(supportAnimalBox.isSelected());
       if (db.updateEmployee(lg)) {
         DialogHelper.showInformationAlert("Success!",
