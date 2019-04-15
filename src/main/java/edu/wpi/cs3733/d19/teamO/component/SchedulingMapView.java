@@ -11,7 +11,6 @@ import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.util.Duration;
 import net.kurobako.gesturefx.GesturePane;
@@ -80,25 +79,25 @@ public class SchedulingMapView extends MapView {
     Set<Polygon> polygons = new HashSet<>();
 
     for (Node availableNode : availableNodes) {
-      Polygon p = new Polygon();
-      p.getPoints().setAll(availableNode.getPolygonPoints());
-      p.setFill(Color.color(0.0, 1.0, 0.0));
+      Polygon polygon = new Polygon();
+      polygon.getPoints().setAll(availableNode.getPolygonPoints());
+      polygon.setFill(Color.color(0.0, 1.0, 0.0, 0.5));
 
-      p.setStroke(Color.color(0.0, 0.0, 0.0));
-      p.setStrokeWidth(3);
+      polygon.setStroke(Color.color(0.0, 0.0, 0.0));
+      polygon.setStrokeWidth(3);
 
-      polygons.add(p);
+      polygons.add(polygon);
     }
 
     for (Node unavailableNode : unavailableNodes) {
-      Polygon p = new Polygon();
-      p.getPoints().setAll(unavailableNode.getPolygonPoints());
-      p.setFill(Color.color(1.0, 0.0, 0.0));
+      Polygon polygon = new Polygon();
+      polygon.getPoints().setAll(unavailableNode.getPolygonPoints());
+      polygon.setFill(Color.color(1.0, 0.0, 0.0, 0.5));
 
-      p.setStroke(Color.color(0.0, 0.0, 0.0));
-      p.setStrokeWidth(3);
+      polygon.setStroke(Color.color(0.0, 0.0, 0.0));
+      polygon.setStrokeWidth(3);
 
-      polygons.add(p);
+      polygons.add(polygon);
     }
 
     nodeGroup.getChildren().setAll(polygons);
