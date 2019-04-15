@@ -205,13 +205,13 @@ public class Node {
         && nodeType == node.nodeType
         && longName.equals(node.longName)
         && shortName.equals(node.shortName)
-        && polygonEquals(polygon, node.polygon);
+        && polygonCoordinatesEquals(polygon, node.polygon);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(nodeId, xcoord, ycoord, floor, building, nodeType,
-        longName, shortName, polygon);
+        longName, shortName, polygonCoordsToString());
   }
 
   /**
@@ -274,7 +274,7 @@ public class Node {
    * Returns true if the coordinates of both polygons are the same.
    */
   @SuppressWarnings("PMD.CompareObjectsWithEquals")
-  private boolean polygonEquals(Polygon p1, Polygon p2) {
+  private boolean polygonCoordinatesEquals(Polygon p1, Polygon p2) {
     if (p1 == p2) {
       return true;
     }
