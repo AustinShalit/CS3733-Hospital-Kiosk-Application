@@ -74,6 +74,8 @@ public class NodeCsvReaderWriter {
     private String longName;
     @CsvBindByName
     private String shortName;
+    @CsvBindByName
+    private String polygonCoords;
 
     // MUST be public for reflection to work
     public NodeVo() {
@@ -112,9 +114,13 @@ public class NodeCsvReaderWriter {
       return shortName;
     }
 
+    public String getPolygonCoords() {
+      return polygonCoords;
+    }
+
     private NodeVo(final String nodeId, final int xcoord, final int ycoord, final String floor,
                    final String building, final String nodeType, final String longName,
-                   final String shortName) {
+                   final String shortName, final String polygonCoords) {
       this();
 
       this.nodeId = nodeId;
@@ -125,6 +131,7 @@ public class NodeCsvReaderWriter {
       this.nodeType = nodeType;
       this.longName = longName;
       this.shortName = shortName;
+      this.polygonCoords = polygonCoords;
     }
 
     private static Node toNode(final NodeVo vo) {
@@ -136,7 +143,8 @@ public class NodeCsvReaderWriter {
           vo.building,
           Node.NodeType.get(vo.nodeType),
           vo.longName,
-          vo.shortName
+          vo.shortName,
+          Node.parsePolygonFromString(vo.polygonCoords)
       );
     }
 
@@ -149,7 +157,8 @@ public class NodeCsvReaderWriter {
           node.getBuilding(),
           node.getNodeType().name(),
           node.getLongName(),
-          node.getShortName()
+          node.getShortName(),
+          node.polygonCoordsToString()
       );
     }
 
