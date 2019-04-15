@@ -141,6 +141,7 @@ pmd {
 spotless {
     kotlinGradle {
         ktlint("0.31.0")
+        target("**/*.gradle.kts")
         trimTrailingWhitespace()
         indentWithSpaces()
         endWithNewline()
