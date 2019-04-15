@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 
@@ -22,7 +23,7 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 public class UpdateEmployeeController implements Controller {
 
   @FXML
-  private VBox upRoot;
+  VBox upRoot;
   @FXML
   private JFXTextField upNamefield;
   @FXML
@@ -37,6 +38,8 @@ public class UpdateEmployeeController implements Controller {
   private Label upTitlelbl;
   @FXML
   private JFXButton upSubmitbtn;
+  @FXML
+  private JFXCheckBox supportAnimalBox;
 
   @Inject
   private Database db;
@@ -48,11 +51,14 @@ public class UpdateEmployeeController implements Controller {
     upPositionbox.getItems().setAll(Employee.EmployeeType.values());
 
     employee.addListener((observable, oldValue, newValue) -> {
-      upNamefield.setText(newValue.getName());
-      upUsernamefield.setText(newValue.getUsername());
-      upPasswordfield.setText(newValue.getPassword());
-      upPositionbox.setValue(newValue.getType());
-      upIdfield.setText(String.valueOf(newValue.getId()));
+      if (newValue != null) {
+        upNamefield.setText(newValue.getName());
+        upUsernamefield.setText(newValue.getUsername());
+        upPasswordfield.setText(newValue.getPassword());
+        upPositionbox.setValue(newValue.getType());
+        upIdfield.setText(String.valueOf(newValue.getId()));
+        supportAnimalBox.setSelected(newValue.getEmployeeAttributes().getCanFulfillSupportAnimal());
+      }
     });
   }
 
@@ -68,6 +74,7 @@ public class UpdateEmployeeController implements Controller {
       lg.setPassword(upPasswordfield.getText());
       lg.setName(upNamefield.getText());
       lg.setType(upPositionbox.getValue());
+      lg.getEmployeeAttributes().setCanFulfillSupportAnimal(supportAnimalBox.isSelected());
       if (db.updateEmployee(lg)) {
         DialogHelper.showInformationAlert("Success!",
             "Successfully updated Employee.");

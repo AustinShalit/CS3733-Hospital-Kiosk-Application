@@ -3,6 +3,7 @@ package edu.wpi.cs3733.d19.teamO.controller;
 import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPopup;
 
 import animatefx.animation.Shake;
 import javafx.collections.ListChangeListener;
@@ -13,6 +14,7 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.BorderPane;
 
 import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
@@ -60,6 +62,7 @@ public class EmployeeController implements Controller {
   private UpdateEmployeeController.Factory updateEmployeeControllerFactory;
 
   private UpdateEmployeeController updateEmployeeController;
+  private JFXPopup updatePopup;
 
   @FXML
   void initialize() {
@@ -81,6 +84,32 @@ public class EmployeeController implements Controller {
                 employeeTableView.getSelectionModel().getSelectedItem());
           }
         });
+
+    updatePopup = new JFXPopup(updateEmployeeController.upRoot);
+    updatePopup.setOnAutoHide(
+        event -> {
+          ColorAdjust reset = new ColorAdjust();
+          reset.setBrightness(0);
+          root.setEffect(reset);
+          employeeTableView.getItems().clear();
+          employeeTableView.getItems().setAll(db.getAllEmployee());
+        }
+    );
+    updateEmpButton.setDisable(true);
+    delEmpButton.setDisable(true);
+
+    // Disable complete request and assign employee button if no request is selected
+    employeeTableView.getSelectionModel().selectedItemProperty().addListener(
+        (observable, oldValue, newValue) -> {
+          if (newValue == null) {
+            updateEmpButton.setDisable(true);
+            delEmpButton.setDisable(true);
+          } else {
+            updateEmpButton.setDisable(false);
+            delEmpButton.setDisable(false);
+          }
+        }
+    );
   }
 
   @FXML
@@ -115,7 +144,17 @@ public class EmployeeController implements Controller {
     }
 
     infoLabel.setText("");
-    root.setLeft(updateEmployeeController.getRoot());
+    //root.setLeft(updateEmployeeController.getRoot());
+    ColorAdjust colorAdjust = new ColorAdjust();
+    colorAdjust.setBrightness(-0.2);
+    root.setEffect(colorAdjust);
+    updatePopup.show(root);
+    updatePopup.setX(
+        (root.getScene().getWindow().getWidth() - updatePopup.getWidth()) / 2
+    );
+    updatePopup.setY(
+        (root.getScene().getWindow().getHeight() - updatePopup.getHeight()) / 2
+    );
   }
 
   void selectEmplyeeShake() {

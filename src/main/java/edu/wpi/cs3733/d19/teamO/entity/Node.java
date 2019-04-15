@@ -9,6 +9,7 @@ import com.google.common.base.MoreObjects;
 public class Node {
 
   public enum NodeType {
+    BATH("Bathroom"),
     CONF("Conference"),
     ELEV("Elevator"),
     EXIT("Exit"),
