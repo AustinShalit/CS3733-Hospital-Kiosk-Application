@@ -83,7 +83,7 @@ public class MapView2 extends StackPane {
   private Circle circleDrag;
 
   private final SimpleObjectProperty<Node> selectedNode = new SimpleObjectProperty<>();
-  private final SimpleObjectProperty<Edge> selectedEdge = new SimpleObjectProperty<>();
+  private final SimpleObjectProperty<String> selectedEdge = new SimpleObjectProperty<>();
 
   /**
    * The constructor for the MapView2 class.
@@ -109,15 +109,15 @@ public class MapView2 extends StackPane {
     this.selectedNode.set(selectedNode);
   }
 
-  public void setSelectedNode(Edge selectedEdge) {
+  public void setSelectedNode(String selectedEdge) {
     this.selectedEdge.set(selectedEdge);
   }
 
-  public Edge getSelectedEdge() {
+  public String getSelectedEdge() {
     return selectedEdge.get();
   }
 
-  public SimpleObjectProperty<Edge> selectedEdgeProperty() {
+  public SimpleObjectProperty<String> selectedEdgeProperty() {
     return selectedEdge;
   }
 
@@ -149,8 +149,9 @@ public class MapView2 extends StackPane {
 
       if (!dragStatus) {
         circle.setVisible(true);
-        selectedNode.set(new Node("Auto-Generated", currentX, currentY, level, "",
-            null, "", ""));
+        Node emptyNode = new Node("Auto-Generated", currentX, currentY, level, "",
+            null, "", "");
+        selectedNode.set(emptyNode);
         findCurrentNode(level);
         for (Node n : currentNodes) {
           if (abs(n.getXcoord() - currentX) < 8 && abs(n.getYcoord() - currentY) < 8) {
@@ -158,15 +159,34 @@ public class MapView2 extends StackPane {
             break;
           }
         }
+        selectedEdge.set(" ");
         findCurrentEdge(level);
-
         for (Edge ed : currentEdges) {
-          if (abs((((ed.getEndNode().getXcoord() - ed.getStartNode().getXcoord()) / 2)
-              + ed.getEndNode().getXcoord()) - currentX) <= abs(ed.getEndNode().getXcoord( )
-              - ed.getStartNode().getXcoord()) && abs((((ed.getEndNode().getYcoord( )
-              - ed.getStartNode().getYcoord()) / 2) + ed.getEndNode().getYcoord())
-              - currentY) <= abs(ed.getEndNode().getYcoord() - ed.getStartNode().getYcoord())) {
-            selectedEdge.set(ed);
+          int edgeX = abs(ed.getStartNode().getXcoord() - ed.getEndNode().getXcoord());
+          int edgeY = abs(ed.getStartNode().getYcoord() - ed.getEndNode().getYcoord());
+          double kk = 0;
+          double bb = 0;
+          double result = 0;
+          if (edgeX == 0) {
+            bb = currentX;
+            result = abs(currentX - bb);
+          } else {
+            kk = (double) edgeY / (double) edgeX;
+            bb = ed.getEndNode().getYcoord() - kk * ed.getEndNode().getXcoord();
+            result = abs(currentX * kk + bb - currentY);
+          }
+
+
+          if (result < 15
+              && currentX <= Math.max(ed.getStartNode().getXcoord(), ed.getEndNode().getXcoord())
+              + 2
+              && currentX >= Math.min(ed.getStartNode().getXcoord(), ed.getEndNode().getXcoord())
+              - 2 && currentY <= Math.max(ed.getStartNode().getYcoord(), ed.getEndNode()
+              .getYcoord()) + 2
+              && currentY >= Math.min(ed.getStartNode().getYcoord(),
+
+              ed.getEndNode().getYcoord()) - 2 ) {
+            selectedEdge.set(ed.getEdgeId());
             break;
           }
         }
@@ -459,5 +479,4 @@ public class MapView2 extends StackPane {
     findCurrentEdge(level);
     addEdgesToPane(currentEdges);
   }
-
 }
