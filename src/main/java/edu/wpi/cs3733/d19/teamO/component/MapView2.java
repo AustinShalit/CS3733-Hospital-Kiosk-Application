@@ -184,6 +184,7 @@ public class MapView2 extends StackPane {
               - 2 && currentY <= Math.max(ed.getStartNode().getYcoord(), ed.getEndNode()
               .getYcoord()) + 2
               && currentY >= Math.min(ed.getStartNode().getYcoord(),
+
               ed.getEndNode().getYcoord()) - 2 ) {
             selectedEdge.set(ed.getEdgeId());
             break;
