@@ -19,51 +19,66 @@
   <left>
     <VBox alignment="CENTER">
       <VBox alignment="CENTER">
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
-          <font>
-            <Font size="36.0" />
-          </font>
-        </Text>
-        <JFXTextField fx:id="nameField" prefHeight="40.0" />
-      </VBox>
-      <VBox alignment="CENTER" prefHeight="88.0" prefWidth="273.0">
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room">
-          <font>
-            <Font size="36.0" />
-          </font>
-        </Text>
-        <JFXComboBox fx:id="roomComboBox" focusColor="#004e86" prefHeight="40.0" />
-      </VBox>
-      <VBox alignment="CENTER">
         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
           <font>
             <Font size="36.0" />
           </font>
         </Text>
         <JFXDatePicker fx:id="date" defaultColor="#004e86" prefHeight="40.0" />
+        <VBox.margin>
+          <Insets bottom="10.0" top="10.0" />
+        </VBox.margin>
       </VBox>
       <VBox alignment="CENTER">
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="From">
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Start Time">
           <font>
             <Font size="36.0" />
           </font>
         </Text>
         <JFXTimePicker fx:id="startTime" defaultColor="#004e86" prefHeight="40.0" />
+        <VBox.margin>
+          <Insets bottom="10.0" top="10.0" />
+        </VBox.margin>
       </VBox>
       <VBox alignment="CENTER">
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="To">
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="End Time">
           <font>
             <Font size="36.0" />
           </font>
         </Text>
         <JFXTimePicker fx:id="endTime" defaultColor="#004e86" prefHeight="40.0" />
+        <VBox.margin>
+          <Insets bottom="10.0" top="10.0" />
+        </VBox.margin>
+      </VBox>
+      <VBox alignment="CENTER">
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Your Name">
+          <font>
+            <Font size="36.0" />
+          </font>
+        </Text>
+        <JFXTextField fx:id="nameField" prefHeight="40.0" />
+        <VBox.margin>
+          <Insets bottom="10.0" top="10.0" />
+        </VBox.margin>
+      </VBox>
+      <VBox alignment="CENTER">
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room">
+          <font>
+            <Font size="36.0" />
+          </font>
+        </Text>
+        <JFXComboBox fx:id="roomComboBox" focusColor="#004e86" prefHeight="40.0" />
+        <VBox.margin>
+          <Insets bottom="10.0" top="10.0" />
+        </VBox.margin>
       </VBox>
       <JFXButton onAction="#onSubmitButtonAction" prefHeight="40.0" prefWidth="150.0" ripplerFill="#013c78" style="-fx-background-color: #012d5a;" text="GO" textFill="WHITE">
         <font>
           <Font name="System Bold" size="15.0" />
         </font>
         <VBox.margin>
-          <Insets top="10.0" />
+          <Insets bottom="10.0" top="10.0" />
         </VBox.margin>
       </JFXButton>
       <padding>
