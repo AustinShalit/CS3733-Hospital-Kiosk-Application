@@ -122,7 +122,7 @@ public class Database implements AutoCloseable {
     return nodeDao.getFreeNodeId();
   }
 
-  public List<Node> getAllByLongName() {
+  public List<Node> getAllNodesByLongName() {
     return nodeDao.getAllByLongname();
   }
 
