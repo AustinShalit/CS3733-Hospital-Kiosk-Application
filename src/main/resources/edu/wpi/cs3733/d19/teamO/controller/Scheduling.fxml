@@ -17,14 +17,14 @@
 
 <BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.SchedulingController">
   <left>
-    <VBox alignment="CENTER">
-      <VBox alignment="CENTER">
+    <VBox alignment="CENTER" styleClass="form" stylesheets="@style/KioskStyle.css">
+      <VBox alignment="CENTER" prefHeight="83.0" prefWidth="415.0" styleClass="form" stylesheets="@style/KioskStyle.css">
         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
           <font>
             <Font size="36.0" />
           </font>
         </Text>
-        <JFXTextField fx:id="nameField" prefHeight="40.0" />
+        <JFXTextField fx:id="nameField" prefHeight="40.0" styleClass="form" />
       </VBox>
       <VBox alignment="CENTER">
         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room">
