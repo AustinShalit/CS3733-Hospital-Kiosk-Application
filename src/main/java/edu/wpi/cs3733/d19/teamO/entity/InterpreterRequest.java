@@ -48,6 +48,17 @@ public class InterpreterRequest extends ServiceRequest {
   private final Language language;
   private final String name;
 
+  /**
+   * Constructor.
+   * @param id Id
+   * @param timeRequested Time 1
+   * @param timeCompleted Time 2
+   * @param whoCompleted Who
+   * @param description Describe
+   * @param node Node
+   * @param language Language
+   * @param name Name
+   */
   public InterpreterRequest(int id, LocalDateTime timeRequested, LocalDateTime timeCompleted,
                             String whoCompleted, String description, Node node, Language language,
                             String name) {
@@ -56,6 +67,16 @@ public class InterpreterRequest extends ServiceRequest {
     this.name = name;
   }
 
+  /**
+   * Another constructor.
+   * @param timeRequested Time 1
+   * @param timeCompleted Time 2
+   * @param whoCompleted Who
+   * @param description Describe
+   * @param node Where
+   * @param language Language
+   * @param name Name
+   */
   public InterpreterRequest(LocalDateTime timeRequested, LocalDateTime timeCompleted,
                             String whoCompleted, String description, Node node, Language language,
                             String name) {
@@ -64,6 +85,14 @@ public class InterpreterRequest extends ServiceRequest {
     this.name = name;
   }
 
+  /**
+   * Yet another constructor.
+   * @param timeRequested Time 1
+   * @param locationNode Place
+   * @param language Language
+   * @param description Describe
+   * @param name Name
+   */
   public InterpreterRequest(LocalDateTime timeRequested, Node locationNode,
                             Language language, String description, String name) {
     super(timeRequested, description, locationNode);

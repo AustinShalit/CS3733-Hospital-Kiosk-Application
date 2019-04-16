@@ -20,7 +20,7 @@
             <Font name="System Bold" size="36.0" />
           </font>
         </Label>
-            <JFXTextField fx:id="nametxt" promptText="Enter Name" />
+        <JFXTextField fx:id="nametxt" promptText="Enter Name" />
         <JFXComboBox fx:id="locationbox" promptText="Pick Location">
           <VBox.margin>
             <Insets />
