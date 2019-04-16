@@ -176,14 +176,7 @@ public class MapEditController implements Controller {
   void addNodeAction() {
     Node newNode = getNewNode(database.getFreeNodeId());
     database.insertNode(newNode);
-    status.setText("Succeed!");
-
-    Set<Node> nodes = database.getAllNodes();
-    map.setNodes(nodes);
-    map.clearNodes();
-    map.addNodesToPane(database.getFloor(map.getLevel()));
-
-    tableView.getItems().setAll(nodes); //todo use observer
+    updateNodeSucceed();
   }
 
   @FXML
@@ -196,10 +189,7 @@ public class MapEditController implements Controller {
     } else {
       Node deleteNode = opt.get();
       database.deleteNode(deleteNode);
-      status.setText("Succeed!");
-      map.setNodes(database.getAllNodes());
-      map.clearNodes();
-      map.addNodesToPane(database.getFloor(map.getLevel()));
+      updateNodeSucceed();
     }
   }
 
@@ -237,6 +227,7 @@ public class MapEditController implements Controller {
         addButton.setDisable(true);
         deleteButton.setDisable(true);
         connectButton.setDisable(true);
+
       }
     } else {
       Node updateNode = getNewNode(nodeIDField.getText());
@@ -244,8 +235,7 @@ public class MapEditController implements Controller {
       map.setNodes(database.getAllNodes());
       map.clearEdges();
       map.addEdgesToPane(database.getEdgeByFloor(map.getLevel()));
-      map.clearNodes();
-      map.addNodesToPane(database.getFloor(map.getLevel()));
+      updateNodeSucceed();
       map.setDatabaseEdge(database.getAllEdges());
       updateButton.setText("Update");
       updateMode = true;
@@ -305,7 +295,7 @@ public class MapEditController implements Controller {
   void onEdgeDelete() {
     Optional<Edge> opt = database.getEdge(edgeID);
     if (!opt.isPresent()) {
-      status.setText("ERROR: InvalidNodeID");
+      status.setText("ERROR: InvalidEdgeID");
     } else {
       Edge deleteEdge = opt.get();
       database.deleteEdge(deleteEdge);
@@ -360,5 +350,14 @@ public class MapEditController implements Controller {
 
   public interface Factory {
     MapEditController create();
+  }
+
+  private void updateNodeSucceed() {
+    status.setText("Succeed!");
+    Set<Node> nodes = database.getAllNodes();
+    map.setNodes(nodes);
+    map.clearNodes();
+    map.addNodesToPane(database.getFloor(map.getLevel()));
+    tableView.getItems().setAll(nodes); //todo use observer
   }
 }

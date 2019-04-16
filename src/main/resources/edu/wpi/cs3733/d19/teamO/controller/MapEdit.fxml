@@ -201,7 +201,7 @@
   <bottom>
     <StackPane prefHeight="19.0" prefWidth="600.0" BorderPane.alignment="CENTER">
       <children>
-        <Label fx:id="displayEdgeID" text="666" />
+        <Label fx:id="displayEdgeID"/>
       </children>
     </StackPane>
   </bottom>
