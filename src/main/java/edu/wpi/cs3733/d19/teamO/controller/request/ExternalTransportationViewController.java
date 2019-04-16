@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.d19.teamO.controller.request;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
@@ -58,6 +60,10 @@ public class ExternalTransportationViewController implements Controller {
   private TableColumn<ExternalTransportationRequest, String> descriptionCol;
   @FXML
   private TableColumn<ExternalTransportationRequest, String> nameCol;
+  @FXML
+  private TableColumn<ExternalTransportationRequest, LocalDate> dateCol;
+  @FXML
+  private TableColumn<ExternalTransportationRequest, LocalTime> timeCol;
 
   @Inject
   private EventBus eventBus;
@@ -80,6 +86,8 @@ public class ExternalTransportationViewController implements Controller {
     categoryTableCol.setCellValueFactory(new PropertyValueFactory<>("type"));
     descriptionCol.setCellValueFactory(new PropertyValueFactory<>("description"));
     nameCol.setCellValueFactory(new PropertyValueFactory<>("person"));
+    dateCol.setCellValueFactory(new PropertyValueFactory<>("datePicked"));
+    timeCol.setCellValueFactory(new PropertyValueFactory<>("timePicked"));
 
     requestsTableView.getItems().setAll(db.getAllExternalTransportationRequests());
 

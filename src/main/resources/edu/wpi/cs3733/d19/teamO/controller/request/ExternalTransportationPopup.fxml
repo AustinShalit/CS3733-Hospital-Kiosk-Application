@@ -2,13 +2,16 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTimePicker?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+
 <BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.request.ExternalTransportationPopupController">
   <center>
     <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="form" stylesheets="@../style/KioskStyle.css" BorderPane.alignment="TOP_CENTER">
@@ -23,11 +26,13 @@
             <Insets />
           </VBox.margin>
         </JFXTextField>
-        <JFXComboBox fx:id="locationbox" focusColor="#0067b1" labelFloat="true" maxHeight="35.0" maxWidth="200.0" prefHeight="32.0" promptText="Pick Location">
+        <JFXComboBox fx:id="locationbox" focusColor="#0067b1" labelFloat="true" maxHeight="35.0" maxWidth="243.0" prefHeight="32.0" prefWidth="243.0" promptText="Pick Location">
           <VBox.margin>
             <Insets />
           </VBox.margin>
         </JFXComboBox>
+            <JFXDatePicker fx:id="datePicker" defaultColor="#0067b1" prefHeight="32.0" prefWidth="211.0" promptText="Pick the date" />
+            <JFXTimePicker fx:id="timePicker" defaultColor="#0067b1" prefHeight="32.0" prefWidth="210.0" promptText="Pick the time" />
         <JFXComboBox fx:id="categorybox" focusColor="#0067b1" labelFloat="true" maxWidth="200.0" prefHeight="32.0" promptText="Pick Category">
           <VBox.margin>
             <Insets />

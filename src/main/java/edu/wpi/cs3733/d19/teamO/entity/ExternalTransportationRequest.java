@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.d19.teamO.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
@@ -40,6 +42,8 @@ public class ExternalTransportationRequest extends ServiceRequest {
 
   private final String person;
   private final ExternalTransportationRequestType type;
+  private final LocalTime timePicked;
+  private final LocalDate datePicked;
 
   /**
    * Create a External Transportation Request.
@@ -47,10 +51,12 @@ public class ExternalTransportationRequest extends ServiceRequest {
   public ExternalTransportationRequest(int id, LocalDateTime timeRequested,
                                        LocalDateTime timeCompleted, Node location,
                                        String whoCompleted, ExternalTransportationRequestType type,
-                                       String description, String person) {
+                                       String description, String person, LocalDate datePicked, LocalTime timePicked) {
     super(id, timeRequested, timeCompleted, whoCompleted, description, location);
     this.type = type;
     this.person = person;
+    this.timePicked = timePicked;
+    this.datePicked = datePicked;
   }
 
   /**
@@ -58,10 +64,12 @@ public class ExternalTransportationRequest extends ServiceRequest {
    */
   public ExternalTransportationRequest(LocalDateTime timeRequested, Node location,
                                        ExternalTransportationRequestType type, String description,
-                                       String person) {
+                                       String person, LocalDate datePicked, LocalTime timePicked) {
     super(timeRequested, description, location);
     this.type = type;
     this.person = person;
+    this.timePicked = timePicked;
+    this.datePicked = datePicked;
   }
 
   public ExternalTransportationRequestType getType() {
@@ -70,6 +78,14 @@ public class ExternalTransportationRequest extends ServiceRequest {
 
   public String getPerson() {
     return person;
+  }
+
+  public LocalDate getDatePicked(){
+    return datePicked;
+  }
+
+  public LocalTime getTimePicked(){
+    return timePicked;
   }
 
   @Override
@@ -87,6 +103,8 @@ public class ExternalTransportationRequest extends ServiceRequest {
         && getLocationNode().equals(that.getLocationNode())
         && getWhoCompleted().equals(that.getWhoCompleted())
         && type == that.type
+        && getTimePicked().equals(that.getTimePicked())
+        && getDatePicked().equals(that.getDatePicked())
         && getDescription().equals(that.getDescription())
         && person.equals(that.person);
   }
@@ -94,7 +112,7 @@ public class ExternalTransportationRequest extends ServiceRequest {
   @Override
   public int hashCode() {
     return Objects.hash(getId(), getTimeRequested(), getTimeCompleted(), getLocationNode(),
-        getWhoCompleted(), type, getDescription(), person);
+        getWhoCompleted(), type, timePicked, datePicked, getDescription(), person);
   }
 
   @Override
@@ -106,6 +124,8 @@ public class ExternalTransportationRequest extends ServiceRequest {
         + ", locationNode=" + getLocationNode().toString()
         + ", whoCompleted=" + getWhoCompleted()
         + ", type=" + type
+        + ", timePicked" + timePicked
+        + ", datePicked" + datePicked
         + ", description=" + getDescription()
         + ", personName=" + person + '\''
         + '}';

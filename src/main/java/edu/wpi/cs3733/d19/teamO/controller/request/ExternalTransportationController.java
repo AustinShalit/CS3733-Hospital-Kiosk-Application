@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.d19.teamO.controller.request;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.logging.Level;
@@ -10,8 +12,10 @@ import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXTimePicker;
 
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -51,6 +55,10 @@ public class ExternalTransportationController implements Controller {
   private JFXButton btn;
   @FXML
   private Label reportLabel;
+  @FXML
+  private JFXDatePicker datePicker;
+  @FXML
+  private JFXTimePicker timePicker;
 
   @Inject
   private EventBus eventBus;
@@ -123,7 +131,10 @@ public class ExternalTransportationController implements Controller {
       String description = descriptiontxt.getText();
       String name = nametxt.getText();
 
-      return new ExternalTransportationRequest(now, node, externalRequestType, description, name);
+      LocalTime time = timePicker.getValue();
+      LocalDate date = datePicker.getValue();
+
+      return new ExternalTransportationRequest(now, node, externalRequestType, description, name, date, time);
     }
 
     // otherwise, some input was invalid
