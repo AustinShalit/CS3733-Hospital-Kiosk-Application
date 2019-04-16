@@ -5,6 +5,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javafx.animation.Interpolator;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
@@ -22,6 +25,7 @@ public class SchedulingMapView extends MapView {
 
   private Set<Node> availableNodes;
   private Set<Node> unavailableNodes;
+  private final ObjectProperty<Node> selectedNode = new SimpleObjectProperty<>();
 
   public void setAvailableNodes(Set<Node> availableNodes) {
     this.availableNodes = availableNodes;
@@ -42,6 +46,14 @@ public class SchedulingMapView extends MapView {
     fxmlLoader.setRoot(this);
     fxmlLoader.setController(this);
     fxmlLoader.load();
+  }
+
+  public Node getSelectedNode() {
+    return selectedNode.get();
+  }
+
+  public ObjectProperty<Node> selectedNodeProperty() {
+    return selectedNode;
   }
 
   @FXML
@@ -76,16 +88,33 @@ public class SchedulingMapView extends MapView {
    * Redraw the nodes on the map.
    */
   @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
-  public void redrawNodes() {
+  public void redrawPolygons() {
     Set<Polygon> polygons = new HashSet<>();
 
     for (Node availableNode : availableNodes) {
       Polygon polygon = new Polygon();
       polygon.getPoints().setAll(availableNode.getPolygonPoints());
-      polygon.setFill(Color.color(0.0, 1.0, 0.0, 0.5));
+      polygon.setFill(Color.rgb(0, 255, 0, 0.5));
 
-      polygon.setStroke(Color.color(0.0, 0.0, 0.0));
+      polygon.setStroke(Color.rgb(0, 0, 0));
       polygon.setStrokeWidth(3);
+
+      // hover effects
+      polygon.hoverProperty().addListener(
+          (ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean show) -> {
+            if (polygon.isHover()) {
+              polygon.setFill(Color.rgb(0, 180, 0, 0.5));
+
+              // set the combobox to the selected node
+              polygon.setOnMouseClicked(mouseEvent ->
+                  selectedNode.setValue(availableNode)
+              );
+
+            } else {
+              polygon.setFill(Color.rgb(0, 255, 0, 0.5));
+
+            }
+          });
 
       polygons.add(polygon);
     }
@@ -93,14 +122,32 @@ public class SchedulingMapView extends MapView {
     for (Node unavailableNode : unavailableNodes) {
       Polygon polygon = new Polygon();
       polygon.getPoints().setAll(unavailableNode.getPolygonPoints());
-      polygon.setFill(Color.color(1.0, 0.0, 0.0, 0.5));
+      polygon.setFill(Color.rgb(255, 0, 0, 0.5));
 
-      polygon.setStroke(Color.color(0.0, 0.0, 0.0));
+      polygon.setStroke(Color.rgb(0, 0, 0));
       polygon.setStrokeWidth(3);
 
       polygons.add(polygon);
+
+      // hover effects
+      polygon.hoverProperty().addListener(
+          (ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean show) -> {
+            if (polygon.isHover()) {
+              polygon.setFill(Color.rgb(180, 0, 0, 0.5));
+
+              // set the combobox to the selected node
+              polygon.setOnMouseClicked(mouseEvent ->
+                  selectedNode.setValue(unavailableNode)
+              );
+
+            } else {
+              polygon.setFill(Color.rgb(255, 0, 0, 0.5));
+
+            }
+          });
     }
 
     nodeGroup.getChildren().setAll(polygons);
   }
+
 }
