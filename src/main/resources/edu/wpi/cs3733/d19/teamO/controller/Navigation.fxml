@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import edu.wpi.cs3733.d19.teamO.component.MapView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -14,14 +15,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import edu.wpi.cs3733.d19.teamO.component.MapView?>
-<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.NavigationController">
+
+<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.NavigationController">
   <left>
     <StackPane prefWidth="200.0" BorderPane.alignment="CENTER">
       <children>
         <HBox alignment="CENTER">
           <children>
-            <VBox alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
+            <VBox alignment="TOP_CENTER" prefHeight="653.0" prefWidth="221.0" HBox.hgrow="ALWAYS">
               <children>
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="FILTER">
                   <font>
@@ -38,22 +39,22 @@
                     <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                   </rowConstraints>
                   <children>
-                    <JFXButton prefWidth="100.0" style="-fx-background-color: #0067B1;" text="Bathroom" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                    <JFXButton fx:id="restroomButton" onAction="#setRestroomButton" prefWidth="100.0" style="-fx-background-color: #0067B1;" text="Restroom" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                       <GridPane.margin>
                         <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                       </GridPane.margin>
                     </JFXButton>
-                    <JFXButton prefWidth="100.0" style="-fx-background-color: #0067B1;" text="Elevator" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                    <JFXButton fx:id="walkwayButton" onAction="#setWalkwayButton" prefWidth="100.0" style="-fx-background-color: #0067B1;" text="Walkway" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                       <GridPane.margin>
                         <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                       </GridPane.margin>
                     </JFXButton>
-                    <JFXButton prefWidth="100.0" style="-fx-background-color: #0067B1;" text="Information" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                    <JFXButton fx:id="informationButton" onAction="#setInformationButton" prefWidth="100.0" style="-fx-background-color: #0067B1;" text="Information" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                       <GridPane.margin>
                         <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                       </GridPane.margin>
                     </JFXButton>
-                    <JFXButton prefWidth="100.0" style="-fx-background-color: #0067B1;" text="Exit" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                    <JFXButton fx:id="exitButton" onAction="#setExitButton" prefWidth="100.0" style="-fx-background-color: #0067B1;" text="Exit" textFill="WHITE" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                       <GridPane.margin>
                         <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                       </GridPane.margin>
