@@ -1,5 +1,9 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import com.jfoenix.controls.JFXComboBox;
@@ -64,9 +68,25 @@ public final class DialogHelper {
   /**
    * Populate a combobox of nodes.
    */
-  public static void populateComboBox(
-      Database database, JFXComboBox<Node> comboBox) {
-    comboBox.getItems().addAll(database.getAllByLongName());
+  public static void populateComboBox(Database database,
+                                      JFXComboBox<Node> comboBox) {
+    populateComboBox(database, comboBox, Arrays.asList(Node.NodeType.values()));
+  }
+
+  /**
+   * Populate a combobox of nodes.
+   */
+  public static void populateComboBox(Database database,
+                                      JFXComboBox<Node> comboBox,
+                                      Collection<Node.NodeType> nodeTypesToInclude) {
+    List<Node> nodesToInclude = new ArrayList<>();
+    for (Node curNode : database.getAllNodesByLongName()) {
+      if (nodeTypesToInclude.contains(curNode.getNodeType())) {
+        nodesToInclude.add(curNode);
+      }
+    }
+
+    comboBox.getItems().setAll(nodesToInclude);
     Callback<ListView<Node>, ListCell<Node>> cellFactory =
         new Callback<ListView<Node>, ListCell<Node>>() {
           @Override
