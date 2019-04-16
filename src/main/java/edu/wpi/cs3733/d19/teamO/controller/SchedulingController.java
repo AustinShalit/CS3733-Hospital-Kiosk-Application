@@ -116,7 +116,7 @@ public class SchedulingController implements Controller {
     // set default time to now
     date.setValue(LocalDate.now());
     startTime.setValue(LocalTime.now());
-    endTime.setValue(LocalTime.now().plusHours(1));
+    endTime.setValue(LocalTime.now().plusMinutes(1));
 
     // draw the polygons
     schedulingMapView.redrawPolygons();
