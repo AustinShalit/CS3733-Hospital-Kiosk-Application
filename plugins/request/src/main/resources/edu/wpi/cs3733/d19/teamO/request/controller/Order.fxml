@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.request.controller.OrderController">
+   <center>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <TitledPane text="Customer Information">
+               <content>
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="First Name" />
+                        <JFXTextField GridPane.columnIndex="1" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name" GridPane.rowIndex="1" />
+                        <JFXTextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Email Address" GridPane.rowIndex="2" />
+                        <JFXTextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number" GridPane.rowIndex="3" />
+                        <JFXTextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Street Address" GridPane.rowIndex="4" />
+                        <JFXTextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="City" GridPane.rowIndex="5" />
+                        <JFXTextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Zip Code" GridPane.rowIndex="6" />
+                        <JFXComboBox GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="State" GridPane.rowIndex="7" />
+                        <JFXTextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                     </children>
+                  </GridPane>
+               </content>
+            </TitledPane>
+            <TitledPane animated="false" text="Menu">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+            </TitledPane>
+            <TitledPane animated="false" text="Place Order" VBox.vgrow="ALWAYS">
+               <content>
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0">
+                           <center>
+                              <VBox BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Service Method and Location" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="[DELIVERY] to [ADDRESS]" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Delivery Instructions for Driver" />
+                                    <JFXTextField />
+                                 </children>
+                              </VBox>
+                           </center>
+                           <top>
+                              <StackPane BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Order Settings" StackPane.alignment="TOP_LEFT" />
+                                 </children>
+                              </StackPane>
+                           </top>
+                           <left>
+                              <StackPane BorderPane.alignment="CENTER" />
+                           </left>
+                           <right>
+                              <StackPane BorderPane.alignment="CENTER" />
+                           </right>
+                           <bottom>
+                              <StackPane BorderPane.alignment="CENTER" />
+                           </bottom>
+                        </BorderPane>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowSpan="2">
+                           <top>
+                              <StackPane BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Order Summary" StackPane.alignment="TOP_LEFT" />
+                                 </children>
+                              </StackPane>
+                           </top>
+                           <left>
+                              <StackPane BorderPane.alignment="CENTER" />
+                           </left>
+                           <right>
+                              <StackPane BorderPane.alignment="CENTER" />
+                           </right>
+                           <bottom>
+                              <StackPane BorderPane.alignment="CENTER" />
+                           </bottom>
+                           <center>
+                              <VBox BorderPane.alignment="CENTER">
+                                 <children>
+                                    <TableView>
+                                      <columns>
+                                        <TableColumn editable="false" prefWidth="125.0" resizable="false" sortable="false" text="Item" />
+                                        <TableColumn editable="false" prefWidth="125.0" resizable="false" sortable="false" text="Quantity" />
+                                          <TableColumn editable="false" prefWidth="125.0" resizable="false" sortable="false" text="Price" />
+                                      </columns>
+                                    </TableView>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Subtotal: $[Subtotal]" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Taxes: $[Taxes]" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Total: $[Total]" />
+                                 </children>
+                              </VBox>
+                           </center></BorderPane>
+                        <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                           <top>
+                              <StackPane BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Your Information" StackPane.alignment="TOP_LEFT" />
+                                 </children>
+                              </StackPane>
+                           </top>
+                           <left>
+                              <StackPane BorderPane.alignment="CENTER" />
+                           </left>
+                           <right>
+                              <StackPane BorderPane.alignment="CENTER" />
+                           </right>
+                           <bottom>
+                              <StackPane BorderPane.alignment="CENTER" />
+                           </bottom>
+                           <center>
+                              <VBox BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Email Address: [Customer Email Address]" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number: [Customer Phone Number]" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="First Name: [Customer First Name]" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name: [Customer Last Name]" />
+                                 </children>
+                              </VBox>
+                           </center></BorderPane>
+                        <BorderPane GridPane.rowIndex="2">
+                           <top>
+                              <StackPane BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Payment /Information" StackPane.alignment="TOP_LEFT" />
+                                 </children>
+                              </StackPane>
+                           </top>
+                           <left>
+                              <StackPane BorderPane.alignment="CENTER" />
+                           </left>
+                           <right>
+                              <StackPane BorderPane.alignment="CENTER" />
+                           </right>
+                           <bottom>
+                              <StackPane BorderPane.alignment="CENTER" />
+                           </bottom>
+                           <center>
+                              <GridPane BorderPane.alignment="CENTER">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Credit Card Number" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Expiration Date" GridPane.rowIndex="1" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Security Code" GridPane.rowIndex="2" />
+                                    <JFXTextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <HBox GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                       <children>
+                                          <JFXComboBox promptText="Month" />
+                                          <JFXComboBox promptText="Year" />
+                                       </children>
+                                    </HBox>
+                                    <JFXTextField GridPane.columnIndex="1" />
+                                 </children>
+                              </GridPane>
+                           </center></BorderPane>
+                        <JFXButton buttonType="RAISED" text="Submit Order" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                     </children>
+                  </GridPane>
+               </content>
+            </TitledPane>
+         </children>
+      </VBox>
+   </center>
+   <top>
+      <StackPane BorderPane.alignment="CENTER">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Order" />
+         </children>
+      </StackPane>
+   </top>
+   <left>
+      <StackPane prefWidth="200.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin></StackPane>
+   </left>
+   <bottom>
+      <StackPane prefHeight="25.0" BorderPane.alignment="CENTER" />
+   </bottom>
+   <right>
+      <StackPane prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </right>
+</BorderPane>
