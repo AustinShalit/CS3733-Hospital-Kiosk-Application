@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -103,12 +105,21 @@ public class SchedulingController implements Controller {
       tabPane.setTabMaxWidth(newValue.doubleValue() / tabPane.getTabs().size());
     });
 
+    // listeners for the date and time boxes to change
     date.valueProperty().addListener((observable, oldValue, newValue)
         -> updateMapViewNodeOverlay());
     startTime.valueProperty().addListener((observable, oldValue, newValue)
         -> updateMapViewNodeOverlay());
     endTime.valueProperty().addListener((observable, oldValue, newValue)
         -> updateMapViewNodeOverlay());
+
+    // set default time to now
+    date.setValue(LocalDate.now());
+    startTime.setValue(LocalTime.now());
+    endTime.setValue(LocalTime.now().plusHours(1));
+
+    // draw the polygons
+    schedulingMapView.redrawPolygons();
   }
 
   @FXML
@@ -212,7 +223,7 @@ public class SchedulingController implements Controller {
     }
     schedulingMapView.setAvailableNodes(availableNodes);
     schedulingMapView.setUnavailableNodes(unavailableNodes);
-    schedulingMapView.redrawNodes();
+    schedulingMapView.redrawPolygons();
   }
 
   @Override

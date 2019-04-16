@@ -88,7 +88,7 @@ public class SchedulingMapView extends MapView {
    * Redraw the nodes on the map.
    */
   @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
-  public void redrawNodes() {
+  public void redrawPolygons() {
     Set<Polygon> polygons = new HashSet<>();
 
     for (Node availableNode : availableNodes) {
