@@ -166,9 +166,7 @@ public class Employee {
 
   public enum EmployeeType {
     DEFAULT("Default"),
-    ADMIN("Admin"),
-    SANITATION("Sanitation"),
-    SECURITY("Security");
+    ADMIN("Admin");
 
     private static final Map<String, EmployeeType> lookup
         = new ConcurrentHashMap<>();
