@@ -278,7 +278,7 @@ public class MapView2 extends StackPane {
       level = "1";
       updateDisplay();
     } else if (src.equals(levelF2)) {
-      filename = "02_thesecondfloor.png";
+      filename = "02_thesecondfloor_withworkspace.png";
       circle.setVisible(false);
       level = "2";
       updateDisplay();
