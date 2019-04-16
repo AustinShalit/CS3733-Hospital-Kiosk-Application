@@ -78,7 +78,7 @@ class ExternalTransportationRequestDaoDbTest {
   }
 
   @Test
-  void checkEqual() {
+  void checkEqual() { // TODO
     itrequestdao.insert(testITRequest1);
 
     assertEquals(testITRequest1, itrequestdao.get(testITRequest1.getId()).get());
@@ -110,7 +110,7 @@ class ExternalTransportationRequestDaoDbTest {
   }
 
   @Test
-  void updateTest() {
+  void updateTest() { //TODO
     itrequestdao.insert(testITRequest1);
 
     ExternalTransportationRequest update = new ExternalTransportationRequest(testITRequest1.getId(),
