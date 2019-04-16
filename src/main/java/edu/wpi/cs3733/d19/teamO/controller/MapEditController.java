@@ -221,6 +221,7 @@ public class MapEditController implements Controller {
         map.clearNodes();
         map.addNodesToPane(database.getFloor(map.getLevel()));
         map.setGesturePane(false);
+        map.setScrollBar(true);
         map.setDragStatus(true);
         updateButton.setText("Confirm");
         updateMode = false;
@@ -239,6 +240,7 @@ public class MapEditController implements Controller {
       map.setDatabaseEdge(database.getAllEdges());
       updateButton.setText("Update");
       updateMode = true;
+      map.setScrollBar(false);
       map.setDragStatus(false);
       map.setGesturePane(true);
       map.setCircleDragVisibility(false);
