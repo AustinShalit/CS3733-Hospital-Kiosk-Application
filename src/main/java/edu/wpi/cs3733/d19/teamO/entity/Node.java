@@ -15,7 +15,6 @@ import javafx.scene.shape.Polygon;
 public class Node {
 
   public enum NodeType {
-    BATH("Bathroom"),
     CONF("Conference"),
     ELEV("Elevator"),
     EXIT("Exit"),
