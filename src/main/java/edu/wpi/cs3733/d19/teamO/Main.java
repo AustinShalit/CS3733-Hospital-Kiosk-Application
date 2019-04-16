@@ -1,8 +1,6 @@
 package edu.wpi.cs3733.d19.teamO;
 
-import java.io.IOException;
-
-import javafx.application.Application;
+import com.sun.javafx.application.LauncherImpl;
 
 public final class Main {
 
@@ -10,8 +8,7 @@ public final class Main {
     throw new UnsupportedOperationException("This is a utility class!");
   }
 
-  public static void main(final String... args) throws IOException {
-    LogManager.setupLoggers();
-    Application.launch(Project.class, args);
+  public static void main(final String... args) {
+    LauncherImpl.launchApplication(Project.class, ProjectPreloader.class, args);
   }
 }
