@@ -27,10 +27,10 @@
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="123.0" minHeight="10.0" prefHeight="123.0" valignment="CENTER" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="123.0" minHeight="10.0" prefHeight="123.0" valignment="CENTER" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="123.0" minHeight="10.0" prefHeight="123.0" valignment="CENTER" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="123.0" minHeight="10.0" prefHeight="123.0" valignment="CENTER" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="100.0" valignment="CENTER" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="SOMETIMES" />
               </rowConstraints>
