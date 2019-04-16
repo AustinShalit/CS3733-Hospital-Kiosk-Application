@@ -17,7 +17,7 @@
     Admin
     <graphic>
       <StackPane>
-        <FontAwesomeIconView glyphName="SHIELD" size="1.5em" />
+        <FontAwesomeIconView glyphName="LOCK" size="1.5em" />
       </StackPane>
     </graphic>
   </Label>
