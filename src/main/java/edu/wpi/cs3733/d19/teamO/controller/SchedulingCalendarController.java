@@ -29,6 +29,7 @@ public class SchedulingCalendarController implements Controller {
   @FXML
   void initialize() {
     root.setShowAddCalendarButton(false);  // Do not allow users to add calendars
+    root.setShowPrintButton(false);  // Printing is broken on Java 8
     root.getCalendarSources().clear();  // Remove default calendar
 
     Collection<Calendar> calendars = getCalendarsForNodes();
