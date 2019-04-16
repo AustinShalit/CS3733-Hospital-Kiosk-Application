@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
@@ -67,25 +68,37 @@
               <Insets />
             </opaqueInsets>
           </VBox>
-          <JFXButton fx:id="navigationButton" onAction="#navigationOnAction" prefHeight="325.0" prefWidth="325.0" stylesheets="@style/KioskStyle.css" text="NAVIGATION" GridPane.columnIndex="1">
+          <JFXButton fx:id="navigationButton" contentDisplay="BOTTOM" onAction="#navigationOnAction" prefHeight="325.0" prefWidth="325.0" stylesheets="@style/KioskStyle.css" text="NAVIGATION" GridPane.columnIndex="1">
             <GridPane.margin>
               <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
             </GridPane.margin>
+            <graphic>
+              <FontAwesomeIconView fill="WHITE" glyphName="MAP_MARKER" size="75" />
+            </graphic>
           </JFXButton>
-          <JFXButton fx:id="requestButton" onAction="#requestOnAction" prefHeight="325.0" prefWidth="325.0" stylesheets="@style/KioskStyle.css" text="REQUESTS" GridPane.columnIndex="2">
+          <JFXButton fx:id="requestButton" contentDisplay="BOTTOM" onAction="#requestOnAction" prefHeight="325.0" prefWidth="325.0" stylesheets="@style/KioskStyle.css" text="REQUESTS" GridPane.columnIndex="2">
             <GridPane.margin>
               <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
             </GridPane.margin>
+            <graphic>
+              <FontAwesomeIconView fill="WHITE" glyphName="TASKS" size="75" />
+            </graphic>
           </JFXButton>
-          <JFXButton fx:id="scheduleButton" onAction="#scheduleOnAction" prefHeight="325.0" prefWidth="325.0" stylesheets="@style/KioskStyle.css" text="SCHEDULING" GridPane.columnIndex="1" GridPane.rowIndex="1">
+          <JFXButton fx:id="scheduleButton" contentDisplay="BOTTOM" onAction="#scheduleOnAction" prefHeight="325.0" prefWidth="325.0" stylesheets="@style/KioskStyle.css" text="SCHEDULING" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <GridPane.margin>
               <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
             </GridPane.margin>
+            <graphic>
+              <FontAwesomeIconView fill="WHITE" glyphName="CALENDAR" size="75" />
+            </graphic>
           </JFXButton>
-          <JFXButton fx:id="securityButton" onAction="#securityOnAction" prefHeight="325.0" prefWidth="325.0" ripplerFill="WHITE" stylesheets="@style/KioskStyle.css" text="SECURITY" GridPane.columnIndex="2" GridPane.rowIndex="1">
+          <JFXButton fx:id="securityButton" contentDisplay="BOTTOM" onAction="#securityOnAction" prefHeight="325.0" prefWidth="325.0" ripplerFill="WHITE" stylesheets="@style/KioskStyle.css" text="SECURITY" GridPane.columnIndex="2" GridPane.rowIndex="1">
             <GridPane.margin>
               <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
             </GridPane.margin>
+            <graphic>
+              <FontAwesomeIconView fill="WHITE" glyphName="SHIELD" size="75" />
+            </graphic>
           </JFXButton>
         </GridPane>
       </HBox>
