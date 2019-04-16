@@ -134,7 +134,8 @@ public class ExternalTransportationController implements Controller {
       LocalTime time = timePicker.getValue();
       LocalDate date = datePicker.getValue();
 
-      return new ExternalTransportationRequest(now, node, externalRequestType, description, name, date, time);
+      return new ExternalTransportationRequest(now, node, externalRequestType,
+          description, name, date, time);
     }
 
     // otherwise, some input was invalid

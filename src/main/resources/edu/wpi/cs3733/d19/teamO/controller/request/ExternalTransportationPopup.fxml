@@ -31,8 +31,8 @@
             <Insets />
           </VBox.margin>
         </JFXComboBox>
-            <JFXDatePicker fx:id="datePicker" defaultColor="#0067b1" prefHeight="32.0" prefWidth="211.0" promptText="Pick the date" />
-            <JFXTimePicker fx:id="timePicker" defaultColor="#0067b1" prefHeight="32.0" prefWidth="210.0" promptText="Pick the time" />
+        <JFXDatePicker fx:id="datePicker" defaultColor="#0067b1" prefHeight="32.0" prefWidth="211.0" promptText="Pick the date" />
+        <JFXTimePicker fx:id="timePicker" defaultColor="#0067b1" prefHeight="32.0" prefWidth="210.0" promptText="Pick the time" />
         <JFXComboBox fx:id="categorybox" focusColor="#0067b1" labelFloat="true" maxWidth="200.0" prefHeight="32.0" promptText="Pick Category">
           <VBox.margin>
             <Insets />

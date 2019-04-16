@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
+@SuppressWarnings({"PMD.ExcessiveParameterList"})
 public class ExternalTransportationRequest extends ServiceRequest {
   public enum ExternalTransportationRequestType {
     AMBULANCE("Ambulance"),
@@ -51,7 +52,8 @@ public class ExternalTransportationRequest extends ServiceRequest {
   public ExternalTransportationRequest(int id, LocalDateTime timeRequested,
                                        LocalDateTime timeCompleted, Node location,
                                        String whoCompleted, ExternalTransportationRequestType type,
-                                       String description, String person, LocalDate datePicked, LocalTime timePicked) {
+                                       String description, String person, LocalDate datePicked,
+                                       LocalTime timePicked) {
     super(id, timeRequested, timeCompleted, whoCompleted, description, location);
     this.type = type;
     this.person = person;
@@ -80,11 +82,11 @@ public class ExternalTransportationRequest extends ServiceRequest {
     return person;
   }
 
-  public LocalDate getDatePicked(){
+  public LocalDate getDatePicked() {
     return datePicked;
   }
 
-  public LocalTime getTimePicked(){
+  public LocalTime getTimePicked() {
     return timePicked;
   }
 
