@@ -6,9 +6,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.inject.Inject;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.VBox;
@@ -17,13 +20,14 @@ import edu.wpi.cs3733.d19.teamO.entity.Employee;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 @FxmlController(url = "AddEmployee.fxml")
+@SuppressWarnings("PMD.TooManyFields")
 public class AddEmployeeController implements Controller {
 
   private static final Logger logger =
       Logger.getLogger(AddEmployeeController.class.getName());
 
   @FXML
-  private VBox root;
+  VBox root;
   @FXML
   private JFXTextField nameField;
   @FXML
@@ -32,6 +36,34 @@ public class AddEmployeeController implements Controller {
   private JFXTextField passwordField;
   @FXML
   private JFXComboBox<Employee.EmployeeType> positionBox;
+  @FXML
+  private JFXButton submitbtn;
+  @FXML
+  private JFXCheckBox avBox;
+  @FXML
+  private JFXCheckBox externalTransportBox;
+  @FXML
+  private JFXCheckBox floristBox;
+  @FXML
+  private JFXCheckBox giftBox;
+  @FXML
+  private JFXCheckBox internalTransportBox;
+  @FXML
+  private JFXCheckBox interpreterBox;
+  @FXML
+  private JFXCheckBox itSupportBox;
+  @FXML
+  private JFXCheckBox patientInfoBox;
+  @FXML
+  private JFXCheckBox prescriptionBox;
+  @FXML
+  private JFXCheckBox religiousBox;
+  @FXML
+  private JFXCheckBox sanitationBox;
+  @FXML
+  private JFXCheckBox securityBox;
+  @FXML
+  private JFXCheckBox supportAnimalBox;
 
   @Inject
   private Database db;
@@ -39,6 +71,13 @@ public class AddEmployeeController implements Controller {
   @FXML
   void initialize() {
     positionBox.getItems().setAll(Employee.EmployeeType.values());
+
+    submitbtn.disableProperty().bind(
+        Bindings.isEmpty(nameField.textProperty())
+        .or(Bindings.isEmpty(usernameField.textProperty()))
+        .or(Bindings.isEmpty(passwordField.textProperty()))
+        .or(Bindings.isNull(positionBox.valueProperty()))
+    );
   }
 
   @FXML
@@ -50,6 +89,25 @@ public class AddEmployeeController implements Controller {
           "Unable to parse Employee Data.");
       return;
     }
+
+    nameField.setText(null);
+    usernameField.setText(null);
+    passwordField.setText(null);
+    positionBox.getSelectionModel().clearSelection();
+    positionBox.setValue(null);
+    avBox.setSelected(false);
+    externalTransportBox.setSelected(false);
+    floristBox.setSelected(false);
+    giftBox.setSelected(false);
+    internalTransportBox.setSelected(false);
+    interpreterBox.setSelected(false);
+    itSupportBox.setSelected(false);
+    patientInfoBox.setSelected(false);
+    prescriptionBox.setSelected(false);
+    religiousBox.setSelected(false);
+    sanitationBox.setSelected(false);
+    securityBox.setSelected(false);
+    supportAnimalBox.setSelected(false);
 
     if (db.insertEmployee(external)) {
       DialogHelper.showInformationAlert("Success!",
@@ -78,7 +136,23 @@ public class AddEmployeeController implements Controller {
       String password = passwordField.getText();
       String type = positionBox.getValue().toString().toUpperCase(new Locale("EN"));
       Employee.EmployeeType externalEmployeeType = Employee.EmployeeType.valueOf(type);
+
       Employee newemp = new Employee(username, password, name, externalEmployeeType);
+      newemp.getEmployeeAttributes().setCanFulfillAudioVisual(avBox.isSelected());
+      newemp.getEmployeeAttributes().setCanFulfillExternalTransport(
+          externalTransportBox.isSelected());
+      newemp.getEmployeeAttributes().setCanFulfillFlorist(floristBox.isSelected());
+      newemp.getEmployeeAttributes().setCanFulfillGift(giftBox.isSelected());
+      newemp.getEmployeeAttributes().setCanFulfillInternalTransport(
+          internalTransportBox.isSelected());
+      newemp.getEmployeeAttributes().setCanFulfillInterpreter(interpreterBox.isSelected());
+      newemp.getEmployeeAttributes().setCanFulfillITSupport(itSupportBox.isSelected());
+      newemp.getEmployeeAttributes().setCanFulfillPatientInfo(patientInfoBox.isSelected());
+      newemp.getEmployeeAttributes().setCanFulfillPrescription(prescriptionBox.isSelected());
+      newemp.getEmployeeAttributes().setCanFulfillReligious(religiousBox.isSelected());
+      newemp.getEmployeeAttributes().setCanFulfillSanitation(sanitationBox.isSelected());
+      newemp.getEmployeeAttributes().setCanFulfillSecurity(securityBox.isSelected());
+      newemp.getEmployeeAttributes().setCanFulfillSupportAnimal(supportAnimalBox.isSelected());
 
       return newemp;
     }

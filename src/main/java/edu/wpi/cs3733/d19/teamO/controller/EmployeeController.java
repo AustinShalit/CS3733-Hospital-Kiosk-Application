@@ -3,6 +3,7 @@ package edu.wpi.cs3733.d19.teamO.controller;
 import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPopup;
 
 import animatefx.animation.Shake;
 import javafx.collections.ListChangeListener;
@@ -13,6 +14,7 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.BorderPane;
 
 import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
@@ -60,6 +62,8 @@ public class EmployeeController implements Controller {
   private UpdateEmployeeController.Factory updateEmployeeControllerFactory;
 
   private UpdateEmployeeController updateEmployeeController;
+  private JFXPopup addPopup;
+  private JFXPopup updatePopup;
 
   @FXML
   void initialize() {
@@ -81,6 +85,43 @@ public class EmployeeController implements Controller {
                 employeeTableView.getSelectionModel().getSelectedItem());
           }
         });
+
+    addPopup = new JFXPopup(addEmployeeControllerFactory.create().root);
+    updatePopup = new JFXPopup(updateEmployeeController.upRoot);
+    addPopup.setOnAutoHide(
+        event -> {
+          ColorAdjust reset = new ColorAdjust();
+          reset.setBrightness(0);
+          root.setEffect(reset);
+          employeeTableView.getItems().clear();
+          employeeTableView.getItems().setAll(db.getAllEmployee());
+        }
+    );
+    updatePopup.setOnAutoHide(
+        event -> {
+          ColorAdjust reset = new ColorAdjust();
+          reset.setBrightness(0);
+          root.setEffect(reset);
+          employeeTableView.getItems().clear();
+          employeeTableView.getItems().setAll(db.getAllEmployee());
+        }
+    );
+
+    updateEmpButton.setDisable(true);
+    delEmpButton.setDisable(true);
+
+    // Disable complete request and assign employee button if no request is selected
+    employeeTableView.getSelectionModel().selectedItemProperty().addListener(
+        (observable, oldValue, newValue) -> {
+          if (newValue == null) {
+            updateEmpButton.setDisable(true);
+            delEmpButton.setDisable(true);
+          } else {
+            updateEmpButton.setDisable(false);
+            delEmpButton.setDisable(false);
+          }
+        }
+    );
   }
 
   @FXML
@@ -90,7 +131,17 @@ public class EmployeeController implements Controller {
 
   @FXML
   void addEmpOnAction() {
-    root.setLeft(addEmployeeControllerFactory.create().getRoot());
+    // root.setLeft(addEmployeeControllerFactory.create().getRoot());
+    ColorAdjust colorAdjust = new ColorAdjust();
+    colorAdjust.setBrightness(-0.2);
+    root.setEffect(colorAdjust);
+    addPopup.show(root);
+    addPopup.setX(
+        (root.getScene().getWindow().getWidth() - addPopup.getWidth()) / 2
+    );
+    addPopup.setY(
+        (root.getScene().getWindow().getHeight() - addPopup.getHeight()) / 2
+    );
   }
 
   @FXML
@@ -100,11 +151,16 @@ public class EmployeeController implements Controller {
       return;
     }
 
-    infoLabel.setText("");
-    Employee selectedEmployee = employeeTableView.getSelectionModel().getSelectedItem();
-    employeeTableView.getItems().remove(selectedEmployee);
+    boolean check = DialogHelper.showConfirmDialog("Confirm Employee Deletion.",
+        "Confirm Employee Deletion.",
+        "Are you sure you would like to delete the selected employee?");
+    if (check) {
+      infoLabel.setText("");
+      Employee selectedEmployee = employeeTableView.getSelectionModel().getSelectedItem();
+      employeeTableView.getItems().remove(selectedEmployee);
 
-    db.deleteEmployee(selectedEmployee);
+      db.deleteEmployee(selectedEmployee);
+    }
   }
 
   @FXML
@@ -115,7 +171,17 @@ public class EmployeeController implements Controller {
     }
 
     infoLabel.setText("");
-    root.setLeft(updateEmployeeController.getRoot());
+    //root.setLeft(updateEmployeeController.getRoot());
+    ColorAdjust colorAdjust = new ColorAdjust();
+    colorAdjust.setBrightness(-0.2);
+    root.setEffect(colorAdjust);
+    updatePopup.show(root);
+    updatePopup.setX(
+        (root.getScene().getWindow().getWidth() - updatePopup.getWidth()) / 2
+    );
+    updatePopup.setY(
+        (root.getScene().getWindow().getHeight() - updatePopup.getHeight()) / 2
+    );
   }
 
   void selectEmplyeeShake() {
