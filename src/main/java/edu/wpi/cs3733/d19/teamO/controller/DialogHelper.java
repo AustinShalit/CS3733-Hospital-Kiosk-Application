@@ -10,6 +10,7 @@ import com.jfoenix.controls.JFXComboBox;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextInputDialog;
@@ -62,6 +63,25 @@ public final class DialogHelper {
     if (result.isPresent()) {
       return result.get();
     }
+    return "";
+  }
+
+  /**
+   * Show a dialog that asks a user to select choice. Reurns the user input as a String, or an empty
+   * string if no input.
+   */
+  public static String choiceInputDialog(List<String> choices, String titleText,
+                                         String headerText, String promptText) {
+    choices.sort(String.CASE_INSENSITIVE_ORDER);
+    ChoiceDialog<String> dialog = new ChoiceDialog<>(null, choices);
+    dialog.setTitle(titleText);
+    dialog.setHeaderText(headerText);
+    dialog.setContentText(promptText);
+    Optional<String> result = dialog.showAndWait();
+    if (result.isPresent()) {
+      return result.get();
+    }
+
     return "";
   }
 
