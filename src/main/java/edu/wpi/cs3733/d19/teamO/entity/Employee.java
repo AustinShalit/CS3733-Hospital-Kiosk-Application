@@ -168,6 +168,7 @@ public class Employee {
     DEFAULT("Default"),
     ADMIN("Admin"),
     SANITATION("Sanitation"),
+    PRESCRIPTION("Prescription"),
     SECURITY("Security");
 
     private static final Map<String, EmployeeType> lookup
