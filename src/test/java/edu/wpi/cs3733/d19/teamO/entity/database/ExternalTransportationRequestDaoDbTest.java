@@ -1,7 +1,9 @@
 package edu.wpi.cs3733.d19.teamO.entity.database;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Set;
 
 import com.google.inject.Inject;
@@ -35,12 +37,14 @@ class ExternalTransportationRequestDaoDbTest {
   private static final ExternalTransportationRequest testITRequest1 =
       new ExternalTransportationRequest(1, LocalDateTime.now(), LocalDateTime.now(), testNode1,
           "Bob", ExternalTransportationRequest.ExternalTransportationRequestType.HELICOPTER,
-          "This is a description", "Dev");
+          "This is a description", "Dev",
+          LocalDate.now(), LocalTime.of(12, 35, 30));
 
   private static final ExternalTransportationRequest testITRequest2 =
       new ExternalTransportationRequest(2, LocalDateTime.now(), LocalDateTime.now(), testNode2,
           "Bill", ExternalTransportationRequest.ExternalTransportationRequestType.AMBULANCE,
-          "This is a description", "Ken");
+          "This is a description", "Ken",
+          LocalDate.now(), LocalTime.of(12, 35, 30));
   private ExternalTransportationRequestDaoDb itrequestdao;
   private NodeDao nodeDao;
 
@@ -76,7 +80,7 @@ class ExternalTransportationRequestDaoDbTest {
   }
 
   @Test
-  void checkEqual() {
+  void checkEqual() { // TODO
     itrequestdao.insert(testITRequest1);
 
     assertEquals(testITRequest1, itrequestdao.get(testITRequest1.getId()).get());
@@ -103,18 +107,19 @@ class ExternalTransportationRequestDaoDbTest {
   @Test
   void deleteNotExistingTest() {
     assertFalse(itrequestdao.delete(new ExternalTransportationRequest(987, null,
-        null, testNode1, null, null, null, null)));
+        null, testNode1, null, null, null, null,
+        null, null)));
   }
 
   @Test
-  void updateTest() {
+  void updateTest() { //TODO
     itrequestdao.insert(testITRequest1);
 
     ExternalTransportationRequest update = new ExternalTransportationRequest(testITRequest1.getId(),
         LocalDateTime.now(), LocalDateTime.now(),
         testNode1, "Fred",
         ExternalTransportationRequest.ExternalTransportationRequestType.OTHERS,
-        "A different description", "Austin");
+        "A different description", "Austin", LocalDate.now(), LocalTime.now());
 
     assertTrue(itrequestdao.update(update));
     assertNotEquals(testITRequest1, itrequestdao.get(testITRequest1.getId()));
@@ -127,7 +132,7 @@ class ExternalTransportationRequestDaoDbTest {
     assertFalse(itrequestdao.update(new ExternalTransportationRequest(987, LocalDateTime.now(),
         LocalDateTime.now(), newNode, "Jane",
         ExternalTransportationRequest.ExternalTransportationRequestType.OTHERS,
-        "This request doesnt exist", "Jill")));
+        "This request doesnt exist", "Jill", LocalDate.now(), LocalTime.now())));
   }
 
   @Test

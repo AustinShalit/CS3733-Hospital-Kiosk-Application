@@ -3,10 +3,12 @@ package edu.wpi.cs3733.d19.teamO.entity.database;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.HashSet;
@@ -103,7 +105,9 @@ public class ExternalTransportationRequestDaoDb implements ExternalTransportatio
         ExternalTransportationRequest.ExternalTransportationRequestType.get(
             resultSet.getString("EXTERNALTRANSPORTATIONTYPE")),
         resultSet.getString("DESCRIPTION"),
-        resultSet.getString("NAME")
+        resultSet.getString("NAME"),
+        resultSet.getDate("DATEPICKED").toLocalDate(),
+        resultSet.getTime("TIMEPICKED").toLocalTime()
     );
   }
 
@@ -124,6 +128,8 @@ public class ExternalTransportationRequestDaoDb implements ExternalTransportatio
       statement.setString(5, externalTransportationRequest.getType().name());
       statement.setString(6, externalTransportationRequest.getDescription());
       statement.setString(7, externalTransportationRequest.getPerson());
+      statement.setDate(8, Date.valueOf(externalTransportationRequest.getDatePicked()));
+      statement.setTime(9, Time.valueOf(externalTransportationRequest.getTimePicked()));
 
       statement.executeUpdate();
       try (ResultSet keys = statement.getGeneratedKeys()) {
@@ -177,7 +183,9 @@ public class ExternalTransportationRequestDaoDb implements ExternalTransportatio
       statement.setString(5, externalTransportationRequest.getType().name());
       statement.setString(6, externalTransportationRequest.getDescription());
       statement.setString(7, externalTransportationRequest.getPerson());
-      statement.setInt(8, externalTransportationRequest.getId());
+      statement.setDate(8, Date.valueOf(externalTransportationRequest.getDatePicked()));
+      statement.setTime(9, Time.valueOf(externalTransportationRequest.getTimePicked()));
+      statement.setInt(10, externalTransportationRequest.getId());
 
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {

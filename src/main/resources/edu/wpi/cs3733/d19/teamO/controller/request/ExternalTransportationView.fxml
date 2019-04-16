@@ -31,6 +31,8 @@
             <TableColumn fx:id="locationTableCol" prefWidth="66.0" text="Location" />
             <TableColumn fx:id="whoCompletedCol" prefWidth="90.0" text="Assigned To" />
             <TableColumn fx:id="descriptionCol" prefWidth="153.0" text="Description" />
+            <TableColumn fx:id="dateCol" prefWidth="153.0" text="Date Picked" />
+            <TableColumn fx:id="timeCol" prefWidth="153.0" text="Time Picked" />
           </columns>
         </TableView>
         <GridPane id="requestbuttons" prefHeight="0.0">
