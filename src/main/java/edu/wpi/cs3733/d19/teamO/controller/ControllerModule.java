@@ -81,6 +81,7 @@ public class ControllerModule extends AbstractModule {
     install(new FactoryModuleBuilder().build(AddEmployeeController.Factory.class));
     install(new FactoryModuleBuilder().build(UpdateEmployeeController.Factory.class));
     install(new FactoryModuleBuilder().build(EmployeeController.Factory.class));
+    install(new FactoryModuleBuilder().build(AboutController.Factory.class));
 
     install(new FactoryModuleBuilder().build(AudioVisualPopupController.Factory.class));
     install(new FactoryModuleBuilder().build(AudioVisualController.Factory.class));
