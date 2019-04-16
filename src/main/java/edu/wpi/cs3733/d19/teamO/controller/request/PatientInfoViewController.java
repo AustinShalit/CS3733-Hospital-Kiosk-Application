@@ -148,8 +148,7 @@ public class PatientInfoViewController implements Controller {
     List<String> choices = new ArrayList<>();
     Set<Employee> emps = db.getAllEmployee();
     for (Employee employee : emps) {
-      if (employee.getEmployeeAttributes().getCanFulfillSupportAnimal()
-          || employee.getType().toString().equals("PatientInfo")) {
+      if (employee.getEmployeeAttributes().getCanFulfillPatientInfo()) {
         System.out.println(employee.getType());
         choices.add(employee.getName());
       }

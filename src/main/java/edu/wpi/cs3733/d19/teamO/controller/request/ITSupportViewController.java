@@ -149,8 +149,7 @@ public class ITSupportViewController implements Controller {
     List<String> choices = new ArrayList<>();
     Set<Employee> emps = db.getAllEmployee();
     for (Employee employee : emps) {
-      if (employee.getEmployeeAttributes().getCanFulfillSupportAnimal()
-          || employee.getType().toString().equals("IT")) {
+      if (employee.getEmployeeAttributes().getCanFulfillITSupport()) {
         System.out.println(employee.getType());
         choices.add(employee.getName());
       }

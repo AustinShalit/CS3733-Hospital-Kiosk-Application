@@ -149,8 +149,7 @@ public class SupportAnimalViewController implements Controller {
     List<String> choices = new ArrayList<>();
     Set<Employee> emps = db.getAllEmployee();
     for (Employee employee : emps) {
-      if (employee.getEmployeeAttributes().getCanFulfillSupportAnimal()
-          || employee.getType().toString().equals("SupportAnimal")) {
+      if (employee.getEmployeeAttributes().getCanFulfillSupportAnimal()) {
         System.out.println(employee.getType());
         choices.add(employee.getName());
       }

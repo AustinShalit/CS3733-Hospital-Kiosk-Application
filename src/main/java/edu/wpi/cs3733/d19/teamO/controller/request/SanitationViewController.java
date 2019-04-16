@@ -149,8 +149,7 @@ public class SanitationViewController implements Controller {
     List<String> choices = new ArrayList<>();
     Set<Employee> emps = db.getAllEmployee();
     for (Employee employee : emps) {
-      if (employee.getEmployeeAttributes().getCanFulfillSupportAnimal()
-          || employee.getType().toString().equals("Sanitation")) {
+      if (employee.getEmployeeAttributes().getCanFulfillSanitation()) {
         System.out.println(employee.getType());
         choices.add(employee.getName());
       }

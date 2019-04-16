@@ -149,8 +149,7 @@ public class InternalTransportationViewController implements Controller {
     List<String> choices = new ArrayList<>();
     Set<Employee> emps = db.getAllEmployee();
     for (Employee employee : emps) {
-      if (employee.getEmployeeAttributes().getCanFulfillSupportAnimal()
-          || employee.getType().toString().equals("InternalTransportation")) {
+      if (employee.getEmployeeAttributes().getCanFulfillInternalTransport()) {
         System.out.println(employee.getType());
         choices.add(employee.getName());
       }

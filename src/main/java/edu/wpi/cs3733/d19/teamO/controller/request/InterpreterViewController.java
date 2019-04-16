@@ -147,8 +147,7 @@ public class InterpreterViewController implements Controller {
     List<String> choices = new ArrayList<>();
     Set<Employee> emps = db.getAllEmployee();
     for (Employee employee : emps) {
-      if (employee.getEmployeeAttributes().getCanFulfillSupportAnimal()
-          || employee.getType().toString().equals("Interpreter")) {
+      if (employee.getEmployeeAttributes().getCanFulfillInterpreter()) {
         System.out.println(employee.getType());
         choices.add(employee.getName());
       }
