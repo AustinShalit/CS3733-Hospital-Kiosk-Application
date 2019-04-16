@@ -4,11 +4,11 @@ import java.util.Date;
 import java.util.regex.Pattern;
 
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyBooleanProperty;
 import javafx.beans.property.ReadOnlyBooleanWrapper;
-import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -48,12 +48,12 @@ public class Payment {
 
   private final StringProperty name = new SimpleStringProperty();
   private final StringProperty number = new SimpleStringProperty();
-  private final ObjectProperty<CardType> type = new SimpleObjectProperty<>();
   private final ObjectProperty<Date> expiration = new SimpleObjectProperty<>();
   private final StringProperty cvv = new SimpleStringProperty();
   private final StringProperty zip = new SimpleStringProperty();
 
-  private final BooleanProperty valid = new SimpleBooleanProperty();
+  private final ReadOnlyObjectWrapper<CardType> type = new ReadOnlyObjectWrapper<>();
+  private final ReadOnlyBooleanWrapper valid = new ReadOnlyBooleanWrapper();
 
   public Payment() {
     type.bind(Bindings.createObjectBinding(() -> CardType.getCardType(number.get()), number));
@@ -94,12 +94,8 @@ public class Payment {
     return type.get();
   }
 
-  public ObjectProperty<CardType> typeProperty() {
-    return type;
-  }
-
-  public void setType(CardType type) {
-    this.type.set(type);
+  public ReadOnlyObjectProperty<CardType> typeProperty() {
+    return type.getReadOnlyProperty();
   }
 
   public Date getExpiration() {
@@ -143,6 +139,6 @@ public class Payment {
   }
 
   public ReadOnlyBooleanProperty validProperty() {
-    return ReadOnlyBooleanWrapper.booleanProperty(valid);
+    return valid.getReadOnlyProperty();
   }
 }
