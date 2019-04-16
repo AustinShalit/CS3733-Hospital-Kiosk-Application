@@ -8,6 +8,9 @@ import java.util.Optional;
 
 import com.jfoenix.controls.JFXComboBox;
 
+import org.controlsfx.control.textfield.TextFields;
+
+import impl.org.controlsfx.autocompletion.SuggestionProvider;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
@@ -15,6 +18,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextInputDialog;
 import javafx.util.Callback;
+import javafx.util.StringConverter;
 
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
@@ -106,6 +110,22 @@ public final class DialogHelper {
       }
     }
 
+    comboBox.setConverter(new StringConverter<Node>() {
+      @Override
+      public String toString(Node object) {
+        return object.getLongName();
+      }
+
+      @Override
+      public Node fromString(String string) {
+        for(Node node: database.getAllNodesByLongName()){
+          if(node.getLongName().contains(string)){
+            return node;
+          }
+        }
+        return new Node("1000",0,0,"0","L0",Node.NodeType.WORKZONE,"LN","SN");
+      }
+    });
     comboBox.getItems().setAll(nodesToInclude);
     Callback<ListView<Node>, ListCell<Node>> cellFactory =
         new Callback<ListView<Node>, ListCell<Node>>() {
@@ -130,6 +150,10 @@ public final class DialogHelper {
     // wait for selection
     comboBox.valueProperty().addListener((observable, oldValue, newValue)
         -> comboBox.setButtonCell(cellFactory.call(null)));
+
+    comboBox.setEditable(true);
+    TextFields.bindAutoCompletion(comboBox.getEditor(), SuggestionProvider.create(
+        Node::getLongName, comboBox.getItems()));
   }
 
   /**
@@ -145,7 +169,6 @@ public final class DialogHelper {
 
     Optional<ButtonType> result = dialog.showAndWait();
     return result.get() == ButtonType.OK;
-
   }
 }
 
