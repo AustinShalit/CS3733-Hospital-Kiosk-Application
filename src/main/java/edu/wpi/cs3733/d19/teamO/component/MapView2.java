@@ -335,6 +335,9 @@ public class MapView2 extends StackPane {
     gesturePane.setGestureEnabled(status);
   }
 
+  public void setScrollBar(boolean status) {
+    gesturePane.setScrollBarEnabled(status);
+  }
 
   @FXML
   void onMouseMove(MouseEvent e) {
