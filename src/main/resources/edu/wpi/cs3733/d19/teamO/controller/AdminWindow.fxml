@@ -17,7 +17,7 @@
     <Pane prefHeight="122.0" prefWidth="1280.0" stylesheets="@style/KioskStyle.css" />
     <Label stylesheets="@style/KioskStyle.css" text="Admin Controls">
       <font>
-        <Font name="Palatino Linotype" size="42.0" />
+        <Font name="Palatino Linotype Bold" size="55.0" />
       </font>
     </Label>
     <HBox alignment="CENTER" prefHeight="666.0" prefWidth="1280.0" stylesheets="@style/KioskStyle.css">
@@ -45,18 +45,7 @@
                 <FontAwesomeIconView fill="WHITE" glyphName="MAP" size="75" />
               </graphic>
             </JFXButton>
-            <JFXButton fx:id="editdatabaseButton" contentDisplay="BOTTOM" onAction="#editdatabaseOnAction" prefHeight="349.0" prefWidth="484.0" ripplerFill="#3b16b2" style="-fx-background-color: #004E86;" stylesheets="@style/KioskStyle.css" text="NODE DATABASE" GridPane.columnIndex="1">
-              <GridPane.margin>
-                <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
-              </GridPane.margin>
-              <font>
-                <Font size="40.0" />
-              </font>
-              <graphic>
-                <FontAwesomeIconView fill="WHITE" glyphName="DATABASE" size="75" />
-              </graphic>
-            </JFXButton>
-            <JFXButton fx:id="employeeButton" contentDisplay="BOTTOM" onAction="#employeeOnAction" prefHeight="368.0" prefWidth="740.0" style="-fx-background-color: #004E86;" stylesheets="@style/KioskStyle.css" text="EMPLOYEE MANAGEMENT" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <JFXButton fx:id="employeeButton" contentDisplay="BOTTOM" onAction="#employeeOnAction" prefHeight="776.0" prefWidth="662.0" style="-fx-background-color: #004E86;" stylesheets="@style/KioskStyle.css" text="EMPLOYEE MANAGEMENT" GridPane.columnIndex="1" GridPane.rowSpan="2">
               <GridPane.margin>
                 <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
               </GridPane.margin>
