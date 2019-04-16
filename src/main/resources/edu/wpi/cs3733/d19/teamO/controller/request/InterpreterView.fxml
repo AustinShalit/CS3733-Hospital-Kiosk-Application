@@ -25,10 +25,11 @@
         <TableView fx:id="requestsTableView" maxHeight="-Infinity" maxWidth="-Infinity">
           <columns>
             <TableColumn fx:id="idTableCol" prefWidth="52.0" text="ID" />
+                  <TableColumn fx:id="nameCol" prefWidth="75.0" text="Name" />
             <TableColumn fx:id="categoryTableCol" prefWidth="84.0" text="Category" />
             <TableColumn fx:id="timeRequestedCol" prefWidth="120.0" text="Time Requested" />
             <TableColumn fx:id="locationTableCol" prefWidth="85.0" text="Location" />
-            <TableColumn fx:id="whoCompletedCol" prefWidth="90.0" text="Assigned To" />
+            <TableColumn fx:id="whoCompletedCol" prefWidth="100.0" text="Assigned To" />
             <TableColumn fx:id="descriptionCol" prefWidth="199.0" text="Description" />
           </columns>
         </TableView>

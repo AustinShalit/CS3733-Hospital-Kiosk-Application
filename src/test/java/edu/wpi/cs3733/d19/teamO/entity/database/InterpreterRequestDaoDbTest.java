@@ -35,12 +35,12 @@ class InterpreterRequestDaoDbTest {
   private static final InterpreterRequest testInterpreterRequest1 =
       new InterpreterRequest(1, LocalDateTime.now(), LocalDateTime.now(),
           "Bob", "Translate", testNode1,
-          InterpreterRequest.Language.FRA);
+          InterpreterRequest.Language.FRA, "name");
 
   private static final InterpreterRequest testInterpreterRequest2 =
       new InterpreterRequest(2, LocalDateTime.now(), LocalDateTime.now(),
           "Roberto", "More translating", testNode2,
-          InterpreterRequest.Language.SPA);
+          InterpreterRequest.Language.SPA, "name");
 
   private InterpreterRequestDaoDb interpreterDao;
   private NodeDao nodeDao;
@@ -105,7 +105,7 @@ class InterpreterRequestDaoDbTest {
   @Test
   void deleteNotExistingTest() {
     assertFalse(interpreterDao.delete(new InterpreterRequest(987, null,
-        null, null, "", null, null)));
+        null, null, "", null, null, "name")));
   }
 
   @Test
@@ -115,7 +115,7 @@ class InterpreterRequestDaoDbTest {
     InterpreterRequest update = new InterpreterRequest(testInterpreterRequest1.getId(),
         LocalDateTime.now(), LocalDateTime.now(),
         "Fred", "A different description", testNode1,
-        InterpreterRequest.Language.SPA);
+        InterpreterRequest.Language.SPA, "new name");
 
     assertTrue(interpreterDao.update(update));
     assertNotEquals(testInterpreterRequest1, interpreterDao.get(testInterpreterRequest1.getId()));
@@ -127,7 +127,7 @@ class InterpreterRequestDaoDbTest {
         Node.NodeType.DEPT, "longname", "shortname");
     assertFalse(interpreterDao.update(new InterpreterRequest(987, LocalDateTime.now(),
         LocalDateTime.now(), "Jane", "This request doesnt exist",
-        newNode, InterpreterRequest.Language.ENG)));
+        newNode, InterpreterRequest.Language.ENG, "fake name")));
   }
 
   @Test

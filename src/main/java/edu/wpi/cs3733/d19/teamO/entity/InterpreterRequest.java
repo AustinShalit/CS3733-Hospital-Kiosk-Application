@@ -46,27 +46,37 @@ public class InterpreterRequest extends ServiceRequest {
   }
 
   private final Language language;
+  private final String name;
 
   public InterpreterRequest(int id, LocalDateTime timeRequested, LocalDateTime timeCompleted,
-                            String whoCompleted, String description, Node node, Language language) {
+                            String whoCompleted, String description, Node node, Language language,
+                            String name) {
     super(id, timeRequested, timeCompleted, whoCompleted, description, node);
     this.language = language;
+    this.name = name;
   }
 
   public InterpreterRequest(LocalDateTime timeRequested, LocalDateTime timeCompleted,
-                            String whoCompleted, String description, Node node, Language language) {
+                            String whoCompleted, String description, Node node, Language language,
+                            String name) {
     super(-1, timeRequested, timeCompleted, whoCompleted, description, node);
     this.language = language;
+    this.name = name;
   }
 
   public InterpreterRequest(LocalDateTime timeRequested, Node locationNode,
-                            Language language, String description) {
+                            Language language, String description, String name) {
     super(timeRequested, description, locationNode);
     this.language = language;
+    this.name = name;
   }
 
   public Language getLanguage() {
     return this.language;
+  }
+
+  public String getName() {
+    return this.name;
   }
 
   @Override
@@ -84,7 +94,8 @@ public class InterpreterRequest extends ServiceRequest {
         && getWhoCompleted().equals(that.getWhoCompleted())
         && getDescription().equals(that.getDescription())
         && getLocationNode().equals(that.getLocationNode())
-        && getLanguage() == that.getLanguage();
+        && getLanguage() == that.getLanguage()
+        && getName().equals(that.getName());
   }
 
   @Override
@@ -102,7 +113,8 @@ public class InterpreterRequest extends ServiceRequest {
         + ", locationNode=" + getLocationNode().toString()
         + ", whoCompleted=" + getWhoCompleted()
         + ", language=" + getLanguage()
-        + ", description='" + getDescription() + '\''
+        + ", description='" + getDescription()
+        + ", name=" + getName() + '\''
         + '}';
   }
 }
