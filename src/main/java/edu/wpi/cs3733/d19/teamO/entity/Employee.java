@@ -167,6 +167,17 @@ public class Employee {
   public enum EmployeeType {
     DEFAULT("Default"),
     ADMIN("Admin"),
+    PRESCRIPTION("Prescription"),
+    INTERPRETER("Interpreter"),
+    INTERNALTRANSPORTATION("InternalTransportation"),
+    EXTERNALTRANSPORTATION("ExternalTransportation"),
+    PATIENTINFO("PatientInfo"),
+    GIFT("Gift"),
+    AUDIOVISUAL("AudioVisual"),
+    IT("IT"),
+    RELIGIOUS("Religious"),
+    SUPPORTANIMAL("SupportAnimal"),
+    FLORIST("Florist"),
     SANITATION("Sanitation"),
     SECURITY("Security");
 

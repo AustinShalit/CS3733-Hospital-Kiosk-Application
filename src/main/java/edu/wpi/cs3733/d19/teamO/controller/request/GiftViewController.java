@@ -1,6 +1,9 @@
 package edu.wpi.cs3733.d19.teamO.controller.request;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
@@ -22,6 +25,7 @@ import edu.wpi.cs3733.d19.teamO.controller.DialogHelper;
 import edu.wpi.cs3733.d19.teamO.controller.FxmlController;
 import edu.wpi.cs3733.d19.teamO.controller.RequestController;
 import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
+import edu.wpi.cs3733.d19.teamO.entity.Employee;
 import edu.wpi.cs3733.d19.teamO.entity.GiftRequest;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
@@ -142,15 +146,23 @@ public class GiftViewController implements Controller {
 
   @FXML
   void onAssignButtonAction() {
-    String id = DialogHelper.textInputDialog("Enter Security Request ID",
-        "Enter Request ID", "ID: ");
-    int idInt = Integer.parseInt(id);
-    String name = DialogHelper.textInputDialog("Enter Employee Name",
-        "Enter Employee Name", "Employee Name: ");
+    List<String> choices = new ArrayList<>();
+    Set<Employee> emps = db.getAllEmployee();
+    for (Employee employee : emps) {
+      if (employee.getEmployeeAttributes().getCanFulfillSupportAnimal()
+          || employee.getType().toString().equals("Gift")) {
+        System.out.println(employee.getType());
+        choices.add(employee.getName());
+      }
+    }
 
-    GiftRequest sr = db.getGiftRequest(idInt).get();
-    sr.setWhoCompleted(name);
-    db.updateGiftRequest(sr);
+    String name = DialogHelper.choiceInputDialog(choices, "Assign",
+        "Assign a Gift Employee", "Select an Employee");
+
+    GiftRequest selectedItem =
+        requestsTableView.getSelectionModel().getSelectedItem();
+    selectedItem.setWhoCompleted(name);
+    db.updateGiftRequest(selectedItem);
 
     requestsTableView.getItems().setAll(db.getAllGiftRequests());
     requestsTableView.getSortOrder().add(idTableCol); //sort
