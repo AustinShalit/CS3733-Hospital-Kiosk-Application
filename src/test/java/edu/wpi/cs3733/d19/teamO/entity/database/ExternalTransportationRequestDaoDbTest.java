@@ -37,12 +37,14 @@ class ExternalTransportationRequestDaoDbTest {
   private static final ExternalTransportationRequest testITRequest1 =
       new ExternalTransportationRequest(1, LocalDateTime.now(), LocalDateTime.now(), testNode1,
           "Bob", ExternalTransportationRequest.ExternalTransportationRequestType.HELICOPTER,
-          "This is a description", "Dev", LocalDate.now(), LocalTime.now());
+          "This is a description", "Dev",
+          LocalDate.now(), LocalTime.of(12, 35, 30));
 
   private static final ExternalTransportationRequest testITRequest2 =
       new ExternalTransportationRequest(2, LocalDateTime.now(), LocalDateTime.now(), testNode2,
           "Bill", ExternalTransportationRequest.ExternalTransportationRequestType.AMBULANCE,
-          "This is a description", "Ken", LocalDate.now(), LocalTime.now());
+          "This is a description", "Ken",
+          LocalDate.now(), LocalTime.of(12, 35, 30));
   private ExternalTransportationRequestDaoDb itrequestdao;
   private NodeDao nodeDao;
 

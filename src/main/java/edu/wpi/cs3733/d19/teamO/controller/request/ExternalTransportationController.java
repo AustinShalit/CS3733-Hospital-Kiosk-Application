@@ -67,6 +67,7 @@ public class ExternalTransportationController implements Controller {
   @Inject
   private RequestController.Factory requestControllerFactory;
 
+
   @FXML
   void initialize() {
     DialogHelper.populateComboBox(db, locationbox);
