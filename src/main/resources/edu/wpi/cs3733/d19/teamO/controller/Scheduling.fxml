@@ -26,7 +26,7 @@
         </Text>
         <JFXTextField fx:id="nameField" prefHeight="40.0" />
       </VBox>
-      <VBox alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="88.0" prefWidth="273.0">
         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room">
           <font>
             <Font size="36.0" />
