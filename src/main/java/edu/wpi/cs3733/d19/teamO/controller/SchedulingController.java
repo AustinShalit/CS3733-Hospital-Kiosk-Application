@@ -129,7 +129,8 @@ public class SchedulingController implements Controller {
     }
 
     if (database.schedulingRequestWouldConflict(request)) {
-      showErrorAlert("Error.", "Please choose different times.");
+      showErrorAlert("Error.", "This room is already booked. "
+          + "Please choose different times.");
       return;
     }
 
@@ -139,7 +140,10 @@ public class SchedulingController implements Controller {
 
       updateMapViewNodeOverlay();
       showCurrentSchedule();
-      showCalendar();
+
+      if (calendarTab.isSelected()) {
+        showCalendar(); // temp fix bc calendar takes a while to load
+      }
     } else {
       showErrorAlert("Error.", "Unable to submit scheduling request.");
     }

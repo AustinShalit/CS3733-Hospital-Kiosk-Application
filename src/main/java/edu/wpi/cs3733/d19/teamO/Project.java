@@ -40,14 +40,23 @@ public class Project extends Application {
   private Parent root;
 
   @Override
-  public void init() {
+  public void init() throws IOException {
+    notifyPreloader(new ProjectPreloader.StateNotification("Setting up loggers", 0));
+    LogManager.setupLoggers();
+
     logger.config("Application init");
 
+    notifyPreloader(
+        new ProjectPreloader.StateNotification("Injecting members", 0.2));
     injector = Guice.createInjector(new ProjectModule(), new ControllerModule(),
         new DatabaseModule());
     injector.injectMembers(this);
 
+    notifyPreloader(
+        new ProjectPreloader.StateNotification("Loading database", 0.6));
     new DefaultInformationLoader(database).loadIfEmpty();
+    notifyPreloader(
+        new ProjectPreloader.StateNotification("Starting", 1.0));
 
     logger.config("Application init complete");
   }

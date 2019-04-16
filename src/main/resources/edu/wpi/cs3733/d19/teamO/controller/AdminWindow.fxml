@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -32,7 +33,7 @@
           </rowConstraints>
           <children>
 
-            <JFXButton fx:id="mapeditButton" onAction="#mapeditOnAction" prefHeight="776.0" prefWidth="662.0" style="-fx-background-color: grey;" text="Map Edit" GridPane.rowSpan="2">
+            <JFXButton fx:id="mapeditButton" contentDisplay="BOTTOM" onAction="#mapeditOnAction" prefHeight="776.0" prefWidth="662.0" style="-fx-background-color: grey;" text="Map Edit" GridPane.rowSpan="2">
 
               <GridPane.margin>
                 <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
@@ -40,22 +41,31 @@
               <font>
                 <Font size="45.0" />
               </font>
+              <graphic>
+                <FontAwesomeIconView fill="WHITE" glyphName="MAP" size="75" />
+              </graphic>
             </JFXButton>
-            <JFXButton fx:id="editdatabaseButton" onAction="#editdatabaseOnAction" prefHeight="349.0" prefWidth="484.0" ripplerFill="#3b16b2" style="-fx-background-color: #004E86;" stylesheets="@style/KioskStyle.css" text="NODE DATABASE" GridPane.columnIndex="1">
+            <JFXButton fx:id="editdatabaseButton" contentDisplay="BOTTOM" onAction="#editdatabaseOnAction" prefHeight="349.0" prefWidth="484.0" ripplerFill="#3b16b2" style="-fx-background-color: #004E86;" stylesheets="@style/KioskStyle.css" text="NODE DATABASE" GridPane.columnIndex="1">
               <GridPane.margin>
                 <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
               </GridPane.margin>
               <font>
                 <Font size="40.0" />
               </font>
+              <graphic>
+                <FontAwesomeIconView fill="WHITE" glyphName="DATABASE" size="75" />
+              </graphic>
             </JFXButton>
-            <JFXButton fx:id="employeeButton" onAction="#employeeOnAction" prefHeight="368.0" prefWidth="740.0" style="-fx-background-color: #004E86;" stylesheets="@style/KioskStyle.css" text="EMPLOYEE MANAGEMENT" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <JFXButton fx:id="employeeButton" contentDisplay="BOTTOM" onAction="#employeeOnAction" prefHeight="368.0" prefWidth="740.0" style="-fx-background-color: #004E86;" stylesheets="@style/KioskStyle.css" text="EMPLOYEE MANAGEMENT" GridPane.columnIndex="1" GridPane.rowIndex="1">
               <GridPane.margin>
                 <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
               </GridPane.margin>
               <font>
                 <Font size="30.0" />
               </font>
+              <graphic>
+                <FontAwesomeIconView fill="WHITE" glyphName="USER" size="75" />
+              </graphic>
             </JFXButton>
           </children>
         </GridPane>
