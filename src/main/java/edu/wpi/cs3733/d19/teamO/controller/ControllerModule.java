@@ -81,6 +81,8 @@ public class ControllerModule extends AbstractModule {
     install(new FactoryModuleBuilder().build(AddEmployeeController.Factory.class));
     install(new FactoryModuleBuilder().build(UpdateEmployeeController.Factory.class));
     install(new FactoryModuleBuilder().build(EmployeeController.Factory.class));
+    install(new FactoryModuleBuilder().build(AboutController.Factory.class));
+    install(new FactoryModuleBuilder().build(GuestViewController.Factory.class));
 
     install(new FactoryModuleBuilder().build(AudioVisualPopupController.Factory.class));
     install(new FactoryModuleBuilder().build(AudioVisualController.Factory.class));
@@ -96,8 +98,6 @@ public class ControllerModule extends AbstractModule {
     install(new FactoryModuleBuilder().build(SchedulingController.Factory.class));
     install(new FactoryModuleBuilder().build(SchedulingViewController.Factory.class));
     install(new FactoryModuleBuilder().build(SchedulingCalendarController.Factory.class));
-    install(new FactoryModuleBuilder().build(EditNodeDatabaseController.Factory.class));
-
 
     install(new FactoryModuleBuilder().build(AudioVisualController.Factory.class));
     install(new FactoryModuleBuilder().build(AudioVisualViewController.Factory.class));

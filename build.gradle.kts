@@ -55,6 +55,7 @@ allprojects {
         implementation(group = "net.sf.sociaal", name = "freetts", version = "1.2.2")
         implementation(group = "org.controlsfx", name = "controlsfx", version = "8.40.14")
         implementation(group = "org.fxmisc.easybind", name = "easybind", version = "1.0.3")
+        implementation(group = "me.xdrop", name = "fuzzywuzzy", version = "1.2.0")
 
         fun derby(name: String, version: String = "10.14.2.0") =
                 create(group = "org.apache.derby", name = name, version = version)

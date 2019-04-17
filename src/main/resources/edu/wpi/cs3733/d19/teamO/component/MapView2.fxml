@@ -9,10 +9,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import net.kurobako.gesturefx.GesturePane?>
 
-<fx:root type="javafx.scene.layout.StackPane" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root type="javafx.scene.layout.StackPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
   <GesturePane fx:id="gesturePane">
 
     <StackPane>
@@ -21,10 +22,10 @@
       </ImageView>
       <Pane onMouseMoved="#onMouseMove">
         <Circle fx:id="circle" fill="#ff0100" radius="20.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
-        <Circle fx:id="circleDrag" fill="#004f87" radius="20.0" stroke="BLACK" strokeType="INSIDE" visible="false" onMouseDragged="#onMouseDrag" />
+        <Circle fx:id="circleDrag" fill="#004f87" onMouseDragged="#onMouseDrag" radius="20.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
         <Group fx:id="nodeGroup" />
         <Group fx:id="edges" />
-
+        <Line fx:id="lineForEdge" visible="false" endX="100.0" startX="-100.0" strokeWidth="8" fill="#ff6400" />
       </Pane>
 
 
@@ -113,4 +114,18 @@
       <Insets bottom="10.0" left="60.0" />
     </padding>
   </Label>
+  <JFXButton fx:id="levelF4" alignment="CENTER" buttonType="RAISED" contentDisplay="TOP" onAction="#onFloorSelectAction" onMouseEntered="#onMouseMove" prefHeight="55.0" prefWidth="55.0" ripplerFill="BLACK" text="4" textAlignment="CENTER" textFill="WHITE" StackPane.alignment="BOTTOM_RIGHT">
+    <opaqueInsets>
+      <Insets bottom="20.0" right="20.0" />
+    </opaqueInsets>
+    <cursor>
+      <Cursor fx:constant="DEFAULT" />
+    </cursor>
+    <font>
+      <Font size="23.0" />
+    </font>
+    <StackPane.margin>
+      <Insets bottom="375.0" right="20.0" />
+    </StackPane.margin>
+  </JFXButton>
 </fx:root>
