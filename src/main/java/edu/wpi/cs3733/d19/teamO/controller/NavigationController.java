@@ -26,7 +26,8 @@ import edu.wpi.cs3733.d19.teamO.entity.pathfinding.IGraphSearchAlgorithm;
 import edu.wpi.cs3733.d19.teamO.entity.pathfinding.StepByStep;
 
 @FxmlController(url = "Navigation.fxml")
-@SuppressWarnings({"PMD.TooManyFields", "PMD.RedundantFieldInitializer"})
+@SuppressWarnings({"PMD.TooManyFields", "PMD.RedundantFieldInitializer",
+    "PMD.AvoidInstantiatingObjectsInLoops"})
 
 public class NavigationController implements Controller {
 
@@ -138,17 +139,17 @@ public class NavigationController implements Controller {
     DialogHelper.populateComboBox2(database, toComboBox, fuzzySearch(toComboBox.getValue()));
   }
 
-  private Node searchForNode(String string){
-    for(Node n: database.getAllNodes()){
-      if(n.getLongName().equals(string)){
+  private Node searchForNode(String string) {
+    for (Node n: database.getAllNodes()) {
+      if (n.getLongName().equals(string)) {
         return n;
       }
     }
     return null;
   }
 
-  private List<String> fuzzySearch(String string){
-    if(string == null){
+  private List<String> fuzzySearch(String string) {
+    if (string == null) {
       string = "";
     }
 
@@ -183,8 +184,8 @@ public class NavigationController implements Controller {
     return sortedStrings;
   }
 
-  private void turnLongName(){
-    for(Node n: database.getAllNodesByLongName()){
+  private void turnLongName() {
+    for (Node n: database.getAllNodesByLongName()) {
       listOfLongName.add(n.getLongName());
       listOfSortName.add(n.getLongName());
     }

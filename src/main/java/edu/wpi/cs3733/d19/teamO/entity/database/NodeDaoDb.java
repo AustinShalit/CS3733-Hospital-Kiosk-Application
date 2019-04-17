@@ -227,7 +227,6 @@ class NodeDaoDb implements NodeDao {
     try (Connection connection = dcf.getConnection()) {
       PreparedStatement statement
           = connection.prepareStatement(queries.getProperty("node.select_all_by_Longname"));
-//      statement.setString(1, "Hall");
       try (ResultSet resultSet = statement.executeQuery()) {
         List<Node> nodes = new ArrayList<>();
         while (resultSet.next()) {
