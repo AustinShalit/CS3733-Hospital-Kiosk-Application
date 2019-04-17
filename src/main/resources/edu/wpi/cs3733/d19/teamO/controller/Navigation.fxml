@@ -108,11 +108,11 @@
                     <Label fx:id="instructions" />
                   </content>
                 </ScrollPane>
-                        <JFXButton fx:id="aboutButton" onAction="#aboutOnAction" prefHeight="50.0" prefWidth="294.0" style="-fx-background-color: #012d5a;" text="About Page" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </JFXButton>
+                <JFXButton fx:id="aboutButton" onAction="#aboutOnAction" prefHeight="50.0" prefWidth="294.0" style="-fx-background-color: #012d5a;" text="About Page" textFill="WHITE">
+                  <font>
+                    <Font name="System Bold" size="18.0" />
+                  </font>
+                </JFXButton>
               </children>
             </VBox>
           </children>

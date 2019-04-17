@@ -5,7 +5,8 @@ import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 
-@FxmlController(url ="About.fxml")
+@SuppressWarnings("PMD.TooManyFields")
+@FxmlController(url = "About.fxml")
 public class AboutController implements Controller {
 
   @FXML
@@ -23,7 +24,7 @@ public class AboutController implements Controller {
   @FXML
   private Text leadS;
   @FXML
-  private Text AssistLeadS;
+  private Text assistLeadS;
   @FXML
   private Text softEng;
   @FXML

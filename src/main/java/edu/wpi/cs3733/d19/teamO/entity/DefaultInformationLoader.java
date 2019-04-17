@@ -66,7 +66,7 @@ public class DefaultInformationLoader {
     Employee user1 = new Employee("admin", "wong", "AdminTest",
         Employee.EmployeeType.ADMIN);
     Employee user2 = new Employee("staff", "staff", "StaffTest",
-        Employee.EmployeeType.SECURITY);
+        Employee.EmployeeType.DEFAULT);
     Employee user3 = new Employee("teamo", "won", "TeamOTest",
         Employee.EmployeeType.DEFAULT);
 
