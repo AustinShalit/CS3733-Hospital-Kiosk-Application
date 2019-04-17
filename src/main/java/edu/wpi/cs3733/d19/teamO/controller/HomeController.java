@@ -103,9 +103,10 @@ public class HomeController implements Controller {
         .getAsJsonObject()
         .get("description")
         .getAsString(); //.get("weather.icon").getAsString(); // Get the description
-    image = "http://openweathermap.org/img/w/" + icon + ".png";
+    image = icon + ".png";
 
-    description.setText(discrp);
+    description.setStyle("-fx-font-size: 15px; -fx-font-style: bold");
+    description.setText(discrp.toUpperCase());
 
     Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
       second = (LocalDateTime.now().getSecond() < 10 ? "0" : "")
@@ -127,14 +128,18 @@ public class HomeController implements Controller {
 
     new Thread(() -> {
       try {
-        getWeatherData();
+        try {
+          getWeatherData();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
       } catch (APIException exception) {
         exception.printStackTrace();
       }
     }).start();
   }
 
-  void getWeatherData() throws APIException {
+  void getWeatherData() throws APIException, IOException{
     OWM owm = new OWM("c2711050ed24651e99a523ce6d08ad73");
 
     CurrentWeather cwd = owm.currentWeatherByCityName("Boston", OWM.Country.UNITED_STATES);
@@ -142,8 +147,7 @@ public class HomeController implements Controller {
     double max = (cwd.getMainData().getTempMax() - 273.15) * 9.0 / 5.0 + 32.0;
     double min = (cwd.getMainData().getTempMin() - 273.15) * 9.0 / 5.0 + 32.0;
 
-    Image weather = new Image(image);
-    tempImage.setImage(weather);
+    tempImage.setImage(new Image(getClass().getResource("../component/" + image).openStream()));
 
     DecimalFormat df = new DecimalFormat("##");
 
