@@ -30,7 +30,7 @@
                         <Font name="Bodoni MT" size="49.0" />
                      </font>
                   </Label>
-                  <JFXButton id="back" prefWidth="111.0" style="-fx-pref-height: 25;" text="Go Back" GridPane.halignment="LEFT" GridPane.valignment="TOP" />
+                  <JFXButton id="back" fx:id="backButton" onAction="#backAction" prefWidth="111.0" style="-fx-pref-height: 25;" text="Go Back" GridPane.halignment="LEFT" GridPane.valignment="TOP" />
                </children>
             </GridPane>
          </children>

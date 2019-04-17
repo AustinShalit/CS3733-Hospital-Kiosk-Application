@@ -1,8 +1,5 @@
 package edu.wpi.cs3733.d19.teamO.request.controller;
 
-import java.awt.Label;
-import java.awt.event.ActionEvent;
-
 import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
@@ -33,20 +30,18 @@ public class DominosHomeController implements Controller {
   @FXML
   private BorderPane root;
   @FXML
-  private Label titlelbl;
+  private JFXButton orderButton;
   @FXML
-  private JFXButton orderbtn;
-  @FXML
-  private JFXButton viewbtn;
+  private JFXButton viewButton;
 
 
   @FXML
-  void orderAction(ActionEvent event) {
+  void orderAction() {
     eventBus.post(new ChangeMainViewEvent(orderControllerFactory.create()));
   }
 
   @FXML
-  void viewAction(ActionEvent event) {
+  void viewAction() {
     eventBus.post(new ChangeMainViewEvent(orderTableControllerFactory.create()));
   }
 
