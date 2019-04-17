@@ -69,6 +69,8 @@ public class NavigationController implements Controller {
   @FXML
   void initialize() throws IOException {
     filteredNodeTypes = new ArrayList<>(Arrays.asList(Node.NodeType.values()));
+
+    filteredNodeTypes.remove(Node.NodeType.HALL);
     refreshCombobox();
     stepByStep = new StepByStep();
     validateGoButton();

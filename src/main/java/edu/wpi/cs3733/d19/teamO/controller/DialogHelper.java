@@ -133,6 +133,28 @@ public final class DialogHelper {
   }
 
   /**
+   * Populates a combobox with all nodes that aren't hallways
+   */
+  public static void populateComboBoxNoHalls(Database database, JFXComboBox<Node> comboBox) {
+    ArrayList<Node.NodeType> nodeTypes = new ArrayList<>();
+    nodeTypes.add(Node.NodeType.AUDITORIUM);
+    nodeTypes.add(Node.NodeType.CLASSROOM);
+    nodeTypes.add(Node.NodeType.CONF);
+    nodeTypes.add(Node.NodeType.DEPT);
+    nodeTypes.add(Node.NodeType.ELEV);
+    nodeTypes.add(Node.NodeType.EXIT);
+    nodeTypes.add(Node.NodeType.INFO);
+    nodeTypes.add(Node.NodeType.LABS);
+    nodeTypes.add(Node.NodeType.PANTRY);
+    nodeTypes.add(Node.NodeType.REST);
+    nodeTypes.add(Node.NodeType.RETL);
+    nodeTypes.add(Node.NodeType.SERV);
+    nodeTypes.add(Node.NodeType.STAI);
+    nodeTypes.add(Node.NodeType.WORKZONE);
+    populateComboBox(database, comboBox, nodeTypes);
+  }
+
+  /**
    * Show an error alert, and wait for user to close it.
    *
    * @return true if the user presses ok, false otherwise
