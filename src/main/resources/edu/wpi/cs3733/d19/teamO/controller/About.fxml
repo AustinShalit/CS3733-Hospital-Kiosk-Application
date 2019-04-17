@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@style/KioskStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.AboutController">
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@style/KioskStyle.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.AboutController">
   <center>
     <VBox alignment="CENTER" stylesheets="@style/KioskStyle.css" BorderPane.alignment="CENTER">
       <children>
@@ -41,7 +41,7 @@
             <Font size="50.0" />
           </font>
         </Text>
-        <VBox alignment="CENTER" maxHeight="340.0" maxWidth="870.0">
+        <VBox alignment="CENTER" maxHeight="340.0" maxWidth="870.0" stylesheets="@style/KioskStyle.css">
           <children>
             <Text fx:id="danD" strokeType="OUTSIDE" strokeWidth="0.0" text="Team Coach: Dan Duff" textAlignment="CENTER" wrappingWidth="599.205078125">
               <font>
@@ -58,7 +58,7 @@
                 <Font size="26.0" />
               </font>
             </Text>
-            <Text fx:id="softEng" strokeType="OUTSIDE" strokeWidth="0.0" text="Software Engineers: Jack Yan, Bailey Schmidt" textAlignment="CENTER" wrappingWidth="600.7421875">
+            <Text fx:id="softEng" strokeType="OUTSIDE" strokeWidth="0.0" text="Software Engineers: Jack Yan, Bailey Schmidt, Peter Prygocki" textAlignment="CENTER" wrappingWidth="600.7421875">
               <font>
                 <Font size="26.0" />
               </font>
@@ -78,7 +78,7 @@
                 <Font size="26.0" />
               </font>
             </Text>
-            <Text fx:id="prodOwn" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Owner: Peter Prygocki" textAlignment="CENTER" wrappingWidth="600.296875">
+            <Text fx:id="prodOwn" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Owner: Jyan Zarate" textAlignment="CENTER" wrappingWidth="600.296875">
               <font>
                 <Font size="26.0" />
               </font>
