@@ -190,7 +190,7 @@ public class MapView extends StackPane {
       filename = "01_thefirstfloor.png";
       level = 1;
     } else if (src.equals(levelF2)) {
-      filename = "02_thesecondfloor.png";
+      filename = "02_thesecondfloor_withworkspace.png";
       level = 2;
     } else if (src.equals(levelF3)) {
       filename = "03_thethirdfloor.png";
