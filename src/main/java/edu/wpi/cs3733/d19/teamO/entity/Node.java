@@ -146,8 +146,11 @@ public class Node {
     return polygon;
   }
 
+  /**
+   * Checks to see if polygon isn't null before trying to access points.
+   */
   public List<Double> getPolygonPoints() {
-    if(polygon != null) {
+    if (polygon != null) {
       return polygon.getPoints();
     }
     return new LinkedList<>();
