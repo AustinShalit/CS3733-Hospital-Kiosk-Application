@@ -1,0 +1,75 @@
+/* Stylesheet for Dominos APi */
+.root {
+    -fx-background-image: url("Domino3.png");
+}
+
+.titled-pane {
+    -fx-text-fill: white;
+
+}
+
+.titled-pane > .title {
+    -fx-background-color: #006491;
+    -fx-font-family: "One Dot Condensed Bold";
+    -fx-font-weight: bold;
+    -fx-font-size: 1.4167em;
+    -fx-text-fill: white;
+}
+
+.titled-pane:focused > .title > .arrow-button .arrow
+{
+    -fx-background-color: white;
+}
+
+.titled-pane > .title > .arrow-button .arrow{
+    -fx-background-color: white;
+    -fx-background-insets: 1 0 -1 0, 0;
+}
+
+/*.titled-pane > .title > .arrow-button .arrow*/
+/*{*/
+/*    -fx-background-color: -fx-mark-highlight-color, -fx-mark-color;*/
+/*    -fx-background-insets: 1 0 -1 0, 0;*/
+/*    -fx-padding: 0.25em 0.3125em 0.25em 0.3125em; !* 3 3.75 3 3.75 *!*/
+/*    -fx-shape: "M 0 0 h 7 l -3.5 4 z";*/
+/*}*/
+
+.titled-pane > *.content {
+    -fx-background-color: white;
+    -fx-font-family: "Arial Rounded MT Bold";
+    -fx-font-size: 1em;
+    -fx-font-weight: bold;
+}
+
+.jfx-text-field {
+    /*-fx-border-color: grey;*/
+    -jfx-focus-color: #006491;
+}
+
+#titlePane {
+    -fx-background-color: #006491;
+    -fx-effect: dropshadow;
+}
+
+#title {
+    -fx-font-family: "Arial Rounded MT Bold";
+    -fx-font-size: 2.5em;
+    -fx-font-weight: bold;
+}
+
+#back {
+    -fx-background-color: #e31837;
+    -fx-font-family: "Arial Rounded MT Bold";
+    -fx-text-fill: white;
+}
+
+.jfx-button {
+    -fx-background-color: #006491;
+    -fx-border-color: white
+
+;
+}
+
+/*.grid > *.content {*/
+/*    -fx-font-family: Constantia;*/
+/*}*/

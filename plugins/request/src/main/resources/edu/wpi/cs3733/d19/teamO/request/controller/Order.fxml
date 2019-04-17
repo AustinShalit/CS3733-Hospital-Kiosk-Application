@@ -16,16 +16,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.request.controller.OrderController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@style/Dominos.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.request.controller.OrderController">
    <center>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <TitledPane fx:id="customerInformationPane" text="Customer Information">
+            <TitledPane fx:id="customerInformationPane" stylesheets="@style/Dominos.css" text="CUSTOMER INFORMATION">
                <content>
-                  <GridPane>
+                  <GridPane prefWidth="734.0">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                      <ColumnConstraints hgrow="NEVER" minWidth="10.0" />
+                      <ColumnConstraints halignment="LEFT" minWidth="10.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
@@ -39,31 +39,55 @@
                     </rowConstraints>
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="First Name" />
-                        <JFXTextField fx:id="firstName" GridPane.columnIndex="1" />
+                        <JFXTextField fx:id="firstName" maxWidth="300.0" prefWidth="50.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
+                           <GridPane.margin>
+                              <Insets left="18.0" />
+                           </GridPane.margin></JFXTextField>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name" GridPane.rowIndex="1" />
-                        <JFXTextField fx:id="lastName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <JFXTextField fx:id="lastName" maxWidth="250.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                           <GridPane.margin>
+                              <Insets left="18.0" />
+                           </GridPane.margin></JFXTextField>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Email Address" GridPane.rowIndex="2" />
-                        <JFXTextField fx:id="emailAddress" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <JFXTextField fx:id="emailAddress" maxWidth="250.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                           <GridPane.margin>
+                              <Insets left="18.0" />
+                           </GridPane.margin></JFXTextField>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number" GridPane.rowIndex="3" />
-                        <JFXTextField fx:id="phoneNumber" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <JFXTextField fx:id="phoneNumber" maxWidth="250.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+                           <GridPane.margin>
+                              <Insets left="18.0" />
+                           </GridPane.margin></JFXTextField>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Street Address" GridPane.rowIndex="4" />
-                        <JFXTextField fx:id="streetAddress" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <JFXTextField fx:id="streetAddress" maxWidth="250.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                           <GridPane.margin>
+                              <Insets left="18.0" />
+                           </GridPane.margin></JFXTextField>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="City" GridPane.rowIndex="5" />
-                        <JFXTextField fx:id="city" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <JFXTextField fx:id="city" maxWidth="250.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                           <GridPane.margin>
+                              <Insets left="18.0" />
+                           </GridPane.margin></JFXTextField>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Zip Code" GridPane.rowIndex="6" />
-                        <JFXComboBox fx:id="zipCode" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <JFXComboBox fx:id="zipCode" maxWidth="250.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="7" GridPane.valignment="CENTER">
+                           <GridPane.margin>
+                              <Insets left="18.0" />
+                           </GridPane.margin></JFXComboBox>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="State" GridPane.rowIndex="7" />
-                        <JFXTextField fx:id="state" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <JFXTextField fx:id="state" maxWidth="250.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+                           <GridPane.margin>
+                              <Insets left="18.0" />
+                           </GridPane.margin></JFXTextField>
                      </children>
                   </GridPane>
                </content>
             </TitledPane>
-            <TitledPane fx:id="menuPane" animated="false" text="Menu">
+            <TitledPane fx:id="menuPane" animated="false" text="MENU">
                <content>
                   <BorderPane prefHeight="200.0" prefWidth="200.0" />
                </content>
             </TitledPane>
-            <TitledPane fx:id="placeOrderPane" animated="false" text="Place Order" VBox.vgrow="ALWAYS">
+            <TitledPane fx:id="placeOrderPane" animated="false" text="PLACE ORDER" VBox.vgrow="ALWAYS">
                <content>
                   <GridPane>
                     <columnConstraints>
@@ -209,7 +233,7 @@
                                  </children>
                               </GridPane>
                            </center></BorderPane>
-                        <JFXButton fx:id="submitOrderButton" buttonType="RAISED" text="Submit Order" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <JFXButton fx:id="submitOrderButton" buttonType="RAISED" text="Submit Order" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                </content>
@@ -217,13 +241,6 @@
          </children>
       </VBox>
    </center>
-   <top>
-      <StackPane BorderPane.alignment="CENTER">
-         <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Order" />
-         </children>
-      </StackPane>
-   </top>
    <left>
       <StackPane prefWidth="200.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -236,4 +253,22 @@
    <right>
       <StackPane prefWidth="200.0" BorderPane.alignment="CENTER" />
    </right>
+   <top>
+      <GridPane id="titlePane" prefHeight="43.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Text id="title" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="ORDER" GridPane.columnSpan="2" GridPane.halignment="CENTER" />
+            <JFXButton id="back" prefHeight="43.0" prefWidth="65.0" text="Back" />
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="10.0" />
+         </BorderPane.margin>
+      </GridPane>
+   </top>
 </BorderPane>
