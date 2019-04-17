@@ -233,6 +233,8 @@ public class Node {
       return 2;
     } else if ("3".equals(floor)) {
       return 3;
+    } else if ("4".equals(floor)) {
+      return 4;
     } else if ("G".equals(floor)) {
       return 0;
     } else if ("L1".equals(floor)) {
