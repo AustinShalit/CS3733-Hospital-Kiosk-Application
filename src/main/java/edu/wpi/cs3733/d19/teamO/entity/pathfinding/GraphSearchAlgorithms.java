@@ -1,7 +1,15 @@
 package edu.wpi.cs3733.d19.teamO.entity.pathfinding;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
+import java.util.PriorityQueue;
+import java.util.Stack;
 
+import jdk.nashorn.internal.runtime.regexp.joni.SearchAlgorithm;
+
+import edu.wpi.cs3733.d19.teamO.entity.Node;
+import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 import edu.wpi.cs3733.d19.teamO.util.Registry;
 
 /**
@@ -63,7 +71,5 @@ public final class GraphSearchAlgorithms extends Registry<GraphSearchAlgorithm> 
   }
 
   @Override
-  public void unregister(GraphSearchAlgorithm algorithm) {
-    removeItem(algorithm);
-  }
+  public void unregister(GraphSearchAlgorithm algorithm) { removeItem(algorithm); }
 }
