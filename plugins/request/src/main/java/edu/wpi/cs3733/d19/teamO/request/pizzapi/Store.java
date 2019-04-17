@@ -1,8 +1,13 @@
 package edu.wpi.cs3733.d19.teamO.request.pizzapi;
 
+import java.io.IOException;
+import java.util.stream.Collectors;
+
 import com.google.api.client.json.GenericJson;
 import com.google.api.client.util.Key;
 import com.google.common.base.MoreObjects;
+
+import edu.wpi.cs3733.d19.teamO.request.pizzapi.response.FindResponse;
 
 /**
  * The interface to the Store API.
@@ -16,8 +21,14 @@ public class Store extends GenericJson {
   private String id;
   @Key("IsOnlineNow")
   private boolean open;
-  @Key("ServiceIsOpen")
-  private GenericJson serviceStatus;
+
+  public Menu getMenu() throws IOException {
+    Menu reponse = Utilities.sendRequest(
+        Country.USA.getMenuUrl(id),
+        Menu.class);
+
+    return reponse;
+  }
 
   public String getId() {
     return id;
