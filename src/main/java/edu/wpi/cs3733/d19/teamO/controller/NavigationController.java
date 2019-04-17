@@ -186,8 +186,10 @@ public class NavigationController implements Controller {
 
   private void turnLongName() {
     for (Node n: database.getAllNodesByLongName()) {
-      listOfLongName.add(n.getLongName());
-      listOfSortName.add(n.getLongName());
+      if (!"5".equals(n.getFloor()) && !Node.NodeType.HALL.equals(n.getNodeType())) {
+        listOfLongName.add(n.getLongName());
+        listOfSortName.add(n.getLongName());
+      }
     }
   }
 }

@@ -126,18 +126,28 @@ public class MapView extends StackPane {
       levelL2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF3.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF4.setStyle("-fx-background-color: rgb(0,103,177)");
       levelG.setStyle("-fx-background-color: rgb(0,103,177)");
     } else if (level == 2) {
       levelL1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelL2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF3.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF4.setStyle("-fx-background-color: rgb(0,103,177)");
       levelG.setStyle("-fx-background-color: rgb(0,103,177)");
     } else if (level == 3) {
       levelL1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelL2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF2.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF4.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelG.setStyle("-fx-background-color: rgb(0,103,177)");
+    } else if (level == 4) {
+      levelL1.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelL2.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF1.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF2.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF3.setStyle("-fx-background-color: rgb(0,103,177)");
       levelG.setStyle("-fx-background-color: rgb(0,103,177)");
     } else if (level == 0) {
       levelL1.setStyle("-fx-background-color: rgb(0,103,177)");
@@ -145,24 +155,28 @@ public class MapView extends StackPane {
       levelF1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF3.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF4.setStyle("-fx-background-color: rgb(0,103,177)");
     } else if (level == -1) {
       levelG.setStyle("-fx-background-color: rgb(0,103,177)");
       levelL2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF3.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF4.setStyle("-fx-background-color: rgb(0,103,177)");
     } else if (level == -2) {
       levelL1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelG.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF3.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF4.setStyle("-fx-background-color: rgb(0,103,177)");
     } else {
       levelL1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelG.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF3.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF4.setStyle("-fx-background-color: rgb(0,103,177)");
       levelL2.setStyle("-fx-background-color: rgb(0,103,177)");
     }
 
