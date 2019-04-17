@@ -162,8 +162,8 @@ public class MapView2 extends StackPane {
         selectedEdge.set(" ");
         findCurrentEdge(level);
         for (Edge ed : currentEdges) {
-          int edgeX = abs(ed.getStartNode().getXcoord() - ed.getEndNode().getXcoord());
-          int edgeY = abs(ed.getStartNode().getYcoord() - ed.getEndNode().getYcoord());
+          int edgeX = ed.getStartNode().getXcoord() - ed.getEndNode().getXcoord();
+          int edgeY = ed.getStartNode().getYcoord() - ed.getEndNode().getYcoord();
           double kk = 0;
           double bb = 0;
           double result = 0;
@@ -177,7 +177,7 @@ public class MapView2 extends StackPane {
           }
 
 
-          if (result < 15
+          if (result < 10
               && currentX <= Math.max(ed.getStartNode().getXcoord(), ed.getEndNode().getXcoord())
               + 2
               && currentX >= Math.min(ed.getStartNode().getXcoord(), ed.getEndNode().getXcoord())
@@ -278,7 +278,7 @@ public class MapView2 extends StackPane {
       level = "1";
       updateDisplay();
     } else if (src.equals(levelF2)) {
-      filename = "02_thesecondfloor.png";
+      filename = "02_thesecondfloor_withworkspace.png";
       circle.setVisible(false);
       level = "2";
       updateDisplay();
