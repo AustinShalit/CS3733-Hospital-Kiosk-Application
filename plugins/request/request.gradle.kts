@@ -5,6 +5,8 @@ repositories {
 }
 
 dependencies {
+    implementation(group = "com.jfoenix", name = "jfoenix", version = "8.0.8")
+
     fun googleHttp(name: String, version: String = "1.29.0") =
             create(group = "com.google.http-client", name = name, version = version)
     implementation(googleHttp(name = "google-http-client"))

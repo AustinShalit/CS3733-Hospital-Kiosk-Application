@@ -10,17 +10,20 @@ import com.google.api.client.http.GenericUrl;
  *   pizzapi.utils.request_[xml|json].
  */
 public enum Country {
-  USA(new GenericUrl("https://order.dominos.com/power/store-locator"));
+  USA("https://order.dominos.com/power/store-locator");
 
-  private final GenericUrl findUrl;
+  private final String findBaseUrl;
 
-  Country(final GenericUrl findUrl) {
-    this.findUrl = findUrl;
+  Country(final String findBaseUrl) {
+    this.findBaseUrl = findBaseUrl;
   }
 
   public GenericUrl getFindUrl(final String lineOne, final String lineTwo, final String type) {
-    //return findUrl.put("s", lineOne);
-    return null;
+    GenericUrl url = new GenericUrl(findBaseUrl);
+    url.put("s", lineOne);
+    url.put("c", lineTwo);
+    url.put("type", type);
+    return url;
   }
 }
 
