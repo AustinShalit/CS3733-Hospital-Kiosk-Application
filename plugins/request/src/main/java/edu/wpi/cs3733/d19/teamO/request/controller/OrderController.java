@@ -1,7 +1,5 @@
 package edu.wpi.cs3733.d19.teamO.request.controller;
 
-import java.awt.event.ActionEvent;
-
 import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
@@ -31,14 +29,14 @@ public class OrderController implements Controller {
   @Inject
   private EventBus eventBus;
   @Inject
-  private OrderController.Factory orderControllerFactory;
-  @Inject
   private DominosHomeController.Factory dominosHomeControllerFactory;
   @Inject
   private Database db;
 
   @FXML
   private BorderPane root;
+  @FXML
+  private JFXButton backButton;
 
   /**
    * Customer Information.
@@ -124,7 +122,7 @@ public class OrderController implements Controller {
   }
 
   @FXML
-  void backAction(ActionEvent event) {
+  void backAction() {
     eventBus.post(new ChangeMainViewEvent(dominosHomeControllerFactory.create()));
   }
 

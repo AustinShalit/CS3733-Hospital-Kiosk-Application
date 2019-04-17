@@ -1,9 +1,8 @@
 package edu.wpi.cs3733.d19.teamO.request.controller;
 
-import java.awt.event.ActionEvent;
-
 import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
+import com.jfoenix.controls.JFXButton;
 
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -21,6 +20,8 @@ import edu.wpi.cs3733.d19.teamO.request.Request;
 public class OrderTableController implements Controller {
 
   @Inject
+  private EventBus eventBus;
+  @Inject
   private OrderTableController.Factory orderTableControllerFactory;
   @Inject
   private DominosHomeController.Factory dominosHomeControllerFactory;
@@ -29,6 +30,9 @@ public class OrderTableController implements Controller {
 
   @FXML
   private BorderPane root;
+  @FXML
+  private JFXButton backButton;
+
   @FXML
   private TableView<Request> orderTable;
   @FXML
@@ -49,8 +53,8 @@ public class OrderTableController implements Controller {
   private TableColumn<Request, String> descriptionCol;
 
   @FXML
-  void backAction(ActionEvent event) {
-    //eventBus.post(new ChangeMainViewEvent(dominosHomeControllerFactory.create()));
+  void backAction() {
+    eventBus.post(new ChangeMainViewEvent(dominosHomeControllerFactory.create()));
   }
 
   @Override

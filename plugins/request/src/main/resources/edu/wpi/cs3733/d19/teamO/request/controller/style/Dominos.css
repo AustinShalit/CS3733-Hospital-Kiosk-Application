@@ -1,0 +1,60 @@
+.root {
+    -fx-background-image: url("Domino3.png");
+    -fx-background-size: cover;
+    -fx-max-height: 4000px;
+    -fx-max-width: 4000px;
+}
+
+.titled-pane {
+    -fx-text-fill: white;
+}
+
+.titled-pane > .title {
+    -fx-background-color: #006491;
+    -fx-font-family: "One Dot Condensed Bold";
+    -fx-font-weight: bold;
+    -fx-font-size: 1.4167em;
+    -fx-text-fill: white;
+}
+
+.titled-pane:focused > .title > .arrow-button .arrow {
+    -fx-background-color: white;
+}
+
+.titled-pane > .title > .arrow-button .arrow{
+    -fx-background-color: white;
+    -fx-background-insets: 1 0 -1 0, 0;
+}
+
+.titled-pane > *.content {
+    -fx-background-color: white;
+    -fx-font-family: "Arial Rounded MT Bold";
+    -fx-font-size: 1em;
+    -fx-font-weight: bold;
+}
+
+.jfx-text-field {
+    -jfx-focus-color: #006491;
+}
+
+#titlePane {
+    -fx-background-color: #006491;
+}
+
+#title {
+    -fx-font-family: "Arial Rounded MT Bold";
+    -fx-font-size: 2.5em;
+    -fx-font-weight: bold;
+}
+
+#back {
+    -fx-background-color: #e31837;
+    -fx-font-family: "Arial Rounded MT Bold";
+    -fx-text-fill: white;
+}
+
+.jfx-button {
+    -fx-background-color: #006491;
+    -fx-border-color: white;
+}
+
