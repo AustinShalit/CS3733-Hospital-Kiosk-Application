@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 
 import edu.wpi.cs3733.d19.teamO.ExceptionAlert;
 import edu.wpi.cs3733.d19.teamO.ProjectModule;
+import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.ProjectPreloader;
 import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.DefaultInformationLoader;
@@ -47,8 +48,6 @@ public class Project extends Application {
         new DatabaseModule());
     injector.injectMembers(this);
 
-    notifyPreloader(
-        new ProjectPreloader.StateNotification("Loading database", 0.6));
     new DefaultInformationLoader(database).loadIfEmpty();
     notifyPreloader(
         new ProjectPreloader.StateNotification("Starting", 1.0));
@@ -64,7 +63,7 @@ public class Project extends Application {
 
     eventBus.post(new ChangeMainViewEvent(dominosHomeControllerFactory.create()));
 
-    primaryStage.setTitle("Team O Kiosk Application");
+    primaryStage.setTitle("Team O - Dominos Plugin API");
     primaryStage.setScene(new Scene(root));
 
     // Set original window size and position

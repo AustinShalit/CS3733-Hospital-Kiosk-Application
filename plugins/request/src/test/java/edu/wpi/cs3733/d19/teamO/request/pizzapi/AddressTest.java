@@ -3,8 +3,10 @@ package edu.wpi.cs3733.d19.teamO.request.pizzapi;
 import java.io.IOException;
 import java.util.List;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+@Disabled
 class AddressTest {
 
   @Test
