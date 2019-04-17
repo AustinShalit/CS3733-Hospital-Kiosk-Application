@@ -83,6 +83,8 @@ public class MapView2 extends StackPane {
   private Circle circle;
   @FXML
   private Circle circleDrag;
+  @FXML
+  private Line lineForEdge;
 
   private final SimpleObjectProperty<Node> selectedNode = new SimpleObjectProperty<>();
   private final SimpleObjectProperty<String> selectedEdge = new SimpleObjectProperty<>();
@@ -163,6 +165,7 @@ public class MapView2 extends StackPane {
         }
         selectedEdge.set(" ");
         findCurrentEdge(level);
+        lineForEdge.setVisible(false);
         for (Edge ed : currentEdges) {
           int edgeX = ed.getStartNode().getXcoord() - ed.getEndNode().getXcoord();
           int edgeY = ed.getStartNode().getYcoord() - ed.getEndNode().getYcoord();
@@ -178,7 +181,6 @@ public class MapView2 extends StackPane {
             result = abs(currentX * kk + bb - currentY);
           }
 
-
           if (result < 10
               && currentX <= Math.max(ed.getStartNode().getXcoord(), ed.getEndNode().getXcoord())
               + 2
@@ -189,6 +191,12 @@ public class MapView2 extends StackPane {
 
               ed.getEndNode().getYcoord()) - 2 ) {
             selectedEdge.set(ed.getEdgeId());
+            lineForEdge.setStartX(ed.getStartNode().getXcoord());
+            lineForEdge.setStartY(ed.getStartNode().getYcoord());
+            lineForEdge.setEndX(ed.getEndNode().getXcoord());
+            lineForEdge.setEndY(ed.getEndNode().getYcoord());
+            lineForEdge.setVisible(true);
+
             break;
           }
         }
