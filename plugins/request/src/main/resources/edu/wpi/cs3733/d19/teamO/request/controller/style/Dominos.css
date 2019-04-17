@@ -1,5 +1,8 @@
 .root {
     -fx-background-image: url("Domino3.png");
+    -fx-background-size: cover;
+    -fx-max-height: 4000px;
+    -fx-max-width: 4000px;
 }
 
 .titled-pane {

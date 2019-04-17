@@ -29,8 +29,6 @@ public class OrderController implements Controller {
   @Inject
   private EventBus eventBus;
   @Inject
-  private OrderController.Factory orderControllerFactory;
-  @Inject
   private DominosHomeController.Factory dominosHomeControllerFactory;
   @Inject
   private Database db;

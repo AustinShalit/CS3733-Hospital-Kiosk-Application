@@ -1,8 +1,6 @@
 package edu.wpi.cs3733.d19.teamO.request;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import com.google.common.eventbus.EventBus;
 import com.google.inject.Guice;
@@ -17,19 +15,17 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import edu.wpi.cs3733.d19.teamO.ExceptionAlert;
-import edu.wpi.cs3733.d19.teamO.LogManager;
 import edu.wpi.cs3733.d19.teamO.ProjectModule;
 import edu.wpi.cs3733.d19.teamO.ProjectPreloader;
+import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.DefaultInformationLoader;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 import edu.wpi.cs3733.d19.teamO.entity.database.DatabaseModule;
 import edu.wpi.cs3733.d19.teamO.request.controller.ControllerModule;
 import edu.wpi.cs3733.d19.teamO.request.controller.DominosHomeController;
+import edu.wpi.cs3733.d19.teamO.request.controller.MainController;
 
 public class Project extends Application {
-
-  private static final Logger logger
-      = Logger.getLogger(Project.class.getName());
 
   @Inject
   private EventBus eventBus;
@@ -44,9 +40,6 @@ public class Project extends Application {
   @Override
   public void init() throws IOException {
     notifyPreloader(new ProjectPreloader.StateNotification("Setting up loggers", 0));
-    LogManager.setupLoggers();
-
-    logger.config("Application init");
 
     notifyPreloader(
         new ProjectPreloader.StateNotification("Injecting members", 0.2));
@@ -60,18 +53,16 @@ public class Project extends Application {
     notifyPreloader(
         new ProjectPreloader.StateNotification("Starting", 1.0));
 
-    logger.config("Application init complete");
   }
 
   @Override
   public void start(final Stage primaryStage) throws IOException {
-    logger.config("Starting application");
 
-    FXMLLoader loader = new FXMLLoader(DominosHomeController.class.getResource("DominosHome.fxml"));
+    FXMLLoader loader = new FXMLLoader(MainController.class.getResource("Main.fxml"));
     loader.setControllerFactory(injector::getInstance);
     root = loader.load();
 
-//    eventBus.post(new ChangeMainViewEvent(dominosHomeControllerFactory.create(), false));
+    eventBus.post(new ChangeMainViewEvent(dominosHomeControllerFactory.create()));
 
     primaryStage.setTitle("Team O Kiosk Application");
     primaryStage.setScene(new Scene(root));
@@ -83,16 +74,13 @@ public class Project extends Application {
     primaryStage.setMaximized(true);
 
     primaryStage.show();
-    logger.config("Startup complete");
 
     Thread.setDefaultUncaughtExceptionHandler(this::onThreadException);
   }
 
   @Override
   public void stop() {
-    logger.config("Application stopping");
     database.close();
-    logger.config("Application stop finished");
   }
 
   /**
@@ -120,7 +108,6 @@ public class Project extends Application {
       } catch (Throwable ex) {
         // Well in this case something has gone very, very wrong
         // We don't want to create a feedback loop either.
-        logger.log(Level.SEVERE, "Failed to show exception alert", throwable);
       }
     });
   }

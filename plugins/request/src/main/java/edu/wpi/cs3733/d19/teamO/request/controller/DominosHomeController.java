@@ -4,6 +4,7 @@ import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
@@ -18,8 +19,6 @@ public class DominosHomeController implements Controller {
 
   @Inject
   private EventBus eventBus;
-  @Inject
-  private DominosHomeController.Factory domniosHomeControllerFactory;
   @Inject
   private OrderController.Factory orderControllerFactory;
   @Inject
@@ -36,14 +35,15 @@ public class DominosHomeController implements Controller {
 
 
   @FXML
-  void orderAction() {
+  void orderAction(ActionEvent event) {
     eventBus.post(new ChangeMainViewEvent(orderControllerFactory.create()));
   }
 
   @FXML
-  void viewAction() {
+  void viewAction(ActionEvent event) {
     eventBus.post(new ChangeMainViewEvent(orderTableControllerFactory.create()));
   }
+
 
   @Override
   public Parent getRoot() {
