@@ -33,7 +33,10 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.*;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.StrokeLineCap;
 import javafx.util.Duration;
 import net.kurobako.gesturefx.GesturePane;
 
@@ -76,7 +79,7 @@ public class MapView extends StackPane {
 
   List<Node> path;
 
-  ArrayList<Timeline> antz = new ArrayList<>();
+  List<Timeline> antz = new ArrayList<>();
 
   public void setPath(List<Node> path) {
     this.path = path;
@@ -369,10 +372,10 @@ public class MapView extends StackPane {
   }
 
   /**
-    Takes in a set of lines drawn by the path
-    Removes old animations and adds new ones
+    Takes in a set of lines drawn by the path.
+    Removes old animations and adds new ones.
    */
-  public void pixars_A_Bugs_Life(ArrayList<Line> trail){
+  public void pixars_A_Bugs_Life(List<Line> trail) {
     //Stops all old animations before they are removed
     for (Timeline tl2Remove : antz) {
       tl2Remove.stop();
@@ -380,8 +383,8 @@ public class MapView extends StackPane {
     //Resets the set of ant timelines
     antz = new ArrayList<>();
     for (Line segment : trail) {
-      Timeline t = addAntimation(segment);
-      antz.add(t);
+      Timeline timeline = addAntimation(segment);
+      antz.add(timeline);
     }
     //Plays newly added timelines
     for (Timeline tl2Play : antz) {
@@ -389,16 +392,17 @@ public class MapView extends StackPane {
     }
   }
 
-  public Timeline addAntimation(Line line){
+  /**
+   * creates a antimation of ants.
+   * @param line .
+   * @return timeline.
+   */
+  public Timeline addAntimation(Line line) {
     line.getStrokeDashArray().setAll(5d, 5d, 5d, 5d);
     line.setStrokeWidth(3);
 
     final double maxOffset =
-            line.getStrokeDashArray().stream()
-                    .reduce(
-                            0d,
-                            (a, b) -> a + b
-                    );
+        line.getStrokeDashArray().stream().reduce(0d, (a, b) -> a + b);
 
     Timeline timeline = new Timeline(
             new KeyFrame(
@@ -460,7 +464,7 @@ public class MapView extends StackPane {
   }
 
   /**
-   * Adds a line to the path edges, then returns a reference to that line
+   * Adds a line to the path edges, then returns a reference to that line.
    */
   private Line addLine(Node node, Node lastNode, Paint paint, double width) {
     Line line = null;
