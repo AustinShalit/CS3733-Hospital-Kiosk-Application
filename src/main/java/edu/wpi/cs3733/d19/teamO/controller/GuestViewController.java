@@ -109,7 +109,7 @@ public class GuestViewController implements Controller {
       day = LocalDateTime.now().getDayOfMonth();
       year = LocalDateTime.now().getYear();
       timeLabel.setText(hour + ":" + minute + ":" + second
-          + "  " + month + "/" + day + "/" + year);
+          + " \n" + month + "/" + day + "/" + year);
     }),
         new KeyFrame(Duration.seconds(1))
     );
