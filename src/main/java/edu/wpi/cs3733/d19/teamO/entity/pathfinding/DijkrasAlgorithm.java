@@ -8,7 +8,6 @@ import java.util.PriorityQueue;
 import com.google.common.graph.Graph;
 
 import edu.wpi.cs3733.d19.teamO.entity.Node;
-import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 public class DijkrasAlgorithm extends InformedGraphSearchAlgorithm {
 
@@ -39,7 +38,7 @@ public class DijkrasAlgorithm extends InformedGraphSearchAlgorithm {
 
 
       for (Node next : graph.successors(current)) {
-        Double newCost = costSoFar.get(current) + euclideanDist(current,next);
+        Double newCost = costSoFar.get(current) + euclideanDist(current, next);
         if (!cameFrom.containsKey(next) || newCost < costSoFar.get(next)) {
           double priority = newCost;
           nextPair.setPairNode(next);
@@ -51,7 +50,8 @@ public class DijkrasAlgorithm extends InformedGraphSearchAlgorithm {
       }
     }
 
-    return buildPath(cameFrom, goal);  }
+    return buildPath(cameFrom, goal);
+  }
 
   static final class Pair implements Comparable<Pair> {
     Node pairNode;
@@ -77,9 +77,6 @@ public class DijkrasAlgorithm extends InformedGraphSearchAlgorithm {
 
 
   }
-<<<<<<< HEAD
-}
-=======
 
 
 }

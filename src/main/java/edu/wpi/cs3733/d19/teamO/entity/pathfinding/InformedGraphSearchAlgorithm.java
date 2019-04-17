@@ -1,12 +1,10 @@
 package edu.wpi.cs3733.d19.teamO.entity.pathfinding;
 
-import java.util.HashSet;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 
 /**
@@ -34,8 +32,8 @@ abstract class InformedGraphSearchAlgorithm implements IGraphSearchAlgorithm<Nod
   }
 
   public double euclideanDist(Node node1, Node node2) {
-    double dist = Math.sqrt(Math.pow(node2.getXcoord() - node1.getXcoord(),2) +
-        Math.pow(node2.getYcoord() - node1.getYcoord(), 2));
+    double dist = Math.sqrt(Math.pow(node2.getXcoord() - node1.getXcoord(), 2)
+        + Math.pow(node2.getYcoord() - node1.getYcoord(), 2));
     return dist;
   }
 }
