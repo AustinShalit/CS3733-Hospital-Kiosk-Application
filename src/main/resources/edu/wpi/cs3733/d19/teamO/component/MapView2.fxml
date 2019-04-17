@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import net.kurobako.gesturefx.GesturePane?>
 
@@ -24,7 +25,7 @@
         <Circle fx:id="circleDrag" fill="#004f87" onMouseDragged="#onMouseDrag" radius="20.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
         <Group fx:id="nodeGroup" />
         <Group fx:id="edges" />
-
+        <Line fx:id="lineForEdge" visible="false" endX="100.0" startX="-100.0" strokeWidth="8" fill="#ff6400" />
       </Pane>
 
 

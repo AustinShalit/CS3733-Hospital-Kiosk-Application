@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.google.common.eventbus.EventBus;
 import com.google.common.graph.GraphBuilder;
 import com.google.common.graph.ImmutableGraph;
 import com.google.common.graph.MutableGraph;
@@ -12,6 +13,7 @@ import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
@@ -20,6 +22,7 @@ import me.xdrop.fuzzywuzzy.FuzzySearch;
 
 import edu.wpi.cs3733.d19.teamO.AppPreferences;
 import edu.wpi.cs3733.d19.teamO.component.MapView;
+import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 import edu.wpi.cs3733.d19.teamO.entity.pathfinding.IGraphSearchAlgorithm;
@@ -38,9 +41,9 @@ public class NavigationController implements Controller {
   @FXML
   JFXButton restroomButton;
   @FXML
-  JFXButton walkwayButton;
+  JFXButton emergencyButton;
   @FXML
-  JFXButton exitButton;
+  JFXButton elevatorButton;
   @FXML
   JFXButton informationButton;
   @FXML
@@ -53,6 +56,8 @@ public class NavigationController implements Controller {
   MapView map;
   @FXML
   Label instructions;
+  @FXML
+  JFXButton aboutButton;
 
   StepByStep stepByStep;
   boolean addRest = false;
@@ -65,6 +70,10 @@ public class NavigationController implements Controller {
   private AppPreferences appPreferences;
   @Inject
   private Database database;
+  @Inject
+  private EventBus eventBus;
+  @Inject
+  private AboutController.Factory aboutControllerFactory;
 
   List<String> listOfLongName = new ArrayList<>();
   List<String> listOfSortName = new ArrayList<>();
@@ -85,6 +94,7 @@ public class NavigationController implements Controller {
   public interface Factory {
     NavigationController create();
   }
+
 
   @FXML
   void onComboAction() {
@@ -186,8 +196,37 @@ public class NavigationController implements Controller {
 
   private void turnLongName() {
     for (Node n: database.getAllNodesByLongName()) {
-      listOfLongName.add(n.getLongName());
-      listOfSortName.add(n.getLongName());
+      if (!"5".equals(n.getFloor()) && !Node.NodeType.HALL.equals(n.getNodeType())) {
+        listOfLongName.add(n.getLongName());
+        listOfSortName.add(n.getLongName());
+      }
     }
+  }
+
+  @FXML
+  void aboutOnAction() {
+    eventBus.post(new ChangeMainViewEvent(aboutControllerFactory.create()));
+  }
+
+  @FXML
+  void nearestLocation(ActionEvent event) throws IOException {
+    if (event.getSource() == restroomButton) {
+      fromComboBox.setValue("Au Bon Pain");
+      toComboBox.setValue("Bathroom 75 Lobby");
+      onGoButtonAction();
+    } else if (event.getSource() == emergencyButton) {
+      fromComboBox.setValue("Au Bon Pain");
+      toComboBox.setValue("Emergency Department");
+      onGoButtonAction();
+    } else if (event.getSource() == informationButton) {
+      fromComboBox.setValue("Au Bon Pain");
+      toComboBox.setValue("75 Lobby Information Desk");
+      onGoButtonAction();
+    } else if (event.getSource() == elevatorButton) {
+      fromComboBox.setValue("Au Bon Pain");
+      toComboBox.setValue("Elevator M Floor 1");
+      onGoButtonAction();
+    }
+
   }
 }

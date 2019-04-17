@@ -48,6 +48,8 @@ public class InterpreterViewController implements Controller {
   @FXML
   private TableColumn<InterpreterRequest, Integer> idTableCol;
   @FXML
+  private TableColumn<InterpreterRequest, String> nameCol;
+  @FXML
   private TableColumn<InterpreterRequest, LocalDateTime> timeRequestedCol;
   @FXML
   private TableColumn<InterpreterRequest, LocalDateTime> timeCompletedCol;
@@ -75,6 +77,7 @@ public class InterpreterViewController implements Controller {
   @FXML
   void initialize() {
     idTableCol.setCellValueFactory(new PropertyValueFactory<>("id"));
+    nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
     timeRequestedCol.setCellValueFactory(new PropertyValueFactory<>("timeRequested"));
     //timeCompletedCol.setCellValueFactory(new PropertyValueFactory<>("timeCompletedString"));
     whoCompletedCol.setCellValueFactory(new PropertyValueFactory<>("whoCompleted"));

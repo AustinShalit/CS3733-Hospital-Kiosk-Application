@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import edu.wpi.cs3733.d19.teamO.component.MapView?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.Pane?>
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import edu.wpi.cs3733.d19.teamO.component.MapView?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.RowConstraints?>
-<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.GuestViewController">
+<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.GuestViewController">
   <center>
     <MapView fx:id="map" style="-fx-background-color: WHITE;">
       <GridPane.margin>
@@ -23,12 +23,12 @@
     </MapView>
   </center>
   <left>
-    <VBox alignment="CENTER" fillWidth="false" style="-fx-background-color: #F1F1F1;" spacing="20.0">
+    <VBox alignment="CENTER" fillWidth="false" spacing="20.0" style="-fx-background-color: #F1F1F1;">
       <children>
         <Pane stylesheets="@style/KioskStyle.css">
           <ImageView fitWidth="400.0" pickOnBounds="true" preserveRatio="true" styleClass="logo" />
         </Pane>
-        <VBox alignment="TOP_CENTER" blendMode="MULTIPLY" fillWidth="false" prefHeight="325.0" prefWidth="325.0" spacing="45.0" styleClass="weatherbox" stylesheets="@style/KioskStyle.css" GridPane.rowSpan="2">
+        <VBox alignment="TOP_CENTER" blendMode="MULTIPLY" fillWidth="false" prefHeight="390.0" prefWidth="325.0" spacing="45.0" styleClass="weatherbox" stylesheets="@style/KioskStyle.css" GridPane.rowSpan="2">
           <GridPane.margin>
             <Insets bottom="1.0" left="10.0" right="10.0" top="1.0" />
           </GridPane.margin>
@@ -67,7 +67,7 @@
             <Insets />
           </opaqueInsets>
         </VBox>
-        <JFXButton fx:id="loginbtn" onAction="#onLoginAction" text="Employee Login" id="login-button" stylesheets="@style/KioskStyle.css">
+        <JFXButton id="login-button" fx:id="loginbtn" onAction="#onLoginAction" stylesheets="@style/KioskStyle.css" text="Employee Login">
           <graphic>
             <FontAwesomeIconView fill="white" glyphName="SIGN_IN" size="1.5em" />
           </graphic>
