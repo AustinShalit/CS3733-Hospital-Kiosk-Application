@@ -25,11 +25,6 @@
           <children>
             <VBox alignment="TOP_CENTER" prefHeight="653.0" prefWidth="221.0" HBox.hgrow="ALWAYS">
               <children>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="FILTER">
-                  <font>
-                    <Font size="36.0" />
-                  </font>
-                </Text>
                 <GridPane>
                   <columnConstraints>
                     <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
