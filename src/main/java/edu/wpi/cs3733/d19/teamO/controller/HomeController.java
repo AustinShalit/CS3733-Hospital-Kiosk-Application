@@ -37,7 +37,7 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-@SuppressWarnings({"PMD.TooManyFields", "PMD.ExcessiveImports"})
+@SuppressWarnings({"PMD.TooManyFields", "PMD.ExcessiveImports", "PMD.UseLocaleWithCaseConversions"})
 
 @FxmlController(url = "Home.fxml")
 public class HomeController implements Controller {
@@ -130,8 +130,8 @@ public class HomeController implements Controller {
       try {
         try {
           getWeatherData();
-        } catch (IOException e) {
-          e.printStackTrace();
+        } catch (IOException exception) {
+          exception.printStackTrace();
         }
       } catch (APIException exception) {
         exception.printStackTrace();
@@ -139,7 +139,7 @@ public class HomeController implements Controller {
     }).start();
   }
 
-  void getWeatherData() throws APIException, IOException{
+  void getWeatherData() throws APIException, IOException {
     OWM owm = new OWM("c2711050ed24651e99a523ce6d08ad73");
 
     CurrentWeather cwd = owm.currentWeatherByCityName("Boston", OWM.Country.UNITED_STATES);

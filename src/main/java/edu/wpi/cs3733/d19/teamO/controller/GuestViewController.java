@@ -36,7 +36,8 @@ import edu.wpi.cs3733.d19.teamO.component.MapView;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 @FxmlController(url = "GuestWindow.fxml")
-@SuppressWarnings({"PMD.TooManyFields", "PMD.RedundantFieldInitializer", "PMD.ExcessiveImports"})
+@SuppressWarnings({"PMD.TooManyFields", "PMD.RedundantFieldInitializer", "PMD.ExcessiveImports",
+    "PMD.UseLocaleWithCaseConversions"})
 
 public class GuestViewController implements Controller {
 
@@ -119,8 +120,8 @@ public class GuestViewController implements Controller {
       try {
         try {
           getWeatherData();
-        } catch (IOException e) {
-          e.printStackTrace();
+        } catch (IOException exception) {
+          exception.printStackTrace();
         }
       } catch (APIException exception) {
         exception.printStackTrace();
