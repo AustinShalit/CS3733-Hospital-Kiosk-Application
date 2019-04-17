@@ -28,7 +28,7 @@
           <children>
             <VBox alignment="TOP_CENTER" HBox.hgrow="ALWAYS" stylesheets="@style/KioskStyle.css" styleClass="form" style="-fx-spacing: 4">
               <children>
-                <Text id="heading" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Map"/>
+                <Text id="heading" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Map" />
 
                 <Group>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NodeID: ">

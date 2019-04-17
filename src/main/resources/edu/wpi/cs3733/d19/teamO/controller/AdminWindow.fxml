@@ -35,7 +35,7 @@
               </rowConstraints>
               <children>
 
-                <JFXButton fx:id="mapeditButton" contentDisplay="BOTTOM" onAction="#mapeditOnAction" prefHeight="500.0" prefWidth="500.0"  stylesheets="@style/KioskStyle.css" text="EDIT MAP" GridPane.rowSpan="2">
+                <JFXButton fx:id="mapeditButton" contentDisplay="BOTTOM" onAction="#mapeditOnAction" prefHeight="500.0" prefWidth="500.0" stylesheets="@style/KioskStyle.css" text="EDIT MAP" GridPane.rowSpan="2">
 
                   <GridPane.margin>
                     <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
