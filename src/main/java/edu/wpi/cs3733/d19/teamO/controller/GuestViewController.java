@@ -1,13 +1,9 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
-import java.awt.event.TextListener;
-
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPopup;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.effect.ColorAdjust;
@@ -32,15 +28,14 @@ public class GuestViewController implements Controller {
   @Inject
   private LoginController.Factory loginFactory;
 
-  private LoginController loginController;
   private JFXPopup login;
 
   @FXML
   void initialize() {
-    loginController = loginFactory.create();
+    LoginController loginController = loginFactory.create();
     loginController.getLoginFail().textProperty().addListener(
         (observable, oldValue, newValue) -> {
-          if (newValue.equals("Login Success")) {
+          if ("Login Success".equals(newValue)) {
             login.hide();
           }
         }

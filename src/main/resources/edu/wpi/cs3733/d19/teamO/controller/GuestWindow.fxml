@@ -20,20 +20,20 @@
     </MapView>
   </center>
   <left>
-   <VBox alignment="CENTER" fillWidth="false" style="-fx-background-color: #F1F1F1;">
-     <children>
-       <Pane stylesheets="@style/KioskStyle.css">
-         <ImageView fitWidth="400.0" pickOnBounds="true" preserveRatio="true" styleClass="logo"/>
-       </Pane>
-       <JFXButton fx:id="loginbtn"  onAction="#onLoginAction" text="Employee Login" id="login-button" stylesheets="@style/KioskStyle.css" >
-         <graphic>
-           <FontAwesomeIconView fill="white" glyphName="SIGN_IN" size="1.5em" />
-         </graphic>
-       </JFXButton>
-     </children>
-     <VBox.margin>
-       <Insets left="20.0" right="20.0" top="20.0" bottom="20.0" />
-     </VBox.margin>
-   </VBox>
+    <VBox alignment="CENTER" fillWidth="false" style="-fx-background-color: #F1F1F1;">
+      <children>
+        <Pane stylesheets="@style/KioskStyle.css">
+          <ImageView fitWidth="400.0" pickOnBounds="true" preserveRatio="true" styleClass="logo" />
+        </Pane>
+        <JFXButton fx:id="loginbtn" onAction="#onLoginAction" text="Employee Login" id="login-button" stylesheets="@style/KioskStyle.css">
+          <graphic>
+            <FontAwesomeIconView fill="white" glyphName="SIGN_IN" size="1.5em" />
+          </graphic>
+        </JFXButton>
+      </children>
+      <VBox.margin>
+        <Insets left="20.0" right="20.0" top="20.0" bottom="20.0" />
+      </VBox.margin>
+    </VBox>
   </left>
 </BorderPane>
