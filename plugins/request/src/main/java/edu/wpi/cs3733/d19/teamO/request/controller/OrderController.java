@@ -31,7 +31,7 @@ public class OrderController {
   @FXML
   private JFXTextField zipCode;
   @FXML
-  private JFXTextField state;
+  private JFXComboBox<String> state;
 
   /**
    * Menu.
