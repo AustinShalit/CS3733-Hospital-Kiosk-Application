@@ -18,6 +18,7 @@ import javafx.scene.text.Text;
 
 import edu.wpi.cs3733.d19.teamO.controller.Controller;
 import edu.wpi.cs3733.d19.teamO.controller.FxmlController;
+import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 import static edu.wpi.cs3733.d19.teamO.request.controller.ControllerHelper.populateMonthCombobox;
@@ -31,6 +32,8 @@ public class OrderController implements Controller {
   private EventBus eventBus;
   @Inject
   private OrderController.Factory orderControllerFactory;
+  @Inject
+  private DominosHomeController.Factory dominosHomeControllerFactory;
   @Inject
   private Database db;
 
@@ -120,12 +123,9 @@ public class OrderController implements Controller {
     populateYearCombobox(expirationYear);
   }
 
-  @Inject
-  private DominosHomeController.Factory dominosHomeControllerFactory;
-
   @FXML
   void backAction(ActionEvent event) {
-    //eventBus.post(new ChangeMainViewEvent(dominosHomeControllerFactory.create()));
+    eventBus.post(new ChangeMainViewEvent(dominosHomeControllerFactory.create()));
   }
 
   @Override

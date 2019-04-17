@@ -13,13 +13,20 @@ import javafx.scene.layout.BorderPane;
 
 import edu.wpi.cs3733.d19.teamO.controller.Controller;
 import edu.wpi.cs3733.d19.teamO.controller.FxmlController;
+import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 @FxmlController(url = "DominosHome.fxml")
 public class DominosHomeController implements Controller {
 
   @Inject
+  private EventBus eventBus;
+  @Inject
   private DominosHomeController.Factory domniosHomeControllerFactory;
+  @Inject
+  private OrderController.Factory orderControllerFactory;
+  @Inject
+  private OrderTableController.Factory orderTableControllerFactory;
   @Inject
   private Database db;
 
@@ -32,21 +39,15 @@ public class DominosHomeController implements Controller {
   @FXML
   private JFXButton viewbtn;
 
-  @Inject
-  private EventBus eventBus;
-  @Inject
-  private OrderController.Factory orderControllerFactory;
-  @Inject
-  private OrderTableController.Factory orderTableControllerFactory;
 
   @FXML
   void orderAction(ActionEvent event) {
-    //eventBus.post(new ChangeMainViewEvent(orderControllerFactory.create()));
+    eventBus.post(new ChangeMainViewEvent(orderControllerFactory.create()));
   }
 
   @FXML
   void viewAction(ActionEvent event) {
-    //eventBus.post(new ChangeMainViewEvent(orderTableControllerFactory.create()));
+    eventBus.post(new ChangeMainViewEvent(orderTableControllerFactory.create()));
   }
 
   @Override

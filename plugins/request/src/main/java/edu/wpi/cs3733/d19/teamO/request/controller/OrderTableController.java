@@ -23,6 +23,8 @@ public class OrderTableController implements Controller {
   @Inject
   private OrderTableController.Factory orderTableControllerFactory;
   @Inject
+  private DominosHomeController.Factory dominosHomeControllerFactory;
+  @Inject
   private Database db;
 
   @FXML
@@ -45,11 +47,6 @@ public class OrderTableController implements Controller {
   private TableColumn<Request, Double> totalCol;
   @FXML
   private TableColumn<Request, String> descriptionCol;
-
-  @Inject
-  private EventBus eventBus;
-  @Inject
-  private DominosHomeController.Factory dominosHomeControllerFactory;
 
   @FXML
   void backAction(ActionEvent event) {
