@@ -1,27 +1,39 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
+import javax.swing.text.html.ImageView;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPopup;
 
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.BorderPane;
 
 import edu.wpi.cs3733.d19.teamO.component.MapView;
+
+import net.aksingh.owmjapis.api.APIException;
+import net.aksingh.owmjapis.core.OWM;
+import net.aksingh.owmjapis.model.CurrentWeather;
 
 @FxmlController(url = "GuestWindow.fxml")
 @SuppressWarnings({"PMD.TooManyFields", "PMD.RedundantFieldInitializer"})
 
 public class GuestViewController implements Controller {
 
-
   @FXML
   BorderPane root;
   @FXML
-  JFXButton loginbtn;
-
+  private JFXButton loginbtn;
+  @FXML
+  private Label timeLabel;
+  @FXML
+  private Label weatherLabel;
+  @FXML
+  private Label description;
+  @FXML
+  private ImageView tempImage;
   @FXML
   MapView map;
 
