@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import sun.jvm.hotspot.utilities.Assert;
+
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 
@@ -32,7 +34,13 @@ class StepByStepTest {
       "CL", "CS");
 
 
-  List<Node> testNodes = new ArrayList<>();
+
+
+
+  @Test
+  void getStepByStep() {
+
+    List<Node> testNodes = new ArrayList<>();
     testNodes.add(NODE_A);
     testNodes.add(NODE_B);
     testNodes.add(NODE_C);
@@ -43,10 +51,11 @@ class StepByStepTest {
     testNodes.add(NODE_H);
     testNodes.add(NODE_I);
 
-  @Test
-  void getStepByStep() {
+    StepByStep stepByStep = new StepByStep();
 
+    stepByStep.getStepByStep(testNodes);
 
+    assertTrue(true);
 
 
   }

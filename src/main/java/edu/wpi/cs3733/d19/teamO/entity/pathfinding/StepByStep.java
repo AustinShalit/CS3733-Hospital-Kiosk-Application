@@ -64,10 +64,10 @@ public class StepByStep {
     for (Node node: nodes) {
       boolean isElevator = false;
       boolean isStair = false;
-      if (node.getNodeType().equals("Stair Case")) {
+      if (node.getNodeType() == Node.NodeType.STAI) {
         isStair = true;
       }
-      if (node.getNodeId().contains("Elevator")) {
+      if (node.getNodeType() == Node.NodeType.ELEV) {
         isElevator = true;
       }
       Coordinate newCoord = new Coordinate(node.getXcoord(), node.getYcoord(),
