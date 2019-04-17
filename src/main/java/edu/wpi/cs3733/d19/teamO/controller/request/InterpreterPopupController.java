@@ -9,6 +9,7 @@ import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
@@ -28,6 +29,8 @@ public class InterpreterPopupController implements Controller {
 
   @FXML
   BorderPane root;
+  @FXML
+  private JFXTextField nametxt;
   @FXML
   private JFXComboBox<Node> locationbox;
   @FXML
@@ -49,6 +52,7 @@ public class InterpreterPopupController implements Controller {
     submitbtn.disableProperty().bind(
         Bindings.isNull(locationbox.valueProperty())
             .or(Bindings.isNull(categorybox.valueProperty()))
+            .or(Bindings.isEmpty(nametxt.textProperty()))
     );
   }
 
@@ -62,6 +66,7 @@ public class InterpreterPopupController implements Controller {
       return;
     }
 
+    nametxt.setText(null);
     locationbox.getSelectionModel().clearSelection();
     locationbox.setValue(null);
     categorybox.getSelectionModel().clearSelection();
@@ -84,7 +89,8 @@ public class InterpreterPopupController implements Controller {
    */
   private InterpreterRequest parseUserInterpreterRequest() {
     // if input is valid, parse it and return a new SanitationRequest
-    if (Objects.nonNull(locationbox.getValue())
+    if (!nametxt.getText().isEmpty()
+        && Objects.nonNull(locationbox.getValue())
         && Objects.nonNull(categorybox.getValue())) {
 
       LocalDateTime now = LocalDateTime.now();
@@ -93,8 +99,9 @@ public class InterpreterPopupController implements Controller {
       InterpreterRequest.Language language = categorybox.getValue();
 
       String description = descriptiontxt.getText();
+      String name = nametxt.getText();
 
-      return new InterpreterRequest(now, node, language, description);
+      return new InterpreterRequest(now, node, language, description, name);
     }
 
     // otherwise, some input was invalid
