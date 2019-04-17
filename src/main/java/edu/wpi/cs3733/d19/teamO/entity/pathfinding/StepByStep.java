@@ -26,9 +26,11 @@ public class StepByStep {
 
     double theta = Math.atan2(ydif, xdif) * 180 / Math.PI;
 
-
-
-    if (theta > 22.5 && theta <= 67.5) {
+    if (start.isElevator() && end.isElevator()) {
+      return "Elevator";
+    } else if (start.isStair() && end.isStair()){
+      return "Stair";
+    } else if (theta > 22.5 && theta <= 67.5) {
       return "North East";
     } else if (theta > 67.5 && theta <= 112.5) {
       return "North";
@@ -60,7 +62,16 @@ public class StepByStep {
     ArrayList<Coordinate> coordinates = new ArrayList<>();
 
     for (Node node: nodes) {
-      Coordinate newCoord = new Coordinate(node.getXcoord(), node.getYcoord());
+      boolean isElevator = false;
+      boolean isStair = false;
+      if (node.getNodeType().equals("Stair Case")) {
+        isStair = true;
+      }
+      if (node.getNodeId().contains("Elevator")) {
+        isElevator = true;
+      }
+      Coordinate newCoord = new Coordinate(node.getXcoord(), node.getYcoord(),
+          isElevator, isStair);
       coordinates.add(newCoord);
     }
 
@@ -102,8 +113,11 @@ public class StepByStep {
         instructions.add("Walk " + Double.toString(Math.round(distance.get(i))) + " ft then");
       }
 
-
-      if (diff == 1 || diff == -7 ) {
+      if (current.equals("Elevator")) {
+        instructions.add("use elevator");
+      } else if (current.equals("Stair")) {
+        instructions.add("use stairs");
+      } else if (diff == 1 || diff == -7 ) {
         instructions.add("take a slight right");
         last = "other";
       } else if (diff == 2 || diff == -6) {

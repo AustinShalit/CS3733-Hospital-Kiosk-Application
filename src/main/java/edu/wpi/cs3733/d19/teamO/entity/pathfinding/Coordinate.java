@@ -3,10 +3,14 @@ package edu.wpi.cs3733.d19.teamO.entity.pathfinding;
 public class Coordinate {
   private final int xcoord;
   private final int ycoord;
+  private final boolean isElevator;
+  private final boolean isStair;
 
-  public Coordinate(int xCoord, int yCoord) {
-    this.xcoord = xCoord;
-    this.ycoord = yCoord;
+  public Coordinate(int xcoord, int ycoord, boolean isElevator, boolean isStair) {
+    this.xcoord = xcoord;
+    this.ycoord = ycoord;
+    this.isElevator = isElevator;
+    this.isStair = isStair;
   }
 
   public int getXcoord() {
@@ -16,6 +20,10 @@ public class Coordinate {
   public int getYcoord() {
     return ycoord;
   }
+
+  public boolean isElevator() { return isElevator; }
+
+  public boolean isStair() { return isStair; }
 
   /**
    * gets the distance in ft between the two coordinates.
