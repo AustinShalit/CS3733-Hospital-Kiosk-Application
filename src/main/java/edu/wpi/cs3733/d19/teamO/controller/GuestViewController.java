@@ -8,12 +8,12 @@ import java.net.URLConnection;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 
-import com.google.common.eventbus.EventBus;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPopup;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -22,6 +22,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -30,28 +31,19 @@ import net.aksingh.owmjapis.api.APIException;
 import net.aksingh.owmjapis.core.OWM;
 import net.aksingh.owmjapis.model.CurrentWeather;
 
-import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
-import edu.wpi.cs3733.d19.teamO.entity.Node;
-import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
-import edu.wpi.cs3733.d19.teamO.entity.database.Database;
+import edu.wpi.cs3733.d19.teamO.component.MapView;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-@SuppressWarnings({"PMD.TooManyFields", "PMD.ExcessiveImports"})
+@FxmlController(url = "GuestWindow.fxml")
+@SuppressWarnings({"PMD.TooManyFields", "PMD.RedundantFieldInitializer", "PMD.ExcessiveImports"})
 
-@FxmlController(url = "Home.fxml")
-public class HomeController implements Controller {
+public class GuestViewController implements Controller {
 
   @FXML
-  private BorderPane root;
+  BorderPane root;
   @FXML
-  private JFXButton navigationButton;
-  @FXML
-  private JFXButton requestButton;
-  @FXML
-  private JFXButton scheduleButton;
-  @FXML
-  private JFXButton securityButton;
+  private JFXButton loginbtn;
   @FXML
   private Label timeLabel;
   @FXML
@@ -60,17 +52,13 @@ public class HomeController implements Controller {
   private Label description;
   @FXML
   private ImageView tempImage;
-  @Inject
-  private EventBus eventBus;
-  @Inject
-  private Database database;
-  @Inject
-  private RequestController.Factory requestControllerFactory;
-  @Inject
-  private SchedulingController.Factory schedulingControllerFactory;
-  @Inject
-  private NavigationController.Factory navigationControllerFactory;
+  @FXML
+  MapView map;
 
+  @Inject
+  private LoginController.Factory loginFactory;
+
+  private JFXPopup login;
   private String second;
   private String minute;
   private String hour;
@@ -88,9 +76,10 @@ public class HomeController implements Controller {
 
     // Convert to a JSON object  using GSON
     JsonParser jp = new JsonParser();
-    JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent(), UTF_8));
-    JsonObject rootobj = root.getAsJsonObject();
-    System.out.println(root.toString());
+    JsonElement jsonElement = jp.parse(new InputStreamReader(
+        (InputStream) request.getContent(), UTF_8));
+    JsonObject rootobj = jsonElement.getAsJsonObject();
+    System.out.println(jsonElement.toString());
     String icon = rootobj.get("weather")
         .getAsJsonArray()
         .get(0)
@@ -132,6 +121,37 @@ public class HomeController implements Controller {
         exception.printStackTrace();
       }
     }).start();
+
+    LoginController loginController = loginFactory.create();
+    loginController.getLoginFail().textProperty().addListener(
+        (observable, oldValue, newValue) -> {
+          if ("Login Success".equals(newValue)) {
+            login.hide();
+          }
+        }
+    );
+    login = new JFXPopup(loginController.root);
+    login.setOnAutoHide(
+        event -> {
+          ColorAdjust reset = new ColorAdjust();
+          reset.setBrightness(0);
+          root.setEffect(reset);
+        }
+    );
+  }
+
+  @FXML
+  void onLoginAction() {
+    ColorAdjust colorAdjust = new ColorAdjust();
+    colorAdjust.setBrightness(-0.2);
+    root.setEffect(colorAdjust);
+    login.show(root);
+    login.setX(
+        (root.getScene().getWindow().getWidth() - login.getWidth()) / 2
+    );
+    login.setY(
+        (root.getScene().getWindow().getHeight() - login.getHeight()) / 2
+    );
   }
 
   void getWeatherData() throws APIException {
@@ -151,41 +171,48 @@ public class HomeController implements Controller {
         -> weatherLabel.setText(df.format(min) + " F to " + df.format(max) + " F"));
   }
 
-  @FXML
-  void navigationOnAction() {
-    eventBus.post(new ChangeMainViewEvent(navigationControllerFactory.create()));
-  }
-
-  @FXML
-  void requestOnAction() {
-    eventBus.post(new ChangeMainViewEvent(requestControllerFactory.create()));
-  }
-
-  @FXML
-  void scheduleOnAction() {
-    eventBus.post(new ChangeMainViewEvent(schedulingControllerFactory.create()));
-  }
-
-  @FXML
-  void securityOnAction() {
-    if (DialogHelper.showConfirmDialog("Confirmation Dialog",
-        "Security Request Notification",
-        "Are you sure you want to alert security?")) {
-      System.out.println("Notifying");
-      // TODO send to database
-      Node node = new Node("notExist", 0, 0, "0", "0",
-          Node.NodeType.WORKZONE, "not", "existed");
-      SecurityRequest sr = new SecurityRequest(LocalDateTime.now(), node);
-      database.insertSecurityRequest(sr);
-    }
-  }
-
   @Override
   public Parent getRoot() {
     return root;
   }
 
   public interface Factory {
-    HomeController create();
+    GuestViewController create();
   }
+  /*
+  @FXML
+  @SuppressWarnings({"PMD.AvoidInstantiatingObjectsInLoops", "UseStringBufferForStringAppends"})
+  void onGoButtonAction() throws IOException {
+
+    if (toComboBox.getValue().equals(fromComboBox.getValue())) {
+      DialogHelper.showInformationAlert("Must Select Different Start/End Destinations",
+          "Please select different start and end destinations to generate a valid path.");
+      return;
+    }
+
+    IGraphSearchAlgorithm<Node> algorithm = appPreferences.getGraphSearchAlgorithm().getAlgorithm();
+    MutableGraph<Node> graph = GraphBuilder.undirected().allowsSelfLoops(false).build();
+    database.getAllNodes().forEach(graph::addNode);
+    database.getAllEdges().forEach(e -> graph.putEdge(e.getStartNode(), e.getEndNode()));
+
+    List<Node> path = algorithm.getPath(ImmutableGraph.copyOf(graph),
+        fromComboBox.getValue(),
+        toComboBox.getValue());
+
+    ArrayList<String> list = stepByStep.getStepByStep(path);
+    String instruction;
+    StringBuilder stringBuilder = new StringBuilder();
+    for (String s: list) {
+      stringBuilder.append(s);
+      stringBuilder.append('\n');
+    }
+    instruction = stringBuilder.toString();
+    instructions.setText(instruction);
+    map.zoomTo(fromComboBox.getValue());
+    map.setPath(path);
+    map.drawPath();
+
+  }
+*/
+
 }

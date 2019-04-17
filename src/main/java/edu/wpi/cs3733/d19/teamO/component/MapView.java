@@ -62,6 +62,8 @@ public class MapView extends StackPane {
   @FXML
   private Button levelF3;
   @FXML
+  private Button levelF4;
+  @FXML
   private Button levelL2;
   @FXML
   private Button levelG;
@@ -73,6 +75,8 @@ public class MapView extends StackPane {
   Group startAndEndNodes = new Group();
 
   Group pathEdges = new Group();
+
+  Group labelsGroup = new Group();
 
   List<Node> path;
 
@@ -177,7 +181,8 @@ public class MapView extends StackPane {
     Object src = e.getSource();
 
     if (src.equals(levelF1) || src.equals(levelF2) || src.equals(levelF3)
-        || src.equals(levelG) || src.equals(levelL1) || src.equals(levelL2)) {
+        || src.equals(levelG) || src.equals(levelL1) || src.equals(levelL2)
+        || src.equals(levelF4)) {
       resetButtonBackground(level);
       // If the src of this ActionEvent is from our supported buttons
       ((Button) src).setStyle("-fx-background-color: rgb(1,45,90)"); // style button
@@ -207,6 +212,9 @@ public class MapView extends StackPane {
     } else if (src.equals(levelG)) {
       filename = "00_thegroundfloor.png";
       level = 0;
+    } else if (src.equals(levelF4)) {
+      filename = "04_thefourthfloor.png";
+      level = 4;
     }
 
     backgroundImage.setImage(new Image(getClass().getResource(filename).openStream()));
@@ -238,6 +246,9 @@ public class MapView extends StackPane {
     } else if (src.equals(levelG)) {
       levelG.setStyle("-fx-background-color: rgb(0,78,134)");
       currentLevel = 0;
+    } else if (src.equals(levelF4)) {
+      levelF4.setStyle("-fx-background-color: rgb(0,78,134)");
+      currentLevel = 4;
     } else {
       return;
     }
@@ -316,11 +327,13 @@ public class MapView extends StackPane {
    */
   @SuppressWarnings({"PMD.AvoidInstantiatingObjectsInLoops"})
   public void drawPath() {
+    nodeGroup.getChildren().removeAll(labelsGroup);
     nodeGroup.getChildren().removeAll(startAndEndNodes);
-    edges.getChildren().removeAll(pathEdges);
+    nodeGroup.getChildren().removeAll(pathEdges);
 
     pathEdges = new Group();
     startAndEndNodes = new Group();
+    labelsGroup = new Group();
 
     if (path != null) {
       clearNodes();
@@ -331,11 +344,18 @@ public class MapView extends StackPane {
       for (Node node : path) {
         if (lastNode != null) {
           addLine(node, lastNode, Color.BLACK, 5);
-          addTextField(node, lastNode);
+          addFloorChangeLabel(node, lastNode);
         } else if (node.getFloorInt() == level) {
           Circle circle = new Circle(node.getXcoord(), node.getYcoord(), 8, Color.GREEN);
           circle.setStroke(Color.BLACK);
           startAndEndNodes.getChildren().add(circle);
+
+          Label label = new Label(node.getLongName());
+          label.setTranslateX(node.getXcoord() + 10);
+          label.setTranslateY(node.getYcoord() - 9);
+          label.getStyleClass().add("navlabel");
+
+          labelsGroup.getChildren().add(label);
         }
         lastNode = node;
       }
@@ -346,6 +366,14 @@ public class MapView extends StackPane {
         rectangle.setFill(Color.RED);
         rectangle.setStroke(Color.BLACK);
         startAndEndNodes.getChildren().add(rectangle);
+        if (lastNode.getFloorInt() == path.get(path.indexOf(lastNode) - 1).getFloorInt()) {
+          Label label2 = new Label(lastNode.getLongName());
+          label2.setTranslateX(lastNode.getXcoord() + 10);
+          label2.setTranslateY(lastNode.getYcoord() - 9);
+          label2.getStyleClass().add("navlabel");
+
+          labelsGroup.getChildren().add(label2);
+        }
       }
 
 
@@ -365,7 +393,9 @@ public class MapView extends StackPane {
       pixars_A_Bugs_Life(antline);
     }
     nodeGroup.getChildren().addAll(startAndEndNodes);
-    edges.getChildren().addAll(pathEdges);
+    nodeGroup.getChildren().addAll(pathEdges);
+    nodeGroup.getChildren().addAll(labelsGroup);
+
   }
 
   /**
@@ -445,6 +475,9 @@ public class MapView extends StackPane {
       case "3":
         onFloorSelectAction(new ActionEvent(levelF3, levelF3));
         break;
+      case "4":
+        onFloorSelectAction(new ActionEvent(levelF4, levelF4));
+        break;
       case "G":
         onFloorSelectAction(new ActionEvent(levelG, levelG));
         break;
@@ -475,33 +508,41 @@ public class MapView extends StackPane {
     return line;
   }
 
-  private void addTextField(Node node, Node lastNode) {
+  private void addFloorChangeLabel(Node node, Node lastNode) {
     if (lastNode.getFloorInt() != node.getFloorInt()) {
       Label label = null;
+      Label label2 = null;
       if (lastNode.getFloorInt() == level) {
         label = new Label("To Floor " + node.getFloor());
-        label.setTranslateX(lastNode.getXcoord() + 8);
-        label.setTranslateY(lastNode.getYcoord() + 8);
+        label.setTranslateX(lastNode.getXcoord() + 10);
+        label.setTranslateY(lastNode.getYcoord() + 10);
+        label.getStyleClass().add("navlabel");
+
+        label2 = new Label(lastNode.getLongName());
+        label2.setTranslateX(lastNode.getXcoord() + 10);
+        label2.setTranslateY(lastNode.getYcoord() - 9);
+        label2.getStyleClass().add("navlabel");
+
       } else if (node.getFloorInt() == level) {
         label = new Label("From Floor " + lastNode.getFloor());
-        label.setTranslateX(node.getXcoord() + 8);
-        label.setTranslateY(node.getYcoord() + 8);
+        label.setTranslateX(node.getXcoord() + 10);
+        label.setTranslateY(node.getYcoord() + 10);
+        label.getStyleClass().add("navlabel");
+
+        label2 = new Label(node.getLongName());
+        label2.setTranslateX(node.getXcoord() + 10);
+        label2.setTranslateY(node.getYcoord() - 9);
+        label2.getStyleClass().add("navlabel");
       }
 
       if (label != null) {
-        label.setAlignment(Pos.CENTER);
-        label.setPrefWidth(USE_COMPUTED_SIZE);
-        label.setTextFill(Color.WHITE);
-        label.setPadding(new Insets(0, 5, 0, 5));
-        label.setBackground(new Background(new BackgroundFill(Paint.valueOf("0067B1"),
-            new CornerRadii(5, 5, 5, 5, false),
-            Insets.EMPTY)));
-        label.setBorder(new Border(new BorderStroke(Color.rgb(1, 45, 90),
-            BorderStrokeStyle.SOLID, new CornerRadii(5, 5, 5, 5, false),
-            BorderWidths.DEFAULT)));
-        nodeGroup.getChildren().add(label);
+        labelsGroup.getChildren().add(label);
+      }
+      if (label2 != null) {
+        labelsGroup.getChildren().add(label2);
       }
 
     }
   }
+
 }
