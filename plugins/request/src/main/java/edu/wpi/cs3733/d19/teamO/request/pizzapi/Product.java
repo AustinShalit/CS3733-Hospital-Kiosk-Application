@@ -11,6 +11,8 @@ public class Product extends GenericJson {
   @Key("Name")
   private String name;
 
+  public static String removeOption;
+
   public Product() {
 
   }
@@ -18,6 +20,7 @@ public class Product extends GenericJson {
   public Product(String code, String name) {
     this.code = code;
     this.name = name;
+    this.removeOption = "Remove Item";
   }
 
   public String getCode() {
@@ -26,6 +29,22 @@ public class Product extends GenericJson {
 
   public String getName() {
     return name;
+  }
+
+  public void setCode(String code) {
+    this.code = code;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getRemoveOption() {
+    return removeOption;
+  }
+
+  public void setRemoveOption(String removeOption) {
+    this.removeOption = removeOption;
   }
 
   @Override

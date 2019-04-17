@@ -4,7 +4,6 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TitledPane?>
@@ -85,9 +84,6 @@
             <TitledPane fx:id="menuPane" animated="false" text="MENU">
                <content>
                   <BorderPane prefHeight="200.0" prefWidth="200.0">
-                     <center>
-                        <ListView fx:id="menuListView" editable="true" BorderPane.alignment="CENTER" />
-                     </center>
                      <top>
                         <StackPane BorderPane.alignment="CENTER" />
                      </top>
@@ -99,7 +95,10 @@
                      </right>
                      <bottom>
                         <StackPane BorderPane.alignment="CENTER" />
-                     </bottom></BorderPane>
+                     </bottom>
+                     <center>
+                        <JFXComboBox fx:id="cart" BorderPane.alignment="CENTER" />
+                     </center></BorderPane>
                </content>
             </TitledPane>
             <TitledPane fx:id="placeOrderPane" animated="false" text="PLACE ORDER" VBox.vgrow="ALWAYS">
@@ -122,6 +121,7 @@
                               <VBox BorderPane.alignment="CENTER">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Service Method and Location" />
+                                    <Text fx:id="orderFromText" strokeType="OUTSIDE" strokeWidth="0.0" text="Ordering from" />
                                     <Text fx:id="carryoutOrDeliveryToAddressText" strokeType="OUTSIDE" strokeWidth="0.0" text="Delivery to" />
                                  </children>
                               </VBox>
@@ -166,8 +166,6 @@
                                     <TableView fx:id="orderSummaryTableView" prefHeight="200.0" prefWidth="200.0">
                                       <columns>
                                         <TableColumn fx:id="itemColumn" prefWidth="75.0" text="Item" />
-                                        <TableColumn fx:id="qtyColumn" prefWidth="75.0" text="Qty" />
-                                          <TableColumn fx:id="priceColumn" prefWidth="75.0" text="Price" />
                                       </columns>
                                     </TableView>
                                     <Text fx:id="subtotalText" strokeType="OUTSIDE" strokeWidth="0.0" text="Subtotal: " />
