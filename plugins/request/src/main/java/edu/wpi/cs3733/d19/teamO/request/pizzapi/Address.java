@@ -1,12 +1,14 @@
 package edu.wpi.cs3733.d19.teamO.request.pizzapi;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import com.google.api.client.http.json.JsonHttpContent;
+import com.google.api.client.util.Key;
 
 import edu.wpi.cs3733.d19.teamO.request.pizzapi.response.FindResponse;
 
@@ -26,18 +28,34 @@ import edu.wpi.cs3733.d19.teamO.request.pizzapi.response.FindResponse;
  */
 public class Address {
 
-  private final StringProperty street = new SimpleStringProperty();
-  private final StringProperty city = new SimpleStringProperty();
-  private final StringProperty region = new SimpleStringProperty();
-  private final StringProperty zip = new SimpleStringProperty();
-  private final StringProperty country = new SimpleStringProperty();
+  @Key("Street")
+  private String street;
+  @Key("City")
+  private String city;
+  @Key("Region")
+  private String region;
+  @Key("PostalCode")
+  private String zip;
+  @Key("Type")
+  private String type = "House";
+
+  public Address() {
+
+  }
+
+  public Address(String street, String city, String region, String zip) {
+    this.street = street;
+    this.city = city;
+    this.region = region;
+    this.zip = zip;
+  }
 
   public String getLineOne() {
-    return street.get();
+    return street;
   }
 
   public String getLineTwo() {
-    return String.format("%s, %s, %s", city.get(), region.get(), zip.get());
+    return String.format("%s, %s, %s", city, region, zip);
   }
 
   /**
@@ -48,12 +66,12 @@ public class Address {
    * in service (!['ServiceIsOpen']).
    */
   public List<Store> getNearbyStores() throws IOException {
-    FindResponse response = Utilities.sendRequest(
+    FindResponse response = Utilities.sendGetRequest(
         Country.USA.getFindUrl(getLineOne(), getLineTwo(), "Delivery"),
         FindResponse.class);
 
     return response.getStores().stream()
-        .filter(Store::isOpen)
+        //.filter(Store::isOpen)
         .collect(Collectors.toList());
   }
 
@@ -65,65 +83,5 @@ public class Address {
     }
 
     return Optional.of(stores.get(0));
-  }
-
-  public String getStreet() {
-    return street.get();
-  }
-
-  public StringProperty streetProperty() {
-    return street;
-  }
-
-  public void setStreet(String street) {
-    this.street.set(street);
-  }
-
-  public String getCity() {
-    return city.get();
-  }
-
-  public StringProperty cityProperty() {
-    return city;
-  }
-
-  public void setCity(String city) {
-    this.city.set(city);
-  }
-
-  public String getRegion() {
-    return region.get();
-  }
-
-  public StringProperty regionProperty() {
-    return region;
-  }
-
-  public void setRegion(String region) {
-    this.region.set(region);
-  }
-
-  public String getZip() {
-    return zip.get();
-  }
-
-  public StringProperty zipProperty() {
-    return zip;
-  }
-
-  public void setZip(String zip) {
-    this.zip.set(zip);
-  }
-
-  public String getCountry() {
-    return country.get();
-  }
-
-  public StringProperty countryProperty() {
-    return country;
-  }
-
-  public void setCountry(String country) {
-    this.country.set(country);
   }
 }

@@ -11,14 +11,17 @@ import com.google.api.client.http.GenericUrl;
  */
 public enum Country {
   USA("https://order.dominos.com/power/store-locator",
-      "https://order.dominos.com/power/store/");
+      "https://order.dominos.com/power/store/",
+      "https://order.dominos.com/power/price-order");
 
   private final String findBaseUrl;
   private final String menuBaseUrl;
+  private final String priceUrl;
 
-  Country(final String findBaseUrl, final String menuBaseUrl) {
+  Country(String findBaseUrl, String menuBaseUrl, String priceUrl) {
     this.findBaseUrl = findBaseUrl;
     this.menuBaseUrl = menuBaseUrl;
+    this.priceUrl = priceUrl;
   }
 
   public GenericUrl getFindUrl(final String lineOne, final String lineTwo, final String type) {
@@ -35,5 +38,9 @@ public enum Country {
     url.appendRawPath("/menu");
     url.put("structured", true);
     return url;
+  }
+
+  public GenericUrl getPriceUrl() {
+    return new GenericUrl(priceUrl);
   }
 }

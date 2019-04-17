@@ -15,6 +15,8 @@ import com.google.api.client.util.Key;
  */
 public class Menu extends GenericJson {
 
+  @Key("Variants")
+  private GenericJson variants;
   @Key("PreconfiguredProducts")
   private GenericJson productsJson;
 
@@ -26,5 +28,13 @@ public class Menu extends GenericJson {
           product.get("Name").toString()));
     });
     return products;
+  }
+
+  public GenericJson getVariants() {
+    return variants;
+  }
+
+  public GenericJson getProductsJson() {
+    return productsJson;
   }
 }
