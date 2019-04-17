@@ -51,9 +51,9 @@
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="City" GridPane.rowIndex="5" />
                         <JFXTextField fx:id="city" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Zip Code" GridPane.rowIndex="6" />
-                        <JFXComboBox fx:id="zipCode" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <JFXTextField fx:id="zipCode" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="State" GridPane.rowIndex="7" />
-                        <JFXTextField fx:id="state" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <JFXComboBox fx:id="state" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                      </children>
                   </GridPane>
                </content>
