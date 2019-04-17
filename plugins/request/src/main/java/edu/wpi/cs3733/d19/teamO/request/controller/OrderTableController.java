@@ -11,13 +11,15 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 
+import edu.wpi.cs3733.d19.teamO.controller.Controller;
+import edu.wpi.cs3733.d19.teamO.controller.FxmlController;
+import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
+import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 import edu.wpi.cs3733.d19.teamO.request.Request;
 
 @FxmlController(url = "OrderTable.fxml")
-public class OrderTableController implements Controller{
+public class OrderTableController implements Controller {
 
-  @Inject
-  private EventBus eventBus;
   @Inject
   private OrderTableController.Factory orderTableControllerFactory;
   @Inject
@@ -51,7 +53,7 @@ public class OrderTableController implements Controller{
 
   @FXML
   void backAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(dominosHomeControllerFactory.create()));
+    //eventBus.post(new ChangeMainViewEvent(dominosHomeControllerFactory.create()));
   }
 
   @Override

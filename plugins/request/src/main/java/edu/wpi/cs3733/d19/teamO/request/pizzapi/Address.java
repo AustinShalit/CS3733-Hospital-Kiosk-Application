@@ -48,11 +48,11 @@ public class Address {
    * in service (!['ServiceIsOpen']).
    */
   public List<Store> getNearbyStores() throws IOException {
-    FindResponse reponse = Utilities.sendRequest(
+    FindResponse response = Utilities.sendRequest(
         Country.USA.getFindUrl(getLineOne(), getLineTwo(), "Delivery"),
         FindResponse.class);
 
-    return reponse.getStores().stream()
+    return response.getStores().stream()
         .filter(Store::isOpen)
         .collect(Collectors.toList());
   }

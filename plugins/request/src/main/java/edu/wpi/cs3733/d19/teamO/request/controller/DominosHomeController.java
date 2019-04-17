@@ -11,11 +11,13 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 
+import edu.wpi.cs3733.d19.teamO.controller.Controller;
+import edu.wpi.cs3733.d19.teamO.controller.FxmlController;
+import edu.wpi.cs3733.d19.teamO.entity.database.Database;
+
 @FxmlController(url = "DominosHome.fxml")
 public class DominosHomeController implements Controller {
 
-  @Inject
-  private EventBus eventBus;
   @Inject
   private DominosHomeController.Factory domniosHomeControllerFactory;
   @Inject
@@ -39,12 +41,12 @@ public class DominosHomeController implements Controller {
 
   @FXML
   void orderAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(orderControllerFactory.create()));
+    //eventBus.post(new ChangeMainViewEvent(orderControllerFactory.create()));
   }
 
   @FXML
   void viewAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(orderTableControllerFactory.create()));
+    //eventBus.post(new ChangeMainViewEvent(orderTableControllerFactory.create()));
   }
 
   @Override
