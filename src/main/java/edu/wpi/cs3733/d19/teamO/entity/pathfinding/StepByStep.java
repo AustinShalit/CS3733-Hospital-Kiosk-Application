@@ -7,7 +7,8 @@ import edu.wpi.cs3733.d19.teamO.entity.Node;
 
 
 @SuppressWarnings({"PMD.CyclomaticComplexity", "PMD.LooseCoupling", "PMD.CyclomaticComplexity",
-    "PMD.AvoidInstantiatingObjectsInLoops"})
+    "PMD.AvoidInstantiatingObjectsInLoops", "PMD.GodClass" , "PMD.ExcessiveMethodLength",
+    "PMD.NPathComplexity", "PMD.PositionLiteralsFirstInComparisons"})
 
 public class StepByStep {
 
@@ -26,9 +27,11 @@ public class StepByStep {
 
     double theta = Math.atan2(ydif, xdif) * 180 / Math.PI;
 
-
-
-    if (theta > 22.5 && theta <= 67.5) {
+    if (start.isElevator() && end.isElevator()) {
+      return "Elevator";
+    } else if (start.isStair() && end.isStair()) {
+      return "Stair";
+    } else if (theta > 22.5 && theta <= 67.5) {
       return "North East";
     } else if (theta > 67.5 && theta <= 112.5) {
       return "North";
@@ -60,7 +63,17 @@ public class StepByStep {
     ArrayList<Coordinate> coordinates = new ArrayList<>();
 
     for (Node node: nodes) {
-      Coordinate newCoord = new Coordinate(node.getXcoord(), node.getYcoord());
+      boolean isElevator = false;
+      boolean isStair = false;
+      if (node.getNodeType() == Node.NodeType.STAI) {
+        isStair = true;
+
+      }
+      if (node.getNodeType() == Node.NodeType.ELEV) {
+        isElevator = true;
+      }
+      Coordinate newCoord = new Coordinate(node.getXcoord(), node.getYcoord(),
+          isElevator, isStair);
       coordinates.add(newCoord);
     }
 
@@ -102,28 +115,41 @@ public class StepByStep {
         instructions.add("Walk " + Double.toString(Math.round(distance.get(i))) + " ft then");
       }
 
+      if (last.equals("Elevator") || last.equals("Stair")) {
+        instructions.remove(instructions.size() - 1);
+      }
 
-      if (diff == 1 || diff == -7 ) {
-        instructions.add("take a slight right");
+      if (current.equals("Elevator")) {
+        instructions.remove(instructions.size() - 1);
+        instructions.remove(instructions.size() - 1);
+        instructions.add("Use elevator");
+        last = "Elevator";
+      }  else if (current.equals("Stair")) {
+        instructions.remove(instructions.size() - 1);
+        instructions.remove(instructions.size() - 1);
+        instructions.add("Use stairs");
+        last = "Stair";
+      } else if (diff == 1 || diff == -7 ) {
+        instructions.add("Take a slight right");
         last = "other";
       } else if (diff == 2 || diff == -6) {
-        instructions.add("take a right");
+        instructions.add("Take a right");
         last = "other";
       } else if (diff == 3 || diff == -5) {
-        instructions.add("take a hard right");
+        instructions.add("Take a hard right");
         last = "other";
       } else if (diff == -1 || diff == 7) {
-        instructions.add("take a slight left");
+        instructions.add("Take a slight left");
         last = "other";
       } else if (diff == -2 || diff == 6) {
-        instructions.add("take a left");
+        instructions.add("Take a left");
         last = "other";
       } else if (diff == -3 || diff == 5) {
-        instructions.add("take a hard left");
+        instructions.add("Take a hard left");
         last = "other";
       } else if (diff == 0) {
         if (!last.equals(forward)) {
-          instructions.add("go forward");
+          instructions.add("Go forward");
           totalDist += Math.round(distance.get(i));
           last = "forward";
         }
