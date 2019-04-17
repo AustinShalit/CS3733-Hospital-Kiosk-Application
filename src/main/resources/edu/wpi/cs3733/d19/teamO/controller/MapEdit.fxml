@@ -19,175 +19,159 @@
 
 <?import edu.wpi.cs3733.d19.teamO.component.MapView2?>
 
+<?import javafx.scene.Group?>
 <BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.MapEditController">
   <left>
     <StackPane BorderPane.alignment="CENTER">
       <children>
         <HBox alignment="CENTER">
           <children>
-            <VBox alignment="TOP_CENTER" style="-fx-pref-height: 40;" HBox.hgrow="ALWAYS">
+            <VBox alignment="TOP_CENTER" HBox.hgrow="ALWAYS" stylesheets="@style/KioskStyle.css" styleClass="form" style="-fx-spacing: 4">
               <children>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="MAP">
-                  <font>
-                    <Font size="30.0" />
-                  </font>
-                  <VBox.margin>
-                    <Insets bottom="3.0" />
-                  </VBox.margin>
-                </Text>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Editing">
-                  <font>
-                    <Font size="30.0" />
-                  </font>
-                  <VBox.margin>
-                    <Insets bottom="5.0" />
-                  </VBox.margin>
-                </Text>
+                <Text id="heading" strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Map"/>
 
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NodeID">
-                  <font>
-                    <Font size="15.0" />
-                  </font>
-                </Text>
-                <JFXTextField fx:id="nodeIDField" editable="false" onKeyReleased="#validateButton" prefHeight="25.0" text="Auto-Generated">
-                  <VBox.margin>
-                    <Insets bottom="5.0" left="30.0" right="30.0" />
-                  </VBox.margin>
-                </JFXTextField>
+                <Group>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="NodeID: ">
+                    <font>
+                      <Font size="15.0" />
+                    </font>
+                  </Text>
+                  <JFXTextField fx:id="nodeIDField" editable="false" onKeyReleased="#validateButton" prefHeight="25.0" text="Auto-Generated">
+                    <VBox.margin>
+                      <Insets left="30.0" right="30.0" />
+                    </VBox.margin>
+                  </JFXTextField>
+                </Group>
 
-                <!--<JFXTextField onKeyReleased="#validateButton" prefHeight="25.0" prefWidth="132.0" fx:id="nodeIDField" /> -->
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="X-Coordinate">
-                  <font>
-                    <Font size="15.0" />
-                  </font>
-                  <VBox.margin>
+                <Group>
+                  <!--<JFXTextField onKeyReleased="#validateButton" prefHeight="25.0" prefWidth="132.0" fx:id="nodeIDField" /> -->
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="X-Coordinate">
+                    <font>
+                      <Font size="15.0" />
+                    </font>
+                    <VBox.margin>
+                      <Insets />
+                    </VBox.margin>
+                  </Text>
+                  <JFXTextField onAction="#onEnter" onKeyReleased="#validateButton" prefHeight="25.0" fx:id="xcoordField">
+                    <VBox.margin>
+                      <Insets left="30.0" right="30.0" />
+                    </VBox.margin>
+                  </JFXTextField>
+                </Group>
 
-                    <Insets />
+                <Group>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Y-Coordinate">
+                    <font>
+                      <Font size="15.0" />
+                    </font>
+                  </Text>
+                  <JFXTextField fx:id="ycoordField" onAction="#onEnter" onKeyReleased="#validateButton" prefHeight="25.0">
+                    <VBox.margin>
+                      <Insets left="30.0" right="30.0" />
+                    </VBox.margin>
+                  </JFXTextField>
+                </Group>
 
-                  </VBox.margin>
-                </Text>
-                <JFXTextField onAction="#onEnter" onKeyReleased="#validateButton" prefHeight="25.0" fx:id="xcoordField">
-                  <VBox.margin>
-                    <Insets bottom="5.0" left="30.0" right="30.0" />
-                  </VBox.margin>
-                </JFXTextField>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Y-Coordinate">
-                  <font>
-                    <Font size="15.0" />
-                  </font>
-                </Text>
-                <JFXTextField fx:id="ycoordField" onAction="#onEnter" onKeyReleased="#validateButton" prefHeight="25.0">
-                  <VBox.margin>
-                    <Insets bottom="5.0" left="30.0" right="30.0" />
-                  </VBox.margin>
-                </JFXTextField>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Floor">
-                  <font>
-                    <Font size="15.0" />
-                  </font>
-                </Text>
-                <JFXTextField fx:id="floorField" onKeyReleased="#validateButton" prefHeight="25.0">
-                  <VBox.margin>
-                    <Insets bottom="5.0" left="30.0" right="30.0" />
-                  </VBox.margin>
-                </JFXTextField>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Building">
-                  <font>
-                    <Font size="15.0" />
-                  </font>
-                </Text>
-                <JFXTextField fx:id="buildingField" onKeyReleased="#validateButton" prefHeight="25.0">
-                  <VBox.margin>
-                    <Insets bottom="5.0" left="30.0" right="30.0" />
-                  </VBox.margin>
-                </JFXTextField>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Type">
-                  <font>
-                    <Font size="15.0" />
-                  </font>
-                </Text>
+                <Group>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Floor">
+                    <font>
+                      <Font size="15.0" />
+                    </font>
+                  </Text>
+                  <JFXTextField fx:id="floorField" onKeyReleased="#validateButton" prefHeight="25.0">
+                    <VBox.margin>
+                      <Insets left="30.0" right="30.0" />
+                    </VBox.margin>
+                  </JFXTextField>
+                </Group>
 
-                <JFXComboBox fx:id="nodeTypeComboBox" editable="false" focusColor="#004e86" onMouseExited="#validateButton" prefHeight="35.0" promptText=" ">
+                <Group>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Building">
+                    <font>
+                      <Font size="15.0" />
+                    </font>
+                  </Text>
+                  <JFXTextField fx:id="buildingField" onKeyReleased="#validateButton" prefHeight="25.0">
+                    <VBox.margin>
+                      <Insets left="30.0" right="30.0" />
+                    </VBox.margin>
+                  </JFXTextField>
+                </Group>
 
-                  <VBox.margin>
-                    <Insets bottom="5.0" />
-                  </VBox.margin>
-                </JFXComboBox>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Short Name">
-                  <font>
-                    <Font size="15.0" />
-                  </font>
-                </Text>
-                <JFXTextField fx:id="shortNameField" onKeyReleased="#validateButton" prefHeight="25.0">
-                  <VBox.margin>
-                    <Insets bottom="5.0" left="30.0" right="30.0" />
-                  </VBox.margin>
-                </JFXTextField>
-                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Long Name">
-                  <font>
-                    <Font size="15.0" />
-                  </font>
-                </Text>
-                <JFXTextField fx:id="longNameField" onKeyReleased="#validateButton" prefHeight="25.0" prefWidth="132.0">
-                  <VBox.margin>
-                    <Insets bottom="5.0" left="30.0" right="30.0" />
-                  </VBox.margin>
-                </JFXTextField>
+                <Group>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Type">
+                    <font>
+                      <Font size="15.0" />
+                    </font>
+                  </Text>
+                  <JFXComboBox fx:id="nodeTypeComboBox" editable="false" focusColor="#004e86" onMouseExited="#validateButton" prefHeight="35.0" promptText=" ">
+                  </JFXComboBox>
+                </Group>
+
+                <Group>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Short Name">
+                    <font>
+                      <Font size="15.0" />
+                    </font>
+                  </Text>
+                  <JFXTextField fx:id="shortNameField" onKeyReleased="#validateButton" prefHeight="25.0">
+                    <VBox.margin>
+                      <Insets left="30.0" right="30.0" />
+                    </VBox.margin>
+                  </JFXTextField>
+                </Group>
+
+                <Group>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Long Name">
+                    <font>
+                      <Font size="15.0" />
+                    </font>
+                  </Text>
+                  <JFXTextField fx:id="longNameField" onKeyReleased="#validateButton" prefHeight="25.0" prefWidth="132.0">
+                    <VBox.margin>
+                      <Insets left="30.0" right="30.0" />
+                    </VBox.margin>
+                  </JFXTextField>
+                </Group>
 
                 <Label fx:id="status" textFill="RED">
-                  <VBox.margin>
-                    <Insets bottom="5.0" />
-                  </VBox.margin>
                   <font>
                     <Font size="14.0" />
                   </font>
                 </Label>
-                <JFXButton fx:id="addButton" disable="true" onAction="#addNodeAction" prefHeight="40.0" prefWidth="225.0" ripplerFill="#9cd1ff" style="-fx-background-color: #012d5a;" text="Add" textFill="WHITE">
-                  <font>
-                    <Font name="System Bold" size="15.0" />
-                  </font>
-                  <VBox.margin>
-                    <Insets bottom="6.0" />
-                  </VBox.margin>
-                </JFXButton>
-                <JFXButton fx:id="deleteButton" disable="true" onAction="#deleteNodeAction" prefHeight="40.0" prefWidth="225.0" ripplerFill="#9cd1ff" style="-fx-background-color: #012d5a;" text="Delete" textFill="WHITE">
-                  <font>
-                    <Font name="System Bold" size="15.0" />
-                  </font>
-                  <VBox.margin>
-                    <Insets bottom="6.0" />
-                  </VBox.margin>
-                </JFXButton>
-                <JFXButton fx:id="updateButton" disable="true" onAction="#updateNodeAction" prefHeight="40.0" prefWidth="225.0" ripplerFill="#9cd1ff" style="-fx-background-color: #012d5a;" text="Update" textFill="WHITE">
-                  <VBox.margin>
-                    <Insets bottom="6.0" />
-                  </VBox.margin>
+
+                <JFXButton fx:id="addButton" disable="true" id="map-button" onAction="#addNodeAction" prefHeight="40.0" prefWidth="225.0" ripplerFill="#9cd1ff" style="-fx-background-color: #012d5a;" text="Add" textFill="WHITE">
                   <font>
                     <Font name="System Bold" size="15.0" />
                   </font>
                 </JFXButton>
 
-                <JFXButton fx:id="connectButton" disable="true" onAction="#connectNodeAction" prefHeight="40.0" prefWidth="225.0" ripplerFill="#9cd1ff" style="-fx-background-color: #012d5a;" text="Connect" textFill="WHITE">
+                <JFXButton fx:id="deleteButton" disable="true" id="map-button" onAction="#deleteNodeAction" prefHeight="40.0" prefWidth="225.0" ripplerFill="#9cd1ff" style="-fx-background-color: #012d5a;" text="Delete" textFill="WHITE">
+                  <font>
+                    <Font name="System Bold" size="15.0" />
+                  </font>
+                </JFXButton>
 
+                <JFXButton fx:id="updateButton" disable="true" id="map-button" onAction="#updateNodeAction" prefHeight="40.0" prefWidth="225.0" ripplerFill="#9cd1ff" style="-fx-background-color: #012d5a;" text="Update" textFill="WHITE">
                   <font>
                     <Font name="System Bold" size="15.0" />
                   </font>
-                  <VBox.margin>
-                    <Insets bottom="6.0" />
-                  </VBox.margin>
                 </JFXButton>
-                <JFXButton fx:id="edgeDeleteButton" disable="false" onAction="#onEdgeDelete" prefHeight="40.0" prefWidth="225.0" ripplerFill="#780101" style="-fx-background-color: #5a0005;" text="Delete Edge" textFill="WHITE">
+
+                <JFXButton fx:id="connectButton" disable="true" id="map-button" onAction="#connectNodeAction" prefHeight="40.0" prefWidth="225.0" ripplerFill="#9cd1ff" style="-fx-background-color: #012d5a;" text="Connect" textFill="WHITE">
                   <font>
                     <Font name="System Bold" size="15.0" />
                   </font>
-                  <VBox.margin>
-                    <Insets top="5.0" />
-                  </VBox.margin>
                 </JFXButton>
+
+                <JFXButton fx:id="edgeDeleteButton" id="map-delete" stylesheets="@style/KioskStyle.css" disable="false" onAction="#onEdgeDelete" prefHeight="40.0" prefWidth="225.0" ripplerFill="#780101" style="-fx-background-color: #5a0005;" text="Delete Edge" textFill="WHITE">
+                  <font>
+                    <Font name="System Bold" size="15.0" />
+                  </font>
+                </JFXButton>
+
                 <JFXButton fx:id="exportButton" onAction="#onExportButtonAction" prefHeight="40.0" prefWidth="175.0" style="-fx-background-color: #012D5A;" text="Export CSV Files" textFill="WHITE">
-                  <VBox.margin>
-                    <Insets top="10.0" />
-                  </VBox.margin>
                   <font>
                     <Font name="System Bold" size="15.0" />
                   </font>
