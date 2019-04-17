@@ -1,17 +1,29 @@
-package edu.wpi.cs3733.d19.teamO;
+package edu.wpi.cs3733.d19.teamO.entity.pathfinding;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
-import java.util.Stack;
+
+import com.google.common.graph.Graph;
 
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
-public class DijkrasAlgorithm extends SearchAlgorithm {
+public class DijkrasAlgorithm extends InformedGraphSearchAlgorithm {
 
   public DijkrasAlgorithm(Database database) {
     super(database);
+  }
+
+  @Override
+  public String getName() {
+    return null;
+  }
+
+  @Override
+  public List getPath(Graph graph, Object start, Object goal) {
+    return null;
   }
 
   private static final class Pair implements Comparable<Pair> {
@@ -39,7 +51,7 @@ public class DijkrasAlgorithm extends SearchAlgorithm {
 
   }
 
-  Stack<Node> getPath(Node start, Node goal) {
+  List getPath(Node start, Node goal) {
     PriorityQueue<Pair> frontier = new PriorityQueue<>();
 
     Map<Node, Node> cameFrom = new HashMap<>();
@@ -60,7 +72,7 @@ public class DijkrasAlgorithm extends SearchAlgorithm {
 
 
       for (Node next : neighbors(current)) {
-        Double newCost = costSoFar.get(current) + current.getCost(next);
+        Double newCost = costSoFar.get(current) + euclideanDist(current,next);
         if (!cameFrom.containsKey(next) || newCost < costSoFar.get(next)) {
           double priority = newCost;
           nextPair.setPairNode(next);
@@ -72,7 +84,7 @@ public class DijkrasAlgorithm extends SearchAlgorithm {
       }
     }
 
-    return makePath(cameFrom, goal);
+    return buildPath(cameFrom, goal);
   }
 
 
