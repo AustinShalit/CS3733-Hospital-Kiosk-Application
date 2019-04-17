@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<!--<?import edu.wpi.cs3733.d19.teamO.component.SchedulingMapView?> -->
+<?import edu.wpi.cs3733.d19.teamO.component.SchedulingMapView?>
 
 <BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.SchedulingController">
   <left>
@@ -88,9 +88,9 @@
   </left>
   <center>
     <JFXTabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER" VBox.vgrow="ALWAYS">
-      <!-- <Tab closable="false" text="Map"> -->
-      <!-- <SchedulingMapView fx:id="schedulingMapView" style="-fx-background-color: WHITE;" /> -->
-      <!-- </Tab> -->
+       <Tab closable="false" text="Map">
+       <SchedulingMapView fx:id="schedulingMapView" style="-fx-background-color: WHITE;" />
+       </Tab>
       <Tab fx:id="tableTab" closable="false" onSelectionChanged="#showCurrentSchedule" text="Table" />
       <Tab fx:id="calendarTab" closable="false" onSelectionChanged="#showCalendar" text="Calendar" />
       <padding>
