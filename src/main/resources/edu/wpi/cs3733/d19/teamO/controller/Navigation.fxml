@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -82,6 +83,11 @@
                     <Label fx:id="instructions" />
                   </content>
                 </ScrollPane>
+                <JFXButton fx:id="aboutButton" onAction="#aboutOnAction" prefHeight="50.0" prefWidth="294.0" style="-fx-background-color: #012d5a;" text="About Page" textFill="WHITE">
+                  <font>
+                    <Font name="System Bold" size="18.0" />
+                  </font>
+                </JFXButton>
               </children>
             </VBox>
           </children>
