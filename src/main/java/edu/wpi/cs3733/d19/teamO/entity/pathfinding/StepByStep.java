@@ -7,7 +7,8 @@ import edu.wpi.cs3733.d19.teamO.entity.Node;
 
 
 @SuppressWarnings({"PMD.CyclomaticComplexity", "PMD.LooseCoupling", "PMD.CyclomaticComplexity",
-    "PMD.AvoidInstantiatingObjectsInLoops"})
+    "PMD.AvoidInstantiatingObjectsInLoops", "PMD.GodClass" , "PMD.ExcessiveMethodLength",
+    "PMD.NPathComplexity", "PMD.PositionLiteralsFirstInComparisons"})
 
 public class StepByStep {
 
@@ -28,7 +29,7 @@ public class StepByStep {
 
     if (start.isElevator() && end.isElevator()) {
       return "Elevator";
-    } else if (start.isStair() && end.isStair()){
+    } else if (start.isStair() && end.isStair()) {
       return "Stair";
     } else if (theta > 22.5 && theta <= 67.5) {
       return "North East";
@@ -115,17 +116,17 @@ public class StepByStep {
       }
 
       if (last.equals("Elevator") || last.equals("Stair")) {
-        instructions.remove(instructions.size()-1);
+        instructions.remove(instructions.size() - 1);
       }
 
       if (current.equals("Elevator")) {
-        instructions.remove(instructions.size()-1);
-        instructions.remove(instructions.size()-1);
+        instructions.remove(instructions.size() - 1);
+        instructions.remove(instructions.size() - 1);
         instructions.add("Use elevator");
         last = "Elevator";
       }  else if (current.equals("Stair")) {
-        instructions.remove(instructions.size()-1);
-        instructions.remove(instructions.size()-1);
+        instructions.remove(instructions.size() - 1);
+        instructions.remove(instructions.size() - 1);
         instructions.add("Use stairs");
         last = "Stair";
       } else if (diff == 1 || diff == -7 ) {

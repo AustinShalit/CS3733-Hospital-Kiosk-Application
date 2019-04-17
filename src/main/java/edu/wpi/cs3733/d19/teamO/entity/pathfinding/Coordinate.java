@@ -1,17 +1,29 @@
 package edu.wpi.cs3733.d19.teamO.entity.pathfinding;
 
+/**
+ * makes coorindate.
+ */
 public class Coordinate {
   private final int xcoord;
   private final int ycoord;
-  private final boolean isElevator;
-  private final boolean isStair;
+  private final boolean elevator;
+  private final boolean stair;
 
+  /**
+   * creates a coordinate object.
+   * @param xcoord x pixel value.
+   * @param ycoord y pixel value.
+   * @param isElevator is and elevator boolean.
+   * @param isStair is a stair.
+   */
   public Coordinate(int xcoord, int ycoord, boolean isElevator, boolean isStair) {
     this.xcoord = xcoord;
     this.ycoord = ycoord;
-    this.isElevator = isElevator;
-    this.isStair = isStair;
+    this.elevator = isElevator;
+    this.stair = isStair;
+
   }
+
 
   public int getXcoord() {
     return xcoord;
@@ -21,9 +33,13 @@ public class Coordinate {
     return ycoord;
   }
 
-  public boolean isElevator() { return isElevator; }
+  public boolean isElevator() {
+    return elevator;
+  }
 
-  public boolean isStair() { return isStair; }
+  public boolean isStair() {
+    return stair;
+  }
 
   /**
    * gets the distance in ft between the two coordinates.
