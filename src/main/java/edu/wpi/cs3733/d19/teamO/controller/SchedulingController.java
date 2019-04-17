@@ -101,8 +101,8 @@ public class SchedulingController implements Controller {
 
     // set tab pane to span entire width
     tabPane.widthProperty().addListener((observable, oldValue, newValue) -> {
-      tabPane.setTabMinWidth(newValue.doubleValue() / tabPane.getTabs().size());
-      tabPane.setTabMaxWidth(newValue.doubleValue() / tabPane.getTabs().size());
+      tabPane.setTabMinWidth((newValue.doubleValue() - 24) / tabPane.getTabs().size());
+      tabPane.setTabMaxWidth((newValue.doubleValue() - 24) / tabPane.getTabs().size());
     });
 
     // listeners for the date and time boxes to change
