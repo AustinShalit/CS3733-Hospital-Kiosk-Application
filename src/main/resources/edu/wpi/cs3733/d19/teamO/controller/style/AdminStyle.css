@@ -1,0 +1,166 @@
+.root {
+    -fx-background-color: #F1F1F1;
+    -fx-background-image: url("Image 4-16-19 at 7.46 PM.jpg");
+    -fx-background-size: cover;
+    -fx-max-height: 4000px;
+    -fx-max-width: 4000px;
+}
+
+.form {
+    -fx-background-color: #ffffff;
+    -fx-border-radius: 4px;
+    -fx-effect: dropshadow(three-pass-box, rgba(110, 110, 110, 0.25), 10, 0, 0, 0);
+    -fx-spacing: 36px;
+    -fx-fill-width: false;
+    -fx-padding: 30px;
+    -webkit-animation-direction: normal;
+    -moz-animation-direction: normal;
+    -o-animation-direction: normal;
+    animation-direction: normal;
+    -fx-alignment: top-center;
+}
+
+#requestview {
+    -fx-spacing: 10px;
+    -fx-padding: 30px 40px 30px 40px
+}
+
+#requestbuttons {
+    -fx-hgap: 40px;
+    -fx-pref-width: 720px;
+    -fx-pref-height: 60px;
+}
+
+#title-grid {
+    -fx-pref-height: 140px;
+    -fx-pref-width: 1280px;
+}
+
+#heading {
+    -fx-font-family: "Palatino Linotype";
+    -fx-font-size: 42px;
+    -fx-text-fill: #1D1A1B;
+}
+
+.button {
+    -fx-background-color: #012D5A;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 20px;
+    -fx-text-alignment: center;
+    -fx-text-transform: uppercase;
+}
+
+.button:hover {
+    -fx-background-color: #011E3C;
+    -fx-border-color: #f6bd38;
+    -fx-border-width: 0 0 10px 0;
+}
+
+#small-button {
+    -fx-background-color: #0067B1;
+    -fx-pref-width: 100px;
+    -fx-min-height: 32px;
+    -fx-pref-height: 37px;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+#small-button:hover {
+    -fx-background-color: #004E86;
+    -fx-border-width: 0;
+}
+
+#table-button {
+    -fx-padding: 10px 20px 10px 20px;
+}
+
+.jfx-text-field {
+    -fx-background-color: #f8f8f8;
+    -fx-border-color: #d2d2d2;
+    -fx-border-radius: 2px;
+    -fx-cursor: text;
+    -fx-text-fill: #2f2f2f;
+    -fx-pref-height: 32px;
+    -fx-pref-width: 200px;
+    -fx-min-height: 32px;
+    -fx-min-width: 200px;
+    -fx-padding: 0px 10px 0px 10px;
+}
+
+.jfx-text-field:focused {
+    -fx-border-color: #0067b1;
+    -jfx-focus-color: rgba(0, 103, 177, 0.2);
+}
+
+.jfx-text-area {
+    -fx-background-color: #f8f8f8;
+    -fx-border-color: #d2d2d2;
+    -fx-border-radius: 2px;
+    -fx-cursor: text;
+    -fx-text-fill: #2f2f2f;
+    -fx-pref-width: 320px;
+    -fx-pref-height: 100px;
+    -fx-padding: 10px 10px 0px 10px;
+}
+
+.jfx-text-area:focused {
+    -jfx-focus-color: #0067B1;
+}
+
+.jfx-combo-box {
+    -fx-border-color: #d2d2d2;
+    -fx-border-radius: 2px;
+    -fx-text-fill: #2f2f2f;
+    -fx-pref-width: 200px;
+    -fx-pref-height: 32px;
+    -fx-padding: 0px 10px 0px 10px;
+}
+
+.jfx-combo-box:focused {
+    -jfx-focus-color: #0067b1;
+}
+
+.logo {
+    -fx-image: url("bwh-logo.png");
+}
+
+#login {
+    -fx-background-image: url("0014.jpg");
+    -fx-background-size: cover;
+}
+
+#loginfail {
+    -fx-text-fill: red;
+}
+
+#loginform {
+    -fx-opacity: 1.0;
+    -fx-padding: 10px;
+    -fx-spacing: 10px;
+    -fx-border-radius: 4px;
+}
+
+#welcome {
+    -fx-background-image: url("0002.jpg");
+    -fx-background-size: cover;
+    -fx-max-height: 4000px;
+    -fx-max-width: 4000px;
+}
+
+#date-time {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 32px;
+}
+
+.weatherbox {
+    -fx-background-color: linear-gradient(from 50% 0% to 50% 75%, #012d5a 0%, black 100%);
+    -fx-border-color: #2f2f2f;
+    -fx-border-width: 1px;
+    -fx-border-radius: 4px;
+}
+
+#temp {
+    -fx-font-weight: bold;
+    -fx-font-size: 24px;
+}
