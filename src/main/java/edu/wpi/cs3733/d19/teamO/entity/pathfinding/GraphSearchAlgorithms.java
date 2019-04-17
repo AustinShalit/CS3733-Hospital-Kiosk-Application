@@ -13,9 +13,9 @@ public final class GraphSearchAlgorithms extends Registry<GraphSearchAlgorithm> 
   // TODO replace with DI eg Guice
   private static GraphSearchAlgorithms defaultInstance;
 
-  public static final GraphSearchAlgorithm BFS = new GraphSearchAlgorithm("Breadth First Search",
+  public static final GraphSearchAlgorithm BFS = new GraphSearchAlgorithm("Depth First Search",
       new BreadthFirstSearchAlgorithm<>());
-  public static final GraphSearchAlgorithm DFS = new GraphSearchAlgorithm("Depth First Search",
+  public static final GraphSearchAlgorithm DFS = new GraphSearchAlgorithm("Breadth First Search",
       new DepthFirstSearchAlgorithm<>());
   public static final GraphSearchAlgorithm AStar = new GraphSearchAlgorithm("A*",
       new AStarAlgorithm());
