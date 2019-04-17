@@ -298,7 +298,7 @@ public class Database implements AutoCloseable {
   }
 
   /*
-   * Internal Transporation
+   * Internal Transportation
    */
   public Optional<InternalTransportationRequest> getInternalTransportationRequest(int id) {
     return itransportationDao.get(id);
@@ -422,7 +422,7 @@ public class Database implements AutoCloseable {
   }
 
   /*
-   * External Transporation
+   * External Transportation
    */
   public Optional<ExternalTransportationRequest> getExternalTransportationRequest(int id) {
     return etransportationDao.get(id);

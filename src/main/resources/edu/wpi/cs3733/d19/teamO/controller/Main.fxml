@@ -20,13 +20,18 @@
               <font>
                 <Font name="System Bold" size="15.0" />
               </font>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
             </JFXButton>
           </left>
           <right>
             <JFXRippler maskType="CIRCLE" style="ripple: white;" BorderPane.alignment="CENTER">
               <StackPane fx:id="optionsBurger">
                 <JFXHamburger>
-                </JFXHamburger>
+                           <StackPane.margin>
+                              <Insets right="10.0" />
+                           </StackPane.margin></JFXHamburger>
               </StackPane>
             </JFXRippler>
           </right>

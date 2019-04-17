@@ -16,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
+import edu.wpi.cs3733.d19.teamO.GlobalState;
 import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.Employee;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
@@ -46,6 +47,8 @@ public class LoginController implements Controller {
   private HomeController.Factory homeControllerFactory;
   @Inject
   private Database db;
+  @Inject
+  private GlobalState globalState;
 
   @FXML
   void loginButtonAction() {
@@ -61,14 +64,17 @@ public class LoginController implements Controller {
     Set<Employee> info = db.getAllEmployee();
     boolean check = false;
     // checks every Employee info in set
+    Employee loggedInEmployee = null;
     for (Employee l : info) {
       if (l.loginEquals(employee)) {
+        loggedInEmployee = l;
         check = true;
       }
     }
 
     // if info typed was right, you go to main window screen
     if (check) {
+      globalState.setLoggedInEmployee(loggedInEmployee);
       eventBus.post(new ChangeMainViewEvent(homeControllerFactory.create()));
     } else {
       loginFail.setText("Incorrect username or password");
@@ -100,4 +106,6 @@ public class LoginController implements Controller {
   public interface Factory {
     LoginController create();
   }
+
+
 }

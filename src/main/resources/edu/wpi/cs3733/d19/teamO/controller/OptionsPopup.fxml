@@ -13,7 +13,7 @@
       </StackPane>
     </graphic>
   </Label>
-  <Label onMouseClicked="#adminAction">
+  <Label fx:id="adminItem" onMouseClicked="#adminAction">
     Admin
     <graphic>
       <StackPane>
