@@ -26,18 +26,17 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-
-import edu.wpi.cs3733.d19.teamO.component.MapView;
-
 import javafx.util.Duration;
 import net.aksingh.owmjapis.api.APIException;
 import net.aksingh.owmjapis.core.OWM;
 import net.aksingh.owmjapis.model.CurrentWeather;
 
+import edu.wpi.cs3733.d19.teamO.component.MapView;
+
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 @FxmlController(url = "GuestWindow.fxml")
-@SuppressWarnings({"PMD.TooManyFields", "PMD.RedundantFieldInitializer"})
+@SuppressWarnings({"PMD.TooManyFields", "PMD.RedundantFieldInitializer", "PMD.ExcessiveImports"})
 
 public class GuestViewController implements Controller {
 
@@ -77,7 +76,8 @@ public class GuestViewController implements Controller {
 
     // Convert to a JSON object  using GSON
     JsonParser jp = new JsonParser();
-    JsonElement jsonElement = jp.parse(new InputStreamReader((InputStream) request.getContent(), UTF_8));
+    JsonElement jsonElement = jp.parse(new InputStreamReader(
+        (InputStream) request.getContent(), UTF_8));
     JsonObject rootobj = jsonElement.getAsJsonObject();
     System.out.println(jsonElement.toString());
     String icon = rootobj.get("weather")
