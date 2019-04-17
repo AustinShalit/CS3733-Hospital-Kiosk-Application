@@ -604,3 +604,85 @@ WHALL00702,1740,1500,2,Tower,HALL,Hallway Connector 7 Floor 2,Hallway W0702
 WHALL00802,1720,1745,2,Shapiro,HALL,Hallway Connector 8 Floor 2,Hallway W0802
 WHALL00902,1690,2240,2,Shapiro,HALL,Hallway Connector 9 Floor 2,Hallway W0902
 WHALL01002,1690,2455,2,BTM,HALL,Hallway Connector 10 Floor 2,Hallway W1002
+NEW0001,4309,811,2,Outside,HALL,Connection to new building 1, Connection 1
+NEW0002,4240,838,2,Outside,HALL,Connection to new building 2, Connection 2
+NEW0003,4382,798,2,Outside,HALL,Connection to new building 3, Connection 3
+NEW0004,4254,911,2,Outside,HALL,Connection to new building 4, Connection 4
+NEW0005,4408,858,2,Outside,HALL,Connection to new building 5, Connection 5
+NEW0006,4274,980,2,Outside,HALL,Connection to new building 6, Connection 6
+NEW0007,4437,920,2,Outside,HALL,Connection to new building 7, Connection 7
+NEW0008,4298,1090,2,Outside,HALL,Connection to new building 8, Connection 8
+NEW0009,4513,1084,2,Outside,HALL,Connection to new building 9, Connection 9
+NEW0010,4338,1252,2,Outside,HALL,Connection to new building 10, Connection 10
+NEW0011,4574,1208,2,Outside,HALL,Connection to new building 11, Connection 11
+NEW0012,4363,1370,2,Outside,HALL,Connection to new building 12, Connection 12
+NEW0013,4669,1376,2,Outside,HALL,Connection to new building 13, Connection 13
+NEW0014,4629,1480,2,Outside,HALL,Connection to new building 14, Connection 14
+NEW0015,4402,1535,2,Outside,HALL,Connection to new building 15, Connection 15
+NEW0016,4145,1568,2,Outside,HALL,Connection to new building 16, Connection 16
+NEW0017,4136,1673,2,Outside,HALL,Connection to new building 17, Connection 17
+NEW0018,4123,1803,2,Outside,HALL,Connection to new building 18, Connection 18
+NEW0019,4091,1856,2,Outside,EXIT,Entrance to the new building, Entrance New
+NEW0020,4167,1878,2,Outside,EXIT,Entrance to the new building2, Entrance New 2
+NEW0021,4074,1887,2,NEW,HALL,Hallway Floor 2 #1, Hallway N0201
+NEW0022,4051,1879,2,NEW,HALL,Hallway Floor 2 #2, Hallway N0202
+NEW0023,3670,1981,2,NEW,HALL,Hallway Floor 2 #3, Hallway N0203
+NEW0024,4028,2008,2,NEW,HALL,Hallway Floor 2 #4, Hallway N0204
+NEW0025,4010,1993,2,NEW,ELEV,Elevator Floor 2 #1, Elevator N0201
+NEW0026,3971,1879,2,NEW,HALL,Hallway Floor 2 #5, Hallway N0205
+NEW0027,3865,1879,2,NEW,HALL,Hallway Floor 2 #6, Hallway N0206
+NEW0028,3762,1879,2,NEW,HALL,Hallway Floor 2 #7, Hallway N0207
+NEW0029,3670,1879,2,NEW,HALL,Hallway Floor 2 #8, Hallway N0208
+NEW0030,4071,1970,2,NEW,HALL,Hallway Floor 2 #9, Hallway N0209
+NEW0031,4071,1939,2,NEW,HALL,Hallway Floor 2 #10, Hallway N0210
+NEW0032,4010,2018,2,NEW,ELEV,Elevator Floor 2 #2, Elevator N0202
+NEW0033,4045,1993,2,NEW,ELEV,Elevator Floor 2 #3, Elevator N0203
+NEW0034,4059,1971,2,NEW,STAI,Stair Floor 2 #1, Stair N0201
+NEW0035,3678,2069,2,NEW,STAI,Stair Floor 2 #2, Stair N0202
+NEW0036,4075,2032,2,NEW,EXIT,Exit Floor 2 #3, Exit N0203
+NEW0037,4044,2035,2,NEW,EXIT,Exit Floor 2 #4, Exit N0204
+NEW0100,3999,2027,4,NEW,ELEV,Elevator Floor 4 #1, Elevator N0401
+NEW0101,4032,2027,4,NEW,ELEV,Elevator Floor 4 #2, Elevator N0402
+NEW0102,3999,2054,4,NEW,ELEV,Elevator Floor 4 #3, Elevator N0403
+NEW0103,4048,2063,4,NEW,EXIT,Exit Floor 4 #1, Exit N0401
+NEW0104,4038,2109,4,NEW,HALL,Hallway Floor 4 #1, Hallway N0401
+NEW0105,4049,2158,4,NEW,EXIT,Exit Floor 4 #2  to Auditorium , Exit N0402
+NEW0106,4108,2059,4,NEW,EXIT,Exit Floor 4 #3  to Auditorium , Exit N0403
+NEW0107,4117,2134,4,NEW,AUDITORIUM,Auditorium Floor 4 #1, Auditorium N0401
+NEW0108,4070,2062,4,NEW,HALL,Hallway Floor 4 #2, Hallway N0402
+NEW0109,4087,2049,4,NEW,CLASSROOM,Classroom Floor 4 #2, Classroom2
+NEW0110,4062,2014,4,NEW,HALL,Hallway Floor 4 #3, Hallway N0403
+NEW0111,4046,1966,4,NEW,HALL,Hallway Floor 4 #4, Hallway N0404
+NEW0112,4061,1958,4,NEW,CLASSROOM,Classroom Floor 4 #3, Classroom3
+NEW0113,4028,1912,4,NEW,HALL,Hallway Floor 4 #5, Hallway N0405
+NEW0114,4010,1853,4,NEW,HALL,Hallway Floor 4 #6, Hallway N0406
+NEW0115,3977,1853,4,NEW,HALL,Hallway Floor 4 #7, Hallway N0407
+NEW0116,3930,1853,4,NEW,HALL,Hallway Floor 4 #8, Hallway N0408
+NEW0117,3861,1853,4,NEW,HALL,Hallway Floor 4 #9, Hallway N0409
+NEW0118,3802,1853,4,NEW,EXIT,Exit Floor 4 #4 to WZ2, Exit N0404
+NEW0119,3732,1853,4,NEW,WORKZONE,Workzone Floor 4 #2, Workzone2
+NEW0120,3552,1853,4,NEW,WORKZONE,Workzone Floor 4 #3, Workzone3
+NEW0121,3552,1972,4,NEW,WORKZONE,Workzone Floor 4 #4, Workzone4
+NEW0122,3687,1972,4,NEW,WORKZONE,Workzone Floor 4 #1, Workzone1
+NEW0123,3802,1972,4,NEW,HALL,Hallway Floor 4 #10, Hallway N0410
+NEW0124,3802,2091,4,NEW,HALL,Hallway Floor 4 #11, Hallway N0411
+NEW0125,4015,2042,4,NEW,HALL,Hallway Floor 4 #12, Hallway N0412
+NEW0126,4015,2088,4,NEW,CLASSROOM,Classroom Floor 4 #1, Classroom1
+NEW0127,4017,2144,4,NEW,CONF,Mission Hill Conference Room,Mission Hill Conference Room
+NEW0128,4014,2072,4,NEW,HALL,Hallway Floor 4 #13, Hallway N0413
+NEW0129,3971,2071,4,NEW,HALL,Hallway Floor 4 #14, Hallway N0414
+NEW0130,3971,1997,4,NEW,EXIT,Exit Floor 4 #5, Exit N0405
+NEW0129,3971,1970,4,NEW,HALL,Hallway Floor 4 #15, Hallway N0415
+NEW0130,3977,1839,4,NEW,CLASSROOM,Classroom Floor 4 #4, Classroom4
+NEW0131,3929,1839,4,NEW,CLASSROOM,Classroom Floor 4 #6, Classroom6
+NEW0132,3861,1839,4,NEW,CLASSROOM,Classroom Floor 4 #8, Classroom8
+NEW0133,3980,1875,4,NEW,CLASSROOM,Classroom Floor 4 #5, Classroom5
+NEW0134,3908,1875,4,NEW,CLASSROOM,Classroom Floor 4 #7, Classroom7
+NEW0135,3814,2200,4,NEW,WORKZONE,Workzone Floor 4 #5, Workzone5
+NEW0136,3906,1853,4,NEW,HALL,Hallway Floor 4 #16, Hallway N0416
+NEW0137,3847,1972,4,NEW,EXIT,Exit Floor 4 #6 to WZ1, Exit N0406
+NEW0138,3971,1972,4,NEW,HALL,Hallway Floor 4 #17, Hallway N0417
+NEW0139,3935,2205,4,NEW,PANTRY,Pantry Floor 4,Pantry Floor 4
+NEW0140,3652,2105,4,NEW,STAI,Stair Floor 4 #1, Stair N0401
+NEW0141,3997,1982,4,NEW,STAI,Stair Floor 4 #2, Stair N0402
+NEW0142,3687,2091,4,NEW,HALL,Hallway Floor 4 #18, Hallway N0418

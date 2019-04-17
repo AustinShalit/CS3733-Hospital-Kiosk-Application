@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.d19.teamO.controller.request;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.logging.Level;
@@ -9,8 +11,10 @@ import java.util.logging.Logger;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXTimePicker;
 
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
@@ -49,6 +53,10 @@ public class ExternalTransportationPopupController implements Controller {
   private JFXButton btn;
   @FXML
   private Label reportLabel;
+  @FXML
+  private JFXDatePicker datePicker;
+  @FXML
+  private JFXTimePicker timePicker;
 
   @Inject
   private Database db;
@@ -82,6 +90,8 @@ public class ExternalTransportationPopupController implements Controller {
     categorybox.getSelectionModel().clearSelection();
     categorybox.setValue(null);
     descriptiontxt.setText(null);
+    datePicker.setValue(null);
+    timePicker.setValue(null);
 
     if (db.insertExternalTransportationRequest(external)) {
       String message = "Successfully submitted External transportation request.";
@@ -124,7 +134,11 @@ public class ExternalTransportationPopupController implements Controller {
       String description = descriptiontxt.getText();
       String name = nametxt.getText();
 
-      return new ExternalTransportationRequest(now, node, externalRequestType, description, name);
+      LocalDate date = datePicker.getValue();
+      LocalTime time = timePicker.getValue();
+
+      return new ExternalTransportationRequest(now, node, externalRequestType,
+          description, name, date, time);
     }
 
     // otherwise, some input was invalid

@@ -27,7 +27,7 @@ public class LoginController implements Controller {
   private static final Logger logger = Logger.getLogger(LoginController.class.getName());
 
   @FXML
-  private BorderPane root;
+  BorderPane root;
   @FXML
   private JFXButton loginButton;
   @FXML
@@ -50,6 +50,13 @@ public class LoginController implements Controller {
   @Inject
   private GlobalState globalState;
 
+  private Set<Employee> info;
+
+  @FXML
+  void initialize() {
+    info = db.getAllEmployee();
+  }
+
   @FXML
   void loginButtonAction() {
     // gets the user input
@@ -60,8 +67,6 @@ public class LoginController implements Controller {
           "Unable to parse User Employee info");
       return;
     }
-
-    Set<Employee> info = db.getAllEmployee();
     boolean check = false;
     // checks every Employee info in set
     Employee loggedInEmployee = null;
@@ -76,6 +81,7 @@ public class LoginController implements Controller {
     if (check) {
       globalState.setLoggedInEmployee(loggedInEmployee);
       eventBus.post(new ChangeMainViewEvent(homeControllerFactory.create()));
+      loginFail.setText("Login Success");
     } else {
       loginFail.setText("Incorrect username or password");
       new Shake(loginFail).play();
@@ -96,6 +102,10 @@ public class LoginController implements Controller {
     // otherwise
     loginFail.setText("Incorrect username or password");
     return null;
+  }
+
+  public Label getLoginFail() {
+    return loginFail;
   }
 
   @Override

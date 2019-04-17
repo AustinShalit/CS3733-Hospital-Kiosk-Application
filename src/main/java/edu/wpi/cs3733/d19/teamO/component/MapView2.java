@@ -70,6 +70,8 @@ public class MapView2 extends StackPane {
   @FXML
   private Button levelF3;
   @FXML
+  private Button levelF4;
+  @FXML
   private Button levelL2;
   @FXML
   private Button levelG;
@@ -81,6 +83,8 @@ public class MapView2 extends StackPane {
   private Circle circle;
   @FXML
   private Circle circleDrag;
+  @FXML
+  private Line lineForEdge;
 
   private final SimpleObjectProperty<Node> selectedNode = new SimpleObjectProperty<>();
   private final SimpleObjectProperty<String> selectedEdge = new SimpleObjectProperty<>();
@@ -161,9 +165,10 @@ public class MapView2 extends StackPane {
         }
         selectedEdge.set(" ");
         findCurrentEdge(level);
+        lineForEdge.setVisible(false);
         for (Edge ed : currentEdges) {
-          int edgeX = abs(ed.getStartNode().getXcoord() - ed.getEndNode().getXcoord());
-          int edgeY = abs(ed.getStartNode().getYcoord() - ed.getEndNode().getYcoord());
+          int edgeX = ed.getStartNode().getXcoord() - ed.getEndNode().getXcoord();
+          int edgeY = ed.getStartNode().getYcoord() - ed.getEndNode().getYcoord();
           double kk = 0;
           double bb = 0;
           double result = 0;
@@ -176,8 +181,7 @@ public class MapView2 extends StackPane {
             result = abs(currentX * kk + bb - currentY);
           }
 
-
-          if (result < 15
+          if (result < 10
               && currentX <= Math.max(ed.getStartNode().getXcoord(), ed.getEndNode().getXcoord())
               + 2
               && currentX >= Math.min(ed.getStartNode().getXcoord(), ed.getEndNode().getXcoord())
@@ -187,6 +191,12 @@ public class MapView2 extends StackPane {
 
               ed.getEndNode().getYcoord()) - 2 ) {
             selectedEdge.set(ed.getEdgeId());
+            lineForEdge.setStartX(ed.getStartNode().getXcoord());
+            lineForEdge.setStartY(ed.getStartNode().getYcoord());
+            lineForEdge.setEndX(ed.getEndNode().getXcoord());
+            lineForEdge.setEndY(ed.getEndNode().getYcoord());
+            lineForEdge.setVisible(true);
+
             break;
           }
         }
@@ -208,36 +218,49 @@ public class MapView2 extends StackPane {
       levelF2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF3.setStyle("-fx-background-color: rgb(0,103,177)");
       levelG.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF4.setStyle("-fx-background-color: rgb(0,103,177)");
     } else if ("2".equals(level)) {
       levelL1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelL2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF3.setStyle("-fx-background-color: rgb(0,103,177)");
       levelG.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF4.setStyle("-fx-background-color: rgb(0,103,177)");
     } else if ("3".equals(level)) {
       levelL1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelL2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelG.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF4.setStyle("-fx-background-color: rgb(0,103,177)");
     } else if ("G".equals(level)) {
       levelL1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelL2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF3.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF4.setStyle("-fx-background-color: rgb(0,103,177)");
     } else if ("L1".equals(level)) {
       levelG.setStyle("-fx-background-color: rgb(0,103,177)");
       levelL2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF3.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF4.setStyle("-fx-background-color: rgb(0,103,177)");
     } else if ("L2".equals(level)) {
       levelL1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelG.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF3.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF4.setStyle("-fx-background-color: rgb(0,103,177)");
+    } else if ("4".equals(level)) {
+      levelL1.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelG.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF1.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF2.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF3.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelL2.setStyle("-fx-background-color: rgb(0,103,177)");
     } else {
       levelL1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelG.setStyle("-fx-background-color: rgb(0,103,177)");
@@ -245,6 +268,7 @@ public class MapView2 extends StackPane {
       levelF2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF3.setStyle("-fx-background-color: rgb(0,103,177)");
       levelL2.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF4.setStyle("-fx-background-color: rgb(0,103,177)");
     }
 
   }
@@ -260,7 +284,8 @@ public class MapView2 extends StackPane {
     Object src = e.getSource();
 
     if (src.equals(levelF1) || src.equals(levelF2) || src.equals(levelF3)
-        || src.equals(levelG) || src.equals(levelL1) || src.equals(levelL2)) {
+        || src.equals(levelG) || src.equals(levelL1) || src.equals(levelL2)
+        || src.equals(levelF4)) {
       resetButtonBackground(level);
       // If the src of this ActionEvent is from our supported buttons
       ((Button) src).setStyle("-fx-background-color:  rgb(1,45,90)"); // style button
@@ -278,7 +303,7 @@ public class MapView2 extends StackPane {
       level = "1";
       updateDisplay();
     } else if (src.equals(levelF2)) {
-      filename = "02_thesecondfloor.png";
+      filename = "02_thesecondfloor_withworkspace.png";
       circle.setVisible(false);
       level = "2";
       updateDisplay();
@@ -286,6 +311,11 @@ public class MapView2 extends StackPane {
       filename = "03_thethirdfloor.png";
       circle.setVisible(false);
       level = "3";
+      updateDisplay();
+    } else if (src.equals(levelF4)) {
+      filename = "04_thefourthfloor.png";
+      circle.setVisible(false);
+      level = "4";
       updateDisplay();
     } else if (src.equals(levelL1)) {
       filename = "00_thelowerlevel1.png";
@@ -327,6 +357,10 @@ public class MapView2 extends StackPane {
     circleDrag.setCenterY(y);
   }
 
+  public void setLineVisible(boolean b) {
+    lineForEdge.setVisible(b);
+  }
+
   public void setDragStatus(boolean status) {
     dragStatus = status;
   }
@@ -352,6 +386,9 @@ public class MapView2 extends StackPane {
     } else if (src.equals(levelF3)) {
       levelF3.setStyle("-fx-background-color:  rgb(0,78,134)");
       currentLevel = "3";
+    }  else if (src.equals(levelF4)) {
+      levelF4.setStyle("-fx-background-color:  rgb(0,78,134)");
+      currentLevel = "4";
     } else if (src.equals(levelL1)) {
       levelL1.setStyle("-fx-background-color:  rgb(0,78,134)");
       currentLevel = "Ll";
