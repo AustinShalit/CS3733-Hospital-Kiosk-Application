@@ -10,7 +10,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TitledPane;
 import javafx.scene.text.Text;
 
-public class OrderController {
+public class OrderController extends ControllerHelper {
   /**
    * Customer Information.
    */
@@ -73,19 +73,25 @@ public class OrderController {
   @FXML
   private JFXTextField creditCardNumber;
   @FXML
-  private JFXComboBox expirationMonth;
+  private JFXComboBox<Integer> expirationMonth;
   @FXML
-  private JFXComboBox expirationYear;
+  private JFXComboBox<Integer> expirationYear;
   @FXML
   private JFXTextField securityCode;
   @FXML
   private JFXButton submitOrderButton;
 
   @FXML
-  void initialize() {
+    void initialize() {
+    // show/expand panes to start
     customerInformationPane.setExpanded(true);
     menuPane.setExpanded(false);
     placeOrderPane.setExpanded(false);
+
+    // set comboboxes
+    populateStatesCombobox(state);
+    populateMonthCombobox(expirationMonth);
+    populateYearCombobox(expirationYear);
   }
 
 }
