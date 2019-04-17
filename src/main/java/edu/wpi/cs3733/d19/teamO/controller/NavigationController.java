@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.google.common.eventbus.EventBus;
 import com.google.common.graph.GraphBuilder;
 import com.google.common.graph.ImmutableGraph;
 import com.google.common.graph.MutableGraph;
@@ -20,6 +21,7 @@ import me.xdrop.fuzzywuzzy.FuzzySearch;
 
 import edu.wpi.cs3733.d19.teamO.AppPreferences;
 import edu.wpi.cs3733.d19.teamO.component.MapView;
+import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 import edu.wpi.cs3733.d19.teamO.entity.pathfinding.IGraphSearchAlgorithm;
@@ -53,6 +55,8 @@ public class NavigationController implements Controller {
   MapView map;
   @FXML
   Label instructions;
+  @FXML
+  JFXButton aboutButton;
 
   StepByStep stepByStep;
   boolean addRest = false;
@@ -65,6 +69,10 @@ public class NavigationController implements Controller {
   private AppPreferences appPreferences;
   @Inject
   private Database database;
+  @Inject
+  private EventBus eventBus;
+  @Inject
+  private AboutController.Factory aboutControllerFactory;
 
   List<String> listOfLongName = new ArrayList<>();
   List<String> listOfSortName = new ArrayList<>();
@@ -85,6 +93,7 @@ public class NavigationController implements Controller {
   public interface Factory {
     NavigationController create();
   }
+
 
   @FXML
   void onComboAction() {
@@ -189,5 +198,10 @@ public class NavigationController implements Controller {
       listOfLongName.add(n.getLongName());
       listOfSortName.add(n.getLongName());
     }
+  }
+
+  @FXML
+  void aboutOnAction() {
+    eventBus.post(new ChangeMainViewEvent(aboutControllerFactory.create()));
   }
 }
