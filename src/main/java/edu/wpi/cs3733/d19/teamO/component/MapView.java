@@ -1,11 +1,15 @@
 package edu.wpi.cs3733.d19.teamO.component;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,10 +33,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.StrokeLineCap;
+import javafx.scene.shape.*;
 import javafx.util.Duration;
 import net.kurobako.gesturefx.GesturePane;
 
@@ -74,6 +75,8 @@ public class MapView extends StackPane {
   Group pathEdges = new Group();
 
   List<Node> path;
+
+  ArrayList<Timeline> antz = new ArrayList<>();
 
   public void setPath(List<Node> path) {
     this.path = path;
@@ -347,15 +350,76 @@ public class MapView extends StackPane {
 
 
       lastNode = null;
+      //Arraylist of lines to add animation
+      ArrayList<Line> antline = new ArrayList<>();
       for (Node node : path) {
         if (lastNode != null) {
-          addLine(node, lastNode, Color.color(0.96, 0.74, 0.22), 2.5);
+          Line seg = addLine(node, lastNode, Color.color(0.96, 0.74, 0.22), 10);
+          if (seg != null) {
+            //If the line segment is valid, add it to the set fo lines to animate
+            antline.add(seg);
+          }
         }
         lastNode = node;
       }
+      pixars_A_Bugs_Life(antline);
     }
     nodeGroup.getChildren().addAll(startAndEndNodes);
     edges.getChildren().addAll(pathEdges);
+  }
+
+  /**
+    Takes in a set of lines drawn by the path
+    Removes old animations and adds new ones
+   */
+  public void pixars_A_Bugs_Life(ArrayList<Line> trail){
+    //Stops all old animations before they are removed
+    for (Timeline tl2Remove : antz) {
+      tl2Remove.stop();
+    }
+    //Resets the set of ant timelines
+    antz = new ArrayList<>();
+    for (Line segment : trail) {
+      Timeline t = addAntimation(segment);
+      antz.add(t);
+    }
+    //Plays newly added timelines
+    for (Timeline tl2Play : antz) {
+      tl2Play.play();
+    }
+  }
+
+  public Timeline addAntimation(Line line){
+    line.getStrokeDashArray().setAll(5d, 5d, 5d, 5d);
+    line.setStrokeWidth(3);
+
+    final double maxOffset =
+            line.getStrokeDashArray().stream()
+                    .reduce(
+                            0d,
+                            (a, b) -> a + b
+                    );
+
+    Timeline timeline = new Timeline(
+            new KeyFrame(
+                    Duration.ZERO,
+                    new KeyValue(
+                            line.strokeDashOffsetProperty(),
+                            0,
+                            Interpolator.LINEAR
+                    )
+            ),
+            new KeyFrame(
+                    Duration.seconds(2),
+                    new KeyValue(
+                            line.strokeDashOffsetProperty(),
+                            maxOffset,
+                            Interpolator.LINEAR
+                    )
+            )
+    );
+    timeline.setCycleCount(Timeline.INDEFINITE);
+    return timeline;
   }
 
   /**
@@ -395,15 +459,20 @@ public class MapView extends StackPane {
     }
   }
 
-  private void addLine(Node node, Node lastNode, Paint paint, double width) {
+  /**
+   * Adds a line to the path edges, then returns a reference to that line
+   */
+  private Line addLine(Node node, Node lastNode, Paint paint, double width) {
+    Line line = null;
     if (lastNode.getFloorInt() == level && node.getFloorInt() == level) {
-      Line line = new Line(node.getXcoord(), node.getYcoord(),
+      line = new Line(node.getXcoord(), node.getYcoord(),
           lastNode.getXcoord(), lastNode.getYcoord());
       line.setStrokeWidth(width);
       line.setStroke(paint);
       line.setStrokeLineCap(StrokeLineCap.ROUND);
       pathEdges.getChildren().add(line);
     }
+    return line;
   }
 
   private void addTextField(Node node, Node lastNode) {
