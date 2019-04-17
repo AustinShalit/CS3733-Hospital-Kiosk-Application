@@ -11,10 +11,15 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 
-import edu.wpi.cs3733.d19.teamO.request.controller.request.ChangeMainViewEvent;
-
 @FxmlController(url = "DominosHome.fxml")
 public class DominosHomeController implements Controller {
+
+  @Inject
+  private EventBus eventBus;
+  @Inject
+  private DominosHomeController.Factory domniosHomeControllerFactory;
+  @Inject
+  private Database db;
 
   @FXML
   private BorderPane root;
@@ -28,11 +33,13 @@ public class DominosHomeController implements Controller {
   @Inject
   private EventBus eventBus;
   @Inject
+  private OrderController.Factory orderControllerFactory;
+  @Inject
   private OrderTableController.Factory orderTableControllerFactory;
 
   @FXML
   void orderAction(ActionEvent event) {
-
+    eventBus.post(new ChangeMainViewEvent(orderControllerFactory.create()));
   }
 
   @FXML
