@@ -8,6 +8,9 @@ import java.util.Optional;
 
 import com.jfoenix.controls.JFXComboBox;
 
+import org.controlsfx.control.textfield.TextFields;
+
+import impl.org.controlsfx.autocompletion.SuggestionProvider;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
@@ -15,6 +18,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextInputDialog;
 import javafx.util.Callback;
+import javafx.util.StringConverter;
 
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
@@ -179,5 +183,3 @@ public final class DialogHelper {
         -> comboBox.setButtonCell(cellFactory.call(null)));
   }
 }
-
-
