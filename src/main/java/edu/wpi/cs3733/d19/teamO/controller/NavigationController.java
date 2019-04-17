@@ -13,6 +13,7 @@ import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
@@ -40,9 +41,9 @@ public class NavigationController implements Controller {
   @FXML
   JFXButton restroomButton;
   @FXML
-  JFXButton walkwayButton;
+  JFXButton emergencyButton;
   @FXML
-  JFXButton exitButton;
+  JFXButton elevatorButton;
   @FXML
   JFXButton informationButton;
   @FXML
@@ -205,5 +206,27 @@ public class NavigationController implements Controller {
   @FXML
   void aboutOnAction() {
     eventBus.post(new ChangeMainViewEvent(aboutControllerFactory.create()));
+  }
+
+  @FXML
+  void nearestLocation(ActionEvent event) throws IOException {
+    if (event.getSource() == restroomButton) {
+      fromComboBox.setValue("Au Bon Pain");
+      toComboBox.setValue("Bathroom 75 Lobby");
+      onGoButtonAction();
+    } else if (event.getSource() == emergencyButton) {
+      fromComboBox.setValue("Au Bon Pain");
+      toComboBox.setValue("Emergency Department");
+      onGoButtonAction();
+    } else if (event.getSource() == informationButton) {
+      fromComboBox.setValue("Au Bon Pain");
+      toComboBox.setValue("75 Lobby Information Desk");
+      onGoButtonAction();
+    } else if (event.getSource() == elevatorButton) {
+      fromComboBox.setValue("Au Bon Pain");
+      toComboBox.setValue("Elevator M Floor 1");
+      onGoButtonAction();
+    }
+
   }
 }
