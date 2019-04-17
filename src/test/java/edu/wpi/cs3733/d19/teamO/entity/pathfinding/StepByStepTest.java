@@ -1,5 +1,8 @@
 package edu.wpi.cs3733.d19.teamO.entity.pathfinding;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
@@ -28,11 +31,17 @@ class StepByStepTest {
   final Node NODE_I = new Node("I", 3, 5, "0", "B", edu.wpi.cs3733.d19.teamO.entity.Node.NodeType.HALL,
       "CL", "CS");
 
-  final Edge ab = new Edge("ab", NODE_A, NODE_B);
-  final Edge bc = new Edge("bc", NODE_B, NODE_C);
-  final Edge cd = new Edge("cd", NODE_C, NODE_D);
 
-
+  List<Node> testNodes = new ArrayList<>();
+    testNodes.add(NODE_A);
+    testNodes.add(NODE_B);
+    testNodes.add(NODE_C);
+    testNodes.add(NODE_D);
+    testNodes.add(NODE_E);
+    testNodes.add(NODE_F);
+    testNodes.add(NODE_G);
+    testNodes.add(NODE_H);
+    testNodes.add(NODE_I);
 
   @Test
   void getStepByStep() {
