@@ -11,6 +11,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
 <BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.GuestViewController">
   <center>
     <MapView fx:id="map" style="-fx-background-color: WHITE;">
@@ -20,20 +23,59 @@
     </MapView>
   </center>
   <left>
-    <VBox alignment="CENTER" fillWidth="false" style="-fx-background-color: #F1F1F1;">
+    <VBox alignment="CENTER" fillWidth="false" style="-fx-background-color: #F1F1F1;" spacing="20.0">
       <children>
         <Pane stylesheets="@style/KioskStyle.css">
           <ImageView fitWidth="400.0" pickOnBounds="true" preserveRatio="true" styleClass="logo" />
         </Pane>
+        <VBox alignment="TOP_CENTER" blendMode="MULTIPLY" fillWidth="false" prefHeight="325.0" prefWidth="325.0" spacing="45.0" styleClass="weatherbox" stylesheets="@style/KioskStyle.css" GridPane.rowSpan="2">
+          <GridPane.margin>
+            <Insets bottom="1.0" left="10.0" right="10.0" top="1.0" />
+          </GridPane.margin>
+          <children>
+            <Label id="date-time" fx:id="timeLabel" text="Label" textAlignment="CENTER" textFill="WHITE">
+              <VBox.margin>
+                <Insets />
+              </VBox.margin>
+            </Label>
+            <GridPane style="-fx-background-color: #F1F1F1; -fx-border-radius: 5px ">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="120.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="77.0" minHeight="10.0" prefHeight="61.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="121.0" minHeight="10.0" prefHeight="103.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+              <children>
+                <Label id="temp" fx:id="weatherLabel" text="Label" textFill="#0067b1" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                <Label fx:id="description" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <ImageView fx:id="tempImage" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
+              </children>
+              <VBox.margin>
+                <Insets />
+              </VBox.margin>
+              <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+              </padding>
+            </GridPane>
+          </children>
+          <padding>
+            <Insets top="20.0" />
+          </padding>
+          <opaqueInsets>
+            <Insets />
+          </opaqueInsets>
+        </VBox>
         <JFXButton fx:id="loginbtn" onAction="#onLoginAction" text="Employee Login" id="login-button" stylesheets="@style/KioskStyle.css">
           <graphic>
             <FontAwesomeIconView fill="white" glyphName="SIGN_IN" size="1.5em" />
           </graphic>
         </JFXButton>
       </children>
-      <VBox.margin>
-        <Insets left="20.0" right="20.0" top="20.0" bottom="20.0" />
-      </VBox.margin>
+    <VBox.margin>
+      <Insets left="100.0" />
+    </VBox.margin>
     </VBox>
   </left>
 </BorderPane>
