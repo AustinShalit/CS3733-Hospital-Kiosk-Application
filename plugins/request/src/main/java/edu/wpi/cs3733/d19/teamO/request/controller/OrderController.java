@@ -1,16 +1,38 @@
 package edu.wpi.cs3733.d19.teamO.request.controller;
 
+import java.awt.event.ActionEvent;
+
+import com.google.common.eventbus.EventBus;
+import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TitledPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 
-public class OrderController extends ControllerHelper {
+import static edu.wpi.cs3733.d19.teamO.request.controller.ControllerHelper.populateMonthCombobox;
+import static edu.wpi.cs3733.d19.teamO.request.controller.ControllerHelper.populateStatesCombobox;
+import static edu.wpi.cs3733.d19.teamO.request.controller.ControllerHelper.populateYearCombobox;
+
+@FxmlController(url = "Order.fxml")
+public class OrderController {
+
+  @Inject
+  private EventBus eventBus;
+  @Inject
+  private OrderController.Factory orderControllerFactory;
+  @Inject
+  private Database db;
+
+  @FXML
+  private BorderPane root;
+
   /**
    * Customer Information.
    */
@@ -94,4 +116,22 @@ public class OrderController extends ControllerHelper {
     populateYearCombobox(expirationYear);
   }
 
+  @Inject
+  private EventBus eventBus;
+  @Inject
+  private DominosHomeController.Factory dominosHomeControllerFactory;
+
+  @FXML
+  void backAction(ActionEvent event) {
+    eventBus.post(new ChangeMainViewEvent(dominosHomeControllerFactory.create()));
+  }
+
+  @Override
+  public Parent getRoot() {
+    return root;
+  }
+
+  public interface Factory {
+    OrderController create();
+  }
 }
