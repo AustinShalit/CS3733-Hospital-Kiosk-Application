@@ -145,7 +145,37 @@ public final class DialogHelper {
 
     Optional<ButtonType> result = dialog.showAndWait();
     return result.get() == ButtonType.OK;
+  }
 
+  /**
+   * Populate a combobox of nodes.
+   */
+  public static void populateComboBox2(Database database,
+                                       JFXComboBox<String> comboBox,
+                                       List nodesToInclude) {
+    comboBox.getItems().setAll(nodesToInclude);
+    Callback<ListView<String>, ListCell<String>> cellFactory =
+        new Callback<ListView<String>, ListCell<String>>() {
+          @Override
+          public ListCell<String> call(ListView<String> param) {
+            return new ListCell<String>() {
+
+              @Override
+              protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || empty) {
+                  setGraphic(null);
+                } else {
+                  setText(item);
+                }
+              }
+            };
+          }
+        };
+    comboBox.setCellFactory(cellFactory);
+
+    // wait for selection
+    comboBox.valueProperty().addListener((observable, oldValue, newValue)
+        -> comboBox.setButtonCell(cellFactory.call(null)));
   }
 }
-
