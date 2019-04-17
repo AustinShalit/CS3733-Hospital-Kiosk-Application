@@ -71,9 +71,9 @@ public class HomeController implements Controller {
   @Inject
   private NavigationController.Factory navigationControllerFactory;
 
-  private int second;
-  private int minute;
-  private int hour;
+  private String second;
+  private String minute;
+  private String hour;
   private int month;
   private int day;
   private int year;
@@ -108,9 +108,12 @@ public class HomeController implements Controller {
     description.setText(discrp);
 
     Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-      second = LocalDateTime.now().getSecond();
-      minute = LocalDateTime.now().getMinute();
-      hour = LocalDateTime.now().getHour();
+      second = (LocalDateTime.now().getSecond() < 10 ? "0" : "")
+          + Integer.toString(LocalDateTime.now().getSecond());
+      minute = (LocalDateTime.now().getMinute() < 10 ? "0" : "")
+          + Integer.toString(LocalDateTime.now().getMinute());
+      hour = (LocalDateTime.now().getHour() < 10 ? "0" : "")
+          + Integer.toString(LocalDateTime.now().getHour());
       month = LocalDateTime.now().getMonthValue();
       day = LocalDateTime.now().getDayOfMonth();
       year = LocalDateTime.now().getYear();
