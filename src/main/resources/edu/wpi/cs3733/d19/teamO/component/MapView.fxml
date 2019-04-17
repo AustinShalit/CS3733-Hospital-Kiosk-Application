@@ -118,4 +118,18 @@
       <Insets bottom="10.0" left="60.0" />
     </padding>
   </Label>
+  <JFXButton fx:id="levelF4" buttonType="RAISED" onAction="#onFloorSelectAction" onMouseEntered="#onMouseMove" ripplerFill="BLACK" text="4" styleClass="floorbutton" StackPane.alignment="BOTTOM_RIGHT">
+    <opaqueInsets>
+      <Insets bottom="20.0" right="20.0" />
+    </opaqueInsets>
+    <cursor>
+      <Cursor fx:constant="DEFAULT" />
+    </cursor>
+    <font>
+      <Font size="23.0" />
+    </font>
+    <StackPane.margin>
+      <Insets bottom="375.0" right="20.0" />
+    </StackPane.margin>
+  </JFXButton>
 </fx:root>
