@@ -96,7 +96,8 @@ public class InterpreterRequestDaoDb implements InterpreterRequestDao {
             .getString(5))
             .orElseThrow(() -> new SQLException("Could not get node for interpreter request")),
         InterpreterRequest.Language.get(
-            resultSet.getString(6))
+            resultSet.getString(6)),
+        resultSet.getString(8)
     );
   }
 
@@ -115,6 +116,7 @@ public class InterpreterRequestDaoDb implements InterpreterRequestDao {
       statement.setString(4, interpreterRequest.getLocationNode().getNodeId());
       statement.setString(5, interpreterRequest.getLanguage().name());
       statement.setString(6, interpreterRequest.getDescription());
+      statement.setString(7, interpreterRequest.getName());
 
       statement.executeUpdate();
       try (ResultSet keys = statement.getGeneratedKeys()) {
@@ -144,7 +146,8 @@ public class InterpreterRequestDaoDb implements InterpreterRequestDao {
       statement.setString(4, interpreterRequest.getLocationNode().getNodeId());
       statement.setString(5, interpreterRequest.getLanguage().name());
       statement.setString(6, interpreterRequest.getDescription());
-      statement.setInt(7, interpreterRequest.getId());
+      statement.setString(7, interpreterRequest.getName());
+      statement.setInt(8, interpreterRequest.getId());
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
       logger.log(Level.WARNING, "Failed to update Interpreter Request", ex);
