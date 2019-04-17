@@ -22,7 +22,7 @@ public class OptionsPopupController implements Controller {
   @Inject
   private AdminController.Factory adminControllerFactory;
   @Inject
-  private LoginController.Factory loginControllerFactory;
+  private GuestViewController.Factory loginControllerFactory;
   @Inject
   private SettingsController.Factory settingsControllerFactory;
 

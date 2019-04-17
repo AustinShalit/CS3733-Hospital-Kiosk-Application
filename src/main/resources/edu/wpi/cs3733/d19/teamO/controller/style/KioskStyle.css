@@ -56,6 +56,16 @@
     -fx-border-width: 0 0 10px 0;
 }
 
+#login-button {
+    -fx-background-color: #0067B1;
+    -fx-font-weight: bold;
+}
+
+#login-button:hover {
+    -fx-background-color: #012D5A;
+    -fx-border-width: 0;
+}
+
 #small-button {
     -fx-background-color: #0067B1;
     -fx-pref-width: 100px;
