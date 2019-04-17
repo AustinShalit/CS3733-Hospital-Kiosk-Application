@@ -53,7 +53,7 @@
                         <Font size="26.0" />
                      </font>
                   </Text>
-                  <Text fx:id="AssistLeadS" strokeType="OUTSIDE" strokeWidth="0.0" text="Assistant Lead Software Engineers: Kenneth Morton, Dev Patel, Jyan Zarate" textAlignment="CENTER" wrappingWidth="870.275390625">
+                  <Text fx:id="assistLead" strokeType="OUTSIDE" strokeWidth="0.0" text="Assistant Lead Software Engineers: Kenneth Morton, Dev Patel, Jyan Zarate" textAlignment="CENTER" wrappingWidth="870.275390625">
                      <font>
                         <Font size="26.0" />
                      </font>
