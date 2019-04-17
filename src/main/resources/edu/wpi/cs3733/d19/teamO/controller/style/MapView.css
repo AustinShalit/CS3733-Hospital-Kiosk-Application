@@ -1,0 +1,24 @@
+.navlabel {
+    -fx-alignment: center;
+    -fx-text-fill: WHITE;
+    -fx-padding: 0 5 0 5;
+    -fx-background-color: #0067B1;
+    -fx-background-radius: 5;
+    -fx-border-color: #012D5A;
+    -fx-border-style: SOLID;
+    -fx-border-radius: 5;
+    -fx-opacity: 0.5;
+}
+
+.navlabel:hover {
+    -fx-opacity: 1.0;
+}
+
+.floorbutton {
+    -fx-alignment: center;
+    -fx-content-display: top;
+    -fx-pref-height: 55;
+    -fx-pref-width: 55;
+    -fx-text-alignment: center;
+    -fx-text-fill: WHITE;
+}
