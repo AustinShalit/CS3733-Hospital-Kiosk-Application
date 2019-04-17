@@ -1,5 +1,10 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.Optional;
 import java.util.Set;
 
@@ -7,6 +12,8 @@ import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -17,13 +24,16 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.DirectoryChooser;
 
 import edu.wpi.cs3733.d19.teamO.component.MapView2;
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
+import edu.wpi.cs3733.d19.teamO.entity.csv.EdgeCsvReaderWriter;
+import edu.wpi.cs3733.d19.teamO.entity.csv.NodeCsvReaderWriter;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
-@SuppressWarnings("PMD.TooManyFields")
+@SuppressWarnings({"PMD.TooManyFields", "PMD.AvoidFileStream"})
 @FxmlController(url = "MapEdit.fxml")
 public class MapEditController implements Controller {
   String nodeID;
@@ -47,6 +57,8 @@ public class MapEditController implements Controller {
   JFXButton connectButton;
   @FXML
   JFXButton edgeDeleteButton;
+  @FXML
+  JFXButton exportButton;
   @FXML
   TableView<Node> tableView;
   @FXML
@@ -139,7 +151,7 @@ public class MapEditController implements Controller {
 
     map.selectedEdgeProperty().addListener((observable, oldValue, newValue) -> {
       edgeID = newValue;
-      displayEdgeID.setText(newValue);
+      displayEdgeID.setText("Node ID: " + newValue);
     });
 
     // set tab pane to span entire width
@@ -289,7 +301,7 @@ public class MapEditController implements Controller {
 
   @FXML
   void onEnter() {
-    map.setCircleDrag( Integer.parseInt(xcoordField.getText()),
+    map.setCircleDrag(Integer.parseInt(xcoordField.getText()),
         Integer.parseInt(ycoordField.getText()));
   }
 
@@ -342,6 +354,30 @@ public class MapEditController implements Controller {
     tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     for (TableColumn column : tableView.getColumns()) {
       column.setPrefWidth(1000); // must be a value larger than the starting window size
+    }
+  }
+
+  /**
+   * Export to a csv file.
+   */
+  @FXML
+  public void onExportButtonAction() throws IOException, CsvDataTypeMismatchException,
+      CsvRequiredFieldEmptyException {
+    final DirectoryChooser directoryChooser = new DirectoryChooser();
+    final File selectedDirectory = directoryChooser.showDialog(getRoot().getScene().getWindow());
+    final File nodeFile = new File(selectedDirectory, "nodes.csv");
+    final File edgesFile = new File(selectedDirectory, "edges.csv");
+
+    if (selectedDirectory != null) {
+      Writer fw = new OutputStreamWriter(new FileOutputStream(nodeFile), "UTF-8");
+
+      NodeCsvReaderWriter nodeCsvReaderWriter = new NodeCsvReaderWriter();
+      nodeCsvReaderWriter.writeNodes(fw, database.getAllNodes());
+
+      fw = new OutputStreamWriter(new FileOutputStream(edgesFile), "UTF-8");
+      EdgeCsvReaderWriter edgeCsvReaderWriter = new EdgeCsvReaderWriter(database);
+      edgeCsvReaderWriter.writeNodes(fw, database.getAllEdges());
+
     }
   }
 
