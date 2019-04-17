@@ -1,7 +1,6 @@
 import com.diffplug.spotless.FormatterStep
 import com.diffplug.spotless.extra.wtp.EclipseWtpFormatterStep
 import com.github.spotbugs.SpotBugsTask
-import org.ajoberstar.reckon.core.Reckoner
 import org.apache.tools.ant.taskdefs.condition.Os
 
 plugins {
@@ -147,7 +146,6 @@ allprojects {
         ruleSets = emptyList()
     }
 }
-
 
 application {
     mainClassName = "edu.wpi.cs3733.d19.teamO.Main"
