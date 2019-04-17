@@ -62,7 +62,6 @@ public class Order extends GenericJson {
 
   @Key("Address")
   private Address address;
-  @Key("Products")
   private List<Product> products = new LinkedList<>();
   @Key("Amounts")
   private Amounts amounts;
@@ -93,7 +92,7 @@ public class Order extends GenericJson {
     put("OrderMethod", "Web");
     put("OrderTaker", "None");
     put("Payments", new ArrayList<>());
-    //put("Products", new ArrayList());
+    put("Products", new ArrayList());
     put("Market", "");
     put("Currency", "");
     put("ServiceMethod", "Delivery");
@@ -120,6 +119,7 @@ public class Order extends GenericJson {
 
   public void addProduct(Product product) {
     Map json = (Map) menu.getVariants().get(product.getCode());
+    products.add(product);
     json.put("ID", "1");
     json.put("isNew", "True");
     json.put("Qty", "1");

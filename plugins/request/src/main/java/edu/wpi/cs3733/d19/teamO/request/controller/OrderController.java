@@ -11,17 +11,12 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.control.ListView;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TitledPane;
-import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
@@ -198,7 +193,7 @@ public class OrderController implements Controller {
 
   @FXML
   void onSubmitAction() throws IOException {
-    // todo actually send the order in
+    DialogHelper.showErrorAlert("Error", "Complete order has not been implemented yet.");
   }
 
   @FXML
@@ -211,34 +206,31 @@ public class OrderController implements Controller {
     List<Product> products = menu.getProducts();
 
     Order order = new Order(address, store, menu, customer.getFirstName(), customer.getLastName(), customer.getEmail(), customer.getPhone());
-    order.addProduct(products.get(0));
-    Order priced = order.getOrder();
 
-    System.out.println(priced.toPrettyString());
-    System.out.println(order.getOrder().getAmounts());
+    if (cart.getItems().isEmpty()) {
+      cart.getItems().addAll(products);
+    }
 
-    // fill in table
-//    LinkedList<Product> dummyList = new LinkedList<>(); // todo pass in the list of items in the order
-//    dummyList.add(products.get(0));
+    System.out.println(cart.getValue());
 
-    cart.getItems().setAll(products.get(0));
+    if (cart.getValue() != null) {
+      order.addProduct(cart.getValue());
+      Order priced = order.getOrder();
 
+      refreshTableView(order.getProducts());
 
-    System.out.println(order.getProducts());
-//    System.out.println(menuListView.getItems());
-    refreshTableView(order.getProducts());
-
-    // set text fields
-    carryoutOrDeliveryToAddressText.setText("Delivery to " + address.getStreet() + ", " + address.getCity() + ", " + address.getRegion() + " " + address.getZip());
+      // set text fields
+      carryoutOrDeliveryToAddressText.setText("Delivery to " + address.getStreet() + ", " + address.getCity() + ", " + address.getRegion() + " " + address.getZip());
 //    orderingFromText.setText("Ordering from " + store.getId());
-    emailAddressText.setText( "Email Address: " + customer.getEmail());
-    phoneNumberText.setText( "Phone Number: " + customer.getPhone());
-    firstNameText.setText( "First Name: " + customer.getFirstName());
-    lastNameText.setText( "Last Name: " + customer.getLastName());
-    subtotalText.setText("Subtotal: " + order.getOrder().getAmounts().getMenu());
-    taxText.setText("Tax: " + order.getOrder().getAmounts().getTax());
-    surchargeText.setText("Surcharge: " + order.getOrder().getAmounts().getSurcharge());
-    totalText.setText("Subtotal: " + order.getOrder().getAmounts().getPayment());
+      emailAddressText.setText("Email Address: " + customer.getEmail());
+      phoneNumberText.setText("Phone Number: " + customer.getPhone());
+      firstNameText.setText("First Name: " + customer.getFirstName());
+      lastNameText.setText("Last Name: " + customer.getLastName());
+      subtotalText.setText("Subtotal: " + priced.getAmounts().getMenu());
+      taxText.setText("Tax: " + priced.getAmounts().getTax());
+      surchargeText.setText("Surcharge: " + priced.getAmounts().getSurcharge());
+      totalText.setText("Total: " + priced.getAmounts().getPayment());
+    }
   }
 
   /**
@@ -306,7 +298,6 @@ public class OrderController implements Controller {
         menuPane.setExpanded(false);
         customerInformationPane.setExpanded(false);
       }
-
       try {
         populateOrderInfo();
       } catch (IOException e) {
