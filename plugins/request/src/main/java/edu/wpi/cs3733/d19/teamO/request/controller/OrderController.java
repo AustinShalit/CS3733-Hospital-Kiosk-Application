@@ -11,15 +11,12 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.control.ListView;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TitledPane;
-import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
@@ -44,32 +41,32 @@ public class OrderController implements Controller {
   /**
    * Temporary vars used to test the app
    */
-  Address dummyAddress = new Address(
-      "100 Insitiute Road",
-      "Worcester",
-      "MA",
-      "01609"
-  );
-
-  Store dummyStore;
-
-  {
-    try {
-      dummyStore = dummyAddress.getClosestStore().get();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-
-  ObservableList dummyProducts;
-  {
-    try {
-       dummyProducts =
-          FXCollections.observableArrayList(dummyStore.getMenu().getProducts());
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
+//  Address dummyAddress = new Address(
+//      "100 Insitiute Road",
+//      "Worcester",
+//      "MA",
+//      "01609"
+//  );
+//
+//  Store dummyStore;
+//
+//  {
+//    try {
+//      dummyStore = dummyAddress.getClosestStore().get();
+//    } catch (IOException e) {
+//      e.printStackTrace();
+//    }
+//  }
+//
+//  ObservableList dummyProducts;
+//  {
+//    try {
+//       dummyProducts =
+//          FXCollections.observableArrayList(dummyStore.getMenu().getProducts());
+//    } catch (IOException e) {
+//      e.printStackTrace();
+//    }
+//  }
 
   @Inject
   private EventBus eventBus;
@@ -89,7 +86,8 @@ public class OrderController implements Controller {
   @FXML
   private TitledPane menuPane;
   @FXML
-  private ListView<Integer> menuListView;
+  private JFXComboBox<Product> cart;
+  private LinkedList<Product> customersCart = new LinkedList<>();
 
   /**
    * Customer Information.
@@ -123,13 +121,15 @@ public class OrderController implements Controller {
   @FXML
   private JFXTextField deliveryInstructions;
   @FXML
+  private Text orderingFromText;
+  @FXML
   private TableView<Product> orderSummaryTableView;
   @FXML
   private TableColumn<Product, String> itemColumn;
-  @FXML
-  private TableColumn<Product, Integer> qtyColumn;
-  @FXML
-  private TableColumn<Product, Double> priceColumn;
+  //  @FXML
+  //  private TableColumn<Product, Integer> qtyColumn;
+  //  @FXML
+  //  private TableColumn<Product, Double> priceColumn;
   @FXML
   private Text subtotalText;
   @FXML
@@ -160,23 +160,22 @@ public class OrderController implements Controller {
   @FXML
     void initialize() {
     // show/expand panes to start
-    menuPane.setExpanded(true);
-    customerInformationPane.setExpanded(false);
+    menuPane.setExpanded(false);
+    customerInformationPane.setExpanded(true);
     placeOrderPane.setExpanded(false);
 
     // only 1 should be expanded at once
     titledPaneListeners();
 
     // set comboboxes
-    populateMenuListView();
     populateStatesCombobox(state);
     //    populateMonthCombobox(expirationMonth);
     //    populateYearCombobox(expirationYear);
 
     // initialize table view
     itemColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-    qtyColumn.setCellValueFactory(new PropertyValueFactory<>("qty")); // todo
-    priceColumn.setCellValueFactory(new PropertyValueFactory<>("price")); // todo
+    //    qtyColumn.setCellValueFactory(new PropertyValueFactory<>("qty"));
+    //    priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 
     // make columns auto-resize
     orderSummaryTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -194,9 +193,10 @@ public class OrderController implements Controller {
 
   @FXML
   void onSubmitAction() throws IOException {
-    // todo actually send the order in
+    DialogHelper.showErrorAlert("Error", "Complete order has not been implemented yet.");
   }
 
+  @FXML
   private void populateOrderInfo() throws IOException {
     Address address = parseCustomerAddress();
     Customer customer = parseCustomerInfo();
@@ -204,28 +204,35 @@ public class OrderController implements Controller {
     Store store = address.getClosestStore().get();
     Menu menu = store.getMenu();
     List<Product> products = menu.getProducts();
+
     Order order = new Order(address, store, menu, customer.getFirstName(), customer.getLastName(), customer.getEmail(), customer.getPhone());
-    order.addProduct(products.get(0));
-    Order priced = order.getOrder();
-    System.out.println(priced.toPrettyString());
-    System.out.println(order.getOrder().getAmounts());
 
-    // fill in table
-    LinkedList<Product> dummyList = new LinkedList<>(); // todo pass in the list of items in the order
-    dummyList.add(products.get(0));
-    refreshTableView(dummyList);
+    if (cart.getItems().isEmpty()) {
+      cart.getItems().addAll(products);
+    }
 
-    // set text fields
-    carryoutOrDeliveryToAddressText.setText("Delivery to " + address.getStreet() + ", " + address.getCity() + ", " + address.getRegion() + " " + address.getZip());
-    emailAddressText.setText( "Email Address: " + customer.getEmail());
-    phoneNumberText.setText( "Phone Number: " + customer.getPhone());
-    firstNameText.setText( "First Name: " + customer.getFirstName());
-    lastNameText.setText( "Last Name: " + customer.getLastName());
-    subtotalText.setText("Subtotal: " + order.getOrder().getAmounts().getMenu());
-    taxText.setText("Tax: " + order.getOrder().getAmounts().getTax());
-    surchargeText.setText("Surcharge: " + order.getOrder().getAmounts().getSurcharge());
-    totalText.setText("Subtotal: " + order.getOrder().getAmounts().getPayment());
+    System.out.println(cart.getValue());
+
+    if (cart.getValue() != null) {
+      order.addProduct(cart.getValue());
+      Order priced = order.getOrder();
+
+      refreshTableView(order.getProducts());
+
+      // set text fields
+      carryoutOrDeliveryToAddressText.setText("Delivery to " + address.getStreet() + ", " + address.getCity() + ", " + address.getRegion() + " " + address.getZip());
+//    orderingFromText.setText("Ordering from " + store.getId());
+      emailAddressText.setText("Email Address: " + customer.getEmail());
+      phoneNumberText.setText("Phone Number: " + customer.getPhone());
+      firstNameText.setText("First Name: " + customer.getFirstName());
+      lastNameText.setText("Last Name: " + customer.getLastName());
+      subtotalText.setText("Subtotal: " + priced.getAmounts().getMenu());
+      taxText.setText("Tax: " + priced.getAmounts().getTax());
+      surchargeText.setText("Surcharge: " + priced.getAmounts().getSurcharge());
+      totalText.setText("Total: " + priced.getAmounts().getPayment());
+    }
   }
+
   /**
    * Parse customer information.
    *
@@ -262,13 +269,6 @@ public class OrderController implements Controller {
   }
 
   /**
-   * Parse a users Order.
-   */
-  private Menu parseMenuSelections() {
-    return null; // todo we need to parse menu selections
-  }
-
-  /**
    * Allow for only one TitledPane to be expanded at a time. Also handles program behavior
    * when a user clicks on a tile pane.
    */
@@ -285,19 +285,23 @@ public class OrderController implements Controller {
         menuPane.setExpanded(false);
         placeOrderPane.setExpanded(false);
       }
+
+      try {
+        populateOrderInfo();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
     });
 
     placeOrderPane.expandedProperty().addListener((obs, wasExpanded, isNowExpanded) -> {
       if(placeOrderPane.isExpanded()) {
         menuPane.setExpanded(false);
         customerInformationPane.setExpanded(false);
-
-        // populate fields with order info
-//        try {
-//          populateOrderInfo();
-//        } catch (IOException e) {
-//          e.printStackTrace();
-//        }
+      }
+      try {
+        populateOrderInfo();
+      } catch (IOException e) {
+        e.printStackTrace();
       }
     });
   }
@@ -306,19 +310,6 @@ public class OrderController implements Controller {
     orderSummaryTableView.getItems().setAll(products);
   }
 
-  void populateMenuListView() {
-    ObservableList itemNums =
-        FXCollections.observableArrayList();
-    for (int i = 0; i < 15; i++) {
-      itemNums.add(i);
-    }
-
-    menuListView.setItems(itemNums);
-    menuListView.setCellFactory(ComboBoxListCell.forListView(dummyProducts));
-
-    // todo we need to add selected items to the order
-
-  }
 
   @Override
   public Parent getRoot() {

@@ -1,17 +1,19 @@
 package edu.wpi.cs3733.d19.teamO.component;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,13 +21,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -39,7 +34,8 @@ import net.kurobako.gesturefx.GesturePane;
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 
-@SuppressWarnings({"PMD.TooManyFields", "PMD.ExcessiveImports", "PMD.TooManyMethods"})
+@SuppressWarnings({"PMD.TooManyFields", "PMD.ExcessiveImports", "PMD.TooManyMethods" ,
+    "PMD.CyclomaticComplexity"})
 public class MapView extends StackPane {
 
   private int level = 1;
@@ -61,6 +57,8 @@ public class MapView extends StackPane {
   @FXML
   private Button levelF3;
   @FXML
+  private Button levelF4;
+  @FXML
   private Button levelL2;
   @FXML
   private Button levelG;
@@ -73,7 +71,11 @@ public class MapView extends StackPane {
 
   Group pathEdges = new Group();
 
+  Group labelsGroup = new Group();
+
   List<Node> path;
+
+  List<Timeline> antz = new ArrayList<>();
 
   public void setPath(List<Node> path) {
     this.path = path;
@@ -124,18 +126,28 @@ public class MapView extends StackPane {
       levelL2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF3.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF4.setStyle("-fx-background-color: rgb(0,103,177)");
       levelG.setStyle("-fx-background-color: rgb(0,103,177)");
     } else if (level == 2) {
       levelL1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelL2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF3.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF4.setStyle("-fx-background-color: rgb(0,103,177)");
       levelG.setStyle("-fx-background-color: rgb(0,103,177)");
     } else if (level == 3) {
       levelL1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelL2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF2.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF4.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelG.setStyle("-fx-background-color: rgb(0,103,177)");
+    } else if (level == 4) {
+      levelL1.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelL2.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF1.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF2.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF3.setStyle("-fx-background-color: rgb(0,103,177)");
       levelG.setStyle("-fx-background-color: rgb(0,103,177)");
     } else if (level == 0) {
       levelL1.setStyle("-fx-background-color: rgb(0,103,177)");
@@ -143,24 +155,28 @@ public class MapView extends StackPane {
       levelF1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF3.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF4.setStyle("-fx-background-color: rgb(0,103,177)");
     } else if (level == -1) {
       levelG.setStyle("-fx-background-color: rgb(0,103,177)");
       levelL2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF3.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF4.setStyle("-fx-background-color: rgb(0,103,177)");
     } else if (level == -2) {
       levelL1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelG.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF3.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF4.setStyle("-fx-background-color: rgb(0,103,177)");
     } else {
       levelL1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelG.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF3.setStyle("-fx-background-color: rgb(0,103,177)");
+      levelF4.setStyle("-fx-background-color: rgb(0,103,177)");
       levelL2.setStyle("-fx-background-color: rgb(0,103,177)");
     }
 
@@ -174,7 +190,8 @@ public class MapView extends StackPane {
     Object src = e.getSource();
 
     if (src.equals(levelF1) || src.equals(levelF2) || src.equals(levelF3)
-        || src.equals(levelG) || src.equals(levelL1) || src.equals(levelL2)) {
+        || src.equals(levelG) || src.equals(levelL1) || src.equals(levelL2)
+        || src.equals(levelF4)) {
       resetButtonBackground(level);
       // If the src of this ActionEvent is from our supported buttons
       ((Button) src).setStyle("-fx-background-color: rgb(1,45,90)"); // style button
@@ -190,7 +207,7 @@ public class MapView extends StackPane {
       filename = "01_thefirstfloor.png";
       level = 1;
     } else if (src.equals(levelF2)) {
-      filename = "02_thesecondfloor.png";
+      filename = "02_thesecondfloor_withworkspace.png";
       level = 2;
     } else if (src.equals(levelF3)) {
       filename = "03_thethirdfloor.png";
@@ -204,6 +221,9 @@ public class MapView extends StackPane {
     } else if (src.equals(levelG)) {
       filename = "00_thegroundfloor.png";
       level = 0;
+    } else if (src.equals(levelF4)) {
+      filename = "04_thefourthfloor.png";
+      level = 4;
     }
 
     backgroundImage.setImage(new Image(getClass().getResource(filename).openStream()));
@@ -235,6 +255,9 @@ public class MapView extends StackPane {
     } else if (src.equals(levelG)) {
       levelG.setStyle("-fx-background-color: rgb(0,78,134)");
       currentLevel = 0;
+    } else if (src.equals(levelF4)) {
+      levelF4.setStyle("-fx-background-color: rgb(0,78,134)");
+      currentLevel = 4;
     } else {
       return;
     }
@@ -313,11 +336,13 @@ public class MapView extends StackPane {
    */
   @SuppressWarnings({"PMD.AvoidInstantiatingObjectsInLoops"})
   public void drawPath() {
+    nodeGroup.getChildren().removeAll(labelsGroup);
     nodeGroup.getChildren().removeAll(startAndEndNodes);
-    edges.getChildren().removeAll(pathEdges);
+    nodeGroup.getChildren().removeAll(pathEdges);
 
     pathEdges = new Group();
     startAndEndNodes = new Group();
+    labelsGroup = new Group();
 
     if (path != null) {
       clearNodes();
@@ -328,11 +353,18 @@ public class MapView extends StackPane {
       for (Node node : path) {
         if (lastNode != null) {
           addLine(node, lastNode, Color.BLACK, 5);
-          addTextField(node, lastNode);
+          addFloorChangeLabel(node, lastNode);
         } else if (node.getFloorInt() == level) {
           Circle circle = new Circle(node.getXcoord(), node.getYcoord(), 8, Color.GREEN);
           circle.setStroke(Color.BLACK);
           startAndEndNodes.getChildren().add(circle);
+
+          Label label = new Label(node.getLongName());
+          label.setTranslateX(node.getXcoord() + 10);
+          label.setTranslateY(node.getYcoord() - 9);
+          label.getStyleClass().add("navlabel");
+
+          labelsGroup.getChildren().add(label);
         }
         lastNode = node;
       }
@@ -343,19 +375,91 @@ public class MapView extends StackPane {
         rectangle.setFill(Color.RED);
         rectangle.setStroke(Color.BLACK);
         startAndEndNodes.getChildren().add(rectangle);
+        if (lastNode.getFloorInt() == path.get(path.indexOf(lastNode) - 1).getFloorInt()) {
+          Label label2 = new Label(lastNode.getLongName());
+          label2.setTranslateX(lastNode.getXcoord() + 10);
+          label2.setTranslateY(lastNode.getYcoord() - 9);
+          label2.getStyleClass().add("navlabel");
+
+          labelsGroup.getChildren().add(label2);
+        }
       }
 
 
       lastNode = null;
+      //Arraylist of lines to add animation
+      ArrayList<Line> antline = new ArrayList<>();
       for (Node node : path) {
         if (lastNode != null) {
-          addLine(node, lastNode, Color.color(0.96, 0.74, 0.22), 2.5);
+          Line seg = addLine(node, lastNode, Color.color(0.96, 0.74, 0.22), 10);
+          if (seg != null) {
+            //If the line segment is valid, add it to the set fo lines to animate
+            antline.add(seg);
+          }
         }
         lastNode = node;
       }
+      pixars_A_Bugs_Life(antline);
     }
     nodeGroup.getChildren().addAll(startAndEndNodes);
-    edges.getChildren().addAll(pathEdges);
+    nodeGroup.getChildren().addAll(pathEdges);
+    nodeGroup.getChildren().addAll(labelsGroup);
+
+  }
+
+  /**
+    Takes in a set of lines drawn by the path.
+    Removes old animations and adds new ones.
+   */
+  public void pixars_A_Bugs_Life(List<Line> trail) {
+    //Stops all old animations before they are removed
+    for (Timeline tl2Remove : antz) {
+      tl2Remove.stop();
+    }
+    //Resets the set of ant timelines
+    antz = new ArrayList<>();
+    for (Line segment : trail) {
+      Timeline timeline = addAntimation(segment);
+      antz.add(timeline);
+    }
+    //Plays newly added timelines
+    for (Timeline tl2Play : antz) {
+      tl2Play.play();
+    }
+  }
+
+  /**
+   * adds an antimation on the line.
+   * @param line line to be animated.
+   * @return animated line.
+   */
+  public Timeline addAntimation(Line line) {
+    line.getStrokeDashArray().setAll(5d, 5d, 5d, 5d);
+    line.setStrokeWidth(3);
+
+    final double maxOffset =
+            line.getStrokeDashArray().stream().reduce(0d, (a, b) -> a + b);
+
+    Timeline timeline = new Timeline(
+            new KeyFrame(
+                    Duration.ZERO,
+                    new KeyValue(
+                            line.strokeDashOffsetProperty(),
+                            0,
+                            Interpolator.LINEAR
+                    )
+            ),
+            new KeyFrame(
+                    Duration.seconds(2),
+                    new KeyValue(
+                            line.strokeDashOffsetProperty(),
+                            maxOffset,
+                            Interpolator.LINEAR
+                    )
+            )
+    );
+    timeline.setCycleCount(Timeline.INDEFINITE);
+    return timeline;
   }
 
   /**
@@ -381,6 +485,9 @@ public class MapView extends StackPane {
       case "3":
         onFloorSelectAction(new ActionEvent(levelF3, levelF3));
         break;
+      case "4":
+        onFloorSelectAction(new ActionEvent(levelF4, levelF4));
+        break;
       case "G":
         onFloorSelectAction(new ActionEvent(levelG, levelG));
         break;
@@ -395,44 +502,57 @@ public class MapView extends StackPane {
     }
   }
 
-  private void addLine(Node node, Node lastNode, Paint paint, double width) {
+  /**
+   * Adds a line to the path edges, then returns a reference to that line.
+   */
+  private Line addLine(Node node, Node lastNode, Paint paint, double width) {
+    Line line = null;
     if (lastNode.getFloorInt() == level && node.getFloorInt() == level) {
-      Line line = new Line(node.getXcoord(), node.getYcoord(),
+      line = new Line(node.getXcoord(), node.getYcoord(),
           lastNode.getXcoord(), lastNode.getYcoord());
       line.setStrokeWidth(width);
       line.setStroke(paint);
       line.setStrokeLineCap(StrokeLineCap.ROUND);
       pathEdges.getChildren().add(line);
     }
+    return line;
   }
 
-  private void addTextField(Node node, Node lastNode) {
+  private void addFloorChangeLabel(Node node, Node lastNode) {
     if (lastNode.getFloorInt() != node.getFloorInt()) {
       Label label = null;
+      Label label2 = null;
       if (lastNode.getFloorInt() == level) {
         label = new Label("To Floor " + node.getFloor());
-        label.setTranslateX(lastNode.getXcoord() + 8);
-        label.setTranslateY(lastNode.getYcoord() + 8);
+        label.setTranslateX(lastNode.getXcoord() + 10);
+        label.setTranslateY(lastNode.getYcoord() + 10);
+        label.getStyleClass().add("navlabel");
+
+        label2 = new Label(lastNode.getLongName());
+        label2.setTranslateX(lastNode.getXcoord() + 10);
+        label2.setTranslateY(lastNode.getYcoord() - 9);
+        label2.getStyleClass().add("navlabel");
+
       } else if (node.getFloorInt() == level) {
         label = new Label("From Floor " + lastNode.getFloor());
-        label.setTranslateX(node.getXcoord() + 8);
-        label.setTranslateY(node.getYcoord() + 8);
+        label.setTranslateX(node.getXcoord() + 10);
+        label.setTranslateY(node.getYcoord() + 10);
+        label.getStyleClass().add("navlabel");
+
+        label2 = new Label(node.getLongName());
+        label2.setTranslateX(node.getXcoord() + 10);
+        label2.setTranslateY(node.getYcoord() - 9);
+        label2.getStyleClass().add("navlabel");
       }
 
       if (label != null) {
-        label.setAlignment(Pos.CENTER);
-        label.setPrefWidth(USE_COMPUTED_SIZE);
-        label.setTextFill(Color.WHITE);
-        label.setPadding(new Insets(0, 5, 0, 5));
-        label.setBackground(new Background(new BackgroundFill(Paint.valueOf("0067B1"),
-            new CornerRadii(5, 5, 5, 5, false),
-            Insets.EMPTY)));
-        label.setBorder(new Border(new BorderStroke(Color.rgb(1, 45, 90),
-            BorderStrokeStyle.SOLID, new CornerRadii(5, 5, 5, 5, false),
-            BorderWidths.DEFAULT)));
-        nodeGroup.getChildren().add(label);
+        labelsGroup.getChildren().add(label);
+      }
+      if (label2 != null) {
+        labelsGroup.getChildren().add(label2);
       }
 
     }
   }
+
 }

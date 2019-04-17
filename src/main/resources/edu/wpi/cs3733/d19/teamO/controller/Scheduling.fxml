@@ -15,16 +15,16 @@
 
 <?import edu.wpi.cs3733.d19.teamO.component.SchedulingMapView?>
 
-<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.SchedulingController">
+<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.SchedulingController">
   <left>
-    <VBox alignment="CENTER">
-      <VBox alignment="CENTER">
+    <VBox alignment="CENTER" styleClass="form" stylesheets="@style/KioskStyle.css">
+      <VBox fx:id="form" alignment="CENTER" prefHeight="83.0" prefWidth="415.0" stylesheets="@style/KioskStyle.css">
         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
           <font>
             <Font size="36.0" />
           </font>
         </Text>
-        <JFXDatePicker fx:id="date" defaultColor="#004e86" prefHeight="40.0" />
+        <JFXDatePicker fx:id="date" defaultColor="#004e86" maxWidth="300.0" prefHeight="40.0" />
         <VBox.margin>
           <Insets bottom="10.0" top="10.0" />
         </VBox.margin>
@@ -35,7 +35,7 @@
             <Font size="36.0" />
           </font>
         </Text>
-        <JFXTimePicker fx:id="startTime" defaultColor="#004e86" prefHeight="40.0" />
+        <JFXTimePicker fx:id="startTime" defaultColor="#004e86" maxWidth="300.0" prefHeight="40.0" prefWidth="300.0" />
         <VBox.margin>
           <Insets bottom="10.0" top="10.0" />
         </VBox.margin>
@@ -46,7 +46,7 @@
             <Font size="36.0" />
           </font>
         </Text>
-        <JFXTimePicker fx:id="endTime" defaultColor="#004e86" prefHeight="40.0" />
+        <JFXTimePicker fx:id="endTime" defaultColor="#004e86" prefHeight="40.0" prefWidth="300.0" />
         <VBox.margin>
           <Insets bottom="10.0" top="10.0" />
         </VBox.margin>
@@ -57,7 +57,7 @@
             <Font size="36.0" />
           </font>
         </Text>
-        <JFXTextField fx:id="nameField" prefHeight="40.0" />
+        <JFXTextField fx:id="nameField" maxWidth="300.0" prefHeight="40.0" prefWidth="372.0" style="-fx-pref-width: 300;" />
         <VBox.margin>
           <Insets bottom="10.0" top="10.0" />
         </VBox.margin>
@@ -68,7 +68,7 @@
             <Font size="36.0" />
           </font>
         </Text>
-        <JFXComboBox fx:id="roomComboBox" focusColor="#004e86" prefHeight="40.0" />
+        <JFXComboBox fx:id="roomComboBox" focusColor="#004e86" maxWidth="300.0" prefHeight="40.0" />
         <VBox.margin>
           <Insets bottom="10.0" top="10.0" />
         </VBox.margin>
@@ -87,7 +87,7 @@
     </VBox>
   </left>
   <center>
-    <JFXTabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER" VBox.vgrow="ALWAYS">
+    <JFXTabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
       <Tab closable="false" text="Map">
         <SchedulingMapView fx:id="schedulingMapView" style="-fx-background-color: WHITE;" />
       </Tab>

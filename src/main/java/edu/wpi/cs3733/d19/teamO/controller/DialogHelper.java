@@ -10,6 +10,7 @@ import com.jfoenix.controls.JFXComboBox;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextInputDialog;
@@ -62,6 +63,25 @@ public final class DialogHelper {
     if (result.isPresent()) {
       return result.get();
     }
+    return "";
+  }
+
+  /**
+   * Show a dialog that asks a user to select choice. Reurns the user input as a String, or an empty
+   * string if no input.
+   */
+  public static String choiceInputDialog(List<String> choices, String titleText,
+                                         String headerText, String promptText) {
+    choices.sort(String.CASE_INSENSITIVE_ORDER);
+    ChoiceDialog<String> dialog = new ChoiceDialog<>(null, choices);
+    dialog.setTitle(titleText);
+    dialog.setHeaderText(headerText);
+    dialog.setContentText(promptText);
+    Optional<String> result = dialog.showAndWait();
+    if (result.isPresent()) {
+      return result.get();
+    }
+
     return "";
   }
 
@@ -125,7 +145,37 @@ public final class DialogHelper {
 
     Optional<ButtonType> result = dialog.showAndWait();
     return result.get() == ButtonType.OK;
+  }
 
+  /**
+   * Populate a combobox of nodes.
+   */
+  public static void populateComboBox2(Database database,
+                                       JFXComboBox<String> comboBox,
+                                       List nodesToInclude) {
+    comboBox.getItems().setAll(nodesToInclude);
+    Callback<ListView<String>, ListCell<String>> cellFactory =
+        new Callback<ListView<String>, ListCell<String>>() {
+          @Override
+          public ListCell<String> call(ListView<String> param) {
+            return new ListCell<String>() {
+
+              @Override
+              protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null || empty) {
+                  setGraphic(null);
+                } else {
+                  setText(item);
+                }
+              }
+            };
+          }
+        };
+    comboBox.setCellFactory(cellFactory);
+
+    // wait for selection
+    comboBox.valueProperty().addListener((observable, oldValue, newValue)
+        -> comboBox.setButtonCell(cellFactory.call(null)));
   }
 }
-

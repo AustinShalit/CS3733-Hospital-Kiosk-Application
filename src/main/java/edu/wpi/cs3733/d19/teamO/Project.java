@@ -17,7 +17,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import edu.wpi.cs3733.d19.teamO.controller.ControllerModule;
-import edu.wpi.cs3733.d19.teamO.controller.LoginController;
+import edu.wpi.cs3733.d19.teamO.controller.GuestViewController;
 import edu.wpi.cs3733.d19.teamO.controller.MainController;
 import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.DefaultInformationLoader;
@@ -34,7 +34,7 @@ public class Project extends Application {
   @Inject
   private Database database;
   @Inject
-  private LoginController.Factory loginControllerFactory;
+  private GuestViewController.Factory guestViewFactory;
 
   private Injector injector;
   private Parent root;
@@ -69,7 +69,8 @@ public class Project extends Application {
     loader.setControllerFactory(injector::getInstance);
     root = loader.load();
 
-    eventBus.post(new ChangeMainViewEvent(loginControllerFactory.create(), false));
+    //eventBus.post(new ChangeMainViewEvent(loginControllerFactory.create(), false));
+    eventBus.post(new ChangeMainViewEvent(guestViewFactory.create(), false));
 
     primaryStage.setTitle("Team O Kiosk Application");
     primaryStage.setScene(new Scene(root));
