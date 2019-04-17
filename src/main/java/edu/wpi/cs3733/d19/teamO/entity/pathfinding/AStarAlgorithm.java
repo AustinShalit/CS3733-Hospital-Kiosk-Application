@@ -8,9 +8,11 @@ import java.util.PriorityQueue;
 import com.google.common.graph.Graph;
 
 import edu.wpi.cs3733.d19.teamO.entity.Node;
-import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
-public class DijkrasAlgorithm extends InformedGraphSearchAlgorithm {
+public class AStarAlgorithm extends InformedGraphSearchAlgorithm{
+
+  public AStarAlgorithm() {
+  }
 
   @Override
   public String getName() {
@@ -19,16 +21,16 @@ public class DijkrasAlgorithm extends InformedGraphSearchAlgorithm {
 
   @Override
   public List<Node> getPath(Graph<Node> graph, Node start, Node goal) {
-    PriorityQueue<Pair> frontier = new PriorityQueue<>();
+    PriorityQueue<DijkrasAlgorithm.Pair> frontier = new PriorityQueue<>();
 
     Map<Node, Node> cameFrom = new HashMap<>();
     cameFrom.put(start, null);
     Map<Node, Double> costSoFar = new HashMap<>();
-    Pair newPair = new Pair(start , 0.0);
+    DijkrasAlgorithm.Pair newPair = new DijkrasAlgorithm.Pair(start , 0.0);
     frontier.add(newPair);
     costSoFar.put(start, 0.0);
 
-    Pair nextPair = new Pair(start, 0.0);
+    DijkrasAlgorithm.Pair nextPair = new DijkrasAlgorithm.Pair(start, 0.0);
 
     while (!frontier.isEmpty()) {
       Node current = frontier.poll().pairNode;
@@ -37,11 +39,10 @@ public class DijkrasAlgorithm extends InformedGraphSearchAlgorithm {
         break;
       }
 
-
       for (Node next : graph.successors(current)) {
         Double newCost = costSoFar.get(current) + euclideanDist(current,next);
         if (!cameFrom.containsKey(next) || newCost < costSoFar.get(next)) {
-          double priority = newCost;
+          double priority = newCost + heuristic(goal, next);
           nextPair.setPairNode(next);
           nextPair.setPairCost(priority);
           frontier.add(nextPair);
@@ -51,30 +52,17 @@ public class DijkrasAlgorithm extends InformedGraphSearchAlgorithm {
       }
     }
 
-    return buildPath(cameFrom, goal);  }
 
-  static final class Pair implements Comparable<Pair> {
-    Node pairNode;
-    double pairCost;
-
-    Pair(Node pairNode, Double pairCost) {
-      this.pairNode = pairNode;
-      this.pairCost = pairCost;
-    }
-
-    public void setPairNode(Node pairNode) {
-      this.pairNode = pairNode;
-    }
-
-    public void setPairCost(double pairCost) {
-      this.pairCost = pairCost;
-    }
-
-    @Override
-    public int compareTo(Pair pair) {
-      return Double.compare(pairCost, pair.pairCost);
-    }
-
-
+    return buildPath(cameFrom, goal);
   }
+
+  private double heuristic(Node goal, Node next) {
+    double dist = Math.abs(goal.getXcoord() -next.getXcoord()) + Math.abs(goal.getYcoord() -
+        next.getYcoord());
+    return dist;
+  }
+
+
+
+
 }

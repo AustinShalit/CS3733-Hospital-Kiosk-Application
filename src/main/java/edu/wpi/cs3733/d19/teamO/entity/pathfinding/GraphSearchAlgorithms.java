@@ -16,6 +16,8 @@ public final class GraphSearchAlgorithms extends Registry<GraphSearchAlgorithm> 
       new BreadthFirstSearchAlgorithm<>());
   public static final GraphSearchAlgorithm DFS = new GraphSearchAlgorithm("Depth First Search",
       new DepthFirstSearchAlgorithm<>());
+  public static final GraphSearchAlgorithm AStar = new GraphSearchAlgorithm("A*",
+      new AStarAlgorithm());
 
   public static final GraphSearchAlgorithm INITIAL_ALGORITHM = BFS;
 
@@ -25,7 +27,7 @@ public final class GraphSearchAlgorithms extends Registry<GraphSearchAlgorithm> 
   public static GraphSearchAlgorithms getDefault() {
     synchronized (GraphSearchAlgorithms.class) {
       if (defaultInstance == null) {
-        defaultInstance = new GraphSearchAlgorithms(BFS, DFS);
+        defaultInstance = new GraphSearchAlgorithms(BFS, DFS, AStar);
       }
     }
     return defaultInstance;
