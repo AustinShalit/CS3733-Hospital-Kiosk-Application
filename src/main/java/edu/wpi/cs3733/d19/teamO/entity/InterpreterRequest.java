@@ -46,27 +46,66 @@ public class InterpreterRequest extends ServiceRequest {
   }
 
   private final Language language;
+  private final String name;
 
+  /**
+   * Constructor.
+   * @param id Id
+   * @param timeRequested Time 1
+   * @param timeCompleted Time 2
+   * @param whoCompleted Who
+   * @param description Describe
+   * @param node Node
+   * @param language Language
+   * @param name Name
+   */
   public InterpreterRequest(int id, LocalDateTime timeRequested, LocalDateTime timeCompleted,
-                            String whoCompleted, String description, Node node, Language language) {
+                            String whoCompleted, String description, Node node, Language language,
+                            String name) {
     super(id, timeRequested, timeCompleted, whoCompleted, description, node);
     this.language = language;
+    this.name = name;
   }
 
+  /**
+   * Another constructor.
+   * @param timeRequested Time 1
+   * @param timeCompleted Time 2
+   * @param whoCompleted Who
+   * @param description Describe
+   * @param node Where
+   * @param language Language
+   * @param name Name
+   */
   public InterpreterRequest(LocalDateTime timeRequested, LocalDateTime timeCompleted,
-                            String whoCompleted, String description, Node node, Language language) {
+                            String whoCompleted, String description, Node node, Language language,
+                            String name) {
     super(-1, timeRequested, timeCompleted, whoCompleted, description, node);
     this.language = language;
+    this.name = name;
   }
 
+  /**
+   * Yet another constructor.
+   * @param timeRequested Time 1
+   * @param locationNode Place
+   * @param language Language
+   * @param description Describe
+   * @param name Name
+   */
   public InterpreterRequest(LocalDateTime timeRequested, Node locationNode,
-                            Language language, String description) {
+                            Language language, String description, String name) {
     super(timeRequested, description, locationNode);
     this.language = language;
+    this.name = name;
   }
 
   public Language getLanguage() {
     return this.language;
+  }
+
+  public String getName() {
+    return this.name;
   }
 
   @Override
@@ -84,7 +123,8 @@ public class InterpreterRequest extends ServiceRequest {
         && getWhoCompleted().equals(that.getWhoCompleted())
         && getDescription().equals(that.getDescription())
         && getLocationNode().equals(that.getLocationNode())
-        && getLanguage() == that.getLanguage();
+        && getLanguage() == that.getLanguage()
+        && getName().equals(that.getName());
   }
 
   @Override
@@ -102,7 +142,8 @@ public class InterpreterRequest extends ServiceRequest {
         + ", locationNode=" + getLocationNode().toString()
         + ", whoCompleted=" + getWhoCompleted()
         + ", language=" + getLanguage()
-        + ", description='" + getDescription() + '\''
+        + ", description='" + getDescription()
+        + ", name=" + getName() + '\''
         + '}';
   }
 }

@@ -10,6 +10,7 @@ import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -30,6 +31,8 @@ public class InterpreterController implements Controller {
 
   @FXML
   private BorderPane root;
+  @FXML
+  private JFXTextField nametxt;
   @FXML
   private JFXComboBox<Node> locationbox;
   @FXML
@@ -96,8 +99,9 @@ public class InterpreterController implements Controller {
       InterpreterRequest.Language language = categorybox.getValue();
 
       String description = descriptiontxt.getText();
+      String name = nametxt.getText();
 
-      return new InterpreterRequest(now, node, language, description);
+      return new InterpreterRequest(now, node, language, description, name);
     }
 
     // otherwise, some input was invalid
