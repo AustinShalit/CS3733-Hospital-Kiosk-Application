@@ -3,7 +3,6 @@ subprojects {
     apply(plugin = "application")
     apply(plugin = "com.github.johnrengelman.shadow")
 
-
     dependencies {
         implementation(rootProject)
     }
