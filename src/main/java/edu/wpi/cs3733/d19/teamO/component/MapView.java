@@ -1,11 +1,15 @@
 package edu.wpi.cs3733.d19.teamO.component;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,7 +34,8 @@ import net.kurobako.gesturefx.GesturePane;
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 
-@SuppressWarnings({"PMD.TooManyFields", "PMD.ExcessiveImports", "PMD.TooManyMethods"})
+@SuppressWarnings({"PMD.TooManyFields", "PMD.ExcessiveImports", "PMD.TooManyMethods" ,
+    "PMD.CyclomaticComplexity"})
 public class MapView extends StackPane {
 
   private int level = 1;
@@ -69,6 +74,8 @@ public class MapView extends StackPane {
   Group labelsGroup = new Group();
 
   List<Node> path;
+
+  List<Timeline> antz = new ArrayList<>();
 
   public void setPath(List<Node> path) {
     this.path = path;
@@ -120,49 +127,36 @@ public class MapView extends StackPane {
       levelF2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF3.setStyle("-fx-background-color: rgb(0,103,177)");
       levelG.setStyle("-fx-background-color: rgb(0,103,177)");
-      levelF4.setStyle("-fx-background-color: rgb(0,103,177)");
     } else if (level == 2) {
       levelL1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelL2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF3.setStyle("-fx-background-color: rgb(0,103,177)");
       levelG.setStyle("-fx-background-color: rgb(0,103,177)");
-      levelF4.setStyle("-fx-background-color: rgb(0,103,177)");
     } else if (level == 3) {
       levelL1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelL2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelG.setStyle("-fx-background-color: rgb(0,103,177)");
-      levelF4.setStyle("-fx-background-color: rgb(0,103,177)");
     } else if (level == 0) {
       levelL1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelL2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF3.setStyle("-fx-background-color: rgb(0,103,177)");
-      levelF4.setStyle("-fx-background-color: rgb(0,103,177)");
     } else if (level == -1) {
       levelG.setStyle("-fx-background-color: rgb(0,103,177)");
       levelL2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF3.setStyle("-fx-background-color: rgb(0,103,177)");
-      levelF4.setStyle("-fx-background-color: rgb(0,103,177)");
     } else if (level == -2) {
       levelL1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelG.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF3.setStyle("-fx-background-color: rgb(0,103,177)");
-      levelF4.setStyle("-fx-background-color: rgb(0,103,177)");
-    } else if (level == 4) {
-      levelL1.setStyle("-fx-background-color: rgb(0,103,177)");
-      levelG.setStyle("-fx-background-color: rgb(0,103,177)");
-      levelF1.setStyle("-fx-background-color: rgb(0,103,177)");
-      levelF2.setStyle("-fx-background-color: rgb(0,103,177)");
-      levelF3.setStyle("-fx-background-color: rgb(0,103,177)");
-      levelL2.setStyle("-fx-background-color: rgb(0,103,177)");
     } else {
       levelL1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelG.setStyle("-fx-background-color: rgb(0,103,177)");
@@ -170,8 +164,8 @@ public class MapView extends StackPane {
       levelF2.setStyle("-fx-background-color: rgb(0,103,177)");
       levelF3.setStyle("-fx-background-color: rgb(0,103,177)");
       levelL2.setStyle("-fx-background-color: rgb(0,103,177)");
-      levelF4.setStyle("-fx-background-color: rgb(0,103,177)");
     }
+
   }
 
 
@@ -377,14 +371,21 @@ public class MapView extends StackPane {
         }
       }
 
+
       lastNode = null;
+      //Arraylist of lines to add animation
+      ArrayList<Line> antline = new ArrayList<>();
       for (Node node : path) {
         if (lastNode != null) {
-          addLine(node, lastNode, Color.color(0.96, 0.74, 0.22), 2.5);
+          Line seg = addLine(node, lastNode, Color.color(0.96, 0.74, 0.22), 10);
+          if (seg != null) {
+            //If the line segment is valid, add it to the set fo lines to animate
+            antline.add(seg);
+          }
         }
         lastNode = node;
       }
-
+      pixars_A_Bugs_Life(antline);
     }
     nodeGroup.getChildren().addAll(startAndEndNodes);
     nodeGroup.getChildren().addAll(pathEdges);
@@ -393,8 +394,62 @@ public class MapView extends StackPane {
   }
 
   /**
+    Takes in a set of lines drawn by the path.
+    Removes old animations and adds new ones.
+   */
+  public void pixars_A_Bugs_Life(List<Line> trail) {
+    //Stops all old animations before they are removed
+    for (Timeline tl2Remove : antz) {
+      tl2Remove.stop();
+    }
+    //Resets the set of ant timelines
+    antz = new ArrayList<>();
+    for (Line segment : trail) {
+      Timeline timeline = addAntimation(segment);
+      antz.add(timeline);
+    }
+    //Plays newly added timelines
+    for (Timeline tl2Play : antz) {
+      tl2Play.play();
+    }
+  }
+
+  /**
+   * adds an antimation on the line.
+   * @param line line to be animated.
+   * @return animated line.
+   */
+  public Timeline addAntimation(Line line) {
+    line.getStrokeDashArray().setAll(5d, 5d, 5d, 5d);
+    line.setStrokeWidth(3);
+
+    final double maxOffset =
+            line.getStrokeDashArray().stream().reduce(0d, (a, b) -> a + b);
+
+    Timeline timeline = new Timeline(
+            new KeyFrame(
+                    Duration.ZERO,
+                    new KeyValue(
+                            line.strokeDashOffsetProperty(),
+                            0,
+                            Interpolator.LINEAR
+                    )
+            ),
+            new KeyFrame(
+                    Duration.seconds(2),
+                    new KeyValue(
+                            line.strokeDashOffsetProperty(),
+                            maxOffset,
+                            Interpolator.LINEAR
+                    )
+            )
+    );
+    timeline.setCycleCount(Timeline.INDEFINITE);
+    return timeline;
+  }
+
+  /**
    * Zoom to the given node.
-   *
    * @param n The node need to zoom to.
    * @throws IOException throw if there is error.
    */
@@ -433,15 +488,20 @@ public class MapView extends StackPane {
     }
   }
 
-  private void addLine(Node node, Node lastNode, Paint paint, double width) {
+  /**
+   * Adds a line to the path edges, then returns a reference to that line.
+   */
+  private Line addLine(Node node, Node lastNode, Paint paint, double width) {
+    Line line = null;
     if (lastNode.getFloorInt() == level && node.getFloorInt() == level) {
-      Line line = new Line(node.getXcoord(), node.getYcoord(),
+      line = new Line(node.getXcoord(), node.getYcoord(),
           lastNode.getXcoord(), lastNode.getYcoord());
       line.setStrokeWidth(width);
       line.setStroke(paint);
       line.setStrokeLineCap(StrokeLineCap.ROUND);
       pathEdges.getChildren().add(line);
     }
+    return line;
   }
 
   private void addFloorChangeLabel(Node node, Node lastNode) {
