@@ -11,7 +11,7 @@ import com.google.api.client.http.GenericUrl;
  */
 public enum Country {
   USA("https://order.dominos.com/power/store-locator",
-      "https://order.dominos.com/power/store");
+      "https://order.dominos.com/power/store/");
 
   private final String findBaseUrl;
   private final String menuBaseUrl;
@@ -32,7 +32,7 @@ public enum Country {
   public GenericUrl getMenuUrl(final String storeId) {
     GenericUrl url = new GenericUrl(menuBaseUrl);
     url.appendRawPath(storeId);
-    url.appendRawPath("menu");
+    url.appendRawPath("/menu");
     url.put("structured", true);
     return url;
   }

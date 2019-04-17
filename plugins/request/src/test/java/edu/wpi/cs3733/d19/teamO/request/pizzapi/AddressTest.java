@@ -2,10 +2,8 @@ package edu.wpi.cs3733.d19.teamO.request.pizzapi;
 
 import java.io.IOException;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-@Disabled
 class AddressTest {
 
   @Test
@@ -17,6 +15,6 @@ class AddressTest {
     address.setCountry("USA");
     address.setZip("01609");
 
-    System.out.println(address.getNearbyStores());
+    System.out.println(address.getClosestStore().get().getMenu().getProducts().toString());
   }
 }

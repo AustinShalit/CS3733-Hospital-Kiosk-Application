@@ -21,8 +21,6 @@ import edu.wpi.cs3733.d19.teamO.request.Request;
 public class OrderTableController implements Controller {
 
   @Inject
-  private EventBus eventBus;
-  @Inject
   private OrderTableController.Factory orderTableControllerFactory;
   @Inject
   private DominosHomeController.Factory dominosHomeControllerFactory;
@@ -52,7 +50,7 @@ public class OrderTableController implements Controller {
 
   @FXML
   void backAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(dominosHomeControllerFactory.create()));
+    //eventBus.post(new ChangeMainViewEvent(dominosHomeControllerFactory.create()));
   }
 
   @Override

@@ -23,11 +23,9 @@ public class Store extends GenericJson {
   private boolean open;
 
   public Menu getMenu() throws IOException {
-    Menu reponse = Utilities.sendRequest(
+    return Utilities.sendRequest(
         Country.USA.getMenuUrl(id),
         Menu.class);
-
-    return reponse;
   }
 
   public String getId() {
