@@ -88,9 +88,9 @@
   </left>
   <center>
     <JFXTabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER" VBox.vgrow="ALWAYS">
-       <Tab closable="false" text="Map">
-       <SchedulingMapView fx:id="schedulingMapView" style="-fx-background-color: WHITE;" />
-       </Tab>
+      <Tab closable="false" text="Map">
+        <SchedulingMapView fx:id="schedulingMapView" style="-fx-background-color: WHITE;" />
+      </Tab>
       <Tab fx:id="tableTab" closable="false" onSelectionChanged="#showCurrentSchedule" text="Table" />
       <Tab fx:id="calendarTab" closable="false" onSelectionChanged="#showCalendar" text="Calendar" />
       <padding>
