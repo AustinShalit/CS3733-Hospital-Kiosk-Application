@@ -147,7 +147,10 @@ public class Node {
   }
 
   public List<Double> getPolygonPoints() {
-    return polygon.getPoints();
+    if(polygon != null) {
+      return polygon.getPoints();
+    }
+    return new LinkedList<>();
   }
 
   /**
