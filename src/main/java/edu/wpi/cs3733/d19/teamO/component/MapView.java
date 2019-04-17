@@ -13,9 +13,7 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.geometry.Point2D;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -23,24 +21,21 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.*;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.StrokeLineCap;
 import javafx.util.Duration;
 import net.kurobako.gesturefx.GesturePane;
 
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 
-@SuppressWarnings({"PMD.TooManyFields", "PMD.ExcessiveImports", "PMD.TooManyMethods"})
+@SuppressWarnings({"PMD.TooManyFields", "PMD.ExcessiveImports", "PMD.TooManyMethods" ,
+    "PMD.CyclomaticComplexity"})
 public class MapView extends StackPane {
 
   private int level = 1;
@@ -80,7 +75,7 @@ public class MapView extends StackPane {
 
   List<Node> path;
 
-  ArrayList<Timeline> antz = new ArrayList<>();
+  List<Timeline> antz = new ArrayList<>();
 
   public void setPath(List<Node> path) {
     this.path = path;
@@ -399,10 +394,10 @@ public class MapView extends StackPane {
   }
 
   /**
-    Takes in a set of lines drawn by the path
-    Removes old animations and adds new ones
+    Takes in a set of lines drawn by the path.
+    Removes old animations and adds new ones.
    */
-  public void pixars_A_Bugs_Life(ArrayList<Line> trail){
+  public void pixars_A_Bugs_Life(List<Line> trail) {
     //Stops all old animations before they are removed
     for (Timeline tl2Remove : antz) {
       tl2Remove.stop();
@@ -410,8 +405,8 @@ public class MapView extends StackPane {
     //Resets the set of ant timelines
     antz = new ArrayList<>();
     for (Line segment : trail) {
-      Timeline t = addAntimation(segment);
-      antz.add(t);
+      Timeline timeline = addAntimation(segment);
+      antz.add(timeline);
     }
     //Plays newly added timelines
     for (Timeline tl2Play : antz) {
@@ -419,16 +414,17 @@ public class MapView extends StackPane {
     }
   }
 
-  public Timeline addAntimation(Line line){
+  /**
+   * adds an antimation on the line.
+   * @param line line to be animated.
+   * @return animated line.
+   */
+  public Timeline addAntimation(Line line) {
     line.getStrokeDashArray().setAll(5d, 5d, 5d, 5d);
     line.setStrokeWidth(3);
 
     final double maxOffset =
-            line.getStrokeDashArray().stream()
-                    .reduce(
-                            0d,
-                            (a, b) -> a + b
-                    );
+            line.getStrokeDashArray().stream().reduce(0d, (a, b) -> a + b);
 
     Timeline timeline = new Timeline(
             new KeyFrame(
@@ -493,7 +489,7 @@ public class MapView extends StackPane {
   }
 
   /**
-   * Adds a line to the path edges, then returns a reference to that line
+   * Adds a line to the path edges, then returns a reference to that line.
    */
   private Line addLine(Node node, Node lastNode, Paint paint, double width) {
     Line line = null;
