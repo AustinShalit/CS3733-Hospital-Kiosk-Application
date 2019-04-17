@@ -16,17 +16,24 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 
+import edu.wpi.cs3733.d19.teamO.controller.Controller;
+import edu.wpi.cs3733.d19.teamO.controller.FxmlController;
+import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
+import edu.wpi.cs3733.d19.teamO.entity.database.Database;
+
 import static edu.wpi.cs3733.d19.teamO.request.controller.ControllerHelper.populateMonthCombobox;
 import static edu.wpi.cs3733.d19.teamO.request.controller.ControllerHelper.populateStatesCombobox;
 import static edu.wpi.cs3733.d19.teamO.request.controller.ControllerHelper.populateYearCombobox;
 
 @FxmlController(url = "Order.fxml")
-public class OrderController {
+public class OrderController implements Controller {
 
   @Inject
   private EventBus eventBus;
   @Inject
   private OrderController.Factory orderControllerFactory;
+  @Inject
+  private DominosHomeController.Factory dominosHomeControllerFactory;
   @Inject
   private Database db;
 
@@ -115,11 +122,6 @@ public class OrderController {
     populateMonthCombobox(expirationMonth);
     populateYearCombobox(expirationYear);
   }
-
-  @Inject
-  private EventBus eventBus;
-  @Inject
-  private DominosHomeController.Factory dominosHomeControllerFactory;
 
   @FXML
   void backAction(ActionEvent event) {
