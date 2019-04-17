@@ -312,6 +312,7 @@ public class MapEditController implements Controller {
       status.setText("ERROR: InvalidEdgeID");
     } else {
       Edge deleteEdge = opt.get();
+      map.setLineVisible(false);
       database.deleteEdge(deleteEdge);
       status.setText("Succeed!");
       map.setDatabaseEdge(database.getAllEdges());
