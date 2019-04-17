@@ -1,16 +1,14 @@
 package edu.wpi.cs3733.d19.teamO.request.pizzapi;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
-import com.google.api.client.http.GenericUrl;
-import com.google.api.client.http.HttpRequest;
-import com.google.api.client.http.HttpRequestFactory;
-import com.google.api.client.http.javanet.NetHttpTransport;
-
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+
+import edu.wpi.cs3733.d19.teamO.request.pizzapi.response.FindResponse;
 
 /**
  * Create an address, for finding stores and placing orders.
@@ -31,7 +29,7 @@ public class Address {
   private final StringProperty street = new SimpleStringProperty();
   private final StringProperty city = new SimpleStringProperty();
   private final StringProperty region = new SimpleStringProperty();
-  private final IntegerProperty zip = new SimpleIntegerProperty();
+  private final StringProperty zip = new SimpleStringProperty();
   private final StringProperty country = new SimpleStringProperty();
 
   public String getLineOne() {
@@ -49,12 +47,24 @@ public class Address {
    * currently online (!['IsOnlineNow']), and stores that are not currently
    * in service (!['ServiceIsOpen']).
    */
-  public Store getNearbyStores() throws IOException {
-    HttpRequestFactory requestFactory = new NetHttpTransport().createRequestFactory();
-    HttpRequest request = requestFactory.buildGetRequest(
-        new GenericUrl(Country.USA.getFindUrl(getLineOne(), getLineTwo(), "Delivery")));
-    String rawResponse = request.execute().parseAsString();
-    return null;
+  public List<Store> getNearbyStores() throws IOException {
+    FindResponse reponse = Utilities.sendRequest(
+        Country.USA.getFindUrl(getLineOne(), getLineTwo(), "Delivery"),
+        FindResponse.class);
+
+    return reponse.getStores().stream()
+        .filter(Store::isOpen)
+        .collect(Collectors.toList());
+  }
+
+  public Optional<Store> getClosestStore() throws IOException {
+    List<Store> stores = getNearbyStores();
+
+    if (stores.isEmpty()) {
+      return Optional.empty();
+    }
+
+    return Optional.of(stores.get(0));
   }
 
   public String getStreet() {
@@ -93,15 +103,15 @@ public class Address {
     this.region.set(region);
   }
 
-  public int getZip() {
+  public String getZip() {
     return zip.get();
   }
 
-  public IntegerProperty zipProperty() {
+  public StringProperty zipProperty() {
     return zip;
   }
 
-  public void setZip(int zip) {
+  public void setZip(String zip) {
     this.zip.set(zip);
   }
 

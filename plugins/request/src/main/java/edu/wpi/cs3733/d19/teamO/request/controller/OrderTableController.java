@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.d19.teamO.request.controller;
 
+import java.awt.event.ActionEvent;
+
 import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 
@@ -9,11 +11,23 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 
+import edu.wpi.cs3733.d19.teamO.controller.Controller;
+import edu.wpi.cs3733.d19.teamO.controller.FxmlController;
+import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
+import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 import edu.wpi.cs3733.d19.teamO.request.Request;
-import edu.wpi.cs3733.d19.teamO.request.controller.request.ChangeMainViewEvent;
 
 @FxmlController(url = "OrderTable.fxml")
-public class OrderTableController implements Controller{
+public class OrderTableController implements Controller {
+
+  @Inject
+  private EventBus eventBus;
+  @Inject
+  private OrderTableController.Factory orderTableControllerFactory;
+  @Inject
+  private DominosHomeController.Factory dominosHomeControllerFactory;
+  @Inject
+  private Database db;
 
   @FXML
   private BorderPane root;
@@ -36,14 +50,9 @@ public class OrderTableController implements Controller{
   @FXML
   private TableColumn<Request, String> descriptionCol;
 
-  @Inject
-  private EventBus eventBus;
-  @Inject
-  private DominosHomeController.Factory domniosHomeControllerFactory;
-
   @FXML
-  void backAction() {
-    eventBus.post(new ChangeMainViewEvent(domniosHomeControllerFactory.create()));
+  void backAction(ActionEvent event) {
+    eventBus.post(new ChangeMainViewEvent(dominosHomeControllerFactory.create()));
   }
 
   @Override
@@ -54,5 +63,4 @@ public class OrderTableController implements Controller{
   public interface Factory {
     OrderTableController create();
   }
-
 }

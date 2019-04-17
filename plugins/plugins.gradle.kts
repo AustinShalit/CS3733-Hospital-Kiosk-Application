@@ -1,6 +1,10 @@
 subprojects {
     apply(plugin = "java-library")
 
+    dependencies {
+        implementation(rootProject)
+    }
+
     afterEvaluate {
         val sourceJar = task<Jar>("sourceJar") {
             description = "Creates a JAR that contains the source code."

@@ -1,50 +1,21 @@
 package edu.wpi.cs3733.d19.teamO.request.pizzapi;
 
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.collections.ObservableList;
+import com.google.api.client.json.GenericJson;
+import com.google.api.client.util.Key;
+import com.google.common.base.MoreObjects;
 
-public class MenuItem {
+public class MenuItem extends GenericJson {
 
-  private final StringProperty code = new SimpleStringProperty();
-  private final StringProperty name = new SimpleStringProperty();
-  private final ListProperty<MenuCategory> categories = new SimpleListProperty<>();
+  @Key("Code")
+  private String code;
+  @Key("Name")
+  private String name;
 
-  public String getCode() {
-    return code.get();
-  }
-
-  public StringProperty codeProperty() {
-    return code;
-  }
-
-  public void setCode(String code) {
-    this.code.set(code);
-  }
-
-  public String getName() {
-    return name.get();
-  }
-
-  public StringProperty nameProperty() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name.set(name);
-  }
-
-  public Object getCategories() {
-    return categories.get();
-  }
-
-  public ListProperty categoriesProperty() {
-    return categories;
-  }
-
-  public void setCategories(ObservableList<MenuCategory> categories) {
-    this.categories.set(categories);
+  @Override
+  public String toString() {
+    return MoreObjects.toStringHelper(this)
+        .add("code", code)
+        .add("name", name)
+        .toString();
   }
 }

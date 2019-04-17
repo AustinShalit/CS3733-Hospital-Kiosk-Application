@@ -1,6 +1,7 @@
 import com.diffplug.spotless.FormatterStep
 import com.diffplug.spotless.extra.wtp.EclipseWtpFormatterStep
 import com.github.spotbugs.SpotBugsTask
+import org.ajoberstar.reckon.core.Reckoner
 import org.apache.tools.ant.taskdefs.condition.Os
 
 plugins {
@@ -24,120 +25,132 @@ reckon {
     snapshotFromProp()
 }
 
-repositories {
-    mavenCentral()
-    jcenter()
+allprojects {
+    apply {
+        plugin("java")
+        plugin("jacoco")
+        plugin("checkstyle")
+        plugin("pmd")
+        plugin("com.github.spotbugs")
+        plugin("com.github.johnrengelman.shadow")
+    }
+
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        implementation(group = "com.calendarfx", name = "view", version = "8.5.0")
+        implementation(group = "com.google.code.gson", name = "gson", version = "2.8.5")
+        implementation(group = "com.google.guava", name = "guava", version = "27.1-jre")
+        implementation(group = "com.google.inject", name = "guice", version = "4.2.2")
+        implementation(group = "com.google.inject.extensions", name = "guice-assistedinject", version = "4.2.2")
+        implementation(group = "com.jfoenix", name = "jfoenix", version = "8.0.8")
+        implementation(group = "com.opencsv", name = "opencsv", version = "4.5")
+        implementation(group = "de.jensd", name = "fontawesomefx", version = "8.9")
+        implementation(group = "io.github.typhon0", name = "AnimateFX", version = "1.2.1")
+        implementation(group = "net.aksingh", name = "owm-japis", version = "2.5.2.3")
+        implementation(group = "net.kurobako", name = "gesturefx", version = "0.3.0")
+        implementation(group = "net.sf.sociaal", name = "freetts", version = "1.2.2")
+        implementation(group = "org.controlsfx", name = "controlsfx", version = "8.40.14")
+        implementation(group = "org.fxmisc.easybind", name = "easybind", version = "1.0.3")
+
+        fun derby(name: String, version: String = "10.14.2.0") =
+                create(group = "org.apache.derby", name = name, version = version)
+        implementation(derby(name = "derby"))
+        implementation(derby(name = "derbyclient"))
+        implementation(derby(name = "derbytools"))
+
+        fun junitJupiter(name: String, version: String = "5.4.1") =
+                create(group = "org.junit.jupiter", name = name, version = version)
+        testImplementation(junitJupiter(name = "junit-jupiter-api"))
+        testImplementation(junitJupiter(name = "junit-jupiter-engine"))
+        testImplementation(junitJupiter(name = "junit-jupiter-params"))
+
+        fun testFx(name: String, version: String = "4.0.15-alpha") =
+                create(group = "org.testfx", name = name, version = version)
+        testImplementation(testFx(name = "testfx-core"))
+        testImplementation(testFx(name = "testfx-junit5"))
+        testRuntime(testFx(name = "openjfx-monocle", version = "8u76-b04"))
+    }
+
+    tasks.withType<JavaCompile> {
+        sourceCompatibility = JavaVersion.VERSION_1_8.toString()
+        targetCompatibility = JavaVersion.VERSION_1_8.toString()
+    }
+
+    tasks.withType<Test> {
+        useJUnitPlatform {
+            maxParallelForks = Math.max(1, Runtime.getRuntime().availableProcessors() - 2)
+            if (project.hasProperty("skipUI")) {
+                excludeTags("UI")
+            }
+        }
+        if (!project.hasProperty("visibleUiTests")) {
+            jvmArgs = listOf(
+                    "-Djava.awt.headless=true",
+                    "-Dtestfx.robot=glass",
+                    "-Dtestfx.headless=true",
+                    "-Dprism.order=sw",
+                    "-Dprism.text=t2k"
+            )
+        }
+        finalizedBy("jacocoTestReport")
+    }
+
+    jacoco {
+        toolVersion = "0.8.3"
+    }
+
+    tasks.withType<JacocoReport>().configureEach {
+        reports {
+            xml.isEnabled = true
+            html.isEnabled = true
+        }
+    }
+
+    checkstyle {
+        toolVersion = "8.18"
+    }
+
+    spotbugs {
+        toolVersion = "3.1.12"
+        effort = "max"
+        reportLevel = "high"
+    }
+
+    tasks.withType<SpotBugsTask> {
+        reports {
+            xml.isEnabled = false
+            emacs.isEnabled = true
+        }
+        finalizedBy(task("${name}Report") {
+            mustRunAfter(this@withType)
+            doLast {
+                this@withType
+                        .reports
+                        .emacs
+                        .destination
+                        .takeIf { it.exists() }
+                        ?.readText()
+                        .takeIf { !it.isNullOrBlank() }
+                        ?.also { logger.warn(it) }
+            }
+        })
+    }
+
+    pmd {
+        toolVersion = "6.12.0"
+        isConsoleOutput = true
+        ruleSetFiles = files("config/pmd/pmd-ruleset.xml")
+        ruleSets = emptyList()
+    }
 }
 
-dependencies {
-    implementation(group = "com.calendarfx", name = "view", version = "8.5.0")
-    implementation(group = "com.google.code.gson", name = "gson", version = "2.8.5")
-    implementation(group = "com.google.guava", name = "guava", version = "27.1-jre")
-    implementation(group = "com.google.inject", name = "guice", version = "4.2.2")
-    implementation(group = "com.google.inject.extensions", name = "guice-assistedinject", version = "4.2.2")
-    implementation(group = "com.jfoenix", name = "jfoenix", version = "8.0.8")
-    implementation(group = "com.opencsv", name = "opencsv", version = "4.5")
-    implementation(group = "de.jensd", name = "fontawesomefx", version = "8.9")
-    implementation(group = "io.github.typhon0", name = "AnimateFX", version = "1.2.1")
-    implementation(group = "net.aksingh", name = "owm-japis", version = "2.5.2.3")
-    implementation(group = "net.kurobako", name = "gesturefx", version = "0.3.0")
-    implementation(group = "net.sf.sociaal", name = "freetts", version = "1.2.2")
-    implementation(group = "org.controlsfx", name = "controlsfx", version = "8.40.14")
-    implementation(group = "org.fxmisc.easybind", name = "easybind", version = "1.0.3")
-
-    fun derby(name: String, version: String = "10.14.2.0") =
-            create(group = "org.apache.derby", name = name, version = version)
-    implementation(derby(name = "derby"))
-    implementation(derby(name = "derbyclient"))
-    implementation(derby(name = "derbytools"))
-
-    fun junitJupiter(name: String, version: String = "5.4.1") =
-            create(group = "org.junit.jupiter", name = name, version = version)
-    testImplementation(junitJupiter(name = "junit-jupiter-api"))
-    testImplementation(junitJupiter(name = "junit-jupiter-engine"))
-    testImplementation(junitJupiter(name = "junit-jupiter-params"))
-
-    fun testFx(name: String, version: String = "4.0.15-alpha") =
-            create(group = "org.testfx", name = name, version = version)
-    testImplementation(testFx(name = "testfx-core"))
-    testImplementation(testFx(name = "testfx-junit5"))
-    testRuntime(testFx(name = "openjfx-monocle", version = "8u76-b04"))
-}
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
-}
 
 application {
     mainClassName = "edu.wpi.cs3733.d19.teamO.Main"
-}
-
-tasks.withType<Test> {
-    useJUnitPlatform {
-        maxParallelForks = Math.max(1, Runtime.getRuntime().availableProcessors() - 2)
-        if (project.hasProperty("skipUI")) {
-            excludeTags("UI")
-        }
-    }
-    if (!project.hasProperty("visibleUiTests")) {
-        jvmArgs = listOf(
-                "-Djava.awt.headless=true",
-                "-Dtestfx.robot=glass",
-                "-Dtestfx.headless=true",
-                "-Dprism.order=sw",
-                "-Dprism.text=t2k"
-        )
-    }
-    finalizedBy("jacocoTestReport")
-}
-
-jacoco {
-    toolVersion = "0.8.3"
-}
-
-tasks.withType<JacocoReport>().configureEach {
-    reports {
-        xml.isEnabled = true
-        html.isEnabled = true
-    }
-}
-
-checkstyle {
-    toolVersion = "8.18"
-}
-
-spotbugs {
-    toolVersion = "3.1.12"
-    effort = "max"
-    reportLevel = "high"
-}
-
-tasks.withType<SpotBugsTask> {
-    reports {
-        xml.isEnabled = false
-        emacs.isEnabled = true
-    }
-    finalizedBy(task("${name}Report") {
-        mustRunAfter(this@withType)
-        doLast {
-            this@withType
-                    .reports
-                    .emacs
-                    .destination
-                    .takeIf { it.exists() }
-                    ?.readText()
-                    .takeIf { !it.isNullOrBlank() }
-                    ?.also { logger.warn(it) }
-        }
-    })
-}
-
-pmd {
-    toolVersion = "6.12.0"
-    isConsoleOutput = true
-    ruleSetFiles = files("config/pmd/pmd-ruleset.xml")
-    ruleSets = emptyList()
 }
 
 spotless {

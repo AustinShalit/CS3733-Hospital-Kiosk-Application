@@ -1,7 +1,13 @@
 package edu.wpi.cs3733.d19.teamO.request.pizzapi;
 
+import java.io.IOException;
+import java.util.stream.Collectors;
+
 import com.google.api.client.json.GenericJson;
 import com.google.api.client.util.Key;
+import com.google.common.base.MoreObjects;
+
+import edu.wpi.cs3733.d19.teamO.request.pizzapi.response.FindResponse;
 
 /**
  * The interface to the Store API.
@@ -10,24 +16,33 @@ import com.google.api.client.util.Key;
  * address, or to find the closest store to an address.
  */
 public class Store extends GenericJson {
-/*
-    def __init__(self, data={}, country=COUNTRY_USA):
-        self.id = str(data.get('StoreID', -1))
-        self.country = country
-        self.urls = Urls(country)
-        self.data = data
 
-    def get_details(self):
-        details = request_json(self.urls.info_url(), store_id=self.id)
-        return details
-
-    def get_menu(self, lang='en'):
-        response = request_json(self.urls.menu_url(), store_id=self.id, lang=lang)
-        menu = Menu(response, self.country)
-        return menu
- */
-
-  @Key
+  @Key("StoreID")
   private String id;
+  @Key("IsOnlineNow")
+  private boolean open;
 
+  public Menu getMenu() throws IOException {
+    Menu reponse = Utilities.sendRequest(
+        Country.USA.getMenuUrl(id),
+        Menu.class);
+
+    return reponse;
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  public boolean isOpen() {
+    return open;
+  }
+
+  @Override
+  public String toString() {
+    return MoreObjects.toStringHelper(this)
+        .add("id", id)
+        .add("open", open)
+        .toString();
+  }
 }

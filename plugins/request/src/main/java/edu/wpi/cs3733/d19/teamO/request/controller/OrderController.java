@@ -1,16 +1,45 @@
 package edu.wpi.cs3733.d19.teamO.request.controller;
 
+import java.awt.event.ActionEvent;
+
+import com.google.common.eventbus.EventBus;
+import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TitledPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 
-public class OrderController {
+import edu.wpi.cs3733.d19.teamO.controller.Controller;
+import edu.wpi.cs3733.d19.teamO.controller.FxmlController;
+import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
+import edu.wpi.cs3733.d19.teamO.entity.database.Database;
+
+import static edu.wpi.cs3733.d19.teamO.request.controller.ControllerHelper.populateMonthCombobox;
+import static edu.wpi.cs3733.d19.teamO.request.controller.ControllerHelper.populateStatesCombobox;
+import static edu.wpi.cs3733.d19.teamO.request.controller.ControllerHelper.populateYearCombobox;
+
+@FxmlController(url = "Order.fxml")
+public class OrderController implements Controller {
+
+  @Inject
+  private EventBus eventBus;
+  @Inject
+  private OrderController.Factory orderControllerFactory;
+  @Inject
+  private DominosHomeController.Factory dominosHomeControllerFactory;
+  @Inject
+  private Database db;
+
+  @FXML
+  private BorderPane root;
+
   /**
    * Customer Information.
    */
@@ -31,7 +60,7 @@ public class OrderController {
   @FXML
   private JFXTextField zipCode;
   @FXML
-  private JFXTextField state;
+  private JFXComboBox<String> state;
 
   /**
    * Menu.
@@ -73,19 +102,38 @@ public class OrderController {
   @FXML
   private JFXTextField creditCardNumber;
   @FXML
-  private JFXComboBox expirationMonth;
+  private JFXComboBox<Integer> expirationMonth;
   @FXML
-  private JFXComboBox expirationYear;
+  private JFXComboBox<Integer> expirationYear;
   @FXML
   private JFXTextField securityCode;
   @FXML
   private JFXButton submitOrderButton;
 
   @FXML
-  void initialize() {
+    void initialize() {
+    // show/expand panes to start
     customerInformationPane.setExpanded(true);
     menuPane.setExpanded(false);
     placeOrderPane.setExpanded(false);
+
+    // set comboboxes
+    populateStatesCombobox(state);
+    populateMonthCombobox(expirationMonth);
+    populateYearCombobox(expirationYear);
   }
 
+  @FXML
+  void backAction(ActionEvent event) {
+    eventBus.post(new ChangeMainViewEvent(dominosHomeControllerFactory.create()));
+  }
+
+  @Override
+  public Parent getRoot() {
+    return root;
+  }
+
+  public interface Factory {
+    OrderController create();
+  }
 }

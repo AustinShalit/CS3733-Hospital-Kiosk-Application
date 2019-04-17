@@ -8,11 +8,4 @@ package edu.wpi.cs3733.d19.teamO.request.pizzapi;
  */
 public class Menu {
 
-  private Menu() {
-
-  }
-
-  public static Menu fromStore() {
-    return null;
-  }
 }
