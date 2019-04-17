@@ -357,6 +357,10 @@ public class MapView2 extends StackPane {
     circleDrag.setCenterY(y);
   }
 
+  public void setLineVisible(boolean b) {
+    lineForEdge.setVisible(b);
+  }
+
   public void setDragStatus(boolean status) {
     dragStatus = status;
   }
