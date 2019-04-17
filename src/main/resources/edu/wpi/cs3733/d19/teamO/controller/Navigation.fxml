@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -17,13 +18,14 @@
 
 <?import edu.wpi.cs3733.d19.teamO.component.MapView?>
 
-<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.NavigationController">
+<?import edu.wpi.cs3733.d19.teamO.component.MapView?>
+<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.NavigationController">
   <left>
     <StackPane prefWidth="200.0" BorderPane.alignment="CENTER">
       <children>
         <HBox alignment="CENTER">
           <children>
-            <VBox alignment="TOP_CENTER" prefHeight="653.0" prefWidth="221.0" HBox.hgrow="ALWAYS">
+            <VBox alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="653.0" prefWidth="323.0" HBox.hgrow="ALWAYS">
               <children>
                 <GridPane>
                   <columnConstraints>
@@ -64,7 +66,7 @@
                     <Font size="36.0" />
                   </font>
                 </Text>
-                <JFXComboBox fx:id="toComboBox" editable="true" onAction="#onComboAction" onKeyReleased="#refreshCombobox" prefHeight="50.0" prefWidth="264.0">
+                <JFXComboBox fx:id="toComboBox" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#onComboAction" onKeyReleased="#refreshCombobox" prefHeight="50.0" prefWidth="264.0">
                   <VBox.margin>
                     <Insets bottom="30.0" left="5.0" right="5.0" />
                   </VBox.margin>
