@@ -17,9 +17,10 @@ import edu.wpi.cs3733.d19.teamO.request.pizzapi.response.OrderResponse;
 /**
  * Core interface to the payments API.
  *
- * The Order is perhaps the second most complicated class - it wraps
+ * <p>The Order is perhaps the second most complicated class - it wraps
  * up all the logic for actually placing the order, after we've
  * determined what we want from the Menu.
+ * </p>
  */
 public class Order extends GenericJson {
 
@@ -77,12 +78,19 @@ public class Order extends GenericJson {
   private Store store;
   private Menu menu;
 
+  /**
+   * Default constructor.
+   */
   public Order() {
 
   }
 
-  public Order(Address address, Store store, Menu menu, String firstName, String lastName, String email, String phone) {
-//    put("Address", address);
+  /**
+   * Create an Order object.
+   */
+  public Order(Address address, Store store, Menu menu, String firstName, String lastName,
+               String email, String phone) {
+    //    put("Address", address);
     put("Coupons", new ArrayList<>());
     put("CustomerID", "");
     put("Extension", "");
@@ -117,6 +125,9 @@ public class Order extends GenericJson {
     this.email = email;
   }
 
+  /**
+   * Add a product to the order.
+   */
   public void addProduct(Product product) {
     Map json = (Map) menu.getVariants().get(product.getCode());
     products.add(product);
@@ -127,6 +138,9 @@ public class Order extends GenericJson {
     ((List) get("Products")).add(json);
   }
 
+  /**
+   * Get an order.
+   */
   public Order getOrder() throws IOException {
     put("StoreID", store.getId());
     put("Email", "auschase@aol.com");

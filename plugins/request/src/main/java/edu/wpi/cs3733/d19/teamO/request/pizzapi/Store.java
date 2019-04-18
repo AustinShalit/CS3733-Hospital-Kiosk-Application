@@ -9,8 +9,9 @@ import com.google.common.base.MoreObjects;
 /**
  * The interface to the Store API.
  *
- * You can use this to find store information about stores near an
+ * <p>You can use this to find store information about stores near an
  * address, or to find the closest store to an address.
+ * </p>
  */
 public class Store extends GenericJson {
 
@@ -19,6 +20,9 @@ public class Store extends GenericJson {
   @Key("IsOnlineNow")
   private boolean open;
 
+  /**
+   * Get the menu for the store.
+   */
   public Menu getMenu() throws IOException {
     return Utilities.sendGetRequest(
         Country.USA.getMenuUrl(id),

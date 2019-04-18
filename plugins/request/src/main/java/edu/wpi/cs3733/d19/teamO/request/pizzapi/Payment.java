@@ -16,8 +16,9 @@ import javafx.beans.property.StringProperty;
 /**
  * A PaymentObject represents a credit card.
  *
- * There's some sweet logic in here to make sure that the type of card
+ * <p>There's some sweet logic in here to make sure that the type of card
  * you passed is valid.
+ * </p>
  */
 public class Payment {
 
@@ -33,6 +34,9 @@ public class Payment {
       this.numberPattern = Pattern.compile(numberPattern);
     }
 
+    /**
+     * Get the card type entered.
+     */
     public static CardType getCardType(final String number) {
       for (CardType type : values()) {
         if (type.numberPattern.matcher(number).matches()) {
@@ -55,14 +59,17 @@ public class Payment {
   private final ReadOnlyObjectWrapper<CardType> type = new ReadOnlyObjectWrapper<>();
   private final ReadOnlyBooleanWrapper valid = new ReadOnlyBooleanWrapper();
 
+  /**
+   * Create a Payment object.
+   */
   public Payment() {
     type.bind(Bindings.createObjectBinding(() -> CardType.getCardType(number.get()), number));
 
     valid.bind(Bindings.createBooleanBinding(() -> number.get() != null
-          && type.get() != null
-          && expiration.get() != null
-          && cvvPattern.matcher(cvv.get()).matches()
-          && zipPattern.matcher(zip.get()).matches(),
+            && type.get() != null
+            && expiration.get() != null
+            && cvvPattern.matcher(cvv.get()).matches()
+            && zipPattern.matcher(zip.get()).matches(),
         number, type, expiration, cvv, zip));
   }
 

@@ -13,7 +13,6 @@ import com.jfoenix.controls.JFXTextField;
 
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TitledPane;
@@ -39,34 +38,34 @@ import static edu.wpi.cs3733.d19.teamO.request.controller.ControllerHelper.popul
 public class OrderController implements Controller {
 
   /**
-   * Temporary vars used to test the app
+   * Temporary vars used to test the app.
    */
-//  Address dummyAddress = new Address(
-//      "100 Insitiute Road",
-//      "Worcester",
-//      "MA",
-//      "01609"
-//  );
-//
-//  Store dummyStore;
-//
-//  {
-//    try {
-//      dummyStore = dummyAddress.getClosestStore().get();
-//    } catch (IOException e) {
-//      e.printStackTrace();
-//    }
-//  }
-//
-//  ObservableList dummyProducts;
-//  {
-//    try {
-//       dummyProducts =
-//          FXCollections.observableArrayList(dummyStore.getMenu().getProducts());
-//    } catch (IOException e) {
-//      e.printStackTrace();
-//    }
-//  }
+  //  Address dummyAddress = new Address(
+  //      "100 Insitiute Road",
+  //      "Worcester",
+  //      "MA",
+  //      "01609"
+  //  );
+  //
+  //  Store dummyStore;
+  //
+  //  {
+  //    try {
+  //      dummyStore = dummyAddress.getClosestStore().get();
+  //    } catch (IOException e) {
+  //      e.printStackTrace();
+  //    }
+  //  }
+  //
+  //  ObservableList dummyProducts;
+  //  {
+  //    try {
+  //       dummyProducts =
+  //          FXCollections.observableArrayList(dummyStore.getMenu().getProducts());
+  //    } catch (IOException e) {
+  //      e.printStackTrace();
+  //    }
+  //  }
 
   @Inject
   private EventBus eventBus;
@@ -158,7 +157,7 @@ public class OrderController implements Controller {
   private JFXButton submitOrderButton;
 
   @FXML
-    void initialize() {
+  void initialize() {
     // show/expand panes to start
     menuPane.setExpanded(false);
     customerInformationPane.setExpanded(true);
@@ -193,7 +192,8 @@ public class OrderController implements Controller {
 
   @FXML
   void onSubmitAction() throws IOException {
-    DialogHelper.showErrorAlert("Error", "Complete order has not been implemented yet.");
+    DialogHelper.showErrorAlert("Error",
+        "Complete order has not been implemented yet.");
   }
 
   @FXML
@@ -205,7 +205,8 @@ public class OrderController implements Controller {
     Menu menu = store.getMenu();
     List<Product> products = menu.getProducts();
 
-    Order order = new Order(address, store, menu, customer.getFirstName(), customer.getLastName(), customer.getEmail(), customer.getPhone());
+    Order order = new Order(address, store, menu, customer.getFirstName(), customer.getLastName(),
+        customer.getEmail(), customer.getPhone());
 
     if (cart.getItems().isEmpty()) {
       cart.getItems().addAll(products);
@@ -220,8 +221,9 @@ public class OrderController implements Controller {
       refreshTableView(order.getProducts());
 
       // set text fields
-      carryoutOrDeliveryToAddressText.setText("Delivery to " + address.getStreet() + ", " + address.getCity() + ", " + address.getRegion() + " " + address.getZip());
-//    orderingFromText.setText("Ordering from " + store.getId());
+      carryoutOrDeliveryToAddressText.setText("Delivery to " + address.getStreet() + ", "
+          + address.getCity() + ", " + address.getRegion() + " " + address.getZip());
+      //    orderingFromText.setText("Ordering from " + store.getId());
       emailAddressText.setText("Email Address: " + customer.getEmail());
       phoneNumberText.setText("Phone Number: " + customer.getPhone());
       firstNameText.setText("First Name: " + customer.getFirstName());
@@ -240,14 +242,16 @@ public class OrderController implements Controller {
    */
   private Customer parseCustomerInfo() {
     if (!firstName.getText().isEmpty()
-    && !lastName.getText().isEmpty()
-    && !emailAddress.getText().isEmpty()
-    && !phoneNumber.getText().isEmpty()) {
-      return new Customer(firstName.getText(), lastName.getText(), emailAddress.getText(), phoneNumber.getText());
+        && !lastName.getText().isEmpty()
+        && !emailAddress.getText().isEmpty()
+        && !phoneNumber.getText().isEmpty()) {
+      return new Customer(firstName.getText(), lastName.getText(), emailAddress.getText(),
+          phoneNumber.getText());
     }
 
     // Invalid Input
-    DialogHelper.showErrorAlert("Error.", "Please make sure all customer are filled out.");
+    DialogHelper.showErrorAlert("Error.",
+        "Please make sure all customer are filled out.");
     return null;
   }
 
@@ -258,13 +262,15 @@ public class OrderController implements Controller {
    */
   private Address parseCustomerAddress() {
     if (!streetAddress.getText().isEmpty()
-    && !city.getText().isEmpty()
-    && !zipCode.getText().isEmpty()
-    && Objects.nonNull(state.getValue())) {
-      return new Address(streetAddress.getText(), city.getText(), zipCode.getText(), state.getValue());
+        && !city.getText().isEmpty()
+        && !zipCode.getText().isEmpty()
+        && Objects.nonNull(state.getValue())) {
+      return new Address(streetAddress.getText(),
+          city.getText(), zipCode.getText(), state.getValue());
     }
     // Invalid Input
-    DialogHelper.showErrorAlert("Error.", "Please make sure address fields are filled out.");
+    DialogHelper.showErrorAlert("Error.",
+        "Please make sure address fields are filled out.");
     return null;
   }
 
@@ -274,14 +280,14 @@ public class OrderController implements Controller {
    */
   void titledPaneListeners() {
     menuPane.expandedProperty().addListener((obs, wasExpanded, isNowExpanded) -> {
-      if(menuPane.isExpanded()) {
+      if (menuPane.isExpanded()) {
         customerInformationPane.setExpanded(false);
         placeOrderPane.setExpanded(false);
       }
     });
 
     customerInformationPane.expandedProperty().addListener((obs, wasExpanded, isNowExpanded) -> {
-      if(customerInformationPane.isExpanded()) {
+      if (customerInformationPane.isExpanded()) {
         menuPane.setExpanded(false);
         placeOrderPane.setExpanded(false);
       }
@@ -294,7 +300,7 @@ public class OrderController implements Controller {
     });
 
     placeOrderPane.expandedProperty().addListener((obs, wasExpanded, isNowExpanded) -> {
-      if(placeOrderPane.isExpanded()) {
+      if (placeOrderPane.isExpanded()) {
         menuPane.setExpanded(false);
         customerInformationPane.setExpanded(false);
       }
