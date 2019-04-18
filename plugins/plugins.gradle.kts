@@ -1,5 +1,7 @@
 subprojects {
-    apply(plugin = "java-library")
+    apply(plugin = "java")
+    apply(plugin = "application")
+    apply(plugin = "com.github.johnrengelman.shadow")
 
     dependencies {
         implementation(rootProject)

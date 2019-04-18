@@ -168,7 +168,7 @@ public class GuestViewController implements Controller {
     double max = (cwd.getMainData().getTempMax() - 273.15) * 9.0 / 5.0 + 32.0;
     double min = (cwd.getMainData().getTempMin() - 273.15) * 9.0 / 5.0 + 32.0;
 
-    tempImage.setImage(new Image(getClass().getResource("../component/" + image).openStream()));
+    tempImage.setImage(new Image(MapView.class.getResourceAsStream(image)));
 
     DecimalFormat df = new DecimalFormat("##");
 
