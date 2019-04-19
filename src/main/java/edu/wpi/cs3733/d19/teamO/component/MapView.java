@@ -6,11 +6,14 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.jfoenix.controls.JFXButton;
+
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
@@ -66,12 +69,18 @@ public class MapView extends StackPane {
   Label coordX;
   @FXML
   Label coordY;
+  @FXML
+  JFXButton button;
+
+  Node aNode;
 
   Group startAndEndNodes = new Group();
 
   Group pathEdges = new Group();
 
   Group labelsGroup = new Group();
+
+  Group buttonsGroup = new Group();
 
   List<Node> path;
 
@@ -117,7 +126,6 @@ public class MapView extends StackPane {
     levelF1.setStyle("-fx-background-color: rgb(1,45,90)");
 
     onFloorSelectAction(new ActionEvent(levelF1, levelF1));
-
   }
 
   void resetButtonBackground(int level) {
@@ -339,10 +347,12 @@ public class MapView extends StackPane {
     nodeGroup.getChildren().removeAll(labelsGroup);
     nodeGroup.getChildren().removeAll(startAndEndNodes);
     nodeGroup.getChildren().removeAll(pathEdges);
+    nodeGroup.getChildren().removeAll(buttonsGroup);
 
     pathEdges = new Group();
     startAndEndNodes = new Group();
     labelsGroup = new Group();
+    buttonsGroup = new Group();
 
     if (path != null) {
       clearNodes();
@@ -404,7 +414,7 @@ public class MapView extends StackPane {
     nodeGroup.getChildren().addAll(startAndEndNodes);
     nodeGroup.getChildren().addAll(pathEdges);
     nodeGroup.getChildren().addAll(labelsGroup);
-
+    nodeGroup.getChildren().addAll(buttonsGroup);
   }
 
   /**
@@ -520,24 +530,48 @@ public class MapView extends StackPane {
 
   private void addFloorChangeLabel(Node node, Node lastNode) {
     if (lastNode.getFloorInt() != node.getFloorInt()) {
-      Label label = null;
       Label label2 = null;
       if (lastNode.getFloorInt() == level) {
-        label = new Label("To Floor " + node.getFloor());
-        label.setTranslateX(lastNode.getXcoord() + 10);
-        label.setTranslateY(lastNode.getYcoord() + 10);
-        label.getStyleClass().add("navlabel");
+        Button button = new JFXButton("To Floor " + node.getFloor());
+        button.setTranslateX(lastNode.getXcoord() + 10);
+        button.setTranslateY(lastNode.getYcoord() + 10);
+        button.getStyleClass().add("navlabel");
+
+        button.setOnAction(event -> {
+            if(event.getSource() == button){
+              try {
+                switchFloor(node.getFloor());
+              } catch (IOException e) {
+                e.printStackTrace();
+              }
+            }
+
+        });
 
         label2 = new Label(lastNode.getLongName());
         label2.setTranslateX(lastNode.getXcoord() + 10);
         label2.setTranslateY(lastNode.getYcoord() - 9);
         label2.getStyleClass().add("navlabel");
 
-      } else if (node.getFloorInt() == level) {
-        label = new Label("From Floor " + lastNode.getFloor());
-        label.setTranslateX(node.getXcoord() + 10);
-        label.setTranslateY(node.getYcoord() + 10);
-        label.getStyleClass().add("navlabel");
+        buttonsGroup.getChildren().add(button);
+
+      }
+
+      if (node.getFloorInt() != level) {
+        Button button = new JFXButton("Back to Floor " + lastNode.getFloor());
+        button.setTranslateX(node.getXcoord() + 10);
+        button.setTranslateY(node.getYcoord() + 10);
+        button.getStyleClass().add("navlabel");
+
+        button.setOnAction(event -> {
+          if(event.getSource() == button){
+            try {
+              switchFloor(node.getFloor());
+            } catch (IOException e) {
+              e.printStackTrace();
+            }
+          }
+        });
 
         label2 = new Label(node.getLongName());
         label2.setTranslateX(node.getXcoord() + 10);
@@ -545,13 +579,9 @@ public class MapView extends StackPane {
         label2.getStyleClass().add("navlabel");
       }
 
-      if (label != null) {
-        labelsGroup.getChildren().add(label);
-      }
       if (label2 != null) {
         labelsGroup.getChildren().add(label2);
       }
-
     }
   }
 
