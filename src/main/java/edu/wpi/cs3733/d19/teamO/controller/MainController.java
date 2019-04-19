@@ -9,8 +9,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPopup;
 import com.jfoenix.controls.JFXToolbar;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -25,10 +23,13 @@ import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 @FxmlController(url = "Main.fxml")
+@SuppressWarnings("PMD.TooManyFields")
 public class MainController implements Controller {
 
   @FXML
   private BorderPane root;
+  @FXML
+  private JFXToolbar toolbar;
   @FXML
   private StackPane optionsBurger;
   @FXML
@@ -157,6 +158,7 @@ public class MainController implements Controller {
   @Subscribe
   @SuppressWarnings("PMD.UnusedPrivateMethod")
   private void acceptController(ChangeMainViewEvent event) {
+    root.setTop(toolbar);
     root.setCenter(event.getController().getRoot());
     if (event.isMenuVisible()) {
       root.setLeft(menu);

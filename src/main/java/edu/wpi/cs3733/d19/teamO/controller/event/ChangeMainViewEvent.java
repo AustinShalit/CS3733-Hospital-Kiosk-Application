@@ -7,7 +7,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class ChangeMainViewEvent {
 
   private final Controller controller;
-  private boolean menuVisible;
+  private final boolean menuVisible;
 
   public ChangeMainViewEvent(Controller controller) {
     this.controller = checkNotNull(controller);

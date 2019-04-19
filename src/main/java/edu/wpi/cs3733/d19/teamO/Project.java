@@ -17,7 +17,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import edu.wpi.cs3733.d19.teamO.controller.ControllerModule;
-import edu.wpi.cs3733.d19.teamO.controller.GuestViewController;
 import edu.wpi.cs3733.d19.teamO.controller.MainController;
 import edu.wpi.cs3733.d19.teamO.controller.NavigationController;
 import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;

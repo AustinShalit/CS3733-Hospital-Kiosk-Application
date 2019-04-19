@@ -2,13 +2,13 @@
     -fx-background-color: #F1F1F1;
     -fx-background-image: url("0002-pale.png");
     -fx-background-size: cover;
+    -fx-border-radius: 4px;
     -fx-max-height: 4000px;
     -fx-max-width: 4000px;
 }
 
 .form {
     -fx-background-color: #ffffff;
-    -fx-border-radius: 4px;
     -fx-effect: dropshadow(three-pass-box, rgba(110, 110, 110, 0.25), 10, 0, 0, 0);
     -fx-spacing: 36px;
     -fx-fill-width: false;

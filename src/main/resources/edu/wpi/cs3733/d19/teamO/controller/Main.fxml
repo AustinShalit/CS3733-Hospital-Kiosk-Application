@@ -14,13 +14,13 @@
 
 <BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.MainController">
   <top>
-    <JFXToolbar styleClass="main-toolbar" StackPane.alignment="TOP_CENTER">
+    <JFXToolbar fx:id="toolbar" styleClass="main-toolbar" StackPane.alignment="TOP_CENTER">
       <left>
-            <StackPane prefHeight="50.0" prefWidth="118.0" BorderPane.alignment="CENTER">
-               <children>
-              <JFXButton id="small-button" fx:id="loginbtn" onAction="#loginButtonAction" text="Login" textFill="WHITE" />
-               </children>
-            </StackPane>
+        <StackPane prefHeight="50.0" prefWidth="118.0" BorderPane.alignment="CENTER">
+          <children>
+            <JFXButton id="small-button" fx:id="loginbtn" onAction="#loginButtonAction" text="Login" textFill="WHITE" />
+          </children>
+        </StackPane>
       </left>
       <center>
         <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="logo" BorderPane.alignment="CENTER" />
@@ -29,9 +29,10 @@
         <JFXRippler maskType="CIRCLE" style="ripple: white;" BorderPane.alignment="CENTER">
           <StackPane fx:id="optionsBurger">
             <JFXHamburger>
-                     <StackPane.margin>
-                        <Insets right="10.0" />
-                     </StackPane.margin></JFXHamburger>
+              <StackPane.margin>
+                <Insets right="10.0" />
+              </StackPane.margin>
+            </JFXHamburger>
           </StackPane>
         </JFXRippler>
       </right>
