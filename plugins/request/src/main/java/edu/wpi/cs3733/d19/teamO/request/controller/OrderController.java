@@ -1,13 +1,9 @@
 package edu.wpi.cs3733.d19.teamO.request.controller;
 
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
-import com.google.common.eventbus.EventBus;
-import com.google.inject.Inject;
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 
@@ -23,8 +19,6 @@ import javafx.scene.text.Text;
 import edu.wpi.cs3733.d19.teamO.controller.Controller;
 import edu.wpi.cs3733.d19.teamO.controller.DialogHelper;
 import edu.wpi.cs3733.d19.teamO.controller.FxmlController;
-import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
-import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 import edu.wpi.cs3733.d19.teamO.request.pizzapi.Address;
 import edu.wpi.cs3733.d19.teamO.request.pizzapi.Customer;
 import edu.wpi.cs3733.d19.teamO.request.pizzapi.Menu;
@@ -34,6 +28,10 @@ import edu.wpi.cs3733.d19.teamO.request.pizzapi.Store;
 
 import static edu.wpi.cs3733.d19.teamO.request.controller.ControllerHelper.populateStatesCombobox;
 
+/**
+ * flow
+ * retrieve customer information
+ */
 @FxmlController(url = "Order.fxml")
 public class OrderController implements Controller {
 
@@ -66,18 +64,13 @@ public class OrderController implements Controller {
   //      e.printStackTrace();
   //    }
   //  }
-
-  @Inject
-  private EventBus eventBus;
-  @Inject
-  private DominosHomeController.Factory dominosHomeControllerFactory;
-  @Inject
-  private Database db; // todo put order info in database to refresh table view
-
   @FXML
   private BorderPane root;
-  @FXML
-  private JFXButton backButton;
+
+  private Address address;
+  private Customer customer;
+  private Menu menu;
+  private List<Product> cart2;
 
   /**
    * Menu.
@@ -85,8 +78,11 @@ public class OrderController implements Controller {
   @FXML
   private TitledPane menuPane;
   @FXML
-  private JFXComboBox<Product> cart;
-  private LinkedList<Product> customersCart = new LinkedList<>();
+  private TableView<Product> menuTableView;
+  @FXML
+  private TableColumn<Product, String> menuItemCol;
+  @FXML
+  private TableColumn<String, String> meuQtyCol;
 
   /**
    * Customer Information.
@@ -118,17 +114,11 @@ public class OrderController implements Controller {
   @FXML
   private Text carryoutOrDeliveryToAddressText;
   @FXML
-  private JFXTextField deliveryInstructions;
-  @FXML
   private Text orderingFromText;
   @FXML
   private TableView<Product> orderSummaryTableView;
   @FXML
-  private TableColumn<Product, String> itemColumn;
-  //  @FXML
-  //  private TableColumn<Product, Integer> qtyColumn;
-  //  @FXML
-  //  private TableColumn<Product, Double> priceColumn;
+  private TableColumn<Product, String> orderItemColumn;
   @FXML
   private Text subtotalText;
   @FXML
@@ -145,16 +135,6 @@ public class OrderController implements Controller {
   private Text firstNameText;
   @FXML
   private Text lastNameText;
-  //  @FXML
-  //  private JFXTextField creditCardNumber;
-  //  @FXML
-  //  private JFXComboBox<Integer> expirationMonth;
-  //  @FXML
-  //  private JFXComboBox<Integer> expirationYear;
-  //  @FXML
-  //  private JFXTextField securityCode;
-  @FXML
-  private JFXButton submitOrderButton;
 
   @FXML
   void initialize() {
@@ -168,39 +148,35 @@ public class OrderController implements Controller {
 
     // set comboboxes
     populateStatesCombobox(state);
-    //    populateMonthCombobox(expirationMonth);
-    //    populateYearCombobox(expirationYear);
 
-    // initialize table view
-    itemColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-    //    qtyColumn.setCellValueFactory(new PropertyValueFactory<>("qty"));
-    //    priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+    // initialize table views
+    orderItemColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+    orderItemColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
     // make columns auto-resize
-    orderSummaryTableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-    for (TableColumn column : orderSummaryTableView.getColumns()) {
-      column.setPrefWidth(1000); // must be a value larger than the starting window size
-    }
-
-    refreshTableView(new LinkedList<>());
+    enableResizableColumns(menuTableView);
+    enableResizableColumns(orderSummaryTableView);
   }
 
   @FXML
-  void backAction() {
-    eventBus.post(new ChangeMainViewEvent(dominosHomeControllerFactory.create()));
-  }
-
-  @FXML
-  void onSubmitAction() throws IOException {
+  void onSubmitAction() {
     DialogHelper.showErrorAlert("Error",
         "Complete order has not been implemented yet.");
   }
 
   @FXML
-  private void populateOrderInfo() throws IOException {
-    Address address = parseCustomerAddress();
-    Customer customer = parseCustomerInfo();
+  private void populateMenu() throws IOException {
 
+    if(menu != null) {
+      orderSummaryTableView.getItems().setAll(address.getClosestStore().get().getMenu().getProducts());
+    }
+  }
+
+  @FXML
+  private void
+
+  @FXML
+  private void populateOrderInfo() throws IOException {
     Store store = address.getClosestStore().get();
     Menu menu = store.getMenu();
     List<Product> products = menu.getProducts();
@@ -212,11 +188,8 @@ public class OrderController implements Controller {
       cart.getItems().addAll(products);
     }
 
-    System.out.println(cart.getValue());
-
     if (cart.getValue() != null) {
       order.addProduct(cart.getValue());
-      Order priced = order.getOrder();
 
       refreshTableView(order.getProducts());
 
@@ -228,6 +201,8 @@ public class OrderController implements Controller {
       phoneNumberText.setText("Phone Number: " + customer.getPhone());
       firstNameText.setText("First Name: " + customer.getFirstName());
       lastNameText.setText("Last Name: " + customer.getLastName());
+
+      Order priced = order.getOrder();
       subtotalText.setText("Subtotal: " + priced.getAmounts().getMenu());
       taxText.setText("Tax: " + priced.getAmounts().getTax());
       surchargeText.setText("Surcharge: " + priced.getAmounts().getSurcharge());
@@ -279,43 +254,48 @@ public class OrderController implements Controller {
    * when a user clicks on a tile pane.
    */
   void titledPaneListeners() {
-    menuPane.expandedProperty().addListener((obs, wasExpanded, isNowExpanded) -> {
-      if (menuPane.isExpanded()) {
-        customerInformationPane.setExpanded(false);
-        placeOrderPane.setExpanded(false);
-      }
-    });
-
-    customerInformationPane.expandedProperty().addListener((obs, wasExpanded, isNowExpanded) -> {
+    customerInformationPane.expandedProperty().addListener((pane) -> {
       if (customerInformationPane.isExpanded()) {
         menuPane.setExpanded(false);
         placeOrderPane.setExpanded(false);
       }
+    });
+
+    menuPane.expandedProperty().addListener((pane) -> {
+      if (menuPane.isExpanded()) {
+        customerInformationPane.setExpanded(false);
+        placeOrderPane.setExpanded(false);
+      }
 
       try {
-        populateOrderInfo();
+        populateMenu();
       } catch (IOException e) {
         e.printStackTrace();
       }
     });
 
-    placeOrderPane.expandedProperty().addListener((obs, wasExpanded, isNowExpanded) -> {
+    placeOrderPane.expandedProperty().addListener((pane) -> {
       if (placeOrderPane.isExpanded()) {
         menuPane.setExpanded(false);
         customerInformationPane.setExpanded(false);
       }
       try {
         populateOrderInfo();
-      } catch (IOException e) {
-        e.printStackTrace();
+      } catch (IOException exception) {
+        exception.printStackTrace();
       }
     });
   }
 
-  void refreshTableView(List<Product> products) {
-    orderSummaryTableView.getItems().setAll(products);
+  <T> void enableResizableColumns(TableView<T> tableView) {
+    tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+    for (TableColumn column : tableView.getColumns()) {
+      column.setPrefWidth(1000); // must be a value larger than the starting window size
+    }
   }
-
+  <T> void refreshTableView(TableView<T> tableView, List<T> items) {
+    tableView.getItems().setAll(items);
+  }
 
   @Override
   public Parent getRoot() {

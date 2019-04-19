@@ -33,7 +33,8 @@ class AddressTest {
     Store store = address.getClosestStore().get();
     Menu menu = store.getMenu();
     List<Product> products = menu.getProducts();
-    Order order = new Order(address, store, menu, "Austin", "Shalit", "auschase@aol.com", "8184244692");
+    Order order = new Order(address, store, menu, "Austin", "Shalit",
+        "auschase@aol.com", "8184244692");
     order.addProduct(products.get(0));
     Order priced = order.getOrder();
     System.out.println(priced.toPrettyString());

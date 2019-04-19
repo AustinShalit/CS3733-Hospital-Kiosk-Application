@@ -104,9 +104,14 @@
               <bottom>
                 <StackPane BorderPane.alignment="CENTER" />
               </bottom>
-              <center>
-                <JFXComboBox fx:id="cart" BorderPane.alignment="CENTER" />
-              </center>
+                     <center>
+                        <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="Item" />
+                            <TableColumn prefWidth="75.0" text="Quantity" />
+                          </columns>
+                        </TableView>
+                     </center>
             </BorderPane>
           </content>
         </TitledPane>
@@ -174,7 +179,7 @@
                       <children>
                         <TableView fx:id="orderSummaryTableView" prefHeight="200.0" prefWidth="200.0">
                           <columns>
-                            <TableColumn fx:id="itemColumn" prefWidth="75.0" text="Item" />
+                            <TableColumn fx:id="orderItemColumn" prefWidth="75.0" text="Item" />
                           </columns>
                         </TableView>
                         <Text fx:id="subtotalText" strokeType="OUTSIDE" strokeWidth="0.0" text="Subtotal: " />
