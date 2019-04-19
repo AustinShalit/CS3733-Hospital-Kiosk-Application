@@ -22,7 +22,8 @@ import edu.wpi.cs3733.d19.teamO.entity.DefaultInformationLoader;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 import edu.wpi.cs3733.d19.teamO.entity.database.DatabaseModule;
 import edu.wpi.cs3733.d19.teamO.request.controller.ControllerModule;
-import edu.wpi.cs3733.d19.teamO.request.controller.DominosHomeController;
+import edu.wpi.cs3733.d19.teamO.request.controller.OrderController;
+import edu.wpi.cs3733.d19.teamO.request.controller.ReorderController;
 import edu.wpi.cs3733.d19.teamO.request.controller.MainController;
 
 public class Project extends Application {
@@ -32,7 +33,7 @@ public class Project extends Application {
   @Inject
   private Database database;
   @Inject
-  private DominosHomeController.Factory dominosHomeControllerFactory;
+  private OrderController.Factory orderControllerFactory;
 
   private Injector injector;
   private Parent root;
@@ -60,7 +61,7 @@ public class Project extends Application {
     loader.setControllerFactory(injector::getInstance);
     root = loader.load();
 
-    eventBus.post(new ChangeMainViewEvent(dominosHomeControllerFactory.create()));
+    eventBus.post(new ChangeMainViewEvent(orderControllerFactory.create()));
 
     primaryStage.setTitle("Team O - Dominos Plugin API");
     primaryStage.setScene(new Scene(root));

@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
+import com.google.common.eventbus.EventBus;
+import com.google.inject.Inject;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 
@@ -135,6 +138,13 @@ public class OrderController implements Controller {
   private Text firstNameText;
   @FXML
   private Text lastNameText;
+  @FXML
+  private JFXCheckBox realOrder;
+
+  @Inject
+  private EventBus eventBus;
+  @Inject
+  private ReorderController.Factory reorderControllerFactory;
 
   @FXML
   void initialize() {

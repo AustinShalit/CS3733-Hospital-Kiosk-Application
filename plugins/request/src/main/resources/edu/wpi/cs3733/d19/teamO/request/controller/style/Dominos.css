@@ -29,7 +29,7 @@
 .titled-pane > *.content {
     -fx-background-color: white;
     -fx-font-family: "Arial Rounded MT Bold";
-    -fx-font-size: 1em;
+    -fx-font-size: 1.5em;
     -fx-font-weight: bold;
 }
 
@@ -43,7 +43,7 @@
 
 #title {
     -fx-font-family: "Arial Rounded MT Bold";
-    -fx-font-size: 2.5em;
+    -fx-font-size: 5.5em;
     -fx-font-weight: bold;
 }
 

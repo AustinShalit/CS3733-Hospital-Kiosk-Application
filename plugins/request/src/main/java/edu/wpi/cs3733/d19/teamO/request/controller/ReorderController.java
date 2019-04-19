@@ -14,15 +14,13 @@ import edu.wpi.cs3733.d19.teamO.controller.FxmlController;
 import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
-@FxmlController(url = "DominosHome.fxml")
-public class DominosHomeController implements Controller {
+@FxmlController(url = "Reorder.fxml")
+public class ReorderController implements Controller {
 
   @Inject
   private EventBus eventBus;
   @Inject
   private OrderController.Factory orderControllerFactory;
-  @Inject
-  private OrderTableController.Factory orderTableControllerFactory;
   @Inject
   private Database db;
 
@@ -39,11 +37,6 @@ public class DominosHomeController implements Controller {
     eventBus.post(new ChangeMainViewEvent(orderControllerFactory.create()));
   }
 
-  @FXML
-  void viewAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(orderTableControllerFactory.create()));
-  }
-
 
   @Override
   public Parent getRoot() {
@@ -51,6 +44,6 @@ public class DominosHomeController implements Controller {
   }
 
   public interface Factory {
-    DominosHomeController create();
+    ReorderController create();
   }
 }

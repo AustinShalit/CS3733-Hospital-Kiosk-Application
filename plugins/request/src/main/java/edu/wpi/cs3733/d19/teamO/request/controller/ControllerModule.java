@@ -38,9 +38,8 @@ public class ControllerModule extends AbstractModule {
       }
     });
 
-    install(new FactoryModuleBuilder().build(DominosHomeController.Factory.class));
+    install(new FactoryModuleBuilder().build(ReorderController.Factory.class));
     install(new FactoryModuleBuilder().build(OrderController.Factory.class));
-    install(new FactoryModuleBuilder().build(OrderTableController.Factory.class));
 
   }
 }
