@@ -69,10 +69,6 @@ public class MapView extends StackPane {
   Label coordX;
   @FXML
   Label coordY;
-  @FXML
-  JFXButton button;
-
-  Node aNode;
 
   Group startAndEndNodes = new Group();
 
@@ -537,6 +533,30 @@ public class MapView extends StackPane {
         button.setTranslateY(lastNode.getYcoord() + 10);
         button.getStyleClass().add("navlabel");
 
+        label2 = new Label(lastNode.getLongName());
+        label2.setTranslateX(lastNode.getXcoord() + 10);
+        label2.setTranslateY(lastNode.getYcoord() - 9);
+        label2.getStyleClass().add("navlabel");
+
+
+
+      } else if (node.getFloorInt() == level) {
+        Button button = new JFXButton("Back to Floor " + lastNode.getFloor());
+        button.setTranslateX(node.getXcoord() + 10);
+        button.setTranslateY(node.getYcoord() + 10);
+        button.getStyleClass().add("navlabel");
+
+        label2 = new Label(node.getLongName());
+        label2.setTranslateX(node.getXcoord() + 10);
+        label2.setTranslateY(node.getYcoord() - 9);
+        label2.getStyleClass().add("navlabel");
+      }
+        if (lastNode.getFloorInt() == level) {
+        Button button = new JFXButton("To Floor " + node.getFloor());
+        button.setTranslateX(lastNode.getXcoord() + 10);
+        button.setTranslateY(lastNode.getYcoord() + 10);
+        button.getStyleClass().add("navlabel");
+
         button.setOnAction(event -> {
             if(event.getSource() == button){
               try {
@@ -555,9 +575,7 @@ public class MapView extends StackPane {
 
         buttonsGroup.getChildren().add(button);
 
-      }
-
-      if (node.getFloorInt() != level) {
+      } else if (node.getFloorInt() == level) {
         Button button = new JFXButton("Back to Floor " + lastNode.getFloor());
         button.setTranslateX(node.getXcoord() + 10);
         button.setTranslateY(node.getYcoord() + 10);
@@ -566,17 +584,20 @@ public class MapView extends StackPane {
         button.setOnAction(event -> {
           if(event.getSource() == button){
             try {
-              switchFloor(node.getFloor());
+              switchFloor(lastNode.getFloor());
             } catch (IOException e) {
               e.printStackTrace();
             }
           }
+
         });
 
         label2 = new Label(node.getLongName());
         label2.setTranslateX(node.getXcoord() + 10);
         label2.setTranslateY(node.getYcoord() - 9);
         label2.getStyleClass().add("navlabel");
+
+        buttonsGroup.getChildren().add(button);
       }
 
       if (label2 != null) {
