@@ -9,16 +9,12 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
 
 <BorderPane id="welcome" fx:id="root" styleClass="root" stylesheets="@style/KioskStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.HomeController">
   <center>
     <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="form" stylesheets="@style/KioskStyle.css">
-      <Text id="heading" strokeType="OUTSIDE" strokeWidth="0.0" text="WELCOME">
-      </Text>
       <HBox alignment="CENTER" fillHeight="false" maxHeight="-Infinity" maxWidth="-Infinity" stylesheets="@style/KioskStyle.css" VBox.vgrow="NEVER">
         <GridPane alignment="CENTER" hgap="4.0" stylesheets="@style/LoginStyle.css" vgap="4.0">
           <columnConstraints>
@@ -103,11 +99,6 @@
           </JFXButton>
         </GridPane>
       </HBox>
-      <VBox alignment="CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="989.0">
-        <Pane prefHeight="200.0" prefWidth="200.0" />
-        <!--<Text strokeType="OUTSIDE" strokeWidth="0.0" text="Scrolling announcements" wrappingWidth="154.8701171875" /> -->
-        <Pane prefHeight="200.0" prefWidth="325.0" />
-      </VBox>
       <BorderPane.margin>
         <Insets />
       </BorderPane.margin>
