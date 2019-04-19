@@ -39,23 +39,23 @@
     </JFXToolbar>
   </top>
   <left>
-    <VBox fx:id="menu">
-      <JFXButton fx:id="navigationbtn" onAction="#navigationButtonAction" styleClass="home-btn" text="Navigation" style="-fx-border-radius: 0" VBox.vgrow="ALWAYS">
+    <VBox fx:id="menu" style="-fx-border-radius: 0px; -fx-background-color: #012D5A" >
+      <JFXButton fx:id="navigationbtn" onAction="#navigationButtonAction" styleClass="home-btn" text="Navigation" VBox.vgrow="ALWAYS">
         <graphic>
           <FontAwesomeIconView fill="white" glyphName="MAP_MARKER" size="5em" />
         </graphic>
       </JFXButton>
-      <JFXButton fx:id="schedulingbtn" onAction="#schedulingButtonAction" styleClass="home-btn" text="Scheduling" style="-fx-border-radius: 0" VBox.vgrow="ALWAYS">
+      <JFXButton fx:id="schedulingbtn" onAction="#schedulingButtonAction" styleClass="home-btn" text="Scheduling" VBox.vgrow="ALWAYS">
         <graphic>
           <FontAwesomeIconView fill="white" glyphName="CALENDAR" size="5em" />
         </graphic>
       </JFXButton>
-      <JFXButton fx:id="requestbtn" onAction="#requestButtonAction" styleClass="home-btn" text="Requests" style="-fx-border-radius: 0" VBox.vgrow="ALWAYS">
+      <JFXButton fx:id="requestbtn" onAction="#requestButtonAction" styleClass="home-btn" text="Requests" VBox.vgrow="ALWAYS">
         <graphic>
           <FontAwesomeIconView fill="white" glyphName="TASKS" size="5em" />
         </graphic>
       </JFXButton>
-      <JFXButton fx:id="securitybtn" onAction="#securityButtonAction" styleClass="home-btn" text="Security" style="-fx-border-radius: 0" VBox.vgrow="ALWAYS">
+      <JFXButton fx:id="securitybtn" onAction="#securityButtonAction" styleClass="home-btn" text="Security" VBox.vgrow="ALWAYS">
         <graphic>
           <FontAwesomeIconView fill="white" glyphName="SHIELD" size="5em" />
         </graphic>

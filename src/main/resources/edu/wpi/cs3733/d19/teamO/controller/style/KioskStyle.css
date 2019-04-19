@@ -158,12 +158,16 @@
 }
 
 .home-btn {
+    -fx-font-size: 1px;
+    -fx-text-fill: #012D5A;
     -fx-content-display: BOTTOM;
     -fx-pref-width: 200px;
     -fx-border-radius: 0px;
 }
 
 .home-btn:hover {
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
     -fx-content-display: BOTTOM;
     -fx-border-width: 0px;
 }

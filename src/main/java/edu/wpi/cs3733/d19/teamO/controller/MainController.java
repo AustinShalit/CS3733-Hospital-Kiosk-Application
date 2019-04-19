@@ -60,6 +60,7 @@ public class MainController implements Controller {
   @Inject
   private Database database;
 
+  private LoginController loginController;
   private JFXPopup loginPopup;
   private JFXPopup optionsPopup;
 
@@ -75,11 +76,14 @@ public class MainController implements Controller {
             -12,
             15));
 
-    LoginController loginController = loginControllerFactory.create();
+    loginController = loginControllerFactory.create();
     loginController.getLoginFail().textProperty().addListener(
         (observable, oldValue, newValue) -> {
           if ("Login Success".equals(newValue)) {
             loginPopup.hide();
+            ColorAdjust reset = new ColorAdjust();
+            reset.setBrightness(0);
+            root.setEffect(reset);
             loginbtn.setText("Logout");
           }
         }
@@ -138,6 +142,7 @@ public class MainController implements Controller {
 
   @FXML
   void loginButtonAction() {
+    loginController.setLoginFail("");
     if ("Logout".equals(loginbtn.getText())) {
       loginbtn.setText("Login");
       eventBus.post(new ChangeMainViewEvent(navigationControllerFactory.create(), false));
