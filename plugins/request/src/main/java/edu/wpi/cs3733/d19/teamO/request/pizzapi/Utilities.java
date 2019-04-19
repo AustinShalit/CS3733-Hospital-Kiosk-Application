@@ -3,7 +3,6 @@ package edu.wpi.cs3733.d19.teamO.request.pizzapi;
 import java.io.IOException;
 import java.util.function.Consumer;
 
-import com.google.api.client.http.EmptyContent;
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpContent;
 import com.google.api.client.http.HttpHeaders;
@@ -15,7 +14,7 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.JsonObjectParser;
 import com.google.api.client.json.jackson2.JacksonFactory;
 
-class Utilities {
+final class Utilities {
 
   private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
   private static final JsonFactory JSON_FACTORY = new JacksonFactory();
@@ -33,9 +32,9 @@ class Utilities {
   }
 
   static <T> T sendPostRequest(GenericUrl url,
-                           Consumer<HttpHeaders> headersDecorator,
-                           HttpContent content,
-                           Class<T> responseClass) throws IOException {
+                               Consumer<HttpHeaders> headersDecorator,
+                               HttpContent content,
+                               Class<T> responseClass) throws IOException {
     HttpRequestFactory requestFactory = HTTP_TRANSPORT.createRequestFactory(
         (HttpRequest request) -> request.setParser(new JsonObjectParser(JSON_FACTORY)));
     HttpRequest request = requestFactory.buildPostRequest(url, content);

@@ -1,13 +1,10 @@
 package edu.wpi.cs3733.d19.teamO.request.pizzapi;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import com.google.api.client.http.json.JsonHttpContent;
 import com.google.api.client.util.Key;
 
 import edu.wpi.cs3733.d19.teamO.request.pizzapi.response.FindResponse;
@@ -15,16 +12,18 @@ import edu.wpi.cs3733.d19.teamO.request.pizzapi.response.FindResponse;
 /**
  * Create an address, for finding stores and placing orders.
  *
- * The Address object describes a street address in North America (USA or
+ * <p>The Address object describes a street address in North America (USA or
  * Canada, for now). Callers can use the Address object's methods to find
  * the closest or nearby stores from the API.
+ * </p>
  *
- * Attributes:
- *   street (String): Street address
- *   city (String): North American city
- *   region (String): North American region (state, province, territory)
- *   zip (String): North American ZIP code
- *   country (String): Country
+ * <p>Attributes:
+ * street (String): Street address
+ * city (String): North American city
+ * region (String): North American region (state, province, territory)
+ * zip (String): North American ZIP code
+ * country (String): Country
+ * </p>
  */
 public class Address {
 
@@ -39,10 +38,16 @@ public class Address {
   @Key("Type")
   private String type = "House";
 
+  /**
+   * Default constructor.
+   */
   public Address() {
 
   }
 
+  /**
+   * Create an Address object.
+   */
   public Address(String street, String city, String region, String zip) {
     this.street = street;
     this.city = city;
@@ -101,9 +106,10 @@ public class Address {
   /**
    * Query the API to find nearby stores.
    *
-   * Filters the information from the API to exclude stores that are not
+   * <p>Filters the information from the API to exclude stores that are not
    * currently online (!['IsOnlineNow']), and stores that are not currently
    * in service (!['ServiceIsOpen']).
+   * </p>
    */
   public List<Store> getNearbyStores() throws IOException {
     FindResponse response = Utilities.sendGetRequest(
@@ -115,6 +121,9 @@ public class Address {
         .collect(Collectors.toList());
   }
 
+  /**
+   * Get the closest Dominos store.
+   */
   public Optional<Store> getClosestStore() throws IOException {
     List<Store> stores = getNearbyStores();
 

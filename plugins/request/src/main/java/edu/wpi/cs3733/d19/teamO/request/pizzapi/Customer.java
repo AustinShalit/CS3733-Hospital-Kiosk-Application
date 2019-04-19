@@ -1,13 +1,11 @@
 package edu.wpi.cs3733.d19.teamO.request.pizzapi;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-
 /**
  * The Customer orders a pizza.
  *
- * You need a Customer to create an Order. The proprietors of the API
+ * <p>You need a Customer to create an Order. The proprietors of the API
  * use this information, presumably for nefarious Pizza Purposes.
+ * </p>
  */
 public class Customer {
 
@@ -16,6 +14,9 @@ public class Customer {
   private String email;
   private String phone;
 
+  /**
+   * Create a customer object.
+   */
   public Customer(String firstName, String lastName, String email, String phone) {
     this.firstName = firstName;
     this.lastName = lastName;
@@ -57,11 +58,11 @@ public class Customer {
 
   @Override
   public String toString() {
-    return "Customer{" +
-        "firstName='" + firstName + '\'' +
-        ", lastName='" + lastName + '\'' +
-        ", email='" + email + '\'' +
-        ", phone='" + phone + '\'' +
-        '}';
+    return "Customer{"
+        + "firstName='" + firstName + '\''
+        + ", lastName='" + lastName + '\''
+        + ", email='" + email + '\''
+        + ", phone='" + phone + '\''
+        + '}';
   }
 }

@@ -10,8 +10,9 @@ import com.google.api.client.util.Key;
 /**
  * The Menu is our primary interface with the API.
  *
- * This is far and away the most complicated class - it wraps up most of
+ * <p>This is far and away the most complicated class - it wraps up most of
  * the logic that parses the information we get from the API.
+ * </p>
  */
 public class Menu extends GenericJson {
 
@@ -20,6 +21,9 @@ public class Menu extends GenericJson {
   @Key("PreconfiguredProducts")
   private GenericJson productsJson;
 
+  /**
+   * Get all the products on this menu.
+   */
   public List<Product> getProducts() {
     List<Product> products = new LinkedList<>();
     productsJson.forEach((key, value) -> {

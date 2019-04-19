@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.json.JsonHttpContent;
 import com.google.api.client.json.GenericJson;
 import com.google.api.client.util.Key;
@@ -17,9 +18,10 @@ import edu.wpi.cs3733.d19.teamO.request.pizzapi.response.OrderResponse;
 /**
  * Core interface to the payments API.
  *
- * The Order is perhaps the second most complicated class - it wraps
+ * <p>The Order is perhaps the second most complicated class - it wraps
  * up all the logic for actually placing the order, after we've
  * determined what we want from the Menu.
+ * </p>
  */
 public class Order extends GenericJson {
 
@@ -77,12 +79,19 @@ public class Order extends GenericJson {
   private Store store;
   private Menu menu;
 
+  /**
+   * Default constructor.
+   */
   public Order() {
 
   }
 
-  public Order(Address address, Store store, Menu menu, String firstName, String lastName, String email, String phone) {
-//    put("Address", address);
+  /**
+   * Create an Order object.
+   */
+  public Order(Address address, Store store, Menu menu, String firstName, String lastName,
+               String email, String phone) {
+    //    put("Address", address);
     put("Coupons", new ArrayList<>());
     put("CustomerID", "");
     put("Extension", "");
@@ -108,6 +117,10 @@ public class Order extends GenericJson {
     put("PriceOrderTime", "");
     put("AmountsBreakdown", new Object());
 
+    GenericUrl payments = new GenericUrl();
+    payments.put("Type", "Cash");
+    put("Payments", payments);
+
     this.address = address;
     this.store = store;
     this.menu = menu;
@@ -117,6 +130,9 @@ public class Order extends GenericJson {
     this.email = email;
   }
 
+  /**
+   * Add a product to the order.
+   */
   public void addProduct(Product product) {
     Map json = (Map) menu.getVariants().get(product.getCode());
     products.add(product);
@@ -127,19 +143,37 @@ public class Order extends GenericJson {
     ((List) get("Products")).add(json);
   }
 
+  /**
+   * Get an order.
+   */
   public Order getOrder() throws IOException {
     put("StoreID", store.getId());
-    put("Email", "auschase@aol.com");
-    put("FirstName", "Example");
-    put("LastName", "Example");
-    put("Phone", "8184244692");
+    put("Email", email);
+    put("FirstName", firstName);
+    put("LastName", lastName);
+    put("Phone", phone);
     Map<String, Object> order = new HashMap<>();
     order.put("Order", this);
     JsonHttpContent content = new JsonHttpContent(Utilities.getJsonFactory(), order);
-    //content.writeTo(System.out);
-    //System.out.println();
     return Utilities.sendPostRequest(
         Country.USA.getPriceUrl(),
+        httpHeaders -> {
+          httpHeaders.set("Referer", "https://order.dominos.com/en/pages/order/");
+          httpHeaders.setContentType("application/json");
+        }, content, OrderResponse.class).getOrder();
+  }
+
+  public Order placeOrder() throws IOException {
+    put("StoreID", store.getId());
+    put("Email", email);
+    put("FirstName", firstName);
+    put("LastName", lastName);
+    put("Phone", phone);
+    Map<String, Object> order = new HashMap<>();
+    order.put("Order", this);
+    JsonHttpContent content = new JsonHttpContent(Utilities.getJsonFactory(), order);
+    return Utilities.sendPostRequest(
+        Country.USA.getPlaceUrl(),
         httpHeaders -> {
           httpHeaders.set("Referer", "https://order.dominos.com/en/pages/order/");
           httpHeaders.setContentType("application/json");

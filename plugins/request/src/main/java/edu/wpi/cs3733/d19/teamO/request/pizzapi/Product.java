@@ -17,6 +17,9 @@ public class Product extends GenericJson {
 
   }
 
+  /**
+   * Create a Product object.
+   */
   public Product(String code, String name) {
     this.code = code;
     this.name = name;
