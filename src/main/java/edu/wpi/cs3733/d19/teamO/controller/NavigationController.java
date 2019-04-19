@@ -86,10 +86,9 @@ public class NavigationController implements Controller {
     stepByStep = new StepByStep();
     validateGoButton();
     map.nodeClickedProperty().addListener((observable, oldValue, newValue) -> {
-     if (toComboBox.isFocused()) {
+      if (toComboBox.isFocused()) {
         toComboBox.setValue(newValue.getLongName());
-      }
-       else if (fromComboBox.isFocused()) {
+      } else if (fromComboBox.isFocused()) {
         fromComboBox.setValue(newValue.getLongName());
       }
     });
@@ -131,7 +130,7 @@ public class NavigationController implements Controller {
         count++;
       }
     }
-    if(count!=2){
+    if (count != 2) {
       DialogHelper.showInformationAlert("Must Select Valid Start/End Destinations",
           "Please select valid start and end destinations to generate a valid path.");
       return;

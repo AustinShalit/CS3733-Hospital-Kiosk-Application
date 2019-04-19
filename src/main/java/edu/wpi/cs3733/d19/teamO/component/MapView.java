@@ -36,7 +36,6 @@ import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 
 import static java.lang.Math.abs;
-import static java.lang.Math.sqrt;
 
 @SuppressWarnings({"PMD.TooManyFields", "PMD.ExcessiveImports", "PMD.TooManyMethods" ,
     "PMD.CyclomaticComplexity"})
@@ -71,7 +70,7 @@ public class MapView extends StackPane {
   @FXML
   Label coordY;
 
-  private final SimpleObjectProperty<Node> nodeClicked= new SimpleObjectProperty<>();
+  private final SimpleObjectProperty<Node> nodeClicked = new SimpleObjectProperty<>();
   private  Collection<Node> nodes;
 
   Group startAndEndNodes = new Group();
@@ -137,15 +136,15 @@ public class MapView extends StackPane {
       nodeClicked.set(emptyNode);
       int currentX = (int) pointOnMap.getX();
       int currentY = (int) pointOnMap.getY();
-      double min = 0;
+      double min = 9999;
       double distance = 0;
       for (Node n : nodes) {
-        distance = Math.sqrt(abs(n.getXcoord() - currentX)*abs(n.getXcoord() - currentX)
-            + abs(n.getYcoord() - currentY)* abs(n.getYcoord() - currentY));
-        if (n.getFloorInt() == level && min < distance && !n.getNodeType().equals(Node.NodeType.HALL)) {
+        distance = Math.sqrt(abs(n.getXcoord() - currentX) * abs(n.getXcoord() - currentX)
+            + abs(n.getYcoord() - currentY) * abs(n.getYcoord() - currentY));
+        if (n.getFloorInt() == level && distance < min
+            && !n.getNodeType().equals(Node.NodeType.HALL)) {
           nodeClicked.set(n);
           min = distance;
-          break;
         }
       }
 
