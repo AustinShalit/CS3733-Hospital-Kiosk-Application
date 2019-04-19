@@ -46,7 +46,7 @@ public class OptionsPopupController implements Controller {
   @FXML
   void signoutAction(MouseEvent event) {
     event.consume();
-    eventBus.post(new ChangeMainViewEvent(loginControllerFactory.create(), false));
+    eventBus.post(new ChangeMainViewEvent(loginControllerFactory.create()));
   }
 
   @Override

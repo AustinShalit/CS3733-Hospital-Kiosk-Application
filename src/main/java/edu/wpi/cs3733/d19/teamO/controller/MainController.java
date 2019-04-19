@@ -24,6 +24,12 @@ public class MainController implements Controller {
   @Inject
   private EventBus eventBus;
   @Inject
+  private NavigationController.Factory navigationControllerFactory;
+  @Inject
+  private SchedulingController.Factory schedulingControllerFactory;
+  @Inject
+  private RequestController.Factory requestControllerFactory;
+  @Inject
   private OptionsPopupController.Factory optionsPopupControllerFactory;
 
   private JFXPopup optionsPopup;
@@ -39,6 +45,21 @@ public class MainController implements Controller {
             JFXPopup.PopupHPosition.RIGHT,
             -12,
             15));
+  }
+
+  @FXML
+  void navigationButtonAction(ActionEvent event) {
+    eventBus.post(new ChangeMainViewEvent(navigationControllerFactory.create()));
+  }
+
+  @FXML
+  void schedulingButtonAction(ActionEvent event) {
+    eventBus.post(new ChangeMainViewEvent(schedulingControllerFactory.create()));
+  }
+
+  @FXML
+  void requestButtonAction(ActionEvent event) {
+    eventBus.post(new ChangeMainViewEvent(requestControllerFactory.create()));
   }
 
   @Subscribe

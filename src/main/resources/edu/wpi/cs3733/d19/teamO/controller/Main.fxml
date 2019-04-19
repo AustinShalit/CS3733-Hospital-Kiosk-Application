@@ -13,7 +13,7 @@
 
 <BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.MainController">
   <top>
-    <JFXToolbar fx:id="toolbar" styleClass="main-toolbar" StackPane.alignment="TOP_CENTER">
+    <JFXToolbar styleClass="main-toolbar" StackPane.alignment="TOP_CENTER">
       <left>
         <JFXButton styleClass="small-button" text="Login" textFill="WHITE" BorderPane.alignment="CENTER" />
       </left>
@@ -31,17 +31,17 @@
   </top>
   <left>
     <VBox>
-      <JFXButton styleClass="home-btn" text="Navigation" VBox.vgrow="ALWAYS">
+      <JFXButton onAction="#navigationButtonAction" styleClass="home-btn" text="Navigation" VBox.vgrow="ALWAYS">
         <graphic>
           <FontAwesomeIconView glyphName="MAP_MARKER" />
         </graphic>
       </JFXButton>
-      <JFXButton styleClass="home-btn" text="Scheduling" VBox.vgrow="ALWAYS">
+      <JFXButton onAction="#schedulingButtonAction" styleClass="home-btn" text="Scheduling" VBox.vgrow="ALWAYS">
         <graphic>
           <FontAwesomeIconView glyphName="CALENDAR" />
         </graphic>
       </JFXButton>
-      <JFXButton styleClass="home-btn" text="Requests" VBox.vgrow="ALWAYS">
+      <JFXButton onAction="#requestButtonAction" styleClass="home-btn" text="Requests" VBox.vgrow="ALWAYS">
         <graphic>
           <FontAwesomeIconView glyphName="TASKS" />
         </graphic>
