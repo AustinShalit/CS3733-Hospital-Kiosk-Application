@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.graph.GraphBuilder;
@@ -111,17 +112,17 @@ public class NavigationController implements Controller {
   @FXML
   @SuppressWarnings({"PMD.AvoidInstantiatingObjectsInLoops", "UseStringBufferForStringAppends"})
   void onGoButtonAction() throws IOException {
-    if (toComboBox.getValue().equals(fromComboBox.getValue())) {
+    if (Objects.isNull(searchForNode(toComboBox.getValue()))
+        || Objects.isNull(searchForNode(fromComboBox.getValue()))) {
+      DialogHelper.showInformationAlert("Must Select Valid Start/End Destinations",
+          "Please select valid start and end destinations to generate a valid path.");
+      return;
+    }
+
+    if (searchForNode(toComboBox.getValue()).equals(searchForNode(fromComboBox.getValue()))) {
       DialogHelper.showInformationAlert("Must Select Different Start/End Destinations",
           "Please select different start and end destinations to generate a valid path.");
       return;
-    }
-    for (String s: listOfLongName ) {
-      if (!s.equals(toComboBox.getValue()) || !s.equals(fromComboBox.getValue())) {
-        DialogHelper.showInformationAlert("Must Select Valid Start/End Destinations",
-            "Please select valid start and end destinations to generate a valid path.");
-        return;
-      }
     }
 
 
