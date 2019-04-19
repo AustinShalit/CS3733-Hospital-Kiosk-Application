@@ -30,7 +30,7 @@ import edu.wpi.cs3733.d19.teamO.entity.pathfinding.StepByStep;
 
 @FxmlController(url = "Navigation.fxml")
 @SuppressWarnings({"PMD.TooManyFields", "PMD.RedundantFieldInitializer",
-    "PMD.AvoidInstantiatingObjectsInLoops"})
+    "PMD.AvoidInstantiatingObjectsInLoops", "PMD.TooManyMethods"})
 
 public class NavigationController implements Controller {
 
@@ -97,19 +97,33 @@ public class NavigationController implements Controller {
 
 
   @FXML
-  void onComboAction() {
+  void onToComboAction() {
+    toComboBox.show();
+    validateGoButton();
+  }
+
+  @FXML
+  void onFromComboAction() {
+    fromComboBox.show();
     validateGoButton();
   }
 
   @FXML
   @SuppressWarnings({"PMD.AvoidInstantiatingObjectsInLoops", "UseStringBufferForStringAppends"})
   void onGoButtonAction() throws IOException {
-
     if (toComboBox.getValue().equals(fromComboBox.getValue())) {
       DialogHelper.showInformationAlert("Must Select Different Start/End Destinations",
           "Please select different start and end destinations to generate a valid path.");
       return;
     }
+    for (String s: listOfLongName ) {
+      if (!s.equals(toComboBox.getValue()) || !s.equals(fromComboBox.getValue())) {
+        DialogHelper.showInformationAlert("Must Select Valid Start/End Destinations",
+            "Please select valid start and end destinations to generate a valid path.");
+        return;
+      }
+    }
+
 
     IGraphSearchAlgorithm<Node> algorithm = appPreferences.getGraphSearchAlgorithm().getAlgorithm();
     MutableGraph<Node> graph = GraphBuilder.undirected().allowsSelfLoops(false).build();
