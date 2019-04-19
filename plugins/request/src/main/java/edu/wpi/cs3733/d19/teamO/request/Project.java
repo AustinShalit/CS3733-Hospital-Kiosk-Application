@@ -28,6 +28,26 @@ import edu.wpi.cs3733.d19.teamO.request.controller.MainController;
 
 public class Project extends Application {
 
+  private int stageMinWidth = 1280;
+  public void setStageMinWidth(int stageMinWidth) {
+    this.stageMinWidth = stageMinWidth;
+  }
+
+  private int stageMinHeight = 720;
+  public void setStageMinHeight(int stageMinHeight) {
+    this.stageMinHeight = stageMinHeight;
+  }
+
+  private int stageX = 0;
+  public void setStageX(int stageX) {
+    this.stageX = stageX;
+  }
+
+  private int stageY = 0;
+  public void setStageY(int stageY) {
+    this.stageY = stageY;
+  }
+
   @Inject
   private EventBus eventBus;
   @Inject
@@ -67,10 +87,17 @@ public class Project extends Application {
     primaryStage.setScene(new Scene(root));
 
     // Set original window size and position
-    primaryStage.setMinWidth(1280);
-    primaryStage.setMinHeight(720);
+    primaryStage.setX(stageX);
+    primaryStage.setY(stageY);
 
-    primaryStage.setMaximized(true);
+    if (stageMinWidth == -1 && stageMinHeight == -1) {
+      primaryStage.setMinWidth(1080);
+      primaryStage.setMinHeight(720);
+      primaryStage.setMaximized(true);
+    } else {
+      primaryStage.setMinWidth(stageMinWidth);
+      primaryStage.setMinHeight(stageMinHeight);
+    }
 
     primaryStage.show();
 
