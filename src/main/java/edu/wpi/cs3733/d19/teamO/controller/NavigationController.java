@@ -82,8 +82,17 @@ public class NavigationController implements Controller {
   void initialize() throws IOException {
     turnLongName();
     refreshCombobox();
+    map.setNodes(database.getAllNodes());
     stepByStep = new StepByStep();
     validateGoButton();
+    map.nodeClickedProperty().addListener((observable, oldValue, newValue) -> {
+     if (toComboBox.isFocused()) {
+        toComboBox.setValue(newValue.getLongName());
+      }
+       else if (fromComboBox.isFocused()) {
+        fromComboBox.setValue(newValue.getLongName());
+      }
+    });
   }
 
   @Override
@@ -111,19 +120,22 @@ public class NavigationController implements Controller {
   @FXML
   @SuppressWarnings({"PMD.AvoidInstantiatingObjectsInLoops", "UseStringBufferForStringAppends"})
   void onGoButtonAction() throws IOException {
+    int count = 0;
     if (toComboBox.getValue().equals(fromComboBox.getValue())) {
       DialogHelper.showInformationAlert("Must Select Different Start/End Destinations",
           "Please select different start and end destinations to generate a valid path.");
       return;
     }
     for (String s: listOfLongName ) {
-      if (!s.equals(toComboBox.getValue()) || !s.equals(fromComboBox.getValue())) {
-        DialogHelper.showInformationAlert("Must Select Valid Start/End Destinations",
-            "Please select valid start and end destinations to generate a valid path.");
-        return;
+      if (s.equals(toComboBox.getValue()) || s.equals(fromComboBox.getValue())) {
+        count++;
       }
     }
-
+    if(count!=2){
+      DialogHelper.showInformationAlert("Must Select Valid Start/End Destinations",
+          "Please select valid start and end destinations to generate a valid path.");
+      return;
+    }
 
     IGraphSearchAlgorithm<Node> algorithm = appPreferences.getGraphSearchAlgorithm().getAlgorithm();
     MutableGraph<Node> graph = GraphBuilder.undirected().allowsSelfLoops(false).build();

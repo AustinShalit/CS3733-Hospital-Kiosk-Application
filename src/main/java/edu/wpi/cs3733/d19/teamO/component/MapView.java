@@ -10,6 +10,7 @@ import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,6 +34,9 @@ import net.kurobako.gesturefx.GesturePane;
 
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
+
+import static java.lang.Math.abs;
+import static java.lang.Math.sqrt;
 
 @SuppressWarnings({"PMD.TooManyFields", "PMD.ExcessiveImports", "PMD.TooManyMethods" ,
     "PMD.CyclomaticComplexity"})
@@ -67,6 +71,9 @@ public class MapView extends StackPane {
   @FXML
   Label coordY;
 
+  private final SimpleObjectProperty<Node> nodeClicked= new SimpleObjectProperty<>();
+  private  Collection<Node> nodes;
+
   Group startAndEndNodes = new Group();
 
   Group pathEdges = new Group();
@@ -76,6 +83,22 @@ public class MapView extends StackPane {
   List<Node> path;
 
   List<Timeline> antz = new ArrayList<>();
+
+  public void setNodes(Collection<Node> nodes) {
+    this.nodes = nodes;
+  }
+
+  public Node getNodeClicked() {
+    return nodeClicked.get();
+  }
+
+  public SimpleObjectProperty<Node> nodeClickedProperty() {
+    return nodeClicked;
+  }
+
+  public void setNodeClicked(Node selectedNode) {
+    this.nodeClicked.set(selectedNode);
+  }
 
   public void setPath(List<Node> path) {
     this.path = path;
@@ -108,6 +131,24 @@ public class MapView extends StackPane {
             .interpolateWith(Interpolator.EASE_BOTH)
             .zoomBy(gesturePane.getCurrentScale(), pointOnMap);
       }
+
+      Node emptyNode = new Node("Auto-Generated", 0, 0, "8", "",
+          null, "test", "");
+      nodeClicked.set(emptyNode);
+      int currentX = (int) pointOnMap.getX();
+      int currentY = (int) pointOnMap.getY();
+      double min = 0;
+      double distance = 0;
+      for (Node n : nodes) {
+        distance = Math.sqrt(abs(n.getXcoord() - currentX)*abs(n.getXcoord() - currentX)
+            + abs(n.getYcoord() - currentY)* abs(n.getYcoord() - currentY));
+        if (n.getFloorInt() == level && min < distance && !n.getNodeType().equals(Node.NodeType.HALL)) {
+          nodeClicked.set(n);
+          min = distance;
+          break;
+        }
+      }
+
       coordY.setText(Double.toString((int) pointOnMap.getX()));
       coordX.setText(Double.toString((int) pointOnMap.getY()));
     });
@@ -554,5 +595,7 @@ public class MapView extends StackPane {
 
     }
   }
+
+
 
 }
