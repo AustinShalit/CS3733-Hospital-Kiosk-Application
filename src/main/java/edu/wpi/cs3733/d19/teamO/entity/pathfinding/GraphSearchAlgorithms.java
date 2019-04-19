@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d19.teamO.entity.pathfinding;
 
+
 import java.util.Objects;
 
 import edu.wpi.cs3733.d19.teamO.util.Registry;
@@ -12,10 +13,12 @@ public final class GraphSearchAlgorithms extends Registry<GraphSearchAlgorithm> 
   // TODO replace with DI eg Guice
   private static GraphSearchAlgorithms defaultInstance;
 
-  public static final GraphSearchAlgorithm BFS = new GraphSearchAlgorithm("Breadth First Search",
+  public static final GraphSearchAlgorithm BFS = new GraphSearchAlgorithm("Depth First Search",
       new BreadthFirstSearchAlgorithm<>());
-  public static final GraphSearchAlgorithm DFS = new GraphSearchAlgorithm("Depth First Search",
+  public static final GraphSearchAlgorithm DFS = new GraphSearchAlgorithm("Breadth First Search",
       new DepthFirstSearchAlgorithm<>());
+  public static final GraphSearchAlgorithm AStar = new GraphSearchAlgorithm("A*",
+      new AStarAlgorithm());
 
   public static final GraphSearchAlgorithm INITIAL_ALGORITHM = BFS;
 
@@ -25,7 +28,7 @@ public final class GraphSearchAlgorithms extends Registry<GraphSearchAlgorithm> 
   public static GraphSearchAlgorithms getDefault() {
     synchronized (GraphSearchAlgorithms.class) {
       if (defaultInstance == null) {
-        defaultInstance = new GraphSearchAlgorithms(BFS, DFS);
+        defaultInstance = new GraphSearchAlgorithms(BFS, DFS, AStar);
       }
     }
     return defaultInstance;
