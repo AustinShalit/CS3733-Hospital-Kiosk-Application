@@ -9,8 +9,10 @@ import com.jfoenix.controls.JFXToolbar;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 
@@ -21,6 +23,8 @@ public class MainController implements Controller {
   private BorderPane root;
   @FXML
   private StackPane optionsBurger;
+  @FXML
+  private VBox menu;
   @Inject
   private EventBus eventBus;
   @Inject
@@ -31,7 +35,10 @@ public class MainController implements Controller {
   private RequestController.Factory requestControllerFactory;
   @Inject
   private OptionsPopupController.Factory optionsPopupControllerFactory;
+  @Inject
+  private LoginController.Factory loginControllerFactory;
 
+  private JFXPopup loginPopup;
   private JFXPopup optionsPopup;
 
   @FXML
@@ -45,6 +52,23 @@ public class MainController implements Controller {
             JFXPopup.PopupHPosition.RIGHT,
             -12,
             15));
+
+    LoginController loginController = loginControllerFactory.create();
+    loginController.getLoginFail().textProperty().addListener(
+        (observable, oldValue, newValue) -> {
+          if ("Login Success".equals(newValue)) {
+            loginPopup.hide();
+          }
+        }
+    );
+    loginPopup = new JFXPopup(loginController.root);
+    loginPopup.setOnAutoHide(
+        event -> {
+          ColorAdjust reset = new ColorAdjust();
+          reset.setBrightness(0);
+          root.setEffect(reset);
+        }
+    );
   }
 
   @FXML
@@ -62,10 +86,29 @@ public class MainController implements Controller {
     eventBus.post(new ChangeMainViewEvent(requestControllerFactory.create()));
   }
 
+  @FXML
+  void loginButtonAction() {
+    ColorAdjust colorAdjust = new ColorAdjust();
+    colorAdjust.setBrightness(-0.2);
+    root.setEffect(colorAdjust);
+    loginPopup.show(root);
+    loginPopup.setX(
+        (root.getScene().getWindow().getWidth() - loginPopup.getWidth()) / 2
+    );
+    loginPopup.setY(
+        (root.getScene().getWindow().getHeight() - loginPopup.getHeight()) / 2
+    );
+  }
+
   @Subscribe
   @SuppressWarnings("PMD.UnusedPrivateMethod")
   private void acceptController(ChangeMainViewEvent event) {
     root.setCenter(event.getController().getRoot());
+    if (event.isMenuVisible()) {
+      root.setLeft(menu);
+    } else {
+      root.setLeft(null);
+    }
 
     if (optionsPopup.isShowing()) {
       optionsPopup.hide();

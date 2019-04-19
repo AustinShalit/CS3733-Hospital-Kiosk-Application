@@ -11,11 +11,15 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.MainController">
+<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.MainController">
   <top>
     <JFXToolbar styleClass="main-toolbar" StackPane.alignment="TOP_CENTER">
       <left>
-        <JFXButton styleClass="small-button" text="Login" textFill="WHITE" BorderPane.alignment="CENTER" />
+            <StackPane prefHeight="50.0" prefWidth="118.0" BorderPane.alignment="CENTER">
+               <children>
+              <JFXButton id="small-button" fx:id="loginbtn" onAction="#loginButtonAction" text="Login" textFill="WHITE" />
+               </children>
+            </StackPane>
       </left>
       <center>
         <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="logo" BorderPane.alignment="CENTER" />
@@ -30,8 +34,8 @@
     </JFXToolbar>
   </top>
   <left>
-    <VBox>
-      <JFXButton onAction="#navigationButtonAction" styleClass="home-btn" text="Navigation" VBox.vgrow="ALWAYS">
+    <VBox fx:id="menu">
+      <JFXButton onAction="#navigationButtonAction" styleClass="home-btn" text="Navigation" VBox.vgrow="SOMETIMES">
         <graphic>
           <FontAwesomeIconView glyphName="MAP_MARKER" />
         </graphic>

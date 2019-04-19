@@ -1,12 +1,17 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
+import java.io.IOException;
+
 import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
@@ -28,7 +33,9 @@ import edu.wpi.cs3733.d19.teamO.controller.request.SupportAnimalViewController;
 public class RequestController implements Controller {
 
   @FXML
-  private VBox root;
+  BorderPane root;
+  @FXML
+  VBox menu;
 
   @FXML
   private JFXButton sanitation;
@@ -89,6 +96,11 @@ public class RequestController implements Controller {
   private PrescriptionViewController.Factory prescriptionRequestControllerFactory;
   @Inject
   private SanitationViewController.Factory sanitationControllerFactory;
+
+  @FXML
+  void initialize() {
+
+  }
 
   @FXML
   void internalTransportationAction(ActionEvent event) {
