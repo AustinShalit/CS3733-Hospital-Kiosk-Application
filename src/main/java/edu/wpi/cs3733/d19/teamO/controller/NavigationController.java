@@ -21,6 +21,7 @@ import javafx.scene.layout.BorderPane;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 
 import edu.wpi.cs3733.d19.teamO.AppPreferences;
+import edu.wpi.cs3733.d19.teamO.component.FuzzyWuzzyComboBox;
 import edu.wpi.cs3733.d19.teamO.component.MapView;
 import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
@@ -50,6 +51,8 @@ public class NavigationController implements Controller {
   JFXComboBox<String> fromComboBox;
   @FXML
   JFXComboBox<String> toComboBox;
+  @FXML
+  FuzzyWuzzyComboBox testComboBox;
   @FXML
   JFXButton goButton;
   @FXML
@@ -84,6 +87,7 @@ public class NavigationController implements Controller {
     refreshCombobox();
     stepByStep = new StepByStep();
     validateGoButton();
+    testComboBox.refresh();
   }
 
   @Override
