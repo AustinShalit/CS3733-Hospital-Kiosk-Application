@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
+import java.time.LocalDateTime;
+
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
@@ -18,6 +20,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
+import edu.wpi.cs3733.d19.teamO.entity.Node;
+import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
+import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 @FxmlController(url = "Main.fxml")
 public class MainController implements Controller {
@@ -51,6 +56,8 @@ public class MainController implements Controller {
   private OptionsPopupController.Factory optionsPopupControllerFactory;
   @Inject
   private LoginController.Factory loginControllerFactory;
+  @Inject
+  private Database database;
 
   private JFXPopup loginPopup;
   private JFXPopup optionsPopup;
@@ -112,6 +119,20 @@ public class MainController implements Controller {
   @FXML
   void requestButtonAction(ActionEvent event) {
     eventBus.post(new ChangeMainViewEvent(requestControllerFactory.create()));
+  }
+
+  @FXML
+  void securityButtonAction() {
+    if (DialogHelper.showConfirmDialog("Confirmation Dialog",
+        "Security Request Notification",
+        "Are you sure you want to alert security?")) {
+      System.out.println("Notifying");
+      // TODO send to database
+      Node node = new Node("notExist", 0, 0, "0", "0",
+          Node.NodeType.WORKZONE, "not", "existed");
+      SecurityRequest sr = new SecurityRequest(LocalDateTime.now(), node);
+      database.insertSecurityRequest(sr);
+    }
   }
 
   @FXML
