@@ -39,7 +39,7 @@
     </JFXToolbar>
   </top>
   <left>
-    <VBox fx:id="menu" style="-fx-border-radius: 0px; -fx-background-color: #012D5A" >
+    <VBox fx:id="menu" style="-fx-border-radius: 0px; -fx-background-color: #012D5A">
       <JFXButton fx:id="navigationbtn" onAction="#navigationButtonAction" styleClass="home-btn" text="Navigation" VBox.vgrow="ALWAYS">
         <graphic>
           <FontAwesomeIconView fill="white" glyphName="MAP_MARKER" size="5em" />
