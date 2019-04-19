@@ -12,19 +12,22 @@ import com.google.api.client.http.GenericUrl;
 public enum Country {
   USA("https://order.dominos.com/power/store-locator",
       "https://order.dominos.com/power/store/",
-      "https://order.dominos.com/power/price-order");
+      "https://order.dominos.com/power/price-order",
+      "https://order.dominos.com/power/place-order");
 
   private final String findBaseUrl;
   private final String menuBaseUrl;
   private final String priceUrl;
+  private final String placeUrl;
 
   /**
    * Create a country object.
    */
-  Country(String findBaseUrl, String menuBaseUrl, String priceUrl) {
+  Country(String findBaseUrl, String menuBaseUrl, String priceUrl, String placeUrl) {
     this.findBaseUrl = findBaseUrl;
     this.menuBaseUrl = menuBaseUrl;
     this.priceUrl = priceUrl;
+    this.placeUrl = placeUrl;
   }
 
   /**
@@ -54,5 +57,9 @@ public enum Country {
    */
   public GenericUrl getPriceUrl() {
     return new GenericUrl(priceUrl);
+  }
+
+  public GenericUrl getPlaceUrl() {
+    return new GenericUrl(placeUrl);
   }
 }

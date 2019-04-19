@@ -143,7 +143,7 @@ allprojects {
     pmd {
         toolVersion = "6.12.0"
         isConsoleOutput = true
-        ruleSetFiles = files("config/pmd/pmd-ruleset.xml")
+        ruleSetFiles = files("$rootDir/config/pmd/pmd-ruleset.xml")
         ruleSets = emptyList()
     }
 }

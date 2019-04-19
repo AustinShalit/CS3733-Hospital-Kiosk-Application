@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.json.JsonHttpContent;
 import com.google.api.client.json.GenericJson;
 import com.google.api.client.util.Key;
@@ -116,6 +117,10 @@ public class Order extends GenericJson {
     put("PriceOrderTime", "");
     put("AmountsBreakdown", new Object());
 
+    GenericUrl payments = new GenericUrl();
+    payments.put("Type", "Cash");
+    put("Payments", payments);
+
     this.address = address;
     this.store = store;
     this.menu = menu;
@@ -143,17 +148,32 @@ public class Order extends GenericJson {
    */
   public Order getOrder() throws IOException {
     put("StoreID", store.getId());
-    put("Email", "auschase@aol.com");
-    put("FirstName", "Example");
-    put("LastName", "Example");
-    put("Phone", "8184244692");
+    put("Email", email);
+    put("FirstName", firstName);
+    put("LastName", lastName);
+    put("Phone", phone);
     Map<String, Object> order = new HashMap<>();
     order.put("Order", this);
     JsonHttpContent content = new JsonHttpContent(Utilities.getJsonFactory(), order);
-    //content.writeTo(System.out);
-    //System.out.println();
     return Utilities.sendPostRequest(
         Country.USA.getPriceUrl(),
+        httpHeaders -> {
+          httpHeaders.set("Referer", "https://order.dominos.com/en/pages/order/");
+          httpHeaders.setContentType("application/json");
+        }, content, OrderResponse.class).getOrder();
+  }
+
+  public Order placeOrder() throws IOException {
+    put("StoreID", store.getId());
+    put("Email", email);
+    put("FirstName", firstName);
+    put("LastName", lastName);
+    put("Phone", phone);
+    Map<String, Object> order = new HashMap<>();
+    order.put("Order", this);
+    JsonHttpContent content = new JsonHttpContent(Utilities.getJsonFactory(), order);
+    return Utilities.sendPostRequest(
+        Country.USA.getPlaceUrl(),
         httpHeaders -> {
           httpHeaders.set("Referer", "https://order.dominos.com/en/pages/order/");
           httpHeaders.setContentType("application/json");
