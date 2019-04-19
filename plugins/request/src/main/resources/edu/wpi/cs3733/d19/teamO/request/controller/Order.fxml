@@ -138,7 +138,7 @@
             </GridPane>
           </content>
         </TitledPane>
-        <TitledPane fx:id="menuPane" animated="false" text="MENU">
+        <TitledPane fx:id="menuPane" animated="false" onMouseClicked="#onMenuPaneClicked" text="MENU">
           <content>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
               <top>
@@ -154,17 +154,16 @@
                 <StackPane BorderPane.alignment="CENTER" />
               </bottom>
                      <center>
-                        <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                        <TableView fx:id="menuTableView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="Item" />
-                            <TableColumn prefWidth="75.0" text="Quantity" />
+                            <TableColumn fx:id="menuItemCol" prefWidth="75.0" text="Item" />
                           </columns>
                         </TableView>
                      </center>
             </BorderPane>
           </content>
         </TitledPane>
-        <TitledPane fx:id="placeOrderPane" animated="false" text="PLACE ORDER" VBox.vgrow="ALWAYS">
+        <TitledPane fx:id="placeOrderPane" animated="false" onMouseClicked="#onPlaceOrderPaneClicked" text="PLACE ORDER" VBox.vgrow="ALWAYS">
           <content>
             <GridPane>
               <columnConstraints>
@@ -187,11 +186,7 @@
                                        <VBox.margin>
                                           <Insets top="10.0" />
                                        </VBox.margin></Text>
-                        <Text fx:id="orderFromText" strokeType="OUTSIDE" strokeWidth="0.0" text="Ordering from">
-                                       <VBox.margin>
-                                          <Insets top="10.0" />
-                                       </VBox.margin></Text>
-                        <Text fx:id="carryoutOrDeliveryToAddressText" strokeType="OUTSIDE" strokeWidth="0.0" text="Delivery to">
+                        <Text fx:id="orderSettingsText" strokeType="OUTSIDE" strokeWidth="0.0" text="Filled Dynamically">
                                        <VBox.margin>
                                           <Insets top="10.0" />
                                        </VBox.margin></Text>
@@ -243,23 +238,11 @@
                                           <Insets top="5.0" />
                                        </VBox.margin>
                         </TableView>
-                        <Text fx:id="subtotalText" strokeType="OUTSIDE" strokeWidth="0.0" text="Subtotal: ">
+                        <Text fx:id="orderSummaryText" strokeType="OUTSIDE" strokeWidth="0.0" text="Filled Dynamically">
                                        <VBox.margin>
                                           <Insets top="10.0" />
                                        </VBox.margin></Text>
-                        <Text fx:id="taxText" strokeType="OUTSIDE" strokeWidth="0.0" text="Taxes: ">
-                                       <VBox.margin>
-                                          <Insets top="10.0" />
-                                       </VBox.margin></Text>
-                        <Text fx:id="surchargeText" layoutX="10.0" layoutY="238.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Surcharge:">
-                                       <VBox.margin>
-                                          <Insets top="10.0" />
-                                       </VBox.margin></Text>
-                        <Text fx:id="totalText" strokeType="OUTSIDE" strokeWidth="0.0" text="Total:">
-                                       <VBox.margin>
-                                          <Insets top="10.0" />
-                                       </VBox.margin></Text>
-                                    <JFXCheckBox alignment="CENTER" checkedColor="#006491" text="Real Transaction" underline="true">
+                                    <JFXCheckBox fx:id="enableRealTransactionCheckbox" alignment="CENTER" checkedColor="#006491" text="Real Transaction" underline="true">
                                        <VBox.margin>
                                           <Insets top="10.0" />
                                        </VBox.margin>
@@ -288,19 +271,7 @@
                   <center>
                     <VBox BorderPane.alignment="CENTER">
                       <children>
-                        <Text fx:id="emailAddressText" strokeType="OUTSIDE" strokeWidth="0.0" text="Email Address:">
-                                       <VBox.margin>
-                                          <Insets top="10.0" />
-                                       </VBox.margin></Text>
-                        <Text fx:id="phoneNumberText" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number:">
-                                       <VBox.margin>
-                                          <Insets top="10.0" />
-                                       </VBox.margin></Text>
-                        <Text fx:id="firstNameText" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name:">
-                                       <VBox.margin>
-                                          <Insets top="10.0" />
-                                       </VBox.margin></Text>
-                        <Text fx:id="lastNameText" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name:">
+                        <Text fx:id="customerInformationText" strokeType="OUTSIDE" strokeWidth="0.0" text="Filled Dynamically">
                                        <VBox.margin>
                                           <Insets top="10.0" />
                                        </VBox.margin></Text>
@@ -331,7 +302,7 @@
                   <center>
                     <VBox BorderPane.alignment="CENTER">
                       <children>
-                        <Text fx:id="cashText" strokeType="OUTSIDE" strokeWidth="0.0" text="Paying with Cash">
+                        <Text fx:id="paymentInformationText" strokeType="OUTSIDE" strokeWidth="0.0" text="Filled Dynamically">
                                        <VBox.margin>
                                           <Insets top="10.0" />
                                        </VBox.margin></Text>
