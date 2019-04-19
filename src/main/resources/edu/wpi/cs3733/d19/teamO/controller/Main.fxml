@@ -4,40 +4,56 @@
 <?import com.jfoenix.controls.JFXHamburger?>
 <?import com.jfoenix.controls.JFXRippler?>
 <?import com.jfoenix.controls.JFXToolbar?>
-<?import javafx.geometry.Insets?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.net.URL?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.VBox?>
 
-<StackPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="100" minWidth="-Infinity" prefHeight="100.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.MainController">
-  <children>
-    <BorderPane fx:id="contentPane">
-      <top>
-        <JFXToolbar fx:id="toolbar" style="-fx-border-color: #d2d2d2; -fx-background-color: #F1F1F1;" stylesheets="@style/KioskStyle.css" BorderPane.alignment="CENTER">
-          <left>
-            <JFXButton id="small-button" onAction="#onHomeButtonAction" prefWidth="63.0" ripplerFill="#004e86" style="-fx-background-color: #0067B1;" stylesheets="@style/KioskStyle.css" text="Home" textFill="WHITE" BorderPane.alignment="CENTER">
-              <font>
-                <Font name="System Bold" size="15.0" />
-              </font>
-            </JFXButton>
-          </left>
-          <right>
-            <JFXRippler maskType="CIRCLE" style="ripple: white;" BorderPane.alignment="CENTER">
-              <StackPane fx:id="optionsBurger">
-                <JFXHamburger>
-                </JFXHamburger>
-              </StackPane>
-            </JFXRippler>
-          </right>
-          <padding>
-            <Insets bottom="9.0" left="9.0" right="9.0" top="9.0" />
-          </padding>
-          <center>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="logo" BorderPane.alignment="CENTER" />
-          </center>
-        </JFXToolbar>
-      </top>
-    </BorderPane>
-  </children>
-</StackPane>
+<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.MainController">
+  <top>
+    <JFXToolbar fx:id="toolbar" styleClass="main-toolbar" StackPane.alignment="TOP_CENTER">
+      <left>
+        <JFXButton styleClass="small-button" text="Login" textFill="WHITE" BorderPane.alignment="CENTER" />
+      </left>
+      <center>
+        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="logo" BorderPane.alignment="CENTER" />
+      </center>
+      <right>
+        <JFXRippler maskType="CIRCLE" style="ripple: white;" BorderPane.alignment="CENTER">
+          <StackPane fx:id="optionsBurger">
+            <JFXHamburger />
+          </StackPane>
+        </JFXRippler>
+      </right>
+    </JFXToolbar>
+  </top>
+  <left>
+    <VBox>
+      <JFXButton styleClass="home-btn" text="Navigation" VBox.vgrow="ALWAYS">
+        <graphic>
+          <FontAwesomeIconView glyphName="MAP_MARKER" />
+        </graphic>
+      </JFXButton>
+      <JFXButton styleClass="home-btn" text="Scheduling" VBox.vgrow="ALWAYS">
+        <graphic>
+          <FontAwesomeIconView glyphName="CALENDAR" />
+        </graphic>
+      </JFXButton>
+      <JFXButton styleClass="home-btn" text="Requests" VBox.vgrow="ALWAYS">
+        <graphic>
+          <FontAwesomeIconView glyphName="TASKS" />
+        </graphic>
+      </JFXButton>
+      <JFXButton styleClass="home-btn" text="Security" VBox.vgrow="ALWAYS">
+        <graphic>
+          <FontAwesomeIconView glyphName="SHIELD" />
+        </graphic>
+      </JFXButton>
+    </VBox>
+  </left>
+  <stylesheets>
+    <URL value="@style/KioskStyle.css" />
+  </stylesheets>
+</BorderPane>

@@ -70,7 +70,7 @@ public class Project extends Application {
     root = loader.load();
 
     //eventBus.post(new ChangeMainViewEvent(loginControllerFactory.create(), false));
-    eventBus.post(new ChangeMainViewEvent(guestViewFactory.create(), false));
+    //eventBus.post(new ChangeMainViewEvent(guestViewFactory.create(), false));
 
     primaryStage.setTitle("Team O Kiosk Application");
     primaryStage.setScene(new Scene(root));

@@ -18,21 +18,11 @@ import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 public class MainController implements Controller {
 
   @FXML
-  private StackPane root;
-
-  @FXML
-  private BorderPane contentPane;
-
+  private BorderPane root;
   @FXML
   private StackPane optionsBurger;
-
-  @FXML
-  private JFXToolbar toolbar;
-
   @Inject
   private EventBus eventBus;
-  @Inject
-  private HomeController.Factory homeControllerFactory;
   @Inject
   private OptionsPopupController.Factory optionsPopupControllerFactory;
 
@@ -43,7 +33,6 @@ public class MainController implements Controller {
     eventBus.register(this);
 
     optionsPopup = new JFXPopup(optionsPopupControllerFactory.create().list);
-
     optionsBurger.setOnMouseClicked(e ->
         optionsPopup.show(optionsBurger,
             JFXPopup.PopupVPosition.TOP,
@@ -52,21 +41,11 @@ public class MainController implements Controller {
             15));
   }
 
-  @FXML
-  void onHomeButtonAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(homeControllerFactory.create()));
-  }
-
   @Subscribe
   @SuppressWarnings("PMD.UnusedPrivateMethod")
   private void acceptController(ChangeMainViewEvent event) {
-    contentPane.setCenter(event.getController().getRoot());
-    if (event.isFramed()) {
-      contentPane.setTop(toolbar);
-    } else {
-      contentPane.setTop(null);
-    }
-    // toolbar.setVisible(event.isFramed());
+    root.setCenter(event.getController().getRoot());
+
     if (optionsPopup.isShowing()) {
       optionsPopup.hide();
     }
