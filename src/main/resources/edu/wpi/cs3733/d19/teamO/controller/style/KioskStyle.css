@@ -109,10 +109,10 @@
     -fx-padding: 0px 10px 0px 10px;
 }
 
-.button .glyph-icon {
+/*.button .glyph-icon {
     -fx-font-size: 3.5em;
     -fx-fill: WHITE;
-}
+}*/
 
 .jfx-text-field:focused {
     -fx-border-color: #0067b1;
@@ -159,8 +159,13 @@
 
 .home-btn {
     -fx-content-display: BOTTOM;
-    -fx-max-height: INFINITY;
     -fx-pref-width: 200px;
+    -fx-border-radius: 0px;
+}
+
+.home-btn:hover {
+    -fx-content-display: BOTTOM;
+    -fx-border-width: 0px;
 }
 
 #loginform {

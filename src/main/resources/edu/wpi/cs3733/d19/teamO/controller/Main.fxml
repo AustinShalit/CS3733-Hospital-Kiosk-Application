@@ -35,24 +35,24 @@
   </top>
   <left>
     <VBox fx:id="menu">
-      <JFXButton onAction="#navigationButtonAction" styleClass="home-btn" text="Navigation" VBox.vgrow="SOMETIMES">
+      <JFXButton fx:id="navigationbtn" onAction="#navigationButtonAction" styleClass="home-btn" text="Navigation" VBox.vgrow="SOMETIMES">
         <graphic>
-          <FontAwesomeIconView glyphName="MAP_MARKER" />
+          <FontAwesomeIconView glyphName="MAP_MARKER" size="5em" fill="white"/>
         </graphic>
       </JFXButton>
-      <JFXButton onAction="#schedulingButtonAction" styleClass="home-btn" text="Scheduling" VBox.vgrow="ALWAYS">
+      <JFXButton fx:id="schedulingbtn" onAction="#schedulingButtonAction" styleClass="home-btn" text="Scheduling" VBox.vgrow="ALWAYS">
         <graphic>
-          <FontAwesomeIconView glyphName="CALENDAR" />
+          <FontAwesomeIconView glyphName="CALENDAR" size="5em" fill="white"/>
         </graphic>
       </JFXButton>
-      <JFXButton onAction="#requestButtonAction" styleClass="home-btn" text="Requests" VBox.vgrow="ALWAYS">
+      <JFXButton fx:id="requestbtn" onAction="#requestButtonAction" styleClass="home-btn" text="Requests" VBox.vgrow="ALWAYS">
         <graphic>
-          <FontAwesomeIconView glyphName="TASKS" />
+          <FontAwesomeIconView glyphName="TASKS" size="5em" fill="white"/>
         </graphic>
       </JFXButton>
-      <JFXButton styleClass="home-btn" text="Security" VBox.vgrow="ALWAYS">
+      <JFXButton fx:id="securitybtn" styleClass="home-btn" text="Security" VBox.vgrow="ALWAYS">
         <graphic>
-          <FontAwesomeIconView glyphName="SHIELD" />
+          <FontAwesomeIconView glyphName="SHIELD" size="5em" fill="white"/>
         </graphic>
       </JFXButton>
     </VBox>

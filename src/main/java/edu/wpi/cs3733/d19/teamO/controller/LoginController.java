@@ -75,6 +75,8 @@ public class LoginController implements Controller {
     // if info typed was right, you go to main window screen
     if (check) {
       eventBus.post(new ChangeMainViewEvent(homeControllerFactory.create()));
+      username.setText(null);
+      password.setText(null);
       loginFail.setText("Login Success");
     } else {
       loginFail.setText("Incorrect username or password");

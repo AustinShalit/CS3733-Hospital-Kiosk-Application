@@ -3,9 +3,12 @@ package edu.wpi.cs3733.d19.teamO.controller;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPopup;
 import com.jfoenix.controls.JFXToolbar;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -25,6 +28,17 @@ public class MainController implements Controller {
   private StackPane optionsBurger;
   @FXML
   private VBox menu;
+  @FXML
+  private JFXButton loginbtn;
+  @FXML
+  private JFXButton navigationbtn;
+  @FXML
+  private JFXButton requestbtn;
+  @FXML
+  private JFXButton schedulingbtn;
+  @FXML
+  private JFXButton securitybtn;
+
   @Inject
   private EventBus eventBus;
   @Inject
@@ -58,6 +72,7 @@ public class MainController implements Controller {
         (observable, oldValue, newValue) -> {
           if ("Login Success".equals(newValue)) {
             loginPopup.hide();
+            loginbtn.setText("Logout");
           }
         }
     );
@@ -67,6 +82,19 @@ public class MainController implements Controller {
           ColorAdjust reset = new ColorAdjust();
           reset.setBrightness(0);
           root.setEffect(reset);
+        }
+    );
+
+    menu.heightProperty().addListener(
+        (observable, oldValue, newValue) -> {
+          navigationbtn.setMinHeight(newValue.doubleValue() / 4);
+          requestbtn.setMinHeight(newValue.doubleValue() / 4);
+          schedulingbtn.setMinHeight(newValue.doubleValue() / 4);
+          securitybtn.setMinHeight(newValue.doubleValue() / 4);
+          navigationbtn.setMaxHeight(newValue.doubleValue() / 4);
+          requestbtn.setMaxHeight(newValue.doubleValue() / 4);
+          schedulingbtn.setMaxHeight(newValue.doubleValue() / 4);
+          securitybtn.setMaxHeight(newValue.doubleValue() / 4);
         }
     );
   }
@@ -88,16 +116,21 @@ public class MainController implements Controller {
 
   @FXML
   void loginButtonAction() {
-    ColorAdjust colorAdjust = new ColorAdjust();
-    colorAdjust.setBrightness(-0.2);
-    root.setEffect(colorAdjust);
-    loginPopup.show(root);
-    loginPopup.setX(
-        (root.getScene().getWindow().getWidth() - loginPopup.getWidth()) / 2
-    );
-    loginPopup.setY(
-        (root.getScene().getWindow().getHeight() - loginPopup.getHeight()) / 2
-    );
+    if ("Logout".equals(loginbtn.getText())) {
+      loginbtn.setText("Login");
+      eventBus.post(new ChangeMainViewEvent(navigationControllerFactory.create(), false));
+    } else {
+      ColorAdjust colorAdjust = new ColorAdjust();
+      colorAdjust.setBrightness(-0.2);
+      root.setEffect(colorAdjust);
+      loginPopup.show(root);
+      loginPopup.setX(
+          (root.getScene().getWindow().getWidth() - loginPopup.getWidth()) / 2
+      );
+      loginPopup.setY(
+          (root.getScene().getWindow().getHeight() - loginPopup.getHeight()) / 2
+      );
+    }
   }
 
   @Subscribe
