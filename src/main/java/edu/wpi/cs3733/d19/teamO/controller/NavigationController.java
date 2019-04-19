@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.graph.GraphBuilder;
@@ -111,17 +112,17 @@ public class NavigationController implements Controller {
   @FXML
   @SuppressWarnings({"PMD.AvoidInstantiatingObjectsInLoops", "UseStringBufferForStringAppends"})
   void onGoButtonAction() throws IOException {
-    if (toComboBox.getValue().equals(fromComboBox.getValue())) {
+    if (Objects.isNull(searchForNode(toComboBox.getValue()))
+        || Objects.isNull(searchForNode(fromComboBox.getValue()))) {
+      DialogHelper.showInformationAlert("Must Select Valid Start/End Destinations",
+          "Please select valid start and end destinations to generate a valid path.");
+      return;
+    }
+
+    if (searchForNode(toComboBox.getValue()).equals(searchForNode(fromComboBox.getValue()))) {
       DialogHelper.showInformationAlert("Must Select Different Start/End Destinations",
           "Please select different start and end destinations to generate a valid path.");
       return;
-    }
-    for (String s: listOfLongName ) {
-      if (!s.equals(toComboBox.getValue()) || !s.equals(fromComboBox.getValue())) {
-        DialogHelper.showInformationAlert("Must Select Valid Start/End Destinations",
-            "Please select valid start and end destinations to generate a valid path.");
-        return;
-      }
     }
 
 
@@ -165,7 +166,7 @@ public class NavigationController implements Controller {
 
   private Node searchForNode(String string) {
     for (Node n: database.getAllNodes()) {
-      if (n.getLongName().equals(string)) {
+      if (String.format("%s -- FLOOR %s", n.getLongName(), n.getFloor()).equals(string)) {
         return n;
       }
     }
@@ -180,10 +181,12 @@ public class NavigationController implements Controller {
     class Pair implements Comparable<Pair> {
       String longname;
       int rating;
+      String floor;
 
-      Pair(String longname, int rating) {
+      Pair(String longname, int rating, String floor) {
         this.longname = longname;
         this.rating = rating;
+        this.floor = floor;
       }
 
       @Override
@@ -193,17 +196,18 @@ public class NavigationController implements Controller {
     }
 
     ArrayList<Pair> unsorted = new ArrayList<>();
-    for (String s : listOfLongName) {
+    for (Node n : database.getAllNodesByLongName()) {
       unsorted.add(new Pair(
-          s,
-          FuzzySearch.ratio(s, string)
+          n.getLongName(),
+          FuzzySearch.ratio(n.getLongName(), string),
+          n.getFloor()
       ));
     }
 
     Collections.sort(unsorted);
     ArrayList<String> sortedStrings = new ArrayList<>();
     for (Pair p : unsorted) {
-      sortedStrings.add(p.longname);
+      sortedStrings.add(String.format("%s -- FLOOR %s", p.longname,  p.floor));
     }
     return sortedStrings;
   }
