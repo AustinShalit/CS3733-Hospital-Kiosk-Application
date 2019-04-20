@@ -81,6 +81,8 @@ public class MapView extends StackPane {
 
   List<Timeline> antz = new ArrayList<>();
 
+  List<Double> buttonCoordY = new ArrayList<>();
+
   public void setPath(List<Node> path) {
     this.path = path;
   }
@@ -116,10 +118,13 @@ public class MapView extends StackPane {
       coordX.setText(Double.toString((int) pointOnMap.getX()));
     });
     gesturePane.setOnScroll(s -> {
+      int i = 0;
       for(javafx.scene.Node b : buttonsGroup.getChildren()){
         b.setScaleX(1.2 / gesturePane.getCurrentScale());
         b.setScaleY(1.2 / gesturePane.getCurrentScale());
-        //b.getLayoutX() + gesturePane.
+        b.setLayoutY(buttonCoordY.get(i) -10 + 10 / gesturePane.getCurrentScale());
+        i++;
+
       }
       for(javafx.scene.Node l : labelsGroup.getChildren()){
         l.setScaleX(1.2 / gesturePane.getCurrentScale());
@@ -422,6 +427,14 @@ public class MapView extends StackPane {
     nodeGroup.getChildren().addAll(pathEdges);
     nodeGroup.getChildren().addAll(labelsGroup);
     nodeGroup.getChildren().addAll(buttonsGroup);
+    buttonCoordY.clear();
+    for(javafx.scene.Node b : buttonsGroup.getChildren()){
+      buttonCoordY.add(b.getLayoutY());
+    }
+    for(javafx.scene.Node l : labelsGroup.getChildren()){
+
+    }
+
   }
 
   /**
@@ -541,7 +554,9 @@ public class MapView extends StackPane {
 
       if (lastNode.getFloorInt() == level) {
         Button button = new JFXButton("To Floor " + node.getFloor());
-        button.setTranslateX(lastNode.getXcoord() + 10  );
+        button.setScaleX(1.2 / gesturePane.getCurrentScale());
+        button.setScaleY(1.2 / gesturePane.getCurrentScale());
+        button.setTranslateX(lastNode.getXcoord() + 10);
         button.setTranslateY(lastNode.getYcoord() + 10);
         button.getStyleClass().add("navlabel");
 
@@ -556,6 +571,8 @@ public class MapView extends StackPane {
         });
 
         label2 = new Label(lastNode.getLongName());
+        label2.setScaleX(1.2 / gesturePane.getCurrentScale());
+        label2.setScaleY(1.2 / gesturePane.getCurrentScale());
         label2.setTranslateX(lastNode.getXcoord() + 10);
         label2.setTranslateY(lastNode.getYcoord() - 9);
         label2.getStyleClass().add("navlabel");
@@ -564,10 +581,11 @@ public class MapView extends StackPane {
 
       } else if (node.getFloorInt() == level) {
         Button button = new JFXButton("Back to Floor " + lastNode.getFloor());
+        button.setScaleX(1.2 / gesturePane.getCurrentScale());
+        button.setScaleY(1.2 / gesturePane.getCurrentScale());
         button.setTranslateX(node.getXcoord() + 10);
         button.setTranslateY(node.getYcoord() + 10);
         button.getStyleClass().add("navlabel");
-
         button.setOnAction(event -> {
           if (event.getSource() == button) {
             try {
@@ -579,6 +597,8 @@ public class MapView extends StackPane {
         });
 
         label2 = new Label(node.getLongName());
+        label2.setScaleX(1.2 / gesturePane.getCurrentScale());
+        label2.setScaleY(1.2 / gesturePane.getCurrentScale());
         label2.setTranslateX(node.getXcoord() + 10);
         label2.setTranslateY(node.getYcoord() - 9);
         label2.getStyleClass().add("navlabel");
