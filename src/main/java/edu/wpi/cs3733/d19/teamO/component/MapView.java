@@ -163,15 +163,15 @@ public class MapView extends StackPane {
       }
     });
     gesturePane.setOnScroll(s -> {
-      int i = 0;
-      for(javafx.scene.Node b : buttonsGroup.getChildren()){
+      int count = 0;
+      for (javafx.scene.Node b : buttonsGroup.getChildren()) {
         b.setScaleX(1.2 / gesturePane.getCurrentScale());
         b.setScaleY(1.2 / gesturePane.getCurrentScale());
-        b.setLayoutY(buttonCoordY.get(i) -10 + 10 / gesturePane.getCurrentScale());
-        i++;
+        b.setLayoutY(buttonCoordY.get(count) - 10 + 10 / gesturePane.getCurrentScale());
+        count++;
 
       }
-      for(javafx.scene.Node l : labelsGroup.getChildren()){
+      for (javafx.scene.Node l : labelsGroup.getChildren()) {
         l.setScaleX(1.2 / gesturePane.getCurrentScale());
         l.setScaleY(1.2 / gesturePane.getCurrentScale());
       }
@@ -472,7 +472,7 @@ public class MapView extends StackPane {
     nodeGroup.getChildren().addAll(labelsGroup);
     nodeGroup.getChildren().addAll(buttonsGroup);
     buttonCoordY.clear();
-    for(javafx.scene.Node b : buttonsGroup.getChildren()){
+    for (javafx.scene.Node b : buttonsGroup.getChildren()) {
       buttonCoordY.add(b.getLayoutY());
     }
   }
