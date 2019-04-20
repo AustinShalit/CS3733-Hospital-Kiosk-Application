@@ -120,14 +120,12 @@ public class NavigationController implements Controller {
 
   @FXML
   void onToComboAction() {
-    toComboBox.show();
     validateGoButton();
 
   }
 
   @FXML
   void onFromComboAction() {
-    fromComboBox.show();
     validateGoButton();
   }
 
@@ -184,6 +182,11 @@ public class NavigationController implements Controller {
   void refreshCombobox() {
     DialogHelper.populateComboBox2(database, fromComboBox, fuzzySearch(fromComboBox.getValue()));
     DialogHelper.populateComboBox2(database, toComboBox, fuzzySearch(toComboBox.getValue()));
+    if (toComboBox.isFocused()) {
+      toComboBox.show();
+    } else if (fromComboBox.isFocused()) {
+      fromComboBox.show();
+    }
   }
 
   private Node searchForNode(String string) {
