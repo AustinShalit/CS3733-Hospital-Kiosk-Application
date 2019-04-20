@@ -1,6 +1,6 @@
 .root {
     -fx-background-color: #F1F1F1;
-    -fx-background-image: url("TechBackground.png");
+    -fx-background-image: url("0002-pale.png");
     -fx-background-size: cover;
     -fx-max-height: 4000px;
     -fx-max-width: 4000px;
@@ -56,6 +56,15 @@
     -fx-border-width: 0 0 10px 0;
 }
 
+#map-button {
+    -fx-background-color: #0067B1;
+}
+
+#map-button:hover {
+    -fx-background-color: #004E86;
+    -fx-border-width: 0;
+}
+
 #login-button {
     -fx-background-color: #0067B1;
     -fx-font-weight: bold;
@@ -82,6 +91,10 @@
 
 #table-button {
     -fx-padding: 10px 20px 10px 20px;
+}
+
+#map-delete:hover {
+    -fx-border-width: 0;
 }
 
 .jfx-text-field {
