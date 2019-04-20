@@ -112,9 +112,21 @@ public class MapView extends StackPane {
             .interpolateWith(Interpolator.EASE_BOTH)
             .zoomBy(gesturePane.getCurrentScale(), pointOnMap);
       }
-      coordY.setText(Double.toString((int) pointOnMap.getX()));
-      coordX.setText(Double.toString((int) pointOnMap.getY()));
+      coordY.setText(Double.toString((int) pointOnMap.getY()));
+      coordX.setText(Double.toString((int) pointOnMap.getX()));
     });
+    gesturePane.setOnScroll(s -> {
+      for(javafx.scene.Node b : buttonsGroup.getChildren()){
+        b.setScaleX(1.2 / gesturePane.getCurrentScale());
+        b.setScaleY(1.2 / gesturePane.getCurrentScale());
+        //b.getLayoutX() + gesturePane.
+      }
+      for(javafx.scene.Node l : labelsGroup.getChildren()){
+        l.setScaleX(1.2 / gesturePane.getCurrentScale());
+        l.setScaleY(1.2 / gesturePane.getCurrentScale());
+      }
+    });
+
     gesturePane.setFitMode(GesturePane.FitMode.COVER);
     gesturePane.setScrollBarEnabled(false);
     resetButtonBackground(99);
@@ -529,7 +541,7 @@ public class MapView extends StackPane {
 
       if (lastNode.getFloorInt() == level) {
         Button button = new JFXButton("To Floor " + node.getFloor());
-        button.setTranslateX(lastNode.getXcoord() + 10);
+        button.setTranslateX(lastNode.getXcoord() + 10  );
         button.setTranslateY(lastNode.getYcoord() + 10);
         button.getStyleClass().add("navlabel");
 
