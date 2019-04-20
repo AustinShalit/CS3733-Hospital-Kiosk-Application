@@ -12,6 +12,7 @@ import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -36,10 +37,12 @@ import net.kurobako.gesturefx.GesturePane;
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 
+import static java.lang.Math.abs;
+
 @SuppressWarnings({"PMD.TooManyFields", "PMD.ExcessiveImports", "PMD.TooManyMethods" ,
     "PMD.CyclomaticComplexity"})
 public class MapView extends StackPane {
-
+  private boolean navigation;
   private int level = 1;
 
   @FXML
@@ -65,9 +68,14 @@ public class MapView extends StackPane {
   @FXML
   private Button levelG;
   @FXML
+  private Circle circle;
+  @FXML
   Label coordX;
   @FXML
   Label coordY;
+
+  private final SimpleObjectProperty<Node> nodeClicked = new SimpleObjectProperty<>();
+  private  Collection<Node> nodes;
 
   Group startAndEndNodes = new Group();
 
@@ -82,6 +90,26 @@ public class MapView extends StackPane {
   List<Timeline> antz = new ArrayList<>();
 
   List<Double> buttonCoordY = new ArrayList<>();
+
+  public void setNodes(Collection<Node> nodes) {
+    this.nodes = nodes;
+  }
+
+  public void setNavigation(boolean navigation) {
+    this.navigation = navigation;
+  }
+
+  public Node getNodeClicked() {
+    return nodeClicked.get();
+  }
+
+  public SimpleObjectProperty<Node> nodeClickedProperty() {
+    return nodeClicked;
+  }
+
+  public void setNodeClicked(Node selectedNode) {
+    this.nodeClicked.set(selectedNode);
+  }
 
   public void setPath(List<Node> path) {
     this.path = path;
@@ -104,18 +132,35 @@ public class MapView extends StackPane {
     gesturePane.setMinScale(0.1);
     gesturePane.reset();
     gesturePane.setOnMouseClicked(e -> {
-      Point2D pointOnMap = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
-          .orElse(gesturePane.targetPointAtViewportCentre());
+      if (navigation) {
+        Point2D pointOnMap = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
+            .orElse(gesturePane.targetPointAtViewportCentre());
+        if (e.getButton() == MouseButton.PRIMARY && e.getClickCount() == 2) {
+          // increment of scale makes more sense exponentially instead of linearly
+          gesturePane.animate(Duration.millis(200))
+              .interpolateWith(Interpolator.EASE_BOTH)
+              .zoomBy(gesturePane.getCurrentScale(), pointOnMap);
+        }
 
-      if (e.getButton() == MouseButton.PRIMARY && e.getClickCount() == 2) {
-
-        // increment of scale makes more sense exponentially instead of linearly
-        gesturePane.animate(Duration.millis(200))
-            .interpolateWith(Interpolator.EASE_BOTH)
-            .zoomBy(gesturePane.getCurrentScale(), pointOnMap);
+        int currentX = (int) pointOnMap.getX();
+        int currentY = (int) pointOnMap.getY();
+        double min = 9999;
+        double distance = 0;
+        for (Node n : nodes) {
+          distance = Math.sqrt(abs(n.getXcoord() - currentX) * abs(n.getXcoord() - currentX)
+              + abs(n.getYcoord() - currentY) * abs(n.getYcoord() - currentY));
+          if (n.getFloorInt() == level && distance < min
+              && !n.getNodeType().equals(Node.NodeType.HALL)) {
+            nodeClicked.set(n);
+            circle.setCenterX(n.getXcoord());
+            circle.setCenterY(n.getYcoord());
+            min = distance;
+          }
+        }
+        circle.setVisible(true);
+        coordY.setText(Double.toString((int) pointOnMap.getX()));
+        coordX.setText(Double.toString((int) pointOnMap.getY()));
       }
-      coordY.setText(Double.toString((int) pointOnMap.getY()));
-      coordX.setText(Double.toString((int) pointOnMap.getX()));
     });
     gesturePane.setOnScroll(s -> {
       int i = 0;
@@ -136,7 +181,6 @@ public class MapView extends StackPane {
     gesturePane.setScrollBarEnabled(false);
     resetButtonBackground(99);
     levelF1.setStyle("-fx-background-color: rgb(1,45,90)");
-
     onFloorSelectAction(new ActionEvent(levelF1, levelF1));
   }
 
@@ -431,10 +475,6 @@ public class MapView extends StackPane {
     for(javafx.scene.Node b : buttonsGroup.getChildren()){
       buttonCoordY.add(b.getLayoutY());
     }
-    for(javafx.scene.Node l : labelsGroup.getChildren()){
-
-    }
-
   }
 
   /**
