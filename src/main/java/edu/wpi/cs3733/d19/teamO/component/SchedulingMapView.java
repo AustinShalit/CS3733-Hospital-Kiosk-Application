@@ -52,6 +52,7 @@ public class SchedulingMapView extends MapView {
     return selectedNode.get();
   }
 
+
   public ObjectProperty<Node> selectedNodeProperty() {
     return selectedNode;
   }
