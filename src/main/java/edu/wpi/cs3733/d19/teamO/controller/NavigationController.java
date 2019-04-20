@@ -86,6 +86,7 @@ public class NavigationController implements Controller {
     map.setNodes(database.getAllNodes());
     stepByStep = new StepByStep();
     validateGoButton();
+    map.setNavigation(true);
     map.nodeClickedProperty().addListener((observable, oldValue, newValue) -> {
       if (fromComboBox.isFocused()) {
         fromComboBox.setValue(newValue.getLongName());
