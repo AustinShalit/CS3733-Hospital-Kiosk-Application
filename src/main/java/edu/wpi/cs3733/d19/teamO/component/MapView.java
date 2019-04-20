@@ -13,7 +13,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
@@ -527,45 +526,21 @@ public class MapView extends StackPane {
   private void addFloorChangeLabel(Node node, Node lastNode) {
     if (lastNode.getFloorInt() != node.getFloorInt()) {
       Label label2 = null;
+
       if (lastNode.getFloorInt() == level) {
         Button button = new JFXButton("To Floor " + node.getFloor());
         button.setTranslateX(lastNode.getXcoord() + 10);
         button.setTranslateY(lastNode.getYcoord() + 10);
         button.getStyleClass().add("navlabel");
 
-        label2 = new Label(lastNode.getLongName());
-        label2.setTranslateX(lastNode.getXcoord() + 10);
-        label2.setTranslateY(lastNode.getYcoord() - 9);
-        label2.getStyleClass().add("navlabel");
-
-
-
-      } else if (node.getFloorInt() == level) {
-        Button button = new JFXButton("Back to Floor " + lastNode.getFloor());
-        button.setTranslateX(node.getXcoord() + 10);
-        button.setTranslateY(node.getYcoord() + 10);
-        button.getStyleClass().add("navlabel");
-
-        label2 = new Label(node.getLongName());
-        label2.setTranslateX(node.getXcoord() + 10);
-        label2.setTranslateY(node.getYcoord() - 9);
-        label2.getStyleClass().add("navlabel");
-      }
-        if (lastNode.getFloorInt() == level) {
-        Button button = new JFXButton("To Floor " + node.getFloor());
-        button.setTranslateX(lastNode.getXcoord() + 10);
-        button.setTranslateY(lastNode.getYcoord() + 10);
-        button.getStyleClass().add("navlabel");
-
         button.setOnAction(event -> {
-            if(event.getSource() == button){
-              try {
-                switchFloor(node.getFloor());
-              } catch (IOException e) {
-                e.printStackTrace();
-              }
+          if (event.getSource() == button) {
+            try {
+              switchFloor(node.getFloor());
+            } catch (IOException exception) {
+              exception.printStackTrace();
             }
-
+          }
         });
 
         label2 = new Label(lastNode.getLongName());
@@ -582,14 +557,13 @@ public class MapView extends StackPane {
         button.getStyleClass().add("navlabel");
 
         button.setOnAction(event -> {
-          if(event.getSource() == button){
+          if (event.getSource() == button) {
             try {
               switchFloor(lastNode.getFloor());
-            } catch (IOException e) {
-              e.printStackTrace();
+            } catch (IOException exception) {
+              exception.printStackTrace();
             }
           }
-
         });
 
         label2 = new Label(node.getLongName());
