@@ -88,11 +88,14 @@ public class NavigationController implements Controller {
     map.setNavigation(true);
     map.nodeClickedProperty().addListener((observable, oldValue, newValue) -> {
       if (fromComboBox.isFocused()) {
-        fromComboBox.setValue(String.format("%s -- FLOOR %s", newValue.getLongName(), newValue.getFloor()));
+        fromComboBox.setValue(String.format("%s -- FLOOR %s",
+            newValue.getLongName(), newValue.getFloor()));
       } else if (toComboBox.isFocused()) {
-        toComboBox.setValue(String.format("%s -- FLOOR %s", newValue.getLongName(), newValue.getFloor()));
+        toComboBox.setValue(String.format("%s -- FLOOR %s",
+            newValue.getLongName(), newValue.getFloor()));
       } else if (fromComboBox.getValue() == null && toComboBox.getValue() == null) {
-        fromComboBox.setValue(String.format("%s -- FLOOR %s", newValue.getLongName(), newValue.getFloor()));
+        fromComboBox.setValue(String.format("%s -- FLOOR %s",
+            newValue.getLongName(), newValue.getFloor()));
         fromComboBox.requestFocus();
       }
     });
@@ -130,20 +133,9 @@ public class NavigationController implements Controller {
   @FXML
   @SuppressWarnings({"PMD.AvoidInstantiatingObjectsInLoops", "UseStringBufferForStringAppends"})
   void onGoButtonAction() throws IOException {
-    int count = 0;
     if (toComboBox.getValue().equals(fromComboBox.getValue())) {
       DialogHelper.showInformationAlert("Must Select Different Start/End Destinations",
           "Please select different start and end destinations to generate a valid path.");
-      return;
-    }
-    for (String s: listOfLongName ) {
-      if (s.equals(toComboBox.getValue()) || s.equals(fromComboBox.getValue())) {
-        count++;
-      }
-    }
-    if (count != 2) {
-      DialogHelper.showInformationAlert("Must Select Valid Start/End Destinations",
-          "Please select valid start and end destinations to generate a valid path.");
       return;
     }
 
@@ -218,11 +210,13 @@ public class NavigationController implements Controller {
 
     ArrayList<Pair> unsorted = new ArrayList<>();
     for (Node n : database.getAllNodesByLongName()) {
-      unsorted.add(new Pair(
-          n.getLongName(),
-          FuzzySearch.ratio(n.getLongName(), string),
-          n.getFloor()
-      ));
+      if (!"5".equals(n.getFloor())  && !n.getNodeType().equals(Node.NodeType.HALL)) {
+        unsorted.add(new Pair(
+            n.getLongName(),
+            FuzzySearch.ratio(n.getLongName(), string),
+            n.getFloor()
+        ));
+      }
     }
 
     Collections.sort(unsorted);
@@ -244,7 +238,6 @@ public class NavigationController implements Controller {
 
   @FXML
   void aboutOnAction() {
-    String a;
     eventBus.post(new ChangeMainViewEvent(aboutControllerFactory.create()));
   }
 
