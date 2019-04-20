@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
-import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 
@@ -21,7 +20,6 @@ import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import edu.wpi.cs3733.d19.teamO.controller.Controller;
@@ -93,10 +91,6 @@ public class OrderController implements Controller {
   private TitledPane menuPane;
   @FXML
   private StackPane menuStackPane;
-  @FXML
-  private VBox leftVBox;
-  @FXML
-  private VBox rightVBox;
 
   /**
    * Place Order.
@@ -115,8 +109,6 @@ public class OrderController implements Controller {
   private TableView<Product> orderSummaryTableView;
   @FXML
   private TableColumn<Product, String> orderItemColumn;
-  @FXML
-  private JFXCheckBox enableRealTransactionCheckbox;
 
   //  @Inject
   //  private EventBus eventBus;
@@ -278,13 +270,7 @@ public class OrderController implements Controller {
    */
   @FXML
   void onSubmitAction() {
-  }
-
-  /**
-   * Toggle the submit button enable/disable.
-   */
-  @FXML
-  void toggleSubmitButton() {
+    DialogHelper.showErrorAlert("", "Ordering has not yet been configured. Please see the source code.");
   }
 
   /**

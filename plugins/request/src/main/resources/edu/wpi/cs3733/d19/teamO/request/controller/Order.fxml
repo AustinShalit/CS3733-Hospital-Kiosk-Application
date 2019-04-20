@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
@@ -249,11 +248,6 @@
                             <Insets top="10.0" />
                           </VBox.margin>
                         </Text>
-                        <JFXCheckBox fx:id="enableRealTransactionCheckbox" alignment="CENTER" checkedColor="#006491" text="Real Transaction" underline="true">
-                          <VBox.margin>
-                            <Insets top="10.0" />
-                          </VBox.margin>
-                        </JFXCheckBox>
                       </children>
                     </VBox>
                   </center>
