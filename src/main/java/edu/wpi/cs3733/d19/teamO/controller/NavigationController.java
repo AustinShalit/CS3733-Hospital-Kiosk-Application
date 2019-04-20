@@ -197,11 +197,13 @@ public class NavigationController implements Controller {
 
     ArrayList<Pair> unsorted = new ArrayList<>();
     for (Node n : database.getAllNodesByLongName()) {
-      unsorted.add(new Pair(
-          n.getLongName(),
-          FuzzySearch.ratio(n.getLongName(), string),
-          n.getFloor()
-      ));
+      if(!Node.NodeType.HALL.equals(n.getNodeType())) {
+        unsorted.add(new Pair(
+            n.getLongName(),
+            FuzzySearch.ratio(n.getLongName(), string),
+            n.getFloor()
+        ));
+      }
     }
 
     Collections.sort(unsorted);
@@ -229,20 +231,20 @@ public class NavigationController implements Controller {
   @FXML
   void nearestLocation(ActionEvent event) throws IOException {
     if (event.getSource() == restroomButton) {
-      fromComboBox.setValue("Au Bon Pain");
-      toComboBox.setValue("Bathroom 75 Lobby");
+      fromComboBox.setValue("Au Bon Pain -- FLOOR 1");
+      toComboBox.setValue("Bathroom 75 Lobby -- FLOOR 1");
       onGoButtonAction();
     } else if (event.getSource() == emergencyButton) {
-      fromComboBox.setValue("Au Bon Pain");
-      toComboBox.setValue("Emergency Department");
+      fromComboBox.setValue("Au Bon Pain -- FLOOR 1");
+      toComboBox.setValue("Emergency Department -- FLOOR 1");
       onGoButtonAction();
     } else if (event.getSource() == informationButton) {
-      fromComboBox.setValue("Au Bon Pain");
-      toComboBox.setValue("75 Lobby Information Desk");
+      fromComboBox.setValue("Au Bon Pain -- FLOOR 1");
+      toComboBox.setValue("75 Lobby Information Desk -- FLOOR 1");
       onGoButtonAction();
     } else if (event.getSource() == elevatorButton) {
-      fromComboBox.setValue("Au Bon Pain");
-      toComboBox.setValue("Elevator M Floor 1");
+      fromComboBox.setValue("Au Bon Pain -- FLOOR 1");
+      toComboBox.setValue("Elevator M Floor 1 -- FLOOR 1");
       onGoButtonAction();
     }
 
