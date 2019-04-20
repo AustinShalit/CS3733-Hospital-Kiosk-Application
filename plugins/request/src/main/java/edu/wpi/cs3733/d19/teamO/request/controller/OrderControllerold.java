@@ -169,14 +169,14 @@
 //  }
 //
 //  @FXML
-//  void onMenuPaneClicked() {
+//  void onMenuPaneExpanded() {
 //    if(parseCustomerInfo() != null && parseCustomerAddress() != null) {
 //      menuPane.setExpanded(true);
 //    }
 //  }
 //
 //  @FXML
-//  void onPlaceOrderPaneClicked() {
+//  void onPlaceOrderPaneExpanded() {
 //    if(parseCustomerInfo() != null && parseCustomerAddress() != null) {
 //      if(cart2 != null) {
 //        placeOrderPane.setExpanded(true);

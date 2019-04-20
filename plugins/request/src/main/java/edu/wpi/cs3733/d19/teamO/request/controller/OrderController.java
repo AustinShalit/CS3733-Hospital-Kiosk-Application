@@ -8,14 +8,19 @@ import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TitledPane;
+import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -87,7 +92,7 @@ public class OrderController implements Controller {
   @FXML
   private TitledPane menuPane;
   @FXML
-  private GridPane menuGrid;
+  private StackPane menuStackPane;
   @FXML
   private VBox leftVBox;
   @FXML
@@ -182,7 +187,7 @@ public class OrderController implements Controller {
    * menu for them to select from.
    */
   @FXML
-  void onMenuPaneClicked() throws IOException {
+  void onMenuPaneExpanded() throws IOException {
     if (setCustomer() && setAddress()) {
       if (setStore()) {
         setMenu();
@@ -228,7 +233,7 @@ public class OrderController implements Controller {
    * selected something from the menu.
    */
   @FXML
-  void onPlaceOrderPaneClicked() throws IOException {
+  void onPlaceOrderPaneExpanded() throws IOException {
     if (setCustomer() && setAddress()) {
       if (order != null && !order.getProducts().isEmpty()) {
         fillOrderInformation();
@@ -288,23 +293,39 @@ public class OrderController implements Controller {
    */
   void titledPaneListeners() {
     customerInformationPane.expandedProperty().addListener((obs, wasExpanded, isNowExpanded) -> {
-      if (customerInformationPane.isExpanded()) {
-        menuPane.setExpanded(false);
-        placeOrderPane.setExpanded(false);
+      if (isNowExpanded) {
+        if (customerInformationPane.isExpanded()) {
+          menuPane.setExpanded(false);
+          placeOrderPane.setExpanded(false);
+        }
       }
     });
 
     menuPane.expandedProperty().addListener((obs, wasExpanded, isNowExpanded) -> {
-      if (menuPane.isExpanded()) {
-        customerInformationPane.setExpanded(false);
-        placeOrderPane.setExpanded(false);
+      if (isNowExpanded) {
+        try {
+          onMenuPaneExpanded();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+        if (menuPane.isExpanded()) {
+          customerInformationPane.setExpanded(false);
+          placeOrderPane.setExpanded(false);
+        }
       }
     });
 
     placeOrderPane.expandedProperty().addListener((obs, wasExpanded, isNowExpanded) -> {
-      if (placeOrderPane.isExpanded()) {
-        menuPane.setExpanded(false);
-        customerInformationPane.setExpanded(false);
+      if (isNowExpanded) {
+        try {
+          onPlaceOrderPaneExpanded();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+        if (placeOrderPane.isExpanded()) {
+          menuPane.setExpanded(false);
+          customerInformationPane.setExpanded(false);
+        }
       }
     });
   }
@@ -339,29 +360,22 @@ public class OrderController implements Controller {
   /**
    * Refresh the menu given a list of products.
    */
-  @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
   void refreshMenu(List<Product> products) {
-    menuGrid.getChildren().removeAll();
+    ListView<Product> listView = new ListView<>(FXCollections.observableArrayList(products));
+    listView.setCellFactory(CheckBoxListCell.forListView(item -> {
+      BooleanProperty observable = new SimpleBooleanProperty();
+      observable.addListener((obs, wasSelected, isNowSelected) -> {
+            if (isNowSelected) {
+              order.addProduct(item);
+            } else {
+              order.removeProduct(item);
+            }
+          }
 
-    for (int i = 0; i < menu.getProducts().size(); i++) {
-      Product product = menu.getProducts().get(i);
-      JFXCheckBox checkBox = new JFXCheckBox(product.getName());
-
-      checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
-
-        if (checkBox.isSelected()) {
-          order.addProduct(menu.getProduct(products, checkBox.getText()));
-        } else {
-          order.removeProduct(checkBox.getText());
-        }
-
-      });
-
-      if (i % 2 == 0) {
-        leftVBox.getChildren().add(checkBox);
-      } else {
-        rightVBox.getChildren().add(checkBox);
-      }
-    }
+      );
+      return observable;
+    }));
+    menuStackPane.getChildren().removeAll();
+    menuStackPane.getChildren().add(listView);
   }
 }

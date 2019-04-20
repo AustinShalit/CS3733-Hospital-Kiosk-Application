@@ -146,10 +146,10 @@ public class Order extends GenericJson {
   /**
    * Remove a product from the order.
    */
-  public void removeProduct(String name) {
-    for (Product p : products) {
-      if (p.getName().equals(name)) {
-        products.remove(p);
+  public void removeProduct(Product product) {
+    for (Product prod : products) {
+      if (prod.equals(product)) {
+        products.remove(prod);
       }
     }
   }
