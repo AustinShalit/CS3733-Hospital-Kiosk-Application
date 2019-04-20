@@ -225,6 +225,6 @@ tasks.register<Delete>("deleteDatabase") {
 }
 
 tasks.withType<Wrapper>().configureEach {
-    gradleVersion = "5.3.1"
+    gradleVersion = "5.4"
     distributionType = Wrapper.DistributionType.ALL
 }

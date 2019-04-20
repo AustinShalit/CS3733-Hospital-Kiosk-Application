@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.graph.GraphBuilder;
@@ -13,6 +14,7 @@ import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
@@ -29,7 +31,7 @@ import edu.wpi.cs3733.d19.teamO.entity.pathfinding.StepByStep;
 
 @FxmlController(url = "Navigation.fxml")
 @SuppressWarnings({"PMD.TooManyFields", "PMD.RedundantFieldInitializer",
-    "PMD.AvoidInstantiatingObjectsInLoops"})
+    "PMD.AvoidInstantiatingObjectsInLoops", "PMD.TooManyMethods"})
 
 public class NavigationController implements Controller {
 
@@ -40,9 +42,9 @@ public class NavigationController implements Controller {
   @FXML
   JFXButton restroomButton;
   @FXML
-  JFXButton walkwayButton;
+  JFXButton emergencyButton;
   @FXML
-  JFXButton exitButton;
+  JFXButton elevatorButton;
   @FXML
   JFXButton informationButton;
   @FXML
@@ -96,19 +98,33 @@ public class NavigationController implements Controller {
 
 
   @FXML
-  void onComboAction() {
+  void onToComboAction() {
+    toComboBox.show();
+    validateGoButton();
+  }
+
+  @FXML
+  void onFromComboAction() {
+    fromComboBox.show();
     validateGoButton();
   }
 
   @FXML
   @SuppressWarnings({"PMD.AvoidInstantiatingObjectsInLoops", "UseStringBufferForStringAppends"})
   void onGoButtonAction() throws IOException {
+    if (Objects.isNull(searchForNode(toComboBox.getValue()))
+        || Objects.isNull(searchForNode(fromComboBox.getValue()))) {
+      DialogHelper.showInformationAlert("Must Select Valid Start/End Destinations",
+          "Please select valid start and end destinations to generate a valid path.");
+      return;
+    }
 
-    if (toComboBox.getValue().equals(fromComboBox.getValue())) {
+    if (searchForNode(toComboBox.getValue()).equals(searchForNode(fromComboBox.getValue()))) {
       DialogHelper.showInformationAlert("Must Select Different Start/End Destinations",
           "Please select different start and end destinations to generate a valid path.");
       return;
     }
+
 
     IGraphSearchAlgorithm<Node> algorithm = appPreferences.getGraphSearchAlgorithm().getAlgorithm();
     MutableGraph<Node> graph = GraphBuilder.undirected().allowsSelfLoops(false).build();
@@ -150,7 +166,7 @@ public class NavigationController implements Controller {
 
   private Node searchForNode(String string) {
     for (Node n: database.getAllNodes()) {
-      if (n.getLongName().equals(string)) {
+      if (String.format("%s -- FLOOR %s", n.getLongName(), n.getFloor()).equals(string)) {
         return n;
       }
     }
@@ -165,10 +181,12 @@ public class NavigationController implements Controller {
     class Pair implements Comparable<Pair> {
       String longname;
       int rating;
+      String floor;
 
-      Pair(String longname, int rating) {
+      Pair(String longname, int rating, String floor) {
         this.longname = longname;
         this.rating = rating;
+        this.floor = floor;
       }
 
       @Override
@@ -178,17 +196,18 @@ public class NavigationController implements Controller {
     }
 
     ArrayList<Pair> unsorted = new ArrayList<>();
-    for (String s : listOfLongName) {
+    for (Node n : database.getAllNodesByLongName()) {
       unsorted.add(new Pair(
-          s,
-          FuzzySearch.ratio(s, string)
+          n.getLongName(),
+          FuzzySearch.ratio(n.getLongName(), string),
+          n.getFloor()
       ));
     }
 
     Collections.sort(unsorted);
     ArrayList<String> sortedStrings = new ArrayList<>();
     for (Pair p : unsorted) {
-      sortedStrings.add(p.longname);
+      sortedStrings.add(String.format("%s -- FLOOR %s", p.longname,  p.floor));
     }
     return sortedStrings;
   }
@@ -205,5 +224,27 @@ public class NavigationController implements Controller {
   @FXML
   void aboutOnAction() {
     eventBus.post(new ChangeMainViewEvent(aboutControllerFactory.create()));
+  }
+
+  @FXML
+  void nearestLocation(ActionEvent event) throws IOException {
+    if (event.getSource() == restroomButton) {
+      fromComboBox.setValue("Au Bon Pain");
+      toComboBox.setValue("Bathroom 75 Lobby");
+      onGoButtonAction();
+    } else if (event.getSource() == emergencyButton) {
+      fromComboBox.setValue("Au Bon Pain");
+      toComboBox.setValue("Emergency Department");
+      onGoButtonAction();
+    } else if (event.getSource() == informationButton) {
+      fromComboBox.setValue("Au Bon Pain");
+      toComboBox.setValue("75 Lobby Information Desk");
+      onGoButtonAction();
+    } else if (event.getSource() == elevatorButton) {
+      fromComboBox.setValue("Au Bon Pain");
+      toComboBox.setValue("Elevator M Floor 1");
+      onGoButtonAction();
+    }
+
   }
 }
