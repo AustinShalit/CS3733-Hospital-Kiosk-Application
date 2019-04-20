@@ -160,9 +160,9 @@
               <bottom>
                 <StackPane BorderPane.alignment="CENTER" />
               </bottom>
-                     <center>
-                        <StackPane fx:id="menuStackPane" BorderPane.alignment="CENTER" />
-                     </center>
+              <center>
+                <StackPane fx:id="menuStackPane" BorderPane.alignment="CENTER" />
+              </center>
             </BorderPane>
           </content>
         </TitledPane>

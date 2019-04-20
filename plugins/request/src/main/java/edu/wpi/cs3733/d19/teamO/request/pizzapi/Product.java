@@ -13,8 +13,6 @@ public class Product extends GenericJson {
   @Key("Name")
   private String name;
 
-  public static String removeOption;
-
   public Product() {
 
   }
@@ -25,7 +23,6 @@ public class Product extends GenericJson {
   public Product(String code, String name) {
     this.code = code;
     this.name = name;
-    this.removeOption = "Remove Item";
   }
 
   public String getCode() {
@@ -44,14 +41,6 @@ public class Product extends GenericJson {
     this.name = name;
   }
 
-  public String getRemoveOption() {
-    return removeOption;
-  }
-
-  public void setRemoveOption(String removeOption) {
-    this.removeOption = removeOption;
-  }
-
   @Override
   public String toString() {
     return MoreObjects.toStringHelper(this)
@@ -62,11 +51,18 @@ public class Product extends GenericJson {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (!(o instanceof Product)) return false;
-    if (!super.equals(o)) return false;
+    if (this == o) {
+      return true;
+    }
+    if (!(o instanceof Product)) {
+      return false;
+    }
+    if (!super.equals(o)) {
+      return false;
+    }
     Product product = (Product) o;
-    return code.equals(product.code) &&
+    return code.equals(product.code)
+        &&
         name.equals(product.name);
   }
 

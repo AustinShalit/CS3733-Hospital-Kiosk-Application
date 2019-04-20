@@ -35,7 +35,7 @@ import edu.wpi.cs3733.d19.teamO.request.pizzapi.Store;
 
 import static edu.wpi.cs3733.d19.teamO.request.controller.ControllerHelper.populateStatesCombobox;
 
-@SuppressWarnings({"PMD.TooManyMethods", "PMD.TooManyFields"})
+@SuppressWarnings({"PMD.ExcessiveImports", "PMD.TooManyMethods", "PMD.TooManyFields"})
 @FxmlController(url = "Order.fxml")
 public class OrderController implements Controller {
 
@@ -266,7 +266,8 @@ public class OrderController implements Controller {
    */
   @FXML
   void onSubmitAction() {
-    DialogHelper.showErrorAlert("", "Ordering has not yet been configured. Please see the source code.");
+    DialogHelper.showErrorAlert("",
+        "Ordering has not yet been configured. Please see the source code.");
   }
 
   /**
@@ -275,11 +276,9 @@ public class OrderController implements Controller {
    */
   void titledPaneListeners() {
     customerInformationPane.expandedProperty().addListener((obs, wasExpanded, isNowExpanded) -> {
-      if (isNowExpanded) {
-        if (customerInformationPane.isExpanded()) {
-          menuPane.setExpanded(false);
-          placeOrderPane.setExpanded(false);
-        }
+      if (isNowExpanded && customerInformationPane.isExpanded()) {
+        menuPane.setExpanded(false);
+        placeOrderPane.setExpanded(false);
       }
     });
 
@@ -287,8 +286,8 @@ public class OrderController implements Controller {
       if (isNowExpanded) {
         try {
           onMenuPaneExpanded();
-        } catch (IOException e) {
-          e.printStackTrace();
+        } catch (IOException ex) {
+          ex.printStackTrace();
         }
         if (menuPane.isExpanded()) {
           customerInformationPane.setExpanded(false);
@@ -301,8 +300,8 @@ public class OrderController implements Controller {
       if (isNowExpanded) {
         try {
           onPlaceOrderPaneExpanded();
-        } catch (IOException e) {
-          e.printStackTrace();
+        } catch (IOException ex) {
+          ex.printStackTrace();
         }
         if (placeOrderPane.isExpanded()) {
           menuPane.setExpanded(false);
