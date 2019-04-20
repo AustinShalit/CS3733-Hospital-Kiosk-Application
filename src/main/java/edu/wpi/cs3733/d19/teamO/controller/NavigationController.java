@@ -17,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 
@@ -86,13 +87,22 @@ public class NavigationController implements Controller {
     stepByStep = new StepByStep();
     validateGoButton();
     map.nodeClickedProperty().addListener((observable, oldValue, newValue) -> {
-      if (toComboBox.isFocused()) {
-        toComboBox.setValue(newValue.getLongName());
-      } else if (fromComboBox.isFocused()) {
+      if (fromComboBox.isFocused()) {
         fromComboBox.setValue(newValue.getLongName());
+      } else if (toComboBox.isFocused()) {
+        toComboBox.setValue(newValue.getLongName());
+      } else if (fromComboBox.getValue() == null && toComboBox.getValue() == null) {
+        fromComboBox.setValue(newValue.getLongName());
+        fromComboBox.requestFocus();
+      }
+    });
+    fromComboBox.setOnKeyReleased(ke -> {
+      if (ke.getCode() == KeyCode.TAB) {
+        toComboBox.requestFocus();
       }
     });
   }
+
 
   @Override
   public Parent getRoot() {
@@ -105,9 +115,10 @@ public class NavigationController implements Controller {
 
 
   @FXML
-  void onToComboAction() {
+  void onToComboAction() throws IOException {
     toComboBox.show();
     validateGoButton();
+
   }
 
   @FXML
@@ -115,6 +126,8 @@ public class NavigationController implements Controller {
     fromComboBox.show();
     validateGoButton();
   }
+
+
 
   @FXML
   @SuppressWarnings({"PMD.AvoidInstantiatingObjectsInLoops", "UseStringBufferForStringAppends"})
@@ -160,7 +173,7 @@ public class NavigationController implements Controller {
 
   }
 
-  void validateGoButton() {
+  private void validateGoButton() {
     if (fromComboBox.getValue() != null && toComboBox.getValue() != null) {
       goButton.setDisable(false);
     } else {

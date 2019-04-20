@@ -66,6 +66,8 @@ public class MapView extends StackPane {
   @FXML
   private Button levelG;
   @FXML
+  private Circle circle;
+  @FXML
   Label coordX;
   @FXML
   Label coordY;
@@ -131,9 +133,6 @@ public class MapView extends StackPane {
             .zoomBy(gesturePane.getCurrentScale(), pointOnMap);
       }
 
-      Node emptyNode = new Node("Auto-Generated", 0, 0, "8", "",
-          null, "test", "");
-      nodeClicked.set(emptyNode);
       int currentX = (int) pointOnMap.getX();
       int currentY = (int) pointOnMap.getY();
       double min = 9999;
@@ -144,10 +143,12 @@ public class MapView extends StackPane {
         if (n.getFloorInt() == level && distance < min
             && !n.getNodeType().equals(Node.NodeType.HALL)) {
           nodeClicked.set(n);
+          circle.setCenterX(n.getXcoord());
+          circle.setCenterY(n.getYcoord());
           min = distance;
         }
       }
-
+      circle.setVisible(true);
       coordY.setText(Double.toString((int) pointOnMap.getX()));
       coordX.setText(Double.toString((int) pointOnMap.getY()));
     });
