@@ -21,12 +21,4 @@
       </StackPane>
     </graphic>
   </Label>
-  <Label onMouseClicked="#signoutAction">
-    Sign out
-    <graphic>
-      <StackPane>
-        <FontAwesomeIconView glyphName="SIGN_OUT" size="1.5em" />
-      </StackPane>
-    </graphic>
-  </Label>
 </JFXListView>

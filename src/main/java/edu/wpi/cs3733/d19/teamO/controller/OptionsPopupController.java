@@ -22,8 +22,6 @@ public class OptionsPopupController implements Controller {
   @Inject
   private AdminController.Factory adminControllerFactory;
   @Inject
-  private GuestViewController.Factory loginControllerFactory;
-  @Inject
   private SettingsController.Factory settingsControllerFactory;
 
   @FXML
@@ -41,12 +39,6 @@ public class OptionsPopupController implements Controller {
   void adminAction(MouseEvent event) {
     event.consume();
     eventBus.post(new ChangeMainViewEvent(adminControllerFactory.create()));
-  }
-
-  @FXML
-  void signoutAction(MouseEvent event) {
-    event.consume();
-    eventBus.post(new ChangeMainViewEvent(loginControllerFactory.create()));
   }
 
   @Override

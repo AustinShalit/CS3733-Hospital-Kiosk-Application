@@ -9,10 +9,13 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPopup;
 import com.jfoenix.controls.JFXToolbar;
 
+import animatefx.animation.Shake;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -69,12 +72,19 @@ public class MainController implements Controller {
     eventBus.register(this);
 
     optionsPopup = new JFXPopup(optionsPopupControllerFactory.create().list);
-    optionsBurger.setOnMouseClicked(e ->
-        optionsPopup.show(optionsBurger,
-            JFXPopup.PopupVPosition.TOP,
-            JFXPopup.PopupHPosition.RIGHT,
-            -12,
-            15));
+    optionsBurger.setOnMouseClicked(
+        event -> {
+          if ("Login Success".equals(loginController.getLoginFail().getText())) {
+            optionsPopup.show(optionsBurger,
+                JFXPopup.PopupVPosition.TOP,
+                JFXPopup.PopupHPosition.RIGHT,
+                -12,
+                15);
+          } else {
+            new Shake(optionsBurger).play();
+          }
+        }
+    );
 
     loginController = loginControllerFactory.create();
     loginController.getLoginFail().textProperty().addListener(
