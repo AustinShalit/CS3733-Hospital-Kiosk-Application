@@ -21,6 +21,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import javafx.util.StringConverter;
 
 import edu.wpi.cs3733.d19.teamO.controller.Controller;
 import edu.wpi.cs3733.d19.teamO.controller.DialogHelper;
@@ -110,11 +111,6 @@ public class OrderController implements Controller {
   @FXML
   private TableColumn<Product, String> orderItemColumn;
 
-  //  @Inject
-  //  private EventBus eventBus;
-  //  @Inject
-  //  private ReorderController.Factory reorderControllerFactory;
-
   @FXML
   void initialize() {
     // show/hide panes to start
@@ -141,7 +137,7 @@ public class OrderController implements Controller {
    * invalid.
    */
   @FXML
-  Boolean setCustomer() {
+  boolean setCustomer() {
     if (!firstName.getText().isEmpty()
         && !lastName.getText().isEmpty()
         && !emailAddress.getText().isEmpty()
@@ -160,7 +156,7 @@ public class OrderController implements Controller {
    * invalid.
    */
   @FXML
-  Boolean setAddress() {
+  boolean setAddress() {
     if (!streetAddress.getText().isEmpty()
         && !city.getText().isEmpty()
         && !zipCode.getText().isEmpty()
@@ -199,7 +195,7 @@ public class OrderController implements Controller {
    * Set the closest store based on the customer information. Return true if successful, false
    * otherwise.
    */
-  Boolean setStore() throws IOException {
+  boolean setStore() throws IOException {
     if (setCustomer() && setAddress()) {
       store = address.getClosestStore().get();
       return true;
@@ -212,7 +208,7 @@ public class OrderController implements Controller {
    * Fill the menu with available items at the customers store. Return true if successful,
    * false otherwise.
    */
-  Boolean setMenu() throws IOException {
+  boolean setMenu() throws IOException {
     if (setStore()) {
       menu = store.getMenu();
       return true;
@@ -360,6 +356,19 @@ public class OrderController implements Controller {
 
       );
       return observable;
+    }, new StringConverter<Product>() {
+      @Override
+      public String toString(Product object) {
+        return object.getName();
+      }
+
+      @Override
+      public Product fromString(String string) {
+        return products.stream()
+            .filter(product -> string.equals(product.getName()))
+            .findFirst()
+            .orElse(null);
+      }
     }));
     menuStackPane.getChildren().removeAll();
     menuStackPane.getChildren().add(listView);
