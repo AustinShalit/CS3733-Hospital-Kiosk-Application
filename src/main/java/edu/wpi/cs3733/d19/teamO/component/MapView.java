@@ -168,7 +168,7 @@ public class MapView extends StackPane {
         if (gesturePane.getCurrentScale() < 1.2) {
           b.setScaleX(1.2 / gesturePane.getCurrentScale());
           b.setScaleY(1.2 / gesturePane.getCurrentScale());
-          b.setLayoutY(buttonCoordY.get(count) - 12 + 17 / gesturePane.getCurrentScale());
+          b.setLayoutY(buttonCoordY.get(count) + 17 / gesturePane.getCurrentScale());
           count++;
         }
       }
@@ -476,7 +476,7 @@ public class MapView extends StackPane {
     nodeGroup.getChildren().addAll(buttonsGroup);
     buttonCoordY.clear();
     for (javafx.scene.Node b : buttonsGroup.getChildren()) {
-      buttonCoordY.add(b.getLayoutY());
+      buttonCoordY.add(b.getLayoutY() - 10 - 17 / gesturePane.getCurrentScale());
     }
   }
 
@@ -602,7 +602,7 @@ public class MapView extends StackPane {
           button.setScaleY(1.2 / gesturePane.getCurrentScale());
         }
         button.setTranslateX(lastNode.getXcoord() + 10);
-        button.setTranslateY(lastNode.getYcoord() + 10);
+        button.setTranslateY(lastNode.getYcoord() + 10 + 17 / gesturePane.getCurrentScale());
         button.getStyleClass().add("navlabel");
 
         button.setOnAction(event -> {
@@ -633,7 +633,7 @@ public class MapView extends StackPane {
           button.setScaleY(1.2 / gesturePane.getCurrentScale());
         }
         button.setTranslateX(node.getXcoord() + 10);
-        button.setTranslateY(node.getYcoord() + 10);
+        button.setTranslateY(node.getYcoord() + 10 + 17 / gesturePane.getCurrentScale());
         button.getStyleClass().add("navlabel");
         button.setOnAction(event -> {
           if (event.getSource() == button) {
