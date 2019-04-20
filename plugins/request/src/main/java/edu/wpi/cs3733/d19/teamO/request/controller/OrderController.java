@@ -4,24 +4,20 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
-import com.google.common.eventbus.EventBus;
-import com.google.inject.Inject;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.util.Callback;
 
 import edu.wpi.cs3733.d19.teamO.controller.Controller;
 import edu.wpi.cs3733.d19.teamO.controller.DialogHelper;
@@ -35,20 +31,21 @@ import edu.wpi.cs3733.d19.teamO.request.pizzapi.Store;
 
 import static edu.wpi.cs3733.d19.teamO.request.controller.ControllerHelper.populateStatesCombobox;
 
+@SuppressWarnings({"PMD.TooManyMethods", "PMD.TooManyFields"})
 @FxmlController(url = "Order.fxml")
 public class OrderController implements Controller {
 
   /**
-   * Variables that maintain stateComboBox about the customers current order
+   * Variables that maintain stateComboBox about the customers current order.
    */
   private Customer customer;
   private Address address;
   private Store store;
   private Menu menu;
-  private List<Product> cart2;
+  private Order order;
 
   /**
-   * For scene switching
+   * For scene switching.
    */
   @FXML
   private BorderPane root;
@@ -90,9 +87,11 @@ public class OrderController implements Controller {
   @FXML
   private TitledPane menuPane;
   @FXML
-  private TableView<Product> menuTableView;
+  private GridPane menuGrid;
   @FXML
-  private TableColumn<Product, String> menuItemCol;
+  private VBox leftVBox;
+  @FXML
+  private VBox rightVBox;
 
   /**
    * Place Order.
@@ -114,10 +113,10 @@ public class OrderController implements Controller {
   @FXML
   private JFXCheckBox enableRealTransactionCheckbox;
 
-  @Inject
-  private EventBus eventBus;
-  @Inject
-  private ReorderController.Factory reorderControllerFactory;
+  //  @Inject
+  //  private EventBus eventBus;
+  //  @Inject
+  //  private ReorderController.Factory reorderControllerFactory;
 
   @FXML
   void initialize() {
@@ -130,21 +129,19 @@ public class OrderController implements Controller {
     titledPaneListeners();
 
     // set comboboxes
-    //todo
+    populateStatesCombobox(stateComboBox);
 
     // initialize table views
     orderItemColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-    menuItemCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 
     // make columns auto-resize
-    enableResizableColumns(menuTableView);
     enableResizableColumns(orderSummaryTableView);
   }
 
 
   /**
-   * Parse a new Customer object from their entered information. Displays an error message and
-   * returns false if their input was invalid.
+   * Parse a new Customer object from their entered information. Returns false if their input was
+   * invalid.
    */
   @FXML
   Boolean setCustomer() {
@@ -158,10 +155,6 @@ public class OrderController implements Controller {
 
       return true;
     }
-
-    // Invalid Input
-    DialogHelper.showErrorAlert("Error.",
-        "Please make sure all customer fields are filled out.");
     return false;
   }
 
@@ -190,16 +183,19 @@ public class OrderController implements Controller {
    */
   @FXML
   void onMenuPaneClicked() throws IOException {
-//    if(setCustomer() && setAddress()) {
-//      menuPane.setExpanded(true);
-//      if(setStore()) {
-//        setMenu();
-//        refreshTableView(menuTableView, menu.getProducts());
-//      }
-//    } else {
+    if (setCustomer() && setAddress()) {
+      if (setStore()) {
+        setMenu();
+        refreshMenu(menu.getProducts());
+        order = new Order(address, store, menu, customer.getFirstName(), customer.getLastName(),
+            customer.getEmail(), customer.getPhone());
+        menuPane.setExpanded(true);
+      }
+    } else {
       menuPane.setExpanded(false);
       customerInformationPane.setExpanded(true);
-//    }
+      invalidCustomerInfo();
+    }
   }
 
   /**
@@ -207,11 +203,12 @@ public class OrderController implements Controller {
    * otherwise.
    */
   Boolean setStore() throws IOException {
-    if(setCustomer() && setAddress()) {
+    if (setCustomer() && setAddress()) {
       store = address.getClosestStore().get();
       return true;
+    } else {
+      return false;
     }
-    return false;
   }
 
   /**
@@ -219,7 +216,7 @@ public class OrderController implements Controller {
    * false otherwise.
    */
   Boolean setMenu() throws IOException {
-    if(setStore()) {
+    if (setStore()) {
       menu = store.getMenu();
       return true;
     }
@@ -228,16 +225,23 @@ public class OrderController implements Controller {
 
   /**
    * When a user clicks on the order pane, make sure they have entered their information and
-   * selected something from the menu
+   * selected something from the menu.
    */
   @FXML
-  void onPlaceOrderPaneClicked() {
-    if(!cart2.isEmpty()) {
-      refreshTableView(orderSummaryTableView, cart2);
-      placeOrderPane.setExpanded(true);
+  void onPlaceOrderPaneClicked() throws IOException {
+    if (setCustomer() && setAddress()) {
+      if (order != null && !order.getProducts().isEmpty()) {
+        fillOrderInformation();
+        placeOrderPane.setExpanded(true);
+      } else {
+        placeOrderPane.setExpanded(false);
+        menuPane.setExpanded(true);
+        invalidMenuSelection();
+      }
     } else {
-      DialogHelper.showErrorAlert("Error", "Please select at least one item from the menu.");
       placeOrderPane.setExpanded(false);
+      customerInformationPane.setExpanded(true);
+      invalidCustomerInfo();
     }
   }
 
@@ -245,37 +249,34 @@ public class OrderController implements Controller {
    * Fill the text fields and the order summary table with information.
    */
   @FXML
-  void fillOrderInformation() {
-//      order.addProduct(cart.getValue());
-//
-//      refreshTableView(order.getProducts());
+  void fillOrderInformation() throws IOException {
+    refreshTableView(orderSummaryTableView, order.getProducts());
 
-      // set text fields
-//      carryoutOrDeliveryToAddressText.setText("Delivery to " + address.getStreet() + ", "
-//          + address.getCity() + ", " + address.getRegion() + " " + address.getZip());
-//      //    orderingFromText.setText("Ordering from " + store.getId());
-//      emailAddressText.setText("Email Address: " + customer.getEmail());
-//      phoneNumberText.setText("Phone Number: " + customer.getPhone());
-//      firstNameText.setText("First Name: " + customer.getFirstName());
-//      lastNameText.setText("Last Name: " + customer.getLastName());
-//
-//      Order priced = order.getOrder();
-//      subtotalText.setText("Subtotal: " + priced.getAmounts().getMenu());
-//      taxText.setText("Tax: " + priced.getAmounts().getTax());
-//      surchargeText.setText("Surcharge: " + priced.getAmounts().getSurcharge());
-//      totalText.setText("Total: " + priced.getAmounts().getPayment());
+    orderSettingsText.setText("Delivery to " + address.getStreet() + ", "
+        + address.getCity() + ", " + address.getRegion() + " " + address.getZip() + "\n"
+        + "Delivery from Store #" + store.getId());
+    customerInformationText.setText("Email Address: " + customer.getEmail() + "\n"
+        + "Phone Number: " + customer.getPhone() + "\n"
+        + "First Name: " + customer.getFirstName() + "\n"
+        + "Last Name: " + customer.getLastName());
+    paymentInformationText.setText("Paying with cash.");
 
+    Order priced = order.getOrder();
+    orderSummaryText.setText("Subtotal: " + priced.getAmounts().getMenu() + "\n"
+        + "Tax: " + priced.getAmounts().getTax() + "\n"
+        + "Surcharge: " + priced.getAmounts().getSurcharge() + "\n"
+        + "Total: " + priced.getAmounts().getPayment());
   }
 
   /**
-   * Submit the order to the dominos API
+   * Submit the order to dominos.
    */
   @FXML
   void onSubmitAction() {
   }
 
   /**
-   * Toggle the submit button enable/disable
+   * Toggle the submit button enable/disable.
    */
   @FXML
   void toggleSubmitButton() {
@@ -325,41 +326,42 @@ public class OrderController implements Controller {
     tableView.getItems().setAll(items);
   }
 
-  private void addButtonToTable() {
-    TableColumn<Product, Void> colBtn = new TableColumn<Product, Void>("Add/Remove");
+  void invalidCustomerInfo() {
+    DialogHelper.showErrorAlert("Error.",
+        "Please make sure all customer info is filled out correctly.");
+  }
 
-    Callback<TableColumn<Product, Void>, TableCell<Product, Void>> cellFactory = new Callback<TableColumn<Product, Void>, TableCell<Product, Void>>() {
-      @Override
-      public TableCell<Product, Void> call(final TableColumn<Product, Void> param) {
-        final TableCell<Product, Void> cell = new TableCell<Product, Void>() {
+  void invalidMenuSelection() {
+    DialogHelper.showErrorAlert("Error.",
+        "Please make sure to select at least one menu item.");
+  }
 
-          private final Button btn = new Button("Add");
+  /**
+   * Refresh the menu given a list of products.
+   */
+  @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
+  void refreshMenu(List<Product> products) {
+    menuGrid.getChildren().removeAll();
 
-          {
-            btn.setOnAction((ActionEvent event) -> {
-              Product product = getTableView().getItems().get(getIndex());
-              System.out.println("selected Product: " + product);
-              // todo add to cart
-            });
-          }
+    for (int i = 0; i < menu.getProducts().size(); i++) {
+      Product product = menu.getProducts().get(i);
+      JFXCheckBox checkBox = new JFXCheckBox(product.getName());
 
-          @Override
-          public void updateItem(Void item, boolean empty) {
-            super.updateItem(item, empty);
-            if (empty) {
-              setGraphic(null);
-            } else {
-              setGraphic(btn);
-            }
-          }
-        };
-        return cell;
+      checkBox.selectedProperty().addListener((ov, old_val, new_val) -> {
+
+        if (checkBox.isSelected()) {
+          order.addProduct(menu.getProduct(products, checkBox.getText()));
+        } else {
+          order.removeProduct(checkBox.getText());
+        }
+
+      });
+
+      if (i % 2 == 0) {
+        leftVBox.getChildren().add(checkBox);
+      } else {
+        rightVBox.getChildren().add(checkBox);
       }
-    };
-
-    colBtn.setCellFactory(cellFactory);
-
-    menuTableView.getColumns().add(colBtn);
-
+    }
   }
 }

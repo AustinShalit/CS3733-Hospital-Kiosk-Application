@@ -144,6 +144,17 @@ public class Order extends GenericJson {
   }
 
   /**
+   * Remove a product from the order.
+   */
+  public void removeProduct(String name) {
+    for (Product p : products) {
+      if (p.getName().equals(name)) {
+        products.remove(p);
+      }
+    }
+  }
+
+  /**
    * Get an order.
    */
   public Order getOrder() throws IOException {
@@ -163,6 +174,9 @@ public class Order extends GenericJson {
         }, content, OrderResponse.class).getOrder();
   }
 
+  /**
+   * Place an order. Use with caution.
+   */
   public Order placeOrder() throws IOException {
     put("StoreID", store.getId());
     put("Email", email);

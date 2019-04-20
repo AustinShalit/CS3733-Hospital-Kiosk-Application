@@ -12,7 +12,6 @@ import javafx.scene.layout.BorderPane;
 import edu.wpi.cs3733.d19.teamO.controller.Controller;
 import edu.wpi.cs3733.d19.teamO.controller.FxmlController;
 import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
-import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 @FxmlController(url = "Reorder.fxml")
 public class ReorderController implements Controller {
@@ -21,8 +20,6 @@ public class ReorderController implements Controller {
   private EventBus eventBus;
   @Inject
   private OrderController.Factory orderControllerFactory;
-  @Inject
-  private Database db;
 
   @FXML
   private BorderPane root;

@@ -34,6 +34,18 @@ public class Menu extends GenericJson {
     return products;
   }
 
+  /**
+   * Get a product in a list given its name.
+   */
+  public Product getProduct(List<Product> products, String name) {
+    for (Product p : products) {
+      if (p.getName().equals(name)) {
+        return p;
+      }
+    }
+    return null;
+  }
+
   public GenericJson getVariants() {
     return variants;
   }

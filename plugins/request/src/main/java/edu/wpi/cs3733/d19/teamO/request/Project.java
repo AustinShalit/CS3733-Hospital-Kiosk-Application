@@ -22,28 +22,31 @@ import edu.wpi.cs3733.d19.teamO.entity.DefaultInformationLoader;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 import edu.wpi.cs3733.d19.teamO.entity.database.DatabaseModule;
 import edu.wpi.cs3733.d19.teamO.request.controller.ControllerModule;
-import edu.wpi.cs3733.d19.teamO.request.controller.OrderController;
-import edu.wpi.cs3733.d19.teamO.request.controller.ReorderController;
 import edu.wpi.cs3733.d19.teamO.request.controller.MainController;
+import edu.wpi.cs3733.d19.teamO.request.controller.OrderController;
 
 public class Project extends Application {
 
   private int stageMinWidth = 1280;
+
   public void setStageMinWidth(int stageMinWidth) {
     this.stageMinWidth = stageMinWidth;
   }
 
   private int stageMinHeight = 720;
+
   public void setStageMinHeight(int stageMinHeight) {
     this.stageMinHeight = stageMinHeight;
   }
 
-  private int stageX = 0;
+  private int stageX;
+
   public void setStageX(int stageX) {
     this.stageX = stageX;
   }
 
-  private int stageY = 0;
+  private int stageY;
+
   public void setStageY(int stageY) {
     this.stageY = stageY;
   }
@@ -125,16 +128,11 @@ public class Project extends Application {
   @SuppressWarnings("PMD.AvoidCatchingThrowable")
   private void onThreadException(Thread thread, Throwable throwable) {
     PlatformImpl.runAndWait(() -> {
-      try {
-        // Don't create more than one exception dialog at the same time
-        final ExceptionAlert exceptionAlert = new ExceptionAlert(root, throwable,
-            thread.getName() + ": " + throwable.getMessage(), getHostServices());
-        exceptionAlert.setInitialFocus();
-        exceptionAlert.showAndWait();
-      } catch (Throwable ex) {
-        // Well in this case something has gone very, very wrong
-        // We don't want to create a feedback loop either.
-      }
+      // Don't create more than one exception dialog at the same time
+      final ExceptionAlert exceptionAlert = new ExceptionAlert(root, throwable,
+          thread.getName() + ": " + throwable.getMessage(), getHostServices());
+      exceptionAlert.setInitialFocus();
+      exceptionAlert.showAndWait();
     });
   }
 }

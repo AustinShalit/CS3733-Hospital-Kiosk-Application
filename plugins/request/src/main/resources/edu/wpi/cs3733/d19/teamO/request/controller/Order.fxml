@@ -39,100 +39,108 @@
               </rowConstraints>
               <children>
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="First Name">
-                           <GridPane.margin>
-                              <Insets top="10.0" />
-                           </GridPane.margin></Text>
+                  <GridPane.margin>
+                    <Insets top="10.0" />
+                  </GridPane.margin>
+                </Text>
                 <JFXTextField fx:id="firstName" minWidth="300.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
                   <GridPane.margin>
                     <Insets left="18.0" />
                   </GridPane.margin>
-                           <padding>
-                              <Insets top="10.0" />
-                           </padding>
+                  <padding>
+                    <Insets top="10.0" />
+                  </padding>
                 </JFXTextField>
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name" GridPane.rowIndex="1">
-                           <GridPane.margin>
-                              <Insets top="10.0" />
-                           </GridPane.margin></Text>
+                  <GridPane.margin>
+                    <Insets top="10.0" />
+                  </GridPane.margin>
+                </Text>
                 <JFXTextField fx:id="lastName" minWidth="300.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                   <GridPane.margin>
                     <Insets left="18.0" />
                   </GridPane.margin>
-                           <padding>
-                              <Insets top="10.0" />
-                           </padding>
+                  <padding>
+                    <Insets top="10.0" />
+                  </padding>
                 </JFXTextField>
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Email Address" GridPane.rowIndex="2">
-                           <GridPane.margin>
-                              <Insets top="10.0" />
-                           </GridPane.margin></Text>
+                  <GridPane.margin>
+                    <Insets top="10.0" />
+                  </GridPane.margin>
+                </Text>
                 <JFXTextField fx:id="emailAddress" minWidth="300.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                   <GridPane.margin>
                     <Insets left="18.0" />
                   </GridPane.margin>
-                           <padding>
-                              <Insets top="10.0" />
-                           </padding>
+                  <padding>
+                    <Insets top="10.0" />
+                  </padding>
                 </JFXTextField>
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number" GridPane.rowIndex="3">
-                           <GridPane.margin>
-                              <Insets top="10.0" />
-                           </GridPane.margin></Text>
+                  <GridPane.margin>
+                    <Insets top="10.0" />
+                  </GridPane.margin>
+                </Text>
                 <JFXTextField fx:id="phoneNumber" minWidth="300.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
                   <GridPane.margin>
                     <Insets left="18.0" />
                   </GridPane.margin>
-                           <padding>
-                              <Insets top="10.0" />
-                           </padding>
+                  <padding>
+                    <Insets top="10.0" />
+                  </padding>
                 </JFXTextField>
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Street Address" GridPane.rowIndex="4">
-                           <GridPane.margin>
-                              <Insets top="10.0" />
-                           </GridPane.margin></Text>
+                  <GridPane.margin>
+                    <Insets top="10.0" />
+                  </GridPane.margin>
+                </Text>
                 <JFXTextField fx:id="streetAddress" minWidth="300.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                   <GridPane.margin>
                     <Insets left="18.0" />
                   </GridPane.margin>
-                           <padding>
-                              <Insets top="10.0" />
-                           </padding>
+                  <padding>
+                    <Insets top="10.0" />
+                  </padding>
                 </JFXTextField>
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="City" GridPane.rowIndex="5">
-                           <GridPane.margin>
-                              <Insets top="10.0" />
-                           </GridPane.margin></Text>
+                  <GridPane.margin>
+                    <Insets top="10.0" />
+                  </GridPane.margin>
+                </Text>
                 <JFXTextField fx:id="city" minWidth="300.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="CENTER">
                   <GridPane.margin>
                     <Insets left="18.0" />
                   </GridPane.margin>
-                           <padding>
-                              <Insets top="10.0" />
-                           </padding>
+                  <padding>
+                    <Insets top="10.0" />
+                  </padding>
                 </JFXTextField>
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="State" GridPane.rowIndex="6">
-                           <GridPane.margin>
-                              <Insets top="10.0" />
-                           </GridPane.margin></Text>
-                <JFXComboBox fx:id="state" minWidth="50.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="6" GridPane.valignment="CENTER">
+                  <GridPane.margin>
+                    <Insets top="10.0" />
+                  </GridPane.margin>
+                </Text>
+                <JFXComboBox fx:id="stateComboBox" minWidth="50.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="6" GridPane.valignment="CENTER">
                   <GridPane.margin>
                     <Insets left="18.0" />
                   </GridPane.margin>
-                           <padding>
-                              <Insets top="10.0" />
-                           </padding>
+                  <padding>
+                    <Insets top="10.0" />
+                  </padding>
                 </JFXComboBox>
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Zip Code" GridPane.rowIndex="7">
-                           <GridPane.margin>
-                              <Insets top="10.0" />
-                           </GridPane.margin></Text>
+                  <GridPane.margin>
+                    <Insets top="10.0" />
+                  </GridPane.margin>
+                </Text>
                 <JFXTextField fx:id="zipCode" minWidth="50.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
                   <GridPane.margin>
                     <Insets left="18.0" />
                   </GridPane.margin>
-                           <padding>
-                              <Insets top="10.0" />
-                           </padding>
+                  <padding>
+                    <Insets top="10.0" />
+                  </padding>
                 </JFXTextField>
               </children>
             </GridPane>
@@ -140,7 +148,7 @@
         </TitledPane>
         <TitledPane fx:id="menuPane" animated="false" onMouseClicked="#onMenuPaneClicked" text="MENU">
           <content>
-            <BorderPane prefHeight="200.0" prefWidth="200.0">
+            <BorderPane>
               <top>
                 <StackPane BorderPane.alignment="CENTER" />
               </top>
@@ -153,17 +161,25 @@
               <bottom>
                 <StackPane BorderPane.alignment="CENTER" />
               </bottom>
-                     <center>
-                        <TableView fx:id="menuTableView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                          <columns>
-                            <TableColumn fx:id="menuItemCol" prefWidth="75.0" text="Item" />
-                          </columns>
-                        </TableView>
-                     </center>
+              <center>
+                <GridPane fx:id="menuGrid" BorderPane.alignment="CENTER">
+                  <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                    <RowConstraints minHeight="10.0" valignment="CENTER" vgrow="ALWAYS" />
+                  </rowConstraints>
+                  <children>
+                    <VBox fx:id="leftVBox" />
+                    <VBox fx:id="rightVBox" GridPane.columnIndex="1" />
+                  </children>
+                </GridPane>
+              </center>
             </BorderPane>
           </content>
         </TitledPane>
-        <TitledPane fx:id="placeOrderPane" animated="false" onMouseClicked="#onPlaceOrderPaneClicked" text="PLACE ORDER" VBox.vgrow="ALWAYS">
+        <TitledPane fx:id="placeOrderPane" animated="false" text="PLACE ORDER" VBox.vgrow="ALWAYS">
           <content>
             <GridPane>
               <columnConstraints>
@@ -178,18 +194,20 @@
                 <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
               </rowConstraints>
               <children>
-                <BorderPane prefHeight="200.0" prefWidth="200.0">
+                <BorderPane>
                   <center>
                     <VBox BorderPane.alignment="CENTER">
                       <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Service Method and Location">
-                                       <VBox.margin>
-                                          <Insets top="10.0" />
-                                       </VBox.margin></Text>
+                          <VBox.margin>
+                            <Insets top="10.0" />
+                          </VBox.margin>
+                        </Text>
                         <Text fx:id="orderSettingsText" strokeType="OUTSIDE" strokeWidth="0.0" text="Filled Dynamically">
-                                       <VBox.margin>
-                                          <Insets top="10.0" />
-                                       </VBox.margin></Text>
+                          <VBox.margin>
+                            <Insets top="10.0" />
+                          </VBox.margin>
+                        </Text>
                       </children>
                     </VBox>
                   </center>
@@ -210,7 +228,7 @@
                     <StackPane BorderPane.alignment="CENTER" />
                   </bottom>
                 </BorderPane>
-                <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowSpan="2">
+                <BorderPane GridPane.columnIndex="1" GridPane.rowSpan="2">
                   <top>
                     <StackPane BorderPane.alignment="CENTER">
                       <children>
@@ -234,24 +252,25 @@
                           <columns>
                             <TableColumn fx:id="orderItemColumn" prefWidth="75.0" text="Item" />
                           </columns>
-                                       <VBox.margin>
-                                          <Insets top="5.0" />
-                                       </VBox.margin>
+                          <VBox.margin>
+                            <Insets top="5.0" />
+                          </VBox.margin>
                         </TableView>
                         <Text fx:id="orderSummaryText" strokeType="OUTSIDE" strokeWidth="0.0" text="Filled Dynamically">
-                                       <VBox.margin>
-                                          <Insets top="10.0" />
-                                       </VBox.margin></Text>
-                                    <JFXCheckBox fx:id="enableRealTransactionCheckbox" alignment="CENTER" checkedColor="#006491" text="Real Transaction" underline="true">
-                                       <VBox.margin>
-                                          <Insets top="10.0" />
-                                       </VBox.margin>
-                                    </JFXCheckBox>
+                          <VBox.margin>
+                            <Insets top="10.0" />
+                          </VBox.margin>
+                        </Text>
+                        <JFXCheckBox fx:id="enableRealTransactionCheckbox" alignment="CENTER" checkedColor="#006491" text="Real Transaction" underline="true">
+                          <VBox.margin>
+                            <Insets top="10.0" />
+                          </VBox.margin>
+                        </JFXCheckBox>
                       </children>
                     </VBox>
                   </center>
                 </BorderPane>
-                <BorderPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                <BorderPane GridPane.rowIndex="1">
                   <top>
                     <StackPane BorderPane.alignment="CENTER">
                       <children>
@@ -272,9 +291,10 @@
                     <VBox BorderPane.alignment="CENTER">
                       <children>
                         <Text fx:id="customerInformationText" strokeType="OUTSIDE" strokeWidth="0.0" text="Filled Dynamically">
-                                       <VBox.margin>
-                                          <Insets top="10.0" />
-                                       </VBox.margin></Text>
+                          <VBox.margin>
+                            <Insets top="10.0" />
+                          </VBox.margin>
+                        </Text>
                       </children>
                     </VBox>
                   </center>
@@ -284,9 +304,10 @@
                     <StackPane BorderPane.alignment="CENTER">
                       <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 1.3em; -fx-fill: #006491;" text="Payment /Information" StackPane.alignment="TOP_LEFT">
-                                       <StackPane.margin>
-                                          <Insets top="5.0" />
-                                       </StackPane.margin></Text>
+                          <StackPane.margin>
+                            <Insets top="5.0" />
+                          </StackPane.margin>
+                        </Text>
                       </children>
                     </StackPane>
                   </top>
@@ -303,9 +324,10 @@
                     <VBox BorderPane.alignment="CENTER">
                       <children>
                         <Text fx:id="paymentInformationText" strokeType="OUTSIDE" strokeWidth="0.0" text="Filled Dynamically">
-                                       <VBox.margin>
-                                          <Insets top="10.0" />
-                                       </VBox.margin></Text>
+                          <VBox.margin>
+                            <Insets top="10.0" />
+                          </VBox.margin>
+                        </Text>
                       </children>
                     </VBox>
                   </center>
@@ -319,7 +341,7 @@
     </VBox>
   </center>
   <left>
-    <StackPane prefWidth="200.0" BorderPane.alignment="CENTER">
+    <StackPane prefWidth="100.0" BorderPane.alignment="CENTER">
       <BorderPane.margin>
         <Insets />
       </BorderPane.margin>
@@ -329,10 +351,10 @@
     <StackPane prefHeight="25.0" BorderPane.alignment="CENTER" />
   </bottom>
   <right>
-    <StackPane prefWidth="200.0" BorderPane.alignment="CENTER" />
+    <StackPane prefWidth="100.0" BorderPane.alignment="CENTER" />
   </right>
   <top>
-    <GridPane id="titlePane" minHeight="120.0" BorderPane.alignment="CENTER">
+    <GridPane id="titlePane" minHeight="120.0" onMouseClicked="#onMenuPaneClicked" BorderPane.alignment="CENTER">
       <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

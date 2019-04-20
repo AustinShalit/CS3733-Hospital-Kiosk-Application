@@ -7,7 +7,9 @@ import java.util.Set;
 import com.jfoenix.controls.JFXComboBox;
 
 @SuppressWarnings("PMD.StaticModifier")
-public class ControllerHelper {
+public final class ControllerHelper {
+  private ControllerHelper() {
+  }
 
   public static void populateMonthCombobox(JFXComboBox<Integer> comboBox) {
     comboBox.getItems().setAll(months);

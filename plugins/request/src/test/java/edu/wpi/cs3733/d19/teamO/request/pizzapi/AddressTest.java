@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 @Disabled
+@SuppressWarnings("PMD.JUnitTestsShouldIncludeAssert")
 class AddressTest {
 
   @Test
