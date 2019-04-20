@@ -156,8 +156,8 @@ public class MapEditController implements Controller {
 
     // set tab pane to span entire width
     tabPane.widthProperty().addListener((observable, oldValue, newValue) -> {
-      tabPane.setTabMinWidth(tabPane.getWidth() / 2);
-      tabPane.setTabMaxWidth(tabPane.getWidth() / 2);
+      tabPane.setTabMinWidth((tabPane.getWidth() / 2) - 8);
+      tabPane.setTabMaxWidth((tabPane.getWidth() / 2) - 8);
     });
   }
 
@@ -312,6 +312,7 @@ public class MapEditController implements Controller {
       status.setText("ERROR: InvalidEdgeID");
     } else {
       Edge deleteEdge = opt.get();
+      map.setLineVisible(false);
       database.deleteEdge(deleteEdge);
       status.setText("Succeed!");
       map.setDatabaseEdge(database.getAllEdges());
