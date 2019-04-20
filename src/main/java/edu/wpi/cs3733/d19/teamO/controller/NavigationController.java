@@ -35,7 +35,6 @@ import edu.wpi.cs3733.d19.teamO.entity.pathfinding.StepByStep;
 
 public class NavigationController implements Controller {
 
-
   @FXML
   BorderPane root;
 
@@ -89,11 +88,11 @@ public class NavigationController implements Controller {
     map.setNavigation(true);
     map.nodeClickedProperty().addListener((observable, oldValue, newValue) -> {
       if (fromComboBox.isFocused()) {
-        fromComboBox.setValue(newValue.getLongName());
+        fromComboBox.setValue(String.format("%s -- FLOOR %s", newValue.getLongName(), newValue.getFloor()));
       } else if (toComboBox.isFocused()) {
-        toComboBox.setValue(newValue.getLongName());
+        toComboBox.setValue(String.format("%s -- FLOOR %s", newValue.getLongName(), newValue.getFloor()));
       } else if (fromComboBox.getValue() == null && toComboBox.getValue() == null) {
-        fromComboBox.setValue(newValue.getLongName());
+        fromComboBox.setValue(String.format("%s -- FLOOR %s", newValue.getLongName(), newValue.getFloor()));
         fromComboBox.requestFocus();
       }
     });
@@ -245,6 +244,7 @@ public class NavigationController implements Controller {
 
   @FXML
   void aboutOnAction() {
+    String a;
     eventBus.post(new ChangeMainViewEvent(aboutControllerFactory.create()));
   }
 

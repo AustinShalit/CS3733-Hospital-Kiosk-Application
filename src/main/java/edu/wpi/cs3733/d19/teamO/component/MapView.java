@@ -129,38 +129,40 @@ public class MapView extends StackPane {
   void initialize() throws IOException {
     gesturePane.setMinScale(0.1);
     gesturePane.reset();
-    if (navigation) {
+
       gesturePane.setOnMouseClicked(e -> {
-        Point2D pointOnMap = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
-            .orElse(gesturePane.targetPointAtViewportCentre());
+        if (navigation) {
+          Point2D pointOnMap = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
+              .orElse(gesturePane.targetPointAtViewportCentre());
 
-        if (e.getButton() == MouseButton.PRIMARY && e.getClickCount() == 2) {
-          // increment of scale makes more sense exponentially instead of linearly
-          gesturePane.animate(Duration.millis(200))
-              .interpolateWith(Interpolator.EASE_BOTH)
-              .zoomBy(gesturePane.getCurrentScale(), pointOnMap);
-        }
-
-        int currentX = (int) pointOnMap.getX();
-        int currentY = (int) pointOnMap.getY();
-        double min = 9999;
-        double distance = 0;
-        for (Node n : nodes) {
-          distance = Math.sqrt(abs(n.getXcoord() - currentX) * abs(n.getXcoord() - currentX)
-              + abs(n.getYcoord() - currentY) * abs(n.getYcoord() - currentY));
-          if (n.getFloorInt() == level && distance < min
-              && !n.getNodeType().equals(Node.NodeType.HALL)) {
-            nodeClicked.set(n);
-            circle.setCenterX(n.getXcoord());
-            circle.setCenterY(n.getYcoord());
-            min = distance;
+          if (e.getButton() == MouseButton.PRIMARY && e.getClickCount() == 2) {
+            // increment of scale makes more sense exponentially instead of linearly
+            gesturePane.animate(Duration.millis(200))
+                .interpolateWith(Interpolator.EASE_BOTH)
+                .zoomBy(gesturePane.getCurrentScale(), pointOnMap);
           }
+
+          int currentX = (int) pointOnMap.getX();
+          int currentY = (int) pointOnMap.getY();
+          double min = 9999;
+          double distance = 0;
+          for (Node n : nodes) {
+            distance = Math.sqrt(abs(n.getXcoord() - currentX) * abs(n.getXcoord() - currentX)
+                + abs(n.getYcoord() - currentY) * abs(n.getYcoord() - currentY));
+            if (n.getFloorInt() == level && distance < min
+                && !n.getNodeType().equals(Node.NodeType.HALL)) {
+              nodeClicked.set(n);
+              circle.setCenterX(n.getXcoord());
+              circle.setCenterY(n.getYcoord());
+              min = distance;
+            }
+          }
+          circle.setVisible(true);
+          coordY.setText(Double.toString((int) pointOnMap.getX()));
+          coordX.setText(Double.toString((int) pointOnMap.getY()));
         }
-        circle.setVisible(true);
-        coordY.setText(Double.toString((int) pointOnMap.getX()));
-        coordX.setText(Double.toString((int) pointOnMap.getY()));
-      });
-    }
+        });
+
     gesturePane.setFitMode(GesturePane.FitMode.COVER);
     gesturePane.setScrollBarEnabled(false);
     resetButtonBackground(99);
