@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.graph.GraphBuilder;
@@ -118,7 +119,7 @@ public class NavigationController implements Controller {
 
 
   @FXML
-  void onToComboAction() throws IOException {
+  void onToComboAction() {
     toComboBox.show();
     validateGoButton();
 
@@ -133,11 +134,19 @@ public class NavigationController implements Controller {
   @FXML
   @SuppressWarnings({"PMD.AvoidInstantiatingObjectsInLoops", "UseStringBufferForStringAppends"})
   void onGoButtonAction() throws IOException {
-    if (toComboBox.getValue().equals(fromComboBox.getValue())) {
+    if (Objects.isNull(searchForNode(toComboBox.getValue()))
+        || Objects.isNull(searchForNode(fromComboBox.getValue()))) {
+      DialogHelper.showInformationAlert("Must Select Valid Start/End Destinations",
+          "Please select valid start and end destinations to generate a valid path.");
+      return;
+    }
+
+    if (searchForNode(toComboBox.getValue()).equals(searchForNode(fromComboBox.getValue()))) {
       DialogHelper.showInformationAlert("Must Select Different Start/End Destinations",
           "Please select different start and end destinations to generate a valid path.");
       return;
     }
+
 
     IGraphSearchAlgorithm<Node> algorithm = appPreferences.getGraphSearchAlgorithm().getAlgorithm();
     MutableGraph<Node> graph = GraphBuilder.undirected().allowsSelfLoops(false).build();
@@ -244,20 +253,20 @@ public class NavigationController implements Controller {
   @FXML
   void nearestLocation(ActionEvent event) throws IOException {
     if (event.getSource() == restroomButton) {
-      fromComboBox.setValue("Au Bon Pain");
-      toComboBox.setValue("Bathroom 75 Lobby");
+      fromComboBox.setValue("Au Bon Pain -- FLOOR 1");
+      toComboBox.setValue("Bathroom 75 Lobby -- FLOOR 1");
       onGoButtonAction();
     } else if (event.getSource() == emergencyButton) {
-      fromComboBox.setValue("Au Bon Pain");
-      toComboBox.setValue("Emergency Department");
+      fromComboBox.setValue("Au Bon Pain -- FLOOR 1");
+      toComboBox.setValue("Emergency Department -- FLOOR 1");
       onGoButtonAction();
     } else if (event.getSource() == informationButton) {
-      fromComboBox.setValue("Au Bon Pain");
-      toComboBox.setValue("75 Lobby Information Desk");
+      fromComboBox.setValue("Au Bon Pain -- FLOOR 1");
+      toComboBox.setValue("75 Lobby Information Desk -- FLOOR 1");
       onGoButtonAction();
     } else if (event.getSource() == elevatorButton) {
-      fromComboBox.setValue("Au Bon Pain");
-      toComboBox.setValue("Elevator M Floor 1");
+      fromComboBox.setValue("Au Bon Pain -- FLOOR 1");
+      toComboBox.setValue("Elevator M Floor 1 -- FLOOR 1");
       onGoButtonAction();
     }
 
