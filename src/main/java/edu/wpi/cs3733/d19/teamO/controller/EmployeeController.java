@@ -28,8 +28,6 @@ public class EmployeeController implements Controller {
   @FXML
   private BorderPane root;
   @FXML
-  private JFXButton goBackButton;
-  @FXML
   private JFXButton addEmpButton;
   @FXML
   private JFXButton delEmpButton;
@@ -122,11 +120,6 @@ public class EmployeeController implements Controller {
           }
         }
     );
-  }
-
-  @FXML
-  void goBackButtonAction() {
-    eventBus.post(new ChangeMainViewEvent(adminControllerFactory.create()));
   }
 
   @FXML
