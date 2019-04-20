@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
-import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPopup;
@@ -17,7 +16,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.BorderPane;
 
-import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.Employee;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
@@ -49,11 +47,7 @@ public class EmployeeController implements Controller {
   private Label infoLabel;
 
   @Inject
-  private EventBus eventBus;
-  @Inject
   private Database db;
-  @Inject
-  private AdminController.Factory adminControllerFactory;
   @Inject
   private AddEmployeeController.Factory addEmployeeControllerFactory;
   @Inject

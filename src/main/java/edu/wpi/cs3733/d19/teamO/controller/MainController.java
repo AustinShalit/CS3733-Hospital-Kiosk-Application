@@ -11,11 +11,9 @@ import com.jfoenix.controls.JFXToolbar;
 
 import animatefx.animation.Shake;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.effect.ColorAdjust;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
