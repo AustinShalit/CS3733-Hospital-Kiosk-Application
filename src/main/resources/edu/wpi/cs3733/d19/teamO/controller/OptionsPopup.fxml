@@ -4,7 +4,8 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.StackPane?>
-<JFXListView fx:id="list" onMouseClicked="#onAction" fx:controller="edu.wpi.cs3733.d19.teamO.controller.OptionsPopupController" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+
+<JFXListView fx:id="list" onMouseClicked="#onAction" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.OptionsPopupController">
   <Label onMouseClicked="#settingsAction">
     Settings
     <graphic>
@@ -13,11 +14,19 @@
       </StackPane>
     </graphic>
   </Label>
-  <Label onMouseClicked="#adminAction">
-    Admin
+  <Label onMouseClicked="#employeeAction">
+    Manage Employees
     <graphic>
       <StackPane>
-        <FontAwesomeIconView glyphName="LOCK" size="1.5em" />
+        <FontAwesomeIconView glyphName="USERS" size="1.5em" />
+      </StackPane>
+    </graphic>
+  </Label>
+  <Label onMouseClicked="#mapAction">
+    Edit Map
+    <graphic>
+      <StackPane>
+        <FontAwesomeIconView glyphName="COMPASS" size="1.5em"/>
       </StackPane>
     </graphic>
   </Label>

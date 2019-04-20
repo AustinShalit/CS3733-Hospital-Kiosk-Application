@@ -20,9 +20,11 @@ public class OptionsPopupController implements Controller {
   @Inject
   private EventBus eventBus;
   @Inject
-  private AdminController.Factory adminControllerFactory;
-  @Inject
   private SettingsController.Factory settingsControllerFactory;
+  @Inject
+  private MapEditController.Factory mapEditControllerFactory;
+  @Inject
+  private EmployeeController.Factory employeeControllerFactory;
 
   @FXML
   void onAction(MouseEvent event) {
@@ -36,9 +38,15 @@ public class OptionsPopupController implements Controller {
   }
 
   @FXML
-  void adminAction(MouseEvent event) {
+  void employeeAction(MouseEvent event) {
     event.consume();
-    eventBus.post(new ChangeMainViewEvent(adminControllerFactory.create()));
+    eventBus.post(new ChangeMainViewEvent(employeeControllerFactory.create()));
+  }
+
+  @FXML
+  void mapAction(MouseEvent event) {
+    event.consume();
+    eventBus.post(new ChangeMainViewEvent(mapEditControllerFactory.create()));
   }
 
   @Override
