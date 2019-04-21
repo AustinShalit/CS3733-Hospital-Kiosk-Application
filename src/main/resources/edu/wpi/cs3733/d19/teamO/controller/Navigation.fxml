@@ -51,7 +51,7 @@
                     <Font size="36.0" />
                   </font>
                 </Text>
-                <JFXComboBox fx:id="fromComboBox" editable="true" onAction="#onComboAction" onKeyReleased="#refreshCombobox" prefHeight="50.0" prefWidth="393.0" VBox.vgrow="ALWAYS">
+                <JFXComboBox fx:id="fromComboBox" editable="true" onAction="#onFromComboAction" onKeyReleased="#refreshCombobox" prefHeight="50.0" prefWidth="393.0" VBox.vgrow="ALWAYS">
                   <VBox.margin>
                     <Insets bottom="30.0" left="5.0" right="5.0" />
                   </VBox.margin>
@@ -64,7 +64,7 @@
                     <Font size="36.0" />
                   </font>
                 </Text>
-                <JFXComboBox fx:id="toComboBox" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#onComboAction" onKeyReleased="#refreshCombobox" prefHeight="50.0" prefWidth="264.0">
+                <JFXComboBox fx:id="toComboBox" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#onToComboAction" onKeyReleased="#refreshCombobox" prefHeight="50.0" prefWidth="264.0">
                   <VBox.margin>
                     <Insets bottom="30.0" left="5.0" right="5.0" />
                   </VBox.margin>

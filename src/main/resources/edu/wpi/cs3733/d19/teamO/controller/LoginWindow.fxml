@@ -33,7 +33,7 @@
           <Insets bottom="10.0" />
         </VBox.margin>
       </JFXPasswordField>
-      <Label id="loginfail" fx:id="loginFail" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="281.0" textFill="WHITE" />
+      <Label id="loginFail" fx:id="loginFail" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="281.0" textFill="WHITE" />
       <JFXButton id="small-button" fx:id="loginButton" buttonType="RAISED" defaultButton="true" maxWidth="350.0" onAction="#loginButtonAction" ripplerFill="WHITE" style="-fx-background-radius: 5;" stylesheets="@style/KioskStyle.css" text="Login" textFill="WHITE">
         <VBox.margin>
           <Insets top="10.0" />

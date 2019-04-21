@@ -17,12 +17,12 @@
       </Pane>
     </StackPane>
   </GesturePane>
-  <Label fx:id="coordX" text="X-coord" StackPane.alignment="BOTTOM_LEFT">
+  <Label fx:id="coordY" text="X-coord" StackPane.alignment="BOTTOM_LEFT">
     <padding>
       <Insets bottom="10.0" left="5.0" />
     </padding>
   </Label>
-  <Label fx:id="coordY" text="Y-coord" StackPane.alignment="BOTTOM_LEFT">
+  <Label fx:id="coordX" text="Y-coord" StackPane.alignment="BOTTOM_LEFT">
     <padding>
       <Insets bottom="10.0" left="60.0" />
     </padding>
