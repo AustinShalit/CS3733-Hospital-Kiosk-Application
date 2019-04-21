@@ -38,7 +38,7 @@ allprojects {
         mavenCentral()
         jcenter()
     }
-  
+
     dependencies {
         implementation(group = "com.calendarfx", name = "view", version = "8.5.0")
         implementation(group = "com.google.code.gson", name = "gson", version = "2.8.5")
@@ -75,7 +75,6 @@ allprojects {
         testImplementation(testFx(name = "testfx-junit5"))
         testRuntime(testFx(name = "openjfx-monocle", version = "8u76-b04"))
     }
-
 
     tasks.withType<JavaCompile> {
         sourceCompatibility = JavaVersion.VERSION_1_8.toString()
