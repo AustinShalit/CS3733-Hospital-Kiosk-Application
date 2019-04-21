@@ -48,6 +48,8 @@ public class EmployeeController implements Controller {
   @FXML
   private TableColumn<Employee, String> nameCol;
   @FXML
+  private TableColumn<Employee, String> phoneCol;
+  @FXML
   private Label infoLabel;
 
   @Inject
@@ -71,6 +73,7 @@ public class EmployeeController implements Controller {
     passwordCol.setCellValueFactory(new PropertyValueFactory<>("password"));
     positionCol.setCellValueFactory(new PropertyValueFactory<>("type"));
     nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+    phoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
 
     updateEmployeeController = updateEmployeeControllerFactory.create();
 

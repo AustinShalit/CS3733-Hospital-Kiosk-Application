@@ -25,10 +25,11 @@
             </Label>
             <TableView fx:id="employeeTableView" maxHeight="-Infinity" maxWidth="-Infinity">
               <columns>
-                <TableColumn fx:id="nameCol" prefWidth="237.0" text="Name" />
-                <TableColumn fx:id="usernameCol" prefWidth="260.0" text="Username" />
-                <TableColumn fx:id="passwordCol" prefWidth="335.0" text="Password" />
-                <TableColumn fx:id="positionCol" prefWidth="309.0" text="Position" />
+                <TableColumn fx:id="nameCol" prefWidth="167.00003051757812" text="Name" />
+                <TableColumn fx:id="usernameCol" prefWidth="293.0" text="Username" />
+                <TableColumn fx:id="passwordCol" prefWidth="286.0" text="Password" />
+                <TableColumn fx:id="positionCol" prefWidth="269.0" text="Position" />
+                        <TableColumn fx:id="phoneCol" prefWidth="201.0" text="Phone Number" />
               </columns>
             </TableView>
             <GridPane id="requestbuttons">
