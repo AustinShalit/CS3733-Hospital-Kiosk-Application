@@ -87,6 +87,9 @@ public class NavigationController implements Controller {
     refreshCombobox();
     stepByStep = new StepByStep();
     validateGoButton();
+
+    testComboBox.setNodes(database.getAllNodes());
+    testComboBox.setupAutoRefresh();
     testComboBox.refresh();
   }
 
