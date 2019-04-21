@@ -33,6 +33,7 @@ public class Employee {
     this.password = password;
     this.name = name;
     this.employeeAttributes = employeeAttributes;
+    this.phone = phone;
   }
 
   /**

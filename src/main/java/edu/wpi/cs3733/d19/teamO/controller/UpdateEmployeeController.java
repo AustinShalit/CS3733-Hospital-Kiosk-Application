@@ -115,6 +115,7 @@ public class UpdateEmployeeController implements Controller {
       lg.setUsername(upUsernamefield.getText());
       lg.setPassword(upPasswordfield.getText());
       lg.setName(upNamefield.getText());
+      lg.setPhone(upPasswordfield.getText());
       lg.setType(upPositionbox.getValue());
       lg.getEmployeeAttributes().setCanFulfillAudioVisual(avBox.isSelected());
       lg.getEmployeeAttributes().setCanFulfillExternalTransport(externalTransportBox.isSelected());
@@ -134,7 +135,7 @@ public class UpdateEmployeeController implements Controller {
             "Successfully updated Employee.");
       } else {
         DialogHelper.showErrorAlert("Error.",
-            "Unable to  Employee");
+            "Unable to update Employee");
       }
     }
   }
