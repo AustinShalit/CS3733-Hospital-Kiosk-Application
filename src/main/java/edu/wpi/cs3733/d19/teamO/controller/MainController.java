@@ -1,27 +1,51 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPopup;
 import com.jfoenix.controls.JFXToolbar;
 
-import animatefx.animation.Shake;
+import animatefx.animation.RotateIn;
+import animatefx.animation.RotateOut;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
+import net.aksingh.owmjapis.api.APIException;
+import net.aksingh.owmjapis.core.OWM;
+import net.aksingh.owmjapis.model.CurrentWeather;
 
 import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 @FxmlController(url = "Main.fxml")
 @SuppressWarnings("PMD.TooManyFields")
@@ -45,6 +69,14 @@ public class MainController implements Controller {
   private JFXButton schedulingbtn;
   @FXML
   private JFXButton securitybtn;
+  @FXML
+  private Label timeLabel;
+  @FXML
+  private Label weatherLabel;
+  @FXML
+  private Label description;
+  @FXML
+  private ImageView tempImage;
 
   @Inject
   private EventBus eventBus;
@@ -55,31 +87,58 @@ public class MainController implements Controller {
   @Inject
   private RequestController.Factory requestControllerFactory;
   @Inject
-  private OptionsPopupController.Factory optionsPopupControllerFactory;
-  @Inject
   private LoginController.Factory loginControllerFactory;
+  @Inject
+  private OptionsPopupController.Factory optionsControllerFactory;
+  @Inject
+  private SettingsController.Factory settingsControllerFactory;
   @Inject
   private Database database;
 
+  private String second;
+  private String minute;
+  private String hour;
+  private int month;
+  private int day;
+  private int year;
+  private String image;
+
   private LoginController loginController;
-  private JFXPopup loginPopup;
   private JFXPopup optionsPopup;
+  private SettingsController settingsController;
+  private JFXPopup loginPopup;
+  private JFXPopup settingsPopup;
 
   @FXML
-  void initialize() {
+  void initialize() throws IOException {
     eventBus.register(this);
 
-    optionsPopup = new JFXPopup(optionsPopupControllerFactory.create().list);
+    settingsController = settingsControllerFactory.create();
+    settingsController.root.getCenter().setStyle("-fx-background-color: #f1f1f1; -fx-pref-height: 200px; -fx-pref-width: 500px; ");
+    settingsPopup = new JFXPopup(settingsController.root);
+    settingsPopup.setOnAutoHide(
+        event -> new RotateIn(optionsBurger).play()
+    );
+
+    optionsPopup = new JFXPopup(optionsControllerFactory.create().list);
+    optionsPopup.setOnAutoHide(
+        event -> new RotateIn(optionsBurger).play()
+    );
     optionsBurger.setOnMouseClicked(
         event -> {
+          new RotateOut(optionsBurger).play();
           if ("Login Success".equals(loginController.getLoginFail().getText())) {
             optionsPopup.show(optionsBurger,
                 JFXPopup.PopupVPosition.TOP,
                 JFXPopup.PopupHPosition.RIGHT,
                 -12,
-                15);
+                67);
           } else {
-            new Shake(optionsBurger).play();
+            settingsPopup.show(optionsBurger,
+                JFXPopup.PopupVPosition.TOP,
+                JFXPopup.PopupHPosition.RIGHT,
+                -12,
+                67);
           }
         }
     );
@@ -107,16 +166,90 @@ public class MainController implements Controller {
 
     menu.heightProperty().addListener(
         (observable, oldValue, newValue) -> {
-          navigationbtn.setMinHeight(newValue.doubleValue() / 4);
-          requestbtn.setMinHeight(newValue.doubleValue() / 4);
-          schedulingbtn.setMinHeight(newValue.doubleValue() / 4);
-          securitybtn.setMinHeight(newValue.doubleValue() / 4);
-          navigationbtn.setMaxHeight(newValue.doubleValue() / 4);
-          requestbtn.setMaxHeight(newValue.doubleValue() / 4);
-          schedulingbtn.setMaxHeight(newValue.doubleValue() / 4);
-          securitybtn.setMaxHeight(newValue.doubleValue() / 4);
+          navigationbtn.setMinHeight(newValue.doubleValue() / menu.getChildren().size());
+          requestbtn.setMinHeight(newValue.doubleValue() / menu.getChildren().size());
+          schedulingbtn.setMinHeight(newValue.doubleValue() / menu.getChildren().size());
+          securitybtn.setMinHeight(newValue.doubleValue() / menu.getChildren().size());
+
+          navigationbtn.setMaxHeight(newValue.doubleValue() / menu.getChildren().size());
+          requestbtn.setMaxHeight(newValue.doubleValue() / menu.getChildren().size());
+          schedulingbtn.setMaxHeight(newValue.doubleValue() / menu.getChildren().size());
+          securitybtn.setMaxHeight(newValue.doubleValue() / menu.getChildren().size());
         }
     );
+
+    String surl = "http://api.openweathermap.org/data/2.5/weather?q=Boston&APPID=c2711050ed24651e99a523ce6d08ad73";
+    URL url = new URL(surl);
+    URLConnection request = url.openConnection();
+    request.connect();
+
+    // Convert to a JSON object  using GSON
+    JsonParser jp = new JsonParser();
+    JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent(), UTF_8));
+    JsonObject rootobj = root.getAsJsonObject();
+    System.out.println(root.toString());
+    String icon = rootobj.get("weather")
+        .getAsJsonArray()
+        .get(0)
+        .getAsJsonObject()
+        .get("icon")
+        .getAsString(); //.get("weather.icon").getAsString(); // Get the icon
+    String discrp = rootobj.get("weather")
+        .getAsJsonArray()
+        .get(0)
+        .getAsJsonObject()
+        .get("description")
+        .getAsString(); //.get("weather.icon").getAsString(); // Get the description
+    image = icon + ".png";
+
+    description.setStyle("-fx-font-size: 15px; -fx-font-style: bold");
+    description.setText(discrp.toUpperCase());
+
+    Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+      second = (LocalDateTime.now().getSecond() < 10 ? "0" : "")
+          + Integer.toString(LocalDateTime.now().getSecond());
+      minute = (LocalDateTime.now().getMinute() < 10 ? "0" : "")
+          + Integer.toString(LocalDateTime.now().getMinute());
+      hour = (LocalDateTime.now().getHour() < 10 ? "0" : "")
+          + Integer.toString(LocalDateTime.now().getHour());
+      month = LocalDateTime.now().getMonthValue();
+      day = LocalDateTime.now().getDayOfMonth();
+      year = LocalDateTime.now().getYear();
+      timeLabel.setText(hour + ":" + minute + ":" + second
+          + "\n" + month + "/" + day + "/" + year);
+    }),
+        new KeyFrame(Duration.seconds(1))
+    );
+    clock.setCycleCount(Animation.INDEFINITE);
+    clock.play();
+
+    new Thread(() -> {
+      try {
+        try {
+          getWeatherData();
+        } catch (IOException exception) {
+          exception.printStackTrace();
+        }
+      } catch (APIException exception) {
+        exception.printStackTrace();
+      }
+    }).start();
+  }
+
+  void getWeatherData() throws APIException, IOException {
+    OWM owm = new OWM("c2711050ed24651e99a523ce6d08ad73");
+
+    CurrentWeather cwd = owm.currentWeatherByCityName("Boston", OWM.Country.UNITED_STATES);
+
+    double max = (cwd.getMainData().getTempMax() - 273.15) * 9.0 / 5.0 + 32.0;
+    double min = (cwd.getMainData().getTempMin() - 273.15) * 9.0 / 5.0 + 32.0;
+
+    tempImage.setImage(new Image(getClass().getResource("../component/" + image).openStream()));
+
+    DecimalFormat df = new DecimalFormat("##");
+
+    Platform.runLater(()
+        -> weatherLabel.setText(df.format(min) + " F to " + df.format(max) + " F"));
   }
 
   @FXML
@@ -173,6 +306,7 @@ public class MainController implements Controller {
   private void acceptController(ChangeMainViewEvent event) {
     root.setTop(toolbar);
     root.setCenter(event.getController().getRoot());
+
     if (event.isMenuVisible()) {
       root.setLeft(menu);
     } else {
@@ -181,6 +315,9 @@ public class MainController implements Controller {
 
     if (optionsPopup.isShowing()) {
       optionsPopup.hide();
+    }
+    if (settingsPopup.isShowing()) {
+      settingsPopup.hide();
     }
   }
 

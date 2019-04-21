@@ -1,40 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXHamburger?>
-<?import com.jfoenix.controls.JFXRippler?>
 <?import com.jfoenix.controls.JFXToolbar?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.MainController">
+<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.MainController">
   <top>
     <JFXToolbar fx:id="toolbar" styleClass="main-toolbar" StackPane.alignment="TOP_CENTER">
       <left>
-        <StackPane prefHeight="50.0" prefWidth="118.0" BorderPane.alignment="CENTER">
+        <StackPane minWidth="-Infinity" prefHeight="50.0" prefWidth="200.0">
           <children>
             <JFXButton id="small-button" fx:id="loginbtn" onAction="#loginButtonAction" text="Login" textFill="WHITE" />
           </children>
         </StackPane>
       </left>
       <center>
-        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="logo" BorderPane.alignment="CENTER" />
+            <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+               <children>
+              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="logo" />
+                  <Label fx:id="timeLabel" text="Label">
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <ImageView fx:id="tempImage" fitHeight="67.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true" />
+                  <VBox spacing="10.0">
+                     <children>
+                        <Label fx:id="weatherLabel" text="Label" />
+                        <Label fx:id="description" text="Label" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </HBox>
       </center>
       <right>
-        <JFXRippler maskType="CIRCLE" style="ripple: white;" BorderPane.alignment="CENTER">
-          <StackPane fx:id="optionsBurger">
-            <JFXHamburger>
-              <StackPane.margin>
-                <Insets right="10.0" />
-              </StackPane.margin>
-            </JFXHamburger>
-          </StackPane>
-        </JFXRippler>
+        <StackPane fx:id="optionsBurger" prefHeight="50.0" prefWidth="67.0">
+          <FontAwesomeIconView fill="#404040" glyphName="COG" size="50" />
+        </StackPane>
       </right>
     </JFXToolbar>
   </top>
