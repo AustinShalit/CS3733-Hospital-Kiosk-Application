@@ -30,6 +30,7 @@ import net.aksingh.owmjapis.api.APIException;
 import net.aksingh.owmjapis.core.OWM;
 import net.aksingh.owmjapis.model.CurrentWeather;
 
+import edu.wpi.cs3733.d19.teamO.component.MapView;
 import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
@@ -147,7 +148,7 @@ public class HomeController implements Controller {
     double max = (cwd.getMainData().getTempMax() - 273.15) * 9.0 / 5.0 + 32.0;
     double min = (cwd.getMainData().getTempMin() - 273.15) * 9.0 / 5.0 + 32.0;
 
-    tempImage.setImage(new Image(getClass().getResource("../component/" + image).openStream()));
+    tempImage.setImage(new Image(MapView.class.getResourceAsStream(image)));
 
     DecimalFormat df = new DecimalFormat("##");
 
