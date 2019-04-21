@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
-//import com.google.common.eventbus.EventBus;
-//import com.google.inject.Inject;
+import com.google.common.eventbus.EventBus;
+import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
@@ -32,6 +32,7 @@ import javafx.util.StringConverter;
 import edu.wpi.cs3733.d19.teamO.controller.Controller;
 import edu.wpi.cs3733.d19.teamO.controller.DialogHelper;
 import edu.wpi.cs3733.d19.teamO.controller.FxmlController;
+import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.request.pizzapi.Address;
 import edu.wpi.cs3733.d19.teamO.request.pizzapi.Customer;
 import edu.wpi.cs3733.d19.teamO.request.pizzapi.Menu;
@@ -69,10 +70,10 @@ public class OrderController implements Controller {
     OrderController create();
   }
 
-  //  @Inject
-  //  private EventBus eventBus;
-  //  @Inject
-  //  private ReorderController.Factory reorderControllerFactory;
+  @Inject
+  private EventBus eventBus;
+  @Inject
+  private ReorderController.Factory reorderControllerFactory;
 
   /**
    * Customer Information.
@@ -295,14 +296,15 @@ public class OrderController implements Controller {
    */
   @FXML
   void onSubmitAction() throws IOException {
-    DialogHelper.showErrorAlert("",
-            "Ordering has not yet been configured. Please see the source code.");
+    //        DialogHelper.showErrorAlert("",
+    //            "Ordering has not yet been configured. Please see the source code.");
 
-    //    if(DialogHelper.showConfirmDialog("Are you sure?", "This will place an order",
-    //        " Do you want to continue?")) {
-    //      order.placeOrder();
-    //      eventBus.post(new ChangeMainViewEvent(reorderControllerFactory.create()));
-    //    }
+    if (DialogHelper.showConfirmDialog("Are you sure?",
+        "This will place an order. ",
+        "Do you want to continue?")) {
+      order.placeOrder();
+      eventBus.post(new ChangeMainViewEvent(reorderControllerFactory.create()));
+    }
   }
 
   /**
