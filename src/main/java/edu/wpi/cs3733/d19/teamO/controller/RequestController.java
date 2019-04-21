@@ -30,8 +30,6 @@ public class RequestController implements Controller {
 
   @FXML
   BorderPane root;
-  @FXML
-  VBox menu;
 
   @FXML
   private JFXButton sanitation;
@@ -65,7 +63,6 @@ public class RequestController implements Controller {
   @FXML
   private JFXButton viewRequest;
 
-
   @Inject
   private EventBus eventBus;
   @Inject
@@ -93,10 +90,6 @@ public class RequestController implements Controller {
   @Inject
   private SanitationViewController.Factory sanitationControllerFactory;
 
-  @FXML
-  void initialize() {
-
-  }
 
   @FXML
   void internalTransportationAction(ActionEvent event) {
@@ -158,7 +151,6 @@ public class RequestController implements Controller {
   void prescriptionAction() {
     eventBus.post(new ChangeMainViewEvent(prescriptionRequestControllerFactory.create()));
   }
-
 
   @Override
   public Parent getRoot() {
