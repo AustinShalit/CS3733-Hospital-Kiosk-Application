@@ -5,75 +5,74 @@ import com.google.common.eventbus.Subscribe;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXPopup;
 import com.jfoenix.controls.JFXToolbar;
-
+import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 
-import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
-
 @FxmlController(url = "Main.fxml")
 public class MainController implements Controller {
 
-  @FXML
-  private StackPane root;
+    @FXML
+    private StackPane root;
 
-  @FXML
-  private BorderPane contentPane;
+    @FXML
+    private BorderPane contentPane;
 
-  @FXML
-  private StackPane optionsBurger;
+    @FXML
+    private StackPane optionsBurger;
 
-  @FXML
-  private JFXToolbar toolbar;
+    @FXML
+    private JFXToolbar toolbar;
 
-  @Inject
-  private EventBus eventBus;
-  @Inject
-  private HomeController.Factory homeControllerFactory;
-  @Inject
-  private OptionsPopupController.Factory optionsPopupControllerFactory;
+    @Inject
+    private EventBus eventBus;
+    @Inject
+    private HomeController.Factory homeControllerFactory;
+    @Inject
+    private OptionsPopupController.Factory optionsPopupControllerFactory;
 
-  private JFXPopup optionsPopup;
+    private JFXPopup optionsPopup;
 
-  @FXML
-  void initialize() {
-    eventBus.register(this);
+    @FXML
+    void initialize() {
+        eventBus.register(this);
 
-    optionsPopup = new JFXPopup(optionsPopupControllerFactory.create().list);
+        optionsPopup = new JFXPopup(optionsPopupControllerFactory.create().list);
 
-    optionsBurger.setOnMouseClicked(e ->
-        optionsPopup.show(optionsBurger,
-            JFXPopup.PopupVPosition.TOP,
-            JFXPopup.PopupHPosition.RIGHT,
-            -12,
-            15));
-  }
+        optionsBurger.setOnMouseClicked(e ->
+                optionsPopup.show(optionsBurger,
+                        JFXPopup.PopupVPosition.TOP,
+                        JFXPopup.PopupHPosition.RIGHT,
+                        -12,
+                        15));
 
-  @FXML
-  void onHomeButtonAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(homeControllerFactory.create()));
-  }
-
-  @Subscribe
-  @SuppressWarnings("PMD.UnusedPrivateMethod")
-  private void acceptController(ChangeMainViewEvent event) {
-    contentPane.setCenter(event.getController().getRoot());
-    if (event.isFramed()) {
-      contentPane.setTop(toolbar);
-    } else {
-      contentPane.setTop(null);
     }
-    // toolbar.setVisible(event.isFramed());
-    if (optionsPopup.isShowing()) {
-      optionsPopup.hide();
-    }
-  }
 
-  @Override
-  public Parent getRoot() {
-    return root;
-  }
+    @FXML
+    void onHomeButtonAction(ActionEvent event) {
+        eventBus.post(new ChangeMainViewEvent(homeControllerFactory.create()));
+    }
+
+    @Subscribe
+    @SuppressWarnings("PMD.UnusedPrivateMethod")
+    private void acceptController(ChangeMainViewEvent event) {
+        contentPane.setCenter(event.getController().getRoot());
+        if (event.isFramed()) {
+            contentPane.setTop(toolbar);
+        } else {
+            contentPane.setTop(null);
+        }
+        // toolbar.setVisible(event.isFramed());
+        if (optionsPopup.isShowing()) {
+            optionsPopup.hide();
+        }
+    }
+
+    @Override
+    public Parent getRoot() {
+        return root;
+    }
 }

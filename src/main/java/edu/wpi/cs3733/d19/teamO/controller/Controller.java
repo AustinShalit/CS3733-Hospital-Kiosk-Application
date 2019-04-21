@@ -8,10 +8,12 @@ import javafx.scene.Parent;
  */
 public interface Controller {
 
-  /**
-   * The root node for composition.
-   *
-   * @return The root node of the controller.
-   */
-  Parent getRoot();
+    /**
+     * The root node for composition.
+     *
+     * @return The root node of the controller.
+     */
+    Parent getRoot();
+
+
 }

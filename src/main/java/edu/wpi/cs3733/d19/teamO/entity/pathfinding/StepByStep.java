@@ -1,167 +1,168 @@
 package edu.wpi.cs3733.d19.teamO.entity.pathfinding;
 
+import edu.wpi.cs3733.d19.teamO.entity.Node;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.wpi.cs3733.d19.teamO.entity.Node;
-
 
 @SuppressWarnings({"PMD.CyclomaticComplexity", "PMD.LooseCoupling", "PMD.CyclomaticComplexity",
-    "PMD.AvoidInstantiatingObjectsInLoops", "PMD.GodClass" , "PMD.ExcessiveMethodLength",
-    "PMD.NPathComplexity", "PMD.PositionLiteralsFirstInComparisons"})
+        "PMD.AvoidInstantiatingObjectsInLoops", "PMD.GodClass", "PMD.ExcessiveMethodLength",
+        "PMD.NPathComplexity", "PMD.PositionLiteralsFirstInComparisons"})
 
 public class StepByStep {
 
-  public StepByStep() {
-  }
-
-  /**
-   * This returns a String direction between a start and end node.
-   * @param start the starting node.
-   * @param end the end node.
-   * @return a String diretion.
-   */
-  public String getDirection(Coordinate start, Coordinate end) {
-    int xdif = end.getXcoord() - start.getXcoord();
-    int ydif = start.getYcoord() - end.getYcoord();
-
-    double theta = Math.atan2(ydif, xdif) * 180 / Math.PI;
-
-    if (start.isElevator() && end.isElevator()) {
-      return "Elevator";
-    } else if (start.isStair() && end.isStair()) {
-      return "Stair";
-    } else if (theta > 22.5 && theta <= 67.5) {
-      return "North East";
-    } else if (theta > 67.5 && theta <= 112.5) {
-      return "North";
-    } else if (theta > 112.5 && theta <= 157.5) {
-      return "North West";
-    } else if (theta > 157.5 || theta <= -157.5) {
-      return "West";
-    } else if (theta < -112.5 && theta > -157.5) {
-      return "South West";
-    } else if (theta > -112.5 && theta <= -67.5) {
-      return "South";
-    } else if (theta > -67.5 && theta <= -22.5) {
-      return "South East";
-    } else if (theta > -22.5 || theta <= 22.5) {
-      return "East";
+    public StepByStep() {
     }
 
-    return "";
-  }
+    /**
+     * This returns a String direction between a start and end node.
+     *
+     * @param start the starting node.
+     * @param end   the end node.
+     * @return a String diretion.
+     */
+    public String getDirection(Coordinate start, Coordinate end) {
+        int xdif = end.getXcoord() - start.getXcoord();
+        int ydif = start.getYcoord() - end.getYcoord();
 
-  /**
-   * Creates a list of instruction from a list of nodes.
-   * @param nodes list of nodes.
-   * @return list of instructions.
-   */
-  public ArrayList<String> getStepByStep(List<Node> nodes) {
+        double theta = Math.atan2(ydif, xdif) * 180 / Math.PI;
 
-
-    ArrayList<Coordinate> coordinates = new ArrayList<>();
-
-    for (Node node: nodes) {
-      boolean isElevator = false;
-      boolean isStair = false;
-      if (node.getNodeType() == Node.NodeType.STAI) {
-        isStair = true;
-
-      }
-      if (node.getNodeType() == Node.NodeType.ELEV) {
-        isElevator = true;
-      }
-      Coordinate newCoord = new Coordinate(node.getXcoord(), node.getYcoord(),
-          isElevator, isStair);
-      coordinates.add(newCoord);
-    }
-
-    ArrayList<String> cardinalDirections = new ArrayList<>();
-
-    List<String> compass = new ArrayList<>();
-    compass.add("North");
-    compass.add("North East");
-    compass.add("East");
-    compass.add("South East");
-    compass.add("South");
-    compass.add("South West");
-    compass.add("West");
-    compass.add("North West");
-    ArrayList<Double> distance = new ArrayList<>();
-
-    ArrayList<String> instructions = new ArrayList<>();
-    for (int i = 0; i < coordinates.size() - 1; i++) {
-      String direction = getDirection(coordinates.get(i), coordinates.get(i + 1));
-      cardinalDirections.add(direction);
-      double diff = coordinates.get(i).getDist(coordinates.get(i + 1));
-      distance.add(diff);
-    }
-    instructions.add("Walk " + cardinalDirections.get(0) + " from " + nodes.get(0).getLongName());
-    double totalDist = 0;
-    String last = "other";
-    String forward = "forward";
-
-    for (int i = 0; i < cardinalDirections.size() - 1; i++) {
-      String current = cardinalDirections.get(i);
-      String next = cardinalDirections.get(i + 1);
-
-      int start = compass.indexOf(current);
-      int end = compass.indexOf(next);
-      int diff = end - start;
-
-
-      if (!last.equals(forward)) {
-        instructions.add("Walk " + Double.toString(Math.round(distance.get(i))) + " ft then");
-      }
-
-      if (last.equals("Elevator") || last.equals("Stair")) {
-        instructions.remove(instructions.size() - 1);
-      }
-
-      if (current.equals("Elevator")) {
-        instructions.remove(instructions.size() - 1);
-        instructions.remove(instructions.size() - 1);
-        instructions.add("Use elevator");
-        last = "Elevator";
-      }  else if (current.equals("Stair")) {
-        instructions.remove(instructions.size() - 1);
-        instructions.remove(instructions.size() - 1);
-        instructions.add("Use stairs");
-        last = "Stair";
-      } else if (diff == 1 || diff == -7 ) {
-        instructions.add("Take a slight right");
-        last = "other";
-      } else if (diff == 2 || diff == -6) {
-        instructions.add("Take a right");
-        last = "other";
-      } else if (diff == 3 || diff == -5) {
-        instructions.add("Take a hard right");
-        last = "other";
-      } else if (diff == -1 || diff == 7) {
-        instructions.add("Take a slight left");
-        last = "other";
-      } else if (diff == -2 || diff == 6) {
-        instructions.add("Take a left");
-        last = "other";
-      } else if (diff == -3 || diff == 5) {
-        instructions.add("Take a hard left");
-        last = "other";
-      } else if (diff == 0) {
-        if (!last.equals(forward)) {
-          instructions.add("Go forward");
-          totalDist += Math.round(distance.get(i));
-          last = "forward";
+        if (start.isElevator() && end.isElevator()) {
+            return "Elevator";
+        } else if (start.isStair() && end.isStair()) {
+            return "Stair";
+        } else if (theta > 22.5 && theta <= 67.5) {
+            return "North East";
+        } else if (theta > 67.5 && theta <= 112.5) {
+            return "North";
+        } else if (theta > 112.5 && theta <= 157.5) {
+            return "North West";
+        } else if (theta > 157.5 || theta <= -157.5) {
+            return "West";
+        } else if (theta < -112.5 && theta > -157.5) {
+            return "South West";
+        } else if (theta > -112.5 && theta <= -67.5) {
+            return "South";
+        } else if (theta > -67.5 && theta <= -22.5) {
+            return "South East";
+        } else if (theta > -22.5 || theta <= 22.5) {
+            return "East";
         }
-        last = "forward";
-      }
+
+        return "";
     }
 
-    instructions.add("Arrive at " + nodes.get(nodes.size() - 1).getLongName());
+    /**
+     * Creates a list of instruction from a list of nodes.
+     *
+     * @param nodes list of nodes.
+     * @return list of instructions.
+     */
+    public ArrayList<String> getStepByStep(List<Node> nodes) {
 
-    return instructions;
-  }
 
+        ArrayList<Coordinate> coordinates = new ArrayList<>();
+
+        for (Node node : nodes) {
+            boolean isElevator = false;
+            boolean isStair = false;
+            if (node.getNodeType() == Node.NodeType.STAI) {
+                isStair = true;
+
+            }
+            if (node.getNodeType() == Node.NodeType.ELEV) {
+                isElevator = true;
+            }
+            Coordinate newCoord = new Coordinate(node.getXcoord(), node.getYcoord(),
+                    isElevator, isStair);
+            coordinates.add(newCoord);
+        }
+
+        ArrayList<String> cardinalDirections = new ArrayList<>();
+
+        List<String> compass = new ArrayList<>();
+        compass.add("North");
+        compass.add("North East");
+        compass.add("East");
+        compass.add("South East");
+        compass.add("South");
+        compass.add("South West");
+        compass.add("West");
+        compass.add("North West");
+        ArrayList<Double> distance = new ArrayList<>();
+
+        ArrayList<String> instructions = new ArrayList<>();
+        for (int i = 0; i < coordinates.size() - 1; i++) {
+            String direction = getDirection(coordinates.get(i), coordinates.get(i + 1));
+            cardinalDirections.add(direction);
+            double diff = coordinates.get(i).getDist(coordinates.get(i + 1));
+            distance.add(diff);
+        }
+        instructions.add("Walk " + cardinalDirections.get(0) + " from " + nodes.get(0).getLongName());
+        double totalDist = 0;
+        String last = "other";
+        String forward = "forward";
+
+        for (int i = 0; i < cardinalDirections.size() - 1; i++) {
+            String current = cardinalDirections.get(i);
+            String next = cardinalDirections.get(i + 1);
+
+            int start = compass.indexOf(current);
+            int end = compass.indexOf(next);
+            int diff = end - start;
+
+
+            if (!last.equals(forward)) {
+                instructions.add("Walk " + Math.round(distance.get(i)) + " ft then");
+            }
+
+            if (last.equals("Elevator") || last.equals("Stair")) {
+                instructions.remove(instructions.size() - 1);
+            }
+
+            if (current.equals("Elevator")) {
+                instructions.remove(instructions.size() - 1);
+                instructions.remove(instructions.size() - 1);
+                instructions.add("Use elevator");
+                last = "Elevator";
+            } else if (current.equals("Stair")) {
+                instructions.remove(instructions.size() - 1);
+                instructions.remove(instructions.size() - 1);
+                instructions.add("Use stairs");
+                last = "Stair";
+            } else if (diff == 1 || diff == -7) {
+                instructions.add("Take a slight right");
+                last = "other";
+            } else if (diff == 2 || diff == -6) {
+                instructions.add("Take a right");
+                last = "other";
+            } else if (diff == 3 || diff == -5) {
+                instructions.add("Take a hard right");
+                last = "other";
+            } else if (diff == -1 || diff == 7) {
+                instructions.add("Take a slight left");
+                last = "other";
+            } else if (diff == -2 || diff == 6) {
+                instructions.add("Take a left");
+                last = "other";
+            } else if (diff == -3 || diff == 5) {
+                instructions.add("Take a hard left");
+                last = "other";
+            } else if (diff == 0) {
+                if (!last.equals(forward)) {
+                    instructions.add("Go forward");
+                    totalDist += Math.round(distance.get(i));
+                    last = "forward";
+                }
+                last = "forward";
+            }
+        }
+
+        instructions.add("Arrive at " + nodes.get(nodes.size() - 1).getLongName());
+
+        return instructions;
+    }
 
 
 }
