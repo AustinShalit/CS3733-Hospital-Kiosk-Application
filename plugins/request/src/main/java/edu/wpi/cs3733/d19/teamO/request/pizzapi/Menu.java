@@ -27,9 +27,12 @@ public class Menu extends GenericJson {
   public List<Product> getProducts() {
     List<Product> products = new LinkedList<>();
     productsJson.forEach((key, value) -> {
-      Map product = (Map) value;
-      products.add(new Product(product.get("Code").toString(),
-          product.get("Name").toString()));
+      Map productJson = (Map) value;
+      Product product = new Product(productJson.get("Code").toString(),
+          productJson.get("Name").toString());
+      if (variants.get(product.getCode()) != null) {
+        products.add(product);
+      }
     });
     return products;
   }
