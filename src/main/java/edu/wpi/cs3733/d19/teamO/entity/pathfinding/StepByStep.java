@@ -73,7 +73,7 @@ public class StepByStep {
         isElevator = true;
       }
       Coordinate newCoord = new Coordinate(node.getXcoord(), node.getYcoord(),
-          isElevator, isStair);
+          isElevator, isStair, node.getFloor());
       coordinates.add(newCoord);
     }
 
@@ -91,13 +91,18 @@ public class StepByStep {
     ArrayList<Double> distance = new ArrayList<>();
 
     ArrayList<String> instructions = new ArrayList<>();
+    ArrayList<String> floors = new ArrayList<>();
+
     for (int i = 0; i < coordinates.size() - 1; i++) {
       String direction = getDirection(coordinates.get(i), coordinates.get(i + 1));
       cardinalDirections.add(direction);
       double diff = coordinates.get(i).getDist(coordinates.get(i + 1));
       distance.add(diff);
+      floors.add(coordinates.get(i).getFloor());
     }
-    instructions.add("Walk " + cardinalDirections.get(0) + " from " + nodes.get(0).getLongName());
+    String currFloor = nodes.get(0).getFloor();
+    instructions.add("Floor " + currFloor);
+    instructions.add("\t Walk " + cardinalDirections.get(0) + " from " + nodes.get(0).getLongName());
     double totalDist = 0;
     String last = "other";
     String forward = "forward";
@@ -112,7 +117,7 @@ public class StepByStep {
 
 
       if (!last.equals(forward)) {
-        instructions.add("Walk " + Double.toString(Math.round(distance.get(i))) + " ft then");
+        instructions.add("\t Walk " + Double.toString(Math.round(distance.get(i))) + " ft then");
       }
 
       if (last.equals("Elevator") || last.equals("Stair")) {
@@ -122,34 +127,54 @@ public class StepByStep {
       if (current.equals("Elevator")) {
         instructions.remove(instructions.size() - 1);
         instructions.remove(instructions.size() - 1);
-        instructions.add("Use elevator");
+        instructions.add("\t Use elevator");
+
+        String nextFloor = "";
+        currFloor = floors.get(i);
+        if(i > 0) {
+          nextFloor = floors.get(i + 1);
+        }
+        if(!currFloor.equals(nextFloor)) {
+          instructions.add("Floor " + nextFloor);
+        }
+
         last = "Elevator";
       }  else if (current.equals("Stair")) {
         instructions.remove(instructions.size() - 1);
         instructions.remove(instructions.size() - 1);
-        instructions.add("Use stairs");
+        instructions.add("\t Use stairs");
+
+        String nextFloor = "";
+        currFloor = floors.get(i);
+        if(i > 0) {
+          nextFloor = floors.get(i + 1);
+        }
+        if(!currFloor.equals(nextFloor)) {
+          instructions.add("Floor " + nextFloor);
+        }
+
         last = "Stair";
       } else if (diff == 1 || diff == -7 ) {
-        instructions.add("Take a slight right");
+        instructions.add("\t Take a slight right");
         last = "other";
       } else if (diff == 2 || diff == -6) {
-        instructions.add("Take a right");
+        instructions.add("\t Take a right");
         last = "other";
       } else if (diff == 3 || diff == -5) {
-        instructions.add("Take a hard right");
+        instructions.add("\t Take a hard right");
         last = "other";
       } else if (diff == -1 || diff == 7) {
-        instructions.add("Take a slight left");
+        instructions.add("\t Take a slight left");
         last = "other";
       } else if (diff == -2 || diff == 6) {
-        instructions.add("Take a left");
+        instructions.add("\t Take a left");
         last = "other";
       } else if (diff == -3 || diff == 5) {
-        instructions.add("Take a hard left");
+        instructions.add("\t Take a hard left");
         last = "other";
       } else if (diff == 0) {
         if (!last.equals(forward)) {
-          instructions.add("Go forward");
+          instructions.add("\t Go forward");
           totalDist += Math.round(distance.get(i));
           last = "forward";
         }
@@ -157,11 +182,10 @@ public class StepByStep {
       }
     }
 
-    instructions.add("Arrive at " + nodes.get(nodes.size() - 1).getLongName());
+    instructions.add("\t Arrive at " + nodes.get(nodes.size() - 1).getLongName());
 
     return instructions;
   }
-
 
 
 }
