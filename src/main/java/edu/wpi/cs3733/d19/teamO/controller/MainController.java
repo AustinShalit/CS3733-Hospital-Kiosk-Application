@@ -3,11 +3,11 @@ package edu.wpi.cs3733.d19.teamO.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+import java.util.Locale;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
@@ -48,7 +48,7 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 @FxmlController(url = "Main.fxml")
-@SuppressWarnings("PMD.TooManyFields")
+@SuppressWarnings({"PMD.TooManyFields", "PMD.ExcessiveImports"})
 public class MainController implements Controller {
 
   @FXML
@@ -105,7 +105,6 @@ public class MainController implements Controller {
 
   private LoginController loginController;
   private JFXPopup optionsPopup;
-  private SettingsController settingsController;
   private JFXPopup loginPopup;
   private JFXPopup settingsPopup;
 
@@ -113,8 +112,9 @@ public class MainController implements Controller {
   void initialize() throws IOException {
     eventBus.register(this);
 
-    settingsController = settingsControllerFactory.create();
-    settingsController.root.getCenter().setStyle("-fx-background-color: #f1f1f1; -fx-pref-height: 200px; -fx-pref-width: 500px; ");
+    SettingsController settingsController = settingsControllerFactory.create();
+    settingsController.root.getCenter().setStyle(
+        "-fx-background-color: #f1f1f1; -fx-pref-height: 150px; -fx-pref-width: 500px; ");
     settingsPopup = new JFXPopup(settingsController.root);
     settingsPopup.setOnAutoHide(
         event -> new RotateIn(optionsBurger).play()
@@ -178,6 +178,10 @@ public class MainController implements Controller {
         }
     );
 
+    weatherDisplay();
+  }
+
+  void weatherDisplay() throws IOException {
     String surl = "http://api.openweathermap.org/data/2.5/weather?q=Boston&APPID=c2711050ed24651e99a523ce6d08ad73";
     URL url = new URL(surl);
     URLConnection request = url.openConnection();
@@ -203,7 +207,7 @@ public class MainController implements Controller {
     image = icon + ".png";
 
     description.setStyle("-fx-font-size: 15px; -fx-font-style: bold");
-    description.setText(discrp.toUpperCase());
+    description.setText(discrp.toUpperCase(Locale.ENGLISH));
 
     Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
       second = (LocalDateTime.now().getSecond() < 10 ? "0" : "")

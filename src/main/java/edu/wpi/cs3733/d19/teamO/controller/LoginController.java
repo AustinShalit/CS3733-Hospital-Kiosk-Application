@@ -76,14 +76,10 @@ public class LoginController implements Controller {
       return;
     }
     boolean check = false;
-    boolean admin = false;
     // checks every Employee info in set
     for (Employee l : info) {
       if (l.loginEquals(employee)) {
         check = true;
-        if (l.getType().toString().equals("Admin")) {
-          admin = true;
-        }
       }
     }
 
@@ -93,11 +89,7 @@ public class LoginController implements Controller {
     // if info typed was right, you go to main window screen
     if (check) {
       loginFail.setText("Login Success");
-      if (admin) {
-        eventBus.post(new ChangeMainViewEvent(navigationController.create(), true, true));
-      } else {
-        eventBus.post(new ChangeMainViewEvent(navigationController.create()));
-      }
+      eventBus.post(new ChangeMainViewEvent(navigationController.create()));
     } else {
       loginFail.setText("Incorrect username or password");
       new Shake(loginButton).play();

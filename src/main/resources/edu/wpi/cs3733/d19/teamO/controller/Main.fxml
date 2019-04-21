@@ -23,26 +23,26 @@
         </StackPane>
       </left>
       <center>
-            <HBox alignment="CENTER" BorderPane.alignment="CENTER">
-               <children>
-              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="logo" />
-                  <Label fx:id="timeLabel" text="Label">
-                     <HBox.margin>
-                        <Insets top="10.0" />
-                     </HBox.margin>
-                  </Label>
-                  <ImageView fx:id="tempImage" fitHeight="67.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true" />
-                  <VBox spacing="10.0">
-                     <children>
-                        <Label fx:id="weatherLabel" text="Label" />
-                        <Label fx:id="description" text="Label" />
-                     </children>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                  </VBox>
-               </children>
-            </HBox>
+        <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+          <children>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="logo" />
+            <Label fx:id="timeLabel" text="Label">
+              <HBox.margin>
+                <Insets top="10.0" />
+              </HBox.margin>
+            </Label>
+            <ImageView fx:id="tempImage" fitHeight="67.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true" />
+            <VBox spacing="10.0">
+              <children>
+                <Label fx:id="weatherLabel" text="Label" />
+                <Label fx:id="description" text="Label" />
+              </children>
+              <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+              </padding>
+            </VBox>
+          </children>
+        </HBox>
       </center>
       <right>
         <StackPane fx:id="optionsBurger" prefHeight="50.0" prefWidth="67.0">

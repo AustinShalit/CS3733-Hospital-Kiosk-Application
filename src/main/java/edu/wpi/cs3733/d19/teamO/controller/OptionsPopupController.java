@@ -5,7 +5,6 @@ import com.google.inject.Inject;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXPopup;
 
-import animatefx.animation.RotateIn;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
