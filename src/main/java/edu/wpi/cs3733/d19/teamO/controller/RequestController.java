@@ -4,10 +4,17 @@ import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 
+import animatefx.animation.SlideInLeft;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
@@ -30,6 +37,8 @@ public class RequestController implements Controller {
 
   @FXML
   BorderPane root;
+  @FXML
+  private VBox menu;
 
   @FXML
   private JFXButton sanitation;
@@ -90,10 +99,29 @@ public class RequestController implements Controller {
   @Inject
   private SanitationViewController.Factory sanitationControllerFactory;
 
+  @FXML
+  void initialize() {
+    menu.heightProperty().addListener(
+        (observable, oldValue, newValue) -> {
+          sanitation.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
+          prescription.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
+          interpreter.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
+          audioVisual.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
+          internalTransportation.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
+          externalTransportation.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
+          patientInfo.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
+          gift.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
+          itSupport.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
+          religious.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
+          animalSupport.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
+          florist.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
+        });
+  }
 
   @FXML
   void internalTransportationAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(internalTransportationControllerFactory.create()));
+    root.setCenter(internalTransportationControllerFactory.create().root);
+    new SlideInLeft(internalTransportationControllerFactory.create().root);
   }
 
   @FXML
