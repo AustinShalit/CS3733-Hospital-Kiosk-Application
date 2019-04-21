@@ -7,7 +7,7 @@ import edu.wpi.cs3733.d19.teamO.entity.Node;
 
 
 @SuppressWarnings({"PMD.CyclomaticComplexity", "PMD.LooseCoupling", "PMD.CyclomaticComplexity",
-    "PMD.AvoidInstantiatingObjectsInLoops", "PMD.GodClass" , "PMD.ExcessiveMethodLength",
+    "PMD.AvoidInstantiatingObjectsInLoops", "PMD.GodClass", "PMD.ExcessiveMethodLength",
     "PMD.NPathComplexity", "PMD.PositionLiteralsFirstInComparisons"})
 
 public class StepByStep {
@@ -17,8 +17,9 @@ public class StepByStep {
 
   /**
    * This returns a String direction between a start and end node.
+   *
    * @param start the starting node.
-   * @param end the end node.
+   * @param end   the end node.
    * @return a String diretion.
    */
   public String getDirection(Coordinate start, Coordinate end) {
@@ -54,15 +55,14 @@ public class StepByStep {
 
   /**
    * Creates a list of instruction from a list of nodes.
+   *
    * @param nodes list of nodes.
    * @return list of instructions.
    */
   public ArrayList<String> getStepByStep(List<Node> nodes) {
-
-
     ArrayList<Coordinate> coordinates = new ArrayList<>();
 
-    for (Node node: nodes) {
+    for (Node node : nodes) {
       boolean isElevator = false;
       boolean isStair = false;
       if (node.getNodeType() == Node.NodeType.STAI) {
@@ -102,7 +102,7 @@ public class StepByStep {
     }
     String currFloor = nodes.get(0).getFloor();
     instructions.add("Floor " + currFloor);
-    instructions.add("\t Walk " + cardinalDirections.get(0) + " from " + nodes.get(0).getLongName());
+    instructions.add("\tWalk " + cardinalDirections.get(0) + " from " + nodes.get(0).getLongName());
     double totalDist = 0;
     String last = "other";
     String forward = "forward";
@@ -117,7 +117,7 @@ public class StepByStep {
 
 
       if (!last.equals(forward)) {
-        instructions.add("\t Walk " + Double.toString(Math.round(distance.get(i))) + " ft then");
+        instructions.add("\tWalk " + Double.toString(Math.round(distance.get(i))) + " ft then");
       }
 
       if (last.equals("Elevator") || last.equals("Stair")) {
@@ -127,54 +127,54 @@ public class StepByStep {
       if (current.equals("Elevator")) {
         instructions.remove(instructions.size() - 1);
         instructions.remove(instructions.size() - 1);
-        instructions.add("\t Use elevator");
+        instructions.add("\tUse elevator");
 
         String nextFloor = "";
         currFloor = floors.get(i);
-        if(i > 0) {
+        if (i > 0) {
           nextFloor = floors.get(i + 1);
         }
-        if(!currFloor.equals(nextFloor)) {
+        if (!currFloor.equals(nextFloor)) {
           instructions.add("Floor " + nextFloor);
         }
 
         last = "Elevator";
-      }  else if (current.equals("Stair")) {
+      } else if (current.equals("Stair")) {
         instructions.remove(instructions.size() - 1);
         instructions.remove(instructions.size() - 1);
-        instructions.add("\t Use stairs");
+        instructions.add("\tUse stairs");
 
         String nextFloor = "";
         currFloor = floors.get(i);
-        if(i > 0) {
+        if (i > 0) {
           nextFloor = floors.get(i + 1);
         }
-        if(!currFloor.equals(nextFloor)) {
+        if (!currFloor.equals(nextFloor)) {
           instructions.add("Floor " + nextFloor);
         }
 
         last = "Stair";
-      } else if (diff == 1 || diff == -7 ) {
-        instructions.add("\t Take a slight right");
+      } else if (diff == 1 || diff == -7) {
+        instructions.add("\tTake a slight right");
         last = "other";
       } else if (diff == 2 || diff == -6) {
-        instructions.add("\t Take a right");
+        instructions.add("\tTake a right");
         last = "other";
       } else if (diff == 3 || diff == -5) {
-        instructions.add("\t Take a hard right");
+        instructions.add("\tTake a hard right");
         last = "other";
       } else if (diff == -1 || diff == 7) {
-        instructions.add("\t Take a slight left");
+        instructions.add("\tTake a slight left");
         last = "other";
       } else if (diff == -2 || diff == 6) {
-        instructions.add("\t Take a left");
+        instructions.add("\tTake a left");
         last = "other";
       } else if (diff == -3 || diff == 5) {
-        instructions.add("\t Take a hard left");
+        instructions.add("\tTake a hard left");
         last = "other";
       } else if (diff == 0) {
         if (!last.equals(forward)) {
-          instructions.add("\t Go forward");
+          instructions.add("\tGo forward");
           totalDist += Math.round(distance.get(i));
           last = "forward";
         }
@@ -182,7 +182,7 @@ public class StepByStep {
       }
     }
 
-    instructions.add("\t Arrive at " + nodes.get(nodes.size() - 1).getLongName());
+    instructions.add("\tArrive at " + nodes.get(nodes.size() - 1).getLongName());
 
     return instructions;
   }
