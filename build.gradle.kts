@@ -38,7 +38,7 @@ allprojects {
         mavenCentral()
         jcenter()
     }
-
+  
     dependencies {
         implementation(group = "com.calendarfx", name = "view", version = "8.5.0")
         implementation(group = "com.google.code.gson", name = "gson", version = "2.8.5")
@@ -47,7 +47,8 @@ allprojects {
         implementation(group = "com.google.inject.extensions", name = "guice-assistedinject", version = "4.2.2")
         implementation(group = "com.jfoenix", name = "jfoenix", version = "8.0.8")
         implementation(group = "com.opencsv", name = "opencsv", version = "4.5")
-        implementation(group = "de.jensd", name = "fontawesomefx", version = "8.9")
+        implementation(group = "de.jensd", name = "fontawesomefx-commons", version = "8.15")
+        implementation(group = "de.jensd", name = "fontawesomefx-fontawesome", version = "4.7.0-5")
         implementation(group = "io.github.typhon0", name = "AnimateFX", version = "1.2.1")
         implementation(group = "net.aksingh", name = "owm-japis", version = "2.5.2.3")
         implementation(group = "net.kurobako", name = "gesturefx", version = "0.3.0")
@@ -74,6 +75,7 @@ allprojects {
         testImplementation(testFx(name = "testfx-junit5"))
         testRuntime(testFx(name = "openjfx-monocle", version = "8u76-b04"))
     }
+
 
     tasks.withType<JavaCompile> {
         sourceCompatibility = JavaVersion.VERSION_1_8.toString()

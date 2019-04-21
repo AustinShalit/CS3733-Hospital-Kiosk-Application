@@ -7,22 +7,24 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class ChangeMainViewEvent {
 
   private final Controller controller;
-  private final boolean framed;
+  private final boolean menuVisible;
 
   public ChangeMainViewEvent(Controller controller) {
-    this(controller, true);
+    this.controller = checkNotNull(controller);
+    this.menuVisible = true;
   }
 
-  public ChangeMainViewEvent(Controller controller, boolean framed) {
-    this.controller = checkNotNull(controller);
-    this.framed = framed;
+  public ChangeMainViewEvent(Controller controller, boolean menuVisible) {
+    this.controller = controller;
+    this.menuVisible = menuVisible;
   }
 
   public Controller getController() {
     return controller;
   }
 
-  public boolean isFramed() {
-    return framed;
+  public boolean isMenuVisible() {
+    return menuVisible;
   }
 }
+
