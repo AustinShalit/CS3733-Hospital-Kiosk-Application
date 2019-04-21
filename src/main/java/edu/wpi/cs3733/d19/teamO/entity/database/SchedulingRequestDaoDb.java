@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -218,6 +219,18 @@ public class SchedulingRequestDaoDb implements SchedulingRequestDao {
       logger.log(Level.WARNING, "Failed to delete Scheduling Request", ex);
     }
     return false;
+  }
+
+  @Override
+  public boolean isValidWorkZoneRequest(SchedulingRequest schedulingRequest) {
+    if(schedulingRequest.getRoom().getNodeType().equals(Node.NodeType.WORKZONE)) {
+      long duration = Duration.between(LocalDateTime.now(), schedulingRequest.getStartTime()).toMinutes();
+      System.out.println(duration);
+      return duration < 15;
+    } else {
+      return true;
+
+    }
   }
 
   private SchedulingRequest extractSchedulingRequestFromResultSet(final ResultSet resultSet)
