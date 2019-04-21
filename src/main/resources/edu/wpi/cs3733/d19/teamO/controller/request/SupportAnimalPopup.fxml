@@ -33,33 +33,33 @@
             <Insets />
           </VBox.margin>
         </JFXComboBox>
-            <ScrollPane prefHeight="344.0" prefWidth="616.0">
-               <content>
-                  <GridPane prefHeight="600.0" prefWidth="600.0">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints maxHeight="240.0" minHeight="10.0" prefHeight="200.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="200.0" minHeight="100.0" prefHeight="200.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="217.0" minHeight="10.0" prefHeight="200.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <JFXButton fx:id="button1" onMouseClicked="#onAction" onMouseEntered="#showName" onMouseExited="#showGraph" onMouseMoved="#showName" onMousePressed="#showName" onMouseReleased="#showName" />
-                        <JFXButton fx:id="button9" onMouseClicked="#onAction" onMouseEntered="#showName" onMouseExited="#showGraph" onMouseMoved="#showName" onMousePressed="#showName" onMouseReleased="#showName" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                        <JFXButton fx:id="button8" onMouseClicked="#onAction" onMouseEntered="#showName" onMouseExited="#showGraph" onMouseMoved="#showName" onMousePressed="#showName" onMouseReleased="#showName" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <JFXButton fx:id="button7" onMouseClicked="#onAction" onMouseEntered="#showName" onMouseExited="#showGraph" onMouseMoved="#showName" onMousePressed="#showName" onMouseReleased="#showName" GridPane.rowIndex="2" />
-                        <JFXButton fx:id="button6" onMouseClicked="#onAction" onMouseEntered="#showName" onMouseExited="#showGraph" onMouseMoved="#showName" onMousePressed="#showName" onMouseReleased="#showName" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                        <JFXButton fx:id="button5" onMouseClicked="#onAction" onMouseEntered="#showName" onMouseExited="#showGraph" onMouseMoved="#showName" onMousePressed="#showName" onMouseReleased="#showName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <JFXButton fx:id="button3" onMouseClicked="#onAction" onMouseEntered="#showName" onMouseExited="#showGraph" onMouseMoved="#showName" onMousePressed="#showName" onMouseReleased="#showName" GridPane.columnIndex="2" />
-                        <JFXButton fx:id="button2" onMouseClicked="#onAction" onMouseEntered="#showName" onMouseExited="#showGraph" onMouseMoved="#showName" onMousePressed="#showName" onMouseReleased="#showName" GridPane.columnIndex="1" />
-                        <JFXButton fx:id="button4" onMouseClicked="#onAction" onMouseEntered="#showName" onMouseExited="#showGraph" onMouseMoved="#showName" onMousePressed="#showName" onMouseReleased="#showName" GridPane.rowIndex="1" />
-                     </children>
-                  </GridPane>
-               </content>
-            </ScrollPane>
+        <ScrollPane prefHeight="344.0" prefWidth="616.0">
+          <content>
+            <GridPane prefHeight="600.0" prefWidth="600.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="240.0" minHeight="10.0" prefHeight="200.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="200.0" minHeight="100.0" prefHeight="200.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="217.0" minHeight="10.0" prefHeight="200.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+              <children>
+                <JFXButton fx:id="button1" onMouseClicked="#onAction" onMouseEntered="#showName" onMouseExited="#showGraph" onMouseMoved="#showName" onMousePressed="#showName" onMouseReleased="#showName" />
+                <JFXButton fx:id="button9" onMouseClicked="#onAction" onMouseEntered="#showName" onMouseExited="#showGraph" onMouseMoved="#showName" onMousePressed="#showName" onMouseReleased="#showName" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                <JFXButton fx:id="button8" onMouseClicked="#onAction" onMouseEntered="#showName" onMouseExited="#showGraph" onMouseMoved="#showName" onMousePressed="#showName" onMouseReleased="#showName" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <JFXButton fx:id="button7" onMouseClicked="#onAction" onMouseEntered="#showName" onMouseExited="#showGraph" onMouseMoved="#showName" onMousePressed="#showName" onMouseReleased="#showName" GridPane.rowIndex="2" />
+                <JFXButton fx:id="button6" onMouseClicked="#onAction" onMouseEntered="#showName" onMouseExited="#showGraph" onMouseMoved="#showName" onMousePressed="#showName" onMouseReleased="#showName" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                <JFXButton fx:id="button5" onMouseClicked="#onAction" onMouseEntered="#showName" onMouseExited="#showGraph" onMouseMoved="#showName" onMousePressed="#showName" onMouseReleased="#showName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <JFXButton fx:id="button3" onMouseClicked="#onAction" onMouseEntered="#showName" onMouseExited="#showGraph" onMouseMoved="#showName" onMousePressed="#showName" onMouseReleased="#showName" GridPane.columnIndex="2" />
+                <JFXButton fx:id="button2" onMouseClicked="#onAction" onMouseEntered="#showName" onMouseExited="#showGraph" onMouseMoved="#showName" onMousePressed="#showName" onMouseReleased="#showName" GridPane.columnIndex="1" />
+                <JFXButton fx:id="button4" onMouseClicked="#onAction" onMouseEntered="#showName" onMouseExited="#showGraph" onMouseMoved="#showName" onMousePressed="#showName" onMouseReleased="#showName" GridPane.rowIndex="1" />
+              </children>
+            </GridPane>
+          </content>
+        </ScrollPane>
         <JFXComboBox fx:id="categorybox" promptText="Pick Category">
           <VBox.margin>
             <Insets />
