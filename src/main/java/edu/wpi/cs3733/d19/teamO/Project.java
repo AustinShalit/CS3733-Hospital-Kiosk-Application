@@ -19,7 +19,6 @@ import javafx.stage.Stage;
 import edu.wpi.cs3733.d19.teamO.controller.ControllerModule;
 import edu.wpi.cs3733.d19.teamO.controller.GuestViewController;
 import edu.wpi.cs3733.d19.teamO.controller.MainController;
-import edu.wpi.cs3733.d19.teamO.controller.SmsController;
 import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.DefaultInformationLoader;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
@@ -36,8 +35,6 @@ public class Project extends Application {
   private Database database;
   @Inject
   private GuestViewController.Factory guestViewFactory;
-  @Inject
-  private SmsController.Factory smsControllerFactory;
 
   private Injector injector;
   private Parent root;

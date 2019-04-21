@@ -4,7 +4,6 @@ import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPopup;
-import com.sun.prism.paint.Color;
 
 import animatefx.animation.Shake;
 import javafx.collections.ListChangeListener;

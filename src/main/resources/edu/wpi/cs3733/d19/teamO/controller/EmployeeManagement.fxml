@@ -29,7 +29,7 @@
                 <TableColumn fx:id="usernameCol" prefWidth="293.0" text="Username" />
                 <TableColumn fx:id="passwordCol" prefWidth="286.0" text="Password" />
                 <TableColumn fx:id="positionCol" prefWidth="269.0" text="Position" />
-                        <TableColumn fx:id="phoneCol" prefWidth="201.0" text="Phone Number" />
+                <TableColumn fx:id="phoneCol" prefWidth="201.0" text="Phone Number" />
               </columns>
             </TableView>
             <GridPane id="requestbuttons">
@@ -41,7 +41,7 @@
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
               <children>
                 <Label fx:id="infoLabel" text=" " textFill="RED" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.valignment="TOP" />
@@ -69,11 +69,11 @@
                 <Insets left="9.0" top="9.0" />
               </GridPane.margin>
             </JFXButton>
-                  <JFXButton fx:id="emergencyButton" onAction="#emergencyOnAction" text="Emergency Message" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
-                     <GridPane.margin>
-                        <Insets right="9.0" top="9.0" />
-                     </GridPane.margin>
-                  </JFXButton>
+            <JFXButton fx:id="emergencyButton" onAction="#emergencyOnAction" text="Emergency Message" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+              <GridPane.margin>
+                <Insets right="9.0" top="9.0" />
+              </GridPane.margin>
+            </JFXButton>
           </children>
         </GridPane>
       </top>

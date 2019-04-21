@@ -2,7 +2,6 @@ package edu.wpi.cs3733.d19.teamO.controller;
 
 import java.util.Set;
 
-import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
@@ -16,8 +15,9 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 import edu.wpi.cs3733.d19.teamO.entity.messaging.SmsRequest;
 import edu.wpi.cs3733.d19.teamO.entity.messaging.SmsSender;
 
+@SuppressWarnings({"PMD.AvoidInstantiatingObjectsInLoops"})
 @FxmlController(url = "Sms.fxml")
-public class SmsController implements Controller{
+public class SmsController implements Controller {
 
   @FXML
   BorderPane root;
@@ -26,8 +26,6 @@ public class SmsController implements Controller{
   @FXML
   private JFXButton submitbtn;
 
-  @Inject
-  private EventBus eventBus;
   @Inject
   private Database db;
 
@@ -40,8 +38,8 @@ public class SmsController implements Controller{
 
   @FXML
   void submitOnAction() {
-    if(!messageText.getText().isEmpty()) {
-      for(Employee emp: info) {
+    if (!messageText.getText().isEmpty()) {
+      for (Employee emp : info) {
         String phoneNumber = emp.getPhone();
         String message = messageText.getText();
         SmsRequest sms = new SmsRequest("+1" + phoneNumber, message);

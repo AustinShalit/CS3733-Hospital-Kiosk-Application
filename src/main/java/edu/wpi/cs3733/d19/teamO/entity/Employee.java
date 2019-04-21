@@ -20,7 +20,7 @@ public class Employee {
    * @param username Username
    * @param password Password
    * @param name     User's Name
-   * @param phone User's Phonenumber
+   * @param phone    User's Phonenumber
    */
   public Employee(int id,
                   String username,
@@ -55,10 +55,10 @@ public class Employee {
   /**
    * Constructor for Employee, Initialization of Employee.
    *
-   * @param username    Username
-   * @param password    Password
-   * @param name        User's Name
-   * @param phone User's Phonenumber
+   * @param username Username
+   * @param password Password
+   * @param name     User's Name
+   * @param phone    User's Phonenumber
    */
   public Employee(String username,
                   String password,
@@ -74,7 +74,7 @@ public class Employee {
    * @param password     Password
    * @param name         User's Name
    * @param employeeType The type of the employee
-   * @param phone  User's Phonenumber
+   * @param phone        User's Phonenumber
    */
   public Employee(String username,
                   String password,
@@ -108,7 +108,9 @@ public class Employee {
     return employeeAttributes;
   }
 
-  public String getPhone() { return phone; }
+  public String getPhone() {
+    return phone;
+  }
 
   public void setUsername(String username) {
     this.username = username;
@@ -126,7 +128,9 @@ public class Employee {
     this.employeeAttributes.employeeType = type;
   }
 
-  public void setPhone(String phone) { this.phone = phone; }
+  public void setPhone(String phone) {
+    this.phone = phone;
+  }
 
   @Override
   public String toString() {

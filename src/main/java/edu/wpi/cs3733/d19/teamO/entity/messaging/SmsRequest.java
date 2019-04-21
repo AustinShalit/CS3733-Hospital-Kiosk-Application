@@ -20,9 +20,9 @@ public class SmsRequest {
 
   @Override
   public String toString() {
-    return "SmsRequest{" +
-        "phoneNumber='" + phoneNumber + '\'' +
-        ", message='" + message + '\'' +
-        '}';
+    return "SmsRequest{"
+        + "phoneNumber='" + phoneNumber + '\''
+        + ", message='" + message + '\''
+        + '}';
   }
 }
