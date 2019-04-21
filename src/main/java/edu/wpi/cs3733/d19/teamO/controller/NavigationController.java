@@ -52,8 +52,6 @@ public class NavigationController implements Controller {
   @FXML
   JFXComboBox<String> toComboBox;
   @FXML
-  FuzzyWuzzyComboBox testComboBox;
-  @FXML
   JFXButton goButton;
   @FXML
   MapView map;
@@ -87,10 +85,6 @@ public class NavigationController implements Controller {
     refreshCombobox();
     stepByStep = new StepByStep();
     validateGoButton();
-
-    testComboBox.setNodes(database.getAllNodes());
-    testComboBox.setupAutoRefresh();
-    testComboBox.refresh();
   }
 
   @Override

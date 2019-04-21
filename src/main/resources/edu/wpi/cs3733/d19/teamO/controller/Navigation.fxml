@@ -69,11 +69,6 @@
                     <Insets bottom="30.0" left="5.0" right="5.0" />
                   </VBox.margin>
                 </JFXComboBox>
-                <FuzzyWuzzyComboBox fx:id="testComboBox" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#onComboAction" onKeyReleased="#refreshCombobox" prefHeight="50.0" prefWidth="264.0">
-                  <VBox.margin>
-                    <Insets bottom="30.0" left="5.0" right="5.0" />
-                  </VBox.margin>
-                </FuzzyWuzzyComboBox>
                 <JFXButton fx:id="goButton" onAction="#onGoButtonAction" prefHeight="50.0" prefWidth="294.0" style="-fx-background-color: #012d5a;" text="GO" textFill="WHITE">
                   <VBox.margin>
                     <Insets bottom="25.0" />
