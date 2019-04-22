@@ -12,16 +12,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="root" stylesheets="@../style/KioskStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.request.AudioVisualViewController">
+<BorderPane fx:id="root" stylesheets="@../style/KioskStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.request.AudioVisualViewController">
   <center>
-    <VBox id="requestview" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="form" BorderPane.alignment="CENTER">
+    <VBox id="requestview" maxWidth="-Infinity" styleClass="form" BorderPane.alignment="CENTER">
       <children>
         <Label id="heading" fx:id="titleLabel" text="View Audio/Visual Requests">
           <font>
             <Font name="System Bold" size="36.0" />
           </font>
         </Label>
-        <TableView fx:id="requestsTableView">
+        <TableView fx:id="requestsTableView" maxWidth="-Infinity" VBox.vgrow="ALWAYS">
           <columns>
             <TableColumn fx:id="idTableCol" prefWidth="52.0" text="ID" />
             <TableColumn fx:id="nameCol" prefWidth="89.0" text="Name" />
@@ -32,7 +32,7 @@
             <TableColumn fx:id="descriptionCol" prefWidth="199.0" text="Description" />
           </columns>
         </TableView>
-        <GridPane id="requestbuttons" hgap="40.0" prefHeight="60.0" prefWidth="720.0">
+        <GridPane id="requestbuttons" >
           <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -43,20 +43,15 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           </rowConstraints>
           <children>
-            <JFXButton id="table-button" fx:id="assignButton" onAction="#onAssignButtonAction" text="Assign Employee" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowSpan="2">
-              <padding>
-                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-              </padding>
-            </JFXButton>
-            <JFXButton id="table-button" fx:id="completedButton" onAction="#onCompletedButtonAction" text="Complete Request" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowSpan="2">
-              <padding>
-                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-              </padding>
-            </JFXButton>
+            <JFXButton id="table-button" fx:id="assignButton" onAction="#onAssignButtonAction" text="Assign Employee" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowSpan="2"/>
+            <JFXButton id="table-button" fx:id="completedButton" onAction="#onCompletedButtonAction" text="Complete Request" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowSpan="2" />
             <JFXButton id="table-button" fx:id="addButton" onAction="#onAddButtonAction" text="New Request" GridPane.halignment="CENTER" GridPane.rowSpan="2" GridPane.valignment="CENTER" />
           </children>
         </GridPane>
       </children>
+      <BorderPane.margin>
+        <Insets bottom="10.0" left="160.0" right="10.0" top="10.0" />
+      </BorderPane.margin>
     </VBox>
   </center>
 </BorderPane>

@@ -36,9 +36,7 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 public class ExternalTransportationViewController implements Controller {
 
   @FXML
-  private BorderPane root;
-  @FXML
-  private JFXButton goBackButton;
+  public BorderPane root;
   @FXML
   private JFXButton assignButton;
   @FXML
@@ -70,11 +68,7 @@ public class ExternalTransportationViewController implements Controller {
   private TableColumn<ExternalTransportationRequest, LocalTime> timeCol;
 
   @Inject
-  private EventBus eventBus;
-  @Inject
   private Database db;
-  @Inject
-  private RequestController.Factory checkRequestsControllerFactory;
   @Inject
   private ExternalTransportationPopupController.Factory externalTransportPopupFactory;
 
@@ -131,11 +125,6 @@ public class ExternalTransportationViewController implements Controller {
           }
         }
     );
-  }
-
-  @FXML
-  void goBackButtonAction() {
-    eventBus.post(new ChangeMainViewEvent(checkRequestsControllerFactory.create()));
   }
 
   @FXML

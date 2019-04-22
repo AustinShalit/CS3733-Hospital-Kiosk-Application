@@ -34,9 +34,7 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 public class ReligiousServiceViewController implements Controller {
 
   @FXML
-  private BorderPane root;
-  @FXML
-  private JFXButton goBackButton;
+  public BorderPane root;
   @FXML
   private JFXButton assignButton;
   @FXML
@@ -64,11 +62,7 @@ public class ReligiousServiceViewController implements Controller {
   private TableColumn<ReligiousServiceRequest, String> nameCol;
 
   @Inject
-  private EventBus eventBus;
-  @Inject
   private Database db;
-  @Inject
-  private RequestController.Factory checkRequestsControllerFactory;
   @Inject
   private ReligiousServicePopupController.Factory religiousPopupFactory;
 
@@ -123,11 +117,6 @@ public class ReligiousServiceViewController implements Controller {
           }
         }
     );
-  }
-
-  @FXML
-  void goBackButtonAction() {
-    eventBus.post(new ChangeMainViewEvent(checkRequestsControllerFactory.create()));
   }
 
   @FXML

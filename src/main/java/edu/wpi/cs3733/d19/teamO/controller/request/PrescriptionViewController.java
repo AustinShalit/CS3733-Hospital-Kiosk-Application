@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPopup;
@@ -23,8 +22,6 @@ import javafx.scene.layout.BorderPane;
 import edu.wpi.cs3733.d19.teamO.controller.Controller;
 import edu.wpi.cs3733.d19.teamO.controller.DialogHelper;
 import edu.wpi.cs3733.d19.teamO.controller.FxmlController;
-import edu.wpi.cs3733.d19.teamO.controller.RequestController;
-import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.Employee;
 import edu.wpi.cs3733.d19.teamO.entity.PrescriptionRequest;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
@@ -34,9 +31,7 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 public class PrescriptionViewController implements Controller {
 
   @FXML
-  private BorderPane root;
-  @FXML
-  private JFXButton goBackButton;
+  public BorderPane root;
   @FXML
   private JFXButton deleteEntryButton;
   @FXML
@@ -63,11 +58,7 @@ public class PrescriptionViewController implements Controller {
   private TableColumn<PrescriptionRequest, String> medDescCol;
 
   @Inject
-  private EventBus eventBus;
-  @Inject
   private Database db;
-  @Inject
-  private RequestController.Factory checkRequestsControllerFactory;
   @Inject
   private PrescriptionRequestPopupController.Factory prescriptionPopupFactory;
 
@@ -124,11 +115,6 @@ public class PrescriptionViewController implements Controller {
           }
         }
     );
-  }
-
-  @FXML
-  void goBackButtonAction() {
-    eventBus.post(new ChangeMainViewEvent(checkRequestsControllerFactory.create()));
   }
 
   @FXML

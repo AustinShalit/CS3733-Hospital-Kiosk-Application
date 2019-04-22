@@ -11,7 +11,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.controller.request.AudioVisualViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ExternalTransportationViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.FloristRequestViewController;
@@ -124,58 +123,58 @@ public class RequestController implements Controller {
 
   @FXML
   void sanitationAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(sanitationControllerFactory.create()));
+    content.setCenter(sanitationControllerFactory.create().root);
   }
 
   @FXML
   void audioVisualAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(audioVisualViewControllerFactory.create()));
+    content.setCenter(audioVisualViewControllerFactory.create().root);
   }
 
   @FXML
   void patientInfoAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(patientInfoControllerFactory.create()));
+    content.setCenter(patientInfoControllerFactory.create().root);
   }
 
   @FXML
   void itSupportAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(itSupportControllerFactory.create()));
+    content.setCenter(itSupportControllerFactory.create().root);
   }
 
   @FXML
   void externalTransportationAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(externalTransportationViewControllerFactory.create()));
+    content.setCenter(externalTransportationViewControllerFactory.create().root);
   }
 
   @FXML
   void giftAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(giftControllerFactory.create()));
+    content.setCenter(giftControllerFactory.create().root);
   }
 
   @FXML
   void interpreterAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(interpreterControllerFactory.create()));
+    content.setCenter(interpreterControllerFactory.create().root);
   }
 
   @FXML
   void religiousAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(religiousServiceControllerFactory.create()));
+    content.setCenter(religiousServiceControllerFactory.create().root);
   }
 
   @FXML
   void floristAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(floristRequestControllerFactory.create()));
+    content.setCenter(floristRequestControllerFactory.create().root);
   }
 
 
   @FXML
   void supportAnimalAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(supportAnimalControllerFactory.create()));
+    content.setCenter(supportAnimalControllerFactory.create().root);
   }
 
   @FXML
   void prescriptionAction() {
-    eventBus.post(new ChangeMainViewEvent(prescriptionRequestControllerFactory.create()));
+    content.setCenter(prescriptionRequestControllerFactory.create().root);
   }
 
   @Override

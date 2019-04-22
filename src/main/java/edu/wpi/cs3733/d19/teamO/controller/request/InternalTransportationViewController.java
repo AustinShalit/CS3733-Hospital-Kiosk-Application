@@ -74,8 +74,6 @@ public class InternalTransportationViewController implements Controller {
 
   @FXML
   void initialize() {
-    root.setPickOnBounds(false);
-
     idTableCol.setCellValueFactory(new PropertyValueFactory<>("id"));
     timeRequestedCol.setCellValueFactory(new PropertyValueFactory<>("timeRequested"));
     //timeCompletedCol.setCellValueFactory(new PropertyValueFactory<>("timeCompletedString"));
