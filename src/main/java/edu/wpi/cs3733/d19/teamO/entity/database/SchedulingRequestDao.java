@@ -21,4 +21,6 @@ interface SchedulingRequestDao extends Dao<Integer, SchedulingRequest> {
   Set<Node> allAvailableNodes(LocalDateTime localDateTime);
 
   Set<Node> allAvailableNodes(LocalDateTime start, LocalDateTime end);
+
+  boolean isValidWorkZoneRequest(SchedulingRequest schedulingRequest);
 }
