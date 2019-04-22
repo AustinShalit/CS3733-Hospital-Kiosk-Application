@@ -3,13 +3,9 @@ package edu.wpi.cs3733.d19.teamO.component;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Objects;
 
 import com.jfoenix.controls.JFXComboBox;
 
-import javafx.event.EventHandler;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 
 import edu.wpi.cs3733.d19.teamO.controller.DialogHelper;
@@ -22,6 +18,9 @@ public class FuzzyWuzzyComboBox extends JFXComboBox<String> {
     this.nodes = nodes;
   }
 
+  /**
+   * Sets up the FuzzyWuzzyComboBox to refresh itself and show itself if focused on key release.
+   */
   public void setupAutoRefresh() {
     this.setOnKeyReleased(event -> {
       refresh();
@@ -31,6 +30,9 @@ public class FuzzyWuzzyComboBox extends JFXComboBox<String> {
     });
   }
 
+  /**
+   * Resort the list of options according to user input.
+   */
   public void refresh() {
     String query = this.getValue();
     if (query == null) {
@@ -55,6 +57,10 @@ public class FuzzyWuzzyComboBox extends JFXComboBox<String> {
     DialogHelper.populateComboBox2(null, this, sortedStrings);
   }
 
+  /**
+   * Enhanced getValue().
+   * @return the Node select or null.
+   */
   public Node getNodeValue() {
     String query = this.getValue();
     if (query == null) {
