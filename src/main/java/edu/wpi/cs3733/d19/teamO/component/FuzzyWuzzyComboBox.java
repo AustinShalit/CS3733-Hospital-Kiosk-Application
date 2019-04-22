@@ -33,6 +33,7 @@ public class FuzzyWuzzyComboBox extends JFXComboBox<String> {
   /**
    * Resort the list of options according to user input.
    */
+  @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
   public void refresh() {
     String query = this.getValue();
     if (query == null) {
