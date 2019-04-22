@@ -225,11 +225,9 @@ public class SchedulingRequestDaoDb implements SchedulingRequestDao {
   public boolean isValidWorkZoneRequest(SchedulingRequest schedulingRequest) {
     if(schedulingRequest.getRoom().getNodeType().equals(Node.NodeType.WORKZONE)) {
       long duration = Duration.between(LocalDateTime.now(), schedulingRequest.getStartTime()).toMinutes();
-      System.out.println(duration);
       return duration < 15;
     } else {
       return true;
-
     }
   }
 
