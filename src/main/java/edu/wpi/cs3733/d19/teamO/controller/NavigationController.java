@@ -65,6 +65,8 @@ public class NavigationController implements Controller {
   JFXButton aboutButton;
   @FXML
   ScrollPane instructionPane;
+  @FXML
+  FlowPane buttonPane;
 
   StepByStep stepByStep;
   boolean addRest = false;
@@ -165,9 +167,6 @@ public class NavigationController implements Controller {
   @FXML
   @SuppressWarnings({"PMD.AvoidInstantiatingObjectsInLoops", "UseStringBufferForStringAppends"})
   void onGoButtonAction() throws IOException {
-    buttonPane.setVgap(7);
-    buttonPane.getChildren().clear();
-
     instructionPane.setVisible(true);
     instructions.setVisible(true);
 
@@ -196,6 +195,9 @@ public class NavigationController implements Controller {
         toComboBox.getNodeValue());
 
     // buttons for the floors traversed
+    buttonPane.getChildren().clear();
+    buttonPane.setVgap(7);
+
     List<Node> floors = getFloors(path);
     for (int i = 0; i < floors.size(); i++) {
       Node node = floors.get(i);
@@ -209,13 +211,17 @@ public class NavigationController implements Controller {
         }
       });
 
-      buttonPane.getChildren().add(button);
+      if (!buttonPane.getChildren().contains(button)) {
+        buttonPane.getChildren().add(button);
+      }
 
       if (i != floors.size() - 1) {
         Glyph arrow = new Glyph("FontAwesome", "ARROW_RIGHT");
         arrow.size(10);
         Label label = new Label("", arrow);
-        buttonPane.getChildren().add(label);
+        if (!buttonPane.getChildren().contains(label)) {
+          buttonPane.getChildren().add(label);
+        }
       }
     }
 
