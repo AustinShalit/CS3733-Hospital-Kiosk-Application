@@ -3,6 +3,7 @@ package edu.wpi.cs3733.d19.teamO.controller;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 
+import foodRequest.FoodRequest;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -172,6 +173,17 @@ public class RequestController implements Controller {
   @FXML
   void prescriptionAction() {
     content.setCenter(prescriptionRequestControllerFactory.create().root);
+  }
+
+  @FXML
+  void foodAction(){
+    FoodRequest foodRequest = new FoodRequest();
+    try{
+      foodRequest.run(0,0,1900,1000,null,null,null);
+    }catch (Exception e){
+      System.out.println("Failed to run API");
+      e.printStackTrace();
+    }
   }
 
   @Override
