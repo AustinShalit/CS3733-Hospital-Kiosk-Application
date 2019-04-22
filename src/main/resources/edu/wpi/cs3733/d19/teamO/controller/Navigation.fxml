@@ -51,11 +51,19 @@
                     <Font size="36.0" />
                   </font>
                 </Text>
-                <JFXComboBox fx:id="fromComboBox" editable="true" onAction="#onFromComboAction" onKeyReleased="#refreshCombobox" prefHeight="50.0" prefWidth="393.0" VBox.vgrow="ALWAYS">
+                <FuzzyWuzzyComboBox fx:id="fromComboBox"
+                                    editable="true"
+                                    onAction="#onFromComboAction"
+                                    maxHeight="1.7976931348623157E308"
+                                    maxWidth="1.7976931348623157E308"
+                                    minHeight="-Infinity"
+                                    minWidth="-Infinity"
+                                    prefHeight="50.0"
+                                    prefWidth="264.0">
                   <VBox.margin>
                     <Insets bottom="30.0" left="5.0" right="5.0" />
                   </VBox.margin>
-                </JFXComboBox>
+                </FuzzyWuzzyComboBox>
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="To">
                   <VBox.margin>
                     <Insets />
@@ -64,11 +72,19 @@
                     <Font size="36.0" />
                   </font>
                 </Text>
-                <JFXComboBox fx:id="toComboBox" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#onToComboAction" onKeyReleased="#refreshCombobox" prefHeight="50.0" prefWidth="264.0">
+                <FuzzyWuzzyComboBox fx:id="toComboBox"
+                                    editable="true"
+                                    onAction="#onToComboAction"
+                                    maxHeight="1.7976931348623157E308"
+                                    maxWidth="1.7976931348623157E308"
+                                    minHeight="-Infinity"
+                                    minWidth="-Infinity"
+                                    prefHeight="50.0"
+                                    prefWidth="264.0">
                   <VBox.margin>
                     <Insets bottom="30.0" left="5.0" right="5.0" />
                   </VBox.margin>
-                </JFXComboBox>
+                </FuzzyWuzzyComboBox>
                 <JFXButton fx:id="goButton" onAction="#onGoButtonAction" prefHeight="50.0" prefWidth="294.0" style="-fx-background-color: #012d5a;" text="GO" textFill="WHITE">
                   <VBox.margin>
                     <Insets bottom="25.0" />

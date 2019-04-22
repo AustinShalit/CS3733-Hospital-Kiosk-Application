@@ -3,9 +3,13 @@ package edu.wpi.cs3733.d19.teamO.component;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Objects;
 
 import com.jfoenix.controls.JFXComboBox;
 
+import javafx.event.EventHandler;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 
 import edu.wpi.cs3733.d19.teamO.controller.DialogHelper;
@@ -19,7 +23,12 @@ public class FuzzyWuzzyComboBox extends JFXComboBox<String> {
   }
 
   public void setupAutoRefresh() {
-    this.setOnKeyReleased(event -> refresh());
+    this.setOnKeyReleased(event -> {
+      refresh();
+      if (this.isFocused()) {
+        this.show();
+      }
+    });
   }
 
   public void refresh() {
