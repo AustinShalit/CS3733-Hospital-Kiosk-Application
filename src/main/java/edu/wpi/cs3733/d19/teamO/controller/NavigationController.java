@@ -23,12 +23,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
-<<<<<<< HEAD
 import javafx.scene.layout.VBox;
 import kotlin.Pair;
-=======
 import javafx.scene.layout.FlowPane;
->>>>>>> master
 
 import edu.wpi.cs3733.d19.teamO.AppPreferences;
 import edu.wpi.cs3733.d19.teamO.component.FuzzyWuzzyComboBox;
