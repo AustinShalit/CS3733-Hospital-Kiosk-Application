@@ -99,7 +99,7 @@ public class MainController implements Controller {
   private String minute;
   private String hour;
   private int month;
-  private int day;
+  private int day
   private int year;
   private String image;
 
