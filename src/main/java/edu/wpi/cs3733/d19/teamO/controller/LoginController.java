@@ -44,7 +44,7 @@ public class LoginController implements Controller {
   @Inject
   private EventBus eventBus;
   @Inject
-  private NavigationController.Factory navigationController;
+  private NavigationController navigationController;
   @Inject
   private Database db;
 
@@ -89,7 +89,7 @@ public class LoginController implements Controller {
     // if info typed was right, you go to main window screen
     if (check) {
       loginFail.setText("Login Success");
-      eventBus.post(new ChangeMainViewEvent(navigationController.create()));
+      eventBus.post(new ChangeMainViewEvent(navigationController));
     } else {
       loginFail.setText("Incorrect username or password");
       new Shake(loginButton).play();
