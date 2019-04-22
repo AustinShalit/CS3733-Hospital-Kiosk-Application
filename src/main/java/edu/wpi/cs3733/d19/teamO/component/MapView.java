@@ -539,13 +539,23 @@ public class MapView extends StackPane {
 
   /**
    * Zoom to the given node.
-   * @param n The node need to zoom to.
+   * @param start The node need to zoom to.
    * @throws IOException throw if there is error.
    */
-  public void zoomTo(Node n, Node n2) throws IOException {
+  public void zoomTo(Node start) throws IOException {
     gesturePane.reset();
-    switchFloor(n.getFloor());
-    panMapBetweenNodes(n,  n2);
+    switchFloor(start.getFloor());
+    int id = path.indexOf(start);
+    Node lastNodeOnFloor = start;
+    for (int jj = id; jj < path.size(); jj++) {
+      Node curNode = path.get(jj);
+      if (curNode.getFloorInt() == level) {
+        lastNodeOnFloor = path.get(jj);
+      } else {
+        break;
+      }
+    }
+    panMapBetweenNodes(start, lastNodeOnFloor);
 
   }
 
