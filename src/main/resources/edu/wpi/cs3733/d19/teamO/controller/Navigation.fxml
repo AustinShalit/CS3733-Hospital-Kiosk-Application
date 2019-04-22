@@ -130,7 +130,8 @@
                 <FlowPane fx:id="buttonPane" columnHalignment="CENTER" prefWrapLength="200.0" />
                 <ScrollPane fx:id="instructionPane" hbarPolicy="NEVER" prefHeight="380.0" prefWidth="323.0">
                   <content>
-                    <Label fx:id="instructions" />
+                    <VBox fx:id="instructionsContainer">
+                    </VBox>
                   </content>
                   <VBox.margin>
                     <Insets bottom="20.0" />

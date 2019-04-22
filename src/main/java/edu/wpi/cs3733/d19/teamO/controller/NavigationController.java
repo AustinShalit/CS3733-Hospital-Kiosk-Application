@@ -24,6 +24,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
+import kotlin.Pair;
 
 import edu.wpi.cs3733.d19.teamO.AppPreferences;
 import edu.wpi.cs3733.d19.teamO.component.FuzzyWuzzyComboBox;
@@ -60,7 +62,7 @@ public class NavigationController implements Controller {
   @FXML
   MapView map;
   @FXML
-  Label instructions;
+  VBox instructionsContainer;
   @FXML
   JFXButton aboutButton;
   @FXML
@@ -134,11 +136,8 @@ public class NavigationController implements Controller {
     toComboBox.setStyle("-fx-font-size: 12px; -fx-font-style: Palatino Linotype;");
 
     instructionPane.setVisible(false);
-    instructions.setVisible(false);
 
-    instructionPane.setStyle("-fx-opacity: 0.8; -fx-background-color: #F1F1F1;"
-        + "-fx-border-radius: 4px; -fx-border-color: #011E3C");
-    instructions.setStyle("-fx-font-size: 15px; -fx-font-style: Palatino Linotype;"
+    instructionPane.setStyle("-fx-font-size: 15px; -fx-font-style: Palatino Linotype;"
         + "-fx-font-style: BOLD");
   }
 
@@ -165,10 +164,13 @@ public class NavigationController implements Controller {
   }
 
   @FXML
-  @SuppressWarnings({"PMD.AvoidInstantiatingObjectsInLoops", "UseStringBufferForStringAppends"})
+  @SuppressWarnings({
+      "PMD.AvoidInstantiatingObjectsInLoops",
+      "UseStringBufferForStringAppends",
+      "PMD.NPathComplexity"
+  })
   void onGoButtonAction() throws IOException {
     instructionPane.setVisible(true);
-    instructions.setVisible(true);
 
     if (Objects.isNull(toComboBox.getNodeValue())
         || Objects.isNull(fromComboBox.getNodeValue())) {
@@ -193,6 +195,9 @@ public class NavigationController implements Controller {
     List<Node> path = algorithm.getPath(ImmutableGraph.copyOf(graph),
         fromComboBox.getNodeValue(),
         toComboBox.getNodeValue());
+
+    // set map
+    map.setPath(path);
 
     // buttons for the floors traversed
     buttonPane.getChildren().clear();
@@ -225,18 +230,23 @@ public class NavigationController implements Controller {
       }
     }
 
-    // step by step
-    ArrayList<String> list = stepByStep.getStepByStep(path);
-    StringBuilder stringBuilder = new StringBuilder();
-    for (String s: list) {
-      stringBuilder.append(s);
-      stringBuilder.append('\n');
+    instructionsContainer.getChildren().setAll(new ArrayList<>());
+    Label tempRef;
+    for (Pair<String, Node> curPair: stepByStep.getStepByStep(path)) {
+      tempRef = new Label(curPair.getFirst());
+      tempRef.setPrefWidth(400);
+      tempRef.setOnMouseClicked(event -> {
+        if (Objects.nonNull(curPair.getSecond())) {
+          try {
+            map.zoomTo(curPair.getSecond());
+          } catch (IOException exception) {
+            exception.printStackTrace();
+          }
+        }
+      });
+      instructionsContainer.getChildren().add(tempRef);
     }
-    String instruction = stringBuilder.toString();
-    instructions.setText(instruction);
 
-    // set map
-    map.setPath(path);
     map.zoomTo(fromComboBox.getNodeValue());
     map.drawPath();
   }
