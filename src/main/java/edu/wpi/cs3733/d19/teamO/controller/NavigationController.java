@@ -24,6 +24,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
@@ -66,7 +67,7 @@ public class NavigationController implements Controller {
   @FXML
   JFXButton aboutButton;
   @FXML
-  HBox buttonPane;
+  FlowPane buttonPane;
 
   StepByStep stepByStep;
   boolean addRest = false;
