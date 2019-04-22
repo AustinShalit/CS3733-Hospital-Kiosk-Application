@@ -77,7 +77,7 @@ public class InternalTransportationPopupController implements Controller {
     locationbox.setValue(null);
     categorybox.getSelectionModel().clearSelection();
     categorybox.setValue(null);
-    descriptiontxt.setText(null);
+    descriptiontxt.setText("");
 
     if (db.insertInternalTransportationRequest(internal)) {
       String message = "Successfully submitted internal transportation request.";
