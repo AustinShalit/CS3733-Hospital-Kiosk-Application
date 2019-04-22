@@ -81,9 +81,9 @@ public class MainController implements Controller {
   @Inject
   private EventBus eventBus;
   @Inject
-  private NavigationController.Factory navigationControllerFactory;
+  private NavigationController navigationController;
   @Inject
-  private SchedulingController.Factory schedulingControllerFactory;
+  private SchedulingController schedulingController;
   @Inject
   private RequestController.Factory requestControllerFactory;
   @Inject
@@ -258,12 +258,12 @@ public class MainController implements Controller {
 
   @FXML
   void navigationButtonAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(navigationControllerFactory.create()));
+    eventBus.post(new ChangeMainViewEvent(navigationController));
   }
 
   @FXML
   void schedulingButtonAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(schedulingControllerFactory.create()));
+    eventBus.post(new ChangeMainViewEvent(schedulingController));
   }
 
   @FXML
@@ -290,7 +290,7 @@ public class MainController implements Controller {
     loginController.setLoginFail("");
     if ("Logout".equals(loginbtn.getText())) {
       loginbtn.setText("Login");
-      eventBus.post(new ChangeMainViewEvent(navigationControllerFactory.create(), false));
+      eventBus.post(new ChangeMainViewEvent(navigationController, false));
     } else {
       ColorAdjust colorAdjust = new ColorAdjust();
       colorAdjust.setBrightness(-0.2);

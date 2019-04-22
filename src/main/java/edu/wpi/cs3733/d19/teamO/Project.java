@@ -34,7 +34,7 @@ public class Project extends Application {
   @Inject
   private Database database;
   @Inject
-  private NavigationController.Factory navigationControllerFactory;
+  private NavigationController navigationController;
 
   private Injector injector;
   private Parent root;
@@ -69,8 +69,7 @@ public class Project extends Application {
     loader.setControllerFactory(injector::getInstance);
     root = loader.load();
 
-    //eventBus.post(new ChangeMainViewEvent(loginControllerFactory.create(), false));
-    eventBus.post(new ChangeMainViewEvent(navigationControllerFactory.create(), false));
+    eventBus.post(new ChangeMainViewEvent(navigationController, false));
 
     primaryStage.setTitle("Team O Kiosk Application");
     primaryStage.setScene(new Scene(root));

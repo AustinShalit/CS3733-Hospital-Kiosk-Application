@@ -68,9 +68,9 @@ public class HomeController implements Controller {
   @Inject
   private RequestController.Factory requestControllerFactory;
   @Inject
-  private SchedulingController.Factory schedulingControllerFactory;
+  private SchedulingController schedulingController;
   @Inject
-  private NavigationController.Factory navigationControllerFactory;
+  private NavigationController navigationController;
 
   private String second;
   private String minute;
@@ -158,7 +158,7 @@ public class HomeController implements Controller {
 
   @FXML
   void navigationOnAction() {
-    eventBus.post(new ChangeMainViewEvent(navigationControllerFactory.create()));
+    eventBus.post(new ChangeMainViewEvent(navigationController));
   }
 
   @FXML
@@ -168,7 +168,7 @@ public class HomeController implements Controller {
 
   @FXML
   void scheduleOnAction() {
-    eventBus.post(new ChangeMainViewEvent(schedulingControllerFactory.create()));
+    eventBus.post(new ChangeMainViewEvent(schedulingController));
   }
 
   @FXML

@@ -72,6 +72,9 @@ public class ControllerModule extends AbstractModule {
       }
     });
 
+    bind(NavigationController.class).asEagerSingleton();
+    bind(SchedulingController.class).asEagerSingleton();
+
     install(new FactoryModuleBuilder().build(HomeController.Factory.class));
     install(new FactoryModuleBuilder().build(LoginController.Factory.class));
     install(new FactoryModuleBuilder().build(NavigationController.Factory.class));
@@ -95,7 +98,7 @@ public class ControllerModule extends AbstractModule {
 
     install(new FactoryModuleBuilder().build(AdminController.Factory.class));
     install(new FactoryModuleBuilder().build(MapEditController.Factory.class));
-    install(new FactoryModuleBuilder().build(SchedulingController.Factory.class));
+    //install(new FactoryModuleBuilder().build(SchedulingController.Factory.class));
     install(new FactoryModuleBuilder().build(SchedulingViewController.Factory.class));
     install(new FactoryModuleBuilder().build(SchedulingCalendarController.Factory.class));
 
