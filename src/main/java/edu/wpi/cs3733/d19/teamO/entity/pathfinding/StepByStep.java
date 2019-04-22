@@ -96,7 +96,10 @@ public class StepByStep {
     ArrayList<String> floors = new ArrayList<>();
 
     for (int i = 0; i < coordinates.size() - 1; i++) {
-      String direction = getDirection(coordinates.get(i).getFirst(), coordinates.get(i + 1).getFirst());
+      String direction = getDirection(
+          coordinates.get(i).getFirst(),
+          coordinates.get(i + 1).getFirst()
+      );
       cardinalDirections.add(new Pair<>(direction, coordinates.get(i).getSecond()));
       double diff = coordinates.get(i).getFirst().getDist(coordinates.get(i + 1).getFirst());
       distance.add(new Pair<>(diff, coordinates.get(i).getSecond()));
@@ -142,7 +145,12 @@ public class StepByStep {
           nextFloor = floors.get(i + 1);
         }
         if (!currFloor.equals(nextFloor)) {
-          instructions.add(new Pair<>("Floor " + nextFloor, cardinalDirections.get(i + 1).getSecond()));
+          instructions.add(
+              new Pair<>(
+                  "Floor " + nextFloor,
+                  cardinalDirections.get(i + 1).getSecond()
+              )
+          );
         }
 
         last = "Elevator";
@@ -157,12 +165,22 @@ public class StepByStep {
           nextFloor = floors.get(i + 1);
         }
         if (!currFloor.equals(nextFloor)) {
-          instructions.add(new Pair<>("Floor " + nextFloor, cardinalDirections.get(i + 1).getSecond()));
+          instructions.add(
+              new Pair<>(
+                  "Floor " + nextFloor,
+                  cardinalDirections.get(i + 1).getSecond()
+              )
+          );
         }
 
         last = "Stair";
       } else if (diff == 1 || diff == -7) {
-        instructions.add(new Pair<>("\tTake a slight right", cardinalDirections.get(i).getSecond()));
+        instructions.add(
+            new Pair<>(
+                "\tTake a slight right",
+                cardinalDirections.get(i).getSecond()
+            )
+        );
         last = "other";
       } else if (diff == 2 || diff == -6) {
         instructions.add(new Pair<>("\tTake a right", cardinalDirections.get(i).getSecond()));
