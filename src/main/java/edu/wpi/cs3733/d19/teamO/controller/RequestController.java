@@ -63,6 +63,9 @@ public class RequestController implements Controller {
   @FXML
   private JFXButton florist;
 
+  @FXML
+  private JFXButton food;
+
   @Inject
   private InternalTransportationViewController.Factory internalTransportationControllerFactory;
   @Inject

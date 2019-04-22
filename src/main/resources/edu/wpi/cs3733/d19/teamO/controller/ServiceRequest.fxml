@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.RequestController">
+<StackPane fx:id="root" prefHeight="647.0" prefWidth="150.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.RequestController">
   <children>
     <BorderPane fx:id="content" />
     <VBox fx:id="menu" pickOnBounds="false" stylesheets="@style/KioskStyle.css" StackPane.alignment="CENTER">
@@ -108,6 +108,14 @@
             <FontAwesomeIconView fill="WHITE" glyphName="PAW" size="4em" />
           </graphic>
         </JFXButton>
+            <JFXButton fx:id="food" contentDisplay="RIGHT" graphicTextGap="20.0" onAction="#audioVisualAction" ripplerFill="#013c78" styleClass="service-btn" text="FOOD REQUEST">
+               <font>
+                  <Font name="Calibri" size="20.0" />
+               </font>
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="FOOD" size="4em" />
+               </graphic>
+            </JFXButton>
       </children>
     </VBox>
   </children>
