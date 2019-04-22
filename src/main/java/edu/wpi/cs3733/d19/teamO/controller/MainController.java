@@ -1,19 +1,10 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
-import java.text.DecimalFormat;
 import java.time.LocalDateTime;
-import java.util.Locale;
+import java.time.format.DateTimeFormatter;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPopup;
@@ -24,32 +15,30 @@ import animatefx.animation.RotateOut;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.effect.ColorAdjust;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-import net.aksingh.owmjapis.api.APIException;
-import net.aksingh.owmjapis.core.OWM;
-import net.aksingh.owmjapis.model.CurrentWeather;
 
+import edu.wpi.cs3733.d19.teamO.LiveWeather;
 import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
-
 @FxmlController(url = "Main.fxml")
 @SuppressWarnings({"PMD.TooManyFields", "PMD.ExcessiveImports"})
 public class MainController implements Controller {
+
+  private static final DateTimeFormatter DATE_TIME_FORMATTER
+      = DateTimeFormatter.ofPattern("HH:mm:ss\nMM/dd/yyyy");
 
   @FXML
   private BorderPane root;
@@ -95,13 +84,7 @@ public class MainController implements Controller {
   @Inject
   private Database database;
 
-  private String second;
-  private String minute;
-  private String hour;
-  private int month;
-  private int day;
-  private int year;
-  private String image;
+  private final LiveWeather liveWeather = new LiveWeather();
 
   private LoginController loginController;
   private JFXPopup optionsPopup;
@@ -109,7 +92,7 @@ public class MainController implements Controller {
   private JFXPopup settingsPopup;
 
   @FXML
-  void initialize() throws IOException {
+  void initialize() {
     eventBus.register(this);
 
     SettingsController settingsController = settingsControllerFactory.create();
@@ -178,82 +161,19 @@ public class MainController implements Controller {
         }
     );
 
-    weatherDisplay();
-  }
-
-  void weatherDisplay() throws IOException {
-    String surl = "http://api.openweathermap.org/data/2.5/weather?q=Boston&APPID=c2711050ed24651e99a523ce6d08ad73";
-    URL url = new URL(surl);
-    URLConnection request = url.openConnection();
-    request.connect();
-
-    // Convert to a JSON object  using GSON
-    JsonParser jp = new JsonParser();
-    JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent(), UTF_8));
-    JsonObject rootobj = root.getAsJsonObject();
-    System.out.println(root.toString());
-    String icon = rootobj.get("weather")
-        .getAsJsonArray()
-        .get(0)
-        .getAsJsonObject()
-        .get("icon")
-        .getAsString(); //.get("weather.icon").getAsString(); // Get the icon
-    String discrp = rootobj.get("weather")
-        .getAsJsonArray()
-        .get(0)
-        .getAsJsonObject()
-        .get("description")
-        .getAsString(); //.get("weather.icon").getAsString(); // Get the description
-    image = icon + ".png";
-
+    liveWeather.start();
+    liveWeather.imageProperty().addListener((observable, oldValue, newValue)
+        -> tempImage.setImage(newValue));
+    weatherLabel.textProperty().bind(Bindings.createStringBinding(()
+        -> String.format("%.1f°F to %.1f°F", liveWeather.getMinTemp(), liveWeather.getMaxTemp()),
+        liveWeather.minTempProperty(), liveWeather.maxTempProperty()));
+    description.textProperty().bind(liveWeather.descriptionProperty());
     description.setStyle("-fx-font-size: 15px; -fx-font-style: bold");
-    description.setText(discrp.toUpperCase(Locale.ENGLISH));
 
-    Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-      second = (LocalDateTime.now().getSecond() < 10 ? "0" : "")
-          + Integer.toString(LocalDateTime.now().getSecond());
-      minute = (LocalDateTime.now().getMinute() < 10 ? "0" : "")
-          + Integer.toString(LocalDateTime.now().getMinute());
-      hour = (LocalDateTime.now().getHour() < 10 ? "0" : "")
-          + Integer.toString(LocalDateTime.now().getHour());
-      month = LocalDateTime.now().getMonthValue();
-      day = LocalDateTime.now().getDayOfMonth();
-      year = LocalDateTime.now().getYear();
-      timeLabel.setText(hour + ":" + minute + ":" + second
-          + "\n" + month + "/" + day + "/" + year);
-    }),
-        new KeyFrame(Duration.seconds(1))
-    );
-    clock.setCycleCount(Animation.INDEFINITE);
-    clock.play();
-
-    new Thread(() -> {
-      try {
-        try {
-          getWeatherData();
-        } catch (IOException exception) {
-          exception.printStackTrace();
-        }
-      } catch (APIException exception) {
-        exception.printStackTrace();
-      }
-    }).start();
-  }
-
-  void getWeatherData() throws APIException, IOException {
-    OWM owm = new OWM("c2711050ed24651e99a523ce6d08ad73");
-
-    CurrentWeather cwd = owm.currentWeatherByCityName("Boston", OWM.Country.UNITED_STATES);
-
-    double max = (cwd.getMainData().getTempMax() - 273.15) * 9.0 / 5.0 + 32.0;
-    double min = (cwd.getMainData().getTempMin() - 273.15) * 9.0 / 5.0 + 32.0;
-
-    tempImage.setImage(new Image(getClass().getResource("../component/" + image).openStream()));
-
-    DecimalFormat df = new DecimalFormat("##");
-
-    Platform.runLater(()
-        -> weatherLabel.setText(df.format(min) + " F to " + df.format(max) + " F"));
+    final Timeline timeline = new Timeline(new KeyFrame(Duration.millis(250), event
+        -> timeLabel.setText(LocalDateTime.now().format(DATE_TIME_FORMATTER))));
+    timeline.setCycleCount(Animation.INDEFINITE);
+    timeline.play();
   }
 
   @FXML

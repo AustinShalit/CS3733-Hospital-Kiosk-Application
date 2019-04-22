@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 
+import edu.wpi.cs3733.d19.teamO.component.FuzzyWuzzyComboBox;
 import edu.wpi.cs3733.d19.teamO.controller.Controller;
 import edu.wpi.cs3733.d19.teamO.controller.DialogHelper;
 import edu.wpi.cs3733.d19.teamO.controller.FxmlController;
@@ -32,7 +33,7 @@ public class InterpreterPopupController implements Controller {
   @FXML
   private JFXTextField nametxt;
   @FXML
-  private JFXComboBox<Node> locationbox;
+  private FuzzyWuzzyComboBox locationbox;
   @FXML
   private JFXComboBox<InterpreterRequest.Language> categorybox;
   @FXML
@@ -45,7 +46,9 @@ public class InterpreterPopupController implements Controller {
 
   @FXML
   void initialize() {
-    DialogHelper.populateComboBox(db, locationbox);
+    locationbox.setNodes(db.getAllNodes());
+    locationbox.setupAutoRefresh();
+    locationbox.refresh();
     categorybox.getItems().setAll(InterpreterRequest.Language
         .values());
 
@@ -71,7 +74,7 @@ public class InterpreterPopupController implements Controller {
     locationbox.setValue(null);
     categorybox.getSelectionModel().clearSelection();
     categorybox.setValue(null);
-    descriptiontxt.setText(null);
+    descriptiontxt.setText("");
 
     if (db.insertInterpreterRequest(interpreter)) {
       String message = "Successfully submitted interpreter request.";
@@ -90,11 +93,11 @@ public class InterpreterPopupController implements Controller {
   private InterpreterRequest parseUserInterpreterRequest() {
     // if input is valid, parse it and return a new SanitationRequest
     if (!nametxt.getText().isEmpty()
-        && Objects.nonNull(locationbox.getValue())
+        && Objects.nonNull(locationbox.getNodeValue())
         && Objects.nonNull(categorybox.getValue())) {
 
       LocalDateTime now = LocalDateTime.now();
-      Node node = locationbox.getValue();
+      Node node = locationbox.getNodeValue();
 
       InterpreterRequest.Language language = categorybox.getValue();
 

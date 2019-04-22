@@ -11,6 +11,7 @@ public class Employee {
   private String password;
   private String name;
   private EmployeeAttributes employeeAttributes;
+  private String phone;
 
   /**
    * Constructor for Employee, Create a Employee.
@@ -19,17 +20,20 @@ public class Employee {
    * @param username Username
    * @param password Password
    * @param name     User's Name
+   * @param phone    User's Phonenumber
    */
   public Employee(int id,
                   String username,
                   String password,
                   String name,
-                  EmployeeAttributes employeeAttributes) {
+                  EmployeeAttributes employeeAttributes,
+                  String phone) {
     this.id = id;
     this.username = username;
     this.password = password;
     this.name = name;
     this.employeeAttributes = employeeAttributes;
+    this.phone = phone;
   }
 
   /**
@@ -43,8 +47,9 @@ public class Employee {
   public Employee(int id,
                   String username,
                   String password,
-                  String name) {
-    this(id, username, password, name, new EmployeeAttributes());
+                  String name,
+                  String phone) {
+    this(id, username, password, name, new EmployeeAttributes(), phone);
   }
 
   /**
@@ -53,11 +58,13 @@ public class Employee {
    * @param username Username
    * @param password Password
    * @param name     User's Name
+   * @param phone    User's Phonenumber
    */
   public Employee(String username,
                   String password,
-                  String name) {
-    this(-1, username, password, name, new EmployeeAttributes());
+                  String name,
+                  String phone) {
+    this(-1, username, password, name, new EmployeeAttributes(), phone);
   }
 
   /**
@@ -67,12 +74,14 @@ public class Employee {
    * @param password     Password
    * @param name         User's Name
    * @param employeeType The type of the employee
+   * @param phone        User's Phonenumber
    */
   public Employee(String username,
                   String password,
                   String name,
-                  EmployeeType employeeType) {
-    this(-1, username, password, name, new EmployeeAttributes(employeeType));
+                  EmployeeType employeeType,
+                  String phone) {
+    this(-1, username, password, name, new EmployeeAttributes(employeeType), phone);
   }
 
   public int getId() {
@@ -99,6 +108,10 @@ public class Employee {
     return employeeAttributes;
   }
 
+  public String getPhone() {
+    return phone;
+  }
+
   public void setUsername(String username) {
     this.username = username;
   }
@@ -115,6 +128,10 @@ public class Employee {
     this.employeeAttributes.employeeType = type;
   }
 
+  public void setPhone(String phone) {
+    this.phone = phone;
+  }
+
   @Override
   public String toString() {
     return "Employee{"
@@ -123,6 +140,7 @@ public class Employee {
         + ", password=" + getPassword()
         + ", user=" + getName()
         + ", attr=" + getEmployeeAttributes().toString()
+        + ", phone=" + getPhone()
         + '}';
   }
 
@@ -139,7 +157,8 @@ public class Employee {
         && username.equals(that.username)
         && password.equals(that.password)
         && name.equals(that.name)
-        && employeeAttributes.equals(that.employeeAttributes);
+        && employeeAttributes.equals(that.employeeAttributes)
+        && phone.equals(that.phone);
   }
 
   /**
@@ -161,7 +180,7 @@ public class Employee {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, username, password, name, employeeAttributes);
+    return Objects.hash(id, username, password, name, employeeAttributes, phone);
   }
 
   public enum EmployeeType {
