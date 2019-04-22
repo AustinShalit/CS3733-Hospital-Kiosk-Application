@@ -24,7 +24,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -82,7 +81,7 @@ public class MapView extends StackPane {
   private final SimpleObjectProperty<Node> nodeFrom = new SimpleObjectProperty<>();
   private final SimpleObjectProperty<Node> nodeTo = new SimpleObjectProperty<>();
   private  Collection<Node> nodes;
-  private ContextMenu contextMenu = new ContextMenu();
+  private  final ContextMenu contextMenu = new ContextMenu();
   MenuItem fromHere = new MenuItem("Directions from here");
   MenuItem toHere = new MenuItem("Directions to here");
 
@@ -162,7 +161,7 @@ public class MapView extends StackPane {
   @FXML
   void initialize() throws IOException {
     contextMenu.getItems().addAll(fromHere, toHere);
-    fromHere.setOnAction(a->{
+    fromHere.setOnAction(a -> {
       for (Node n : nodes) {
         if (n.getFloorInt() == level && n.getXcoord() ==  circle.getCenterX()
             && n.getYcoord() ==  circle.getCenterY()
@@ -171,7 +170,7 @@ public class MapView extends StackPane {
         }
       }
     });
-    toHere.setOnAction(a->{
+    toHere.setOnAction(a -> {
       for (Node n : nodes) {
         if (n.getFloorInt() == level && n.getXcoord() ==  circle.getCenterX()
             && n.getYcoord() ==  circle.getCenterY()
@@ -209,7 +208,6 @@ public class MapView extends StackPane {
     gesturePane.setOnMouseClicked(e -> {
       if (e.getButton().equals(PRIMARY)) {
         contextMenu.hide();
-        double x = e.getSceneX();
         if (navigation) {
           Point2D pointOnMap = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
               .orElse(gesturePane.targetPointAtViewportCentre());
@@ -219,7 +217,7 @@ public class MapView extends StackPane {
                 .interpolateWith(Interpolator.EASE_BOTH)
                 .zoomBy(gesturePane.getCurrentScale(), pointOnMap);
           }
-          if (e.isControlDown()) { //
+          if (e.isControlDown()) {
             int currentX = (int) pointOnMap.getX();
             int currentY = (int) pointOnMap.getY();
             double min = 9999;
@@ -241,7 +239,7 @@ public class MapView extends StackPane {
           }
         }
       } else if (e.getButton().equals(SECONDARY)) {
-        contextMenu.show(gesturePane,e.getScreenX(), e.getScreenY());
+        contextMenu.show(gesturePane, e.getScreenX(), e.getScreenY());
       }
     });
 
