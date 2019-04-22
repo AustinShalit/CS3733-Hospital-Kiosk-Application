@@ -299,7 +299,7 @@ public class MapView extends StackPane {
     }
 
     backgroundImage.setImage(new Image(getClass().getResource(filename).openStream()));
-
+    resetButtonBackground(level);
     drawPath();
 
   }
