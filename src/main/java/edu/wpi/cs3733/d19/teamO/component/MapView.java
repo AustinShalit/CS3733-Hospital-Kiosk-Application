@@ -6,11 +6,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXPopup;
 
-import animatefx.animation.RotateIn;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -145,6 +142,30 @@ public class MapView extends StackPane {
     });
     gesturePane.setMinScale(0.1);
     gesturePane.reset();
+
+    gesturePane.setOnMouseMoved(e -> {
+      if (navigation) {
+        Point2D pointOnMap = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
+            .orElse(gesturePane.targetPointAtViewportCentre());
+
+        int currentX = (int) pointOnMap.getX();
+        int currentY = (int) pointOnMap.getY();
+        double min = 9999;
+        double distance = 0;
+        for (Node n : nodes) {
+          distance = Math.sqrt(abs(n.getXcoord() - currentX) * abs(n.getXcoord() - currentX)
+              + abs(n.getYcoord() - currentY) * abs(n.getYcoord() - currentY));
+          if (n.getFloorInt() == level && distance < min
+              && !n.getNodeType().equals(Node.NodeType.HALL)) {
+            circle.setCenterX(n.getXcoord());
+            circle.setCenterY(n.getYcoord());
+            min = distance;
+          }
+        }
+        circle.setVisible(true);
+      }
+    });
+
     gesturePane.setOnMouseClicked(e -> {
       if (e.getButton().equals(PRIMARY)) {
         contextMenu.hide();
@@ -648,23 +669,6 @@ public class MapView extends StackPane {
     }
   }
 
-  private void findNodeClicked(){
-    int currentX = (int) pointOnMap.getX();
-    int currentY = (int) pointOnMap.getY();
-    double min = 9999;
-    double distance = 0;
-    for (Node n : nodes) {
-      distance = Math.sqrt(abs(n.getXcoord() - currentX) * abs(n.getXcoord() - currentX)
-          + abs(n.getYcoord() - currentY) * abs(n.getYcoord() - currentY));
-      if (n.getFloorInt() == level && distance < min
-          && !n.getNodeType().equals(Node.NodeType.HALL)) {
-        nodeClicked.set(n);
-        circle.setCenterX(n.getXcoord());
-        circle.setCenterY(n.getYcoord());
-        min = distance;
-      }
-    }
-  }
 
 
 }
