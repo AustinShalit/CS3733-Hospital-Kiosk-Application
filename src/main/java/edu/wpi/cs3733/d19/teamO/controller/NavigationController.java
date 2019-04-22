@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+import javax.swing.ScrollPaneLayout;
 import com.google.common.eventbus.EventBus;
 import com.google.common.graph.GraphBuilder;
 import com.google.common.graph.ImmutableGraph;
@@ -18,6 +19,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
@@ -59,6 +61,8 @@ public class NavigationController implements Controller {
   Label instructions;
   @FXML
   JFXButton aboutButton;
+  @FXML
+  ScrollPane instructionPane;
 
   StepByStep stepByStep;
   boolean addRest = false;
@@ -105,6 +109,16 @@ public class NavigationController implements Controller {
         toComboBox.requestFocus();
       }
     });
+
+    fromComboBox.setStyle("-fx-font-size: 12px; -fx-font-style: Palatino Linotype;");
+    toComboBox.setStyle("-fx-font-size: 12px; -fx-font-style: Palatino Linotype;");
+
+    instructionPane.setVisible(false);
+    instructions.setVisible(false);
+
+    instructionPane.setStyle("-fx-opacity: 0.8; -fx-background-color: #F1F1F1; "
+        + "-fx-border-radius: 4px; -fx-border-color: #011E3C");
+    instructions.setStyle("-fx-font-size: 15px; -fx-font-style: Palatino Linotype; -fx-font-style: BOLD");
   }
 
 
@@ -132,6 +146,10 @@ public class NavigationController implements Controller {
   @FXML
   @SuppressWarnings({"PMD.AvoidInstantiatingObjectsInLoops", "UseStringBufferForStringAppends"})
   void onGoButtonAction() throws IOException {
+
+      instructionPane.setVisible(true);
+      instructions.setVisible(true);
+
     if (Objects.isNull(searchForNode(toComboBox.getValue()))
         || Objects.isNull(searchForNode(fromComboBox.getValue()))) {
       DialogHelper.showInformationAlert("Must Select Valid Start/End Destinations",
