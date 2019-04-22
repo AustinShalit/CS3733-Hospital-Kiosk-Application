@@ -37,6 +37,7 @@ allprojects {
     repositories {
         mavenCentral()
         jcenter()
+        maven("https://ravana.dyn.wpi.edu/maven")
     }
 
     dependencies {
