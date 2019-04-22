@@ -132,8 +132,8 @@ public class NavigationController implements Controller {
 
     instructionPane.setVisible(false);
 
-    instructionPane.setStyle("-fx-font-size: 15px; -fx-font-style: Palatino Linotype;\"\n" +
-        "        + \"-fx-font-style: BOLD");
+    instructionPane.setStyle("-fx-font-size: 15px; -fx-font-style: Palatino Linotype;"
+        + "-fx-font-style: BOLD");
   }
 
 
@@ -187,6 +187,8 @@ public class NavigationController implements Controller {
         fromComboBox.getNodeValue(),
         toComboBox.getNodeValue());
 
+    map.setPath(path);
+
     instructionsContainer.getChildren().setAll(new ArrayList<>());
     Label tempRef;
     for (Pair<String, Node> curPair: stepByStep.getStepByStep(path)) {
@@ -203,8 +205,7 @@ public class NavigationController implements Controller {
       });
       instructionsContainer.getChildren().add(tempRef);
     }
-    map.zoomTo(fromComboBox.getNodeValue());
-    map.setPath(path);
+
     map.zoomTo(fromComboBox.getNodeValue());
     map.drawPath();
 
