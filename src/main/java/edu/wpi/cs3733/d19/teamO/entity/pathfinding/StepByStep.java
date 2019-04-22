@@ -142,7 +142,7 @@ public class StepByStep {
           nextFloor = floors.get(i + 1);
         }
         if (!currFloor.equals(nextFloor)) {
-          instructions.add(new Pair<>("Floor " + nextFloor, cardinalDirections.get(i).getSecond()));
+          instructions.add(new Pair<>("Floor " + nextFloor, cardinalDirections.get(i + 1).getSecond()));
         }
 
         last = "Elevator";
@@ -157,7 +157,7 @@ public class StepByStep {
           nextFloor = floors.get(i + 1);
         }
         if (!currFloor.equals(nextFloor)) {
-          instructions.add(new Pair<>("Floor " + nextFloor, cardinalDirections.get(i).getSecond()));
+          instructions.add(new Pair<>("Floor " + nextFloor, cardinalDirections.get(i + 1).getSecond()));
         }
 
         last = "Stair";

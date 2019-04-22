@@ -162,6 +162,7 @@ public class NavigationController implements Controller {
     Label tempRef;
     for (Pair<String, Node> curPair: stepByStep.getStepByStep(path)) {
       tempRef = new Label(curPair.getFirst());
+      tempRef.setPrefWidth(400);
       tempRef.setOnMouseClicked(event -> {
         if (Objects.nonNull(curPair.getSecond())) {
           try {
