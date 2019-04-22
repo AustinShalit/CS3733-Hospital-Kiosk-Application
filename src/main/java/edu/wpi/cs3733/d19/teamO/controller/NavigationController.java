@@ -48,7 +48,7 @@ public class NavigationController implements Controller {
   @FXML
   BorderPane root;
   @FXML
-  StackPane sidebar;
+  VBox sidebar;
 
   @FXML
   JFXButton restroomButton;
