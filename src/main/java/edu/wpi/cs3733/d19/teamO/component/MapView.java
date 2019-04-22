@@ -594,8 +594,6 @@ public class MapView extends StackPane {
 
   private void addFloorChangeLabel(Node node, Node lastNode) {
     if (lastNode.getFloorInt() != node.getFloorInt()) {
-      Label label2 = null;
-
       if (lastNode.getFloorInt() == level) {
         Button button = new JFXButton("To Floor " + node.getFloor());
         button.setTranslateX(lastNode.getXcoord() + 10);
@@ -611,11 +609,6 @@ public class MapView extends StackPane {
             }
           }
         });
-
-        label2 = new Label(lastNode.getLongName());
-        label2.setTranslateX(lastNode.getXcoord() + 10);
-        label2.setTranslateY(lastNode.getYcoord() - 9);
-        label2.getStyleClass().add("navlabel");
 
         buttonsGroup.getChildren().add(button);
 
@@ -635,20 +628,8 @@ public class MapView extends StackPane {
           }
         });
 
-        label2 = new Label(node.getLongName());
-        label2.setTranslateX(node.getXcoord() + 10);
-        label2.setTranslateY(node.getYcoord() - 9);
-        label2.getStyleClass().add("navlabel");
-
         buttonsGroup.getChildren().add(button);
-      }
-
-      if (label2 != null) {
-        labelsGroup.getChildren().add(label2);
       }
     }
   }
-
-
-
 }
