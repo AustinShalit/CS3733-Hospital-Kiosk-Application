@@ -8,12 +8,14 @@ import com.google.common.graph.ImmutableGraph;
 import com.google.common.graph.MutableGraph;
 import com.google.inject.Inject;
 
+import animatefx.animation.FadeOut;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 import edu.wpi.cs3733.d19.teamO.AppPreferences;
@@ -31,6 +33,14 @@ public class FireAlarmController implements Controller{
   MapView map;
   @FXML
   Label exitlbl;
+  @FXML
+  VBox topBox;
+  @FXML
+  VBox leftBox;
+  @FXML
+  VBox rightBox;
+  @FXML
+  VBox bottomBox;
 
   @Inject
   private AppPreferences appPreferences;
@@ -39,7 +49,10 @@ public class FireAlarmController implements Controller{
 
   @FXML
   void initialize() throws IOException {
-    flash();
+    flash(topBox);
+    flash(bottomBox);
+    flash(leftBox);
+    flash(rightBox);
     IGraphSearchAlgorithm<Node> algorithm = appPreferences.getGraphSearchAlgorithm().getAlgorithm();
     MutableGraph<Node> graph = GraphBuilder.undirected().allowsSelfLoops(false).build();
     database.getAllNodes().forEach(graph::addNode);
@@ -56,12 +69,18 @@ public class FireAlarmController implements Controller{
   }
 
   @FXML
-  void flash() {
-    FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.1), exitlbl);
-    fadeTransition.setFromValue(1.0);
-    fadeTransition.setToValue(0.0);
-    fadeTransition.setCycleCount(Animation.INDEFINITE);
-    fadeTransition.play();
+  void flash(VBox flasher) {
+    FadeTransition fadeOut = new FadeTransition(Duration.seconds(0.5), flasher);
+    fadeOut.setFromValue(1.0);
+    fadeOut.setToValue(0.0);
+    fadeOut.setAutoReverse(true);
+    fadeOut.setCycleCount(Animation.INDEFINITE);
+    fadeOut.play();
+
+//    FadeTransition fadeIn = new FadeTransition(Duration.seconds(2), flasher);
+//    fadeIn.setFromValue(0.0);
+//    fadeIn.setToValue(1.0);
+//    fadeIn.play();
   }
 
   @Override
