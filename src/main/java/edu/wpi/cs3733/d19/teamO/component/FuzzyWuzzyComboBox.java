@@ -22,6 +22,8 @@ public class FuzzyWuzzyComboBox extends JFXComboBox<String> {
    * Sets up the FuzzyWuzzyComboBox to refresh itself and show itself if focused on key release.
    */
   public void setupAutoRefresh() {
+    this.setPromptText("Choose Location");
+    this.setEditable(true);
     this.setOnKeyReleased(event -> {
       refresh();
       if (this.isFocused()) {

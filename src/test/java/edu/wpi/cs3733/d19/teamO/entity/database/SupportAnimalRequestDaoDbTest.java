@@ -34,12 +34,12 @@ class SupportAnimalRequestDaoDbTest {
 
   private static final SupportAnimalRequest REQUEST_1 =
       new SupportAnimalRequest(1, LocalDateTime.now(), LocalDateTime.now(), NODE_1,
-          "Bob", SupportAnimalRequest.SupportAnimalRequestType.DRAGON,
+          "Bob", SupportAnimalRequest.SupportAnimalRequestType.Chubbs,
           "This is a description", "Dev");
 
   private static final SupportAnimalRequest REQUEST_2 =
       new SupportAnimalRequest(2, LocalDateTime.now(), LocalDateTime.now(), NODE_2,
-          "Bill", SupportAnimalRequest.SupportAnimalRequestType.DOG,
+          "Bill", SupportAnimalRequest.SupportAnimalRequestType.Jasper,
           "This is a description", "Ken");
 
 
@@ -107,7 +107,7 @@ class SupportAnimalRequestDaoDbTest {
     SupportAnimalRequest update = new SupportAnimalRequest(REQUEST_1.getId(),
         LocalDateTime.now(), LocalDateTime.now(),
         NODE_1, "Fred",
-        SupportAnimalRequest.SupportAnimalRequestType.OTHER,
+        SupportAnimalRequest.SupportAnimalRequestType.Jackson,
         "A different description", "Austin");
 
     assertTrue(supportAnimalRequestDao.update(update));
