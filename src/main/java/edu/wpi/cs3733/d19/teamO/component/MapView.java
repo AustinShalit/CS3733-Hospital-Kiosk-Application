@@ -299,7 +299,7 @@ public class MapView extends StackPane {
     }
 
     backgroundImage.setImage(new Image(getClass().getResource(filename).openStream()));
-
+    circle.setVisible(false);
     drawPath();
 
   }
@@ -438,7 +438,6 @@ public class MapView extends StackPane {
           label.setTranslateY(node.getYcoord() - 9);
           label.getStyleClass().add("navlabel");
 
-          labelsGroup.getChildren().add(label);
         }
         lastNode = node;
       }
@@ -457,6 +456,7 @@ public class MapView extends StackPane {
 
           labelsGroup.getChildren().add(label2);
         }
+
       }
 
 
@@ -479,6 +479,7 @@ public class MapView extends StackPane {
     nodeGroup.getChildren().addAll(pathEdges);
     nodeGroup.getChildren().addAll(labelsGroup);
     nodeGroup.getChildren().addAll(buttonsGroup);
+
   }
 
   /**
@@ -538,14 +539,24 @@ public class MapView extends StackPane {
 
   /**
    * Zoom to the given node.
-   * @param n The node need to zoom to.
+   * @param start The node need to zoom to.
    * @throws IOException throw if there is error.
    */
-  public void zoomTo(Node n) throws IOException {
+  public void zoomTo(Node start) throws IOException {
     gesturePane.reset();
-    switchFloor(n.getFloor());
-    gesturePane.zoomTo(1.2, new Point2D(n.getXcoord(),
-        n.getYcoord()));
+    switchFloor(start.getFloor());
+    int id = path.indexOf(start);
+    Node lastNodeOnFloor = start;
+    for (int jj = id; jj < path.size(); jj++) {
+      Node curNode = path.get(jj);
+      if (curNode.getFloorInt() == level) {
+        lastNodeOnFloor = path.get(jj);
+      } else {
+        break;
+      }
+    }
+    panMapBetweenNodes(start, lastNodeOnFloor);
+
   }
 
   private void switchFloor(String s) throws IOException {
@@ -593,62 +604,99 @@ public class MapView extends StackPane {
   }
 
   private void addFloorChangeLabel(Node node, Node lastNode) {
-    if (lastNode.getFloorInt() != node.getFloorInt()) {
-      Label label2 = null;
-
-      if (lastNode.getFloorInt() == level) {
-        Button button = new JFXButton("To Floor " + node.getFloor());
-        button.setTranslateX(lastNode.getXcoord() + 10);
-        button.setTranslateY(lastNode.getYcoord() + 10);
-        button.getStyleClass().add("navlabel");
-
-        button.setOnAction(event -> {
-          if (event.getSource() == button) {
-            try {
-              switchFloor(node.getFloor());
-            } catch (IOException exception) {
-              exception.printStackTrace();
-            }
-          }
-        });
-
-        label2 = new Label(lastNode.getLongName());
-        label2.setTranslateX(lastNode.getXcoord() + 10);
-        label2.setTranslateY(lastNode.getYcoord() - 9);
-        label2.getStyleClass().add("navlabel");
-
-        buttonsGroup.getChildren().add(button);
-
-      } else if (node.getFloorInt() == level) {
-        Button button = new JFXButton("Back to Floor " + lastNode.getFloor());
-        button.setTranslateX(node.getXcoord() + 10);
-        button.setTranslateY(node.getYcoord() + 10);
-        button.getStyleClass().add("navlabel");
-
-        button.setOnAction(event -> {
-          if (event.getSource() == button) {
-            try {
-              switchFloor(lastNode.getFloor());
-            } catch (IOException exception) {
-              exception.printStackTrace();
-            }
-          }
-        });
-
-        label2 = new Label(node.getLongName());
-        label2.setTranslateX(node.getXcoord() + 10);
-        label2.setTranslateY(node.getYcoord() - 9);
-        label2.getStyleClass().add("navlabel");
-
-        buttonsGroup.getChildren().add(button);
-      }
-
-      if (label2 != null) {
-        labelsGroup.getChildren().add(label2);
-      }
+    if (lastNode.getFloorInt() == node.getFloorInt()) {
+      return;
     }
+    Label label2 = null;
+
+    if (lastNode.getFloorInt() == level) {
+      Button button = new JFXButton("To Floor " + node.getFloor());
+      button.setTranslateX(lastNode.getXcoord() + 10);
+      button.setTranslateY(lastNode.getYcoord() + 10);
+      button.getStyleClass().add("navlabel");
+
+      button.setOnAction(event -> {
+        if (event.getSource() == button) {
+          try {
+            switchFloor(node.getFloor());
+            // pan map
+            int id = path.indexOf(node);
+            Node lastNodeOnFloor = node;
+            for (int jj = id; jj < path.size(); jj++) {
+              Node curNode = path.get(jj);
+              if (curNode.getFloorInt() == level) {
+                lastNodeOnFloor = path.get(jj);
+              } else {
+                break;
+              }
+            }
+            panMapBetweenNodes(node, lastNodeOnFloor);
+          } catch (IOException exception) {
+            exception.printStackTrace();
+          }
+        }
+      });
+
+      label2 = new Label(lastNode.getLongName());
+      label2.setTranslateX(lastNode.getXcoord() + 10);
+      label2.setTranslateY(lastNode.getYcoord() - 9);
+      label2.getStyleClass().add("navlabel");
+
+      buttonsGroup.getChildren().add(button);
+
+    } else if (node.getFloorInt() == level) {
+      Button button = new JFXButton("Back to Floor " + lastNode.getFloor());
+      button.setTranslateX(node.getXcoord() + 10);
+      button.setTranslateY(node.getYcoord() + 10);
+      button.getStyleClass().add("navlabel");
+
+      button.setOnAction(event -> {
+        if (event.getSource() == button) {
+          try {
+            switchFloor(lastNode.getFloor());
+            // pan map
+            int ii = path.indexOf(lastNode);
+            Node lastNodeOnFloor = lastNode;
+            for (int jj = ii; jj > 0; jj--) {
+              Node curNode = path.get(jj);
+              if (curNode.getFloorInt() == level) {
+                lastNodeOnFloor = path.get(jj);
+              } else {
+                break;
+              }
+            }
+            panMapBetweenNodes(lastNode, lastNodeOnFloor);
+          } catch (IOException exception) {
+            exception.printStackTrace();
+          }
+        }
+      });
+
+      label2 = new Label(node.getLongName());
+      label2.setTranslateX(node.getXcoord() + 10);
+      label2.setTranslateY(node.getYcoord() - 9);
+      label2.getStyleClass().add("navlabel");
+
+      buttonsGroup.getChildren().add(button);
+    }
+
+    if (label2 != null) {
+      labelsGroup.getChildren().add(label2);
+    }
+
   }
 
+  void panMapBetweenNodes(Node a, Node b) {
+    int midX = (a.getXcoord() + b.getXcoord()) / 2;
+    int midY = (a.getYcoord() + b.getYcoord()) / 2;
+    int distanceX = abs(a.getXcoord() - b.getXcoord()) + 1;
+    int distanceY = abs(a.getYcoord() - b.getYcoord()) + 1;
 
-
+    if ( 750. / Math.max(distanceX , distanceY) < 2.5) {
+      gesturePane.zoomTo(750. / Math.max(distanceX, distanceY), new Point2D(midX, midY));
+    } else {
+      gesturePane.zoomTo(2.5, new Point2D(midX, midY));
+    }
+    gesturePane.centreOn(new Point2D(midX , midY));
+  }
 }
