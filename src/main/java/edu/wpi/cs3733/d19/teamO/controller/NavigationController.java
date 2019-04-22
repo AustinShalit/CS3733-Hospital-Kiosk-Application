@@ -17,12 +17,10 @@ import org.apache.commons.collections.CollectionUtils;
 import org.controlsfx.glyphfont.Glyph;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 
@@ -90,7 +88,7 @@ public class NavigationController implements Controller {
     CollectionUtils.filter(
         nodes,
         object -> ((Node) object).getNodeType() != Node.NodeType.HALL
-               && !((Node) object).getFloor().equals("5")
+            && !((Node) object).getFloor().equals("5")
     );
 
     toComboBox.setNodes(nodes);
@@ -169,49 +167,47 @@ public class NavigationController implements Controller {
     database.getAllNodes().forEach(graph::addNode);
     database.getAllEdges().forEach(e -> graph.putEdge(e.getStartNode(), e.getEndNode()));
 
+    // the path
     List<Node> path = algorithm.getPath(ImmutableGraph.copyOf(graph),
         fromComboBox.getNodeValue(),
         toComboBox.getNodeValue());
 
-    List<List<Node>> separatePath = separatePathByFloor(path);
 
-    int cnt;
-    for (cnt = 0; cnt < separatePath.size(); cnt++) {
-      Button btn = new JFXButton(separatePath.get(cnt).get(0).getFloor());
-      if (!buttonPane.getChildren().contains(btn)) {
-        buttonPane.getChildren().add(btn);
-        if (cnt != separatePath.size() - 1) {
-          Glyph arrow = new Glyph("FontAwesome", "ARROW_RIGHT");
-          arrow.size(10);
-          Label label = new Label("", arrow);
-          buttonPane.getChildren().add(label);
+    // buttons for the floors traversed
+    List<Node> floors = getFloors(path);
+    for (int i = 0; i < floors.size(); i++) {
+      Node node = floors.get(i);
+
+      Button button = new JFXButton(node.getFloor());
+      button.setOnAction(event -> {
+        try {
+          map.zoomTo(node);
+        } catch (IOException exception) {
+          exception.printStackTrace();
         }
+      });
+
+      buttonPane.getChildren().add(button);
+
+      if (i != floors.size() - 1) {
+        Glyph arrow = new Glyph("FontAwesome", "ARROW_RIGHT");
+        arrow.size(10);
+        Label label = new Label("", arrow);
+        buttonPane.getChildren().add(label);
       }
-
-      EventHandler<MouseEvent> handler = event -> {
-        int cnt1;
-        for (cnt1 = 0; cnt1 < separatePath.size(); cnt1++) {
-          if (event.getSource() == buttonPane.getChildren().get(cnt1)) {
-            try {
-              map.zoomTo(separatePath.get(cnt1).get(0));
-            } catch (IOException exception) {
-              exception.printStackTrace();
-            }
-          }
-        }
-      };
-      btn.setOnMouseClicked(handler);
     }
 
+    // step by step
     ArrayList<String> list = stepByStep.getStepByStep(path);
-    String instruction;
     StringBuilder stringBuilder = new StringBuilder();
-    for (String s: list) {
+    for (String s : list) {
       stringBuilder.append(s);
       stringBuilder.append('\n');
     }
-    instruction = stringBuilder.toString();
+    String instruction = stringBuilder.toString();
     instructions.setText(instruction);
+
+    // set map
     map.zoomTo(fromComboBox.getNodeValue());
     map.setPath(path);
     map.drawPath();
@@ -251,26 +247,25 @@ public class NavigationController implements Controller {
     }
   }
 
-  private List<List<Node>> separatePathByFloor(List<Node> path) {
-    String floor;
-    int cnt;
+  /**
+   * Get the a list of the floors traversed on the path.
+   */
+  private List<Node> getFloors(List<Node> path) {
+    List<Node> floorNodes = new ArrayList<>();
+    for (int i = 0; i < path.size(); i++) {
+      Node currNode = path.get(i);
+      Node prevNode;
 
-    List<List<Node>> separatePath = new ArrayList<>();
-    List<Node> smallPath = new ArrayList<>();
-
-    smallPath.add(path.get(0));
-
-    for (cnt = 1; cnt < path.size(); cnt++) {
-      floor = path.get(cnt).getFloor();
-      if (floor.equals(path.get(cnt - 1).getFloor())) {
-        smallPath.add(path.get(cnt));
-      } else if (!floor.equals(path.get(cnt - 1).getFloor())) {
-        separatePath.add(smallPath);
-        smallPath = new ArrayList<>();
-        smallPath.add(path.get(cnt));
+      if (i > 0) {
+        prevNode = path.get(i - 1);
+        if (!currNode.getFloor().equals(prevNode.getFloor())) {
+          floorNodes.add(currNode);
+        }
+      } else {
+        floorNodes.add(currNode);
       }
     }
-    separatePath.add(smallPath);
-    return separatePath;
+
+    return floorNodes;
   }
 }
