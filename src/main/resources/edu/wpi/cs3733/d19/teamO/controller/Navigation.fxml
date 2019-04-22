@@ -64,7 +64,7 @@
             <Insets bottom="30.0" left="5.0" right="5.0" />
           </VBox.margin>
         </FuzzyWuzzyComboBox>
-        <JFXButton fx:id="goButton" onAction="#onGoButtonAction" prefHeight="50.0" prefWidth="294.0" text="GO" textFill="WHITE" id="login-button" >
+        <JFXButton fx:id="goButton" onAction="#onGoButtonAction" prefWidth="294.0" text="GO" textFill="WHITE" id="login-button" >
           <VBox.margin>
             <Insets bottom="25.0" />
           </VBox.margin>
@@ -131,9 +131,9 @@
             <Insets bottom="20.0" />
           </VBox.margin>
         </ScrollPane>
-        <HBox prefHeight="48.0" prefWidth="323.0">
+        <HBox prefHeight="48.0" prefWidth="323.0" alignment="BOTTOM_CENTER">
           <children>
-            <JFXButton fx:id="aboutButton" onAction="#aboutOnAction" prefHeight="48.0" prefWidth="154.0" style="-fx-background-color: #012d5a;" text="About Page" textFill="WHITE">
+            <JFXButton fx:id="aboutButton" onAction="#aboutOnAction" prefHeight="48.0" minWidth="154.0" id="small-button" text="About Page" textFill="WHITE">
               <font>
                 <Font name="System Bold" size="18.0" />
               </font>
@@ -141,7 +141,7 @@
                 <Insets right="20.0" />
               </HBox.margin>
             </JFXButton>
-            <JFXButton prefHeight="51.0" prefWidth="150.0" text="Credit" />
+            <JFXButton prefHeight="51.0" minWidth="150.0" text="Credit" id="small-button"/>
           </children>
         </HBox>
       </children>
