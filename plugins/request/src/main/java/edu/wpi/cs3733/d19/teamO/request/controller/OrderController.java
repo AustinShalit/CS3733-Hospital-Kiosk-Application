@@ -4,11 +4,17 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
+import com.google.common.eventbus.EventBus;
+import com.google.inject.Inject;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -26,6 +32,7 @@ import javafx.util.StringConverter;
 import edu.wpi.cs3733.d19.teamO.controller.Controller;
 import edu.wpi.cs3733.d19.teamO.controller.DialogHelper;
 import edu.wpi.cs3733.d19.teamO.controller.FxmlController;
+import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.request.pizzapi.Address;
 import edu.wpi.cs3733.d19.teamO.request.pizzapi.Customer;
 import edu.wpi.cs3733.d19.teamO.request.pizzapi.Menu;
@@ -62,6 +69,11 @@ public class OrderController implements Controller {
   public interface Factory {
     OrderController create();
   }
+
+  @Inject
+  private EventBus eventBus;
+  @Inject
+  private ReorderController.Factory reorderControllerFactory;
 
   /**
    * Customer Information.
@@ -110,6 +122,10 @@ public class OrderController implements Controller {
   private TableView<Product> orderSummaryTableView;
   @FXML
   private TableColumn<Product, String> orderItemColumn;
+  @FXML
+  private JFXCheckBox enableDisableCheckbox;
+  @FXML
+  private JFXButton submitOrderButton;
 
   @FXML
   void initialize() {
@@ -129,6 +145,20 @@ public class OrderController implements Controller {
 
     // make columns auto-resize
     enableResizableColumns(orderSummaryTableView);
+
+    // disable ordering to start
+    submitOrderButton.setDisable(true);
+    enableDisableCheckbox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+      @Override
+      public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
+                          Boolean newValue) {
+        if (oldValue) {
+          submitOrderButton.setDisable(true);
+        } else {
+          submitOrderButton.setDisable(false);
+        }
+      }
+    });
   }
 
 
@@ -265,9 +295,16 @@ public class OrderController implements Controller {
    * Submit the order to dominos.
    */
   @FXML
-  void onSubmitAction() {
-    DialogHelper.showErrorAlert("",
-        "Ordering has not yet been configured. Please see the source code.");
+  void onSubmitAction() throws IOException {
+    //        DialogHelper.showErrorAlert("",
+    //            "Ordering has not yet been configured. Please see the source code.");
+
+    if (DialogHelper.showConfirmDialog("Are you sure?",
+        "This will place an order. ",
+        "Do you want to continue?")) {
+      order.placeOrder();
+      eventBus.post(new ChangeMainViewEvent(reorderControllerFactory.create()));
+    }
   }
 
   /**

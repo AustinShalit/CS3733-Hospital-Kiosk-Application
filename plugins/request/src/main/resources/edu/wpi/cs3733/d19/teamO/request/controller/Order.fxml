@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
@@ -320,6 +321,7 @@
                   </center>
                 </BorderPane>
                 <JFXButton fx:id="submitOrderButton" buttonType="RAISED" onAction="#onSubmitAction" style="-fx-font-size: 20;" text="Submit Order" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+                <JFXCheckBox fx:id="enableDisableCheckbox" checkedColor="#006491" text="Ordering Enabled" GridPane.columnIndex="1" GridPane.rowIndex="4" />
               </children>
             </GridPane>
           </content>
