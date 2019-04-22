@@ -98,7 +98,7 @@ public class PatientInfoPopupController implements Controller {
     // validation
     if (nametxt.getText().isEmpty() // check that the name field is filled out
         || Objects.isNull(patientDOB.getValue()) // check if patientDOB is filled out
-        || Objects.isNull(locationComboBox.getNodeValue()) // check that location field is filled out
+        || Objects.isNull(locationComboBox.getNodeValue()) // check location field is filled out
         || Objects.isNull(sexbox.getValue())) { // check if patient sex is selected
       return null;
     }
