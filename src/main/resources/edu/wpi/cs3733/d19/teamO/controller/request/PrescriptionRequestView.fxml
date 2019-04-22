@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="root" stylesheets="@../style/KioskStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.request.PrescriptionViewController">
+<BorderPane fx:id="root" stylesheets="@../style/KioskStyle.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.request.PrescriptionViewController">
   <center>
     <VBox id="requestview" maxWidth="-Infinity" styleClass="form" BorderPane.alignment="CENTER">
       <children>
@@ -38,14 +38,17 @@
         <GridPane id="requestbuttons">
           <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           </columnConstraints>
           <rowConstraints>
             <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
           </rowConstraints>
           <children>
-            <JFXButton id="table-button" fx:id="deleteEntryButton" onAction="#onDeleteEntryButtonAction" text="Complete Request" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-            <JFXButton id="table-button" onAction="#onAddButtonAction" text="New Request" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <JFXButton id="table-button" fx:id="deleteEntryButton" onAction="#onDeleteEntryButtonAction" text="Complete Request" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowSpan="2" GridPane.valignment="CENTER" />
+            <JFXButton id="table-button" onAction="#onAddButtonAction" text="New Request" GridPane.halignment="CENTER" GridPane.rowSpan="2" GridPane.valignment="CENTER" />
+            <JFXButton id="table-button" fx:id="assignButton" onAction="#onAssignButtonAction" text="Assign Employee" GridPane.columnIndex="1" GridPane.rowSpan="2" />
           </children>
         </GridPane>
       </children>

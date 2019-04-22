@@ -33,6 +33,8 @@ public class PrescriptionViewController implements Controller {
   @FXML
   public BorderPane root;
   @FXML
+  private JFXButton assignButton;
+  @FXML
   private JFXButton deleteEntryButton;
   @FXML
   private Label titleLabel;
@@ -100,17 +102,17 @@ public class PrescriptionViewController implements Controller {
         }
     );
 
-    //assignButton.setDisable(true);
+    assignButton.setDisable(true);
     deleteEntryButton.setDisable(true);
 
     // Disable complete request and assign employee button if no request is selected
     requestsTableView.getSelectionModel().selectedItemProperty().addListener(
         (observable, oldValue, newValue) -> {
           if (newValue == null) {
-            //assignButton.setDisable(true);
+            assignButton.setDisable(true);
             deleteEntryButton.setDisable(true);
           } else {
-            //assignButton.setDisable(false);
+            assignButton.setDisable(false);
             deleteEntryButton.setDisable(false);
           }
         }

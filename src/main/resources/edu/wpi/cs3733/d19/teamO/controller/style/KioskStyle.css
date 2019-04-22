@@ -25,6 +25,7 @@
 }
 
 #requestbuttons {
+    -fx-alignment: CENTER;
     -fx-hgap: 40px;
     -fx-pref-width: 720px;
     -fx-pref-height: 60px;
@@ -88,6 +89,8 @@
 }
 
 #table-button {
+    -fx-alignment: CENTER;
+    -fx-pref-width: 210px;
     -fx-padding: 10px 20px 10px 20px;
 }
 
