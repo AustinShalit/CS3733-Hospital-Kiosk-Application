@@ -8,6 +8,7 @@ public class Coordinate {
   private final int ycoord;
   private final boolean elevator;
   private final boolean stair;
+  private final String floor;
 
   /**
    * creates a coordinate object.
@@ -15,12 +16,14 @@ public class Coordinate {
    * @param ycoord y pixel value.
    * @param isElevator is and elevator boolean.
    * @param isStair is a stair.
+   * @param floor the floor this coordinate is on.
    */
-  public Coordinate(int xcoord, int ycoord, boolean isElevator, boolean isStair) {
+  public Coordinate(int xcoord, int ycoord, boolean isElevator, boolean isStair, String floor) {
     this.xcoord = xcoord;
     this.ycoord = ycoord;
     this.elevator = isElevator;
     this.stair = isStair;
+    this.floor = floor;
 
   }
 
@@ -39,6 +42,10 @@ public class Coordinate {
 
   public boolean isStair() {
     return stair;
+  }
+
+  public String getFloor() {
+    return floor;
   }
 
   /**
