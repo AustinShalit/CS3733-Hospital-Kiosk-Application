@@ -179,7 +179,8 @@ public class RequestController implements Controller {
   void foodAction(){
     FoodRequest foodRequest = new FoodRequest();
     try{
-      foodRequest.run(0,0,1900,1000,null,null,null);
+      foodRequest.run(0,0,1900,1000,
+          null,null,null);
     }catch (Exception e){
       System.out.println("Failed to run API");
       e.printStackTrace();
