@@ -20,6 +20,8 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 
 import edu.wpi.cs3733.d19.teamO.AppPreferences;
@@ -56,7 +58,7 @@ public class NavigationController implements Controller {
   @FXML
   MapView map;
   @FXML
-  Label instructions;
+  VBox instructionsContainer;
   @FXML
   JFXButton aboutButton;
 
@@ -156,14 +158,10 @@ public class NavigationController implements Controller {
         searchForNode(toComboBox.getValue()));
 
     ArrayList<String> list = stepByStep.getStepByStep(path);
-    String instruction;
-    StringBuilder stringBuilder = new StringBuilder();
+    instructionsContainer.getChildren().setAll(new ArrayList<>());
     for (String s: list) {
-      stringBuilder.append(s);
-      stringBuilder.append('\n');
+      instructionsContainer.getChildren().add(new Label(s));
     }
-    instruction = stringBuilder.toString();
-    instructions.setText(instruction);
     map.zoomTo(searchForNode(fromComboBox.getValue()));
     map.setPath(path);
     map.drawPath();
