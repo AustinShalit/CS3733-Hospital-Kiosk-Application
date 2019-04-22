@@ -55,7 +55,6 @@ public class PatientInfoPopupController implements Controller {
     locationComboBox.setupAutoRefresh();
     locationComboBox.refresh();
     patientDOB.setEditable(true);
-
     submitbtn.disableProperty().bind(
         Bindings.isEmpty(nametxt.textProperty())
             .or(Bindings.isNull(patientDOB.valueProperty()))
