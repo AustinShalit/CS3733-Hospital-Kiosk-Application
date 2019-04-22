@@ -271,6 +271,15 @@ public class Database implements AutoCloseable {
     return schedulingRequestDao.wouldConflict(schedulingRequest);
   }
 
+  /**
+   * Flexible work spaces in the work zone cannot be booked more than 15 minutes in advance.
+   * Returns true if the scheduling request is no more than 15 minutes before the requested time,
+   * otherwise false.
+   */
+  public boolean isValidWorkZoneRequest(SchedulingRequest schedulingRequest) {
+    return schedulingRequestDao.isValidWorkZoneRequest(schedulingRequest);
+  }
+
   /*
    * Audio Visual
    */
