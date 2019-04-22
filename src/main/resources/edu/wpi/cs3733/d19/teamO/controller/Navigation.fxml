@@ -9,6 +9,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -126,6 +127,7 @@
                     <Insets bottom="20.0" />
                   </VBox.margin>
                 </GridPane>
+                <FlowPane fx:id="buttonPane" columnHalignment="CENTER" prefWrapLength="200.0" />
                 <ScrollPane fx:id="instructionPane" hbarPolicy="NEVER" prefHeight="380.0" prefWidth="323.0">
                   <content>
                     <VBox fx:id="instructionsContainer">

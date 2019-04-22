@@ -14,15 +14,21 @@ import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.controlsfx.glyphfont.Glyph;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
+<<<<<<< HEAD
 import javafx.scene.layout.VBox;
 import kotlin.Pair;
+=======
+import javafx.scene.layout.FlowPane;
+>>>>>>> master
 
 import edu.wpi.cs3733.d19.teamO.AppPreferences;
 import edu.wpi.cs3733.d19.teamO.component.FuzzyWuzzyComboBox;
@@ -35,7 +41,7 @@ import edu.wpi.cs3733.d19.teamO.entity.pathfinding.StepByStep;
 
 @FxmlController(url = "Navigation.fxml")
 @SuppressWarnings({"PMD.TooManyFields", "PMD.RedundantFieldInitializer",
-    "PMD.AvoidInstantiatingObjectsInLoops", "PMD.TooManyMethods"})
+    "PMD.AvoidInstantiatingObjectsInLoops", "PMD.TooManyMethods", "PMD.ExcessiveImports"})
 
 public class NavigationController implements Controller {
 
@@ -64,6 +70,8 @@ public class NavigationController implements Controller {
   JFXButton aboutButton;
   @FXML
   ScrollPane instructionPane;
+  @FXML
+  FlowPane buttonPane;
 
   StepByStep stepByStep;
   boolean addRest = false;
@@ -88,7 +96,7 @@ public class NavigationController implements Controller {
     CollectionUtils.filter(
         nodes,
         object -> ((Node) object).getNodeType() != Node.NodeType.HALL
-               && !((Node) object).getFloor().equals("5")
+            && !((Node) object).getFloor().equals("5")
     );
 
     toComboBox.setNodes(nodes);
@@ -161,7 +169,6 @@ public class NavigationController implements Controller {
   @FXML
   @SuppressWarnings({"PMD.AvoidInstantiatingObjectsInLoops", "UseStringBufferForStringAppends"})
   void onGoButtonAction() throws IOException {
-
     instructionPane.setVisible(true);
 
     if (Objects.isNull(toComboBox.getNodeValue())
@@ -183,11 +190,44 @@ public class NavigationController implements Controller {
     database.getAllNodes().forEach(graph::addNode);
     database.getAllEdges().forEach(e -> graph.putEdge(e.getStartNode(), e.getEndNode()));
 
+    // the path
     List<Node> path = algorithm.getPath(ImmutableGraph.copyOf(graph),
         fromComboBox.getNodeValue(),
         toComboBox.getNodeValue());
 
+    // set map
     map.setPath(path);
+
+    // buttons for the floors traversed
+    buttonPane.getChildren().clear();
+    buttonPane.setVgap(7);
+
+    List<Node> floors = getFloors(path);
+    for (int i = 0; i < floors.size(); i++) {
+      Node node = floors.get(i);
+
+      Button button = new JFXButton(node.getFloor());
+      button.setOnAction(event -> {
+        try {
+          map.zoomTo(node);
+        } catch (IOException exception) {
+          exception.printStackTrace();
+        }
+      });
+
+      if (!buttonPane.getChildren().contains(button)) {
+        buttonPane.getChildren().add(button);
+      }
+
+      if (i != floors.size() - 1) {
+        Glyph arrow = new Glyph("FontAwesome", "ARROW_RIGHT");
+        arrow.size(10);
+        Label label = new Label("", arrow);
+        if (!buttonPane.getChildren().contains(label)) {
+          buttonPane.getChildren().add(label);
+        }
+      }
+    }
 
     instructionsContainer.getChildren().setAll(new ArrayList<>());
     Label tempRef;
@@ -208,7 +248,6 @@ public class NavigationController implements Controller {
 
     map.zoomTo(fromComboBox.getNodeValue());
     map.drawPath();
-
   }
 
   private void validateGoButton() {
@@ -243,6 +282,27 @@ public class NavigationController implements Controller {
       toComboBox.setValue("Elevator M Floor 1 -- FLOOR 1");
       onGoButtonAction();
     }
+  }
 
+  /**
+   * Get the a list of the floors traversed on the path.
+   */
+  private List<Node> getFloors(List<Node> path) {
+    List<Node> floorNodes = new ArrayList<>();
+    for (int i = 0; i < path.size(); i++) {
+      Node currNode = path.get(i);
+      Node prevNode;
+
+      if (i > 0) {
+        prevNode = path.get(i - 1);
+        if (!currNode.getFloor().equals(prevNode.getFloor())) {
+          floorNodes.add(currNode);
+        }
+      } else {
+        floorNodes.add(currNode);
+      }
+    }
+
+    return floorNodes;
   }
 }
