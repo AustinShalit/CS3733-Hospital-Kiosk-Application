@@ -2,13 +2,13 @@
     -fx-background-color: #F1F1F1;
     -fx-background-image: url("0002-pale.png");
     -fx-background-size: cover;
+    -fx-border-radius: 4px;
     -fx-max-height: 4000px;
     -fx-max-width: 4000px;
 }
 
 .form {
     -fx-background-color: #ffffff;
-    -fx-border-radius: 4px;
     -fx-effect: dropshadow(three-pass-box, rgba(110, 110, 110, 0.25), 10, 0, 0, 0);
     -fx-spacing: 36px;
     -fx-fill-width: false;
@@ -47,7 +47,6 @@
     -fx-text-fill: #ffffff;
     -fx-font-size: 20px;
     -fx-text-alignment: center;
-    -fx-text-transform: uppercase;
 }
 
 .button:hover {
@@ -110,6 +109,11 @@
     -fx-padding: 0px 10px 0px 10px;
 }
 
+/*.button .glyph-icon {
+    -fx-font-size: 3.5em;
+    -fx-fill: WHITE;
+}*/
+
 .jfx-text-field:focused {
     -fx-border-color: #0067b1;
     -jfx-focus-color: rgba(0, 103, 177, 0.2);
@@ -145,15 +149,27 @@
 
 .logo {
     -fx-image: url("bwh-logo.png");
+    -fx-max-height: 50px;
 }
 
-#login {
-    -fx-background-image: url("0014.jpg");
-    -fx-background-size: cover;
+.main-toolbar {
+    -fx-background-color: #F1F1F1;
+    -fx-max-height: 50px;
 }
 
-#loginfail {
-    -fx-text-fill: red;
+.home-btn {
+    -fx-font-size: 1px;
+    -fx-text-fill: #012D5A;
+    -fx-content-display: BOTTOM;
+    -fx-pref-width: 200px;
+    -fx-border-radius: 0px;
+}
+
+.home-btn:hover {
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
+    -fx-content-display: BOTTOM;
+    -fx-border-width: 0px;
 }
 
 #loginform {

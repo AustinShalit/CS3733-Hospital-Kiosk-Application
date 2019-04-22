@@ -13,7 +13,7 @@ import edu.wpi.cs3733.d19.teamO.component.ExtendedPropertySheet;
 public final class SettingsController implements Controller {
 
   @FXML
-  private BorderPane root;
+  BorderPane root;
   @Inject
   private AppPreferences appPreferences;
 
