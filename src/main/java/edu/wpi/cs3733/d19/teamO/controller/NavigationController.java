@@ -2,7 +2,7 @@ package edu.wpi.cs3733.d19.teamO.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -12,17 +12,18 @@ import com.google.common.graph.ImmutableGraph;
 import com.google.common.graph.MutableGraph;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
+
+import org.apache.commons.collections.CollectionUtils;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyCode;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
-import me.xdrop.fuzzywuzzy.FuzzySearch;
 
 import edu.wpi.cs3733.d19.teamO.AppPreferences;
+import edu.wpi.cs3733.d19.teamO.component.FuzzyWuzzyComboBox;
 import edu.wpi.cs3733.d19.teamO.component.MapView;
 import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
@@ -48,9 +49,9 @@ public class NavigationController implements Controller {
   @FXML
   JFXButton informationButton;
   @FXML
-  JFXComboBox<String> fromComboBox;
+  FuzzyWuzzyComboBox fromComboBox;
   @FXML
-  JFXComboBox<String> toComboBox;
+  FuzzyWuzzyComboBox toComboBox;
   @FXML
   JFXButton goButton;
   @FXML
@@ -59,6 +60,8 @@ public class NavigationController implements Controller {
   Label instructions;
   @FXML
   JFXButton aboutButton;
+  @FXML
+  ScrollPane instructionPane;
 
   StepByStep stepByStep;
   boolean addRest = false;
@@ -76,13 +79,26 @@ public class NavigationController implements Controller {
   @Inject
   private AboutController.Factory aboutControllerFactory;
 
-  List<String> listOfLongName = new ArrayList<>();
-  List<String> listOfSortName = new ArrayList<>();
 
   @FXML
   void initialize() throws IOException {
-    turnLongName();
-    refreshCombobox();
+    Collection<Node> nodes = database.getAllNodes();
+    CollectionUtils.filter(
+        nodes,
+        object -> ((Node) object).getNodeType() != Node.NodeType.HALL
+               && !((Node) object).getFloor().equals("5")
+    );
+
+    toComboBox.setNodes(nodes);
+    fromComboBox.setNodes(nodes);
+
+    toComboBox.setupAutoRefresh();
+    fromComboBox.setupAutoRefresh();
+
+
+    toComboBox.refresh();
+    fromComboBox.refresh();
+
     map.setNodes(database.getAllNodes());
     stepByStep = new StepByStep();
     validateGoButton();
@@ -100,11 +116,17 @@ public class NavigationController implements Controller {
         fromComboBox.requestFocus();
       }
     });
-    fromComboBox.setOnKeyReleased(ke -> {
-      if (ke.getCode() == KeyCode.TAB) {
-        toComboBox.requestFocus();
-      }
-    });
+
+    fromComboBox.setStyle("-fx-font-size: 12px; -fx-font-style: Palatino Linotype;");
+    toComboBox.setStyle("-fx-font-size: 12px; -fx-font-style: Palatino Linotype;");
+
+    instructionPane.setVisible(false);
+    instructions.setVisible(false);
+
+    instructionPane.setStyle("-fx-opacity: 0.8; -fx-background-color: #F1F1F1;"
+        + "-fx-border-radius: 4px; -fx-border-color: #011E3C");
+    instructions.setStyle("-fx-font-size: 15px; -fx-font-style: Palatino Linotype;"
+        + "-fx-font-style: BOLD");
   }
 
 
@@ -132,14 +154,18 @@ public class NavigationController implements Controller {
   @FXML
   @SuppressWarnings({"PMD.AvoidInstantiatingObjectsInLoops", "UseStringBufferForStringAppends"})
   void onGoButtonAction() throws IOException {
-    if (Objects.isNull(searchForNode(toComboBox.getValue()))
-        || Objects.isNull(searchForNode(fromComboBox.getValue()))) {
+
+    instructionPane.setVisible(true);
+    instructions.setVisible(true);
+
+    if (Objects.isNull(toComboBox.getNodeValue())
+        || Objects.isNull(fromComboBox.getNodeValue())) {
       DialogHelper.showInformationAlert("Must Select Valid Start/End Destinations",
           "Please select valid start and end destinations to generate a valid path.");
       return;
     }
 
-    if (searchForNode(toComboBox.getValue()).equals(searchForNode(fromComboBox.getValue()))) {
+    if (toComboBox.getNodeValue().equals(fromComboBox.getNodeValue())) {
       DialogHelper.showInformationAlert("Must Select Different Start/End Destinations",
           "Please select different start and end destinations to generate a valid path.");
       return;
@@ -152,8 +178,8 @@ public class NavigationController implements Controller {
     database.getAllEdges().forEach(e -> graph.putEdge(e.getStartNode(), e.getEndNode()));
 
     List<Node> path = algorithm.getPath(ImmutableGraph.copyOf(graph),
-        searchForNode(fromComboBox.getValue()),
-        searchForNode(toComboBox.getValue()));
+        fromComboBox.getNodeValue(),
+        toComboBox.getNodeValue());
 
     ArrayList<String> list = stepByStep.getStepByStep(path);
     String instruction;
@@ -164,8 +190,8 @@ public class NavigationController implements Controller {
     }
     instruction = stringBuilder.toString();
     instructions.setText(instruction);
-    map.zoomTo(searchForNode(fromComboBox.getValue()));
     map.setPath(path);
+    map.zoomTo(fromComboBox.getNodeValue());
     map.drawPath();
 
   }
@@ -175,76 +201,6 @@ public class NavigationController implements Controller {
       goButton.setDisable(false);
     } else {
       goButton.setDisable(true);
-    }
-  }
-
-  @FXML
-  void refreshCombobox() {
-    DialogHelper.populateComboBox2(database, fromComboBox, fuzzySearch(fromComboBox.getValue()));
-    DialogHelper.populateComboBox2(database, toComboBox, fuzzySearch(toComboBox.getValue()));
-    if (toComboBox.isFocused()) {
-      toComboBox.show();
-    } else if (fromComboBox.isFocused()) {
-      fromComboBox.show();
-    }
-  }
-
-  private Node searchForNode(String string) {
-    for (Node n: database.getAllNodes()) {
-      if (String.format("%s -- FLOOR %s", n.getLongName(), n.getFloor()).equals(string)) {
-        return n;
-      }
-    }
-    return null;
-  }
-
-  private List<String> fuzzySearch(String string) {
-    if (string == null) {
-      string = "";
-    }
-
-    class Pair implements Comparable<Pair> {
-      String longname;
-      int rating;
-      String floor;
-
-      Pair(String longname, int rating, String floor) {
-        this.longname = longname;
-        this.rating = rating;
-        this.floor = floor;
-      }
-
-      @Override
-      public int compareTo(Pair p) {
-        return -1 * Integer.compare(this.rating, p.rating);
-      }
-    }
-
-    ArrayList<Pair> unsorted = new ArrayList<>();
-    for (Node n : database.getAllNodesByLongName()) {
-      if (!"5".equals(n.getFloor())  && !n.getNodeType().equals(Node.NodeType.HALL)) {
-        unsorted.add(new Pair(
-            n.getLongName(),
-            FuzzySearch.ratio(n.getLongName(), string),
-            n.getFloor()
-        ));
-      }
-    }
-
-    Collections.sort(unsorted);
-    ArrayList<String> sortedStrings = new ArrayList<>();
-    for (Pair p : unsorted) {
-      sortedStrings.add(String.format("%s -- FLOOR %s", p.longname,  p.floor));
-    }
-    return sortedStrings;
-  }
-
-  private void turnLongName() {
-    for (Node n: database.getAllNodesByLongName()) {
-      if (!"5".equals(n.getFloor()) && !Node.NodeType.HALL.equals(n.getNodeType())) {
-        listOfLongName.add(n.getLongName());
-        listOfSortName.add(n.getLongName());
-      }
     }
   }
 
