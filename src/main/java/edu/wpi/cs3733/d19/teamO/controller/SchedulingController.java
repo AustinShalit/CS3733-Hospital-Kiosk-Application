@@ -14,6 +14,8 @@ import com.jfoenix.controls.JFXTabPane;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTimePicker;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.ListCell;
@@ -62,8 +64,20 @@ public class SchedulingController implements Controller {
   @Inject
   private SchedulingCalendarController.Factory schedulingCalendarControllerFactory;
 
+  private ObservableList<SchedulingRequest> requests;
+
   @FXML
   void initialize() {
+    requests = FXCollections.observableArrayList(database.getAllSchedulingRequests());
+
+    SchedulingViewController tableController = schedulingViewControllerFactory.create();
+    tableController.setRequests(requests);
+    tableTab.setContent(tableController.getRoot());
+
+    SchedulingCalendarController calendarController = schedulingCalendarControllerFactory.create();
+    calendarController.setRequests(requests);
+    calendarTab.setContent(calendarController.getRoot());
+
     // DialogHelper.populateComboBox(database, roomComboBox);
     Set<Node> bookableNodes = new HashSet<>();
     for (Node n : database.getAllNodes()) {
@@ -71,6 +85,7 @@ public class SchedulingController implements Controller {
         bookableNodes.add(n);
       }
     }
+
     roomComboBox.getItems().addAll(bookableNodes);
     Callback<ListView<Node>, ListCell<Node>> cellFactory =
         new Callback<ListView<Node>, ListCell<Node>>() {
@@ -122,16 +137,6 @@ public class SchedulingController implements Controller {
     schedulingMapView.redrawPolygons();
   }
 
-  @FXML
-  void showCurrentSchedule() {
-    tableTab.setContent(schedulingViewControllerFactory.create().getRoot());
-  }
-
-  @FXML
-  void showCalendar() {
-    calendarTab.setContent(schedulingCalendarControllerFactory.create().getRoot());
-  }
-
   /**
    * Check to make sure Scheduling Request is valid.
    */
@@ -157,13 +162,9 @@ public class SchedulingController implements Controller {
     if (database.insertSchedulingrequest(request)) {
       String message = "Successfully submitted scheduling request.";
       showInformationAlert("Success!", message);
+      requests.add(request);
 
       updateMapViewNodeOverlay();
-      showCurrentSchedule();
-
-      if (calendarTab.isSelected()) {
-        showCalendar(); // temp fix bc calendar takes a while to load
-      }
     } else {
       showErrorAlert("Error.", "Unable to submit scheduling request.");
     }
