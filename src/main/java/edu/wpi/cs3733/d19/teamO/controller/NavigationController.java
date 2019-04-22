@@ -100,7 +100,6 @@ public class NavigationController implements Controller {
     toComboBox.refresh();
     fromComboBox.refresh();
 
-    refreshCombobox();
     map.setNodes(database.getAllNodes());
     stepByStep = new StepByStep();
     validateGoButton();
@@ -188,15 +187,6 @@ public class NavigationController implements Controller {
       goButton.setDisable(false);
     } else {
       goButton.setDisable(true);
-    }
-  }
-
-  @FXML
-  void refreshCombobox() {
-    if (toComboBox.isFocused()) {
-      toComboBox.show();
-    } else if (fromComboBox.isFocused()) {
-      fromComboBox.show();
     }
   }
 
