@@ -19,14 +19,12 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPopup;
 import com.jfoenix.controls.JFXToolbar;
 
-import animatefx.animation.AnimationFX;
 import animatefx.animation.RotateIn;
 import animatefx.animation.RotateOut;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -124,10 +122,8 @@ public class MainController implements Controller {
     optionsPopup.setOnHiding(
         event -> new RotateIn(optionsBurger).play()
     );
-    optionsBurger.disableProperty().bind(Bindings.createBooleanBinding(()
-        -> optionsPopup.isShowing() || settingsPopup.isShowing(),
-        optionsPopup.showingProperty(),
-        settingsPopup.showingProperty()));
+    optionsBurger.disableProperty().bind(optionsPopup.showingProperty()
+        .or(settingsPopup.showingProperty()));
     optionsBurger.setOnMouseClicked(
         event -> {
           new RotateOut(optionsBurger).play();
