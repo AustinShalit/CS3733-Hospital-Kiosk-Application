@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
+import com.google.inject.Inject;
 import javafx.scene.Parent;
 
 /**

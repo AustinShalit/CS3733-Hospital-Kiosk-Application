@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
+import edu.wpi.cs3733.d19.teamO.AppPreferences;
 import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.SecurityRequest;
@@ -25,6 +26,7 @@ import net.aksingh.owmjapis.api.APIException;
 import net.aksingh.owmjapis.core.OWM;
 import net.aksingh.owmjapis.model.CurrentWeather;
 
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -32,8 +34,11 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static javafx.scene.input.MouseEvent.MOUSE_MOVED;
 
 @SuppressWarnings({"PMD.TooManyFields", "PMD.ExcessiveImports", "PMD.UseLocaleWithCaseConversions"})
 
@@ -68,6 +73,9 @@ public class HomeController implements Controller {
     private SchedulingController.Factory schedulingControllerFactory;
     @Inject
     private NavigationController.Factory navigationControllerFactory;
+    @Inject
+    private SettingsController.Factory settingsControllerFactory;
+
 
     private String second;
     private String minute;
@@ -77,6 +85,10 @@ public class HomeController implements Controller {
     private int year;
     private String image;
 
+    private Timer timer;
+    private TimerTask task;
+    private ControllerCareTaker careTaker = new ControllerCareTaker();
+    private IdleTimer idle;
 
     @FXML
     void initialize() throws IOException {
@@ -152,6 +164,17 @@ public class HomeController implements Controller {
 
         Platform.runLater(()
                 -> weatherLabel.setText(df.format(min) + " F to " + df.format(max) + " F"));
+
+        timer = new Timer();
+        task = new TimerTask() {
+            @Override
+            public void run() {
+                Controller guest = careTaker.getMemento("INITIAL").getState();
+                eventBus.post(guest);
+            }
+        };
+        timer.schedule(task,Math.round(settingsControllerFactory.create().getAppPreferences().getAutoLogoutTime()));
+
     }
 
     @FXML

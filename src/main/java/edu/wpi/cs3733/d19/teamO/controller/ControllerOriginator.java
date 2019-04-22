@@ -1,7 +1,12 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
+import com.google.inject.Inject;
+
 // Originator
 public class ControllerOriginator {
+
+    @Inject
+    private GuestViewController guestViewController;
 
     private Controller controller;
     private String lastUndoSavepoint;
@@ -10,8 +15,7 @@ public class ControllerOriginator {
     public ControllerOriginator(Controller controller, ControllerCareTaker careTaker) {
         this.controller = controller;
         this.careTaker = careTaker;
-
-        createSavepoint("INITIAL");
+        careTaker.saveMemento(new ControllerMemento(guestViewController), "INITIAL");
     }
 
 
