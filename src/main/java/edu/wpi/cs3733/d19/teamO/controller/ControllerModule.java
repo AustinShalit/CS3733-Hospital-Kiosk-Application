@@ -72,7 +72,6 @@ public class ControllerModule extends AbstractModule {
       }
     });
 
-    install(new FactoryModuleBuilder().build(HomeController.Factory.class));
     install(new FactoryModuleBuilder().build(LoginController.Factory.class));
     install(new FactoryModuleBuilder().build(NavigationController.Factory.class));
     install(new FactoryModuleBuilder().build(OptionsPopupController.Factory.class));
