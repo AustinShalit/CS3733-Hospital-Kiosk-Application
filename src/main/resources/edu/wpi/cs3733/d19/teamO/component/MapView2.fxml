@@ -25,7 +25,7 @@
         <Circle fx:id="circleDrag" fill="#004f87" onMouseDragged="#onMouseDrag" radius="20.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
         <Group fx:id="nodeGroup" />
         <Group fx:id="edges" />
-        <Line fx:id="lineForEdge" visible="false" endX="100.0" startX="-100.0" strokeWidth="8" fill="#ff6400" />
+        <Line fx:id="lineForEdge" visible="false" endX="100.0" startX="-100.0" strokeWidth="10" fill="#ff6400" />
       </Pane>
 
 
