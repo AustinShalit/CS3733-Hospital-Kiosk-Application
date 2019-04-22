@@ -7,12 +7,15 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class SupportAnimalRequest extends ServiceRequest {
   public enum SupportAnimalRequestType {
-    Bird("Bird"),
-    DOG("Dog"),
-    CAT("Cat"),
-    DINOSAUR("Dinosaur"),
-    DRAGON("Dragon"),
-    OTHER("Other");
+    Chubbs("Chubbs"),
+    Dora("Dora"),
+    Marmalade("Marmalade"),
+    Jackson("Jackson"),
+    Jasper("Jasper"),
+    Lois("Lois"),
+    Lovey("Lovey"),
+    Mimi("Mimi"),
+    Oliver("Oliver");
 
     private static final Map<String,
         SupportAnimalRequest.SupportAnimalRequestType> lookup
