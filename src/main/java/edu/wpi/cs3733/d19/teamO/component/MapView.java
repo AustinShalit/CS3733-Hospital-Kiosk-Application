@@ -438,7 +438,6 @@ public class MapView extends StackPane {
           label.setTranslateY(node.getYcoord() - 9);
           label.getStyleClass().add("navlabel");
 
-          labelsGroup.getChildren().add(label);
         }
         lastNode = node;
       }
@@ -457,6 +456,7 @@ public class MapView extends StackPane {
 
           labelsGroup.getChildren().add(label2);
         }
+
       }
 
 
@@ -542,11 +542,11 @@ public class MapView extends StackPane {
    * @param n The node need to zoom to.
    * @throws IOException throw if there is error.
    */
-  public void zoomTo(Node n) throws IOException {
+  public void zoomTo(Node n, Node n2) throws IOException {
     gesturePane.reset();
     switchFloor(n.getFloor());
-    gesturePane.zoomTo(1.2, new Point2D(n.getXcoord(),
-        n.getYcoord()));
+    panMapBetweenNodes(n,  n2);
+
   }
 
   private void switchFloor(String s) throws IOException {
