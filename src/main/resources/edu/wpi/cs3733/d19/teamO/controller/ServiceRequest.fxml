@@ -9,39 +9,15 @@
 
 <StackPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.RequestController">
   <children>
-    <BorderPane fx:id="content"/>
-    <VBox fx:id="menu" pickOnBounds="false" style="-fx-border-radius: 0px" stylesheets="@style/KioskStyle.css" StackPane.alignment="CENTER">
+    <BorderPane fx:id="content" />
+    <VBox fx:id="menu" pickOnBounds="false" stylesheets="@style/KioskStyle.css" StackPane.alignment="CENTER">
       <children>
-        <JFXButton fx:id="sanitation" contentDisplay="RIGHT" graphicTextGap="20.0" onAction="#sanitationAction" ripplerFill="#013c78" styleClass="service-btn" text="SANITATION">
+        <JFXButton fx:id="audioVisual" contentDisplay="RIGHT" graphicTextGap="20.0" onAction="#audioVisualAction" ripplerFill="#013c78" styleClass="service-btn" text="AUDIO/VISUAL">
           <font>
             <Font name="Calibri" size="20.0" />
           </font>
           <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="4em" />
-          </graphic>
-        </JFXButton>
-        <JFXButton fx:id="prescription" contentDisplay="RIGHT" graphicTextGap="20.0" onAction="#prescriptionAction" ripplerFill="#013c78" styleClass="service-btn" text="PRESCRIPTION">
-          <font>
-            <Font name="Calibri" size="20.0" />
-          </font>
-          <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="MEDKIT" size="4em" />
-          </graphic>
-        </JFXButton>
-        <JFXButton fx:id="interpreter" contentDisplay="RIGHT" graphicTextGap="20.0" onAction="#interpreterAction" ripplerFill="#013c78" styleClass="service-btn" text="INTERPRETER">
-          <font>
-            <Font name="Calibri" size="20.0" />
-          </font>
-          <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="LANGUAGE" size="4em" />
-          </graphic>
-        </JFXButton>
-        <JFXButton fx:id="internalTransportation" contentDisplay="RIGHT" graphicTextGap="20.0" onAction="#internalTransportationAction" ripplerFill="#013c78" styleClass="service-btn" text="INTERNAL TRANSPORTATION" wrapText="true">
-          <font>
-            <Font name="Calibri" size="20.0" />
-          </font>
-          <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="WHEELCHAIR" size="4em" />
+            <FontAwesomeIconView fill="WHITE" glyphName="MICROPHONE" size="4em" />
           </graphic>
         </JFXButton>
         <JFXButton fx:id="externalTransportation" contentDisplay="RIGHT" graphicTextGap="20.0" onAction="#externalTransportationAction" ripplerFill="#013c78" styleClass="service-btn" text="EXTERNAL TRANSPORTATION">
@@ -52,12 +28,12 @@
             <FontAwesomeIconView fill="WHITE" glyphName="AMBULANCE" size="4em" />
           </graphic>
         </JFXButton>
-        <JFXButton fx:id="patientInfo" contentDisplay="RIGHT" graphicTextGap="20.0" onAction="#patientInfoAction" ripplerFill="#013c78" styleClass="service-btn" text="PATIENT INFO">
+        <JFXButton fx:id="florist" contentDisplay="RIGHT" graphicTextGap="20.0" onAction="#floristAction" ripplerFill="#013c78" styleClass="service-btn" text="FLORIST">
           <font>
             <Font name="Calibri" size="20.0" />
           </font>
           <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="INFO" size="4em" />
+            <FontAwesomeIconView fill="WHITE" glyphName="PAGELINES" size="4em" />
           </graphic>
         </JFXButton>
         <JFXButton fx:id="gift" contentDisplay="RIGHT" graphicTextGap="20.0" onAction="#giftAction" ripplerFill="#013c78" styleClass="service-btn" text="GIFT">
@@ -68,12 +44,20 @@
             <FontAwesomeIconView fill="WHITE" glyphName="GIFT" size="4em" />
           </graphic>
         </JFXButton>
-        <JFXButton fx:id="audioVisual" contentDisplay="RIGHT" graphicTextGap="20.0" onAction="#audioVisualAction" ripplerFill="#013c78" styleClass="service-btn" text="AUDIO/VISUAL">
+        <JFXButton fx:id="internalTransportation" contentDisplay="RIGHT" graphicTextGap="20.0" onAction="#internalTransportationAction" ripplerFill="#013c78" styleClass="service-btn" text="INTERNAL TRANSPORTATION" wrapText="true">
           <font>
             <Font name="Calibri" size="20.0" />
           </font>
           <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="MICROPHONE" size="4em" />
+            <FontAwesomeIconView fill="WHITE" glyphName="WHEELCHAIR" size="4em" />
+          </graphic>
+        </JFXButton>
+        <JFXButton fx:id="interpreter" contentDisplay="RIGHT" graphicTextGap="20.0" onAction="#interpreterAction" ripplerFill="#013c78" styleClass="service-btn" text="INTERPRETER">
+          <font>
+            <Font name="Calibri" size="20.0" />
+          </font>
+          <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName="LANGUAGE" size="4em" />
           </graphic>
         </JFXButton>
         <JFXButton fx:id="itSupport" contentDisplay="RIGHT" graphicTextGap="20.0" onAction="#itSupportAction" ripplerFill="#013c78" styleClass="service-btn" text="IT SUPPORT">
@@ -84,6 +68,22 @@
             <FontAwesomeIconView fill="WHITE" glyphName="DESKTOP" size="4em" />
           </graphic>
         </JFXButton>
+        <JFXButton fx:id="patientInfo" contentDisplay="RIGHT" graphicTextGap="20.0" onAction="#patientInfoAction" ripplerFill="#013c78" styleClass="service-btn" text="PATIENT INFO">
+          <font>
+            <Font name="Calibri" size="20.0" />
+          </font>
+          <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName="INFO" size="4em" />
+          </graphic>
+        </JFXButton>
+        <JFXButton fx:id="prescription" contentDisplay="RIGHT" graphicTextGap="20.0" onAction="#prescriptionAction" ripplerFill="#013c78" styleClass="service-btn" text="PRESCRIPTION">
+          <font>
+            <Font name="Calibri" size="20.0" />
+          </font>
+          <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName="MEDKIT" size="4em" />
+          </graphic>
+        </JFXButton>
         <JFXButton fx:id="religious" contentDisplay="RIGHT" graphicTextGap="20.0" onAction="#religiousAction" ripplerFill="#013c78" styleClass="service-btn" text="RELIGIOUS">
           <font>
             <Font name="Calibri" size="20.0" />
@@ -92,20 +92,20 @@
             <FontAwesomeIconView fill="WHITE" glyphName="BOOK" size="4em" />
           </graphic>
         </JFXButton>
+        <JFXButton fx:id="sanitation" contentDisplay="RIGHT" graphicTextGap="20.0" onAction="#sanitationAction" ripplerFill="#013c78" styleClass="service-btn" text="SANITATION">
+          <font>
+            <Font name="Calibri" size="20.0" />
+          </font>
+          <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName="TRASH" size="4em" />
+          </graphic>
+        </JFXButton>
         <JFXButton fx:id="animalSupport" contentDisplay="RIGHT" graphicTextGap="20.0" onAction="#supportAnimalAction" ripplerFill="#013c78" styleClass="service-btn" text="SUPPORT ANIMAL">
           <font>
             <Font name="Calibri" size="20.0" />
           </font>
           <graphic>
             <FontAwesomeIconView fill="WHITE" glyphName="PAW" size="4em" />
-          </graphic>
-        </JFXButton>
-        <JFXButton fx:id="florist" contentDisplay="RIGHT" graphicTextGap="20.0" onAction="#floristAction" ripplerFill="#013c78" styleClass="service-btn" text="FLORIST">
-          <font>
-            <Font name="Calibri" size="20.0" />
-          </font>
-          <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="PAGELINES" size="4em" />
           </graphic>
         </JFXButton>
       </children>

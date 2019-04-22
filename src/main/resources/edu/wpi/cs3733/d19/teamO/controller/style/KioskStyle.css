@@ -179,7 +179,7 @@
     -fx-text-fill: #012D5A;
     -fx-content-display: RIGHT;
     -fx-min-width: 150px;
-    -fx-border-radius: 0px;
+    -fx-background-radius: 0px;
     -fx-opacity: 0.9;
 }
 
