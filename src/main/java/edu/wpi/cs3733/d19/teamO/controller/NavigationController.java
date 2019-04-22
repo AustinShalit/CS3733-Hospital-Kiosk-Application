@@ -190,8 +190,8 @@ public class NavigationController implements Controller {
     }
     instruction = stringBuilder.toString();
     instructions.setText(instruction);
-    map.zoomTo(fromComboBox.getNodeValue());
     map.setPath(path);
+    map.zoomTo(fromComboBox.getNodeValue());
     map.drawPath();
 
   }
