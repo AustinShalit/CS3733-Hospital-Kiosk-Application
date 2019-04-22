@@ -2,7 +2,6 @@
     -fx-background-color: #F1F1F1;
     -fx-background-image: url("0002-pale.png");
     -fx-background-size: cover;
-    -fx-border-radius: 4px;
     -fx-max-height: 4000px;
     -fx-max-width: 4000px;
 }
@@ -26,6 +25,7 @@
 }
 
 #requestbuttons {
+    -fx-alignment: CENTER;
     -fx-hgap: 40px;
     -fx-pref-width: 720px;
     -fx-pref-height: 60px;
@@ -89,6 +89,8 @@
 }
 
 #table-button {
+    -fx-alignment: CENTER;
+    -fx-pref-width: 210px;
     -fx-padding: 10px 20px 10px 20px;
 }
 
@@ -169,6 +171,23 @@
     -fx-font-size: 20px;
     -fx-text-fill: white;
     -fx-content-display: BOTTOM;
+    -fx-border-width: 0px;
+}
+
+.service-btn {
+    -fx-font-size: 1px;
+    -fx-text-fill: #012D5A;
+    -fx-content-display: RIGHT;
+    -fx-min-width: 150px;
+    -fx-background-radius: 0px;
+    -fx-opacity: 0.9;
+}
+
+.service-btn:hover {
+    -fx-background-color: #004E86;
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
+    -fx-opacity: 1;
     -fx-border-width: 0px;
 }
 
