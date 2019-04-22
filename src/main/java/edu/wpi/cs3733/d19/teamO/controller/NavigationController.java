@@ -116,9 +116,10 @@ public class NavigationController implements Controller {
     instructionPane.setVisible(false);
     instructions.setVisible(false);
 
-    instructionPane.setStyle("-fx-opacity: 0.8; -fx-background-color: #F1F1F1; "
+    instructionPane.setStyle("-fx-opacity: 0.8; -fx-background-color: #F1F1F1;"
         + "-fx-border-radius: 4px; -fx-border-color: #011E3C");
-    instructions.setStyle("-fx-font-size: 15px; -fx-font-style: Palatino Linotype; -fx-font-style: BOLD");
+    instructions.setStyle("-fx-font-size: 15px; -fx-font-style: Palatino Linotype;"
+        + "-fx-font-style: BOLD");
   }
 
 
