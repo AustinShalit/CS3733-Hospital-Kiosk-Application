@@ -18,7 +18,7 @@
       <ImageView fx:id="backgroundImage" pickOnBounds="true" preserveRatio="true">
       </ImageView>
       <Pane onMouseMoved="#onMouseMove">
-        <Circle fx:id="circle" fill="#ff0200" radius="10.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
+        <Circle fx:id="circle" fill="#0067b1" radius="8.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
         <Group fx:id="nodeGroup" />
         <Group fx:id="edges" />
       </Pane>
