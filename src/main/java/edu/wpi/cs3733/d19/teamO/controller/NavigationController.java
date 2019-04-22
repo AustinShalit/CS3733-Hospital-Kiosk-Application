@@ -14,10 +14,13 @@ import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
+import org.controlsfx.glyphfont.FontAwesome;
+import org.controlsfx.glyphfont.Glyph;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Group;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -25,8 +28,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 
 import edu.wpi.cs3733.d19.teamO.AppPreferences;
@@ -141,6 +142,7 @@ public class NavigationController implements Controller {
   @FXML
   @SuppressWarnings({"PMD.AvoidInstantiatingObjectsInLoops", "UseStringBufferForStringAppends"})
   void onGoButtonAction() throws IOException {
+    buttonPane.setVgap(7);
     buttonPane.getChildren().clear();
 
     if (Objects.isNull(searchForNode(toComboBox.getValue()))
@@ -173,6 +175,12 @@ public class NavigationController implements Controller {
       Button btn = new JFXButton(separatePath.get(cnt).get(0).getFloor());
       if (! buttonPane.getChildren().contains(btn)) {
         buttonPane.getChildren().add(btn);
+        if(cnt != separatePath.size() - 1) {
+          Glyph arrow = new Glyph("FontAwesome", "ARROW_RIGHT");
+          arrow.size(10);
+          Label label = new Label("", arrow);
+          buttonPane.getChildren().add(label);
+        }
       }
 
       EventHandler<MouseEvent> handler = new EventHandler<MouseEvent>() {
