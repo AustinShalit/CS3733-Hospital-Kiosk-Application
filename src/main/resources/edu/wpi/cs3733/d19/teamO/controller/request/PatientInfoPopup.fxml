@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import edu.wpi.cs3733.d19.teamO.component.FuzzyWuzzyComboBox?>
 <BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.request.PatientInfoPopupController">
   <center>
     <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="form" stylesheets="@../style/KioskStyle.css" BorderPane.alignment="TOP_CENTER">
@@ -35,11 +36,11 @@
             <Insets />
           </VBox.margin>
         </JFXComboBox>
-        <JFXComboBox fx:id="locationComboBox" minHeight="-Infinity" promptText="Assigned Location">
+        <FuzzyWuzzyComboBox fx:id="locationComboBox" minHeight="-Infinity" promptText="Assigned Location">
           <VBox.margin>
             <Insets />
           </VBox.margin>
-        </JFXComboBox>
+        </FuzzyWuzzyComboBox>
         <JFXTextArea fx:id="descriptiontxt" maxHeight="160.0" maxWidth="325.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="97.0" prefWidth="325.0" promptText="Patient notes">
           <VBox.margin>
             <Insets />
