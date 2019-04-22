@@ -7,6 +7,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 import com.google.common.eventbus.EventBus;
@@ -50,6 +51,9 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 @FxmlController(url = "Main.fxml")
 @SuppressWarnings({"PMD.TooManyFields", "PMD.ExcessiveImports"})
 public class MainController implements Controller {
+
+  private static final DateTimeFormatter DATE_TIME_FORMATTER
+      = DateTimeFormatter.ofPattern("HH:mm:ss\nMM/dd/yyyy");
 
   @FXML
   private BorderPane root;
@@ -95,12 +99,6 @@ public class MainController implements Controller {
   @Inject
   private Database database;
 
-  private String second;
-  private String minute;
-  private String hour;
-  private int month;
-  private int day;
-  private int year;
   private String image;
 
   private LoginController loginController;
@@ -179,6 +177,11 @@ public class MainController implements Controller {
     );
 
     weatherDisplay();
+
+    final Timeline timeline = new Timeline(new KeyFrame(Duration.millis(250), event
+        -> timeLabel.setText(LocalDateTime.now().format(DATE_TIME_FORMATTER))));
+    timeline.setCycleCount(Animation.INDEFINITE);
+    timeline.play();
   }
 
   void weatherDisplay() throws IOException {
@@ -208,24 +211,6 @@ public class MainController implements Controller {
 
     description.setStyle("-fx-font-size: 15px; -fx-font-style: bold");
     description.setText(discrp.toUpperCase(Locale.ENGLISH));
-
-    Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-      second = (LocalDateTime.now().getSecond() < 10 ? "0" : "")
-          + Integer.toString(LocalDateTime.now().getSecond());
-      minute = (LocalDateTime.now().getMinute() < 10 ? "0" : "")
-          + Integer.toString(LocalDateTime.now().getMinute());
-      hour = (LocalDateTime.now().getHour() < 10 ? "0" : "")
-          + Integer.toString(LocalDateTime.now().getHour());
-      month = LocalDateTime.now().getMonthValue();
-      day = LocalDateTime.now().getDayOfMonth();
-      year = LocalDateTime.now().getYear();
-      timeLabel.setText(hour + ":" + minute + ":" + second
-          + "\n" + month + "/" + day + "/" + year);
-    }),
-        new KeyFrame(Duration.seconds(1))
-    );
-    clock.setCycleCount(Animation.INDEFINITE);
-    clock.play();
 
     new Thread(() -> {
       try {
