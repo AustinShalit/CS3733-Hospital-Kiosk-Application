@@ -22,6 +22,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
+import edu.wpi.cs3733.d19.teamO.component.FuzzyWuzzyComboBox;
 import edu.wpi.cs3733.d19.teamO.controller.Controller;
 import edu.wpi.cs3733.d19.teamO.controller.DialogHelper;
 import edu.wpi.cs3733.d19.teamO.controller.FxmlController;
@@ -40,7 +41,7 @@ public class ExternalTransportationPopupController implements Controller {
   @FXML
   private JFXTextField nametxt;
   @FXML
-  private JFXComboBox<Node> locationbox;
+  private FuzzyWuzzyComboBox locationbox;
   @FXML
   private JFXComboBox<ExternalTransportationRequest.ExternalTransportationRequestType> categorybox;
   @FXML
@@ -63,7 +64,9 @@ public class ExternalTransportationPopupController implements Controller {
 
   @FXML
   void initialize() {
-    DialogHelper.populateComboBox(db, locationbox);
+    locationbox.setNodes(db.getAllNodes());
+    locationbox.setupAutoRefresh();
+    locationbox.refresh();
     categorybox.getItems().setAll(ExternalTransportationRequest.ExternalTransportationRequestType
         .values());
 
@@ -89,7 +92,7 @@ public class ExternalTransportationPopupController implements Controller {
     locationbox.setValue(null);
     categorybox.getSelectionModel().clearSelection();
     categorybox.setValue(null);
-    descriptiontxt.setText(null);
+    descriptiontxt.setText("");
     datePicker.setValue(null);
     timePicker.setValue(null);
 
@@ -125,7 +128,7 @@ public class ExternalTransportationPopupController implements Controller {
         && Objects.nonNull(categorybox.getValue())) {
 
       LocalDateTime now = LocalDateTime.now();
-      Node node = locationbox.getValue();
+      Node node = locationbox.getNodeValue();
 
       String type = categorybox.getValue().toString().toUpperCase(new Locale("EN"));
       ExternalTransportationRequest.ExternalTransportationRequestType externalRequestType =
