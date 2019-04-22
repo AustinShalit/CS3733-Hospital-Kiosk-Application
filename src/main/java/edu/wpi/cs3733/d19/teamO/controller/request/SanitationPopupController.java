@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 
+import edu.wpi.cs3733.d19.teamO.component.FuzzyWuzzyComboBox;
 import edu.wpi.cs3733.d19.teamO.controller.Controller;
 import edu.wpi.cs3733.d19.teamO.controller.DialogHelper;
 import edu.wpi.cs3733.d19.teamO.controller.FxmlController;
@@ -35,7 +36,7 @@ public class SanitationPopupController implements Controller {
   @FXML
   private JFXTextField nametxt;
   @FXML
-  private JFXComboBox<Node> locationbox;
+  private FuzzyWuzzyComboBox locationbox;
   @FXML
   private JFXComboBox<SanitationRequest.SanitationRequestType> categorybox;
   @FXML
@@ -48,7 +49,9 @@ public class SanitationPopupController implements Controller {
 
   @FXML
   void initialize() {
-    DialogHelper.populateComboBox(db, locationbox);
+    locationbox.setNodes(db.getAllNodes());
+    locationbox.setupAutoRefresh();
+    locationbox.refresh();
     categorybox.getItems().setAll(SanitationRequest.SanitationRequestType.values());
 
     submitbtn.disableProperty().bind(
@@ -73,7 +76,7 @@ public class SanitationPopupController implements Controller {
     locationbox.setValue(null);
     categorybox.getSelectionModel().clearSelection();
     categorybox.setValue(null);
-    descriptiontxt.setText(null);
+    descriptiontxt.setText("");
 
     if (db.insertSanitationRequest(sanitation)) {
       String message = "Successfully submitted Sanitation request.";
@@ -93,11 +96,11 @@ public class SanitationPopupController implements Controller {
   private SanitationRequest parseSanitationRequest() {
     // if input is valid, parse it and return a new SanitationRequest
     if (!nametxt.getText().isEmpty()
-        && Objects.nonNull(locationbox.getValue())
+        && Objects.nonNull(locationbox.getNodeValue())
         && Objects.nonNull(categorybox.getValue())) {
 
       LocalDateTime now = LocalDateTime.now();
-      Node node = locationbox.getValue();
+      Node node = locationbox.getNodeValue();
 
       String type = categorybox.getValue().toString().toUpperCase(new Locale("EN"));
       SanitationRequest.SanitationRequestType sanitationRequestType =
