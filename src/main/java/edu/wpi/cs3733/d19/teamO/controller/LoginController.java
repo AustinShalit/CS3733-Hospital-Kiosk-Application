@@ -104,7 +104,7 @@ public class LoginController implements Controller {
   private Employee parseUserLogin() {
     // checks if input is valid, parses it and returns a new Employee
     if (!username.getText().isEmpty() && !password.getText().isEmpty()) {
-      return new Employee(username.getText(), password.getText(), null);
+      return new Employee(username.getText(), password.getText(), null, null);
     }
 
     // otherwise

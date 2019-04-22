@@ -6,6 +6,7 @@
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXTimePicker?>
+<?import edu.wpi.cs3733.d19.teamO.component.SchedulingMapView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.layout.BorderPane?>
@@ -13,11 +14,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<?import edu.wpi.cs3733.d19.teamO.component.SchedulingMapView?>
-
-<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.SchedulingController">
+<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.SchedulingController">
   <left>
-    <VBox alignment="CENTER" styleClass="form" stylesheets="@style/KioskStyle.css">
+    <VBox alignment="CENTER" maxWidth="300.0" styleClass="form" stylesheets="@style/KioskStyle.css">
       <VBox fx:id="form" alignment="CENTER" prefHeight="83.0" prefWidth="415.0" stylesheets="@style/KioskStyle.css">
         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
           <font>
@@ -91,8 +90,8 @@
       <Tab closable="false" text="Map">
         <SchedulingMapView fx:id="schedulingMapView" style="-fx-background-color: WHITE;" />
       </Tab>
-      <Tab fx:id="tableTab" closable="false" onSelectionChanged="#showCurrentSchedule" text="Table" />
-      <Tab fx:id="calendarTab" closable="false" onSelectionChanged="#showCalendar" text="Calendar" />
+      <Tab fx:id="tableTab" closable="false" text="Table" />
+      <Tab fx:id="calendarTab" closable="false" text="Calendar" />
       <padding>
         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
       </padding>
