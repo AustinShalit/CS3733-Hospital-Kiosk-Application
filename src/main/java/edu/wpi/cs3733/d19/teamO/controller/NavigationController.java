@@ -174,7 +174,7 @@ public class NavigationController implements Controller {
         if (Objects.nonNull(curPair.getSecond())) {
           try {
             map.zoomTo(curPair.getSecond());
-          } catch (Exception exception) {
+          } catch (IOException exception) {
             exception.printStackTrace();
           }
         }
