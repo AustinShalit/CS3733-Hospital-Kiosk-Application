@@ -22,6 +22,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import kotlin.Pair;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 
 import edu.wpi.cs3733.d19.teamO.AppPreferences;
@@ -157,10 +158,20 @@ public class NavigationController implements Controller {
         searchForNode(fromComboBox.getValue()),
         searchForNode(toComboBox.getValue()));
 
-    ArrayList<String> list = stepByStep.getStepByStep(path);
     instructionsContainer.getChildren().setAll(new ArrayList<>());
-    for (String s: list) {
-      instructionsContainer.getChildren().add(new Label(s));
+    Label tempRef;
+    for (Pair<String, Node> curPair: stepByStep.getStepByStep(path)) {
+      tempRef = new Label(curPair.getFirst());
+      tempRef.setOnMouseClicked(event -> {
+        if (Objects.nonNull(curPair.getSecond())) {
+          try {
+            map.zoomTo(curPair.getSecond());
+          } catch (Exception exception) {
+            exception.printStackTrace();
+          }
+        }
+      });
+      instructionsContainer.getChildren().add(tempRef);
     }
     map.zoomTo(searchForNode(fromComboBox.getValue()));
     map.setPath(path);
