@@ -16,8 +16,6 @@ import com.jfoenix.controls.JFXButton;
 import org.apache.commons.collections.CollectionUtils;
 import org.controlsfx.glyphfont.Glyph;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -26,7 +24,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import kotlin.Pair;
 
@@ -143,7 +140,7 @@ public class NavigationController implements Controller {
             map.setMaxWidth(newValue.doubleValue() - sidebar.getWidth()));
 
     root.heightProperty().addListener(
-        ((observable, oldValue, newValue) -> map.setPrefHeight(newValue.doubleValue()))
+        (observable, oldValue, newValue) -> map.setPrefHeight(newValue.doubleValue())
     );
 
     fromComboBox.setStyle("-fx-font-size: 12px; -fx-font-family: Palatino Linotype;");
@@ -151,8 +148,8 @@ public class NavigationController implements Controller {
 
     instructionPane.setVisible(false);
 
-    instructionPane.setStyle("-fx-font-size: 15px; -fx-font-family: Palatino Linotype; " +
-        "-fx-font-weight: BOLD");
+    instructionPane.setStyle("-fx-font-size: 15px; -fx-font-family: Palatino Linotype; "
+        + "-fx-font-weight: BOLD");
   }
 
 
