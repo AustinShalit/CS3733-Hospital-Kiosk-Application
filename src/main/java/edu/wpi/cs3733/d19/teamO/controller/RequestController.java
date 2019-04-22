@@ -38,7 +38,7 @@ public class RequestController implements Controller {
   @FXML
   BorderPane root;
   @FXML
-  private VBox menu;
+  VBox menu;
 
   @FXML
   private JFXButton sanitation;

@@ -2,7 +2,6 @@
     -fx-background-color: #F1F1F1;
     -fx-background-image: url("0002-pale.png");
     -fx-background-size: cover;
-    -fx-border-radius: 4px;
     -fx-max-height: 4000px;
     -fx-max-width: 4000px;
 }
