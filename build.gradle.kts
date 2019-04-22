@@ -61,6 +61,8 @@ allprojects {
         implementation(group = "si.uom", name = "si-units", version = "0.9")
         implementation(group = "systems.uom", name = "systems-common", version = "0.9")
 
+        compile(fileTree("libs"))
+
         fun derby(name: String, version: String = "10.14.2.0") =
                 create(group = "org.apache.derby", name = name, version = version)
         implementation(derby(name = "derby"))
