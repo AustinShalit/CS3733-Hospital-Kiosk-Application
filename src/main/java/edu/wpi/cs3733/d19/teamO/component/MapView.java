@@ -79,8 +79,9 @@ public class MapView extends StackPane {
   Label coordY;
 
   private final SimpleObjectProperty<Node> nodeClicked = new SimpleObjectProperty<>();
+  private final SimpleObjectProperty<Node> nodeFrom = new SimpleObjectProperty<>();
+  private final SimpleObjectProperty<Node> nodeTo = new SimpleObjectProperty<>();
   private  Collection<Node> nodes;
-  private JFXPopup optionsPopup;
   private ContextMenu contextMenu = new ContextMenu();
   MenuItem fromHere = new MenuItem("Directions from here");
   MenuItem toHere = new MenuItem("Directions to here");
@@ -118,6 +119,30 @@ public class MapView extends StackPane {
     this.nodeClicked.set(selectedNode);
   }
 
+  public Node getNodeFrom() {
+    return nodeFrom.get();
+  }
+
+  public SimpleObjectProperty<Node> nodeFromProperty() {
+    return nodeFrom;
+  }
+
+  public void setNodeFrom(Node nodeFrom) {
+    this.nodeFrom.set(nodeFrom);
+  }
+
+  public Node getNodeTo() {
+    return nodeTo.get();
+  }
+
+  public SimpleObjectProperty<Node> nodeToProperty() {
+    return nodeTo;
+  }
+
+  public void setNodeTo(Node nodeTo) {
+    this.nodeTo.set(nodeTo);
+  }
+
   public void setPath(List<Node> path) {
     this.path = path;
   }
@@ -138,7 +163,22 @@ public class MapView extends StackPane {
   void initialize() throws IOException {
     contextMenu.getItems().addAll(fromHere, toHere);
     fromHere.setOnAction(a->{
-
+      for (Node n : nodes) {
+        if (n.getFloorInt() == level && n.getXcoord() ==  circle.getCenterX()
+            && n.getYcoord() ==  circle.getCenterY()
+            && !n.getNodeType().equals(Node.NodeType.HALL)) {
+          nodeFrom.set(n);
+        }
+      }
+    });
+    toHere.setOnAction(a->{
+      for (Node n : nodes) {
+        if (n.getFloorInt() == level && n.getXcoord() ==  circle.getCenterX()
+            && n.getYcoord() ==  circle.getCenterY()
+            && !n.getNodeType().equals(Node.NodeType.HALL)) {
+          nodeTo.set(n);
+        }
+      }
     });
     gesturePane.setMinScale(0.1);
     gesturePane.reset();
