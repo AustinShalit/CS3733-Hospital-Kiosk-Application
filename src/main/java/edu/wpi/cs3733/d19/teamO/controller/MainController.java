@@ -113,17 +113,17 @@ public class MainController implements Controller {
     eventBus.register(this);
 
     SettingsController settingsController = settingsControllerFactory.create();
-    settingsController.root.getCenter().setStyle(
-        "-fx-background-color: #f1f1f1; -fx-pref-height: 150px; -fx-pref-width: 500px; ");
     settingsPopup = new JFXPopup(settingsController.root);
-    settingsPopup.setOnAutoHide(
+    settingsPopup.setOnHiding(
         event -> new RotateIn(optionsBurger).play()
     );
 
     optionsPopup = new JFXPopup(optionsControllerFactory.create().list);
-    optionsPopup.setOnAutoHide(
+    optionsPopup.setOnHiding(
         event -> new RotateIn(optionsBurger).play()
     );
+    optionsBurger.disableProperty().bind(optionsPopup.showingProperty()
+        .or(settingsPopup.showingProperty()));
     optionsBurger.setOnMouseClicked(
         event -> {
           new RotateOut(optionsBurger).play();
