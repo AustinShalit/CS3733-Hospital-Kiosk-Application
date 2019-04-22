@@ -2,29 +2,21 @@ package edu.wpi.cs3733.d19.teamO.controller;
 
 import java.time.LocalDateTime;
 
-import com.google.inject.Inject;
-import com.jfoenix.controls.JFXButton;
-
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
 import edu.wpi.cs3733.d19.teamO.entity.SchedulingRequest;
-import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 @FxmlController(url = "SchedulingViewWindow.fxml")
 public class SchedulingViewController implements Controller {
 
   @FXML
   private AnchorPane root;
-  @FXML
-  private JFXButton goBackButton;
-  @FXML
-  private Label titleLabel;
   @FXML
   private TableView<SchedulingRequest> table;
   @FXML
@@ -42,9 +34,6 @@ public class SchedulingViewController implements Controller {
   @FXML
   private TableColumn<SchedulingRequest, String> roomCol;
 
-  @Inject
-  private Database db;
-
   @FXML
   void initialize() {
     idTableCol.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -53,10 +42,7 @@ public class SchedulingViewController implements Controller {
     timeRequestedCol.setCellValueFactory(new PropertyValueFactory<>("timeRequested"));
     timeCompletedCol.setCellValueFactory(new PropertyValueFactory<>("timeCompleted"));
     whoRequestedCol.setCellValueFactory(new PropertyValueFactory<>("whoReserved"));
-    roomCol.setCellValueFactory(new PropertyValueFactory<>("roomName"));
-
-
-    table.getItems().setAll(db.getAllSchedulingRequests());
+    roomCol.setCellValueFactory(new PropertyValueFactory<>("room"));
 
     // sort by id
     table.getSortOrder().add(idTableCol);
@@ -68,6 +54,9 @@ public class SchedulingViewController implements Controller {
     }
   }
 
+  public void setRequests(ObservableList<SchedulingRequest> requests) {
+    table.setItems(requests);
+  }
 
   public interface Factory {
     SchedulingViewController create();

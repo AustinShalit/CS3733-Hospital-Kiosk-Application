@@ -72,17 +72,14 @@ public class ControllerModule extends AbstractModule {
       }
     });
 
-    install(new FactoryModuleBuilder().build(HomeController.Factory.class));
     install(new FactoryModuleBuilder().build(LoginController.Factory.class));
     install(new FactoryModuleBuilder().build(NavigationController.Factory.class));
     install(new FactoryModuleBuilder().build(OptionsPopupController.Factory.class));
     install(new FactoryModuleBuilder().build(RequestController.Factory.class));
-    install(new FactoryModuleBuilder().build(AdminController.Factory.class));
     install(new FactoryModuleBuilder().build(AddEmployeeController.Factory.class));
     install(new FactoryModuleBuilder().build(UpdateEmployeeController.Factory.class));
     install(new FactoryModuleBuilder().build(EmployeeController.Factory.class));
     install(new FactoryModuleBuilder().build(AboutController.Factory.class));
-    install(new FactoryModuleBuilder().build(GuestViewController.Factory.class));
     install(new FactoryModuleBuilder().build(FireAlarmController.Factory.class));
 
     install(new FactoryModuleBuilder().build(AudioVisualPopupController.Factory.class));
@@ -94,7 +91,6 @@ public class ControllerModule extends AbstractModule {
     install(new FactoryModuleBuilder().build(AudioVisualController.Factory.class));
     install(new FactoryModuleBuilder().build(AudioVisualViewController.Factory.class));
 
-    install(new FactoryModuleBuilder().build(AdminController.Factory.class));
     install(new FactoryModuleBuilder().build(MapEditController.Factory.class));
     install(new FactoryModuleBuilder().build(SchedulingController.Factory.class));
     install(new FactoryModuleBuilder().build(SchedulingViewController.Factory.class));

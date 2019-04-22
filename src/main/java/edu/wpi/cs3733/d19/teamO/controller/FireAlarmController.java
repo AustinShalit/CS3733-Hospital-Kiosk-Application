@@ -8,9 +8,13 @@ import com.google.common.graph.ImmutableGraph;
 import com.google.common.graph.MutableGraph;
 import com.google.inject.Inject;
 
+import javafx.animation.Animation;
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.util.Duration;
 
 import edu.wpi.cs3733.d19.teamO.AppPreferences;
 import edu.wpi.cs3733.d19.teamO.component.MapView;
@@ -25,6 +29,8 @@ public class FireAlarmController implements Controller{
   BorderPane root;
   @FXML
   MapView map;
+  @FXML
+  Label exitlbl;
 
   @Inject
   private AppPreferences appPreferences;
@@ -33,6 +39,7 @@ public class FireAlarmController implements Controller{
 
   @FXML
   void initialize() throws IOException {
+    flash();
     IGraphSearchAlgorithm<Node> algorithm = appPreferences.getGraphSearchAlgorithm().getAlgorithm();
     MutableGraph<Node> graph = GraphBuilder.undirected().allowsSelfLoops(false).build();
     database.getAllNodes().forEach(graph::addNode);
@@ -42,10 +49,19 @@ public class FireAlarmController implements Controller{
         database.getNode("FRETL00201").get(),
         database.getNode("FEXIT00201").get());
 
-    map.zoomTo(database.getNode("FRETL00201").get());
     map.setPath(path);
+    map.zoomTo(database.getNode("FRETL00201").get());
     map.drawPath();
 
+  }
+
+  @FXML
+  void flash() {
+    FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.1), exitlbl);
+    fadeTransition.setFromValue(1.0);
+    fadeTransition.setToValue(0.0);
+    fadeTransition.setCycleCount(Animation.INDEFINITE);
+    fadeTransition.play();
   }
 
   @Override

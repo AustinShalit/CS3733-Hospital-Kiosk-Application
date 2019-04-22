@@ -19,6 +19,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 
 import edu.wpi.cs3733.d19.teamO.AppPreferences;
@@ -59,6 +60,8 @@ public class NavigationController implements Controller {
   Label instructions;
   @FXML
   JFXButton aboutButton;
+  @FXML
+  ScrollPane instructionPane;
 
   StepByStep stepByStep;
   boolean addRest = false;
@@ -100,6 +103,14 @@ public class NavigationController implements Controller {
     stepByStep = new StepByStep();
     validateGoButton();
     map.setNavigation(true);
+    map.nodeFromProperty().addListener((observable, oldValue, newValue) -> {
+      fromComboBox.setValue(String.format("%s -- FLOOR %s",
+          newValue.getLongName(), newValue.getFloor()));
+    });
+    map.nodeToProperty().addListener((observable, oldValue, newValue) -> {
+      toComboBox.setValue(String.format("%s -- FLOOR %s",
+          newValue.getLongName(), newValue.getFloor()));
+    });
     map.nodeClickedProperty().addListener((observable, oldValue, newValue) -> {
       if (fromComboBox.isFocused()) {
         fromComboBox.setValue(String.format("%s -- FLOOR %s",
@@ -113,6 +124,17 @@ public class NavigationController implements Controller {
         fromComboBox.requestFocus();
       }
     });
+
+    fromComboBox.setStyle("-fx-font-size: 12px; -fx-font-style: Palatino Linotype;");
+    toComboBox.setStyle("-fx-font-size: 12px; -fx-font-style: Palatino Linotype;");
+
+    instructionPane.setVisible(false);
+    instructions.setVisible(false);
+
+    instructionPane.setStyle("-fx-opacity: 0.8; -fx-background-color: #F1F1F1;"
+        + "-fx-border-radius: 4px; -fx-border-color: #011E3C");
+    instructions.setStyle("-fx-font-size: 15px; -fx-font-style: Palatino Linotype;"
+        + "-fx-font-style: BOLD");
   }
 
 
@@ -140,6 +162,10 @@ public class NavigationController implements Controller {
   @FXML
   @SuppressWarnings({"PMD.AvoidInstantiatingObjectsInLoops", "UseStringBufferForStringAppends"})
   void onGoButtonAction() throws IOException {
+
+    instructionPane.setVisible(true);
+    instructions.setVisible(true);
+
     if (Objects.isNull(toComboBox.getNodeValue())
         || Objects.isNull(fromComboBox.getNodeValue())) {
       DialogHelper.showInformationAlert("Must Select Valid Start/End Destinations",
@@ -172,8 +198,8 @@ public class NavigationController implements Controller {
     }
     instruction = stringBuilder.toString();
     instructions.setText(instruction);
-    map.zoomTo(fromComboBox.getNodeValue());
     map.setPath(path);
+    map.zoomTo(fromComboBox.getNodeValue());
     map.drawPath();
 
   }
