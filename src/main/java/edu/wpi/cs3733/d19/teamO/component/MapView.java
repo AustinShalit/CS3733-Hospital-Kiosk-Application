@@ -426,7 +426,7 @@ public class MapView extends StackPane {
       Node lastNode = null;
       for (Node node : path) {
         if (lastNode != null) {
-          addLine(node, lastNode, Color.BLACK, 5);
+          addLine(node, lastNode, Color.BLACK, 14);
           addFloorChangeLabel(node, lastNode);
         } else if (node.getFloorInt() == level) {
           Circle circle = new Circle(node.getXcoord(), node.getYcoord(), 8, Color.GREEN);
@@ -509,7 +509,7 @@ public class MapView extends StackPane {
    */
   public Timeline addAntimation(Line line) {
     line.getStrokeDashArray().setAll(5d, 5d, 5d, 5d);
-    line.setStrokeWidth(3);
+    line.setStrokeWidth(4);
 
     final double maxOffset =
             line.getStrokeDashArray().stream().reduce(0d, (a, b) -> a + b);
