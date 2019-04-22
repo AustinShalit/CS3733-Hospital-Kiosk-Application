@@ -34,7 +34,7 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 public class AudioVisualViewController implements Controller {
 
   @FXML
-  private BorderPane root;
+  public BorderPane root;
   @FXML
   private JFXButton goBackButton;
   @FXML
