@@ -490,6 +490,7 @@ public class MapView2 extends StackPane {
       for (Edge edge : edgeCollection) {
         Line line = new Line(edge.getStartNode().getXcoord(), edge.getStartNode().getYcoord(),
             edge.getEndNode().getXcoord(), edge.getEndNode().getYcoord());
+        line.setStrokeWidth(4);
         edges.getChildren().add(line);
       }
     }
