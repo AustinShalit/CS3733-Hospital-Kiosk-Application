@@ -16,6 +16,8 @@ import com.jfoenix.controls.JFXButton;
 import org.apache.commons.collections.CollectionUtils;
 import org.controlsfx.glyphfont.Glyph;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -24,6 +26,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import kotlin.Pair;
 
@@ -44,6 +47,8 @@ public class NavigationController implements Controller {
 
   @FXML
   BorderPane root;
+  @FXML
+  StackPane sidebar;
 
   @FXML
   JFXButton restroomButton;
@@ -131,6 +136,15 @@ public class NavigationController implements Controller {
         fromComboBox.requestFocus();
       }
     });
+
+
+    root.widthProperty().addListener(
+        (observable, oldValue, newValue) ->
+            map.setMaxWidth(newValue.doubleValue() - sidebar.getWidth()));
+
+    root.heightProperty().addListener(
+        ((observable, oldValue, newValue) -> map.setPrefHeight(newValue.doubleValue()))
+    );
 
     fromComboBox.setStyle("-fx-font-size: 12px; -fx-font-style: Palatino Linotype;");
     toComboBox.setStyle("-fx-font-size: 12px; -fx-font-style: Palatino Linotype;");
