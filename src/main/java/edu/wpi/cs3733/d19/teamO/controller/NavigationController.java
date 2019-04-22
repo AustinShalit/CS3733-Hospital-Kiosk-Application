@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import javax.swing.ScrollPaneLayout;
 import com.google.common.eventbus.EventBus;
 import com.google.common.graph.GraphBuilder;
 import com.google.common.graph.ImmutableGraph;
@@ -148,8 +147,8 @@ public class NavigationController implements Controller {
   @SuppressWarnings({"PMD.AvoidInstantiatingObjectsInLoops", "UseStringBufferForStringAppends"})
   void onGoButtonAction() throws IOException {
 
-      instructionPane.setVisible(true);
-      instructions.setVisible(true);
+    instructionPane.setVisible(true);
+    instructions.setVisible(true);
 
     if (Objects.isNull(searchForNode(toComboBox.getValue()))
         || Objects.isNull(searchForNode(fromComboBox.getValue()))) {
