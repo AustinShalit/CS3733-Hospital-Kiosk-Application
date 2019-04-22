@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Locale;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -51,18 +52,21 @@ public class LiveWeather {
         Thread thread = new Thread(r);
         thread.setDaemon(true);
         return thread;
-  });
+      });
   private final OWM openWeatherMap;
 
+  /**
+   * Constructor.
+   */
   public LiveWeather() {
     openWeatherMap = new OWM(API_KEY);
 
-    currentWeather.addListener(((observable, oldValue, newValue) -> {
+    currentWeather.addListener((observable, oldValue, newValue) -> {
       minTemp.set(Quantities.getQuantity(newValue.getMainData().getTempMin(), Units.KELVIN)
           .to(USCustomary.FAHRENHEIT).getValue().doubleValue());
       maxTemp.set(Quantities.getQuantity(newValue.getMainData().getTempMax(), Units.KELVIN)
           .to(USCustomary.FAHRENHEIT).getValue().doubleValue());
-    }));
+    });
   }
 
   public void updateNow() {
@@ -144,7 +148,7 @@ public class LiveWeather {
           .get("description")
           .getAsString(); // Get the description
 
-      description.set(discrp.toUpperCase());
+      description.set(discrp.toUpperCase(Locale.ENGLISH));
       image.set(new Image(getClass().getResource("weather/" + icon + ".png")
           .openStream()));
     } catch (APIException | IOException ex) {

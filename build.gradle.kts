@@ -40,7 +40,7 @@ allprojects {
     }
 
     dependencies {
-        implementation(group = "javax.measure", name = "unit-api",  version = "1.0")
+        implementation(group = "javax.measure", name = "unit-api", version = "1.0")
         implementation(group = "com.calendarfx", name = "view", version = "8.5.0")
         implementation(group = "com.google.code.gson", name = "gson", version = "2.8.5")
         implementation(group = "com.google.guava", name = "guava", version = "27.1-jre")

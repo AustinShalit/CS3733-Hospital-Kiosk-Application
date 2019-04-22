@@ -84,7 +84,7 @@ public class MainController implements Controller {
   @Inject
   private Database database;
 
-  private LiveWeather liveWeather = new LiveWeather();
+  private final LiveWeather liveWeather = new LiveWeather();
 
   private LoginController loginController;
   private JFXPopup optionsPopup;
@@ -162,8 +162,8 @@ public class MainController implements Controller {
     );
 
     liveWeather.start();
-    liveWeather.imageProperty().addListener(((observable, oldValue, newValue)
-        -> tempImage.setImage(newValue)));
+    liveWeather.imageProperty().addListener((observable, oldValue, newValue)
+        -> tempImage.setImage(newValue));
     weatherLabel.textProperty().bind(Bindings.createStringBinding(()
         -> String.format("%.1f°F to %.1f°F", liveWeather.getMinTemp(), liveWeather.getMaxTemp()),
         liveWeather.minTempProperty(), liveWeather.maxTempProperty()));
