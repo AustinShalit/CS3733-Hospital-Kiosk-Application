@@ -672,27 +672,27 @@ public class MapView extends StackPane {
         button.setTranslateY(lastNode.getYcoord() + 10);
         button.getStyleClass().add("navlabel");
 
-      button.setOnAction(event -> {
-        if (event.getSource() == button) {
-          try {
-            switchFloor(node.getFloor());
-            // pan map
-            int id = path.indexOf(node);
-            Node lastNodeOnFloor = node;
-            for (int jj = id; jj < path.size(); jj++) {
-              Node curNode = path.get(jj);
-              if (curNode.getFloorInt() == level) {
-                lastNodeOnFloor = path.get(jj);
-              } else {
-                break;
+        button.setOnAction(event -> {
+          if (event.getSource() == button) {
+            try {
+              switchFloor(node.getFloor());
+              // pan map
+              int id = path.indexOf(node);
+              Node lastNodeOnFloor = node;
+              for (int jj = id; jj < path.size(); jj++) {
+                Node curNode = path.get(jj);
+                if (curNode.getFloorInt() == level) {
+                  lastNodeOnFloor = path.get(jj);
+                } else {
+                  break;
+                }
               }
+              panMapBetweenNodes(node, lastNodeOnFloor);
+            } catch (IOException exception) {
+              exception.printStackTrace();
             }
-            panMapBetweenNodes(node, lastNodeOnFloor);
-          } catch (IOException exception) {
-            exception.printStackTrace();
           }
-        }
-      });
+        });
 
         buttonsGroup.getChildren().add(button);
 
@@ -702,27 +702,27 @@ public class MapView extends StackPane {
         button.setTranslateY(node.getYcoord() + 10);
         button.getStyleClass().add("navlabel");
 
-      button.setOnAction(event -> {
-        if (event.getSource() == button) {
-          try {
-            switchFloor(lastNode.getFloor());
-            // pan map
-            int ii = path.indexOf(lastNode);
-            Node lastNodeOnFloor = lastNode;
-            for (int jj = ii; jj > 0; jj--) {
-              Node curNode = path.get(jj);
-              if (curNode.getFloorInt() == level) {
-                lastNodeOnFloor = path.get(jj);
-              } else {
-                break;
+        button.setOnAction(event -> {
+          if (event.getSource() == button) {
+            try {
+              switchFloor(lastNode.getFloor());
+              // pan map
+              int ii = path.indexOf(lastNode);
+              Node lastNodeOnFloor = lastNode;
+              for (int jj = ii; jj > 0; jj--) {
+                Node curNode = path.get(jj);
+                if (curNode.getFloorInt() == level) {
+                  lastNodeOnFloor = path.get(jj);
+                } else {
+                  break;
+                }
               }
+              panMapBetweenNodes(lastNode, lastNodeOnFloor);
+            } catch (IOException exception) {
+              exception.printStackTrace();
             }
-            panMapBetweenNodes(lastNode, lastNodeOnFloor);
-          } catch (IOException exception) {
-            exception.printStackTrace();
           }
-        }
-      });
+        });
 
         buttonsGroup.getChildren().add(button);
       }
