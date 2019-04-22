@@ -8,8 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
@@ -202,22 +202,33 @@ public class SchedulingRequestDaoDb implements SchedulingRequestDao {
       statement.setString(1, proposedSchedulingRequest.getRoom().getNodeId());
 
       try (ResultSet resultSet = statement.executeQuery()) {
-        ArrayList<SchedulingRequest> schedulingRequests = new ArrayList<>();
+        Set<SchedulingRequest> schedulingRequests = new HashSet<>();
         while (resultSet.next()) {
           schedulingRequests.add(extractSchedulingRequestFromResultSet(resultSet));
         }
-        boolean conflictExists = false;
+
         for (SchedulingRequest existingSchedulingRequest : schedulingRequests) {
           if (existingSchedulingRequest.conflictsWith(proposedSchedulingRequest)) {
-            conflictExists = true;
+            return true;
           }
         }
-        return conflictExists;
+        return false;
       }
     } catch (SQLException ex) {
       logger.log(Level.WARNING, "Failed to delete Scheduling Request", ex);
     }
     return false;
+  }
+
+  @Override
+  public boolean isValidWorkZoneRequest(SchedulingRequest schedulingRequest) {
+    if (schedulingRequest.getRoom().getNodeType().equals(Node.NodeType.WORKZONE)) {
+      long duration = Duration.between(LocalDateTime.now(),
+          schedulingRequest.getStartTime()).toMinutes();
+      return duration < 15;
+    } else {
+      return true;
+    }
   }
 
   private SchedulingRequest extractSchedulingRequestFromResultSet(final ResultSet resultSet)

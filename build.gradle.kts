@@ -57,6 +57,7 @@ allprojects {
         implementation(group = "org.controlsfx", name = "controlsfx", version = "8.40.14")
         implementation(group = "org.fxmisc.easybind", name = "easybind", version = "1.0.3")
         implementation(group = "me.xdrop", name = "fuzzywuzzy", version = "1.2.0")
+        implementation(group = "com.twilio.sdk", name = "twilio", version = "7.37.2")
         implementation(group = "si.uom", name = "si-units", version = "0.9")
         implementation(group = "systems.uom", name = "systems-common", version = "0.9")
 

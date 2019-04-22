@@ -64,11 +64,11 @@ public class DefaultInformationLoader {
   private void loadEmployees() {
 
     Employee user1 = new Employee("admin", "wong", "AdminTest",
-        Employee.EmployeeType.ADMIN);
+        Employee.EmployeeType.ADMIN, "2038028974");
     Employee user2 = new Employee("staff", "staff", "StaffTest",
-        Employee.EmployeeType.DEFAULT);
+        Employee.EmployeeType.DEFAULT, "5087333883");
     Employee user3 = new Employee("teamo", "won", "TeamOTest",
-        Employee.EmployeeType.DEFAULT);
+        Employee.EmployeeType.DEFAULT, "8605027788");
 
     database.insertEmployee(user1);
     database.insertEmployee(user2);
