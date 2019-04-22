@@ -18,10 +18,10 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 
+import edu.wpi.cs3733.d19.teamO.component.FuzzyWuzzyComboBox;
 import edu.wpi.cs3733.d19.teamO.controller.Controller;
 import edu.wpi.cs3733.d19.teamO.controller.DialogHelper;
 import edu.wpi.cs3733.d19.teamO.controller.FxmlController;
-import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.PatientInfoRequest;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
@@ -39,7 +39,7 @@ public class PatientInfoPopupController implements Controller {
   @FXML
   private JFXComboBox<PatientInfoRequest.PatientInfoSex> sexbox;
   @FXML
-  private JFXComboBox<Node> locationComboBox;
+  private FuzzyWuzzyComboBox locationComboBox;
   @FXML
   private JFXTextArea descriptiontxt;
   @FXML
@@ -51,7 +51,9 @@ public class PatientInfoPopupController implements Controller {
   @FXML
   void initialize() {
     sexbox.getItems().setAll(PatientInfoRequest.PatientInfoSex.values());
-    DialogHelper.populateComboBox(db, locationComboBox);
+    locationComboBox.setNodes(db.getAllNodes());
+    locationComboBox.setupAutoRefresh();
+    locationComboBox.refresh();
     patientDOB.setEditable(true);
 
     submitbtn.disableProperty().bind(
@@ -83,7 +85,7 @@ public class PatientInfoPopupController implements Controller {
     sexbox.setValue(null);
     locationComboBox.getSelectionModel().clearSelection();
     locationComboBox.setValue(null);
-    descriptiontxt.setText(null);
+    descriptiontxt.setText("");
 
   }
 
@@ -96,7 +98,7 @@ public class PatientInfoPopupController implements Controller {
     // validation
     if (nametxt.getText().isEmpty() // check that the name field is filled out
         || Objects.isNull(patientDOB.getValue()) // check if patientDOB is filled out
-        || Objects.isNull(locationComboBox.getValue()) // check that location field is filled out
+        || Objects.isNull(locationComboBox.getNodeValue()) // check that location field is filled out
         || Objects.isNull(sexbox.getValue())) { // check if patient sex is selected
       return null;
     }
@@ -108,7 +110,7 @@ public class PatientInfoPopupController implements Controller {
     }
 
     return new PatientInfoRequest(LocalDateTime.now(),
-        locationComboBox.getValue(),
+        locationComboBox.getNodeValue(),
         descriptiontxt.getText(),
         nametxt.getText(),
         patientDOB.getValue(),
