@@ -148,7 +148,7 @@ public class SchedulingController implements Controller {
       return;
     }
 
-    if(!database.isValidWorkZoneRequest(request)) {
+    if (!database.isValidWorkZoneRequest(request)) {
       showErrorAlert("Error.", "Flexible work spaces cannot be booked more than"
           + " 15 minutes in advance.");
       return;
