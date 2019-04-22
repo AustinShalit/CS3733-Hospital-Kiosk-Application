@@ -191,12 +191,12 @@ public class SupportAnimalPopupController implements Controller {
       button1.setGraphic(null);
       button1.setStyle("-fx-background-color: #011E3C; -fx-opacity: 80; "
           + "-fx-text-alignment: CENTER; -fx-text-fill: white");
-      button1.setText("Jackson\n Dog\n Male\n Enjoy playing \n with others");
+      button1.setText("Jackson\n Dog\n Male\n Enjoys playing \n with others");
     } else if (event.getSource() == button2) {
       button2.setGraphic(null);
       button2.setStyle("-fx-background-color: #011E3C; -fx-opacity: 80; "
           + "-fx-text-alignment: CENTER; -fx-text-fill: white");
-      button2.setText("Chubbs\n Guinea Pig\n Male\n Like carrots \n and hay");
+      button2.setText("Chubbs\n Guinea Pig\n Male\n Likes carrots \n and hay");
     } else if (event.getSource() == button3) {
       button3.setGraphic(null);
       button3.setStyle("-fx-background-color: #011E3C; -fx-opacity: 80; "
@@ -206,7 +206,7 @@ public class SupportAnimalPopupController implements Controller {
       button4.setGraphic(null);
       button4.setStyle("-fx-background-color: #011E3C; -fx-opacity: 80; "
           + "-fx-text-alignment: CENTER; -fx-text-fill: white");
-      button4.setText("Marmalade\n Cat\n Female\n Enjoy talking \n with people");
+      button4.setText("Marmalade\n Cat\n Female\n Enjoys talking \n with people");
     } else if (event.getSource() == button5) {
       button5.setGraphic(null);
       button5.setStyle("-fx-background-color: #011E3C; -fx-opacity: 80; "
@@ -221,7 +221,7 @@ public class SupportAnimalPopupController implements Controller {
       button7.setGraphic(null);
       button7.setStyle("-fx-background-color: #011E3C; -fx-opacity: 80; "
           + "-fx-text-alignment: CENTER; -fx-text-fill: white");
-      button7.setText("Lovey\n Dog\n Female\n Enjoy playing, \n sweet");
+      button7.setText("Lovey\n Dog\n Female\n Enjoys playing, \n sweet");
     } else if (event.getSource() == button8) {
       button8.setGraphic(null);
       button8.setStyle("-fx-background-color: #011E3C; -fx-opacity: 80; "
@@ -231,7 +231,7 @@ public class SupportAnimalPopupController implements Controller {
       button9.setGraphic(null);
       button9.setStyle("-fx-background-color: #011E3C; -fx-opacity: 80; "
           + "-fx-text-alignment: CENTER; -fx-text-fill: white");
-      button9.setText("Oliver\n Guinea Pig\n Male\n Enjoy Running \n around");
+      button9.setText("Oliver\n Guinea Pig\n Male\n Enjoys Running \n around");
     }
   }
 
