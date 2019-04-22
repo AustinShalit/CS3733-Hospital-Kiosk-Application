@@ -3,12 +3,13 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.RequestController">
-  <left>
-    <VBox fx:id="menu" stylesheets="@style/KioskStyle.css" BorderPane.alignment="CENTER" style="-fx-border-radius: 0px">
+<StackPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.RequestController">
+  <children>
+    <VBox fx:id="menu" pickOnBounds="false" style="-fx-border-radius: 0px" stylesheets="@style/KioskStyle.css" StackPane.alignment="CENTER">
       <children>
         <JFXButton fx:id="sanitation" contentDisplay="RIGHT" graphicTextGap="20.0" onAction="#sanitationAction" ripplerFill="#013c78" styleClass="service-btn" text="SANITATION">
           <font>
@@ -108,5 +109,7 @@
         </JFXButton>
       </children>
     </VBox>
-  </left>
-</BorderPane>
+    <BorderPane fx:id="content" pickOnBounds="false">
+    </BorderPane>
+  </children>
+</StackPane>

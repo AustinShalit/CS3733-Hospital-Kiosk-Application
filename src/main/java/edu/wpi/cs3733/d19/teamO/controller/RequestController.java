@@ -4,15 +4,9 @@ import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 
-import animatefx.animation.SlideInLeft;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -36,9 +30,11 @@ import edu.wpi.cs3733.d19.teamO.controller.request.SupportAnimalViewController;
 public class RequestController implements Controller {
 
   @FXML
-  BorderPane root;
+  StackPane root;
   @FXML
   VBox menu;
+  @FXML
+  private BorderPane content;
 
   @FXML
   private JFXButton sanitation;
@@ -101,6 +97,9 @@ public class RequestController implements Controller {
 
   @FXML
   void initialize() {
+    menu.setPickOnBounds(false);
+    content.setPickOnBounds(false);
+
     menu.heightProperty().addListener(
         (observable, oldValue, newValue) -> {
           sanitation.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
@@ -120,8 +119,7 @@ public class RequestController implements Controller {
 
   @FXML
   void internalTransportationAction(ActionEvent event) {
-    root.setCenter(internalTransportationControllerFactory.create().root);
-    new SlideInLeft(internalTransportationControllerFactory.create().root);
+    content.setCenter(internalTransportationControllerFactory.create().root);
   }
 
   @FXML

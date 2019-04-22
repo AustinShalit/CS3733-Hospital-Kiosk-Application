@@ -36,8 +36,6 @@ public class InternalTransportationViewController implements Controller {
   @FXML
   public BorderPane root;
   @FXML
-  private JFXButton goBackButton;
-  @FXML
   private JFXButton assignButton;
   @FXML
   private JFXButton completedButton;
