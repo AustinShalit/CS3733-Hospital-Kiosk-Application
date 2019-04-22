@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 
+import edu.wpi.cs3733.d19.teamO.component.FuzzyWuzzyComboBox;
 import edu.wpi.cs3733.d19.teamO.controller.Controller;
 import edu.wpi.cs3733.d19.teamO.controller.DialogHelper;
 import edu.wpi.cs3733.d19.teamO.controller.FxmlController;
@@ -34,7 +35,7 @@ public class SupportAnimalPopupController implements Controller {
   @FXML
   private JFXTextField nametxt;
   @FXML
-  private JFXComboBox<Node> locationbox;
+  private FuzzyWuzzyComboBox locationbox;
   @FXML
   private JFXComboBox<SupportAnimalRequest.SupportAnimalRequestType> categorybox;
   @FXML
@@ -47,7 +48,9 @@ public class SupportAnimalPopupController implements Controller {
 
   @FXML
   void initialize() {
-    DialogHelper.populateComboBox(db, locationbox);
+    locationbox.setNodes(db.getAllNodes());
+    locationbox.setupAutoRefresh();
+    locationbox.refresh();
     categorybox.getItems().setAll(SupportAnimalRequest.SupportAnimalRequestType.values());
 
     submitbtn.disableProperty().bind(
@@ -72,7 +75,7 @@ public class SupportAnimalPopupController implements Controller {
     locationbox.setValue(null);
     categorybox.getSelectionModel().clearSelection();
     categorybox.setValue(null);
-    descriptiontxt.setText(null);
+    descriptiontxt.setText("");
 
     if (db.insertSupportAnimalRequest(request)) {
       String message = "Successfully submitted support animal request.";
@@ -91,10 +94,10 @@ public class SupportAnimalPopupController implements Controller {
   private SupportAnimalRequest parseRequest() {
     // if input is valid, parse it and return a new Request
     if (!nametxt.getText().isEmpty()
-        && Objects.nonNull(locationbox.getValue())
+        && Objects.nonNull(locationbox.getNodeValue())
         && Objects.nonNull(categorybox.getValue())) {
 
-      Node node = locationbox.getValue();
+      Node node = locationbox.getNodeValue();
       String description = descriptiontxt.getText();
       String name = nametxt.getText();
 
