@@ -24,7 +24,8 @@ class EmployeeDaoDbTest {
       "dev",
       "hello",
       "Dev",
-      new EmployeeAttributes(Employee.EmployeeType.ADMIN)
+      new EmployeeAttributes(Employee.EmployeeType.ADMIN),
+      "2038028974"
   );
 
   private EmployeeDao dao;
@@ -82,7 +83,8 @@ class EmployeeDaoDbTest {
         "dev",
         "meow",
         "Dev",
-        new EmployeeAttributes(Employee.EmployeeType.ADMIN)
+        new EmployeeAttributes(Employee.EmployeeType.ADMIN),
+        "2038028974"
     );
     assertTrue(dao.update(update));
   }

@@ -86,7 +86,8 @@ public class EmployeeDaoDb implements EmployeeDao {
         resultSet.getString("username"),
         resultSet.getString("password"),
         resultSet.getString("name"),
-        EmployeeAttributes.fromString(resultSet.getString("attr"))
+        EmployeeAttributes.fromString(resultSet.getString("attr")),
+        resultSet.getString("phone")
     );
   }
 
@@ -101,6 +102,7 @@ public class EmployeeDaoDb implements EmployeeDao {
       statement.setString(2, employee.getPassword());
       statement.setString(3, employee.getName());
       statement.setString(4, employee.getEmployeeAttributes().toString());
+      statement.setString(5, employee.getPhone());
 
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {
@@ -119,7 +121,8 @@ public class EmployeeDaoDb implements EmployeeDao {
       statement.setString(2, employee.getPassword());
       statement.setString(3, employee.getName());
       statement.setString(4, employee.getEmployeeAttributes().toString());
-      statement.setInt(5, employee.getId());
+      statement.setString(5, employee.getPhone());
+      statement.setInt(6, employee.getId());
 
       return statement.executeUpdate() == 1;
     } catch (SQLException ex) {

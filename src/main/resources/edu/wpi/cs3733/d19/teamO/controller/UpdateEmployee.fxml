@@ -55,6 +55,7 @@
                     <Insets />
                   </VBox.margin>
                 </JFXTextField>
+                <JFXTextField fx:id="upPhonefield" maxWidth="200.0" promptText="Enter Phone Number" />
                 <JFXComboBox fx:id="upPositionbox" promptText="Select Position">
                   <VBox.margin>
                     <Insets />

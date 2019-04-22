@@ -35,6 +35,8 @@ public class AddEmployeeController implements Controller {
   @FXML
   private JFXTextField passwordField;
   @FXML
+  private JFXTextField phoneField;
+  @FXML
   private JFXComboBox<Employee.EmployeeType> positionBox;
   @FXML
   private JFXButton submitbtn;
@@ -77,6 +79,7 @@ public class AddEmployeeController implements Controller {
         .or(Bindings.isEmpty(usernameField.textProperty()))
         .or(Bindings.isEmpty(passwordField.textProperty()))
         .or(Bindings.isNull(positionBox.valueProperty()))
+        .or(Bindings.isEmpty(phoneField.textProperty()))
     );
   }
 
@@ -93,6 +96,7 @@ public class AddEmployeeController implements Controller {
     nameField.setText(null);
     usernameField.setText(null);
     passwordField.setText(null);
+    phoneField.setText(null);
     positionBox.getSelectionModel().clearSelection();
     positionBox.setValue(null);
     avBox.setSelected(false);
@@ -129,15 +133,17 @@ public class AddEmployeeController implements Controller {
     if (!nameField.getText().isEmpty()
         && !usernameField.getText().isEmpty()
         && !passwordField.getText().isEmpty()
+        && !phoneField.getText().isEmpty()
         && Objects.nonNull(positionBox.getValue())) {
 
       String name = nameField.getText();
       String username = usernameField.getText();
       String password = passwordField.getText();
+      String phoneNumber = phoneField.getText();
       String type = positionBox.getValue().toString().toUpperCase(new Locale("EN"));
       Employee.EmployeeType externalEmployeeType = Employee.EmployeeType.valueOf(type);
 
-      Employee newemp = new Employee(username, password, name, externalEmployeeType);
+      Employee newemp = new Employee(username, password, name, externalEmployeeType, phoneNumber);
       newemp.getEmployeeAttributes().setCanFulfillAudioVisual(avBox.isSelected());
       newemp.getEmployeeAttributes().setCanFulfillExternalTransport(
           externalTransportBox.isSelected());
