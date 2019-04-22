@@ -191,7 +191,7 @@ public class NavigationController implements Controller {
     instruction = stringBuilder.toString();
     instructions.setText(instruction);
     map.setPath(path);
-    map.zoomTo((fromComboBox.getNodeValue()));
+    map.zoomTo(fromComboBox.getNodeValue());
     map.drawPath();
 
   }
