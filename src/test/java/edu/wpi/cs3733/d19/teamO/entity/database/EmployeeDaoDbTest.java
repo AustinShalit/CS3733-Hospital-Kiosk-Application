@@ -19,114 +19,116 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ExtendWith(DatabaseExtension.class)
 class EmployeeDaoDbTest {
 
-    private static final Employee TEST_EMPLOYEE_1 = new Employee(
-            1,
-            "dev",
-            "hello",
-            "Dev",
-            new EmployeeAttributes(Employee.EmployeeType.ADMIN)
+  private static final Employee TEST_EMPLOYEE_1 = new Employee(
+      1,
+      "dev",
+      "hello",
+      "Dev",
+      new EmployeeAttributes(Employee.EmployeeType.ADMIN),
+      "2038028974"
+  );
+
+  private EmployeeDao dao;
+
+  @Inject
+  private DatabaseConnectionFactory dcf;
+
+  @BeforeEach
+  void setup() throws SQLException {
+    dao = new EmployeeDaoDb(dcf);
+  }
+
+  @Test
+  void getTest() {
+    dao.insert(TEST_EMPLOYEE_1);
+
+    assertTrue(dao.get(TEST_EMPLOYEE_1.getId()).isPresent());
+  }
+
+  @Test
+  void getDifferentObjectTest() {
+    dao.insert(TEST_EMPLOYEE_1);
+
+    assertNotSame(TEST_EMPLOYEE_1,
+        dao.get(TEST_EMPLOYEE_1.getId()).orElseThrow(IllegalStateException::new));
+  }
+
+  @Test
+  void getNotExistingTest() {
+    assertFalse(dao.get(TEST_EMPLOYEE_1.getId()).isPresent());
+  }
+
+  @Test
+  void insertTest() {
+    assertTrue(dao.insert(TEST_EMPLOYEE_1));
+  }
+
+  @Test
+  void deleteTest() {
+    dao.insert(TEST_EMPLOYEE_1);
+    assertTrue(dao.delete(TEST_EMPLOYEE_1));
+  }
+
+  @Test
+  void deleteNotExistingTest() {
+    assertFalse(dao.delete(TEST_EMPLOYEE_1));
+  }
+
+  @Test
+  void updateTest() {
+    dao.insert(TEST_EMPLOYEE_1);
+
+    Employee update = new Employee(
+        TEST_EMPLOYEE_1.getId(),
+        "dev",
+        "meow",
+        "Dev",
+        new EmployeeAttributes(Employee.EmployeeType.ADMIN),
+        "2038028974"
     );
+    assertTrue(dao.update(update));
+  }
 
-    private EmployeeDao dao;
+  @Test
+  void updateNotExistingTest() {
+    assertFalse(dao.update(TEST_EMPLOYEE_1));
+  }
 
-    @Inject
-    private DatabaseConnectionFactory dcf;
+  @Test
+  void getAllTest() {
+    dao.insert(TEST_EMPLOYEE_1);
 
-    @BeforeEach
-    void setup() throws SQLException {
-        dao = new EmployeeDaoDb(dcf);
-    }
+    assertEquals(1, dao.getAll().size());
+  }
 
-    @Test
-    void getTest() {
-        dao.insert(TEST_EMPLOYEE_1);
+  @Test
+  void getAllResultSameTest() {
+    dao.insert(TEST_EMPLOYEE_1);
 
-        assertTrue(dao.get(TEST_EMPLOYEE_1.getId()).isPresent());
-    }
+    System.out.println(dao.getAll().toArray()[0]);
+    assertEquals(TEST_EMPLOYEE_1, dao.getAll().toArray()[0]);
+  }
 
-    @Test
-    void getDifferentObjectTest() {
-        dao.insert(TEST_EMPLOYEE_1);
+  @Test
+  void getAllEmptyTest() {
+    dao.delete(TEST_EMPLOYEE_1);
 
-        assertNotSame(TEST_EMPLOYEE_1,
-                dao.get(TEST_EMPLOYEE_1.getId()).orElseThrow(IllegalStateException::new));
-    }
+    assertTrue(dao.getAll().isEmpty());
+  }
 
-    @Test
-    void getNotExistingTest() {
-        assertFalse(dao.get(TEST_EMPLOYEE_1.getId()).isPresent());
-    }
-
-    @Test
-    void insertTest() {
-        assertTrue(dao.insert(TEST_EMPLOYEE_1));
-    }
-
-    @Test
-    void deleteTest() {
-        dao.insert(TEST_EMPLOYEE_1);
-        assertTrue(dao.delete(TEST_EMPLOYEE_1));
-    }
-
-    @Test
-    void deleteNotExistingTest() {
-        assertFalse(dao.delete(TEST_EMPLOYEE_1));
-    }
-
-    @Test
-    void updateTest() {
-        dao.insert(TEST_EMPLOYEE_1);
-
-        Employee update = new Employee(
-                TEST_EMPLOYEE_1.getId(),
-                "dev",
-                "meow",
-                "Dev",
-                new EmployeeAttributes(Employee.EmployeeType.ADMIN)
-        );
-        assertTrue(dao.update(update));
-    }
-
-    @Test
-    void updateNotExistingTest() {
-        assertFalse(dao.update(TEST_EMPLOYEE_1));
-    }
-
-    @Test
-    void getAllTest() {
-        dao.insert(TEST_EMPLOYEE_1);
-
-        assertEquals(1, dao.getAll().size());
-    }
-
-    @Test
-    void getAllResultSameTest() {
-        dao.insert(TEST_EMPLOYEE_1);
-
-        System.out.println(dao.getAll().toArray()[0]);
-        assertEquals(TEST_EMPLOYEE_1, dao.getAll().toArray()[0]);
-    }
-
-    @Test
-    void getAllEmptyTest() {
-        dao.delete(TEST_EMPLOYEE_1);
-
-        assertTrue(dao.getAll().isEmpty());
-    }
-
-    @Test
-    void employeeAttributesFromStringTest() {
-        EmployeeAttributes control = new EmployeeAttributes();
-        control.setCanFulfillSupportAnimal(true);
-        control.setEmployeeType(Employee.EmployeeType.ADMIN);
-        String testString = "{\"canFulfillSupportAnimal\":true,\"employeeType\":\"ADMIN\"}";
-        assertEquals(
-                control.getCanFulfillSupportAnimal(),
-                EmployeeAttributes.fromString(testString).getCanFulfillSupportAnimal()
-        );
-        assertEquals(
-                control.getEmployeeType(),
-                EmployeeAttributes.fromString(testString).getEmployeeType()
-        );
-    }
+  @Test
+  void employeeAttributesFromStringTest() {
+    EmployeeAttributes control = new EmployeeAttributes();
+    control.setCanFulfillSupportAnimal(true);
+    control.setEmployeeType(Employee.EmployeeType.ADMIN);
+    String testString = "{\"canFulfillSupportAnimal\":true,\"employeeType\":\"ADMIN\"}";
+    assertEquals(
+        control.getCanFulfillSupportAnimal(),
+        EmployeeAttributes.fromString(testString).getCanFulfillSupportAnimal()
+    );
+    assertEquals(
+        control.getEmployeeType(),
+        EmployeeAttributes.fromString(testString).getEmployeeType()
+    );
+  }
 }

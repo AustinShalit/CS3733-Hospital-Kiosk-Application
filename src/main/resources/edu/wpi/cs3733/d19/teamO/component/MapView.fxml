@@ -8,15 +8,17 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 <?import net.kurobako.gesturefx.GesturePane?>
 
-<fx:root stylesheets="@../controller/style/MapView.css" type="javafx.scene.layout.StackPane" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root stylesheets="@../controller/style/MapView.css" type="javafx.scene.layout.StackPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
   <GesturePane fx:id="gesturePane">
     <StackPane>
       <ImageView fx:id="backgroundImage" pickOnBounds="true" preserveRatio="true">
       </ImageView>
       <Pane onMouseMoved="#onMouseMove">
+        <Circle fx:id="circle" fill="#0067b1" radius="8.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
         <Group fx:id="nodeGroup" />
         <Group fx:id="edges" />
       </Pane>
@@ -108,17 +110,17 @@
       <Font size="21.0" />
     </font>
   </JFXButton>
-  <Label fx:id="coordX" text="X-coord" StackPane.alignment="BOTTOM_LEFT">
+  <Label fx:id="coordY" text="X-coord" StackPane.alignment="BOTTOM_LEFT">
     <padding>
       <Insets bottom="10.0" left="5.0" />
     </padding>
   </Label>
-  <Label fx:id="coordY" text="Y-coord" StackPane.alignment="BOTTOM_LEFT">
+  <Label fx:id="coordX" text="Y-coord" StackPane.alignment="BOTTOM_LEFT">
     <padding>
       <Insets bottom="10.0" left="60.0" />
     </padding>
   </Label>
-  <JFXButton fx:id="levelF4" buttonType="RAISED" onAction="#onFloorSelectAction" onMouseEntered="#onMouseMove" ripplerFill="BLACK" text="4" styleClass="floorbutton" StackPane.alignment="BOTTOM_RIGHT">
+  <JFXButton fx:id="levelF4" buttonType="RAISED" onAction="#onFloorSelectAction" onMouseEntered="#onMouseMove" ripplerFill="BLACK" styleClass="floorbutton" text="4" StackPane.alignment="BOTTOM_RIGHT">
     <opaqueInsets>
       <Insets bottom="20.0" right="20.0" />
     </opaqueInsets>

@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import edu.wpi.cs3733.d19.teamO.component.FuzzyWuzzyComboBox?>
 <BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.request.GiftPopupController">
   <center>
     <VBox alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="form" stylesheets="@../style/KioskStyle.css" BorderPane.alignment="CENTER">
@@ -24,11 +25,11 @@
             <Insets />
           </VBox.margin>
         </JFXTextField>
-        <JFXComboBox fx:id="locationbox" promptText="Pick Location">
+        <FuzzyWuzzyComboBox fx:id="locationbox" promptText="Pick Location">
           <VBox.margin>
             <Insets />
           </VBox.margin>
-        </JFXComboBox>
+        </FuzzyWuzzyComboBox>
         <JFXComboBox fx:id="categorybox" promptText="Pick Category">
           <VBox.margin>
             <Insets />
