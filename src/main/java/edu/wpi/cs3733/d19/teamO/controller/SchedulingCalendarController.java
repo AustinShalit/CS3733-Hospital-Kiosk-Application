@@ -1,30 +1,44 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.stream.Collectors;
-
 import com.calendarfx.model.Calendar;
 import com.calendarfx.model.CalendarSource;
 import com.calendarfx.model.Entry;
-import com.calendarfx.model.Interval;
 import com.calendarfx.view.CalendarView;
-import com.google.inject.Inject;
 
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 
-import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.SchedulingRequest;
-import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 @FxmlController(url = "SchedulingCalendar.fxml")
 public class SchedulingCalendarController implements Controller {
 
   @FXML
   private CalendarView root;
-  @Inject
-  private Database database;
+
+  private final CalendarSource calendarSource = new CalendarSource("Database");
+
+  private final ListProperty<SchedulingRequest> requests = new SimpleListProperty<>();
+
+  /**
+   * Create a new Controller.
+   */
+  public SchedulingCalendarController() {
+    requests.addListener((ListChangeListener<SchedulingRequest>) c -> {
+      while (c.next()) {
+        c.getAddedSubList().stream()
+            .map(SchedulingRequest::getEntry)
+            .forEach(this::addEntry);
+        c.getRemoved().stream()
+            .map(SchedulingRequest::getEntry)
+            .forEach(this::removeEntry);
+      }
+    });
+  }
 
   @FXML
   void initialize() {
@@ -32,33 +46,36 @@ public class SchedulingCalendarController implements Controller {
     root.setShowPrintButton(false);  // Printing is broken on Java 8
     root.getCalendarSources().clear();  // Remove default calendar
 
-    Collection<Calendar> calendars = getCalendarsForNodes();
-    styleCalendars(calendars);
-    CalendarSource calendarSource = new CalendarSource("Database");
-    calendarSource.getCalendars().addAll(calendars);
     root.getCalendarSources().add(calendarSource);
   }
 
-  private Collection<Calendar> getCalendarsForNodes() {
-    Collection<SchedulingRequest> reservations = database.getAllSchedulingRequests();
-    return database.getAllNodes().stream()
-        .filter(node -> node.getNodeType().isSchedulable())  // Rooms we can schedule
-        .sorted(Comparator.comparing(Node::getLongName))  // Calendar list should be sorted by name
-        .map(node -> {
-          Calendar calendar = new Calendar(node.getLongName());
-          calendar.setReadOnly(true);  // Do not allow user to edit
-          calendar.addEntries(
-              reservations.stream()
-                  .filter(reservation -> reservation.getRoom().equals(node)) // Get our reservations
-                  .map(reservation -> {
-                    Entry<SchedulingRequest> entry = new Entry<>(reservation.getWhoReserved(),
-                        new Interval(reservation.getStartTime(), reservation.getEndTime()));
-                    entry.setUserObject(reservation);
-                    entry.setLocation(node.getLongName());
-                    return entry;
-                  }).collect(Collectors.toList()));
+  public ObservableList<SchedulingRequest> getRequests() {
+    return requests.get();
+  }
+
+  public ListProperty<SchedulingRequest> requestsProperty() {
+    return requests;
+  }
+
+  public void setRequests(ObservableList<SchedulingRequest> requests) {
+    this.requests.set(requests);
+  }
+
+  private void addEntry(final Entry<SchedulingRequest> entry) {
+    calendarSource.getCalendars()
+        .stream()
+        .filter(calendar -> calendar.getName().equals(entry.getLocation()))
+        .findFirst()
+        .orElseGet(() -> {
+          Calendar calendar = new Calendar(entry.getLocation());
+          calendarSource.getCalendars().add(calendar);
           return calendar;
-        }).collect(Collectors.toList());
+        })
+        .addEntries(entry);
+  }
+
+  private void removeEntry(final Entry<SchedulingRequest> entry) {
+    entry.removeFromCalendar();
   }
 
   @Override
@@ -68,12 +85,5 @@ public class SchedulingCalendarController implements Controller {
 
   public interface Factory {
     SchedulingCalendarController create();
-  }
-
-  private static void styleCalendars(Collection<Calendar> calendars) {
-    int style = 0;
-    for (Calendar calendar : calendars) {
-      calendar.setStyle(Calendar.Style.getStyle(style++));
-    }
   }
 }
