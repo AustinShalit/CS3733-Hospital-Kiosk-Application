@@ -43,7 +43,7 @@ import static javafx.scene.input.MouseButton.PRIMARY;
 import static javafx.scene.input.MouseButton.SECONDARY;
 
 @SuppressWarnings({"PMD.TooManyFields", "PMD.ExcessiveImports", "PMD.TooManyMethods" ,
-    "PMD.CyclomaticComplexity"})
+    "PMD.CyclomaticComplexity", "PMD.GodClass"})
 public class MapView extends StackPane {
   private boolean navigation;
   private int level = 1;
@@ -158,7 +158,9 @@ public class MapView extends StackPane {
     fxmlLoader.load();
   }
 
+
   @FXML
+  @SuppressWarnings({"NPathComplexity", "AvoidDeeplyNestedIfStmts"})
   void initialize() throws IOException {
     contextMenu.getItems().addAll(fromHere, toHere);
     fromHere.setOnAction(a -> {
