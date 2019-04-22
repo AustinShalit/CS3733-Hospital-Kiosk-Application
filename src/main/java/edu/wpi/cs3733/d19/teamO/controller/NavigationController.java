@@ -24,6 +24,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 
@@ -65,7 +66,7 @@ public class NavigationController implements Controller {
   @FXML
   JFXButton aboutButton;
   @FXML
-  Pane buttonPane;
+  HBox buttonPane;
 
   StepByStep stepByStep;
   boolean addRest = false;
@@ -85,7 +86,6 @@ public class NavigationController implements Controller {
 
   List<String> listOfLongName = new ArrayList<>();
   List<String> listOfSortName = new ArrayList<>();
-  Group btnGroup = new Group();
 
   @FXML
   void initialize() throws IOException {
@@ -140,6 +140,8 @@ public class NavigationController implements Controller {
   @FXML
   @SuppressWarnings({"PMD.AvoidInstantiatingObjectsInLoops", "UseStringBufferForStringAppends"})
   void onGoButtonAction() throws IOException {
+    buttonPane.getChildren().clear();
+
     if (Objects.isNull(searchForNode(toComboBox.getValue()))
         || Objects.isNull(searchForNode(fromComboBox.getValue()))) {
       DialogHelper.showInformationAlert("Must Select Valid Start/End Destinations",
@@ -168,27 +170,28 @@ public class NavigationController implements Controller {
     int cnt;
     for (cnt = 0; cnt < separatePath.size(); cnt++) {
       Button btn = new JFXButton(separatePath.get(cnt).get(0).getFloor());
-      btnGroup.getChildren().add(cnt, btn);
-
-      ArrayList<String> list = stepByStep.getStepByStep(separatePath.get(cnt));
-      String instruction;
-      StringBuilder stringBuilder = new StringBuilder();
-      for (String s : list) {
-        stringBuilder.append(s);
-        stringBuilder.append('\n');
+      if (! buttonPane.getChildren().contains(btn)) {
+        buttonPane.getChildren().add(btn);
       }
-      instruction = stringBuilder.toString();
 
       EventHandler<MouseEvent> handler = new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent event) {
-        instructions.setText(instruction);
-      }
-    };
+        @Override
+        public void handle(MouseEvent event) {
 
+        }
+      };
       btn.setOnMouseClicked(handler);
     }
-    buttonPane.getChildren().addAll(btnGroup);
+
+    ArrayList<String> list = stepByStep.getStepByStep(path);
+    String instruction;
+    StringBuilder stringBuilder = new StringBuilder();
+    for (String s : list) {
+      stringBuilder.append(s);
+      stringBuilder.append('\n');
+    }
+    instruction = stringBuilder.toString();
+
     map.zoomTo(searchForNode(fromComboBox.getValue()));
     map.setPath(path);
     map.drawPath();
@@ -299,25 +302,25 @@ public class NavigationController implements Controller {
   }
 
   private List<List<Node>> separatePathByFloor(List<Node> path) {
-    String floor = path.get(0).getFloor();
+    String floor;
     int cnt;
-    List<Node> smallPath = new ArrayList<>();
+
     List<List<Node>> separatePath = new ArrayList<>();
+    List<Node> smallPath = new ArrayList<>();
 
     smallPath.add(path.get(0));
 
-    if (floor != null) {
-      for (cnt = 1; cnt < path.size(); cnt++) {
-        floor = path.get(cnt).getFloor();
-        if (floor.equals(path.get(cnt - 1))) {
-          smallPath.add(path.get(cnt));
-        }else {
-          separatePath.add(smallPath);
-          smallPath.clear();
-          smallPath.add(path.get(cnt));
-        }
+    for (cnt = 1; cnt < path.size(); cnt++) {
+      floor = path.get(cnt).getFloor();
+      if (floor.equals(path.get(cnt - 1).getFloor())) {
+        smallPath.add(path.get(cnt));
+      } else if (! floor.equals(path.get(cnt - 1).getFloor())) {
+        separatePath.add(smallPath);
+        smallPath = new ArrayList<>();
+        smallPath.add(path.get(cnt));
       }
     }
+    separatePath.add(smallPath);
     return separatePath;
   }
 }
