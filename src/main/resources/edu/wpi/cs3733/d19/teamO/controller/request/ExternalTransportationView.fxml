@@ -34,7 +34,7 @@
             <TableColumn fx:id="timeCol" prefWidth="153.0" text="Time Picked" />
           </columns>
         </TableView>
-        <GridPane id="requestbuttons" >
+        <GridPane id="requestbuttons">
           <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

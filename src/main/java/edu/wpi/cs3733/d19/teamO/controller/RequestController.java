@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
-import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 
@@ -64,11 +63,6 @@ public class RequestController implements Controller {
   @FXML
   private JFXButton florist;
 
-  @FXML
-  private JFXButton viewRequest;
-
-  @Inject
-  private EventBus eventBus;
   @Inject
   private InternalTransportationViewController.Factory internalTransportationControllerFactory;
   @Inject
