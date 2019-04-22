@@ -33,7 +33,7 @@ allprojects {
         plugin("com.github.spotbugs")
         plugin("com.github.johnrengelman.shadow")
     }
-  
+
     repositories {
         mavenCentral()
         jcenter()

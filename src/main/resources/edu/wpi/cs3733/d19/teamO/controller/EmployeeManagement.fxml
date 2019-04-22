@@ -64,11 +64,6 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           </rowConstraints>
           <children>
-            <JFXButton id="small-button" fx:id="goBackButton" onAction="#goBackButtonAction" text="Go Back" GridPane.halignment="LEFT" GridPane.valignment="TOP">
-              <GridPane.margin>
-                <Insets left="9.0" top="9.0" />
-              </GridPane.margin>
-            </JFXButton>
             <JFXButton fx:id="emergencyButton" onAction="#emergencyOnAction" text="Emergency Message" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
               <GridPane.margin>
                 <Insets right="9.0" top="9.0" />
