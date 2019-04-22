@@ -123,23 +123,23 @@
                       </font>
                     </JFXButton>
                   </children>
-                           <opaqueInsets>
-                              <Insets bottom="10.0" />
-                           </opaqueInsets>
+                  <opaqueInsets>
+                    <Insets bottom="10.0" />
+                  </opaqueInsets>
                 </GridPane>
-                        <Label text="Instructions">
-                           <font>
-                              <Font size="30.0" />
-                           </font>
-                        </Label>
-                        <FlowPane fx:id="buttonPane" columnHalignment="CENTER" prefWrapLength="200.0" />
+                <Label text="Instructions">
+                  <font>
+                    <Font size="30.0" />
+                  </font>
+                </Label>
+                <FlowPane fx:id="buttonPane" columnHalignment="CENTER" prefWrapLength="200.0" />
                 <ScrollPane hbarPolicy="NEVER" prefHeight="200">
                   <content>
                     <Label fx:id="instructions" />
                   </content>
-                           <opaqueInsets>
-                              <Insets top="20.0" />
-                           </opaqueInsets>
+                  <opaqueInsets>
+                    <Insets top="20.0" />
+                  </opaqueInsets>
                 </ScrollPane>
                 <JFXButton fx:id="aboutButton" onAction="#aboutOnAction" prefHeight="50.0" prefWidth="294.0" style="-fx-background-color: #012d5a;" text="About Page" textFill="WHITE">
                   <font>

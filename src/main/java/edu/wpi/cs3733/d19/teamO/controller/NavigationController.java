@@ -14,13 +14,11 @@ import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 
-import org.controlsfx.glyphfont.FontAwesome;
 import org.controlsfx.glyphfont.Glyph;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -40,7 +38,7 @@ import edu.wpi.cs3733.d19.teamO.entity.pathfinding.StepByStep;
 
 @FxmlController(url = "Navigation.fxml")
 @SuppressWarnings({"PMD.TooManyFields", "PMD.RedundantFieldInitializer",
-    "PMD.AvoidInstantiatingObjectsInLoops", "PMD.TooManyMethods"})
+    "PMD.AvoidInstantiatingObjectsInLoops", "PMD.TooManyMethods", "PMD.ExcessiveImports"})
 
 public class NavigationController implements Controller {
 
@@ -173,9 +171,9 @@ public class NavigationController implements Controller {
     int cnt;
     for (cnt = 0; cnt < separatePath.size(); cnt++) {
       Button btn = new JFXButton(separatePath.get(cnt).get(0).getFloor());
-      if (! buttonPane.getChildren().contains(btn)) {
+      if (!buttonPane.getChildren().contains(btn)) {
         buttonPane.getChildren().add(btn);
-        if(cnt != separatePath.size() - 1) {
+        if (cnt != separatePath.size() - 1) {
           Glyph arrow = new Glyph("FontAwesome", "ARROW_RIGHT");
           arrow.size(10);
           Label label = new Label("", arrow);
@@ -183,17 +181,14 @@ public class NavigationController implements Controller {
         }
       }
 
-      EventHandler<MouseEvent> handler = new EventHandler<MouseEvent>() {
-        @Override
-        public void handle(MouseEvent event) {
-          int cnt;
-          for (cnt = 0; cnt < separatePath.size(); cnt ++) {
-            if (event.getSource() == buttonPane.getChildren().get(cnt)) {
-              try {
-                map.zoomTo(separatePath.get(cnt).get(0));
-              } catch (IOException e) {
-                e.printStackTrace();
-              }
+      EventHandler<MouseEvent> handler = event -> {
+        int cnt1;
+        for (cnt1 = 0; cnt1 < separatePath.size(); cnt1++) {
+          if (event.getSource() == buttonPane.getChildren().get(cnt1)) {
+            try {
+              map.zoomTo(separatePath.get(cnt1).get(0));
+            } catch (IOException exception) {
+              exception.printStackTrace();
             }
           }
         }
@@ -209,7 +204,7 @@ public class NavigationController implements Controller {
       stringBuilder.append('\n');
     }
     instruction = stringBuilder.toString();
-
+    instructions.setText(instruction);
     map.zoomTo(searchForNode(fromComboBox.getValue()));
     map.setPath(path);
     map.drawPath();
@@ -235,7 +230,7 @@ public class NavigationController implements Controller {
   }
 
   private Node searchForNode(String string) {
-    for (Node n: database.getAllNodes()) {
+    for (Node n : database.getAllNodes()) {
       if (String.format("%s -- FLOOR %s", n.getLongName(), n.getFloor()).equals(string)) {
         return n;
       }
@@ -267,7 +262,7 @@ public class NavigationController implements Controller {
 
     ArrayList<Pair> unsorted = new ArrayList<>();
     for (Node n : database.getAllNodesByLongName()) {
-      if (!"5".equals(n.getFloor())  && !n.getNodeType().equals(Node.NodeType.HALL)) {
+      if (!"5".equals(n.getFloor()) && !n.getNodeType().equals(Node.NodeType.HALL)) {
         unsorted.add(new Pair(
             n.getLongName(),
             FuzzySearch.ratio(n.getLongName(), string),
@@ -279,13 +274,13 @@ public class NavigationController implements Controller {
     Collections.sort(unsorted);
     ArrayList<String> sortedStrings = new ArrayList<>();
     for (Pair p : unsorted) {
-      sortedStrings.add(String.format("%s -- FLOOR %s", p.longname,  p.floor));
+      sortedStrings.add(String.format("%s -- FLOOR %s", p.longname, p.floor));
     }
     return sortedStrings;
   }
 
   private void turnLongName() {
-    for (Node n: database.getAllNodesByLongName()) {
+    for (Node n : database.getAllNodesByLongName()) {
       if (!"5".equals(n.getFloor()) && !Node.NodeType.HALL.equals(n.getNodeType())) {
         listOfLongName.add(n.getLongName());
         listOfSortName.add(n.getLongName());
@@ -332,7 +327,7 @@ public class NavigationController implements Controller {
       floor = path.get(cnt).getFloor();
       if (floor.equals(path.get(cnt - 1).getFloor())) {
         smallPath.add(path.get(cnt));
-      } else if (! floor.equals(path.get(cnt - 1).getFloor())) {
+      } else if (!floor.equals(path.get(cnt - 1).getFloor())) {
         separatePath.add(smallPath);
         smallPath = new ArrayList<>();
         smallPath.add(path.get(cnt));
