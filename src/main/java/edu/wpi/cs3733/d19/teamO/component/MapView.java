@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import com.jfoenix.controls.JFXButton;
 
@@ -31,6 +32,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
+import javafx.scene.shape.StrokeLineJoin;
 import javafx.util.Duration;
 import net.kurobako.gesturefx.GesturePane;
 
@@ -433,7 +435,7 @@ public class MapView extends StackPane {
           circle.setStroke(Color.BLACK);
           startAndEndNodes.getChildren().add(circle);
 
-          Label label = new Label(node.getLongName());
+          Label label = new Label("From " + node.getLongName());
           label.setTranslateX(node.getXcoord() + 10);
           label.setTranslateY(node.getYcoord() - 9);
           label.getStyleClass().add("navlabel");
@@ -450,7 +452,7 @@ public class MapView extends StackPane {
         rectangle.setStroke(Color.BLACK);
         startAndEndNodes.getChildren().add(rectangle);
         if (lastNode.getFloorInt() == path.get(path.indexOf(lastNode) - 1).getFloorInt()) {
-          Label label2 = new Label(lastNode.getLongName());
+          Label label2 = new Label("To " + lastNode.getLongName());
           label2.setTranslateX(lastNode.getXcoord() + 10);
           label2.setTranslateY(lastNode.getYcoord() - 9);
           label2.getStyleClass().add("navlabel");
@@ -508,7 +510,7 @@ public class MapView extends StackPane {
    * @return animated line.
    */
   public Timeline addAntimation(Line line) {
-    line.getStrokeDashArray().setAll(5d, 5d, 5d, 5d);
+    line.getStrokeDashArray().setAll(15d, 10d, 15d, 10d);
     line.setStrokeWidth(3);
 
     final double maxOffset =
