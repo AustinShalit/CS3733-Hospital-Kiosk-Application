@@ -177,7 +177,16 @@ public class NavigationController implements Controller {
       EventHandler<MouseEvent> handler = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-
+          int cnt;
+          for (cnt = 0; cnt < separatePath.size(); cnt ++) {
+            if (event.getSource() == buttonPane.getChildren().get(cnt)) {
+              try {
+                map.zoomTo(separatePath.get(cnt).get(0));
+              } catch (IOException e) {
+                e.printStackTrace();
+              }
+            }
+          }
         }
       };
       btn.setOnMouseClicked(handler);
