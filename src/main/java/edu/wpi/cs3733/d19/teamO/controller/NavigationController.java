@@ -103,6 +103,14 @@ public class NavigationController implements Controller {
     stepByStep = new StepByStep();
     validateGoButton();
     map.setNavigation(true);
+    map.nodeFromProperty().addListener((observable, oldValue, newValue) -> {
+      fromComboBox.setValue(String.format("%s -- FLOOR %s",
+          newValue.getLongName(), newValue.getFloor()));
+    });
+    map.nodeToProperty().addListener((observable, oldValue, newValue) -> {
+      toComboBox.setValue(String.format("%s -- FLOOR %s",
+          newValue.getLongName(), newValue.getFloor()));
+    });
     map.nodeClickedProperty().addListener((observable, oldValue, newValue) -> {
       if (fromComboBox.isFocused()) {
         fromComboBox.setValue(String.format("%s -- FLOOR %s",
