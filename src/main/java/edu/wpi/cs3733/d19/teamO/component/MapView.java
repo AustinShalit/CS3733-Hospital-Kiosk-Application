@@ -130,6 +130,29 @@ public class MapView extends StackPane {
     gesturePane.setMinScale(0.1);
     gesturePane.reset();
 
+    gesturePane.setOnMouseMoved(e -> {
+      if (navigation) {
+        Point2D pointOnMap = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
+            .orElse(gesturePane.targetPointAtViewportCentre());
+
+        int currentX = (int) pointOnMap.getX();
+        int currentY = (int) pointOnMap.getY();
+        double min = 9999;
+        double distance = 0;
+        for (Node n : nodes) {
+          distance = Math.sqrt(abs(n.getXcoord() - currentX) * abs(n.getXcoord() - currentX)
+              + abs(n.getYcoord() - currentY) * abs(n.getYcoord() - currentY));
+          if (n.getFloorInt() == level && distance < min
+              && !n.getNodeType().equals(Node.NodeType.HALL)) {
+            circle.setCenterX(n.getXcoord());
+            circle.setCenterY(n.getYcoord());
+            min = distance;
+          }
+        }
+        circle.setVisible(true);
+      }
+    });
+
     gesturePane.setOnMouseClicked(e -> {
       if (navigation) {
         Point2D pointOnMap = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
@@ -403,7 +426,7 @@ public class MapView extends StackPane {
       Node lastNode = null;
       for (Node node : path) {
         if (lastNode != null) {
-          addLine(node, lastNode, Color.BLACK, 5);
+          addLine(node, lastNode, Color.BLACK, 14);
           addFloorChangeLabel(node, lastNode);
         } else if (node.getFloorInt() == level) {
           Circle circle = new Circle(node.getXcoord(), node.getYcoord(), 8, Color.GREEN);
@@ -486,7 +509,7 @@ public class MapView extends StackPane {
    */
   public Timeline addAntimation(Line line) {
     line.getStrokeDashArray().setAll(5d, 5d, 5d, 5d);
-    line.setStrokeWidth(3);
+    line.setStrokeWidth(4);
 
     final double maxOffset =
             line.getStrokeDashArray().stream().reduce(0d, (a, b) -> a + b);
