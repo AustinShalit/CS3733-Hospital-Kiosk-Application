@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 
 import foodRequest.FoodRequest;
+import foodRequest.ServiceException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -176,14 +177,14 @@ public class RequestController implements Controller {
   }
 
   @FXML
-  void foodAction(){
+  void foodAction() {
     FoodRequest foodRequest = new FoodRequest();
-    try{
-      foodRequest.run(0,0,1900,1000,
-          null,null,null);
-    }catch (Exception e){
+    try {
+      foodRequest.run(0, 0, 1900, 1000,
+           null, null, null);
+    } catch (ServiceException exception) {
       System.out.println("Failed to run API");
-      e.printStackTrace();
+      exception.printStackTrace();
     }
   }
 
