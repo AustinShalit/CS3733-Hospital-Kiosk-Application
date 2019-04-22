@@ -23,9 +23,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import kotlin.Pair;
-import javafx.scene.layout.FlowPane;
 
 import edu.wpi.cs3733.d19.teamO.AppPreferences;
 import edu.wpi.cs3733.d19.teamO.component.FuzzyWuzzyComboBox;
@@ -164,7 +164,11 @@ public class NavigationController implements Controller {
   }
 
   @FXML
-  @SuppressWarnings({"PMD.AvoidInstantiatingObjectsInLoops", "UseStringBufferForStringAppends"})
+  @SuppressWarnings({
+      "PMD.AvoidInstantiatingObjectsInLoops",
+      "UseStringBufferForStringAppends",
+      "PMD.NPathComplexity"
+  })
   void onGoButtonAction() throws IOException {
     instructionPane.setVisible(true);
 
