@@ -6,8 +6,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPopup;
 
+import animatefx.animation.RotateIn;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -19,7 +22,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -38,6 +43,8 @@ import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 
 import static java.lang.Math.abs;
+import static javafx.scene.input.MouseButton.PRIMARY;
+import static javafx.scene.input.MouseButton.SECONDARY;
 
 @SuppressWarnings({"PMD.TooManyFields", "PMD.ExcessiveImports", "PMD.TooManyMethods" ,
     "PMD.CyclomaticComplexity"})
@@ -76,6 +83,11 @@ public class MapView extends StackPane {
 
   private final SimpleObjectProperty<Node> nodeClicked = new SimpleObjectProperty<>();
   private  Collection<Node> nodes;
+  private JFXPopup optionsPopup;
+  private ContextMenu contextMenu = new ContextMenu();
+  MenuItem fromHere = new MenuItem("Directions from here");
+  MenuItem toHere = new MenuItem("Directions to here");
+
 
   Group startAndEndNodes = new Group();
 
@@ -127,38 +139,48 @@ public class MapView extends StackPane {
 
   @FXML
   void initialize() throws IOException {
+    contextMenu.getItems().addAll(fromHere, toHere);
+    fromHere.setOnAction(a->{
+
+    });
     gesturePane.setMinScale(0.1);
     gesturePane.reset();
-
     gesturePane.setOnMouseClicked(e -> {
-      if (navigation) {
-        Point2D pointOnMap = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
-            .orElse(gesturePane.targetPointAtViewportCentre());
-        if (e.getButton() == MouseButton.PRIMARY && e.getClickCount() == 2) {
-          // increment of scale makes more sense exponentially instead of linearly
-          gesturePane.animate(Duration.millis(200))
-              .interpolateWith(Interpolator.EASE_BOTH)
-              .zoomBy(gesturePane.getCurrentScale(), pointOnMap);
-        }
-
-        int currentX = (int) pointOnMap.getX();
-        int currentY = (int) pointOnMap.getY();
-        double min = 9999;
-        double distance = 0;
-        for (Node n : nodes) {
-          distance = Math.sqrt(abs(n.getXcoord() - currentX) * abs(n.getXcoord() - currentX)
-              + abs(n.getYcoord() - currentY) * abs(n.getYcoord() - currentY));
-          if (n.getFloorInt() == level && distance < min
-              && !n.getNodeType().equals(Node.NodeType.HALL)) {
-            nodeClicked.set(n);
-            circle.setCenterX(n.getXcoord());
-            circle.setCenterY(n.getYcoord());
-            min = distance;
+      if (e.getButton().equals(PRIMARY)) {
+        contextMenu.hide();
+        double x = e.getSceneX();
+        if (navigation) {
+          Point2D pointOnMap = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
+              .orElse(gesturePane.targetPointAtViewportCentre());
+          if (e.getButton() == PRIMARY && e.getClickCount() == 2) {
+            // increment of scale makes more sense exponentially instead of linearly
+            gesturePane.animate(Duration.millis(200))
+                .interpolateWith(Interpolator.EASE_BOTH)
+                .zoomBy(gesturePane.getCurrentScale(), pointOnMap);
+          }
+          if (e.isControlDown()) { //
+            int currentX = (int) pointOnMap.getX();
+            int currentY = (int) pointOnMap.getY();
+            double min = 9999;
+            double distance = 0;
+            for (Node n : nodes) {
+              distance = Math.sqrt(abs(n.getXcoord() - currentX) * abs(n.getXcoord() - currentX)
+                  + abs(n.getYcoord() - currentY) * abs(n.getYcoord() - currentY));
+              if (n.getFloorInt() == level && distance < min
+                  && !n.getNodeType().equals(Node.NodeType.HALL)) {
+                nodeClicked.set(n);
+                circle.setCenterX(n.getXcoord());
+                circle.setCenterY(n.getYcoord());
+                min = distance;
+              }
+            }
+            circle.setVisible(true);
+            coordY.setText(Double.toString((int) pointOnMap.getX()));
+            coordX.setText(Double.toString((int) pointOnMap.getY()));
           }
         }
-        circle.setVisible(true);
-        coordY.setText(Double.toString((int) pointOnMap.getX()));
-        coordX.setText(Double.toString((int) pointOnMap.getY()));
+      } else if (e.getButton().equals(SECONDARY)) {
+        contextMenu.show(gesturePane,e.getScreenX(), e.getScreenY());
       }
     });
 
@@ -626,6 +648,23 @@ public class MapView extends StackPane {
     }
   }
 
+  private void findNodeClicked(){
+    int currentX = (int) pointOnMap.getX();
+    int currentY = (int) pointOnMap.getY();
+    double min = 9999;
+    double distance = 0;
+    for (Node n : nodes) {
+      distance = Math.sqrt(abs(n.getXcoord() - currentX) * abs(n.getXcoord() - currentX)
+          + abs(n.getYcoord() - currentY) * abs(n.getYcoord() - currentY));
+      if (n.getFloorInt() == level && distance < min
+          && !n.getNodeType().equals(Node.NodeType.HALL)) {
+        nodeClicked.set(n);
+        circle.setCenterX(n.getXcoord());
+        circle.setCenterY(n.getYcoord());
+        min = distance;
+      }
+    }
+  }
 
 
 }
