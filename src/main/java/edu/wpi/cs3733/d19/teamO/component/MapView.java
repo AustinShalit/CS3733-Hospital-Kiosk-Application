@@ -677,8 +677,9 @@ public class MapView extends StackPane {
       if (lastNode.getFloorInt() == level) {
         Button button = new JFXButton("To Floor " + node.getFloor());
         button.setTranslateX(lastNode.getXcoord() + 10);
-        button.setTranslateY(lastNode.getYcoord() + 10);
+        button.setTranslateY(lastNode.getYcoord() + 15);
         button.getStyleClass().add("navlabel");
+
 
         button.setOnAction(event -> {
           if (event.getSource() == button) {
@@ -707,7 +708,7 @@ public class MapView extends StackPane {
       } else if (node.getFloorInt() == level) {
         Button button = new JFXButton("Back to Floor " + lastNode.getFloor());
         button.setTranslateX(node.getXcoord() + 10);
-        button.setTranslateY(node.getYcoord() + 10);
+        button.setTranslateY(node.getYcoord() + 15);
         button.getStyleClass().add("navlabel");
 
         button.setOnAction(event -> {
