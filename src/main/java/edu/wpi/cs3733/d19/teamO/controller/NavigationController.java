@@ -14,8 +14,9 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPopup;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.controlsfx.glyphfont.Glyph;
 
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -255,20 +256,11 @@ public class NavigationController implements Controller {
       }
 
       if (i != floors.size() - 1) {
-        Label label;
+        FontAwesomeIconView iconView = new FontAwesomeIconView(FontAwesomeIcon.ARROW_RIGHT);
+        iconView.setStyle("-fx-font-family:FontAwesome; -fx-fill: #f6bd38");
 
-        try {
-          Glyph arrow = new Glyph("FontAwesome", "ARROW_RIGHT");
-          arrow.size(12);
-          arrow = arrow.duplicate();
-          arrow.setStyle("-fx-text-fill: #f6bd38; -fx-fill: #f6bd38;");
-          label = new Label("", arrow);
-        } catch (IllegalArgumentException iac) {
-          label = new Label(">");
-        }
-
-        if (!buttonPane.getChildren().contains(label)) {
-          buttonPane.getChildren().add(label);
+        if (!buttonPane.getChildren().contains(iconView)) {
+          buttonPane.getChildren().add(iconView);
         }
       }
     }
