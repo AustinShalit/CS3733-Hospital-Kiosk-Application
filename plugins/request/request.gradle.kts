@@ -2,6 +2,7 @@
 repositories {
     mavenCentral()
     jcenter()
+    maven("http://first.wpi.edu/FRC/roborio/maven/release")
 }
 
 application {
