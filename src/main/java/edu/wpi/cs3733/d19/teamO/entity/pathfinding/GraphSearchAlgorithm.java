@@ -11,7 +11,7 @@ import static edu.wpi.cs3733.d19.teamO.entity.pathfinding.PathBuilderUtility.bui
 /**
  * A GraphSearchAlgorithm is a way of traversing a map.
  */
-public abstract class GraphSearchAlgorithm<T> {
+public abstract class GraphSearchAlgorithm<T extends ComparableCost<T>> {
   /**
    * Clear the frontier of all elements.
    */
@@ -25,7 +25,7 @@ public abstract class GraphSearchAlgorithm<T> {
   /**
    * Adds the provided item to the frontier.
    */
-  abstract void addToFrontier(T node);
+  abstract void addToFrontier(T node, double priority);
 
   /**
    * Gets the next item from the frontier.
@@ -33,14 +33,21 @@ public abstract class GraphSearchAlgorithm<T> {
   abstract T getNextFrontier();
 
   /**
+   * Get the priority heuristic for the next item.
+   */
+  abstract double getPriorityHeuristic(T next, T goal);
+
+  /**
    * Given a graph, get the path between the start and end nodes.
    */
   public final List<T> getPath(Graph<T> graph, T start, T goal) {
     clearFrontier();
     final Map<T, T> cameFrom = new HashMap<>();
+    final Map<T, Double> costSoFar = new HashMap<>();
 
-    addToFrontier(start);
+    addToFrontier(start, 0.0);
     cameFrom.put(start, null);
+    costSoFar.put(start, 0.0);
 
     while (!isEmptyFrontier()) {
       T current = getNextFrontier();
@@ -50,8 +57,10 @@ public abstract class GraphSearchAlgorithm<T> {
       }
 
       for (T next : graph.successors(current)) {
-        if (!cameFrom.containsKey(next)) {
-          addToFrontier(next);
+        double newCost = costSoFar.get(current) + current.getCostTo(next);
+        if (!cameFrom.containsKey(next) || newCost < costSoFar.get(next)) {
+          costSoFar.put(next, newCost);
+          addToFrontier(next, newCost + getPriorityHeuristic(next, goal));
           cameFrom.put(next, current);
         }
       }

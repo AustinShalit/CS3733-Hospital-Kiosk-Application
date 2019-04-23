@@ -3,7 +3,8 @@ package edu.wpi.cs3733.d19.teamO.entity.pathfinding;
 import java.util.LinkedList;
 import java.util.Queue;
 
-class BreadthFirstSearchAlgorithm<T> extends UninformedGraphSearchAlgorithm<T> {
+class BreadthFirstSearchAlgorithm<T extends ComparableCost<T>>
+    extends UninformedGraphSearchAlgorithm<T> {
 
   private final Queue<T> frontier = new LinkedList<>();
 

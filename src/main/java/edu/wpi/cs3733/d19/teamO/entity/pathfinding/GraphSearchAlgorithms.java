@@ -11,17 +11,20 @@ public final class GraphSearchAlgorithms extends Registry<GraphSearchAlgorithmSu
 
   private static GraphSearchAlgorithms defaultInstance;
 
+  private static final GraphSearchAlgorithmSupplier A_STAR
+      = new GraphSearchAlgorithmSupplier("A Star",
+      AStarAlgorithm::new);
+  private static final GraphSearchAlgorithmSupplier DIJKSTRA
+      = new GraphSearchAlgorithmSupplier("Dijkstra",
+      DijkstraAlgorithm::new);
   private static final GraphSearchAlgorithmSupplier BFS
       = new GraphSearchAlgorithmSupplier("Breadth First Search",
       BreadthFirstSearchAlgorithm::new);
   private static final GraphSearchAlgorithmSupplier DFS
       = new GraphSearchAlgorithmSupplier("Depth First Search",
       DepthFirstSearchAlgorithm::new);
-  private static final GraphSearchAlgorithmSupplier A_STAR
-      = new GraphSearchAlgorithmSupplier("A Star",
-      AStarAlgorithm::new);
 
-  public static final GraphSearchAlgorithmSupplier INITIAL_ALGORITHM = BFS;
+  public static final GraphSearchAlgorithmSupplier INITIAL_ALGORITHM = A_STAR;
 
   /**
    * Gets the default algorithms instance.
@@ -29,7 +32,7 @@ public final class GraphSearchAlgorithms extends Registry<GraphSearchAlgorithmSu
   public static GraphSearchAlgorithms getDefault() {
     synchronized (GraphSearchAlgorithms.class) {
       if (defaultInstance == null) {
-        defaultInstance = new GraphSearchAlgorithms(BFS, DFS, A_STAR);
+        defaultInstance = new GraphSearchAlgorithms(A_STAR, DIJKSTRA, BFS, DFS);
       }
     }
     return defaultInstance;

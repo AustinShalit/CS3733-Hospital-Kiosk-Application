@@ -2,7 +2,8 @@ package edu.wpi.cs3733.d19.teamO.entity.pathfinding;
 
 import java.util.Stack;
 
-class DepthFirstSearchAlgorithm<T> extends UninformedGraphSearchAlgorithm<T> {
+class DepthFirstSearchAlgorithm<T extends ComparableCost<T>>
+    extends UninformedGraphSearchAlgorithm<T> {
 
   private final Stack<T> frontier = new Stack<>();
 
