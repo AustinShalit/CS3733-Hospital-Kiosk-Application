@@ -6,12 +6,12 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
-import com.google.common.eventbus.EventBus;
 import com.google.common.graph.GraphBuilder;
 import com.google.common.graph.ImmutableGraph;
 import com.google.common.graph.MutableGraph;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPopup;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.controlsfx.glyphfont.Glyph;
@@ -22,6 +22,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
@@ -30,7 +31,6 @@ import kotlin.Pair;
 import edu.wpi.cs3733.d19.teamO.AppPreferences;
 import edu.wpi.cs3733.d19.teamO.component.FuzzyWuzzyComboBox;
 import edu.wpi.cs3733.d19.teamO.component.MapView;
-import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 import edu.wpi.cs3733.d19.teamO.entity.pathfinding.IGraphSearchAlgorithm;
@@ -76,19 +76,29 @@ public class NavigationController implements Controller {
   @Inject
   private Database database;
   @Inject
-  private EventBus eventBus;
-  @Inject
   private AboutController.Factory aboutControllerFactory;
+
+  private JFXPopup aboutPopup;
 
 
   @FXML
   void initialize() {
+    aboutPopup = new JFXPopup(aboutControllerFactory.create().root);
+    aboutPopup.setOnAutoHide(
+        event -> {
+          ColorAdjust reset = new ColorAdjust();
+          reset.setBrightness(0);
+          root.setEffect(reset);
+        }
+    );
     Collection<Node> nodes = database.getAllNodes();
     CollectionUtils.filter(
         nodes,
         object -> ((Node) object).getNodeType() != Node.NodeType.HALL
             && !((Node) object).getFloor().equals("5")
     );
+
+    map.fire = false;
 
     toComboBox.setNodes(nodes);
     fromComboBox.setNodes(nodes);
@@ -151,6 +161,19 @@ public class NavigationController implements Controller {
     NavigationController create();
   }
 
+  @FXML
+  void onAboutButtonAction() {
+    ColorAdjust colorAdjust = new ColorAdjust();
+    colorAdjust.setBrightness(-0.2);
+    root.setEffect(colorAdjust);
+    aboutPopup.show(getRoot());
+    aboutPopup.setX(
+        (getRoot().getScene().getWidth() - aboutPopup.getWidth()) / 2
+    );
+    aboutPopup.setY(
+        (getRoot().getScene().getHeight() - aboutPopup.getHeight()) / 2
+    );
+  }
 
   @FXML
   void onToComboAction() {
@@ -269,11 +292,6 @@ public class NavigationController implements Controller {
     } else {
       goButton.setDisable(true);
     }
-  }
-
-  @FXML
-  void aboutOnAction() {
-    eventBus.post(new ChangeMainViewEvent(aboutControllerFactory.create()));
   }
 
   @FXML
