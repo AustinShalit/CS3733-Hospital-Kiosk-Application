@@ -8,16 +8,16 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<fx:root id="text" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.84" type="BorderPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.AboutController">
+<BorderPane id="text" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.84" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.AboutController">
   <center>
-    <VBox alignment="CENTER" prefHeight="971.0" prefWidth="1426.0" stylesheets="@style/KioskStyle.css" BorderPane.alignment="CENTER">
+    <VBox alignment="CENTER" prefHeight="793.0" prefWidth="1012.0" stylesheets="@style/KioskStyle.css" BorderPane.alignment="CENTER">
       <children>
         <Text id="text" fx:id="aboutPage" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="root" text="About Page" textAlignment="CENTER" wrappingWidth="600.2080078125">
           <font>
             <Font size="70.0" />
           </font>
                <VBox.margin>
-                  <Insets bottom="30.0" />
+                  <Insets bottom="30.0" top="10.0" />
                </VBox.margin>
         </Text>
         <Text id="text" fx:id="compSci" strokeType="OUTSIDE" strokeWidth="0.0" text="WPI Computer Science Department" textAlignment="CENTER" wrappingWidth="603.0400390625">
@@ -54,38 +54,48 @@
             <Font size="50.0" />
           </font>
         </Text>
-        <VBox alignment="CENTER" maxHeight="348.0" maxWidth="1038.0" prefHeight="348.0" prefWidth="1038.0" stylesheets="@style/KioskStyle.css">
+        <VBox alignment="CENTER" maxHeight="348.0" maxWidth="1038.0" prefHeight="348.0" prefWidth="1173.0" stylesheets="@style/KioskStyle.css">
           <children>
             <Text id="text" fx:id="leadS" strokeType="OUTSIDE" strokeWidth="0.0" text="Lead Software Engineer: Austin Shalit" textAlignment="CENTER">
               <font>
                 <Font size="26.0" />
               </font>
             </Text>
+                  <ImageView id="austinPic" fitHeight="197.0" fitWidth="200.0">
+                     <image>
+                        <Image url="@style/austin.JPG" />
+                     </image>
+                  </ImageView>
             <Text id="text" fx:id="assistLead" strokeType="OUTSIDE" strokeWidth="0.0" text="Assistant Lead Software Engineers: Kenneth Morton, Dev Patel, Jyan Zarate" textAlignment="CENTER" wrappingWidth="956.275390625">
               <font>
                 <Font size="26.0" />
               </font>
             </Text>
-            <Text id="text" fx:id="softEng" strokeType="OUTSIDE" strokeWidth="0.0" text="Software Engineers: Jack Yan, Bailey Schmidt, Peter Prygocki" textAlignment="CENTER" wrappingWidth="600.7421875">
+                  <ImageView id="kenPic" fitHeight="200.0" fitWidth="152.0">
+                     <image>
+                        <Image url="@style/headshot.jpg" />
+                     </image>
+                  </ImageView>
+            <Text id="text" fx:id="softEng" strokeType="OUTSIDE" strokeWidth="0.0" text="Software Engineers: Jack Yang, Bailey Schmidt, Peter Prygocki" textAlignment="CENTER" wrappingWidth="771.7421875">
               <font>
                 <Font size="26.0" />
               </font>
             </Text>
-            <Text id="text" fx:id="projMan" strokeType="OUTSIDE" strokeWidth="0.0" text="Project Manager : Amelia Nishimura" textAlignment="CENTER" wrappingWidth="601.275390625">
+            <Text id="text" fx:id="projMan" strokeType="OUTSIDE" strokeWidth="0.0" text="Project Manager: Amelia Nishimura" textAlignment="CENTER" wrappingWidth="601.275390625">
               <font>
                 <Font size="26.0" />
               </font>
             </Text>
+                  <ImageView id="ameliaPic" fitHeight="200.0" fitWidth="150.0">
+                     <image>
+                        <Image url="@style/file3-3.jpeg" />
+                     </image>
+                  </ImageView>
             <Text id="text" fx:id="scrumMaster" strokeType="OUTSIDE" strokeWidth="0.0" text="Scrum Master: Alexandria Nogueras" textAlignment="CENTER" wrappingWidth="599.58984375">
               <font>
                 <Font size="26.0" />
               </font>
             </Text>
-                  <ImageView fitHeight="133.0" fitWidth="200.0">
-                     <image>
-                        <Image url="@../../../../../../../../../../../Documents/Professional/headshot.jpg" />
-                     </image>
-                  </ImageView>
             <Text id="text" fx:id="testEng" strokeType="OUTSIDE" strokeWidth="0.0" text="Test Engineer: Sam Johnson" textAlignment="CENTER" wrappingWidth="600.66796875">
               <font>
                 <Font size="26.0" />
@@ -104,6 +114,11 @@
                 <Insets bottom="10.0" />
               </VBox.margin>
             </Text>
+                  <ImageView fitHeight="150.0" fitWidth="200.0" rotate="90.0">
+                     <image>
+                        <Image url="@style/20190423_181008.jpg" />
+                     </image>
+                  </ImageView>
           </children>
           <VBox.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -125,6 +140,9 @@
     <font>
       <Font name="Palatino Linotype" size="18.0" />
     </font>
+         <BorderPane.margin>
+            <Insets bottom="10.0" />
+         </BorderPane.margin>
   </Text>
    </bottom>
-</fx:root>
+</BorderPane>

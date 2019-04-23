@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d19.teamO.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 
@@ -41,6 +42,14 @@ public class AboutController implements Controller {
   private Text thankYou;
   @FXML
   private BorderPane root;
+  @FXML
+  private ImageView austinPic;
+  @FXML
+  private ImageView kenPic;
+  @FXML
+  private ImageView ameliaPic;
+  @FXML
+  private ImageView alexPic;
 
   public interface Factory {
     AboutController create();
@@ -50,5 +59,8 @@ public class AboutController implements Controller {
   public Parent getRoot() {
     return root;
   }
+
+  public Parent setRoot() {return root; }
+
 
 }
