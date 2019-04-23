@@ -184,6 +184,11 @@ public class MapView extends StackPane {
     gesturePane.setMinScale(0.1);
     gesturePane.reset();
 
+    gesturePane.setOnScroll(s -> {
+      zoomLabel();
+    });
+
+
     gesturePane.setOnMouseMoved(e -> {
       if (navigation) {
         Point2D pointOnMap = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
@@ -215,10 +220,12 @@ public class MapView extends StackPane {
               .orElse(gesturePane.targetPointAtViewportCentre());
           if (e.getButton() == PRIMARY && e.getClickCount() == 2) {
             // increment of scale makes more sense exponentially instead of linearly
+
             gesturePane.animate(Duration.millis(200))
                 .interpolateWith(Interpolator.EASE_BOTH)
                 .zoomBy(gesturePane.getCurrentScale(), pointOnMap);
           }
+          zoomLabel();
           if (e.isControlDown()) {
             int currentX = (int) pointOnMap.getX();
             int currentY = (int) pointOnMap.getY();
@@ -545,8 +552,8 @@ public class MapView extends StackPane {
   }
 
   /**
-    Takes in a set of lines drawn by the path.
-    Removes old animations and adds new ones.
+   Takes in a set of lines drawn by the path.
+   Removes old animations and adds new ones.
    */
   public void pixars_A_Bugs_Life(List<Line> trail) {
     //Stops all old animations before they are removed
@@ -575,25 +582,25 @@ public class MapView extends StackPane {
     line.setStrokeWidth(3);
 
     final double maxOffset =
-            line.getStrokeDashArray().stream().reduce(0d, (a, b) -> a + b);
+        line.getStrokeDashArray().stream().reduce(0d, (a, b) -> a + b);
 
     Timeline timeline = new Timeline(
-            new KeyFrame(
-                    Duration.ZERO,
-                    new KeyValue(
-                            line.strokeDashOffsetProperty(),
-                            0,
-                            Interpolator.LINEAR
-                    )
-            ),
-            new KeyFrame(
-                    Duration.seconds(2),
-                    new KeyValue(
-                            line.strokeDashOffsetProperty(),
-                            maxOffset,
-                            Interpolator.LINEAR
-                    )
+        new KeyFrame(
+            Duration.ZERO,
+            new KeyValue(
+                line.strokeDashOffsetProperty(),
+                0,
+                Interpolator.LINEAR
             )
+        ),
+        new KeyFrame(
+            Duration.seconds(2),
+            new KeyValue(
+                line.strokeDashOffsetProperty(),
+                maxOffset,
+                Interpolator.LINEAR
+            )
+        )
     );
     timeline.setCycleCount(Timeline.INDEFINITE);
     return timeline;
@@ -731,7 +738,7 @@ public class MapView extends StackPane {
 
   }
 
-  void panMapBetweenNodes(Node a, Node b) {
+  private void panMapBetweenNodes(Node a, Node b) {
     int midX = (a.getXcoord() + b.getXcoord()) / 2;
     int midY = (a.getYcoord() + b.getYcoord()) / 2;
     int distanceX = abs(a.getXcoord() - b.getXcoord()) + 1;
@@ -744,4 +751,22 @@ public class MapView extends StackPane {
     }
     gesturePane.centreOn(new Point2D(midX , midY));
   }
+
+  private void zoomLabel(){
+    if(buttonsGroup.getChildren() != null && labelsGroup.getChildren() != null){
+      for (javafx.scene.Node b : buttonsGroup.getChildren()) {
+        if (gesturePane.getCurrentScale() < 1.2) {
+          b.setScaleX(1.2 / gesturePane.getCurrentScale());
+          b.setScaleY(1.2 / gesturePane.getCurrentScale());
+        }
+      }
+      for (javafx.scene.Node l : labelsGroup.getChildren()) {
+        if (gesturePane.getCurrentScale() < 1.2) {
+          l.setScaleX(1.2 / gesturePane.getCurrentScale());
+          l.setScaleY(1.2 / gesturePane.getCurrentScale());
+        }
+      }
+    }
+  }
+
 }
