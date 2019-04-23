@@ -33,6 +33,8 @@ public class OptionsPopupController implements Controller {
   @Inject
   private EmployeeController.Factory employeeControllerFactory;
   @Inject
+  private FireAlarmController.Factory fireAlarmControllerFactory;
+  @Inject
   private GlobalState globalState;
 
   private JFXPopup settingsPopup;
@@ -40,11 +42,11 @@ public class OptionsPopupController implements Controller {
   @FXML
   void initialize() {
     settingsPopup = new JFXPopup(settingsControllerFactory.create().root);
-    globalState.loggedInEmployeeProperty().addListener(((observable, oldValue, newValue) -> {
+    globalState.loggedInEmployeeProperty().addListener((observable, oldValue, newValue) -> {
       if (newValue != null) {
-        if(newValue.getEmployeeAttributes().getEmployeeType()
-            == Employee.EmployeeType.ADMIN &&
-            list.getItems().contains(editEmp) && list.getItems().contains(editMap)) {
+        if (newValue.getEmployeeAttributes().getEmployeeType()
+            == Employee.EmployeeType.ADMIN
+            && list.getItems().contains(editEmp) && list.getItems().contains(editMap)) {
           System.out.println("Logged in");
         } else if (newValue.getEmployeeAttributes().getEmployeeType()
             == Employee.EmployeeType.ADMIN) {
@@ -55,7 +57,7 @@ public class OptionsPopupController implements Controller {
           list.getItems().remove(editMap);
         }
       }
-    }));
+    });
   }
 
   @FXML
@@ -83,6 +85,12 @@ public class OptionsPopupController implements Controller {
   void mapAction(MouseEvent event) {
     event.consume();
     eventBus.post(new ChangeMainViewEvent(mapEditControllerFactory.create()));
+  }
+
+  @FXML
+  void fireAction(MouseEvent event) {
+    event.consume();
+    eventBus.post(new ChangeMainViewEvent(fireAlarmControllerFactory.create()));
   }
 
   @Override
