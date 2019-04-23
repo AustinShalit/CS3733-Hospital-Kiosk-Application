@@ -52,9 +52,11 @@ public class OptionsPopupController implements Controller {
             == Employee.EmployeeType.ADMIN) {
           list.getItems().add(editEmp);
           list.getItems().add(editMap);
+          list.setMaxHeight(162.0);
         } else {
           list.getItems().remove(editEmp);
           list.getItems().remove(editMap);
+          list.setMaxHeight(86.0);
         }
       }
     });
