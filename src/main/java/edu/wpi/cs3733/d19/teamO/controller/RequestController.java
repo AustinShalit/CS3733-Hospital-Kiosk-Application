@@ -212,7 +212,7 @@ public class RequestController implements Controller {
     Request request = new Request();
     try {
       request.run(0, 0, -1, -1, null, null, null);
-    } catch (Exception exception) {
+    } catch (Exception exception) { //NOPMD
       System.out.println("Failed to run dominos");
       exception.printStackTrace();
     }
