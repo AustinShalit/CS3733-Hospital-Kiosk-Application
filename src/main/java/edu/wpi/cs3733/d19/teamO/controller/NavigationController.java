@@ -88,7 +88,7 @@ public class NavigationController implements Controller {
   private JFXPopup aboutPopup;
 
   ImageView reverseIcon = new ImageView(new Image(getClass()
-      .getResourceAsStream("../controller/reverseIcon.png")));
+      .getResourceAsStream("../controller/reverse_icon.png")));
 
   @FXML
   void initialize() {
@@ -119,8 +119,8 @@ public class NavigationController implements Controller {
     toComboBox.refresh();
     fromComboBox.refresh();
 
-    reverseIcon.setFitHeight(40);
-    reverseIcon.setFitWidth(40);
+    reverseIcon.setFitHeight(30);
+    reverseIcon.setFitWidth(30);
     reverseButton.setGraphic(reverseIcon);
 
     map.setNodes(database.getAllNodes());

@@ -54,19 +54,25 @@
                   </HBox>
                 </children>
               </VBox>
-              <JFXButton fx:id="reverseButton" onAction="#reverseOnAction" maxWidth="30.0" mnemonicParsing="false" prefHeight="100.0">
-              </JFXButton>
             </children>
           </HBox>
-
-          <JFXButton id="gobtn" fx:id="goButton" onAction="#onGoButtonAction" prefWidth="294.0" style="-fx-font-weight: BOLD;" text="GO" textFill="WHITE">
-            <VBox.margin>
-              <Insets bottom="16.0" />
-            </VBox.margin>
-            <font>
-              <Font name="System Bold" size="18.0" />
-            </font>
-          </JFXButton>
+               <HBox prefHeight="47.0" prefWidth="324.0">
+                  <children>
+                     <JFXButton fx:id="reverseButton" maxWidth="46.0" mnemonicParsing="false" onAction="#reverseOnAction" prefHeight="35.0" prefWidth="33.0" style="-fx-background-color: #004E86">
+                        <HBox.margin>
+                           <Insets right="20.0" />
+                        </HBox.margin></JFXButton>
+      
+                <JFXButton id="gobtn" fx:id="goButton" onAction="#onGoButtonAction" prefHeight="40.0" prefWidth="211.0" style="-fx-font-weight: BOLD;" text="GO" textFill="WHITE">
+                  <font>
+                    <Font name="System Bold" size="18.0" />
+                  </font>
+                        <HBox.margin>
+                           <Insets left="10.0" />
+                        </HBox.margin>
+                </JFXButton>
+                  </children>
+               </HBox>
 
           <Rectangle fill="#f6bd38" height="2.0" strokeWidth="0.0" width="150.0" />
 
