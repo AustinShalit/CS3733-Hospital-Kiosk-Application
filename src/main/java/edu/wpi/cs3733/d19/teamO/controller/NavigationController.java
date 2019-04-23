@@ -44,6 +44,8 @@ public class NavigationController implements Controller {
 
   @FXML
   BorderPane root;
+  @FXML
+  VBox sidebar;
 
   @FXML
   JFXButton restroomButton;
@@ -127,13 +129,22 @@ public class NavigationController implements Controller {
       }
     });
 
-    fromComboBox.setStyle("-fx-font-size: 12px; -fx-font-style: Palatino Linotype;");
-    toComboBox.setStyle("-fx-font-size: 12px; -fx-font-style: Palatino Linotype;");
+
+    root.widthProperty().addListener(
+        (observable, oldValue, newValue) ->
+            map.setMaxWidth(newValue.doubleValue() - sidebar.getWidth()));
+
+    root.heightProperty().addListener(
+        (observable, oldValue, newValue) -> map.setPrefHeight(newValue.doubleValue())
+    );
+
+    fromComboBox.setStyle("-fx-font-size: 12px; -fx-font-family: Palatino Linotype;");
+    toComboBox.setStyle("-fx-font-size: 12px; -fx-font-family: Palatino Linotype;");
 
     instructionPane.setVisible(false);
 
-    instructionPane.setStyle("-fx-font-size: 15px; -fx-font-style: Palatino Linotype;"
-        + "-fx-font-style: BOLD");
+    instructionPane.setStyle("-fx-font-size: 15px; -fx-font-family: Palatino Linotype; "
+        + "-fx-font-weight: BOLD");
   }
 
 
@@ -203,6 +214,7 @@ public class NavigationController implements Controller {
       Node node = floors.get(i);
 
       Button button = new JFXButton(node.getFloor());
+      button.setId("map-button");
       button.setOnAction(event -> {
         try {
           map.zoomTo(node);
