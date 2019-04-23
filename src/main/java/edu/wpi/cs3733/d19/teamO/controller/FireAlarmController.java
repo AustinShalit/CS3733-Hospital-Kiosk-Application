@@ -51,7 +51,7 @@ public class FireAlarmController implements Controller{
   @FXML
   void initialize() throws IOException {
     map.setNodes(database.getAllNodes());
-    map.setNavigation(true);
+    map.setNavigation(false);
     flash(topBox);
     flash(bottomBox);
     flash(leftBox);
@@ -68,7 +68,7 @@ public class FireAlarmController implements Controller{
     map.setPath(path);
 
     map.drawPath();
-    map.fire=true;
+    map.setFire(false);
 
 
   }

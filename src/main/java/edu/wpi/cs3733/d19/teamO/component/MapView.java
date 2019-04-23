@@ -47,7 +47,7 @@ import static javafx.scene.input.MouseButton.SECONDARY;
 public class MapView extends StackPane {
   private boolean navigation;
   private int level = 1;
-  public boolean fire ;
+  public boolean fire;
 
   @FXML
   GesturePane gesturePane;
@@ -105,6 +105,10 @@ public class MapView extends StackPane {
 
   public void setNavigation(boolean navigation) {
     this.navigation = navigation;
+  }
+
+  public void setFire(boolean fire) {
+    this.fire = fire;
   }
 
   public Node getNodeClicked() {
