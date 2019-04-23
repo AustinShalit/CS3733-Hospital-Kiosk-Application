@@ -218,13 +218,6 @@ public class MapView extends StackPane {
         if (navigation) {
           Point2D pointOnMap = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
               .orElse(gesturePane.targetPointAtViewportCentre());
-          if (e.getButton() == PRIMARY && e.getClickCount() == 2) {
-            // increment of scale makes more sense exponentially instead of linearly
-
-            gesturePane.animate(Duration.millis(200))
-                .interpolateWith(Interpolator.EASE_BOTH)
-                .zoomBy(gesturePane.getCurrentScale(), pointOnMap);
-          }
           zoomLabel();
           if (e.isControlDown()) {
             int currentX = (int) pointOnMap.getX();
@@ -753,8 +746,8 @@ public class MapView extends StackPane {
     gesturePane.centreOn(new Point2D(midX , midY));
   }
 
-  private void zoomLabel(){
-    if(buttonsGroup.getChildren() != null && labelsGroup.getChildren() != null){
+  private void zoomLabel() {
+    if (buttonsGroup.getChildren() != null && labelsGroup.getChildren() != null) {
       for (javafx.scene.Node b : buttonsGroup.getChildren()) {
         if (gesturePane.getCurrentScale() < 1.2) {
           b.setScaleX(1.2 / gesturePane.getCurrentScale());
