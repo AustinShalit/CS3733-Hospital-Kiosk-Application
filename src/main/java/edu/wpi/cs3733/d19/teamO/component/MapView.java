@@ -640,6 +640,7 @@ public class MapView extends StackPane {
   }
 
   private void switchFloor(String s) throws IOException {
+
     switch (s) {
       case "1":
         onFloorSelectAction(new ActionEvent(levelF1, levelF1));
@@ -665,6 +666,7 @@ public class MapView extends StackPane {
       default:
         break;
     }
+
   }
 
   /**
@@ -708,6 +710,7 @@ public class MapView extends StackPane {
                 }
               }
               panMapBetweenNodes(node, lastNodeOnFloor);
+              zoomLabel();
             } catch (IOException exception) {
               exception.printStackTrace();
             }
@@ -738,6 +741,7 @@ public class MapView extends StackPane {
                 }
               }
               panMapBetweenNodes(lastNode, lastNodeOnFloor);
+              zoomLabel();
             } catch (IOException exception) {
               exception.printStackTrace();
             }
@@ -756,15 +760,21 @@ public class MapView extends StackPane {
     int distanceX = abs(a.getXcoord() - b.getXcoord()) + 1;
     int distanceY = abs(a.getYcoord() - b.getYcoord()) + 1;
 
-    if (750. / Math.max(distanceX, distanceY) < 2.5) {
-      gesturePane.zoomTo(750. / Math.max(distanceX, distanceY), new Point2D(midX, midY));
-    } else {
+    if (550. / Math.max(distanceX, distanceY) < 2.5
+        && 650. / Math.max(distanceX, distanceY) > 0.32) {
+      gesturePane.zoomTo(550. / Math.max(distanceX, distanceY), new Point2D(midX, midY)); //650
+    } else if (550. / Math.max(distanceX, distanceY) > 2.5) {
       gesturePane.zoomTo(2.5, new Point2D(midX, midY));
+    } else if ( 550. / Math.max(distanceX, distanceY) < 0.32) {
+      gesturePane.zoomTo(0.32, new Point2D(midX, midY));
     }
     gesturePane.centreOn(new Point2D(midX, midY));
   }
 
-  private void zoomLabel() {
+  /**
+   *  Make labels zoom to same scale as gesture pane.
+   */
+  public void zoomLabel() {
     if (buttonsGroup.getChildren() != null && labelsGroup.getChildren() != null) {
       for (javafx.scene.Node b : buttonsGroup.getChildren()) {
         if (gesturePane.getCurrentScale() < 1.2) {
