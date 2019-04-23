@@ -139,6 +139,7 @@ public class NavigationController implements Controller {
 
     instructionPane.setStyle("-fx-font-size: 15px; -fx-font-style: Palatino Linotype;"
         + "-fx-font-style: BOLD");
+
   }
 
 

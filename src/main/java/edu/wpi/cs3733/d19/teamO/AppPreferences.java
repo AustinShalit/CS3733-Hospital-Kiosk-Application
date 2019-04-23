@@ -49,10 +49,12 @@ public final class AppPreferences {
         PreferencesUtils.read(graphSearchAlgorithm, preferences,
                 GraphSearchAlgorithms.getDefault()::forName);
         PreferencesUtils.read(theme, preferences, Themes.getDefault()::forName);
+        PreferencesUtils.read(autoLogoutTime, preferences);
 
         graphSearchAlgorithm.addListener(__ -> PreferencesUtils.save(graphSearchAlgorithm, preferences,
                 GraphSearchAlgorithm::getName));
         theme.addListener(__ -> PreferencesUtils.save(theme, preferences, Theme::getName));
+        autoLogoutTime.addListener(__-> PreferencesUtils.save(autoLogoutTime, preferences));
     }
 
     public Category getSettings() {
@@ -83,16 +85,15 @@ public final class AppPreferences {
         this.theme.setValue(theme);
     }
 
-    public Double getAutoLogoutTime() {
-        // Multiply by 1000 for milliseconds
-        return autoLogoutTime.getValue() * 1000;
+    public double getAutoLogoutTime() {
+        return autoLogoutTime.getValue();
     }
 
     public DoubleProperty autoLogoutTimeProperty() {
         return autoLogoutTime;
     }
 
-    public void setAutoLogoutTime(Long time) {
+    public void setAutoLogoutTime(double time) {
         this.autoLogoutTime.setValue(time);
     }
 }

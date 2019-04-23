@@ -4,17 +4,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 // Care Taker
-public class ControllerCareTaker {
+public class IdleLogoutCareTaker {
 
 
-    private final Map<String, ControllerMemento> savepointStorage = new HashMap<>();
+    private final Map<String, IdleLogoutMemento> savepointStorage = new HashMap<String, IdleLogoutMemento>();
 
-    public void saveMemento(ControllerMemento memento, String savepointName) {
+    public void saveMemento(IdleLogoutMemento memento, String savepointName) {
         System.out.println("Saving state..." + savepointName);
         savepointStorage.put(savepointName, memento);
     }
 
-    public ControllerMemento getMemento(String savepointName) {
+    public IdleLogoutMemento getMemento(String savepointName) {
         System.out.println("Undo at ..." + savepointName);
         return savepointStorage.get(savepointName);
     }
