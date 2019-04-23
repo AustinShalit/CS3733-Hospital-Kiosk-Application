@@ -253,3 +253,7 @@
 #gobtn:hover {
     -fx-background-color: #004E86;
 }
+
+#text {
+    -fx-font-family: "Palatino Linotype";
+}
