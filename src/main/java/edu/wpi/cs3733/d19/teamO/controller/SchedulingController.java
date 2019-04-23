@@ -60,9 +60,9 @@ public class SchedulingController implements Controller {
   private Database database;
 
   @Inject
-  private SchedulingViewController.Factory schedulingViewControllerFactory;
+  private SchedulingViewController schedulingViewController;
   @Inject
-  private SchedulingCalendarController.Factory schedulingCalendarControllerFactory;
+  private SchedulingCalendarController schedulingCalendarController;
 
   private ObservableList<SchedulingRequest> requests;
 
@@ -70,13 +70,11 @@ public class SchedulingController implements Controller {
   void initialize() {
     requests = FXCollections.observableArrayList(database.getAllSchedulingRequests());
 
-    SchedulingViewController tableController = schedulingViewControllerFactory.create();
-    tableController.setRequests(requests);
-    tableTab.setContent(tableController.getRoot());
+    schedulingViewController.setRequests(requests);
+    tableTab.setContent(schedulingViewController.getRoot());
 
-    SchedulingCalendarController calendarController = schedulingCalendarControllerFactory.create();
-    calendarController.setRequests(requests);
-    calendarTab.setContent(calendarController.getRoot());
+    schedulingCalendarController.setRequests(requests);
+    calendarTab.setContent(schedulingCalendarController.getRoot());
 
     // DialogHelper.populateComboBox(database, roomComboBox);
     Set<Node> bookableNodes = new HashSet<>();

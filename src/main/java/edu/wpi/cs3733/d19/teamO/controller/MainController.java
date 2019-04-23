@@ -72,7 +72,7 @@ public class MainController implements Controller {
   @Inject
   private NavigationController.Factory navigationControllerFactory;
   @Inject
-  private SchedulingController.Factory schedulingControllerFactory;
+  private SchedulingController schedulingController;
   @Inject
   private RequestController.Factory requestControllerFactory;
   @Inject
@@ -87,7 +87,6 @@ public class MainController implements Controller {
   private final LiveWeather liveWeather = new LiveWeather();
 
   private NavigationController navigationController;
-  private SchedulingController schedulingController;
   private LoginController loginController;
   private JFXPopup optionsPopup;
   private JFXPopup loginPopup;
@@ -98,7 +97,6 @@ public class MainController implements Controller {
     eventBus.register(this);
 
     navigationController = navigationControllerFactory.create();
-    schedulingController = schedulingControllerFactory.create();
 
     SettingsController settingsController = settingsControllerFactory.create();
     settingsPopup = new JFXPopup(settingsController.root);

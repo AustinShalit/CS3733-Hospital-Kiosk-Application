@@ -52,6 +52,10 @@ import edu.wpi.cs3733.d19.teamO.controller.request.SupportAnimalViewController;
 public class ControllerModule extends AbstractModule {
   @Override
   protected void configure() {
+    bind(SchedulingController.class).asEagerSingleton();
+    bind(SchedulingViewController.class).asEagerSingleton();
+    bind(SchedulingCalendarController.class).asEagerSingleton();
+
     bindListener(Matchers.any(), new TypeListener() {
       @Override
       public <I> void hear(final TypeLiteral<I> typeLiteral, TypeEncounter<I> typeEncounter) {
@@ -94,9 +98,9 @@ public class ControllerModule extends AbstractModule {
     install(new FactoryModuleBuilder().build(AudioVisualViewController.Factory.class));
 
     install(new FactoryModuleBuilder().build(MapEditController.Factory.class));
-    install(new FactoryModuleBuilder().build(SchedulingController.Factory.class));
+    /*install(new FactoryModuleBuilder().build(SchedulingController.Factory.class));
     install(new FactoryModuleBuilder().build(SchedulingViewController.Factory.class));
-    install(new FactoryModuleBuilder().build(SchedulingCalendarController.Factory.class));
+    install(new FactoryModuleBuilder().build(SchedulingCalendarController.Factory.class));*/
 
     install(new FactoryModuleBuilder().build(AudioVisualController.Factory.class));
     install(new FactoryModuleBuilder().build(AudioVisualViewController.Factory.class));
