@@ -8,13 +8,11 @@ import com.google.common.graph.ImmutableGraph;
 import com.google.common.graph.MutableGraph;
 import com.google.inject.Inject;
 
-import animatefx.animation.FadeOut;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -25,8 +23,8 @@ import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 import edu.wpi.cs3733.d19.teamO.entity.pathfinding.IGraphSearchAlgorithm;
 
-@FxmlController(url = "FireAlarm.fxml")
-public class FireAlarmController implements Controller{
+@FxmlController (url = "FireAlarm.fxml")
+public class FireAlarmController implements Controller {
 
   @FXML
   BorderPane root;
@@ -68,24 +66,20 @@ public class FireAlarmController implements Controller{
     map.setPath(path);
 
     map.drawPath();
-    map.setFire(false);
+    map.fire = true;
 
 
   }
 
   @FXML
   void flash(VBox flasher) {
+
     FadeTransition fadeOut = new FadeTransition(Duration.seconds(0.5), flasher);
     fadeOut.setFromValue(1.0);
     fadeOut.setToValue(0.0);
     fadeOut.setAutoReverse(true);
     fadeOut.setCycleCount(Animation.INDEFINITE);
     fadeOut.play();
-
-//    FadeTransition fadeIn = new FadeTransition(Duration.seconds(2), flasher);
-//    fadeIn.setFromValue(0.0);
-//    fadeIn.setToValue(1.0);
-//    fadeIn.play();
   }
 
   @Override

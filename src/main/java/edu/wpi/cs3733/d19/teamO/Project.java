@@ -17,7 +17,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import edu.wpi.cs3733.d19.teamO.controller.ControllerModule;
-import edu.wpi.cs3733.d19.teamO.controller.FireAlarmController;
 import edu.wpi.cs3733.d19.teamO.controller.MainController;
 import edu.wpi.cs3733.d19.teamO.controller.NavigationController;
 import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
@@ -36,8 +35,6 @@ public class Project extends Application {
   private Database database;
   @Inject
   private NavigationController.Factory navigationControllerFactory;
-  @Inject
-  private FireAlarmController.Factory fireAlarmControllerFactory;
 
   private Injector injector;
   private Parent root;
@@ -73,7 +70,7 @@ public class Project extends Application {
     root = loader.load();
 
     //eventBus.post(new ChangeMainViewEvent(loginControllerFactory.create(), false));
-    eventBus.post(new ChangeMainViewEvent(fireAlarmControllerFactory.create(), false));
+    eventBus.post(new ChangeMainViewEvent(navigationControllerFactory.create(), false));
 
     primaryStage.setTitle("Team O Kiosk Application");
     primaryStage.setScene(new Scene(root));
