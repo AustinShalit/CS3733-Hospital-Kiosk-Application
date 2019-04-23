@@ -178,7 +178,8 @@ public class NavigationController implements Controller {
   @SuppressWarnings({
       "PMD.AvoidInstantiatingObjectsInLoops",
       "UseStringBufferForStringAppends",
-      "PMD.NPathComplexity"
+      "PMD.NPathComplexity",
+      "PMD.CyclomaticComplexity"
   })
   void onGoButtonAction() throws IOException {
     instructionPane.setVisible(true);
@@ -213,6 +214,7 @@ public class NavigationController implements Controller {
     // buttons for the floors traversed
     buttonPane.getChildren().clear();
     buttonPane.setVgap(7);
+    buttonPane.setHgap(4);
 
     List<Node> floors = getFloors(path);
     for (int i = 0; i < floors.size(); i++) {
@@ -233,9 +235,18 @@ public class NavigationController implements Controller {
       }
 
       if (i != floors.size() - 1) {
-        Glyph arrow = new Glyph("FontAwesome", "ARROW_RIGHT");
-        arrow.size(10);
-        Label label = new Label("", arrow);
+        Label label;
+
+        try {
+          Glyph arrow = new Glyph("FontAwesome", "ARROW_RIGHT");
+          arrow.size(12);
+          arrow = arrow.duplicate();
+          arrow.setStyle("-fx-text-fill: #f6bd38; -fx-fill: #f6bd38;");
+          label = new Label("", arrow);
+        } catch (IllegalArgumentException iac) {
+          label = new Label(">");
+        }
+
         if (!buttonPane.getChildren().contains(label)) {
           buttonPane.getChildren().add(label);
         }
@@ -244,7 +255,7 @@ public class NavigationController implements Controller {
 
     instructionsContainer.getChildren().setAll(new ArrayList<>());
     Label tempRef;
-    for (Pair<String, Node> curPair: stepByStep.getStepByStep(path)) {
+    for (Pair<String, Node> curPair : stepByStep.getStepByStep(path)) {
       tempRef = new Label(curPair.getFirst());
       tempRef.setPrefWidth(400);
       tempRef.setOnMouseClicked(event -> {
