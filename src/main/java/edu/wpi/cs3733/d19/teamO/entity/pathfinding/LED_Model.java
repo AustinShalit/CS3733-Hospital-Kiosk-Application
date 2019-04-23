@@ -14,7 +14,7 @@ import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class LED_Model {
-  private Node endHall;
+  public Node endHall;
   private Node elevatorHallDoor;
   private Node topElevator;
   private Node topExit;
@@ -27,7 +27,7 @@ public class LED_Model {
   private Node lowerElevator;
   private Node bottomStair;
   private Node bottomElevator;
-  private Node bottomExit;
+  public  Node bottomExit;
   private Edge longHall;
   private Edge toTopElev;
   private Edge toTopElevHall;
@@ -76,6 +76,8 @@ public class LED_Model {
         "Shapiro", Node.NodeType.HALL, "Elevator Q MapNode 7 Floor L1", "Elevator Q L1");
     this.bottomExit = new Node("GEXIT001L1", 1702, 2260, "L1",
         "Shapiro", Node.NodeType.EXIT, "Fenwood Road Exit MapNode 1 Floor L1", "Fenwood Raod Exit Floor L1");
+    this.allEdges = new ArrayList<Edge>();
+    this.allNodes = new ArrayList<Node>();
 
     allNodes.add(endHall);
     allNodes.add(elevatorHallDoor);
