@@ -68,7 +68,7 @@
             <Font size="32.0" />
           </font>
         </Text>
-        <JFXComboBox fx:id="roomComboBox" focusColor="white" prefWidth="300.0" prefHeight="40.0" style="-fx-text-fill: black; -fx-background-color: white"/>
+        <JFXComboBox fx:id="roomComboBox" focusColor="white" prefWidth="300.0" prefHeight="40.0" style="-fx-text-fill: black; -fx-background-color: white" />
         <VBox.margin>
           <Insets bottom="10.0" top="10.0" />
         </VBox.margin>
@@ -87,8 +87,8 @@
     </VBox>
   </left>
   <center>
-    <JFXTabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER" >
-      <Tab closable="false" text="Map" style="-fx-background-color: #004E86;" >
+    <JFXTabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <Tab closable="false" text="Map" style="-fx-background-color: #004E86;">
         <SchedulingMapView fx:id="schedulingMapView" style="-fx-background-color: WHITE;" />
       </Tab>
       <Tab fx:id="tableTab" closable="false" text="Table" style="-fx-background-color: #004E86;" />
