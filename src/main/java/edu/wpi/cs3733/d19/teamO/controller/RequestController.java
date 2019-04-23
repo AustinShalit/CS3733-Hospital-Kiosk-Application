@@ -1,5 +1,8 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 
@@ -179,10 +182,17 @@ public class RequestController implements Controller {
 
   @FXML
   void foodAction() {
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     FoodRequest foodRequest = new FoodRequest();
     try {
-      foodRequest.run(0, 0, 1900, 1000,
-           null, null, null);
+      foodRequest.run(
+          0,
+          0,
+          screenSize.width,
+          screenSize.height,
+           null,
+          null,
+          null);
     } catch (ServiceException exception) {
       System.out.println("Failed to run API");
       exception.printStackTrace();
