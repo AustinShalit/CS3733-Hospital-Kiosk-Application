@@ -243,3 +243,14 @@
     -fx-scale-y: 1.05;
     -fx-background-color: #0067B1;
 }
+
+#gobtn {
+    -fx-background-color: #0067B1;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -jfx-button-type: RAISED;
+}
+
+#gobtn:hover {
+    -fx-background-color: #004E86;
+}

@@ -22,7 +22,7 @@
     <StackPane style="-fx-background-color: rgba(1, 46, 90, 0.9);">
     <VBox fx:id="sidebar" alignment="TOP_CENTER" prefWidth="323.0" spacing="10.0">
       <padding>
-        <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+        <Insets bottom="16.0" left="16.0" right="16.0" top="32.0" />
       </padding>
       <children>
 
@@ -54,7 +54,7 @@
           </VBox.margin>
         </HBox>
 
-        <JFXButton fx:id="goButton" id="navbtn" onAction="#onGoButtonAction" prefWidth="294.0" text="GO" textFill="WHITE" style="-fx-font-weight: BOLD;">
+        <JFXButton fx:id="goButton" id="gobtn" onAction="#onGoButtonAction" prefWidth="294.0" text="GO" textFill="WHITE" style="-fx-font-weight: BOLD;">
           <VBox.margin>
             <Insets bottom="25.0" />
           </VBox.margin>
@@ -116,7 +116,7 @@
 
         <FlowPane fx:id="buttonPane" columnHalignment="CENTER" prefWrapLength="200.0">
           <VBox.margin>
-            <Insets bottom="5.0" />
+            <Insets bottom="5.0" top="16.0"/>
           </VBox.margin>
         </FlowPane>
         <ScrollPane fx:id="instructionPane" hbarPolicy="NEVER" prefHeight="300.0" prefWidth="323.0">
