@@ -6,7 +6,6 @@
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXTimePicker?>
-<?import edu.wpi.cs3733.d19.teamO.component.SchedulingMapView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.layout.BorderPane?>
@@ -14,90 +13,110 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import edu.wpi.cs3733.d19.teamO.component.SchedulingMapView?>
+
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.layout.StackPane?>
 <BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.SchedulingController">
   <left>
-    <VBox alignment="CENTER" maxWidth="300.0" styleClass="form" stylesheets="@style/KioskStyle.css">
-      <VBox fx:id="form" alignment="CENTER" prefHeight="83.0" prefWidth="415.0" stylesheets="@style/KioskStyle.css">
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
+    <VBox alignment="TOP_CENTER" minWidth="323.0" style="-fx-background-color: rgba(1, 46, 90, 0.9);" spacing="16.0">
+      <padding>
+        <Insets bottom="16.0" left="24.0" right="16.0" top="32.0" />
+      </padding>
+
+      <VBox fx:id="form" alignment="CENTER_LEFT" prefHeight="83.0" prefWidth="323.0" stylesheets="@style/KioskStyle.css" spacing="8.0">
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date" fill="white" style="-fx-font-weight: BOLD">
           <font>
-            <Font size="36.0" />
+            <Font size="32.0" />
           </font>
         </Text>
-        <JFXDatePicker fx:id="date" defaultColor="#004e86" maxWidth="300.0" prefHeight="40.0" />
-        <VBox.margin>
-          <Insets bottom="10.0" top="10.0" />
-        </VBox.margin>
+        <JFXDatePicker fx:id="date" defaultColor="#f6bd38" maxWidth="300.0" minHeight="50.0" style="-fx-border-radius: 0px;">
+          <VBox.margin>
+            <Insets left="8.0" />
+          </VBox.margin>
+        </JFXDatePicker>
       </VBox>
-      <VBox alignment="CENTER">
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Start Time">
+
+      <VBox alignment="CENTER_LEFT" spacing="8.0">
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Start Time" fill="white" style="-fx-font-weight: BOLD">
           <font>
-            <Font size="36.0" />
+            <Font size="32.0" />
           </font>
         </Text>
-        <JFXTimePicker fx:id="startTime" defaultColor="#004e86" maxWidth="300.0" prefHeight="40.0" prefWidth="300.0" />
-        <VBox.margin>
-          <Insets bottom="10.0" top="10.0" />
-        </VBox.margin>
+        <JFXTimePicker fx:id="startTime" defaultColor="#f6bd38" maxWidth="300.0" minHeight="50.0" prefWidth="300.0" style="-fx-border-radius: 0px; -jfx-focus-color: #f6bd38;">
+          <VBox.margin>
+            <Insets left="8.0" />
+          </VBox.margin>
+        </JFXTimePicker>
       </VBox>
-      <VBox alignment="CENTER">
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="End Time">
+
+      <VBox alignment="CENTER_LEFT" spacing="8.0">
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="End Time" fill="white" style="-fx-font-weight: BOLD">
           <font>
-            <Font size="36.0" />
+            <Font size="32.0" />
           </font>
         </Text>
-        <JFXTimePicker fx:id="endTime" defaultColor="#004e86" prefHeight="40.0" prefWidth="300.0" />
-        <VBox.margin>
-          <Insets bottom="10.0" top="10.0" />
-        </VBox.margin>
+        <JFXTimePicker fx:id="endTime" defaultColor="#f6bd38" minHeight="50.0" prefWidth="300.0" style="-fx-background-radius: 0px; -jfx-focus-color: #f6bd38;">
+          <VBox.margin>
+            <Insets left="8.0" />
+          </VBox.margin>
+        </JFXTimePicker>
       </VBox>
-      <VBox alignment="CENTER">
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Your Name">
+
+      <Rectangle fill="#f6bd38" strokeWidth="0.0" width="150.0" height="2.0">
+        <VBox.margin>
+          <Insets top="8.0" />
+        </VBox.margin>
+      </Rectangle>
+
+      <VBox alignment="CENTER_LEFT" spacing="8.0">
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" fill="white" style="-fx-font-weight: BOLD">
           <font>
-            <Font size="36.0" />
+            <Font size="32.0" />
           </font>
         </Text>
-        <JFXTextField fx:id="nameField" maxWidth="300.0" prefHeight="40.0" prefWidth="372.0" style="-fx-pref-width: 300;" />
-        <VBox.margin>
-          <Insets bottom="10.0" top="10.0" />
-        </VBox.margin>
+        <JFXTextField fx:id="nameField" maxWidth="300.0" prefWidth="372.0" style=" -jfx-focus-color: #f6bd38; -fx-min-height: 50.0;">
+          <VBox.margin>
+            <Insets left="8.0" />
+          </VBox.margin>
+        </JFXTextField>
       </VBox>
-      <VBox alignment="CENTER">
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room">
+
+      <VBox alignment="CENTER_LEFT" spacing="8.0">
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room" fill="white" style="-fx-font-weight: BOLD">
           <font>
-            <Font size="36.0" />
+            <Font size="32.0" />
           </font>
         </Text>
-        <JFXComboBox fx:id="roomComboBox" focusColor="#004e86" maxWidth="300.0" prefHeight="40.0" />
-        <VBox.margin>
-          <Insets bottom="10.0" top="10.0" />
-        </VBox.margin>
+        <JFXComboBox fx:id="roomComboBox" prefWidth="300.0" minHeight="50.0" style="-fx-text-fill: black; -fx-background-color: white; -jfx-focus-color: #f6bd38;">
+          <VBox.margin>
+            <Insets left="8.0" />
+          </VBox.margin>
+        </JFXComboBox>
       </VBox>
-      <JFXButton onAction="#onSubmitButtonAction" prefHeight="40.0" prefWidth="150.0" ripplerFill="#013c78" style="-fx-background-color: #012d5a;" text="GO" textFill="WHITE">
+
+      <JFXButton onAction="#onSubmitButtonAction" prefHeight="40.0" prefWidth="294.0" ripplerFill="#f6bd38" id="gobtn" text="GO" textFill="WHITE" stylesheets="@style/KioskStyle.css">
         <font>
           <Font name="System Bold" size="15.0" />
         </font>
         <VBox.margin>
-          <Insets bottom="10.0" top="10.0" />
+          <Insets top="8.0" />
         </VBox.margin>
       </JFXButton>
-      <padding>
-        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-      </padding>
     </VBox>
   </left>
   <center>
-    <JFXTabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
-      <Tab closable="false" text="Map">
-        <SchedulingMapView fx:id="schedulingMapView" style="-fx-background-color: WHITE;" />
-      </Tab>
-      <Tab fx:id="tableTab" closable="false" text="Table" />
-      <Tab fx:id="calendarTab" closable="false" text="Calendar" />
-      <padding>
-        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-      </padding>
-    </JFXTabPane>
+    <StackPane style="-fx-effect: dropshadow(three-pass-box, rgba(110, 110, 110, 0.25), 10, 0, 0, 0);">
+      <JFXTabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER" style="-fx-background-color: #f1f1f1; ">
+        <Tab closable="false" text="Map" style="-fx-background-color: #004E86;">
+          <SchedulingMapView fx:id="schedulingMapView" style="-fx-background-color: WHITE;" />
+        </Tab>
+        <Tab fx:id="tableTab" closable="false" text="Table" style="-fx-background-color: #004E86;" />
+        <Tab fx:id="calendarTab" closable="false" text="Calendar" style="-fx-background-color: #004E86;" />
+      </JFXTabPane>
+      <BorderPane.margin>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+      </BorderPane.margin>
+    </StackPane>
   </center>
-  <padding>
-    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-  </padding>
 </BorderPane>
