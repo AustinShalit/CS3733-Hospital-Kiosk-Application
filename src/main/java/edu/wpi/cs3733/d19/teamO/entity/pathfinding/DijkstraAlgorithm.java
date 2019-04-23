@@ -2,7 +2,7 @@ package edu.wpi.cs3733.d19.teamO.entity.pathfinding;
 
 import java.util.PriorityQueue;
 
-class AStarAlgorithm<T extends ComparableCost<T>> extends InformedGraphSearchAlgorithm<T> {
+class DijkstraAlgorithm<T extends ComparableCost<T>> extends InformedGraphSearchAlgorithm<T> {
 
   private final PriorityQueue<CostPair<T>> frontier = new PriorityQueue<>();
 
@@ -31,6 +31,6 @@ class AStarAlgorithm<T extends ComparableCost<T>> extends InformedGraphSearchAlg
 
   @Override
   double getPriorityHeuristic(T next, T goal) {
-    return next.getCostTo(goal);
+    return 0; // Dijkstra's does not use a heuristic
   }
 }
