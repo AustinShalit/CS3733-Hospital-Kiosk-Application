@@ -56,6 +56,8 @@ public class NavigationController implements Controller {
   @FXML
   JFXButton informationButton;
   @FXML
+  JFXButton snapshotButton;
+  @FXML
   FuzzyWuzzyComboBox fromComboBox;
   @FXML
   FuzzyWuzzyComboBox toComboBox;
@@ -317,5 +319,10 @@ public class NavigationController implements Controller {
     }
 
     return floorNodes;
+  }
+
+  @FXML
+  void snapshotAction() {
+    map.saveAsPng();
   }
 }

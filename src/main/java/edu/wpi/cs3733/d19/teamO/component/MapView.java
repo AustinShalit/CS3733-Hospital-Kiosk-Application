@@ -1,29 +1,37 @@
 package edu.wpi.cs3733.d19.teamO.component;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import javax.imageio.ImageIO;
 import com.jfoenix.controls.JFXButton;
+import com.sun.corba.se.spi.ior.Writeable;
 
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -743,5 +751,18 @@ public class MapView extends StackPane {
       gesturePane.zoomTo(2.5, new Point2D(midX, midY));
     }
     gesturePane.centreOn(new Point2D(midX , midY));
+  }
+
+  @FXML
+  public void saveAsPng() {
+    WritableImage image = gesturePane.snapshot(new SnapshotParameters(), null);
+    File file = new File("snapshot.png");
+    try {
+      ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
+
+    } catch (IOException e) {
+      Logger.getLogger(MapView.class.getName()).log(Level.SEVERE, null, e);
+    }
+
   }
 }

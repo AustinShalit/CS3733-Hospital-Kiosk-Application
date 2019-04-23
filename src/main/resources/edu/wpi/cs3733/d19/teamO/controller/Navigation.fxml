@@ -116,6 +116,7 @@
             <Insets bottom="20.0" />
           </VBox.margin>
         </ScrollPane>
+        <JFXButton fx:id="snapshotButton" onAction="#snapshotAction"></JFXButton>
         <HBox prefHeight="48.0" prefWidth="323.0" alignment="BOTTOM_CENTER">
           <children>
             <JFXButton fx:id="aboutButton" onAction="#aboutOnAction" prefHeight="48.0" minWidth="154.0" id="small-button" text="About Page" textFill="WHITE">
