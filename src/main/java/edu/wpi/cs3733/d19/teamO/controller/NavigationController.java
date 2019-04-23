@@ -6,12 +6,12 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
-import com.google.common.eventbus.EventBus;
 import com.google.common.graph.GraphBuilder;
 import com.google.common.graph.ImmutableGraph;
 import com.google.common.graph.MutableGraph;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPopup;
 
 import org.apache.commons.collections.CollectionUtils;
 
@@ -23,6 +23,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
@@ -31,16 +32,14 @@ import kotlin.Pair;
 import edu.wpi.cs3733.d19.teamO.AppPreferences;
 import edu.wpi.cs3733.d19.teamO.component.FuzzyWuzzyComboBox;
 import edu.wpi.cs3733.d19.teamO.component.MapView;
-import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
-import edu.wpi.cs3733.d19.teamO.entity.pathfinding.IGraphSearchAlgorithm;
+import edu.wpi.cs3733.d19.teamO.entity.pathfinding.GraphSearchAlgorithm;
 import edu.wpi.cs3733.d19.teamO.entity.pathfinding.StepByStep;
 
 @FxmlController(url = "Navigation.fxml")
 @SuppressWarnings({"PMD.TooManyFields", "PMD.RedundantFieldInitializer",
     "PMD.AvoidInstantiatingObjectsInLoops", "PMD.TooManyMethods", "PMD.ExcessiveImports"})
-
 public class NavigationController implements Controller {
 
   @FXML
@@ -73,25 +72,28 @@ public class NavigationController implements Controller {
   @FXML
   FlowPane buttonPane;
 
-  StepByStep stepByStep;
-  boolean addRest = false;
-  boolean addWalk = false;
-  boolean addExit = false;
-  boolean addInfo = false;
-
+  private StepByStep stepByStep;
 
   @Inject
   private AppPreferences appPreferences;
   @Inject
   private Database database;
   @Inject
-  private EventBus eventBus;
-  @Inject
   private AboutController.Factory aboutControllerFactory;
+
+  private JFXPopup aboutPopup;
 
 
   @FXML
   void initialize() {
+    aboutPopup = new JFXPopup(aboutControllerFactory.create().root);
+    aboutPopup.setOnAutoHide(
+        event -> {
+          ColorAdjust reset = new ColorAdjust();
+          reset.setBrightness(0);
+          root.setEffect(reset);
+        }
+    );
     Collection<Node> nodes = database.getAllNodes();
     CollectionUtils.filter(
         nodes,
@@ -115,14 +117,12 @@ public class NavigationController implements Controller {
     stepByStep = new StepByStep();
     validateGoButton();
     map.setNavigation(true);
-    map.nodeFromProperty().addListener((observable, oldValue, newValue) -> {
-      fromComboBox.setValue(String.format("%s -- FLOOR %s",
-          newValue.getLongName(), newValue.getFloor()));
-    });
-    map.nodeToProperty().addListener((observable, oldValue, newValue) -> {
-      toComboBox.setValue(String.format("%s -- FLOOR %s",
-          newValue.getLongName(), newValue.getFloor()));
-    });
+    map.nodeFromProperty().addListener((observable, oldValue, newValue)
+        -> fromComboBox.setValue(String.format("%s -- FLOOR %s",
+        newValue.getLongName(), newValue.getFloor())));
+    map.nodeToProperty().addListener((observable, oldValue, newValue)
+        -> toComboBox.setValue(String.format("%s -- FLOOR %s",
+        newValue.getLongName(), newValue.getFloor())));
     map.nodeClickedProperty().addListener((observable, oldValue, newValue) -> {
       if (fromComboBox.isFocused()) {
         fromComboBox.setValue(String.format("%s -- FLOOR %s",
@@ -165,6 +165,19 @@ public class NavigationController implements Controller {
     NavigationController create();
   }
 
+  @FXML
+  void onAboutButtonAction() {
+    ColorAdjust colorAdjust = new ColorAdjust();
+    colorAdjust.setBrightness(-0.2);
+    root.setEffect(colorAdjust);
+    aboutPopup.show(getRoot());
+    aboutPopup.setX(
+        (getRoot().getScene().getWidth() - aboutPopup.getWidth()) / 2
+    );
+    aboutPopup.setY(
+        (getRoot().getScene().getHeight() - aboutPopup.getHeight()) / 2
+    );
+  }
 
   @FXML
   void onToComboAction() {
@@ -201,7 +214,8 @@ public class NavigationController implements Controller {
     }
 
 
-    IGraphSearchAlgorithm<Node> algorithm = appPreferences.getGraphSearchAlgorithm().getAlgorithm();
+    GraphSearchAlgorithm<Node> algorithm
+        = appPreferences.getGraphSearchAlgorithm().getSupplier().get();
     MutableGraph<Node> graph = GraphBuilder.undirected().allowsSelfLoops(false).build();
     database.getAllNodes().forEach(graph::addNode);
     database.getAllEdges().forEach(e -> graph.putEdge(e.getStartNode(), e.getEndNode()));
@@ -274,11 +288,6 @@ public class NavigationController implements Controller {
     } else {
       goButton.setDisable(true);
     }
-  }
-
-  @FXML
-  void aboutOnAction() {
-    eventBus.post(new ChangeMainViewEvent(aboutControllerFactory.create()));
   }
 
   @FXML

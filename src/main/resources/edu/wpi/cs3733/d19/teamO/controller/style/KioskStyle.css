@@ -253,3 +253,11 @@
 #gobtn:hover {
     -fx-background-color: #004E86;
 }
+
+.jfx-date-picker .jfx-button {
+    -fx-background-color: white;
+}
+
+.jfx-tab-pane .tab-header-background {
+    -fx-background-color: #004E86;
+}
