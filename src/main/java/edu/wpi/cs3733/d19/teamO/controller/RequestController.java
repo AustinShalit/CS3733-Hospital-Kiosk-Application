@@ -1,8 +1,12 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 
+import floral.api.FloralApi;
 import foodRequest.FoodRequest;
 import foodRequest.ServiceException;
 import javafx.event.ActionEvent;
@@ -14,7 +18,6 @@ import javafx.scene.layout.VBox;
 
 import edu.wpi.cs3733.d19.teamO.controller.request.AudioVisualViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ExternalTransportationViewController;
-import edu.wpi.cs3733.d19.teamO.controller.request.FloristRequestViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.GiftViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ITSupportViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.InternalTransportationViewController;
@@ -86,8 +89,6 @@ public class RequestController implements Controller {
   private ReligiousServiceViewController.Factory religiousServiceControllerFactory;
   @Inject
   private SupportAnimalViewController.Factory supportAnimalControllerFactory;
-  @Inject
-  private FloristRequestViewController.Factory floristRequestControllerFactory;
   @Inject
   private PrescriptionViewController.Factory prescriptionRequestControllerFactory;
   @Inject
@@ -163,7 +164,14 @@ public class RequestController implements Controller {
 
   @FXML
   void floristAction(ActionEvent event) {
-    content.setCenter(floristRequestControllerFactory.create().root);
+    FloralApi floralApi = new FloralApi();
+    try {
+      floralApi.run(5, 5, null, null);
+    } catch (Exception exception) { // NOPMD
+      System.out.println("Floral API failed");
+      exception.printStackTrace();
+    }
+
   }
 
 
@@ -179,10 +187,17 @@ public class RequestController implements Controller {
 
   @FXML
   void foodAction() {
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     FoodRequest foodRequest = new FoodRequest();
     try {
-      foodRequest.run(0, 0, 1900, 1000,
-           null, null, null);
+      foodRequest.run(
+          0,
+          0,
+          screenSize.width,
+          screenSize.height,
+           null,
+          null,
+          null);
     } catch (ServiceException exception) {
       System.out.println("Failed to run API");
       exception.printStackTrace();

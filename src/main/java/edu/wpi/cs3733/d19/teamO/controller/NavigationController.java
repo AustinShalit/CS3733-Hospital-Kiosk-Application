@@ -44,6 +44,8 @@ public class NavigationController implements Controller {
 
   @FXML
   BorderPane root;
+  @FXML
+  VBox sidebar;
 
   @FXML
   JFXButton restroomButton;
@@ -88,7 +90,7 @@ public class NavigationController implements Controller {
 
 
   @FXML
-  void initialize() throws IOException {
+  void initialize() {
     Collection<Node> nodes = database.getAllNodes();
     CollectionUtils.filter(
         nodes,
@@ -132,14 +134,22 @@ public class NavigationController implements Controller {
       }
     });
 
-    fromComboBox.setStyle("-fx-font-size: 12px; -fx-font-style: Palatino Linotype;");
-    toComboBox.setStyle("-fx-font-size: 12px; -fx-font-style: Palatino Linotype;");
+
+    root.widthProperty().addListener(
+        (observable, oldValue, newValue) ->
+            map.setMaxWidth(newValue.doubleValue() - sidebar.getWidth()));
+
+    root.heightProperty().addListener(
+        (observable, oldValue, newValue) -> map.setPrefHeight(newValue.doubleValue())
+    );
+
+    fromComboBox.setStyle("-fx-font-size: 12px; -fx-font-family: Palatino Linotype;");
+    toComboBox.setStyle("-fx-font-size: 12px; -fx-font-family: Palatino Linotype;");
 
     instructionPane.setVisible(false);
 
-    instructionPane.setStyle("-fx-font-size: 15px; -fx-font-style: Palatino Linotype;"
-        + "-fx-font-style: BOLD");
-
+    instructionPane.setStyle("-fx-font-size: 15px; -fx-font-family: Palatino Linotype; "
+        + "-fx-font-weight: BOLD");
   }
 
 
@@ -168,7 +178,8 @@ public class NavigationController implements Controller {
   @SuppressWarnings({
       "PMD.AvoidInstantiatingObjectsInLoops",
       "UseStringBufferForStringAppends",
-      "PMD.NPathComplexity"
+      "PMD.NPathComplexity",
+      "PMD.CyclomaticComplexity"
   })
   void onGoButtonAction() throws IOException {
     instructionPane.setVisible(true);
@@ -203,12 +214,14 @@ public class NavigationController implements Controller {
     // buttons for the floors traversed
     buttonPane.getChildren().clear();
     buttonPane.setVgap(7);
+    buttonPane.setHgap(4);
 
     List<Node> floors = getFloors(path);
     for (int i = 0; i < floors.size(); i++) {
       Node node = floors.get(i);
 
       Button button = new JFXButton(node.getFloor());
+      button.setId("map-button");
       button.setOnAction(event -> {
         try {
           map.zoomTo(node);
@@ -222,9 +235,18 @@ public class NavigationController implements Controller {
       }
 
       if (i != floors.size() - 1) {
-        Glyph arrow = new Glyph("FontAwesome", "ARROW_RIGHT");
-        arrow.size(10);
-        Label label = new Label("", arrow);
+        Label label;
+
+        try {
+          Glyph arrow = new Glyph("FontAwesome", "ARROW_RIGHT");
+          arrow.size(12);
+          arrow = arrow.duplicate();
+          arrow.setStyle("-fx-text-fill: #f6bd38; -fx-fill: #f6bd38;");
+          label = new Label("", arrow);
+        } catch (IllegalArgumentException iac) {
+          label = new Label(">");
+        }
+
         if (!buttonPane.getChildren().contains(label)) {
           buttonPane.getChildren().add(label);
         }
@@ -233,7 +255,7 @@ public class NavigationController implements Controller {
 
     instructionsContainer.getChildren().setAll(new ArrayList<>());
     Label tempRef;
-    for (Pair<String, Node> curPair: stepByStep.getStepByStep(path)) {
+    for (Pair<String, Node> curPair : stepByStep.getStepByStep(path)) {
       tempRef = new Label(curPair.getFirst());
       tempRef.setPrefWidth(400);
       tempRef.setOnMouseClicked(event -> {
