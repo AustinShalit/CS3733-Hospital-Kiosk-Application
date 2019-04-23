@@ -94,8 +94,8 @@ public class MainController implements Controller {
     private JFXPopup loginPopup;
     private JFXPopup settingsPopup;
     private Timeline idleTimeline;
-    private static IdleLogoutCareTaker careTaker;
-    private static IdleLogoutOriginator originator;
+    // private static IdleLogoutCareTaker careTaker;
+    // private static IdleLogoutOriginator originator;
 
     @FXML
     void initialize() {
