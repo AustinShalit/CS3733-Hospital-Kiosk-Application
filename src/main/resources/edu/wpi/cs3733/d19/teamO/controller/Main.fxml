@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.MainController">
   <top>
@@ -25,17 +26,38 @@
       <center>
         <HBox alignment="CENTER" BorderPane.alignment="CENTER">
           <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="logo" />
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="logo">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin></ImageView>
             <Label fx:id="timeLabel" text="Label">
               <HBox.margin>
-                <Insets top="10.0" />
+                <Insets right="20.0" top="10.0" />
               </HBox.margin>
+                     <font>
+                        <Font name="Times New Roman Bold" size="14.0" />
+                     </font>
             </Label>
-            <ImageView fx:id="tempImage" fitHeight="67.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="tempImage" fitHeight="67.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin></ImageView>
             <VBox spacing="10.0">
               <children>
-                <Label fx:id="weatherLabel" text="Label" />
-                <Label fx:id="description" text="Label" />
+                <Label fx:id="weatherLabel" text="Label">
+                           <font>
+                              <Font name="Times New Roman Bold" size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin></Label>
+                <Label fx:id="description" text="Label">
+                           <font>
+                              <Font name="Times New Roman Bold" size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin></Label>
               </children>
               <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
