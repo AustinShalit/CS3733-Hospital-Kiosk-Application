@@ -39,7 +39,7 @@
                           <Font size="32.0" />
                         </font>
                       </Text>
-                      <FuzzyWuzzyComboBox fx:id="fromComboBox" id="navbox" editable="true" onAction="#onFromComboAction" maxHeight="100.0" prefHeight="50.0" maxWidth="180.0" />
+                      <FuzzyWuzzyComboBox fx:id="fromComboBox" id="navbox" editable="true" onAction="#onFromComboAction" maxHeight="100.0" prefHeight="50.0" maxWidth="175.0" />
                     </children>
                   </HBox>
 
@@ -50,7 +50,7 @@
                           <Font size="32.0" />
                         </font>
                       </Text>
-                      <FuzzyWuzzyComboBox fx:id="toComboBox" id="navbox" editable="true" onAction="#onToComboAction" maxHeight="100.0" prefHeight="50.0" maxWidth="180.0" />
+                      <FuzzyWuzzyComboBox fx:id="toComboBox" id="navbox" editable="true" onAction="#onToComboAction" maxHeight="100.0" prefHeight="50.0" maxWidth="175.0" />
                     </children>
                   </HBox>
                 </children>
