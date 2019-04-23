@@ -39,7 +39,6 @@ import edu.wpi.cs3733.d19.teamO.entity.pathfinding.StepByStep;
 @FxmlController(url = "Navigation.fxml")
 @SuppressWarnings({"PMD.TooManyFields", "PMD.RedundantFieldInitializer",
     "PMD.AvoidInstantiatingObjectsInLoops", "PMD.TooManyMethods", "PMD.ExcessiveImports"})
-
 public class NavigationController implements Controller {
 
   @FXML
@@ -117,14 +116,12 @@ public class NavigationController implements Controller {
     stepByStep = new StepByStep();
     validateGoButton();
     map.setNavigation(true);
-    map.nodeFromProperty().addListener((observable, oldValue, newValue) -> {
-      fromComboBox.setValue(String.format("%s -- FLOOR %s",
-          newValue.getLongName(), newValue.getFloor()));
-    });
-    map.nodeToProperty().addListener((observable, oldValue, newValue) -> {
-      toComboBox.setValue(String.format("%s -- FLOOR %s",
-          newValue.getLongName(), newValue.getFloor()));
-    });
+    map.nodeFromProperty().addListener((observable, oldValue, newValue)
+        -> fromComboBox.setValue(String.format("%s -- FLOOR %s",
+        newValue.getLongName(), newValue.getFloor())));
+    map.nodeToProperty().addListener((observable, oldValue, newValue)
+        -> toComboBox.setValue(String.format("%s -- FLOOR %s",
+        newValue.getLongName(), newValue.getFloor())));
     map.nodeClickedProperty().addListener((observable, oldValue, newValue) -> {
       if (fromComboBox.isFocused()) {
         fromComboBox.setValue(String.format("%s -- FLOOR %s",
