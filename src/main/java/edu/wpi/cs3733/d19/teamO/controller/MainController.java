@@ -86,6 +86,8 @@ public class MainController implements Controller {
 
   private final LiveWeather liveWeather = new LiveWeather();
 
+  private NavigationController navigationController;
+  private SchedulingController schedulingController;
   private LoginController loginController;
   private JFXPopup optionsPopup;
   private JFXPopup loginPopup;
@@ -94,6 +96,9 @@ public class MainController implements Controller {
   @FXML
   void initialize() {
     eventBus.register(this);
+
+    navigationController = navigationControllerFactory.create();
+    schedulingController = schedulingControllerFactory.create();
 
     SettingsController settingsController = settingsControllerFactory.create();
     settingsPopup = new JFXPopup(settingsController.root);
@@ -177,12 +182,12 @@ public class MainController implements Controller {
 
   @FXML
   void navigationButtonAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(navigationControllerFactory.create()));
+    eventBus.post(new ChangeMainViewEvent(navigationController));
   }
 
   @FXML
   void schedulingButtonAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(schedulingControllerFactory.create()));
+    eventBus.post(new ChangeMainViewEvent(schedulingController));
   }
 
   @FXML
