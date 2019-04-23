@@ -16,6 +16,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.ReadOnlyDoubleWrapper;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -123,7 +124,7 @@ public class LiveWeather {
 
   private void update() {
     try {
-      currentWeather.set(openWeatherMap.currentWeatherByCityName(CITY, COUNTRY));
+      CurrentWeather weather = openWeatherMap.currentWeatherByCityName(CITY, COUNTRY);
 
       String surl = "http://api.openweathermap.org/data/2.5/weather?q=" + CITY + "&APPID="
           + API_KEY;
@@ -148,9 +149,13 @@ public class LiveWeather {
           .get("description")
           .getAsString(); // Get the description
 
-      description.set(discrp.toUpperCase(Locale.ENGLISH));
-      image.set(new Image(getClass().getResource("weather/" + icon + ".png")
-          .openStream()));
+      Image newImage = new Image(getClass().getResource("weather/" + icon + ".png")
+          .openStream());
+      Platform.runLater(() -> {
+        currentWeather.set(weather);
+        description.set(discrp.toUpperCase(Locale.ENGLISH));
+        image.set(newImage);
+      });
     } catch (APIException | IOException ex) {
       logger.log(Level.WARNING, "Unable to update weather", ex);
     }
