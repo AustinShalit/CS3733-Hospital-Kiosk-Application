@@ -54,7 +54,7 @@
                   </HBox>
                 </children>
               </VBox>
-              <JFXButton fx:id="reverseButton"  onAction="#reverseOnAction" maxWidth="30.0" mnemonicParsing="false" prefHeight="100.0" >
+              <JFXButton fx:id="reverseButton" onAction="#reverseOnAction" maxWidth="30.0" mnemonicParsing="false" prefHeight="100.0">
               </JFXButton>
             </children>
           </HBox>

@@ -87,7 +87,9 @@ public class NavigationController implements Controller {
 
   private JFXPopup aboutPopup;
 
-  ImageView reverse_icon = new ImageView(new Image(getClass().getResourceAsStream("../controller/reverse_icon.png")));
+  ImageView reverseIcon = new ImageView(new Image(getClass()
+      .getResourceAsStream("../controller/reverseIcon.png")));
+
   @FXML
   void initialize() {
     aboutPopup = new JFXPopup(aboutControllerFactory.create().root);
@@ -117,9 +119,9 @@ public class NavigationController implements Controller {
     toComboBox.refresh();
     fromComboBox.refresh();
 
-    reverse_icon.setFitHeight(40);
-    reverse_icon.setFitWidth(40);
-    reverseButton.setGraphic(reverse_icon);
+    reverseIcon.setFitHeight(40);
+    reverseIcon.setFitWidth(40);
+    reverseButton.setGraphic(reverseIcon);
 
     map.setNodes(database.getAllNodes());
     stepByStep = new StepByStep();
@@ -164,7 +166,8 @@ public class NavigationController implements Controller {
     instructionPane.setStyle("-fx-font-size: 15px; -fx-font-family: Palatino Linotype; "
         + "-fx-font-weight: BOLD");
 
-    reverseButton.disableProperty().bind(fromComboBox.valueProperty().isNull().or(toComboBox.valueProperty().isNull()));
+    reverseButton.disableProperty().bind(fromComboBox.valueProperty().isNull()
+        .or(toComboBox.valueProperty().isNull()));
   }
 
 
@@ -355,7 +358,7 @@ public class NavigationController implements Controller {
   }
 
   @FXML
-  void reverseOnAction(){
+  void reverseOnAction() {
     String flip = "";
     flip = fromComboBox.getValue();
     fromComboBox.setValue(toComboBox.getValue());
