@@ -243,9 +243,9 @@ public class MapView extends StackPane {
               }
             }
             circle.setVisible(true);
-            coordY.setText(Double.toString((int) pointOnMap.getX()));
-            coordX.setText(Double.toString((int) pointOnMap.getY()));
           }
+          coordY.setText(Double.toString((int) pointOnMap.getX()));
+          coordX.setText(Double.toString((int) pointOnMap.getY()));
         }
       } else if (e.getButton().equals(SECONDARY)) {
         contextMenu.show(gesturePane, e.getScreenX(), e.getScreenY());
