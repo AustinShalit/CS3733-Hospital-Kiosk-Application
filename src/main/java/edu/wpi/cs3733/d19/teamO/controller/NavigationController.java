@@ -180,7 +180,8 @@ public class NavigationController implements Controller {
     }
 
 
-    GraphSearchAlgorithm<Node> algorithm = appPreferences.getGraphSearchAlgorithm().getSupplier().get();
+    GraphSearchAlgorithm<Node> algorithm
+        = appPreferences.getGraphSearchAlgorithm().getSupplier().get();
     MutableGraph<Node> graph = GraphBuilder.undirected().allowsSelfLoops(false).build();
     database.getAllNodes().forEach(graph::addNode);
     database.getAllEdges().forEach(e -> graph.putEdge(e.getStartNode(), e.getEndNode()));

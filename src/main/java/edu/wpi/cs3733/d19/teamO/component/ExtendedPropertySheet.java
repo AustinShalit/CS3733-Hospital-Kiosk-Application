@@ -288,7 +288,8 @@ public class ExtendedPropertySheet extends PropertySheet {
   }
 
   private static class GraphSearchAlgorithmPropertyEditor
-      extends AbstractPropertyEditor<GraphSearchAlgorithmSupplier, ComboBox<GraphSearchAlgorithmSupplier>> {
+      extends AbstractPropertyEditor<GraphSearchAlgorithmSupplier,
+      ComboBox<GraphSearchAlgorithmSupplier>> {
 
     private static class GraphSearchAlgorithmStringConverter
         extends StringConverter<GraphSearchAlgorithmSupplier> {

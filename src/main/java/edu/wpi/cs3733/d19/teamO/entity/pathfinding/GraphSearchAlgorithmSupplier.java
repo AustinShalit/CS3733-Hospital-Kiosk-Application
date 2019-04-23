@@ -8,7 +8,7 @@ public class GraphSearchAlgorithmSupplier {
   private final Supplier<GraphSearchAlgorithm> supplier;
 
   GraphSearchAlgorithmSupplier(String name,
-                                      Supplier<GraphSearchAlgorithm> supplier) {
+                               Supplier<GraphSearchAlgorithm> supplier) {
     this.name = name;
     this.supplier = supplier;
   }
