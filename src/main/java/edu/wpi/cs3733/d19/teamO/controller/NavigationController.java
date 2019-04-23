@@ -213,6 +213,7 @@ public class NavigationController implements Controller {
     // buttons for the floors traversed
     buttonPane.getChildren().clear();
     buttonPane.setVgap(7);
+    buttonPane.setHgap(4);
 
     List<Node> floors = getFloors(path);
     for (int i = 0; i < floors.size(); i++) {
@@ -234,7 +235,8 @@ public class NavigationController implements Controller {
 
       if (i != floors.size() - 1) {
         Glyph arrow = new Glyph("FontAwesome", "ARROW_RIGHT");
-        arrow.size(10);
+        arrow.size(12);
+        arrow.setStyle("-fx-text-fill: #f6bd38; -fx-fill: #f6bd38;");
         Label label = new Label("", arrow);
         if (!buttonPane.getChildren().contains(label)) {
           buttonPane.getChildren().add(label);
