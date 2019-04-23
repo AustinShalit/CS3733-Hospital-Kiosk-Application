@@ -49,6 +49,8 @@ public class FireAlarmController implements Controller{
 
   @FXML
   void initialize() throws IOException {
+    map.setNodes(database.getAllNodes());
+    map.setNavigation(true);
     flash(topBox);
     flash(bottomBox);
     flash(leftBox);
