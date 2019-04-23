@@ -1,8 +1,13 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 
+import foodRequest.FoodRequest;
+import foodRequest.ServiceException;
 import floral.api.FloralApi;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -64,6 +69,9 @@ public class RequestController implements Controller {
   @FXML
   private JFXButton florist;
 
+  @FXML
+  private JFXButton food;
+
   @Inject
   private InternalTransportationViewController.Factory internalTransportationControllerFactory;
   @Inject
@@ -108,6 +116,7 @@ public class RequestController implements Controller {
           religious.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
           animalSupport.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
           florist.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
+          food.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
         });
   }
 
@@ -158,7 +167,6 @@ public class RequestController implements Controller {
 
   @FXML
   void floristAction(ActionEvent event) {
-//    content.setCenter(floristRequestControllerFactory.create().root);
     FloralApi floralApi = new FloralApi();
     try {
       floralApi.run(5, 5, null, null);
@@ -178,6 +186,25 @@ public class RequestController implements Controller {
   @FXML
   void prescriptionAction() {
     content.setCenter(prescriptionRequestControllerFactory.create().root);
+  }
+
+  @FXML
+  void foodAction() {
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    FoodRequest foodRequest = new FoodRequest();
+    try {
+      foodRequest.run(
+          0,
+          0,
+          screenSize.width,
+          screenSize.height,
+           null,
+          null,
+          null);
+    } catch (ServiceException exception) {
+      System.out.println("Failed to run API");
+      exception.printStackTrace();
+    }
   }
 
   @Override

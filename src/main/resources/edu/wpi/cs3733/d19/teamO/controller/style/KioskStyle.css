@@ -164,7 +164,7 @@
     -fx-text-fill: #012D5A;
     -fx-content-display: BOTTOM;
     -fx-pref-width: 200px;
-    -fx-border-radius: 0px;
+    -fx-background-radius: 0px;
 }
 
 .home-btn:hover {
