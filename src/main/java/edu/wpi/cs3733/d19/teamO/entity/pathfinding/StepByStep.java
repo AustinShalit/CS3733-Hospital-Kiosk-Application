@@ -11,7 +11,6 @@ import edu.wpi.cs3733.d19.teamO.entity.Node;
 @SuppressWarnings({"PMD.CyclomaticComplexity", "PMD.LooseCoupling", "PMD.CyclomaticComplexity",
     "PMD.AvoidInstantiatingObjectsInLoops", "PMD.GodClass", "PMD.ExcessiveMethodLength",
     "PMD.NPathComplexity", "PMD.PositionLiteralsFirstInComparisons"})
-
 public class StepByStep {
 
   public StepByStep() {

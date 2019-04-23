@@ -11,8 +11,10 @@ import com.google.common.base.MoreObjects;
 
 import javafx.scene.shape.Polygon;
 
+import edu.wpi.cs3733.d19.teamO.entity.pathfinding.ComparableCost;
+
 @SuppressWarnings("PMD.UseStringBufferForStringAppends")
-public class Node {
+public class Node implements ComparableCost<Node> {
 
   public enum NodeType {
     CONF("Conference"),
@@ -250,6 +252,12 @@ public class Node {
     } else {
       return -3;
     }
+  }
+
+  @Override
+  public double getCostTo(Node other) {
+    return Math.sqrt(Math.pow(other.getXcoord() - getXcoord(), 2)
+        + Math.pow(other.getYcoord() - getYcoord(), 2));
   }
 
   /**

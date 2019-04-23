@@ -18,7 +18,7 @@ import javafx.util.Callback;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 
-import edu.wpi.cs3733.d19.teamO.entity.pathfinding.GraphSearchAlgorithm;
+import edu.wpi.cs3733.d19.teamO.entity.pathfinding.GraphSearchAlgorithmSupplier;
 import edu.wpi.cs3733.d19.teamO.entity.pathfinding.GraphSearchAlgorithms;
 import edu.wpi.cs3733.d19.teamO.entity.setting.Category;
 import edu.wpi.cs3733.d19.teamO.entity.setting.FlushableProperty;
@@ -54,7 +54,7 @@ public class ExtendedPropertySheet extends PropertySheet {
           if (item.getType() == Boolean.class) {
             return new ToggleSwitchEditor(item);
           }
-          if (item.getType() == GraphSearchAlgorithm.class) {
+          if (item.getType() == GraphSearchAlgorithmSupplier.class) {
             return new GraphSearchAlgorithmPropertyEditor(item);
           }
           if (item.getType() == Theme.class) {
@@ -288,18 +288,19 @@ public class ExtendedPropertySheet extends PropertySheet {
   }
 
   private static class GraphSearchAlgorithmPropertyEditor
-      extends AbstractPropertyEditor<GraphSearchAlgorithm, ComboBox<GraphSearchAlgorithm>> {
+      extends AbstractPropertyEditor<GraphSearchAlgorithmSupplier,
+      ComboBox<GraphSearchAlgorithmSupplier>> {
 
     private static class GraphSearchAlgorithmStringConverter
-        extends StringConverter<GraphSearchAlgorithm> {
+        extends StringConverter<GraphSearchAlgorithmSupplier> {
 
       @Override
-      public String toString(GraphSearchAlgorithm object) {
+      public String toString(GraphSearchAlgorithmSupplier object) {
         return object.getName();
       }
 
       @Override
-      public GraphSearchAlgorithm fromString(String string) {
+      public GraphSearchAlgorithmSupplier fromString(String string) {
         return GraphSearchAlgorithms.getDefault().forName(string);
       }
     }
@@ -311,12 +312,12 @@ public class ExtendedPropertySheet extends PropertySheet {
     }
 
     @Override
-    protected ObservableValue<GraphSearchAlgorithm> getObservableValue() {
+    protected ObservableValue<GraphSearchAlgorithmSupplier> getObservableValue() {
       return getEditor().getSelectionModel().selectedItemProperty();
     }
 
     @Override
-    public void setValue(GraphSearchAlgorithm value) {
+    public void setValue(GraphSearchAlgorithmSupplier value) {
       getEditor().getSelectionModel().select(value);
     }
   }
