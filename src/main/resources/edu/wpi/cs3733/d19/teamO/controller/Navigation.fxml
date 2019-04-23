@@ -15,37 +15,45 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.layout.StackPane?>
 <BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.NavigationController">
   <left>
-    <VBox fx:id="sidebar" alignment="TOP_CENTER" prefWidth="323.0" style="-fx-background-color: #ffffff; -fx-effect: dropshadow(three-pass-box, rgba(110, 110, 110, 0.25), 10, 0, 0, 0);">
+    <StackPane style="-fx-background-color: rgba(1, 46, 90, 0.9);">
+    <VBox fx:id="sidebar" alignment="TOP_CENTER" prefWidth="323.0" spacing="10.0">
       <padding>
         <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
       </padding>
       <children>
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="From">
+
+        <HBox alignment="CENTER_RIGHT" spacing="16.0">
+          <children>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="From" fill="white">
           <font>
-            <Font size="36.0" />
+            <Font size="32.0" />
           </font>
         </Text>
-        <FuzzyWuzzyComboBox fx:id="fromComboBox" editable="true" onAction="#onFromComboAction" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="264.0">
+        <FuzzyWuzzyComboBox fx:id="fromComboBox" id="navbox" editable="true" onAction="#onFromComboAction" maxHeight="100.0" prefHeight="50.0" prefWidth="264.0" />
+          </children>
           <VBox.margin>
-            <Insets bottom="30.0" left="5.0" right="5.0" />
+            <Insets right="20.0"/>
           </VBox.margin>
-        </FuzzyWuzzyComboBox>
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="To">
-          <VBox.margin>
-            <Insets />
-          </VBox.margin>
+        </HBox>
+
+        <HBox alignment="CENTER_RIGHT" spacing="16.0">
+          <children>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="To" fill="white">
           <font>
-            <Font size="36.0" />
+            <Font size="32.0" />
           </font>
         </Text>
-        <FuzzyWuzzyComboBox fx:id="toComboBox" editable="true" onAction="#onToComboAction" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="264.0">
+        <FuzzyWuzzyComboBox fx:id="toComboBox" id="navbox" editable="true" onAction="#onToComboAction" maxHeight="100.0" prefHeight="50.0" prefWidth="264.0" />
+          </children>
           <VBox.margin>
-            <Insets bottom="30.0" left="5.0" right="5.0" />
+            <Insets right="20.0" />
           </VBox.margin>
-        </FuzzyWuzzyComboBox>
-        <JFXButton fx:id="goButton" onAction="#onGoButtonAction" prefWidth="294.0" text="GO" textFill="WHITE" id="login-button">
+        </HBox>
+
+        <JFXButton fx:id="goButton" id="navbtn" onAction="#onGoButtonAction" prefWidth="294.0" text="GO" textFill="WHITE" style="-fx-font-weight: BOLD;">
           <VBox.margin>
             <Insets bottom="25.0" />
           </VBox.margin>
@@ -71,7 +79,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           </rowConstraints>
           <children>
-            <JFXButton fx:id="restroomButton" onAction="#nearestLocation" prefHeight="36.0" prefWidth="150.0" style="-fx-background-color: #012d5a;" text="Restroom" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <JFXButton fx:id="restroomButton" id="navbtn" onAction="#nearestLocation" prefHeight="36.0" prefWidth="150.0" text="Restroom" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
               <font>
                 <Font name="System Bold" size="18.0" />
               </font>
@@ -79,7 +87,7 @@
                 <Insets bottom="20.0" />
               </GridPane.margin>
             </JFXButton>
-            <JFXButton fx:id="elevatorButton" onAction="#nearestLocation" prefHeight="36.0" prefWidth="150.0" style="-fx-background-color: #012d5a;" text="Elevator" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <JFXButton fx:id="elevatorButton" id="navbtn" onAction="#nearestLocation" prefHeight="36.0" prefWidth="150.0" text="Elevator" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
               <font>
                 <Font name="System Bold" size="18.0" />
               </font>
@@ -87,12 +95,12 @@
                 <Insets bottom="20.0" />
               </GridPane.margin>
             </JFXButton>
-            <JFXButton fx:id="informationButton" onAction="#nearestLocation" prefHeight="36.0" prefWidth="150.0" style="-fx-background-color: #012d5a;" text="Information" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <JFXButton fx:id="informationButton" id="navbtn" onAction="#nearestLocation" prefHeight="36.0" prefWidth="150.0" text="Information" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
               <font>
                 <Font name="System Bold" size="18.0" />
               </font>
             </JFXButton>
-            <JFXButton fx:id="emergencyButton" onAction="#nearestLocation" prefHeight="36.0" prefWidth="150.0" style="-fx-background-color: #012d5a;" text="Emergency" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <JFXButton fx:id="emergencyButton" id="navbtn" onAction="#nearestLocation" prefHeight="36.0" prefWidth="150.0" text="Emergency" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
               <font>
                 <Font name="System Bold" size="18.0" />
               </font>
@@ -130,10 +138,8 @@
           </children>
         </HBox>
       </children>
-      <BorderPane.margin>
-        <Insets bottom="10.0" left="10.0" top="10.0" />
-      </BorderPane.margin>
     </VBox>
+    </StackPane>
   </left>
   <center>
     <MapView fx:id="map" style="-fx-background-color: WHITE; -fx-effect: dropshadow(three-pass-box, rgba(110, 110, 110, 0.25), 10, 0, 0, 0)">
