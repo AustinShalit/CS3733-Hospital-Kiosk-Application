@@ -5,8 +5,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.StackPane?>
 
-<JFXListView fx:id="list" onMouseClicked="#onAction" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.OptionsPopupController">
-  <Label onMouseClicked="#settingsAction">
+<JFXListView fx:id="list" onMouseClicked="#onAction" prefHeight="162.0" prefWidth="210.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.OptionsPopupController">
+  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#settingsAction">
     Settings
     <graphic>
       <StackPane>
@@ -14,7 +14,7 @@
       </StackPane>
     </graphic>
   </Label>
-  <Label onMouseClicked="#employeeAction">
+  <Label fx:id="editEmp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#employeeAction">
     Manage Employees
     <graphic>
       <StackPane>
@@ -22,7 +22,7 @@
       </StackPane>
     </graphic>
   </Label>
-  <Label onMouseClicked="#mapAction">
+  <Label fx:id="editMap" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#mapAction">
     Edit Map
     <graphic>
       <StackPane>
@@ -30,7 +30,7 @@
       </StackPane>
     </graphic>
   </Label>
-  <Label onMouseClicked="#fireAction">
+  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#fireAction">
     Fire Emergency
     <graphic>
       <StackPane>
