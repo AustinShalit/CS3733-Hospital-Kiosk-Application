@@ -32,7 +32,7 @@
         </Text>
         <JFXDatePicker fx:id="date" defaultColor="#f6bd38" maxWidth="300.0" minHeight="50.0" style="-fx-border-radius: 0px;">
           <VBox.margin>
-            <Insets left="8.0"/>
+            <Insets left="8.0" />
           </VBox.margin>
         </JFXDatePicker>
       </VBox>
@@ -43,9 +43,9 @@
             <Font size="32.0" />
           </font>
         </Text>
-        <JFXTimePicker fx:id="startTime" defaultColor="#f6bd38" maxWidth="300.0" minHeight="50.0" prefWidth="300.0"  style="-fx-border-radius: 0px; -jfx-focus-color: #f6bd38;">
+        <JFXTimePicker fx:id="startTime" defaultColor="#f6bd38" maxWidth="300.0" minHeight="50.0" prefWidth="300.0" style="-fx-border-radius: 0px; -jfx-focus-color: #f6bd38;">
           <VBox.margin>
-            <Insets left="8.0"/>
+            <Insets left="8.0" />
           </VBox.margin>
         </JFXTimePicker>
       </VBox>
@@ -56,16 +56,16 @@
             <Font size="32.0" />
           </font>
         </Text>
-        <JFXTimePicker fx:id="endTime" defaultColor="#f6bd38" minHeight="50.0" prefWidth="300.0"  style="-fx-background-radius: 0px; -jfx-focus-color: #f6bd38;">
+        <JFXTimePicker fx:id="endTime" defaultColor="#f6bd38" minHeight="50.0" prefWidth="300.0" style="-fx-background-radius: 0px; -jfx-focus-color: #f6bd38;">
           <VBox.margin>
-            <Insets left="8.0"/>
+            <Insets left="8.0" />
           </VBox.margin>
         </JFXTimePicker>
       </VBox>
 
       <Rectangle fill="#f6bd38" strokeWidth="0.0" width="150.0" height="2.0">
         <VBox.margin>
-          <Insets top="8.0"/>
+          <Insets top="8.0" />
         </VBox.margin>
       </Rectangle>
 
@@ -75,9 +75,9 @@
             <Font size="32.0" />
           </font>
         </Text>
-        <JFXTextField fx:id="nameField" maxWidth="300.0" prefWidth="372.0"  style=" -jfx-focus-color: #f6bd38; -fx-min-height: 50.0;">
+        <JFXTextField fx:id="nameField" maxWidth="300.0" prefWidth="372.0" style=" -jfx-focus-color: #f6bd38; -fx-min-height: 50.0;">
           <VBox.margin>
-            <Insets left="8.0"/>
+            <Insets left="8.0" />
           </VBox.margin>
         </JFXTextField>
       </VBox>
@@ -90,7 +90,7 @@
         </Text>
         <JFXComboBox fx:id="roomComboBox" prefWidth="300.0" minHeight="50.0" style="-fx-text-fill: black; -fx-background-color: white; -jfx-focus-color: #f6bd38;">
           <VBox.margin>
-            <Insets left="8.0"/>
+            <Insets left="8.0" />
           </VBox.margin>
         </JFXComboBox>
       </VBox>
@@ -100,20 +100,20 @@
           <Font name="System Bold" size="15.0" />
         </font>
         <VBox.margin>
-          <Insets top="8.0"/>
+          <Insets top="8.0" />
         </VBox.margin>
       </JFXButton>
     </VBox>
   </left>
   <center>
     <StackPane style="-fx-effect: dropshadow(three-pass-box, rgba(110, 110, 110, 0.25), 10, 0, 0, 0);">
-    <JFXTabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER" style="-fx-background-color: #f1f1f1; ">
-      <Tab closable="false" text="Map" style="-fx-background-color: #004E86;">
-        <SchedulingMapView fx:id="schedulingMapView" style="-fx-background-color: WHITE;" />
-      </Tab>
-      <Tab fx:id="tableTab" closable="false" text="Table" style="-fx-background-color: #004E86;"/>
-      <Tab fx:id="calendarTab" closable="false" text="Calendar" style="-fx-background-color: #004E86;" />
-    </JFXTabPane>
+      <JFXTabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER" style="-fx-background-color: #f1f1f1; ">
+        <Tab closable="false" text="Map" style="-fx-background-color: #004E86;">
+          <SchedulingMapView fx:id="schedulingMapView" style="-fx-background-color: WHITE;" />
+        </Tab>
+        <Tab fx:id="tableTab" closable="false" text="Table" style="-fx-background-color: #004E86;" />
+        <Tab fx:id="calendarTab" closable="false" text="Calendar" style="-fx-background-color: #004E86;" />
+      </JFXTabPane>
       <BorderPane.margin>
         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
       </BorderPane.margin>
