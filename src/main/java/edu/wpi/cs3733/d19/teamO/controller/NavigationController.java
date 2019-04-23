@@ -33,7 +33,7 @@ import edu.wpi.cs3733.d19.teamO.component.FuzzyWuzzyComboBox;
 import edu.wpi.cs3733.d19.teamO.component.MapView;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
-import edu.wpi.cs3733.d19.teamO.entity.pathfinding.IGraphSearchAlgorithm;
+import edu.wpi.cs3733.d19.teamO.entity.pathfinding.GraphSearchAlgorithm;
 import edu.wpi.cs3733.d19.teamO.entity.pathfinding.StepByStep;
 
 @FxmlController(url = "Navigation.fxml")
@@ -42,34 +42,36 @@ import edu.wpi.cs3733.d19.teamO.entity.pathfinding.StepByStep;
 public class NavigationController implements Controller {
 
   @FXML
-  private BorderPane root;
+  BorderPane root;
   @FXML
-  private VBox sidebar;
+  VBox sidebar;
 
   @FXML
-  private JFXButton restroomButton;
+  JFXButton restroomButton;
   @FXML
-  private JFXButton emergencyButton;
+  JFXButton emergencyButton;
   @FXML
-  private JFXButton elevatorButton;
+  JFXButton elevatorButton;
   @FXML
-  private JFXButton informationButton;
+  JFXButton informationButton;
   @FXML
-  private FuzzyWuzzyComboBox fromComboBox;
+  FuzzyWuzzyComboBox fromComboBox;
   @FXML
-  private FuzzyWuzzyComboBox toComboBox;
+  FuzzyWuzzyComboBox toComboBox;
   @FXML
-  private JFXButton goButton;
+  JFXButton goButton;
   @FXML
-  private MapView map;
+  MapView map;
   @FXML
-  private VBox instructionsContainer;
+  VBox instructionsContainer;
   @FXML
-  private JFXButton aboutButton;
+  JFXButton aboutButton;
   @FXML
-  private ScrollPane instructionPane;
+  ScrollPane instructionPane;
   @FXML
-  private FlowPane buttonPane;
+  FlowPane buttonPane;
+
+  private StepByStep stepByStep;
 
   @Inject
   private AppPreferences appPreferences;
@@ -111,6 +113,7 @@ public class NavigationController implements Controller {
     fromComboBox.refresh();
 
     map.setNodes(database.getAllNodes());
+    stepByStep = new StepByStep();
     validateGoButton();
     map.setNavigation(true);
     map.nodeFromProperty().addListener((observable, oldValue, newValue)
@@ -210,7 +213,8 @@ public class NavigationController implements Controller {
     }
 
 
-    IGraphSearchAlgorithm<Node> algorithm = appPreferences.getGraphSearchAlgorithm().getAlgorithm();
+    GraphSearchAlgorithm<Node> algorithm
+        = appPreferences.getGraphSearchAlgorithm().getSupplier().get();
     MutableGraph<Node> graph = GraphBuilder.undirected().allowsSelfLoops(false).build();
     database.getAllNodes().forEach(graph::addNode);
     database.getAllEdges().forEach(e -> graph.putEdge(e.getStartNode(), e.getEndNode()));
@@ -267,7 +271,7 @@ public class NavigationController implements Controller {
 
     instructionsContainer.getChildren().setAll(new ArrayList<>());
     Label tempRef;
-    for (Pair<String, Node> curPair : new StepByStep().getStepByStep(path)) {
+    for (Pair<String, Node> curPair : stepByStep.getStepByStep(path)) {
       tempRef = new Label(curPair.getFirst());
       tempRef.setPrefWidth(400);
       tempRef.setOnMouseClicked(event -> {
