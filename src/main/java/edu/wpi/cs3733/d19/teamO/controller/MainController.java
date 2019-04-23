@@ -22,11 +22,14 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
+import edu.wpi.cs3733.d19.teamO.AppPreferences;
 import edu.wpi.cs3733.d19.teamO.LiveWeather;
 import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
@@ -83,6 +86,8 @@ public class MainController implements Controller {
   private SettingsController.Factory settingsControllerFactory;
   @Inject
   private Database database;
+  @Inject
+  AppPreferences appPreferences;
 
   private final LiveWeather liveWeather = new LiveWeather();
 
@@ -90,6 +95,9 @@ public class MainController implements Controller {
   private JFXPopup optionsPopup;
   private JFXPopup loginPopup;
   private JFXPopup settingsPopup;
+  private Timeline idleTimeline;
+  // private static IdleLogoutCareTaker careTaker;
+  // private static IdleLogoutOriginator originator;
 
   @FXML
   void initialize() {
@@ -165,7 +173,7 @@ public class MainController implements Controller {
     liveWeather.imageProperty().addListener((observable, oldValue, newValue)
         -> tempImage.setImage(newValue));
     weatherLabel.textProperty().bind(Bindings.createStringBinding(()
-        -> String.format("%.1f°F to %.1f°F", liveWeather.getMinTemp(), liveWeather.getMaxTemp()),
+            -> String.format("%.1f°F to %.1f°F", liveWeather.getMinTemp(), liveWeather.getMaxTemp()),
         liveWeather.minTempProperty(), liveWeather.maxTempProperty()));
     description.textProperty().bind(liveWeather.descriptionProperty());
     description.setStyle("-fx-font-size: 15px; -fx-font-style: bold");
@@ -174,6 +182,52 @@ public class MainController implements Controller {
         -> timeLabel.setText(LocalDateTime.now().format(DATE_TIME_FORMATTER))));
     timeline.setCycleCount(Animation.INDEFINITE);
     timeline.play();
+
+    // Initialize idleTimeline value
+    //
+    idleTimeline = new Timeline(new KeyFrame(
+        Duration.millis(appPreferences.getAutoLogoutTime() * 1000),
+        ae -> loginButtonAction()));
+
+    // Unused Memento stuff
+        /*careTaker = new IdleLogoutCareTaker();
+        originator = new IdleLogoutOriginator(idleTimeline, careTaker);*/
+
+    // Add event handlers to reset timeline on activity on any window
+    //
+    root.addEventHandler(MouseEvent.MOUSE_MOVED, ae -> resetTimeline());
+    root.addEventHandler(MouseEvent.MOUSE_CLICKED, ae -> resetTimeline());
+    root.addEventHandler(KeyEvent.KEY_PRESSED, ae -> resetTimeline());
+    menu.addEventHandler(MouseEvent.MOUSE_MOVED, ae -> resetTimeline());
+    menu.addEventHandler(MouseEvent.MOUSE_CLICKED, ae -> resetTimeline());
+    menu.addEventHandler(KeyEvent.KEY_PRESSED, ae -> resetTimeline());
+    optionsBurger.addEventHandler(MouseEvent.MOUSE_MOVED, ae -> resetTimeline());
+    optionsBurger.addEventHandler(MouseEvent.MOUSE_CLICKED, ae -> resetTimeline());
+    optionsBurger.addEventHandler(KeyEvent.KEY_PRESSED, ae -> resetTimeline());
+    toolbar.addEventHandler(MouseEvent.MOUSE_MOVED, ae -> resetTimeline());
+    toolbar.addEventHandler(MouseEvent.MOUSE_CLICKED, ae -> resetTimeline());
+    toolbar.addEventHandler(KeyEvent.KEY_PRESSED, ae -> resetTimeline());
+
+
+  }
+
+  /**
+   * Reset the idleTimer if the user is logged in.
+   */
+  void resetTimeline() {
+    idleTimeline.pause();
+    updateDuration();
+    if ("Logout".equals(loginbtn.getText())) {
+      idleTimeline.playFromStart();
+    }
+  }
+
+  /**
+   * Update the duration of the idleTimer to the current autoLogoutTime.
+   */
+  private void updateDuration() {
+    Duration temp = new Duration(appPreferences.getAutoLogoutTime() * 1000);
+    idleTimeline.setDelay(temp);
   }
 
   @FXML
