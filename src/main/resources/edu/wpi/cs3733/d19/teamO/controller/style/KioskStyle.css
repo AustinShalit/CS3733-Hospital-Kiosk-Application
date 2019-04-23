@@ -261,3 +261,11 @@
 .jfx-tab-pane .tab-header-background {
     -fx-background-color: #004E86;
 }
+
+#swapbtn {
+    -fx-background-color: transparent;
+}
+
+#swapbtn:hover {
+    -fx-background-color: #004E86;
+}

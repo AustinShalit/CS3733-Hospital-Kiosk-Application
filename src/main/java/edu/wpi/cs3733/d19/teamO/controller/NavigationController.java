@@ -71,6 +71,8 @@ public class NavigationController implements Controller {
   ScrollPane instructionPane;
   @FXML
   FlowPane buttonPane;
+  @FXML
+  JFXButton reverseButton;
 
   private StepByStep stepByStep;
 
@@ -82,7 +84,6 @@ public class NavigationController implements Controller {
   private AboutController.Factory aboutControllerFactory;
 
   private JFXPopup aboutPopup;
-
 
   @FXML
   void initialize() {
@@ -153,6 +154,9 @@ public class NavigationController implements Controller {
 
     instructionPane.setStyle("-fx-font-size: 15px; -fx-font-family: Palatino Linotype; "
         + "-fx-font-weight: BOLD");
+
+    reverseButton.disableProperty().bind(fromComboBox.valueProperty().isNull()
+        .or(toComboBox.valueProperty().isNull()));
   }
 
 
@@ -331,5 +335,14 @@ public class NavigationController implements Controller {
     }
 
     return floorNodes;
+  }
+
+  @FXML
+  void reverseOnAction() throws IOException {
+    String flip = "";
+    flip = fromComboBox.getValue();
+    fromComboBox.setValue(toComboBox.getValue());
+    toComboBox.setValue(flip);
+    onGoButtonAction();
   }
 }
