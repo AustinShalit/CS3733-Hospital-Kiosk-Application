@@ -3,6 +3,7 @@ package edu.wpi.cs3733.d19.teamO.controller;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 
+import floral.api.FloralApi;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -157,7 +158,15 @@ public class RequestController implements Controller {
 
   @FXML
   void floristAction(ActionEvent event) {
-    content.setCenter(floristRequestControllerFactory.create().root);
+//    content.setCenter(floristRequestControllerFactory.create().root);
+    FloralApi floralApi = new FloralApi();
+    try {
+      floralApi.run(5, 5, null, null);
+    } catch (Exception e) {
+      System.out.println("Floral API failed");
+      e.printStackTrace();
+    }
+
   }
 
 

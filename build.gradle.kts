@@ -37,6 +37,9 @@ allprojects {
     repositories {
         mavenCentral()
         jcenter()
+        maven {
+            url = uri("https://ravana.dyn.wpi.edu/maven")
+        }
     }
 
     dependencies {
@@ -60,6 +63,7 @@ allprojects {
         implementation(group = "com.twilio.sdk", name = "twilio", version = "7.37.2")
         implementation(group = "si.uom", name = "si-units", version = "0.9")
         implementation(group = "systems.uom", name = "systems-common", version = "0.9")
+        implementation(group = "edu.wpi.cs3733.d19.teamG", name =  "TeamGFloral", version = "1.0.1")
 
         fun derby(name: String, version: String = "10.14.2.0") =
                 create(group = "org.apache.derby", name = name, version = version)
