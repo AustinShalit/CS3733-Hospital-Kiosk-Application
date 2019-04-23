@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import edu.wpi.cs3733.d19.teamO.component.MapView?>
-<?import edu.wpi.cs3733.d19.teamO.component.FuzzyWuzzyComboBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -11,12 +9,15 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.shape.Rectangle?>
+<?import edu.wpi.cs3733.d19.teamO.component.MapView?>
+<?import edu.wpi.cs3733.d19.teamO.component.FuzzyWuzzyComboBox?>
+
 <BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.NavigationController">
   <left>
     <StackPane style="-fx-background-color: rgba(1, 46, 90, 0.9);">
@@ -25,36 +26,40 @@
           <Insets bottom="16.0" left="16.0" right="16.0" top="32.0" />
         </padding>
         <children>
-
-          <HBox alignment="CENTER_RIGHT" spacing="16.0">
+          <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
             <children>
-              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="From" fill="white" style="-fx-font-weight: BOLD;">
-                <font>
-                  <Font size="32.0" />
-                </font>
-              </Text>
-              <FuzzyWuzzyComboBox fx:id="fromComboBox" id="navbox" editable="true" onAction="#onFromComboAction" maxHeight="100.0" prefHeight="50.0" prefWidth="264.0" />
+              <VBox spacing="20.0">
+                <children>
+
+                  <HBox alignment="CENTER_RIGHT" spacing="12.0">
+                    <children>
+                      <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: BOLD;" text="From">
+                        <font>
+                          <Font size="32.0" />
+                        </font>
+                      </Text>
+                      <FuzzyWuzzyComboBox fx:id="fromComboBox" id="navbox" editable="true" onAction="#onFromComboAction" maxHeight="100.0" prefHeight="50.0" maxWidth="180.0" />
+                    </children>
+                  </HBox>
+
+                  <HBox alignment="CENTER_RIGHT" spacing="12.0">
+                    <children>
+                      <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: BOLD;" text="To">
+                        <font>
+                          <Font size="32.0" />
+                        </font>
+                      </Text>
+                      <FuzzyWuzzyComboBox fx:id="toComboBox" id="navbox" editable="true" onAction="#onToComboAction" maxHeight="100.0" prefHeight="50.0" maxWidth="180.0" />
+                    </children>
+                  </HBox>
+                </children>
+              </VBox>
+              <JFXButton fx:id="reverseButton"  onAction="#reverseOnAction" maxWidth="30.0" mnemonicParsing="false" prefHeight="100.0" >
+              </JFXButton>
             </children>
-            <VBox.margin>
-              <Insets right="20.0" bottom="12.0" />
-            </VBox.margin>
           </HBox>
 
-          <HBox alignment="CENTER_RIGHT" spacing="16.0">
-            <children>
-              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="To" fill="white" style="-fx-font-weight: BOLD;">
-                <font>
-                  <Font size="32.0" />
-                </font>
-              </Text>
-              <FuzzyWuzzyComboBox fx:id="toComboBox" id="navbox" editable="true" onAction="#onToComboAction" maxHeight="100.0" prefHeight="50.0" prefWidth="264.0" />
-            </children>
-            <VBox.margin>
-              <Insets right="20.0" bottom="12.0" />
-            </VBox.margin>
-          </HBox>
-
-          <JFXButton fx:id="goButton" id="gobtn" onAction="#onGoButtonAction" prefWidth="294.0" text="GO" textFill="WHITE" style="-fx-font-weight: BOLD;">
+          <JFXButton id="gobtn" fx:id="goButton" onAction="#onGoButtonAction" prefWidth="294.0" style="-fx-font-weight: BOLD;" text="GO" textFill="WHITE">
             <VBox.margin>
               <Insets bottom="16.0" />
             </VBox.margin>
@@ -63,9 +68,9 @@
             </font>
           </JFXButton>
 
-          <Rectangle fill="#f6bd38" strokeWidth="0.0" width="150.0" height="2.0" />
+          <Rectangle fill="#f6bd38" height="2.0" strokeWidth="0.0" width="150.0" />
 
-          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Quick Navigate" fill="white" style="-fx-font-weight: BOLD">
+          <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: BOLD" text="Quick Navigate">
             <font>
               <Font size="32.0" />
             </font>
@@ -83,25 +88,25 @@
               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-              <JFXButton fx:id="restroomButton" id="navbtn" onAction="#nearestLocation" prefHeight="36.0" prefWidth="150.0" text="Restroom" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+              <JFXButton id="navbtn" fx:id="restroomButton" onAction="#nearestLocation" prefHeight="36.0" prefWidth="150.0" text="Restroom" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                 <GridPane.margin>
                   <Insets bottom="20.0" />
                 </GridPane.margin>
               </JFXButton>
-              <JFXButton fx:id="elevatorButton" id="navbtn" onAction="#nearestLocation" prefHeight="36.0" prefWidth="150.0" text="Elevator" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+              <JFXButton id="navbtn" fx:id="elevatorButton" onAction="#nearestLocation" prefHeight="36.0" prefWidth="150.0" text="Elevator" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                 <GridPane.margin>
                   <Insets bottom="20.0" />
                 </GridPane.margin>
               </JFXButton>
-              <JFXButton fx:id="informationButton" id="navbtn" onAction="#nearestLocation" prefHeight="36.0" prefWidth="150.0" text="Information" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-              <JFXButton fx:id="emergencyButton" id="navbtn" onAction="#nearestLocation" prefHeight="36.0" prefWidth="150.0" text="Emergency" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+              <JFXButton id="navbtn" fx:id="informationButton" onAction="#nearestLocation" prefHeight="36.0" prefWidth="150.0" text="Information" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+              <JFXButton id="navbtn" fx:id="emergencyButton" onAction="#nearestLocation" prefHeight="36.0" prefWidth="150.0" text="Emergency" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
             </children>
             <VBox.margin>
               <Insets bottom="12.0" />
             </VBox.margin>
           </GridPane>
 
-          <Rectangle fill="#f6bd38" strokeWidth="0.0" width="150.0" height="2.0" />
+          <Rectangle fill="#f6bd38" height="2.0" strokeWidth="0.0" width="150.0" />
 
           <FlowPane fx:id="buttonPane" columnHalignment="CENTER" prefWrapLength="200.0">
             <VBox.margin>
@@ -112,7 +117,7 @@
             <content>
               <VBox fx:id="instructionsContainer">
                 <padding>
-                  <Insets top="8.0" bottom="8.0" right="8.0" left="12.0" />
+                  <Insets bottom="8.0" left="12.0" right="8.0" top="8.0" />
                 </padding>
               </VBox>
             </content>
@@ -121,16 +126,16 @@
             </VBox.margin>
           </ScrollPane>
 
-          <Rectangle fill="#f6bd38" strokeWidth="0.0" width="150.0" height="2.0" />
+          <Rectangle fill="#f6bd38" height="2.0" strokeWidth="0.0" width="150.0" />
 
-          <HBox prefWidth="323.0" alignment="CENTER" spacing="20.0">
+          <HBox alignment="CENTER" prefWidth="323.0" spacing="20.0">
             <children>
-              <JFXButton fx:id="aboutButton" onAction="#onAboutButtonAction" prefHeight="48.0" minWidth="154.0" id="small-button" text="About Page" style="-jfx-button-type: RAISED;">
+              <JFXButton id="small-button" fx:id="aboutButton" minWidth="154.0" onAction="#onAboutButtonAction" prefHeight="48.0" style="-jfx-button-type: RAISED;" text="About Page">
                 <font>
                   <Font name="System Bold" size="18.0" />
                 </font>
               </JFXButton>
-              <JFXButton prefHeight="48.0" minWidth="150.0" text="Credit" id="small-button" style="-jfx-button-type: RAISED;" />
+              <JFXButton id="small-button" minWidth="150.0" prefHeight="48.0" style="-jfx-button-type: RAISED;" text="Credit" />
             </children>
             <VBox.margin>
               <Insets top="12.0" />
