@@ -178,7 +178,8 @@ public class NavigationController implements Controller {
   @SuppressWarnings({
       "PMD.AvoidInstantiatingObjectsInLoops",
       "UseStringBufferForStringAppends",
-      "PMD.NPathComplexity"
+      "PMD.NPathComplexity",
+      "PMD.CyclomaticComplexity"
   })
   void onGoButtonAction() throws IOException {
     instructionPane.setVisible(true);
@@ -242,8 +243,8 @@ public class NavigationController implements Controller {
           arrow = arrow.duplicate();
           arrow.setStyle("-fx-text-fill: #f6bd38; -fx-fill: #f6bd38;");
           label = new Label("", arrow);
-        } catch (IllegalArgumentException iac){
-            label = new Label(">");
+        } catch (IllegalArgumentException iac) {
+          label = new Label(">");
         }
 
         if (!buttonPane.getChildren().contains(label)) {
@@ -254,7 +255,7 @@ public class NavigationController implements Controller {
 
     instructionsContainer.getChildren().setAll(new ArrayList<>());
     Label tempRef;
-    for (Pair<String, Node> curPair: stepByStep.getStepByStep(path)) {
+    for (Pair<String, Node> curPair : stepByStep.getStepByStep(path)) {
       tempRef = new Label(curPair.getFirst());
       tempRef.setPrefWidth(400);
       tempRef.setOnMouseClicked(event -> {
