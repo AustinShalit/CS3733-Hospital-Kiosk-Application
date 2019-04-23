@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<!--<?import edu.wpi.cs3733.d19.teamO.component.MapView?>-->
+<?import edu.wpi.cs3733.d19.teamO.component.MapView?>
 <?import edu.wpi.cs3733.d19.teamO.component.FuzzyWuzzyComboBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ScrollPane?>
@@ -141,10 +141,10 @@
     </StackPane>
   </left>
   <center>
-<!--    <MapView fx:id="map" style="-fx-background-color: WHITE; -fx-effect: dropshadow(three-pass-box, rgba(110, 110, 110, 0.25), 10, 0, 0, 0)">-->
-<!--      <BorderPane.margin>-->
-<!--        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />-->
-<!--      </BorderPane.margin>-->
-<!--    </MapView>-->
+    <MapView fx:id="map" style="-fx-background-color: WHITE; -fx-effect: dropshadow(three-pass-box, rgba(110, 110, 110, 0.25), 10, 0, 0, 0)">
+      <BorderPane.margin>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+      </BorderPane.margin>
+    </MapView>
   </center>
 </BorderPane>

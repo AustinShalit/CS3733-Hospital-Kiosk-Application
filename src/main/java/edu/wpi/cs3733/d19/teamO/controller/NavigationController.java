@@ -90,7 +90,6 @@ public class NavigationController implements Controller {
 
   private JFXPopup aboutPopup;
 
-
   @FXML
   void initialize() {
     aboutPopup = new JFXPopup(aboutControllerFactory.create().root);
