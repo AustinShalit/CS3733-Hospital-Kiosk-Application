@@ -12,40 +12,40 @@ import java.util.Set;
  * @param <T> The type of data being accessed
  */
 interface Dao<K, T> {
-    /**
-     * Retrieves an object from the database.
-     *
-     * @param id The ID of the object
-     * @return An Optional containing the object if it exists
-     */
-    Optional<T> get(K id);
+	/**
+	 * Retrieves an object from the database.
+	 *
+	 * @param id The ID of the object
+	 * @return An Optional containing the object if it exists
+	 */
+	Optional<T> get(K id);
 
-    /**
-     * Retrieves all the objects from the database.
-     *
-     * @return A Set of all the objects
-     */
-    Set<T> getAll();
+	/**
+	 * Retrieves all the objects from the database.
+	 *
+	 * @return A Set of all the objects
+	 */
+	Set<T> getAll();
 
-    /**
-     * Creates a new object in the database.
-     *
-     * @return True if the operation was successful
-     */
-    boolean insert(T o);
+	/**
+	 * Creates a new object in the database.
+	 *
+	 * @return True if the operation was successful
+	 */
+	boolean insert(T o);
 
-    /**
-     * Updates an object in the database.
-     *
-     * @return True if the operation was successful
-     */
-    boolean update(T o);
+	/**
+	 * Updates an object in the database.
+	 *
+	 * @return True if the operation was successful
+	 */
+	boolean update(T o);
 
-    /**
-     * Deletes an object from the database.
-     *
-     * @return True if the operation was successful
-     */
-    boolean delete(T o);
+	/**
+	 * Deletes an object from the database.
+	 *
+	 * @return True if the operation was successful
+	 */
+	boolean delete(T o);
 
 }

@@ -8,50 +8,58 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.SecurityWindowController">
-  <top>
-    <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="87.0" prefWidth="610.0" BorderPane.alignment="CENTER">
-      <children>
-        <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
-          <children>
-            <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackButtonAction" text="Go Back">
-              <VBox.margin>
-                <Insets left="5.0" top="5.0" />
-              </VBox.margin>
-            </Button>
-          </children>
+<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="edu.wpi.cs3733.d19.teamO.controller.SecurityWindowController">
+    <top>
+        <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="87.0"
+              prefWidth="610.0" BorderPane.alignment="CENTER">
+            <children>
+                <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                    <children>
+                        <Button fx:id="backButton" mnemonicParsing="false"
+                                onAction="#onBackButtonAction" text="Go Back">
+                            <VBox.margin>
+                                <Insets left="5.0" top="5.0"/>
+                            </VBox.margin>
+                        </Button>
+                    </children>
+                </VBox>
+                <Label maxWidth="-Infinity" minWidth="-Infinity" text="Security">
+                    <HBox.margin>
+                        <Insets top="40.0"/>
+                    </HBox.margin>
+                    <font>
+                        <Font name="Constantia Bold" size="32.0"/>
+                    </font>
+                </Label>
+                <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS"/>
+            </children>
+        </HBox>
+    </top>
+    <left>
+        <VBox alignment="CENTER" prefHeight="313.0" prefWidth="616.0" BorderPane.alignment="CENTER">
+            <children>
+                <JFXComboBox fx:id="locationComboBox" promptText="Pick Location">
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="10.0"/>
+                    </VBox.margin>
+                </JFXComboBox>
+                <Button fx:id="sendHelpButton" mnemonicParsing="false"
+                        onAction="#onSendHelpButtonAction" prefHeight="98.0" prefWidth="152.0"
+                        text="Send Help!">
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="10.0"/>
+                    </VBox.margin>
+                </Button>
+                <Button fx:id="viewSecurityRequestsButton" mnemonicParsing="false"
+                        onAction="#onViewSecurityRequestsAction" prefHeight="98.0" prefWidth="152.0"
+                        text="View Security Requests">
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="10.0"/>
+                    </VBox.margin>
+                </Button>
+            </children>
         </VBox>
-        <Label maxWidth="-Infinity" minWidth="-Infinity" text="Security">
-          <HBox.margin>
-            <Insets top="40.0" />
-          </HBox.margin>
-          <font>
-            <Font name="Constantia Bold" size="32.0" />
-          </font>
-        </Label>
-        <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS" />
-      </children>
-    </HBox>
-  </top>
-  <left>
-    <VBox alignment="CENTER" prefHeight="313.0" prefWidth="616.0" BorderPane.alignment="CENTER">
-      <children>
-        <JFXComboBox fx:id="locationComboBox" promptText="Pick Location">
-          <VBox.margin>
-            <Insets bottom="10.0" top="10.0" />
-          </VBox.margin>
-        </JFXComboBox>
-        <Button fx:id="sendHelpButton" mnemonicParsing="false" onAction="#onSendHelpButtonAction" prefHeight="98.0" prefWidth="152.0" text="Send Help!">
-          <VBox.margin>
-            <Insets bottom="10.0" top="10.0" />
-          </VBox.margin>
-        </Button>
-        <Button fx:id="viewSecurityRequestsButton" mnemonicParsing="false" onAction="#onViewSecurityRequestsAction" prefHeight="98.0" prefWidth="152.0" text="View Security Requests">
-          <VBox.margin>
-            <Insets bottom="10.0" top="10.0" />
-          </VBox.margin>
-        </Button>
-      </children>
-    </VBox>
-  </left>
+    </left>
 </BorderPane>

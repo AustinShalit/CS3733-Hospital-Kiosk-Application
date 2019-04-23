@@ -13,103 +13,137 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
-<BorderPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.AddEmployeeController">
-  <center>
-    <VBox fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="form" stylesheets="@style/KioskStyle.css">
-      <Label id="heading" text="Add Employee">
-        <font>
-          <Font name="System Bold" size="38.0" />
-        </font>
-      </Label>
-      <HBox maxHeight="-Infinity" maxWidth="-Infinity">
-        <children>
-          <VBox alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" spacing="36.0">
-            <Label text="Employee Information">
-              <font>
-                <Font name="System Bold" size="15.0" />
-              </font>
-              <VBox.margin>
-                <Insets bottom="-30.0" />
-              </VBox.margin>
-            </Label>
-            <JFXTextField fx:id="nameField" maxWidth="200.0" promptText="Enter Name">
-              <VBox.margin>
-                <Insets />
-              </VBox.margin>
-            </JFXTextField>
-            <JFXTextField fx:id="usernameField" maxWidth="200.0" promptText="Enter Username">
-              <VBox.margin>
-                <Insets />
-              </VBox.margin>
-            </JFXTextField>
-            <JFXTextField fx:id="passwordField" maxWidth="200.0" promptText="Enter Password">
-              <VBox.margin>
-                <Insets />
-              </VBox.margin>
-            </JFXTextField>
-            <JFXTextField fx:id="phoneField" maxWidth="200.0" promptText="Enter Phone Number" />
-            <JFXComboBox fx:id="positionBox" promptText="Select Position">
-              <VBox.margin>
-                <Insets />
-              </VBox.margin>
-            </JFXComboBox>
-            <padding>
-              <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-            </padding>
-          </VBox>
-          <VBox fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" spacing="6.0">
-            <children>
-              <Label text="Service Request Permissions">
+<BorderPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="edu.wpi.cs3733.d19.teamO.controller.AddEmployeeController">
+    <center>
+        <VBox fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+              minWidth="-Infinity" styleClass="form" stylesheets="@style/KioskStyle.css">
+            <Label id="heading" text="Add Employee">
                 <font>
-                  <Font name="System Bold" size="15.0" />
+                    <Font name="System Bold" size="38.0"/>
                 </font>
-                <VBox.margin>
-                  <Insets />
-                </VBox.margin>
-              </Label>
-              <GridPane hgap="12.0" maxHeight="-Infinity" maxWidth="-Infinity">
-                <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                </columnConstraints>
-                <rowConstraints>
-                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                </rowConstraints>
+            </Label>
+            <HBox maxHeight="-Infinity" maxWidth="-Infinity">
                 <children>
-                  <JFXCheckBox fx:id="avBox" checkedColor="#004e86" text="Audio/Visual" />
-                  <JFXCheckBox fx:id="externalTransportBox" checkedColor="#004e86" text="External Transport" GridPane.rowIndex="1" />
-                  <JFXCheckBox fx:id="floristBox" checkedColor="#004e86" text="Florist" GridPane.rowIndex="2" />
-                  <JFXCheckBox fx:id="giftBox" checkedColor="#004e86" text="Gift" GridPane.rowIndex="3" />
-                  <JFXCheckBox fx:id="internalTransportBox" checkedColor="#004e86" text="Internal Transport" GridPane.rowIndex="4" />
-                  <JFXCheckBox fx:id="interpreterBox" checkedColor="#004e86" text="Interpreter" GridPane.rowIndex="5" />
-                  <JFXCheckBox fx:id="itSupportBox" checkedColor="#004e86" text="IT Support" GridPane.columnIndex="1" />
-                  <JFXCheckBox fx:id="patientInfoBox" checkedColor="#004e86" text="Patient Info" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <JFXCheckBox fx:id="prescriptionBox" checkedColor="#004e86" text="Prescription" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <JFXCheckBox fx:id="religiousBox" checkedColor="#004e86" text="Religious" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <JFXCheckBox fx:id="sanitationBox" checkedColor="#004e86" text="Sanitation" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <JFXCheckBox fx:id="securityBox" checkedColor="#004e86" text="Security" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <JFXCheckBox fx:id="supportAnimalBox" checkedColor="#004e86" text="Support Animal" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
+                    <VBox alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity"
+                          maxWidth="-Infinity" spacing="36.0">
+                        <Label text="Employee Information">
+                            <font>
+                                <Font name="System Bold" size="15.0"/>
+                            </font>
+                            <VBox.margin>
+                                <Insets bottom="-30.0"/>
+                            </VBox.margin>
+                        </Label>
+                        <JFXTextField fx:id="nameField" maxWidth="200.0" promptText="Enter Name">
+                            <VBox.margin>
+                                <Insets/>
+                            </VBox.margin>
+                        </JFXTextField>
+                        <JFXTextField fx:id="usernameField" maxWidth="200.0"
+                                      promptText="Enter Username">
+                            <VBox.margin>
+                                <Insets/>
+                            </VBox.margin>
+                        </JFXTextField>
+                        <JFXTextField fx:id="passwordField" maxWidth="200.0"
+                                      promptText="Enter Password">
+                            <VBox.margin>
+                                <Insets/>
+                            </VBox.margin>
+                        </JFXTextField>
+                        <JFXTextField fx:id="phoneField" maxWidth="200.0"
+                                      promptText="Enter Phone Number"/>
+                        <JFXComboBox fx:id="positionBox" promptText="Select Position">
+                            <VBox.margin>
+                                <Insets/>
+                            </VBox.margin>
+                        </JFXComboBox>
+                        <padding>
+                            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0"/>
+                        </padding>
+                    </VBox>
+                    <VBox fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity"
+                          spacing="6.0">
+                        <children>
+                            <Label text="Service Request Permissions">
+                                <font>
+                                    <Font name="System Bold" size="15.0"/>
+                                </font>
+                                <VBox.margin>
+                                    <Insets/>
+                                </VBox.margin>
+                            </Label>
+                            <GridPane hgap="12.0" maxHeight="-Infinity" maxWidth="-Infinity">
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity"
+                                                       minWidth="10.0"/>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                                </columnConstraints>
+                                <rowConstraints>
+                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0"
+                                                    vgrow="SOMETIMES"/>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0"
+                                                    vgrow="SOMETIMES"/>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0"
+                                                    vgrow="SOMETIMES"/>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0"
+                                                    vgrow="SOMETIMES"/>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0"
+                                                    vgrow="SOMETIMES"/>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0"
+                                                    vgrow="SOMETIMES"/>
+                                </rowConstraints>
+                                <children>
+                                    <JFXCheckBox fx:id="avBox" checkedColor="#004e86"
+                                                 text="Audio/Visual"/>
+                                    <JFXCheckBox fx:id="externalTransportBox" checkedColor="#004e86"
+                                                 text="External Transport" GridPane.rowIndex="1"/>
+                                    <JFXCheckBox fx:id="floristBox" checkedColor="#004e86"
+                                                 text="Florist" GridPane.rowIndex="2"/>
+                                    <JFXCheckBox fx:id="giftBox" checkedColor="#004e86" text="Gift"
+                                                 GridPane.rowIndex="3"/>
+                                    <JFXCheckBox fx:id="internalTransportBox" checkedColor="#004e86"
+                                                 text="Internal Transport" GridPane.rowIndex="4"/>
+                                    <JFXCheckBox fx:id="interpreterBox" checkedColor="#004e86"
+                                                 text="Interpreter" GridPane.rowIndex="5"/>
+                                    <JFXCheckBox fx:id="itSupportBox" checkedColor="#004e86"
+                                                 text="IT Support" GridPane.columnIndex="1"/>
+                                    <JFXCheckBox fx:id="patientInfoBox" checkedColor="#004e86"
+                                                 text="Patient Info" GridPane.columnIndex="1"
+                                                 GridPane.rowIndex="1"/>
+                                    <JFXCheckBox fx:id="prescriptionBox" checkedColor="#004e86"
+                                                 text="Prescription" GridPane.columnIndex="1"
+                                                 GridPane.rowIndex="2"/>
+                                    <JFXCheckBox fx:id="religiousBox" checkedColor="#004e86"
+                                                 text="Religious" GridPane.columnIndex="1"
+                                                 GridPane.rowIndex="3"/>
+                                    <JFXCheckBox fx:id="sanitationBox" checkedColor="#004e86"
+                                                 text="Sanitation" GridPane.columnIndex="1"
+                                                 GridPane.rowIndex="4"/>
+                                    <JFXCheckBox fx:id="securityBox" checkedColor="#004e86"
+                                                 text="Security" GridPane.columnIndex="1"
+                                                 GridPane.rowIndex="5"/>
+                                    <JFXCheckBox fx:id="supportAnimalBox" checkedColor="#004e86"
+                                                 text="Support Animal" GridPane.columnSpan="2"
+                                                 GridPane.halignment="CENTER" GridPane.rowIndex="6"
+                                                 GridPane.valignment="CENTER"/>
+                                </children>
+                            </GridPane>
+                        </children>
+                        <padding>
+                            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0"/>
+                        </padding>
+                    </VBox>
                 </children>
-              </GridPane>
-            </children>
-            <padding>
-              <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
-            </padding>
-          </VBox>
-        </children>
-      </HBox>
-      <JFXButton id="small-button" fx:id="submitbtn" onAction="#onSubmitButtonAction" text="Submit">
-        <VBox.margin>
-          <Insets />
-        </VBox.margin>
-      </JFXButton>
-    </VBox>
-  </center>
+            </HBox>
+            <JFXButton id="small-button" fx:id="submitbtn" onAction="#onSubmitButtonAction"
+                       text="Submit">
+                <VBox.margin>
+                    <Insets/>
+                </VBox.margin>
+            </JFXButton>
+        </VBox>
+    </center>
 </BorderPane>

@@ -15,58 +15,58 @@ import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 @FxmlController(url = "OptionsPopup.fxml")
 public class OptionsPopupController implements Controller {
 
-  @FXML
-  JFXListView<Label> list;
+	@FXML
+	JFXListView<Label> list;
 
-  @Inject
-  private EventBus eventBus;
-  @Inject
-  private SettingsController.Factory settingsControllerFactory;
-  @Inject
-  private MapEditController.Factory mapEditControllerFactory;
-  @Inject
-  private EmployeeController.Factory employeeControllerFactory;
+	@Inject
+	private EventBus eventBus;
+	@Inject
+	private SettingsController.Factory settingsControllerFactory;
+	@Inject
+	private MapEditController.Factory mapEditControllerFactory;
+	@Inject
+	private EmployeeController.Factory employeeControllerFactory;
 
-  private JFXPopup settingsPopup;
+	private JFXPopup settingsPopup;
 
-  @FXML
-  void initialize() {
-    settingsPopup = new JFXPopup(settingsControllerFactory.create().root);
-  }
+	@FXML
+	void initialize() {
+		settingsPopup = new JFXPopup(settingsControllerFactory.create().root);
+	}
 
-  @FXML
-  void onAction(MouseEvent event) {
-    list.getSelectionModel().getSelectedItem().fireEvent(event);
-  }
+	@FXML
+	void onAction(MouseEvent event) {
+		list.getSelectionModel().getSelectedItem().fireEvent(event);
+	}
 
-  @FXML
-  void settingsAction(MouseEvent event) {
-    event.consume();
-    settingsPopup.show(list,
-        JFXPopup.PopupVPosition.TOP,
-        JFXPopup.PopupHPosition.RIGHT,
-        -12,
-        15);
-  }
+	@FXML
+	void settingsAction(MouseEvent event) {
+		event.consume();
+		settingsPopup.show(list,
+				JFXPopup.PopupVPosition.TOP,
+				JFXPopup.PopupHPosition.RIGHT,
+				-12,
+				15);
+	}
 
-  @FXML
-  void employeeAction(MouseEvent event) {
-    event.consume();
-    eventBus.post(new ChangeMainViewEvent(employeeControllerFactory.create()));
-  }
+	@FXML
+	void employeeAction(MouseEvent event) {
+		event.consume();
+		eventBus.post(new ChangeMainViewEvent(employeeControllerFactory.create()));
+	}
 
-  @FXML
-  void mapAction(MouseEvent event) {
-    event.consume();
-    eventBus.post(new ChangeMainViewEvent(mapEditControllerFactory.create()));
-  }
+	@FXML
+	void mapAction(MouseEvent event) {
+		event.consume();
+		eventBus.post(new ChangeMainViewEvent(mapEditControllerFactory.create()));
+	}
 
-  @Override
-  public Parent getRoot() {
-    return list;
-  }
+	@Override
+	public Parent getRoot() {
+		return list;
+	}
 
-  public interface Factory {
-    OptionsPopupController create();
-  }
+	public interface Factory {
+		OptionsPopupController create();
+	}
 }

@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
-import com.google.inject.Inject;
 import javafx.scene.Parent;
 
 /**
@@ -9,12 +8,12 @@ import javafx.scene.Parent;
  */
 public interface Controller {
 
-    /**
-     * The root node for composition.
-     *
-     * @return The root node of the controller.
-     */
-    Parent getRoot();
+	/**
+	 * The root node for composition.
+	 *
+	 * @return The root node of the controller.
+	 */
+	Parent getRoot();
 
 
 }

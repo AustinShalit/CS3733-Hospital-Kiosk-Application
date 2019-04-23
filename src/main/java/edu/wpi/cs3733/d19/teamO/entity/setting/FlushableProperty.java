@@ -10,24 +10,24 @@ import javafx.beans.property.SimpleObjectProperty;
  */
 public class FlushableProperty<T> extends SimpleObjectProperty<T> {
 
-    private final Property<T> property;
+	private final Property<T> property;
 
-    /**
-     * Create a new FlushableProperty.
-     *
-     * @param property The property to flush to
-     */
-    public FlushableProperty(Property<T> property) {
-        super(property.getBean(), property.getName(), property.getValue());
-        this.property = property;
-    }
+	/**
+	 * Create a new FlushableProperty.
+	 *
+	 * @param property The property to flush to
+	 */
+	public FlushableProperty(Property<T> property) {
+		super(property.getBean(), property.getName(), property.getValue());
+		this.property = property;
+	}
 
-    public boolean isChanged() {
-        return !property.getValue().equals(getValue());
-    }
+	public boolean isChanged() {
+		return !property.getValue().equals(getValue());
+	}
 
-    public void flush() {
-        property.setValue(getValue());
-    }
+	public void flush() {
+		property.setValue(getValue());
+	}
 
 }

@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 import com.google.inject.Inject;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,169 +21,169 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(DatabaseExtension.class)
 class PatientInfoRequestDaoDbTest {
-    private static final int id1 = 123;
-    private static final int id2 = 1234;
+	private static final int id1 = 123;
+	private static final int id2 = 1234;
 
-    private static final Node testNode1 = new Node(Integer.toString(id1), 0, 0,
-            "FL2", "Central", Node.NodeType.CONF, "LONGNAME",
-            "SHORTNAME");
+	private static final Node testNode1 = new Node(Integer.toString(id1), 0, 0,
+			"FL2", "Central", Node.NodeType.CONF, "LONGNAME",
+			"SHORTNAME");
 
-    private static final Node testNode2 = new Node(Integer.toString(id2), 1, 1,
-            "FL3", "Central", Node.NodeType.DEPT, "LONGNAME",
-            "SHORTNAME");
-
-
-    private static final PatientInfoRequest PIR1 = new PatientInfoRequest(
-            1,
-            LocalDateTime.now(),
-            LocalDateTime.now(),
-            testNode1,
-            "Dr. Bob, PhD",
-            "",
-            "John Doe",
-            LocalDate.of(1969, 4, 3),
-            PatientInfoRequest.PatientInfoSex.MALE
-    );
+	private static final Node testNode2 = new Node(Integer.toString(id2), 1, 1,
+			"FL3", "Central", Node.NodeType.DEPT, "LONGNAME",
+			"SHORTNAME");
 
 
-    private static final PatientInfoRequest PIR2 = new PatientInfoRequest(
-            2,
-            LocalDateTime.now(),
-            LocalDateTime.now(),
-            testNode2,
-            "Jim",
-            "",
-            "John Doe III",
-            LocalDate.of(1999, 4, 3),
-            PatientInfoRequest.PatientInfoSex.MALE
-    );
+	private static final PatientInfoRequest PIR1 = new PatientInfoRequest(
+			1,
+			LocalDateTime.now(),
+			LocalDateTime.now(),
+			testNode1,
+			"Dr. Bob, PhD",
+			"",
+			"John Doe",
+			LocalDate.of(1969, 4, 3),
+			PatientInfoRequest.PatientInfoSex.MALE
+	);
 
-    private Database db;
 
-    @Inject
-    private DatabaseConnectionFactory dcf;
+	private static final PatientInfoRequest PIR2 = new PatientInfoRequest(
+			2,
+			LocalDateTime.now(),
+			LocalDateTime.now(),
+			testNode2,
+			"Jim",
+			"",
+			"John Doe III",
+			LocalDate.of(1999, 4, 3),
+			PatientInfoRequest.PatientInfoSex.MALE
+	);
 
-    @BeforeEach
-    void setup() throws SQLException {
-        db = new Database(dcf);
-    }
+	private Database db;
 
-    @Test
-    void getTest() {
-        db.insertNode(testNode1);
-        db.insertPatientInfoRequest(PIR1);
+	@Inject
+	private DatabaseConnectionFactory dcf;
 
-        assertTrue(db.getPatientInfoRequest(PIR1.getId()).isPresent());
-    }
+	@BeforeEach
+	void setup() throws SQLException {
+		db = new Database(dcf);
+	}
 
-    @Test
-    void getDifferentObjectTest() {
-        db.insertNode(testNode1);
-        db.insertPatientInfoRequest(PIR1);
+	@Test
+	void getTest() {
+		db.insertNode(testNode1);
+		db.insertPatientInfoRequest(PIR1);
 
-        assertNotSame(PIR1, db.getPatientInfoRequest(PIR1.getId())
-                .orElseThrow(IllegalStateException::new));
-    }
+		assertTrue(db.getPatientInfoRequest(PIR1.getId()).isPresent());
+	}
 
-    @Test
-    void checkEqual() {
-        db.insertNode(testNode1);
-        db.insertPatientInfoRequest(PIR1);
-        assertEquals(PIR1, db.getPatientInfoRequest(PIR1.getId()).get());
-    }
+	@Test
+	void getDifferentObjectTest() {
+		db.insertNode(testNode1);
+		db.insertPatientInfoRequest(PIR1);
 
-    @Test
-    void getNotExistingTest() {
-        assertFalse(db.getPatientInfoRequest(254).isPresent());
-    }
+		assertNotSame(PIR1, db.getPatientInfoRequest(PIR1.getId())
+				.orElseThrow(IllegalStateException::new));
+	}
 
-    @Test
-    void insertTest() {
-        db.insertNode(testNode2);
-        assertTrue(db.insertPatientInfoRequest(PIR2));
-    }
+	@Test
+	void checkEqual() {
+		db.insertNode(testNode1);
+		db.insertPatientInfoRequest(PIR1);
+		assertEquals(PIR1, db.getPatientInfoRequest(PIR1.getId()).get());
+	}
 
-    @Test
-    void deleteTest() {
-        db.insertNode(testNode1);
-        db.insertPatientInfoRequest(PIR1);
-        assertTrue(db.deletePatientInfoRequest(PIR1));
-    }
+	@Test
+	void getNotExistingTest() {
+		assertFalse(db.getPatientInfoRequest(254).isPresent());
+	}
 
-    @Test
-    void deleteNotExistingTest() {
-        assertFalse(db.deletePatientInfoRequest(PIR2));
-    }
+	@Test
+	void insertTest() {
+		db.insertNode(testNode2);
+		assertTrue(db.insertPatientInfoRequest(PIR2));
+	}
 
-    @Test
-    void updateTest() {
-        db.insertNode(testNode1);
-        db.insertPatientInfoRequest(PIR1);
+	@Test
+	void deleteTest() {
+		db.insertNode(testNode1);
+		db.insertPatientInfoRequest(PIR1);
+		assertTrue(db.deletePatientInfoRequest(PIR1));
+	}
 
-        PatientInfoRequest update = new PatientInfoRequest(
-                PIR1.getId(),
-                LocalDateTime.now(),
-                LocalDateTime.now(),
-                testNode1,
-                "Dr. Bob",
-                "",
-                "John Doe",
-                LocalDate.of(1969, 4, 3),
-                PatientInfoRequest.PatientInfoSex.MALE
-        );
+	@Test
+	void deleteNotExistingTest() {
+		assertFalse(db.deletePatientInfoRequest(PIR2));
+	}
 
-        assertTrue(db.updatePatientInfoRequest(update));
-        assertNotEquals(PIR1, db.getPatientInfoRequest(PIR1.getId()));
-    }
+	@Test
+	void updateTest() {
+		db.insertNode(testNode1);
+		db.insertPatientInfoRequest(PIR1);
 
-    @Test
-    void updateNotExistingTest() {
-        db.insertNode(testNode1);
-        db.insertPatientInfoRequest(PIR1);
+		PatientInfoRequest update = new PatientInfoRequest(
+				PIR1.getId(),
+				LocalDateTime.now(),
+				LocalDateTime.now(),
+				testNode1,
+				"Dr. Bob",
+				"",
+				"John Doe",
+				LocalDate.of(1969, 4, 3),
+				PatientInfoRequest.PatientInfoSex.MALE
+		);
 
-        PatientInfoRequest update = new PatientInfoRequest(
-                125,
-                LocalDateTime.now(),
-                LocalDateTime.now(),
-                testNode1,
-                "Dr. Bob",
-                "",
-                "John Doe",
-                LocalDate.of(1969, 4, 3),
-                PatientInfoRequest.PatientInfoSex.MALE
-        );
+		assertTrue(db.updatePatientInfoRequest(update));
+		assertNotEquals(PIR1, db.getPatientInfoRequest(PIR1.getId()));
+	}
 
-        assertFalse(db.updatePatientInfoRequest(update));
-    }
+	@Test
+	void updateNotExistingTest() {
+		db.insertNode(testNode1);
+		db.insertPatientInfoRequest(PIR1);
 
-    @Test
-    void getAllTest() {
-        db.insertNode(testNode1);
-        db.insertNode(testNode2);
-        db.insertPatientInfoRequest(PIR1);
-        db.insertPatientInfoRequest(PIR2);
+		PatientInfoRequest update = new PatientInfoRequest(
+				125,
+				LocalDateTime.now(),
+				LocalDateTime.now(),
+				testNode1,
+				"Dr. Bob",
+				"",
+				"John Doe",
+				LocalDate.of(1969, 4, 3),
+				PatientInfoRequest.PatientInfoSex.MALE
+		);
 
-        assertEquals(2, db.getAllPatientInfoRequests().size());
-    }
+		assertFalse(db.updatePatientInfoRequest(update));
+	}
 
-    @Test
-    void getAllEmptyTest() {
-        assertTrue(db.getAllPatientInfoRequests().isEmpty());
-    }
+	@Test
+	void getAllTest() {
+		db.insertNode(testNode1);
+		db.insertNode(testNode2);
+		db.insertPatientInfoRequest(PIR1);
+		db.insertPatientInfoRequest(PIR2);
 
-    @Test
-    void autoIncrementTest() {
-        db.insertNode(testNode1);
-        db.insertPatientInfoRequest(PIR1);
+		assertEquals(2, db.getAllPatientInfoRequests().size());
+	}
 
-        for (int i = 0; i < 10; i++) {
-            db.insertPatientInfoRequest(PIR1);
-        }
+	@Test
+	void getAllEmptyTest() {
+		assertTrue(db.getAllPatientInfoRequests().isEmpty());
+	}
 
-        Set<PatientInfoRequest> patientInfoRequestSet = db.getAllPatientInfoRequests();
-        for (PatientInfoRequest sr : patientInfoRequestSet) {
-            // make sure the id is in the correct range
-            assertTrue(sr.getId() < 11 || sr.getId() > 1);
-        }
-    }
+	@Test
+	void autoIncrementTest() {
+		db.insertNode(testNode1);
+		db.insertPatientInfoRequest(PIR1);
+
+		for (int i = 0; i < 10; i++) {
+			db.insertPatientInfoRequest(PIR1);
+		}
+
+		Set<PatientInfoRequest> patientInfoRequestSet = db.getAllPatientInfoRequests();
+		for (PatientInfoRequest sr : patientInfoRequestSet) {
+			// make sure the id is in the correct range
+			assertTrue(sr.getId() < 11 || sr.getId() > 1);
+		}
+	}
 }

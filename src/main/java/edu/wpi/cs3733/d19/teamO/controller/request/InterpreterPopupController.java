@@ -26,98 +26,98 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
 @FxmlController(url = "InterpreterPopup.fxml")
 public class InterpreterPopupController implements Controller {
-  private static final Logger logger = Logger.getLogger(InterpreterPopupController.class.getName());
+	private static final Logger logger = Logger.getLogger(InterpreterPopupController.class.getName());
 
-  @FXML
-  BorderPane root;
-  @FXML
-  private JFXTextField nametxt;
-  @FXML
-  private FuzzyWuzzyComboBox locationbox;
-  @FXML
-  private JFXComboBox<InterpreterRequest.Language> categorybox;
-  @FXML
-  private JFXTextArea descriptiontxt;
-  @FXML
-  private JFXButton submitbtn;
+	@FXML
+	BorderPane root;
+	@FXML
+	private JFXTextField nametxt;
+	@FXML
+	private FuzzyWuzzyComboBox locationbox;
+	@FXML
+	private JFXComboBox<InterpreterRequest.Language> categorybox;
+	@FXML
+	private JFXTextArea descriptiontxt;
+	@FXML
+	private JFXButton submitbtn;
 
-  @Inject
-  private Database db;
+	@Inject
+	private Database db;
 
-  @FXML
-  void initialize() {
-    locationbox.setNodes(db.getAllNodes());
-    locationbox.setupAutoRefresh();
-    locationbox.refresh();
-    categorybox.getItems().setAll(InterpreterRequest.Language
-        .values());
+	@FXML
+	void initialize() {
+		locationbox.setNodes(db.getAllNodes());
+		locationbox.setupAutoRefresh();
+		locationbox.refresh();
+		categorybox.getItems().setAll(InterpreterRequest.Language
+				.values());
 
-    submitbtn.disableProperty().bind(
-        Bindings.isNull(locationbox.valueProperty())
-            .or(Bindings.isNull(categorybox.valueProperty()))
-            .or(Bindings.isEmpty(nametxt.textProperty()))
-    );
-  }
+		submitbtn.disableProperty().bind(
+				Bindings.isNull(locationbox.valueProperty())
+						.or(Bindings.isNull(categorybox.valueProperty()))
+						.or(Bindings.isEmpty(nametxt.textProperty()))
+		);
+	}
 
-  @FXML
-  void onSubmitButtonAction() {
-    InterpreterRequest interpreter = parseUserInterpreterRequest();
-    if (interpreter == null) {
-      logger.log(Level.WARNING,
-          "Unable to parse interpreter request.",
-          "Unable to parse interpreter request.");
-      return;
-    }
+	@FXML
+	void onSubmitButtonAction() {
+		InterpreterRequest interpreter = parseUserInterpreterRequest();
+		if (interpreter == null) {
+			logger.log(Level.WARNING,
+					"Unable to parse interpreter request.",
+					"Unable to parse interpreter request.");
+			return;
+		}
 
-    nametxt.setText(null);
-    locationbox.getSelectionModel().clearSelection();
-    locationbox.setValue(null);
-    categorybox.getSelectionModel().clearSelection();
-    categorybox.setValue(null);
-    descriptiontxt.setText("");
+		nametxt.setText(null);
+		locationbox.getSelectionModel().clearSelection();
+		locationbox.setValue(null);
+		categorybox.getSelectionModel().clearSelection();
+		categorybox.setValue(null);
+		descriptiontxt.setText("");
 
-    if (db.insertInterpreterRequest(interpreter)) {
-      String message = "Successfully submitted interpreter request.";
-      DialogHelper.showInformationAlert("Success!", message);
-    } else {
-      DialogHelper.showErrorAlert("Error.",
-          "Unable to submit interpreter request.");
-    }
-  }
+		if (db.insertInterpreterRequest(interpreter)) {
+			String message = "Successfully submitted interpreter request.";
+			DialogHelper.showInformationAlert("Success!", message);
+		} else {
+			DialogHelper.showErrorAlert("Error.",
+					"Unable to submit interpreter request.");
+		}
+	}
 
-  /**
-   * Parse input the user has inputted for the sanitation request.
-   *
-   * @return If valid input, A SanitationRequest representing the users input. Otherwise null.
-   */
-  private InterpreterRequest parseUserInterpreterRequest() {
-    // if input is valid, parse it and return a new SanitationRequest
-    if (!nametxt.getText().isEmpty()
-        && Objects.nonNull(locationbox.getNodeValue())
-        && Objects.nonNull(categorybox.getValue())) {
+	/**
+	 * Parse input the user has inputted for the sanitation request.
+	 *
+	 * @return If valid input, A SanitationRequest representing the users input. Otherwise null.
+	 */
+	private InterpreterRequest parseUserInterpreterRequest() {
+		// if input is valid, parse it and return a new SanitationRequest
+		if (!nametxt.getText().isEmpty()
+				&& Objects.nonNull(locationbox.getNodeValue())
+				&& Objects.nonNull(categorybox.getValue())) {
 
-      LocalDateTime now = LocalDateTime.now();
-      Node node = locationbox.getNodeValue();
+			LocalDateTime now = LocalDateTime.now();
+			Node node = locationbox.getNodeValue();
 
-      InterpreterRequest.Language language = categorybox.getValue();
+			InterpreterRequest.Language language = categorybox.getValue();
 
-      String description = descriptiontxt.getText();
-      String name = nametxt.getText();
+			String description = descriptiontxt.getText();
+			String name = nametxt.getText();
 
-      return new InterpreterRequest(now, node, language, description, name);
-    }
+			return new InterpreterRequest(now, node, language, description, name);
+		}
 
-    // otherwise, some input was invalid
-    DialogHelper.showErrorAlert("Error.", "Please make sure all fields are filled out.");
-    return null;
-  }
+		// otherwise, some input was invalid
+		DialogHelper.showErrorAlert("Error.", "Please make sure all fields are filled out.");
+		return null;
+	}
 
-  @Override
-  public Parent getRoot() {
-    return root;
-  }
+	@Override
+	public Parent getRoot() {
+		return root;
+	}
 
-  public interface Factory {
-    InterpreterPopupController create();
-  }
+	public interface Factory {
+		InterpreterPopupController create();
+	}
 }

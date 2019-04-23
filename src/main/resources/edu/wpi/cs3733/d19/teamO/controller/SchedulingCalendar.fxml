@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.calendarfx.view.CalendarView?>
-<CalendarView fx:id="root" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.SchedulingCalendarController" />
+<CalendarView fx:id="root" xmlns="http://javafx.com/javafx/8.0.172-ea"
+              xmlns:fx="http://javafx.com/fxml/1"
+              fx:controller="edu.wpi.cs3733.d19.teamO.controller.SchedulingCalendarController"/>

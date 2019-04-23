@@ -28,101 +28,101 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 @FxmlController(url = "FloristRequestPopup.fxml")
 public class FloristRequestPopupController implements Controller {
 
-  private static final Logger logger =
-      Logger.getLogger(FloristRequestPopupController.class.getName());
+	private static final Logger logger =
+			Logger.getLogger(FloristRequestPopupController.class.getName());
 
-  @FXML
-  BorderPane root;
-  @FXML
-  private JFXTextField nametxt;
-  @FXML
-  private FuzzyWuzzyComboBox locationbox;
-  @FXML
-  private JFXComboBox<FloristRequest.FloristRequestType> categorybox;
-  @FXML
-  private JFXTextArea descriptiontxt;
-  @FXML
-  private JFXButton submitbtn;
+	@FXML
+	BorderPane root;
+	@FXML
+	private JFXTextField nametxt;
+	@FXML
+	private FuzzyWuzzyComboBox locationbox;
+	@FXML
+	private JFXComboBox<FloristRequest.FloristRequestType> categorybox;
+	@FXML
+	private JFXTextArea descriptiontxt;
+	@FXML
+	private JFXButton submitbtn;
 
-  @Inject
-  private Database db;
+	@Inject
+	private Database db;
 
-  @FXML
-  void initialize() {
-    locationbox.setNodes(db.getAllNodes());
-    locationbox.setupAutoRefresh();
-    locationbox.refresh();
-    categorybox.getItems().setAll(FloristRequest.FloristRequestType
-        .values());
+	@FXML
+	void initialize() {
+		locationbox.setNodes(db.getAllNodes());
+		locationbox.setupAutoRefresh();
+		locationbox.refresh();
+		categorybox.getItems().setAll(FloristRequest.FloristRequestType
+				.values());
 
-    submitbtn.disableProperty().bind(
-        Bindings.isEmpty(nametxt.textProperty())
-            .or(Bindings.isNull(locationbox.valueProperty()))
-            .or(Bindings.isNull(categorybox.valueProperty()))
-    );
-  }
+		submitbtn.disableProperty().bind(
+				Bindings.isEmpty(nametxt.textProperty())
+						.or(Bindings.isNull(locationbox.valueProperty()))
+						.or(Bindings.isNull(categorybox.valueProperty()))
+		);
+	}
 
-  @FXML
-  void onSubmitButtonAction() {
-    FloristRequest florist = parseUserFloristRequest();
-    if (florist == null) {
-      logger.log(Level.WARNING,
-          "Unable to parse florist Request.",
-          "Unable to parse florist Request.");
-      return;
-    }
+	@FXML
+	void onSubmitButtonAction() {
+		FloristRequest florist = parseUserFloristRequest();
+		if (florist == null) {
+			logger.log(Level.WARNING,
+					"Unable to parse florist Request.",
+					"Unable to parse florist Request.");
+			return;
+		}
 
-    nametxt.setText(null);
-    locationbox.getSelectionModel().clearSelection();
-    locationbox.setValue(null);
-    categorybox.getSelectionModel().clearSelection();
-    categorybox.setValue(null);
-    descriptiontxt.setText("");
+		nametxt.setText(null);
+		locationbox.getSelectionModel().clearSelection();
+		locationbox.setValue(null);
+		categorybox.getSelectionModel().clearSelection();
+		categorybox.setValue(null);
+		descriptiontxt.setText("");
 
-    if (db.insertFloristRequest(florist)) {
-      String message = "Successfully submitted florist request.";
-      DialogHelper.showInformationAlert("Success!", message);
-    } else {
-      DialogHelper.showErrorAlert("Error.",
-          "Unable to submit florist request.");
-    }
-  }
+		if (db.insertFloristRequest(florist)) {
+			String message = "Successfully submitted florist request.";
+			DialogHelper.showInformationAlert("Success!", message);
+		} else {
+			DialogHelper.showErrorAlert("Error.",
+					"Unable to submit florist request.");
+		}
+	}
 
-  /**
-   * Parse input the user has inputted for the florist request.
-   *
-   * @return If valid input, A florist Request representing the users input. Otherwise null.
-   */
-  private FloristRequest parseUserFloristRequest() {
-    // if input is valid, parse it and return a new florist request
-    if (!nametxt.getText().isEmpty()
-        && Objects.nonNull(locationbox.getNodeValue())
-        && Objects.nonNull(categorybox.getValue())) {
+	/**
+	 * Parse input the user has inputted for the florist request.
+	 *
+	 * @return If valid input, A florist Request representing the users input. Otherwise null.
+	 */
+	private FloristRequest parseUserFloristRequest() {
+		// if input is valid, parse it and return a new florist request
+		if (!nametxt.getText().isEmpty()
+				&& Objects.nonNull(locationbox.getNodeValue())
+				&& Objects.nonNull(categorybox.getValue())) {
 
-      LocalDateTime now = LocalDateTime.now();
-      Node node = locationbox.getNodeValue();
+			LocalDateTime now = LocalDateTime.now();
+			Node node = locationbox.getNodeValue();
 
-      String type = categorybox.getValue().toString().toUpperCase(new Locale("EN"));
-      FloristRequest.FloristRequestType floristRequest =
-          FloristRequest.FloristRequestType.valueOf(type);
+			String type = categorybox.getValue().toString().toUpperCase(new Locale("EN"));
+			FloristRequest.FloristRequestType floristRequest =
+					FloristRequest.FloristRequestType.valueOf(type);
 
-      String description = descriptiontxt.getText();
-      String name = nametxt.getText();
+			String description = descriptiontxt.getText();
+			String name = nametxt.getText();
 
-      return new FloristRequest(now, node, floristRequest, description, name);
-    }
+			return new FloristRequest(now, node, floristRequest, description, name);
+		}
 
-    // otherwise, some input was invalid
-    DialogHelper.showErrorAlert("Error.", "Please make sure all fields are filled out.");
-    return null;
-  }
+		// otherwise, some input was invalid
+		DialogHelper.showErrorAlert("Error.", "Please make sure all fields are filled out.");
+		return null;
+	}
 
-  @Override
-  public Parent getRoot() {
-    return root;
-  }
+	@Override
+	public Parent getRoot() {
+		return root;
+	}
 
-  public interface Factory {
-    FloristRequestPopupController create();
-  }
+	public interface Factory {
+		FloristRequestPopupController create();
+	}
 }

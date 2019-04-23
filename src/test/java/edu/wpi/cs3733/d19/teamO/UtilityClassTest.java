@@ -11,25 +11,25 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @SuppressWarnings("PMD.AbstractClassWithoutAbstractMethod")
 abstract class UtilityClassTest {
 
-    private final Class clazz;
+	private final Class clazz;
 
-    UtilityClassTest(Class clazz) {
-        this.clazz = clazz;
-    }
+	UtilityClassTest(Class clazz) {
+		this.clazz = clazz;
+	}
 
-    @Test
-    void testConstructorPrivate() {
-        Constructor constructor = clazz.getDeclaredConstructors()[0];
+	@Test
+	void testConstructorPrivate() {
+		Constructor constructor = clazz.getDeclaredConstructors()[0];
 
-        assertFalse(constructor.isAccessible());
-    }
+		assertFalse(constructor.isAccessible());
+	}
 
-    @Test
-    void testConstructorReflection() {
-        assertThrows(InvocationTargetException.class, () -> {
-            Constructor constructor = clazz.getDeclaredConstructors()[0];
-            constructor.setAccessible(true);
-            constructor.newInstance();
-        });
-    }
+	@Test
+	void testConstructorReflection() {
+		assertThrows(InvocationTargetException.class, () -> {
+			Constructor constructor = clazz.getDeclaredConstructors()[0];
+			constructor.setAccessible(true);
+			constructor.newInstance();
+		});
+	}
 }

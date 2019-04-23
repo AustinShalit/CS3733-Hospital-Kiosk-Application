@@ -9,39 +9,51 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
-
-<GridPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.SecurityViewController">
-  <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="186.0" minWidth="10.0" prefWidth="21.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="445.0" minWidth="10.0" prefWidth="445.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints maxHeight="126.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="279.0" minHeight="10.0" prefHeight="279.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="69.0" vgrow="SOMETIMES" />
-  </rowConstraints>
-  <children>
-    <HBox alignment="CENTER" prefHeight="48.0" prefWidth="600.0" GridPane.columnSpan="3" GridPane.rowIndex="2">
-      <children>
-        <JFXButton fx:id="completedButton" onAction="#onCompletedButtonAction" prefHeight="25.0" prefWidth="177.0" text="Mark as completed" />
-        <JFXButton fx:id="assignButton" onAction="#onAssignButtonAction" prefHeight="25.0" prefWidth="177.0" text="Assign employee" />
-      </children>
-    </HBox>
-    <TableView fx:id="requestsTableView" prefHeight="254.0" prefWidth="248.0" GridPane.columnSpan="3" GridPane.rowIndex="1">
-      <columns>
-        <TableColumn fx:id="idTableCol" editable="false" maxWidth="300.0" minWidth="50.0" prefWidth="0.0" text="ID" />
-        <TableColumn fx:id="timeRequestedCol" editable="false" maxWidth="300.0" minWidth="50.0" prefWidth="0.0" text="Time Requested" />
-        <TableColumn fx:id="timeCompletedCol" editable="false" maxWidth="300.0" minWidth="50.0" prefWidth="0.0" text="Time Completed" />
-        <TableColumn fx:id="whoCompletedCol" editable="false" maxWidth="300.0" minWidth="50.0" prefWidth="0.0" text="Assigned To" />
-        <TableColumn fx:id="locationTableCol" editable="false" maxWidth="300.0" minWidth="50.0" prefWidth="0.0" text="Location" />
-      </columns>
-    </TableView>
-    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="47.0" prefWidth="498.0" text="SecurityRequests" GridPane.columnIndex="1" GridPane.columnSpan="2">
-      <font>
-        <Font size="32.0" />
-      </font>
-    </Label>
-    <JFXButton fx:id="goBackButton" />
-  </children>
+<GridPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+          minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
+          xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="edu.wpi.cs3733.d19.teamO.controller.SecurityViewController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="186.0" minWidth="10.0" prefWidth="21.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="445.0" minWidth="10.0" prefWidth="445.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="126.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="279.0" minHeight="10.0" prefHeight="279.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="69.0" vgrow="SOMETIMES"/>
+    </rowConstraints>
+    <children>
+        <HBox alignment="CENTER" prefHeight="48.0" prefWidth="600.0" GridPane.columnSpan="3"
+              GridPane.rowIndex="2">
+            <children>
+                <JFXButton fx:id="completedButton" onAction="#onCompletedButtonAction"
+                           prefHeight="25.0" prefWidth="177.0" text="Mark as completed"/>
+                <JFXButton fx:id="assignButton" onAction="#onAssignButtonAction" prefHeight="25.0"
+                           prefWidth="177.0" text="Assign employee"/>
+            </children>
+        </HBox>
+        <TableView fx:id="requestsTableView" prefHeight="254.0" prefWidth="248.0"
+                   GridPane.columnSpan="3" GridPane.rowIndex="1">
+            <columns>
+                <TableColumn fx:id="idTableCol" editable="false" maxWidth="300.0" minWidth="50.0"
+                             prefWidth="0.0" text="ID"/>
+                <TableColumn fx:id="timeRequestedCol" editable="false" maxWidth="300.0"
+                             minWidth="50.0" prefWidth="0.0" text="Time Requested"/>
+                <TableColumn fx:id="timeCompletedCol" editable="false" maxWidth="300.0"
+                             minWidth="50.0" prefWidth="0.0" text="Time Completed"/>
+                <TableColumn fx:id="whoCompletedCol" editable="false" maxWidth="300.0"
+                             minWidth="50.0" prefWidth="0.0" text="Assigned To"/>
+                <TableColumn fx:id="locationTableCol" editable="false" maxWidth="300.0"
+                             minWidth="50.0" prefWidth="0.0" text="Location"/>
+            </columns>
+        </TableView>
+        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="47.0" prefWidth="498.0"
+               text="SecurityRequests" GridPane.columnIndex="1" GridPane.columnSpan="2">
+            <font>
+                <Font size="32.0"/>
+            </font>
+        </Label>
+        <JFXButton fx:id="goBackButton"/>
+    </children>
 </GridPane>

@@ -23,132 +23,132 @@ import edu.wpi.cs3733.d19.teamO.entity.Node;
 
 public class SchedulingMapView extends MapView {
 
-  private Set<Node> availableNodes;
-  private Set<Node> unavailableNodes;
-  private final ObjectProperty<Node> selectedNode = new SimpleObjectProperty<>();
+	private Set<Node> availableNodes;
+	private Set<Node> unavailableNodes;
+	private final ObjectProperty<Node> selectedNode = new SimpleObjectProperty<>();
 
-  public void setAvailableNodes(Set<Node> availableNodes) {
-    this.availableNodes = availableNodes;
-  }
+	public void setAvailableNodes(Set<Node> availableNodes) {
+		this.availableNodes = availableNodes;
+	}
 
-  public void setUnavailableNodes(Set<Node> unavailableNodes) {
-    this.unavailableNodes = unavailableNodes;
-  }
-
-
-  /**
-   * The constructor for the MapView class.
-   *
-   * @throws IOException Throws in case of xyz.
-   */
-  public SchedulingMapView() throws IOException {
-    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SchedulingMapView.fxml"));
-    fxmlLoader.setRoot(this);
-    fxmlLoader.setController(this);
-    fxmlLoader.load();
-  }
-
-  public Node getSelectedNode() {
-    return selectedNode.get();
-  }
+	public void setUnavailableNodes(Set<Node> unavailableNodes) {
+		this.unavailableNodes = unavailableNodes;
+	}
 
 
-  public ObjectProperty<Node> selectedNodeProperty() {
-    return selectedNode;
-  }
+	/**
+	 * The constructor for the MapView class.
+	 *
+	 * @throws IOException Throws in case of xyz.
+	 */
+	public SchedulingMapView() throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SchedulingMapView.fxml"));
+		fxmlLoader.setRoot(this);
+		fxmlLoader.setController(this);
+		fxmlLoader.load();
+	}
 
-  @FXML
-  @Override
-  void initialize() throws IOException {
-    availableNodes = new HashSet<>();
-    unavailableNodes = new HashSet<>();
+	public Node getSelectedNode() {
+		return selectedNode.get();
+	}
 
-    gesturePane.setMinScale(0.1);
-    gesturePane.reset();
-    gesturePane.setOnMouseClicked(e -> {
-      Point2D pointOnMap = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
-          .orElse(gesturePane.targetPointAtViewportCentre());
 
-      if (e.getButton() == MouseButton.PRIMARY && e.getClickCount() == 2) {
+	public ObjectProperty<Node> selectedNodeProperty() {
+		return selectedNode;
+	}
 
-        // increment of scale makes more sense exponentially instead of linearly
-        gesturePane.animate(Duration.millis(200))
-            .interpolateWith(Interpolator.EASE_BOTH)
-            .zoomBy(gesturePane.getCurrentScale(), pointOnMap);
-      }
-      coordY.setText(Double.toString((int) pointOnMap.getX()));
-      coordX.setText(Double.toString((int) pointOnMap.getY()));
-    });
-    gesturePane.setFitMode(GesturePane.FitMode.COVER);
-    gesturePane.setScrollBarEnabled(false);
+	@FXML
+	@Override
+	void initialize() throws IOException {
+		availableNodes = new HashSet<>();
+		unavailableNodes = new HashSet<>();
 
-    backgroundImage.setImage(new Image(getClass().getResource("SchedulingMap.jpg").openStream()));
-  }
+		gesturePane.setMinScale(0.1);
+		gesturePane.reset();
+		gesturePane.setOnMouseClicked(e -> {
+			Point2D pointOnMap = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
+					.orElse(gesturePane.targetPointAtViewportCentre());
 
-  /**
-   * Redraw the nodes on the map.
-   */
-  @SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
-  public void redrawPolygons() {
-    Set<Polygon> polygons = new HashSet<>();
+			if (e.getButton() == MouseButton.PRIMARY && e.getClickCount() == 2) {
 
-    for (Node availableNode : availableNodes) {
-      Polygon polygon = new Polygon();
-      polygon.getPoints().setAll(availableNode.getPolygonPoints());
-      polygon.setFill(Color.rgb(0, 255, 0, 0.5));
+				// increment of scale makes more sense exponentially instead of linearly
+				gesturePane.animate(Duration.millis(200))
+						.interpolateWith(Interpolator.EASE_BOTH)
+						.zoomBy(gesturePane.getCurrentScale(), pointOnMap);
+			}
+			coordY.setText(Double.toString((int) pointOnMap.getX()));
+			coordX.setText(Double.toString((int) pointOnMap.getY()));
+		});
+		gesturePane.setFitMode(GesturePane.FitMode.COVER);
+		gesturePane.setScrollBarEnabled(false);
 
-      polygon.setStroke(Color.rgb(0, 0, 0));
-      polygon.setStrokeWidth(3);
+		backgroundImage.setImage(new Image(getClass().getResource("SchedulingMap.jpg").openStream()));
+	}
 
-      // hover effects
-      polygon.hoverProperty().addListener(
-          (ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean show) -> {
-            if (polygon.isHover()) {
-              polygon.setFill(Color.rgb(0, 180, 0, 0.5));
+	/**
+	 * Redraw the nodes on the map.
+	 */
+	@SuppressWarnings("PMD.AvoidInstantiatingObjectsInLoops")
+	public void redrawPolygons() {
+		Set<Polygon> polygons = new HashSet<>();
 
-              // set the combobox to the selected node
-              polygon.setOnMouseClicked(mouseEvent ->
-                  selectedNode.setValue(availableNode)
-              );
+		for (Node availableNode : availableNodes) {
+			Polygon polygon = new Polygon();
+			polygon.getPoints().setAll(availableNode.getPolygonPoints());
+			polygon.setFill(Color.rgb(0, 255, 0, 0.5));
 
-            } else {
-              polygon.setFill(Color.rgb(0, 255, 0, 0.5));
+			polygon.setStroke(Color.rgb(0, 0, 0));
+			polygon.setStrokeWidth(3);
 
-            }
-          });
+			// hover effects
+			polygon.hoverProperty().addListener(
+					(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean show) -> {
+						if (polygon.isHover()) {
+							polygon.setFill(Color.rgb(0, 180, 0, 0.5));
 
-      polygons.add(polygon);
-    }
+							// set the combobox to the selected node
+							polygon.setOnMouseClicked(mouseEvent ->
+									selectedNode.setValue(availableNode)
+							);
 
-    for (Node unavailableNode : unavailableNodes) {
-      Polygon polygon = new Polygon();
-      polygon.getPoints().setAll(unavailableNode.getPolygonPoints());
-      polygon.setFill(Color.rgb(255, 0, 0, 0.5));
+						} else {
+							polygon.setFill(Color.rgb(0, 255, 0, 0.5));
 
-      polygon.setStroke(Color.rgb(0, 0, 0));
-      polygon.setStrokeWidth(3);
+						}
+					});
 
-      polygons.add(polygon);
+			polygons.add(polygon);
+		}
 
-      // hover effects
-      polygon.hoverProperty().addListener(
-          (ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean show) -> {
-            if (polygon.isHover()) {
-              polygon.setFill(Color.rgb(180, 0, 0, 0.5));
+		for (Node unavailableNode : unavailableNodes) {
+			Polygon polygon = new Polygon();
+			polygon.getPoints().setAll(unavailableNode.getPolygonPoints());
+			polygon.setFill(Color.rgb(255, 0, 0, 0.5));
 
-              // set the combobox to the selected node
-              polygon.setOnMouseClicked(mouseEvent ->
-                  selectedNode.setValue(unavailableNode)
-              );
+			polygon.setStroke(Color.rgb(0, 0, 0));
+			polygon.setStrokeWidth(3);
 
-            } else {
-              polygon.setFill(Color.rgb(255, 0, 0, 0.5));
+			polygons.add(polygon);
 
-            }
-          });
-    }
+			// hover effects
+			polygon.hoverProperty().addListener(
+					(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean show) -> {
+						if (polygon.isHover()) {
+							polygon.setFill(Color.rgb(180, 0, 0, 0.5));
 
-    nodeGroup.getChildren().setAll(polygons);
-  }
+							// set the combobox to the selected node
+							polygon.setOnMouseClicked(mouseEvent ->
+									selectedNode.setValue(unavailableNode)
+							);
+
+						} else {
+							polygon.setFill(Color.rgb(255, 0, 0, 0.5));
+
+						}
+					});
+		}
+
+		nodeGroup.getChildren().setAll(polygons);
+	}
 
 }

@@ -33,162 +33,162 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 @FxmlController(url = "ExternalTransportationPopup.fxml")
 public class ExternalTransportationPopupController implements Controller {
 
-  private static final Logger logger =
-      Logger.getLogger(ExternalTransportationPopupController.class.getName());
+	private static final Logger logger =
+			Logger.getLogger(ExternalTransportationPopupController.class.getName());
 
-  @FXML
-  BorderPane root;
-  @FXML
-  private JFXTextField nametxt;
-  @FXML
-  private FuzzyWuzzyComboBox locationbox;
-  @FXML
-  private JFXComboBox<ExternalTransportationRequest.ExternalTransportationRequestType> categorybox;
-  @FXML
-  private JFXTextArea descriptiontxt;
-  @FXML
-  private JFXButton submitbtn;
-  @FXML
-  private JFXButton backbtn;
-  @FXML
-  private JFXButton btn;
-  @FXML
-  private Label reportLabel;
-  @FXML
-  private JFXDatePicker datePicker;
-  @FXML
-  private JFXTimePicker timePicker;
+	@FXML
+	BorderPane root;
+	@FXML
+	private JFXTextField nametxt;
+	@FXML
+	private FuzzyWuzzyComboBox locationbox;
+	@FXML
+	private JFXComboBox<ExternalTransportationRequest.ExternalTransportationRequestType> categorybox;
+	@FXML
+	private JFXTextArea descriptiontxt;
+	@FXML
+	private JFXButton submitbtn;
+	@FXML
+	private JFXButton backbtn;
+	@FXML
+	private JFXButton btn;
+	@FXML
+	private Label reportLabel;
+	@FXML
+	private JFXDatePicker datePicker;
+	@FXML
+	private JFXTimePicker timePicker;
 
-  @Inject
-  private Database db;
+	@Inject
+	private Database db;
 
-  @FXML
-  void initialize() {
-    locationbox.setNodes(db.getAllNodes());
-    locationbox.setupAutoRefresh();
-    locationbox.refresh();
-    categorybox.getItems().setAll(ExternalTransportationRequest.ExternalTransportationRequestType
-        .values());
+	@FXML
+	void initialize() {
+		locationbox.setNodes(db.getAllNodes());
+		locationbox.setupAutoRefresh();
+		locationbox.refresh();
+		categorybox.getItems().setAll(ExternalTransportationRequest.ExternalTransportationRequestType
+				.values());
 
-    submitbtn.disableProperty().bind(
-        Bindings.isEmpty(nametxt.textProperty())
-            .or(Bindings.isNull(locationbox.valueProperty()))
-            .or(Bindings.isNull(categorybox.valueProperty()))
-    );
-  }
+		submitbtn.disableProperty().bind(
+				Bindings.isEmpty(nametxt.textProperty())
+						.or(Bindings.isNull(locationbox.valueProperty()))
+						.or(Bindings.isNull(categorybox.valueProperty()))
+		);
+	}
 
-  @FXML
-  void onSubmitButtonAction() {
-    ExternalTransportationRequest external = parseUserITRequest();
-    if (external == null) {
-      logger.log(Level.WARNING,
-          "Unable to parse External transportation Request.",
-          "Unable to parse External Transportation Request.");
-      return;
-    }
+	@FXML
+	void onSubmitButtonAction() {
+		ExternalTransportationRequest external = parseUserITRequest();
+		if (external == null) {
+			logger.log(Level.WARNING,
+					"Unable to parse External transportation Request.",
+					"Unable to parse External Transportation Request.");
+			return;
+		}
 
-    nametxt.setText(null);
-    locationbox.getSelectionModel().clearSelection();
-    locationbox.setValue(null);
-    categorybox.getSelectionModel().clearSelection();
-    categorybox.setValue(null);
-    descriptiontxt.setText("");
-    datePicker.setValue(null);
-    timePicker.setValue(null);
+		nametxt.setText(null);
+		locationbox.getSelectionModel().clearSelection();
+		locationbox.setValue(null);
+		categorybox.getSelectionModel().clearSelection();
+		categorybox.setValue(null);
+		descriptiontxt.setText("");
+		datePicker.setValue(null);
+		timePicker.setValue(null);
 
-    if (db.insertExternalTransportationRequest(external)) {
-      String message = "Successfully submitted External transportation request.";
-      DialogHelper.showInformationAlert("Success!", message);
-    } else {
-      DialogHelper.showErrorAlert("Error.",
-          "Unable to submit External transportation request.");
-    }
-  }
+		if (db.insertExternalTransportationRequest(external)) {
+			String message = "Successfully submitted External transportation request.";
+			DialogHelper.showInformationAlert("Success!", message);
+		} else {
+			DialogHelper.showErrorAlert("Error.",
+					"Unable to submit External transportation request.");
+		}
+	}
 
-  @FXML
-  void onReportAction() {
-    int ambulance = db.getExternalTransportationRequestsByCategory("AMBULANCE").size();
-    int helicopter = db.getExternalTransportationRequestsByCategory("HELICOPTER").size();
-    int others = db.getExternalTransportationRequestsByCategory("OTHERS").size();
-    reportLabel.setText("The number of requests for transporting by ambulance: " + ambulance
-        + "by helicopter: " + helicopter
-        + "by other transportation: " + others
-        + generateTimeReport());
-  }
+	@FXML
+	void onReportAction() {
+		int ambulance = db.getExternalTransportationRequestsByCategory("AMBULANCE").size();
+		int helicopter = db.getExternalTransportationRequestsByCategory("HELICOPTER").size();
+		int others = db.getExternalTransportationRequestsByCategory("OTHERS").size();
+		reportLabel.setText("The number of requests for transporting by ambulance: " + ambulance
+				+ "by helicopter: " + helicopter
+				+ "by other transportation: " + others
+				+ generateTimeReport());
+	}
 
-  /**
-   * Parse input the user has inputted for the sanitation request.
-   *
-   * @return If valid input, A SanitationRequest representing the users input. Otherwise null.
-   */
-  private ExternalTransportationRequest parseUserITRequest() {
-    // if input is valid, parse it and return a new SanitationRequest
-    if (!nametxt.getText().isEmpty()
-        && Objects.nonNull(locationbox.getValue())
-        && Objects.nonNull(categorybox.getValue())) {
+	/**
+	 * Parse input the user has inputted for the sanitation request.
+	 *
+	 * @return If valid input, A SanitationRequest representing the users input. Otherwise null.
+	 */
+	private ExternalTransportationRequest parseUserITRequest() {
+		// if input is valid, parse it and return a new SanitationRequest
+		if (!nametxt.getText().isEmpty()
+				&& Objects.nonNull(locationbox.getValue())
+				&& Objects.nonNull(categorybox.getValue())) {
 
-      LocalDateTime now = LocalDateTime.now();
-      Node node = locationbox.getNodeValue();
+			LocalDateTime now = LocalDateTime.now();
+			Node node = locationbox.getNodeValue();
 
-      String type = categorybox.getValue().toString().toUpperCase(new Locale("EN"));
-      ExternalTransportationRequest.ExternalTransportationRequestType externalRequestType =
-          ExternalTransportationRequest.ExternalTransportationRequestType.valueOf(type);
+			String type = categorybox.getValue().toString().toUpperCase(new Locale("EN"));
+			ExternalTransportationRequest.ExternalTransportationRequestType externalRequestType =
+					ExternalTransportationRequest.ExternalTransportationRequestType.valueOf(type);
 
-      String description = descriptiontxt.getText();
-      String name = nametxt.getText();
+			String description = descriptiontxt.getText();
+			String name = nametxt.getText();
 
-      LocalDate date = datePicker.getValue();
-      LocalTime time = timePicker.getValue();
+			LocalDate date = datePicker.getValue();
+			LocalTime time = timePicker.getValue();
 
-      return new ExternalTransportationRequest(now, node, externalRequestType,
-          description, name, date, time);
-    }
+			return new ExternalTransportationRequest(now, node, externalRequestType,
+					description, name, date, time);
+		}
 
-    // otherwise, some input was invalid
-    DialogHelper.showErrorAlert("Error.", "Please make sure all fields are filled out.");
-    return null;
-  }
+		// otherwise, some input was invalid
+		DialogHelper.showErrorAlert("Error.", "Please make sure all fields are filled out.");
+		return null;
+	}
 
-  private String generateTimeReport() {
-    int twoHourCounter = 0;
-    int oneHourCounter = 0;
-    int halfHourCounter = 0;
-    int lessHalfHourCounter = 0;
-    int invalidCounter = 0;
-    int cnt = 0;
-    for (ExternalTransportationRequest external : db.getAllExternalTransportationRequests()) {
-      cnt = external.getTimeDifference();
-      switch (cnt) {
-        case 1:
-          twoHourCounter++;
-          break;
-        case 2:
-          oneHourCounter++;
-          break;
-        case 3:
-          halfHourCounter++;
-          break;
-        case 4:
-          lessHalfHourCounter++;
-          break;
-        default:
-          invalidCounter++;
-          break;
-      }
-    }
-    return "Invalid time request: " + invalidCounter
-        + "Request over two hours" + twoHourCounter
-        + "Request from an hour to two hours" + oneHourCounter
-        + "Request from half hour to an hour" + halfHourCounter
-        + "Request less than half hour" + lessHalfHourCounter;
-  }
+	private String generateTimeReport() {
+		int twoHourCounter = 0;
+		int oneHourCounter = 0;
+		int halfHourCounter = 0;
+		int lessHalfHourCounter = 0;
+		int invalidCounter = 0;
+		int cnt = 0;
+		for (ExternalTransportationRequest external : db.getAllExternalTransportationRequests()) {
+			cnt = external.getTimeDifference();
+			switch (cnt) {
+				case 1:
+					twoHourCounter++;
+					break;
+				case 2:
+					oneHourCounter++;
+					break;
+				case 3:
+					halfHourCounter++;
+					break;
+				case 4:
+					lessHalfHourCounter++;
+					break;
+				default:
+					invalidCounter++;
+					break;
+			}
+		}
+		return "Invalid time request: " + invalidCounter
+				+ "Request over two hours" + twoHourCounter
+				+ "Request from an hour to two hours" + oneHourCounter
+				+ "Request from half hour to an hour" + halfHourCounter
+				+ "Request less than half hour" + lessHalfHourCounter;
+	}
 
-  @Override
-  public Parent getRoot() {
-    return root;
-  }
+	@Override
+	public Parent getRoot() {
+		return root;
+	}
 
-  public interface Factory {
-    ExternalTransportationPopupController create();
-  }
+	public interface Factory {
+		ExternalTransportationPopupController create();
+	}
 }

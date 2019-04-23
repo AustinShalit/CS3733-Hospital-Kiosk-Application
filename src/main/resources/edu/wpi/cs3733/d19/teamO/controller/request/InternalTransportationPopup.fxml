@@ -9,42 +9,51 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 <?import edu.wpi.cs3733.d19.teamO.component.FuzzyWuzzyComboBox?>
-<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.request.InternalTransportationPopupController">
-  <center>
-    <VBox alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="form" stylesheets="@../style/KioskStyle.css" BorderPane.alignment="CENTER">
-      <children>
-        <Label id="heading" text="Add Internal Transportation Request">
-          <font>
-            <Font name="System Bold" size="36.0" />
-          </font>
-        </Label>
-        <JFXTextField fx:id="nametxt" labelFloat="true" maxWidth="200.0" prefHeight="31.0" promptText="Enter Name" styleClass="jfx-text-field">
-          <VBox.margin>
-            <Insets />
-          </VBox.margin>
-        </JFXTextField>
-        <FuzzyWuzzyComboBox fx:id="locationbox" prefHeight="30.0" prefWidth="200.0" promptText="Pick Location" styleClass="jfx-combo-box">
-          <VBox.margin>
-            <Insets />
-          </VBox.margin>
-        </FuzzyWuzzyComboBox>
-        <JFXComboBox fx:id="categorybox" promptText="Pick Category" styleClass="jfx-combo-box">
-          <VBox.margin>
-            <Insets />
-          </VBox.margin>
-        </JFXComboBox>
-        <JFXTextArea fx:id="descriptiontxt" maxHeight="160.0" maxWidth="325.0" prefHeight="160.0" prefWidth="325.0" promptText="Description..." styleClass="jfx-text-area">
-          <VBox.margin>
-            <Insets />
-          </VBox.margin>
-        </JFXTextArea>
-        <JFXButton id="small-button" fx:id="submitbtn" onAction="#onSubmitButtonAction" prefHeight="30.0" text="SUBMIT" />
-      </children>
-      <padding>
-        <Insets bottom="36.0" />
-      </padding>
-    </VBox>
-  </center>
+<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="edu.wpi.cs3733.d19.teamO.controller.request.InternalTransportationPopupController">
+    <center>
+        <VBox alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity"
+              styleClass="form" stylesheets="@../style/KioskStyle.css"
+              BorderPane.alignment="CENTER">
+            <children>
+                <Label id="heading" text="Add Internal Transportation Request">
+                    <font>
+                        <Font name="System Bold" size="36.0"/>
+                    </font>
+                </Label>
+                <JFXTextField fx:id="nametxt" labelFloat="true" maxWidth="200.0" prefHeight="31.0"
+                              promptText="Enter Name" styleClass="jfx-text-field">
+                    <VBox.margin>
+                        <Insets/>
+                    </VBox.margin>
+                </JFXTextField>
+                <FuzzyWuzzyComboBox fx:id="locationbox" prefHeight="30.0" prefWidth="200.0"
+                                    promptText="Pick Location" styleClass="jfx-combo-box">
+                    <VBox.margin>
+                        <Insets/>
+                    </VBox.margin>
+                </FuzzyWuzzyComboBox>
+                <JFXComboBox fx:id="categorybox" promptText="Pick Category"
+                             styleClass="jfx-combo-box">
+                    <VBox.margin>
+                        <Insets/>
+                    </VBox.margin>
+                </JFXComboBox>
+                <JFXTextArea fx:id="descriptiontxt" maxHeight="160.0" maxWidth="325.0"
+                             prefHeight="160.0" prefWidth="325.0" promptText="Description..."
+                             styleClass="jfx-text-area">
+                    <VBox.margin>
+                        <Insets/>
+                    </VBox.margin>
+                </JFXTextArea>
+                <JFXButton id="small-button" fx:id="submitbtn" onAction="#onSubmitButtonAction"
+                           prefHeight="30.0" text="SUBMIT"/>
+            </children>
+            <padding>
+                <Insets bottom="36.0"/>
+            </padding>
+        </VBox>
+    </center>
 </BorderPane>

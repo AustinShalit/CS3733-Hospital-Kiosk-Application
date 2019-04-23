@@ -19,45 +19,45 @@ import edu.wpi.cs3733.d19.teamO.entity.messaging.SmsSender;
 @FxmlController(url = "Sms.fxml")
 public class SmsController implements Controller {
 
-  @FXML
-  BorderPane root;
-  @FXML
-  private JFXTextField messageText;
-  @FXML
-  private JFXButton submitbtn;
+	@FXML
+	BorderPane root;
+	@FXML
+	private JFXTextField messageText;
+	@FXML
+	private JFXButton submitbtn;
 
-  @Inject
-  private Database db;
+	@Inject
+	private Database db;
 
-  private Set<Employee> info;
+	private Set<Employee> info;
 
-  @FXML
-  void initialize() {
-    info = db.getAllEmployee();
-  }
+	@FXML
+	void initialize() {
+		info = db.getAllEmployee();
+	}
 
-  @FXML
-  void submitOnAction() {
-    if (!messageText.getText().isEmpty()) {
-      for (Employee emp : info) {
-        String phoneNumber = emp.getPhone();
-        String message = messageText.getText();
-        SmsRequest sms = new SmsRequest("+1" + phoneNumber, message);
-        SmsSender sender = new SmsSender();
-        sender.sendSms(sms);
-      }
-    } else {
-      DialogHelper.showErrorAlert("Error",
-          "Please make sure all fields are filled out");
-    }
-  }
+	@FXML
+	void submitOnAction() {
+		if (!messageText.getText().isEmpty()) {
+			for (Employee emp : info) {
+				String phoneNumber = emp.getPhone();
+				String message = messageText.getText();
+				SmsRequest sms = new SmsRequest("+1" + phoneNumber, message);
+				SmsSender sender = new SmsSender();
+				sender.sendSms(sms);
+			}
+		} else {
+			DialogHelper.showErrorAlert("Error",
+					"Please make sure all fields are filled out");
+		}
+	}
 
-  @Override
-  public Parent getRoot() {
-    return root;
-  }
+	@Override
+	public Parent getRoot() {
+		return root;
+	}
 
-  public interface Factory {
-    SmsController create();
-  }
+	public interface Factory {
+		SmsController create();
+	}
 }

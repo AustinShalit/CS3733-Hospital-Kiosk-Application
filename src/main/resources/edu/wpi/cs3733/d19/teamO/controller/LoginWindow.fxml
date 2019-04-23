@@ -10,39 +10,52 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-
-<BorderPane id="login" fx:id="root" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" stylesheets="@style/KioskStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.LoginController">
-  <center>
-    <VBox id="loginform" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="form" BorderPane.alignment="CENTER">
-      <ImageView fitHeight="165.0" fitWidth="493.0" pickOnBounds="true" preserveRatio="true" styleClass="logo" />
-      <Label fx:id="welcomeLabel" alignment="CENTER" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" text="Welcome to our kiosk. Please enter your credentials:" textAlignment="CENTER" textFill="#141414" wrapText="true">
-        <font>
-          <Font size="20.0" />
-        </font>
-        <VBox.margin>
-          <Insets bottom="15.0" />
-        </VBox.margin>
-      </Label>
-      <JFXTextField fx:id="username" focusColor="#0067b1" maxWidth="350.0" prefHeight="50.0" prefWidth="350.0" promptText="Username" styleClass="jfx-text-field">
-        <VBox.margin>
-          <Insets bottom="15.0" />
-        </VBox.margin>
-      </JFXTextField>
-      <JFXPasswordField fx:id="password" focusColor="#0067b1" maxWidth="350.0" prefHeight="50.0" promptText="Password" styleClass="jfx-text-field">
-        <VBox.margin>
-          <Insets bottom="10.0" />
-        </VBox.margin>
-      </JFXPasswordField>
-      <Label id="loginFail" fx:id="loginFail" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="281.0" textFill="WHITE" />
-      <JFXButton id="small-button" fx:id="loginButton" buttonType="RAISED" defaultButton="true" maxWidth="350.0" onAction="#loginButtonAction" ripplerFill="WHITE" style="-fx-background-radius: 5;" stylesheets="@style/KioskStyle.css" text="Login" textFill="WHITE">
-        <VBox.margin>
-          <Insets top="10.0" />
-        </VBox.margin>
-        <font>
-          <Font name="System Bold" size="21.0" />
-        </font>
-      </JFXButton>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" />
-    </VBox>
-  </center>
+<BorderPane id="login" fx:id="root" maxHeight="1.7976931348623157E308"
+            maxWidth="1.7976931348623157E308" stylesheets="@style/KioskStyle.css"
+            xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="edu.wpi.cs3733.d19.teamO.controller.LoginController">
+    <center>
+        <VBox id="loginform" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
+              styleClass="form" BorderPane.alignment="CENTER">
+            <ImageView fitHeight="165.0" fitWidth="493.0" pickOnBounds="true" preserveRatio="true"
+                       styleClass="logo"/>
+            <Label fx:id="welcomeLabel" alignment="CENTER" contentDisplay="CENTER"
+                   maxHeight="-Infinity" maxWidth="-Infinity"
+                   text="Welcome to our kiosk. Please enter your credentials:"
+                   textAlignment="CENTER" textFill="#141414" wrapText="true">
+                <font>
+                    <Font size="20.0"/>
+                </font>
+                <VBox.margin>
+                    <Insets bottom="15.0"/>
+                </VBox.margin>
+            </Label>
+            <JFXTextField fx:id="username" focusColor="#0067b1" maxWidth="350.0" prefHeight="50.0"
+                          prefWidth="350.0" promptText="Username" styleClass="jfx-text-field">
+                <VBox.margin>
+                    <Insets bottom="15.0"/>
+                </VBox.margin>
+            </JFXTextField>
+            <JFXPasswordField fx:id="password" focusColor="#0067b1" maxWidth="350.0"
+                              prefHeight="50.0" promptText="Password" styleClass="jfx-text-field">
+                <VBox.margin>
+                    <Insets bottom="10.0"/>
+                </VBox.margin>
+            </JFXPasswordField>
+            <Label id="loginFail" fx:id="loginFail" alignment="CENTER" contentDisplay="CENTER"
+                   prefHeight="17.0" prefWidth="281.0" textFill="WHITE"/>
+            <JFXButton id="small-button" fx:id="loginButton" buttonType="RAISED"
+                       defaultButton="true" maxWidth="350.0" onAction="#loginButtonAction"
+                       ripplerFill="WHITE" style="-fx-background-radius: 5;"
+                       stylesheets="@style/KioskStyle.css" text="Login" textFill="WHITE">
+                <VBox.margin>
+                    <Insets top="10.0"/>
+                </VBox.margin>
+                <font>
+                    <Font name="System Bold" size="21.0"/>
+                </font>
+            </JFXButton>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0"/>
+        </VBox>
+    </center>
 </BorderPane>

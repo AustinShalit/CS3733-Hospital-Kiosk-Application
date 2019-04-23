@@ -9,39 +9,48 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 <?import edu.wpi.cs3733.d19.teamO.component.FuzzyWuzzyComboBox?>
-<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.request.InternalTransportationPopupController">
-  <center>
-    <VBox alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" styleClass="form" stylesheets="@../style/KioskStyle.css" BorderPane.alignment="TOP_CENTER">
-      <children>
-        <Label id="heading" stylesheets="@../style/KioskStyle.css" text="Add Florist Request">
-          <font>
-            <Font name="System Bold" size="36.0" />
-          </font>
-        </Label>
-        <JFXTextField fx:id="nametxt" labelFloat="true" maxWidth="200.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0" promptText="Enter Name">
-          <VBox.margin>
-            <Insets />
-          </VBox.margin>
-        </JFXTextField>
-        <FuzzyWuzzyComboBox fx:id="locationbox" minHeight="-Infinity" promptText="Pick Location">
-          <VBox.margin>
-            <Insets />
-          </VBox.margin>
-        </FuzzyWuzzyComboBox>
-        <JFXComboBox fx:id="categorybox" minHeight="-Infinity" promptText="Pick Category">
-          <VBox.margin>
-            <Insets />
-          </VBox.margin>
-        </JFXComboBox>
-        <JFXTextArea fx:id="descriptiontxt" maxHeight="160.0" maxWidth="325.0" prefHeight="160.0" prefWidth="325.0" promptText="Description...">
-          <VBox.margin>
-            <Insets />
-          </VBox.margin>
-        </JFXTextArea>
-        <JFXButton id="small-button" fx:id="submitbtn" onAction="#onSubmitButtonAction" stylesheets="@../style/KioskStyle.css" text="SUBMIT" />
-      </children>
-    </VBox>
-  </center>
+<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="edu.wpi.cs3733.d19.teamO.controller.request.InternalTransportationPopupController">
+    <center>
+        <VBox alignment="TOP_CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity"
+              styleClass="form" stylesheets="@../style/KioskStyle.css"
+              BorderPane.alignment="TOP_CENTER">
+            <children>
+                <Label id="heading" stylesheets="@../style/KioskStyle.css"
+                       text="Add Florist Request">
+                    <font>
+                        <Font name="System Bold" size="36.0"/>
+                    </font>
+                </Label>
+                <JFXTextField fx:id="nametxt" labelFloat="true" maxWidth="200.0"
+                              minHeight="-Infinity" minWidth="-Infinity" prefHeight="31.0"
+                              promptText="Enter Name">
+                    <VBox.margin>
+                        <Insets/>
+                    </VBox.margin>
+                </JFXTextField>
+                <FuzzyWuzzyComboBox fx:id="locationbox" minHeight="-Infinity"
+                                    promptText="Pick Location">
+                    <VBox.margin>
+                        <Insets/>
+                    </VBox.margin>
+                </FuzzyWuzzyComboBox>
+                <JFXComboBox fx:id="categorybox" minHeight="-Infinity" promptText="Pick Category">
+                    <VBox.margin>
+                        <Insets/>
+                    </VBox.margin>
+                </JFXComboBox>
+                <JFXTextArea fx:id="descriptiontxt" maxHeight="160.0" maxWidth="325.0"
+                             prefHeight="160.0" prefWidth="325.0" promptText="Description...">
+                    <VBox.margin>
+                        <Insets/>
+                    </VBox.margin>
+                </JFXTextArea>
+                <JFXButton id="small-button" fx:id="submitbtn" onAction="#onSubmitButtonAction"
+                           stylesheets="@../style/KioskStyle.css" text="SUBMIT"/>
+            </children>
+        </VBox>
+    </center>
 </BorderPane>
