@@ -98,6 +98,8 @@ public class NavigationController implements Controller {
             && !((Node) object).getFloor().equals("5")
     );
 
+    map.fire = false;
+
     toComboBox.setNodes(nodes);
     fromComboBox.setNodes(nodes);
 
