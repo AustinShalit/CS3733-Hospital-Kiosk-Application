@@ -6,9 +6,9 @@ import java.awt.Toolkit;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 
+import floral.api.FloralApi;
 import foodRequest.FoodRequest;
 import foodRequest.ServiceException;
-import floral.api.FloralApi;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -18,7 +18,6 @@ import javafx.scene.layout.VBox;
 
 import edu.wpi.cs3733.d19.teamO.controller.request.AudioVisualViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ExternalTransportationViewController;
-import edu.wpi.cs3733.d19.teamO.controller.request.FloristRequestViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.GiftViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ITSupportViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.InternalTransportationViewController;
@@ -90,8 +89,6 @@ public class RequestController implements Controller {
   private ReligiousServiceViewController.Factory religiousServiceControllerFactory;
   @Inject
   private SupportAnimalViewController.Factory supportAnimalControllerFactory;
-  @Inject
-  private FloristRequestViewController.Factory floristRequestControllerFactory;
   @Inject
   private PrescriptionViewController.Factory prescriptionRequestControllerFactory;
   @Inject
@@ -170,9 +167,9 @@ public class RequestController implements Controller {
     FloralApi floralApi = new FloralApi();
     try {
       floralApi.run(5, 5, null, null);
-    } catch (Exception e) {
+    } catch (Exception exception) { // NOPMD
       System.out.println("Floral API failed");
-      e.printStackTrace();
+      exception.printStackTrace();
     }
 
   }
