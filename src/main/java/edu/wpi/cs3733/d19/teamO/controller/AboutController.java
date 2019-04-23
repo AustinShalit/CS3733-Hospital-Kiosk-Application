@@ -10,6 +10,8 @@ import javafx.scene.text.Text;
 public class AboutController implements Controller {
 
   @FXML
+  BorderPane root;
+  @FXML
   private Text aboutPage;
   @FXML
   private Text compSci;
@@ -39,8 +41,6 @@ public class AboutController implements Controller {
   private Text docAnalyst;
   @FXML
   private Text thankYou;
-  @FXML
-  private BorderPane root;
 
   public interface Factory {
     AboutController create();

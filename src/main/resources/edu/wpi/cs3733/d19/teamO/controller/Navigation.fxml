@@ -125,7 +125,7 @@
 
           <HBox prefWidth="323.0" alignment="CENTER" spacing="20.0">
             <children>
-              <JFXButton fx:id="aboutButton" onAction="#aboutOnAction" prefHeight="48.0" minWidth="154.0" id="small-button" text="About Page" style="-jfx-button-type: RAISED;">
+              <JFXButton fx:id="aboutButton" onAction="#onAboutButtonAction" prefHeight="48.0" minWidth="154.0" id="small-button" text="About Page" style="-jfx-button-type: RAISED;">
                 <font>
                   <Font name="System Bold" size="18.0" />
                 </font>
