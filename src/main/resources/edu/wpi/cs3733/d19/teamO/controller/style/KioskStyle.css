@@ -234,7 +234,6 @@
 
 #navbtn {
     -fx-background-color: #004E86;
-    -fx-background-radius: 0px;
 }
 
 #navbtn:hover {
