@@ -51,8 +51,8 @@
 
 .button:hover {
     -fx-background-color: #011E3C;
-    -fx-border-color: #f6bd38;
-    -fx-border-width: 0 0 10px 0;
+    /*-fx-border-color: #f6bd38;*/
+    /*-fx-border-width: 0 0 10px 0;*/
 }
 
 #map-button {
@@ -221,4 +221,35 @@
 #temp {
     -fx-font-weight: bold;
     -fx-font-size: 24px;
+}
+
+#navbox {
+    -fx-background-color: #f1f1f1;
+    -fx-background-radius: 0px;
+}
+
+#navbox:focused {
+    -jfx-focus-color: #f6bd38;
+}
+
+#navbtn {
+    -fx-background-color: #004E86;
+}
+
+#navbtn:hover {
+    -jfx-button-type: RAISED;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-background-color: #0067B1;
+}
+
+#gobtn {
+    -fx-background-color: #0067B1;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -jfx-button-type: RAISED;
+}
+
+#gobtn:hover {
+    -fx-background-color: #004E86;
 }
