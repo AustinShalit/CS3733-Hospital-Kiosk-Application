@@ -73,7 +73,7 @@ public class StepByStep {
         isElevator = true;
       }
       Coordinate newCoord = new Coordinate(node.getXcoord(), node.getYcoord(),
-          isElevator, isStair);
+          isElevator, isStair, node.getFloor());
       coordinates.add(newCoord);
     }
 

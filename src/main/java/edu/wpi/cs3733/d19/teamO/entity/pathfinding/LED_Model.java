@@ -1,10 +1,13 @@
 package edu.wpi.cs3733.d19.teamO.entity.pathfinding;
 
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import sun.net.NetworkClient;
+import com.google.common.graph.GraphBuilder;
+import com.google.common.graph.MutableGraph;
+
+
 
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
@@ -40,8 +43,9 @@ public class LED_Model {
   private Edge toBottomElev;
   private Edge toBottomStair;
   private Edge toBottomExit;
-  private ArrayList<Node> nodes;
+  private ArrayList<Node> allNodes;
   private ArrayList<Edge> allEdges;
+  private MutableGraph<Node> graph;
 
   public LED_Model() {
     this.endHall = new Node("GHALL02801", 1270, 1830, "1",
@@ -73,6 +77,21 @@ public class LED_Model {
     this.bottomExit = new Node("GEXIT001L1", 1702, 2260, "L1",
         "Shapiro", Node.NodeType.EXIT, "Fenwood Road Exit MapNode 1 Floor L1", "Fenwood Raod Exit Floor L1");
 
+    allNodes.add(endHall);
+    allNodes.add(elevatorHallDoor);
+    allNodes.add(topElevator);
+    allNodes.add(topExit);
+    allNodes.add(topStair);
+    allNodes.add(bathroom);
+    allNodes.add(hallToRooms);
+    allNodes.add(hallNearRooms);
+    allNodes.add(shapiro);
+    allNodes.add(zinner);
+    allNodes.add(lowerElevator);
+    allNodes.add(bottomStair);
+    allNodes.add(bottomElevator);
+    allNodes.add(bottomExit);
+
     this.longHall = new Edge("longHall", endHall, topExit);
     this.toTopElev = new Edge("toTopElev", elevatorHallDoor, topElevator);
     this.toTopElevHall = new Edge("toTopElevHall", elevatorHallDoor, topExit);
@@ -103,6 +122,12 @@ public class LED_Model {
     allEdges.add(toBottomElev);
     allEdges.add(toBottomExit);
 
+    graph = GraphBuilder.undirected().allowsSelfLoops(false).build();
+    allNodes.forEach(graph::addNode);
+    allEdges.forEach(e -> graph.putEdge(e.getStartNode(), e.getEndNode()));
+
+
+
     NetworkTableInstance instance = NetworkTableInstance.getDefault();
     instance.startClient("130.215.173.94"); // ip address for wpi 130.215.173.94
 
@@ -111,9 +136,9 @@ public class LED_Model {
 
   public void sendPathToPi(Node startNode, Node endNode) {
 
+    BreadthFirstSearchAlgorithm bfs = new BreadthFirstSearchAlgorithm();
 
-
-    ArrayList<Node> path = new ArrayList<>();
+    List<Node> path = bfs.getPath(graph, startNode, endNode);
 
     double [] pins = getListPins(path);
 
