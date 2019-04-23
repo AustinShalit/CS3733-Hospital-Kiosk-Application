@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.d19.teamO.entity.pathfinding;
 
-
 import java.util.Objects;
 
 import edu.wpi.cs3733.d19.teamO.util.Registry;
@@ -8,19 +7,21 @@ import edu.wpi.cs3733.d19.teamO.util.Registry;
 /**
  * Keeps track of the GraphSearchAlgorithms available to the application.
  */
-public final class GraphSearchAlgorithms extends Registry<GraphSearchAlgorithm> {
+public final class GraphSearchAlgorithms extends Registry<GraphSearchAlgorithmSupplier> {
 
-  // TODO replace with DI eg Guice
   private static GraphSearchAlgorithms defaultInstance;
 
-  public static final GraphSearchAlgorithm BFS = new GraphSearchAlgorithm("Breadth First Search",
-      new BreadthFirstSearchAlgorithm<>());
-  public static final GraphSearchAlgorithm DFS = new GraphSearchAlgorithm("Depth First Search",
-      new DepthFirstSearchAlgorithm<>());
-  public static final GraphSearchAlgorithm AStar = new GraphSearchAlgorithm("A*",
-      new AStarAlgorithm());
+  private static final GraphSearchAlgorithmSupplier BFS
+      = new GraphSearchAlgorithmSupplier("Breadth First Search",
+      BreadthFirstSearchAlgorithm::new);
+  private static final GraphSearchAlgorithmSupplier DFS
+      = new GraphSearchAlgorithmSupplier("Depth First Search",
+      DepthFirstSearchAlgorithm::new);
+  private static final GraphSearchAlgorithmSupplier A_STAR
+      = new GraphSearchAlgorithmSupplier("A Star",
+      AStarAlgorithm::new);
 
-  public static final GraphSearchAlgorithm INITIAL_ALGORITHM = BFS;
+  public static final GraphSearchAlgorithmSupplier INITIAL_ALGORITHM = BFS;
 
   /**
    * Gets the default algorithms instance.
@@ -28,7 +29,7 @@ public final class GraphSearchAlgorithms extends Registry<GraphSearchAlgorithm> 
   public static GraphSearchAlgorithms getDefault() {
     synchronized (GraphSearchAlgorithms.class) {
       if (defaultInstance == null) {
-        defaultInstance = new GraphSearchAlgorithms(BFS, DFS, AStar);
+        defaultInstance = new GraphSearchAlgorithms(BFS, DFS, A_STAR);
       }
     }
     return defaultInstance;
@@ -39,7 +40,7 @@ public final class GraphSearchAlgorithms extends Registry<GraphSearchAlgorithm> 
    *
    * @param initial the initial GraphSearchAlgorithms
    */
-  public GraphSearchAlgorithms(GraphSearchAlgorithm... initial) {
+  private GraphSearchAlgorithms(GraphSearchAlgorithmSupplier... initial) {
     registerAll(initial);
   }
 
@@ -49,7 +50,7 @@ public final class GraphSearchAlgorithms extends Registry<GraphSearchAlgorithm> 
    *
    * @param name the name of the algorithm to get
    */
-  public GraphSearchAlgorithm forName(String name) {
+  public GraphSearchAlgorithmSupplier forName(String name) {
     return getItems().stream()
         .filter(t -> t.getName().equals(name))
         .findFirst()
@@ -57,7 +58,7 @@ public final class GraphSearchAlgorithms extends Registry<GraphSearchAlgorithm> 
   }
 
   @Override
-  public void register(GraphSearchAlgorithm algorithm) {
+  public void register(GraphSearchAlgorithmSupplier algorithm) {
     Objects.requireNonNull(algorithm);
     if (isRegistered(algorithm)) {
       throw new IllegalArgumentException("Algorithm " + algorithm + " is already registered");
@@ -66,7 +67,7 @@ public final class GraphSearchAlgorithms extends Registry<GraphSearchAlgorithm> 
   }
 
   @Override
-  public void unregister(GraphSearchAlgorithm algorithm) {
+  public void unregister(GraphSearchAlgorithmSupplier algorithm) {
     removeItem(algorithm);
   }
 }
