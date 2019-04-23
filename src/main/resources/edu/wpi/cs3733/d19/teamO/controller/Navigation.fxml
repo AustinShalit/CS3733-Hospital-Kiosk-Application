@@ -94,7 +94,7 @@
                 </GridPane.margin>
               </JFXButton>
               <JFXButton fx:id="informationButton" id="navbtn" onAction="#nearestLocation" prefHeight="36.0" prefWidth="150.0" text="Information" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-              <JFXButton fx:id="emergencyButton" id="navbtn" onAction="#nearestLocation" prefHeight="36.0" prefWidth="150.0" text="Emergency" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+              <JFXButton fx:id="emergencyButton" id="navbtn" onAction="#nearestLocation" prefHeight="36.0" prefWidth="150.0" text="Emerg. Dept." textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
             </children>
             <VBox.margin>
               <Insets bottom="12.0" />
