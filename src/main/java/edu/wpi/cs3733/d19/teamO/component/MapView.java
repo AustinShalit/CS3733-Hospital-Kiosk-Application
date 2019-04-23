@@ -12,16 +12,18 @@ import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -36,10 +38,14 @@ import net.kurobako.gesturefx.GesturePane;
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 
-@SuppressWarnings({"PMD.TooManyFields", "PMD.ExcessiveImports", "PMD.TooManyMethods" ,
-    "PMD.CyclomaticComplexity"})
-public class MapView extends StackPane {
+import static java.lang.Math.abs;
+import static javafx.scene.input.MouseButton.PRIMARY;
+import static javafx.scene.input.MouseButton.SECONDARY;
 
+@SuppressWarnings({"PMD.TooManyFields", "PMD.ExcessiveImports", "PMD.TooManyMethods" ,
+    "PMD.CyclomaticComplexity", "PMD.GodClass", "PMD.AvoidDeeplyNestedIfStmts"})
+public class MapView extends StackPane {
+  private boolean navigation;
   private int level = 1;
 
   @FXML
@@ -65,9 +71,20 @@ public class MapView extends StackPane {
   @FXML
   private Button levelG;
   @FXML
+  private Circle circle;
+  @FXML
   Label coordX;
   @FXML
   Label coordY;
+
+  private final SimpleObjectProperty<Node> nodeClicked = new SimpleObjectProperty<>();
+  private final SimpleObjectProperty<Node> nodeFrom = new SimpleObjectProperty<>();
+  private final SimpleObjectProperty<Node> nodeTo = new SimpleObjectProperty<>();
+  private  Collection<Node> nodes;
+  private  final ContextMenu contextMenu = new ContextMenu();
+  MenuItem fromHere = new MenuItem("Directions from here");
+  MenuItem toHere = new MenuItem("Directions to here");
+
 
   Group startAndEndNodes = new Group();
 
@@ -80,6 +97,50 @@ public class MapView extends StackPane {
   List<Node> path;
 
   List<Timeline> antz = new ArrayList<>();
+
+  public void setNodes(Collection<Node> nodes) {
+    this.nodes = nodes;
+  }
+
+  public void setNavigation(boolean navigation) {
+    this.navigation = navigation;
+  }
+
+  public Node getNodeClicked() {
+    return nodeClicked.get();
+  }
+
+  public SimpleObjectProperty<Node> nodeClickedProperty() {
+    return nodeClicked;
+  }
+
+  public void setNodeClicked(Node selectedNode) {
+    this.nodeClicked.set(selectedNode);
+  }
+
+  public Node getNodeFrom() {
+    return nodeFrom.get();
+  }
+
+  public SimpleObjectProperty<Node> nodeFromProperty() {
+    return nodeFrom;
+  }
+
+  public void setNodeFrom(Node nodeFrom) {
+    this.nodeFrom.set(nodeFrom);
+  }
+
+  public Node getNodeTo() {
+    return nodeTo.get();
+  }
+
+  public SimpleObjectProperty<Node> nodeToProperty() {
+    return nodeTo;
+  }
+
+  public void setNodeTo(Node nodeTo) {
+    this.nodeTo.set(nodeTo);
+  }
 
   public void setPath(List<Node> path) {
     this.path = path;
@@ -97,29 +158,97 @@ public class MapView extends StackPane {
     fxmlLoader.load();
   }
 
+
   @FXML
+  @SuppressWarnings({"PMD.NPathComplexity"})
   void initialize() throws IOException {
+    contextMenu.getItems().addAll(fromHere, toHere);
+    fromHere.setOnAction(a -> {
+      for (Node n : nodes) {
+        if (n.getFloorInt() == level && n.getXcoord() ==  circle.getCenterX()
+            && n.getYcoord() ==  circle.getCenterY()
+            && !n.getNodeType().equals(Node.NodeType.HALL)) {
+          nodeFrom.set(n);
+        }
+      }
+    });
+    toHere.setOnAction(a -> {
+      for (Node n : nodes) {
+        if (n.getFloorInt() == level && n.getXcoord() ==  circle.getCenterX()
+            && n.getYcoord() ==  circle.getCenterY()
+            && !n.getNodeType().equals(Node.NodeType.HALL)) {
+          nodeTo.set(n);
+        }
+      }
+    });
     gesturePane.setMinScale(0.1);
     gesturePane.reset();
-    gesturePane.setOnMouseClicked(e -> {
-      Point2D pointOnMap = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
-          .orElse(gesturePane.targetPointAtViewportCentre());
 
-      if (e.getButton() == MouseButton.PRIMARY && e.getClickCount() == 2) {
+    gesturePane.setOnMouseMoved(e -> {
+      if (navigation) {
+        Point2D pointOnMap = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
+            .orElse(gesturePane.targetPointAtViewportCentre());
 
-        // increment of scale makes more sense exponentially instead of linearly
-        gesturePane.animate(Duration.millis(200))
-            .interpolateWith(Interpolator.EASE_BOTH)
-            .zoomBy(gesturePane.getCurrentScale(), pointOnMap);
+        int currentX = (int) pointOnMap.getX();
+        int currentY = (int) pointOnMap.getY();
+        double min = 9999;
+        double distance = 0;
+        for (Node n : nodes) {
+          distance = Math.sqrt(abs(n.getXcoord() - currentX) * abs(n.getXcoord() - currentX)
+              + abs(n.getYcoord() - currentY) * abs(n.getYcoord() - currentY));
+          if (n.getFloorInt() == level && distance < min
+              && !n.getNodeType().equals(Node.NodeType.HALL)) {
+            circle.setCenterX(n.getXcoord());
+            circle.setCenterY(n.getYcoord());
+            min = distance;
+          }
+        }
+        circle.setVisible(true);
       }
-      coordY.setText(Double.toString((int) pointOnMap.getX()));
-      coordX.setText(Double.toString((int) pointOnMap.getY()));
     });
+
+    gesturePane.setOnMouseClicked(e -> {
+      if (e.getButton().equals(PRIMARY)) {
+        contextMenu.hide();
+        if (navigation) {
+          Point2D pointOnMap = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
+              .orElse(gesturePane.targetPointAtViewportCentre());
+          if (e.getButton() == PRIMARY && e.getClickCount() == 2) {
+            // increment of scale makes more sense exponentially instead of linearly
+            gesturePane.animate(Duration.millis(200))
+                .interpolateWith(Interpolator.EASE_BOTH)
+                .zoomBy(gesturePane.getCurrentScale(), pointOnMap);
+          }
+          if (e.isControlDown()) {
+            int currentX = (int) pointOnMap.getX();
+            int currentY = (int) pointOnMap.getY();
+            double min = 9999;
+            double distance = 0;
+            for (Node n : nodes) {
+              distance = Math.sqrt(abs(n.getXcoord() - currentX) * abs(n.getXcoord() - currentX)
+                  + abs(n.getYcoord() - currentY) * abs(n.getYcoord() - currentY));
+              if (n.getFloorInt() == level && distance < min
+                  && !n.getNodeType().equals(Node.NodeType.HALL)) {
+                nodeClicked.set(n);
+                circle.setCenterX(n.getXcoord());
+                circle.setCenterY(n.getYcoord());
+                min = distance;
+              }
+            }
+            circle.setVisible(true);
+          }
+          coordY.setText(Double.toString((int) pointOnMap.getX()));
+          coordX.setText(Double.toString((int) pointOnMap.getY()));
+        }
+      } else if (e.getButton().equals(SECONDARY)) {
+        contextMenu.show(gesturePane, e.getScreenX(), e.getScreenY());
+      }
+    });
+
     gesturePane.setFitMode(GesturePane.FitMode.COVER);
     gesturePane.setScrollBarEnabled(false);
     resetButtonBackground(99);
     levelF1.setStyle("-fx-background-color: rgb(1,45,90)");
-
     onFloorSelectAction(new ActionEvent(levelF1, levelF1));
   }
 
@@ -230,7 +359,8 @@ public class MapView extends StackPane {
     }
 
     backgroundImage.setImage(new Image(getClass().getResource(filename).openStream()));
-
+    resetButtonBackground(level);
+    circle.setVisible(false);
     drawPath();
 
   }
@@ -357,14 +487,14 @@ public class MapView extends StackPane {
       Node lastNode = null;
       for (Node node : path) {
         if (lastNode != null) {
-          addLine(node, lastNode, Color.BLACK, 5);
+          addLine(node, lastNode, Color.BLACK, 14);
           addFloorChangeLabel(node, lastNode);
         } else if (node.getFloorInt() == level) {
           Circle circle = new Circle(node.getXcoord(), node.getYcoord(), 8, Color.GREEN);
           circle.setStroke(Color.BLACK);
           startAndEndNodes.getChildren().add(circle);
 
-          Label label = new Label(node.getLongName());
+          Label label = new Label("From " + node.getLongName());
           label.setTranslateX(node.getXcoord() + 10);
           label.setTranslateY(node.getYcoord() - 9);
           label.getStyleClass().add("navlabel");
@@ -381,13 +511,14 @@ public class MapView extends StackPane {
         rectangle.setStroke(Color.BLACK);
         startAndEndNodes.getChildren().add(rectangle);
         if (lastNode.getFloorInt() == path.get(path.indexOf(lastNode) - 1).getFloorInt()) {
-          Label label2 = new Label(lastNode.getLongName());
+          Label label2 = new Label("To " + lastNode.getLongName());
           label2.setTranslateX(lastNode.getXcoord() + 10);
           label2.setTranslateY(lastNode.getYcoord() - 9);
           label2.getStyleClass().add("navlabel");
 
           labelsGroup.getChildren().add(label2);
         }
+
       }
 
 
@@ -410,6 +541,7 @@ public class MapView extends StackPane {
     nodeGroup.getChildren().addAll(pathEdges);
     nodeGroup.getChildren().addAll(labelsGroup);
     nodeGroup.getChildren().addAll(buttonsGroup);
+
   }
 
   /**
@@ -439,7 +571,7 @@ public class MapView extends StackPane {
    * @return animated line.
    */
   public Timeline addAntimation(Line line) {
-    line.getStrokeDashArray().setAll(5d, 5d, 5d, 5d);
+    line.getStrokeDashArray().setAll(15d, 10d, 15d, 10d);
     line.setStrokeWidth(3);
 
     final double maxOffset =
@@ -475,8 +607,18 @@ public class MapView extends StackPane {
   public void zoomTo(Node n) throws IOException {
     gesturePane.reset();
     switchFloor(n.getFloor());
-    gesturePane.zoomTo(1.2, new Point2D(n.getXcoord(),
-        n.getYcoord()));
+    int id = path.indexOf(n);
+    Node lastNodeOnFloor = n;
+    for (int jj = id; jj < path.size(); jj++) {
+      Node curNode = path.get(jj);
+      if (curNode.getFloorInt() == level) {
+        lastNodeOnFloor = path.get(jj);
+      } else {
+        break;
+      }
+    }
+    panMapBetweenNodes(n, lastNodeOnFloor);
+
   }
 
   private void switchFloor(String s) throws IOException {
@@ -525,8 +667,6 @@ public class MapView extends StackPane {
 
   private void addFloorChangeLabel(Node node, Node lastNode) {
     if (lastNode.getFloorInt() != node.getFloorInt()) {
-      Label label2 = null;
-
       if (lastNode.getFloorInt() == level) {
         Button button = new JFXButton("To Floor " + node.getFloor());
         button.setTranslateX(lastNode.getXcoord() + 10);
@@ -537,16 +677,23 @@ public class MapView extends StackPane {
           if (event.getSource() == button) {
             try {
               switchFloor(node.getFloor());
+              // pan map
+              int id = path.indexOf(node);
+              Node lastNodeOnFloor = node;
+              for (int jj = id; jj < path.size(); jj++) {
+                Node curNode = path.get(jj);
+                if (curNode.getFloorInt() == level) {
+                  lastNodeOnFloor = path.get(jj);
+                } else {
+                  break;
+                }
+              }
+              panMapBetweenNodes(node, lastNodeOnFloor);
             } catch (IOException exception) {
               exception.printStackTrace();
             }
           }
         });
-
-        label2 = new Label(lastNode.getLongName());
-        label2.setTranslateX(lastNode.getXcoord() + 10);
-        label2.setTranslateY(lastNode.getYcoord() - 9);
-        label2.getStyleClass().add("navlabel");
 
         buttonsGroup.getChildren().add(button);
 
@@ -560,24 +707,41 @@ public class MapView extends StackPane {
           if (event.getSource() == button) {
             try {
               switchFloor(lastNode.getFloor());
+              // pan map
+              int ii = path.indexOf(lastNode);
+              Node lastNodeOnFloor = lastNode;
+              for (int jj = ii; jj > 0; jj--) {
+                Node curNode = path.get(jj);
+                if (curNode.getFloorInt() == level) {
+                  lastNodeOnFloor = path.get(jj);
+                } else {
+                  break;
+                }
+              }
+              panMapBetweenNodes(lastNode, lastNodeOnFloor);
             } catch (IOException exception) {
               exception.printStackTrace();
             }
           }
         });
 
-        label2 = new Label(node.getLongName());
-        label2.setTranslateX(node.getXcoord() + 10);
-        label2.setTranslateY(node.getYcoord() - 9);
-        label2.getStyleClass().add("navlabel");
-
         buttonsGroup.getChildren().add(button);
       }
-
-      if (label2 != null) {
-        labelsGroup.getChildren().add(label2);
-      }
     }
+
   }
 
+  void panMapBetweenNodes(Node a, Node b) {
+    int midX = (a.getXcoord() + b.getXcoord()) / 2;
+    int midY = (a.getYcoord() + b.getYcoord()) / 2;
+    int distanceX = abs(a.getXcoord() - b.getXcoord()) + 1;
+    int distanceY = abs(a.getYcoord() - b.getYcoord()) + 1;
+
+    if ( 750. / Math.max(distanceX , distanceY) < 2.5) {
+      gesturePane.zoomTo(750. / Math.max(distanceX, distanceY), new Point2D(midX, midY));
+    } else {
+      gesturePane.zoomTo(2.5, new Point2D(midX, midY));
+    }
+    gesturePane.centreOn(new Point2D(midX , midY));
+  }
 }

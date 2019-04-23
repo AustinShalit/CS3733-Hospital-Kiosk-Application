@@ -3,6 +3,7 @@ package edu.wpi.cs3733.d19.teamO.controller;
 import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXPopup;
 
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -20,11 +21,18 @@ public class OptionsPopupController implements Controller {
   @Inject
   private EventBus eventBus;
   @Inject
-  private AdminController.Factory adminControllerFactory;
-  @Inject
-  private GuestViewController.Factory loginControllerFactory;
-  @Inject
   private SettingsController.Factory settingsControllerFactory;
+  @Inject
+  private MapEditController.Factory mapEditControllerFactory;
+  @Inject
+  private EmployeeController.Factory employeeControllerFactory;
+
+  private JFXPopup settingsPopup;
+
+  @FXML
+  void initialize() {
+    settingsPopup = new JFXPopup(settingsControllerFactory.create().root);
+  }
 
   @FXML
   void onAction(MouseEvent event) {
@@ -34,19 +42,23 @@ public class OptionsPopupController implements Controller {
   @FXML
   void settingsAction(MouseEvent event) {
     event.consume();
-    eventBus.post(new ChangeMainViewEvent(settingsControllerFactory.create()));
+    settingsPopup.show(list,
+        JFXPopup.PopupVPosition.TOP,
+        JFXPopup.PopupHPosition.RIGHT,
+        -12,
+        15);
   }
 
   @FXML
-  void adminAction(MouseEvent event) {
+  void employeeAction(MouseEvent event) {
     event.consume();
-    eventBus.post(new ChangeMainViewEvent(adminControllerFactory.create()));
+    eventBus.post(new ChangeMainViewEvent(employeeControllerFactory.create()));
   }
 
   @FXML
-  void signoutAction(MouseEvent event) {
+  void mapAction(MouseEvent event) {
     event.consume();
-    eventBus.post(new ChangeMainViewEvent(loginControllerFactory.create(), false));
+    eventBus.post(new ChangeMainViewEvent(mapEditControllerFactory.create()));
   }
 
   @Override

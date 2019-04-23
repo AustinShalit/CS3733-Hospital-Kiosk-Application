@@ -34,9 +34,7 @@ import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 public class InternalTransportationViewController implements Controller {
 
   @FXML
-  private BorderPane root;
-  @FXML
-  private JFXButton goBackButton;
+  public BorderPane root;
   @FXML
   private JFXButton assignButton;
   @FXML

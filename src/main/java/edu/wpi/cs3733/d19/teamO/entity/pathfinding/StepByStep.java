@@ -97,7 +97,7 @@ public class StepByStep {
       double diff = coordinates.get(i).getDist(coordinates.get(i + 1));
       distance.add(diff);
     }
-    instructions.add("Walk " + cardinalDirections.get(0) + " from " + nodes.get(0).getLongName());
+    instructions.add("Walk " + cardinalDirections.get(0) + " from " + nodes.get(0).getShortName());
     double totalDist = 0;
     String last = "other";
     String forward = "forward";
@@ -157,7 +157,7 @@ public class StepByStep {
       }
     }
 
-    instructions.add("Arrive at " + nodes.get(nodes.size() - 1).getLongName());
+    instructions.add("Arrive at " + nodes.get(nodes.size() - 1).getShortName());
 
     return instructions;
   }

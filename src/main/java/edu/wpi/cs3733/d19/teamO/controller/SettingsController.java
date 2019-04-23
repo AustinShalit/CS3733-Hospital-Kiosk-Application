@@ -13,13 +13,15 @@ import edu.wpi.cs3733.d19.teamO.component.ExtendedPropertySheet;
 public final class SettingsController implements Controller {
 
   @FXML
-  private BorderPane root;
+  BorderPane root;
   @Inject
   private AppPreferences appPreferences;
 
   @FXML
   void initialize() {
     root.setCenter(new ExtendedPropertySheet(appPreferences.getSettings()));
+    root.getCenter().setStyle(
+        "-fx-background-color: #f1f1f1; -fx-pref-height: 150px; -fx-pref-width: 500px; ");
   }
 
   @Override

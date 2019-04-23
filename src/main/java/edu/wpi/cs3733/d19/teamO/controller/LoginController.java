@@ -11,6 +11,7 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
 import animatefx.animation.Shake;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
@@ -43,7 +44,7 @@ public class LoginController implements Controller {
   @Inject
   private EventBus eventBus;
   @Inject
-  private HomeController.Factory homeControllerFactory;
+  private NavigationController.Factory navigationController;
   @Inject
   private Database db;
 
@@ -52,10 +53,20 @@ public class LoginController implements Controller {
   @FXML
   void initialize() {
     info = db.getAllEmployee();
+
+    username.requestFocus();
+
+    loginButton.setDisable(true);
+    loginButton.disableProperty().bind(
+        Bindings.isNull(username.textProperty())
+            .or(Bindings.isNull(password.textProperty()))
+    );
   }
 
   @FXML
   void loginButtonAction() {
+
+    username.requestFocus();
     // gets the user input
     Employee employee = parseUserLogin();
     if (employee == null) {
@@ -72,13 +83,16 @@ public class LoginController implements Controller {
       }
     }
 
+    username.setText(null);
+    password.setText(null);
+
     // if info typed was right, you go to main window screen
     if (check) {
-      eventBus.post(new ChangeMainViewEvent(homeControllerFactory.create()));
       loginFail.setText("Login Success");
+      eventBus.post(new ChangeMainViewEvent(navigationController.create()));
     } else {
       loginFail.setText("Incorrect username or password");
-      new Shake(loginFail).play();
+      new Shake(loginButton).play();
     }
   }
 
@@ -90,7 +104,7 @@ public class LoginController implements Controller {
   private Employee parseUserLogin() {
     // checks if input is valid, parses it and returns a new Employee
     if (!username.getText().isEmpty() && !password.getText().isEmpty()) {
-      return new Employee(username.getText(), password.getText(), null);
+      return new Employee(username.getText(), password.getText(), null, null);
     }
 
     // otherwise
@@ -100,6 +114,10 @@ public class LoginController implements Controller {
 
   public Label getLoginFail() {
     return loginFail;
+  }
+
+  public void setLoginFail(String string) {
+    loginFail.setText(string);
   }
 
   @Override

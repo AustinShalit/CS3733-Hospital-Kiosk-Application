@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
-import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPopup;
@@ -17,7 +16,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.BorderPane;
 
-import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.Employee;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 
@@ -28,13 +26,13 @@ public class EmployeeController implements Controller {
   @FXML
   private BorderPane root;
   @FXML
-  private JFXButton goBackButton;
-  @FXML
   private JFXButton addEmpButton;
   @FXML
   private JFXButton delEmpButton;
   @FXML
   private JFXButton updateEmpButton;
+  @FXML
+  private JFXButton emergencyButton;
   @FXML
   private Label titleLabel;
   @FXML
@@ -48,22 +46,23 @@ public class EmployeeController implements Controller {
   @FXML
   private TableColumn<Employee, String> nameCol;
   @FXML
+  private TableColumn<Employee, String> phoneCol;
+  @FXML
   private Label infoLabel;
 
   @Inject
-  private EventBus eventBus;
-  @Inject
   private Database db;
-  @Inject
-  private AdminController.Factory adminControllerFactory;
   @Inject
   private AddEmployeeController.Factory addEmployeeControllerFactory;
   @Inject
   private UpdateEmployeeController.Factory updateEmployeeControllerFactory;
+  @Inject
+  private SmsController.Factory smsControllerFactory;
 
   private UpdateEmployeeController updateEmployeeController;
   private JFXPopup addPopup;
   private JFXPopup updatePopup;
+  private JFXPopup emergencyPopup;
 
   @FXML
   void initialize() {
@@ -71,6 +70,7 @@ public class EmployeeController implements Controller {
     passwordCol.setCellValueFactory(new PropertyValueFactory<>("password"));
     positionCol.setCellValueFactory(new PropertyValueFactory<>("type"));
     nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+    phoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
 
     updateEmployeeController = updateEmployeeControllerFactory.create();
 
@@ -88,6 +88,7 @@ public class EmployeeController implements Controller {
 
     addPopup = new JFXPopup(addEmployeeControllerFactory.create().root);
     updatePopup = new JFXPopup(updateEmployeeController.upRoot);
+    emergencyPopup = new JFXPopup(smsControllerFactory.create().root);
     addPopup.setOnAutoHide(
         event -> {
           ColorAdjust reset = new ColorAdjust();
@@ -106,9 +107,19 @@ public class EmployeeController implements Controller {
           employeeTableView.getItems().setAll(db.getAllEmployee());
         }
     );
+    emergencyPopup.setOnAutoHide(
+        event -> {
+          ColorAdjust reset = new ColorAdjust();
+          reset.setBrightness(0);
+          root.setEffect(reset);
+          employeeTableView.getItems().clear();
+          employeeTableView.getItems().setAll(db.getAllEmployee());
+        }
+    );
 
     updateEmpButton.setDisable(true);
     delEmpButton.setDisable(true);
+
 
     // Disable complete request and assign employee button if no request is selected
     employeeTableView.getSelectionModel().selectedItemProperty().addListener(
@@ -122,11 +133,6 @@ public class EmployeeController implements Controller {
           }
         }
     );
-  }
-
-  @FXML
-  void goBackButtonAction() {
-    eventBus.post(new ChangeMainViewEvent(adminControllerFactory.create()));
   }
 
   @FXML
@@ -181,6 +187,21 @@ public class EmployeeController implements Controller {
     );
     updatePopup.setY(
         (root.getScene().getWindow().getHeight() - updatePopup.getHeight()) / 2
+    );
+  }
+
+  @FXML
+  void emergencyOnAction() {
+    infoLabel.setText("");
+    ColorAdjust colorAdjust = new ColorAdjust();
+    colorAdjust.setBrightness(-0.2);
+    root.setEffect(colorAdjust);
+    emergencyPopup.show(root);
+    emergencyPopup.setX(
+        (root.getScene().getWindow().getWidth() - emergencyPopup.getWidth()) / 2
+    );
+    emergencyPopup.setY(
+        (root.getScene().getWindow().getHeight() - emergencyPopup.getHeight()) / 2
     );
   }
 

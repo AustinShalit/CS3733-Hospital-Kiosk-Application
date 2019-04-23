@@ -1,15 +1,20 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
-import com.google.common.eventbus.EventBus;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
 
+import foodRequest.FoodRequest;
+import foodRequest.ServiceException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.controller.request.AudioVisualViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ExternalTransportationViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.FloristRequestViewController;
@@ -28,7 +33,11 @@ import edu.wpi.cs3733.d19.teamO.controller.request.SupportAnimalViewController;
 public class RequestController implements Controller {
 
   @FXML
-  private VBox root;
+  StackPane root;
+  @FXML
+  VBox menu;
+  @FXML
+  private BorderPane content;
 
   @FXML
   private JFXButton sanitation;
@@ -60,11 +69,8 @@ public class RequestController implements Controller {
   private JFXButton florist;
 
   @FXML
-  private JFXButton viewRequest;
+  private JFXButton food;
 
-
-  @Inject
-  private EventBus eventBus;
   @Inject
   private InternalTransportationViewController.Factory internalTransportationControllerFactory;
   @Inject
@@ -91,66 +97,107 @@ public class RequestController implements Controller {
   private SanitationViewController.Factory sanitationControllerFactory;
 
   @FXML
+  void initialize() {
+    menu.setPickOnBounds(false);
+    content.setPickOnBounds(false);
+
+    menu.heightProperty().addListener(
+        (observable, oldValue, newValue) -> {
+          sanitation.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
+          prescription.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
+          interpreter.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
+          audioVisual.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
+          internalTransportation.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
+          externalTransportation.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
+          patientInfo.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
+          gift.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
+          itSupport.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
+          religious.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
+          animalSupport.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
+          florist.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
+          food.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
+        });
+  }
+
+  @FXML
   void internalTransportationAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(internalTransportationControllerFactory.create()));
+    content.setCenter(internalTransportationControllerFactory.create().root);
   }
 
   @FXML
   void sanitationAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(sanitationControllerFactory.create()));
+    content.setCenter(sanitationControllerFactory.create().root);
   }
 
   @FXML
   void audioVisualAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(audioVisualViewControllerFactory.create()));
+    content.setCenter(audioVisualViewControllerFactory.create().root);
   }
 
   @FXML
   void patientInfoAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(patientInfoControllerFactory.create()));
+    content.setCenter(patientInfoControllerFactory.create().root);
   }
 
   @FXML
   void itSupportAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(itSupportControllerFactory.create()));
+    content.setCenter(itSupportControllerFactory.create().root);
   }
 
   @FXML
   void externalTransportationAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(externalTransportationViewControllerFactory.create()));
+    content.setCenter(externalTransportationViewControllerFactory.create().root);
   }
 
   @FXML
   void giftAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(giftControllerFactory.create()));
+    content.setCenter(giftControllerFactory.create().root);
   }
 
   @FXML
   void interpreterAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(interpreterControllerFactory.create()));
+    content.setCenter(interpreterControllerFactory.create().root);
   }
 
   @FXML
   void religiousAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(religiousServiceControllerFactory.create()));
+    content.setCenter(religiousServiceControllerFactory.create().root);
   }
 
   @FXML
   void floristAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(floristRequestControllerFactory.create()));
+    content.setCenter(floristRequestControllerFactory.create().root);
   }
 
 
   @FXML
   void supportAnimalAction(ActionEvent event) {
-    eventBus.post(new ChangeMainViewEvent(supportAnimalControllerFactory.create()));
+    content.setCenter(supportAnimalControllerFactory.create().root);
   }
 
   @FXML
   void prescriptionAction() {
-    eventBus.post(new ChangeMainViewEvent(prescriptionRequestControllerFactory.create()));
+    content.setCenter(prescriptionRequestControllerFactory.create().root);
   }
 
+  @FXML
+  void foodAction() {
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    FoodRequest foodRequest = new FoodRequest();
+    try {
+      foodRequest.run(
+          0,
+          0,
+          screenSize.width,
+          screenSize.height,
+           null,
+          null,
+          null);
+    } catch (ServiceException exception) {
+      System.out.println("Failed to run API");
+      exception.printStackTrace();
+    }
+  }
 
   @Override
   public Parent getRoot() {

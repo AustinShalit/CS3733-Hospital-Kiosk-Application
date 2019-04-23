@@ -31,6 +31,8 @@ public class UpdateEmployeeController implements Controller {
   @FXML
   private JFXTextField upPasswordfield;
   @FXML
+  private JFXTextField upPhonefield;
+  @FXML
   private JFXTextField upIdfield;
   @FXML
   private JFXComboBox<Employee.EmployeeType> upPositionbox;
@@ -79,6 +81,7 @@ public class UpdateEmployeeController implements Controller {
         upNamefield.setText(newValue.getName());
         upUsernamefield.setText(newValue.getUsername());
         upPasswordfield.setText(newValue.getPassword());
+        upPhonefield.setText(newValue.getPhone());
         upPositionbox.setValue(newValue.getType());
         upIdfield.setText(String.valueOf(newValue.getId()));
         avBox.setSelected(newValue.getEmployeeAttributes().getCanFulfillAudioVisual());
@@ -105,12 +108,14 @@ public class UpdateEmployeeController implements Controller {
     if (!upNamefield.getText().isEmpty()
         && !upPasswordfield.getText().isEmpty()
         && !upUsernamefield.getText().isEmpty()
+        && !upPhonefield.getText().isEmpty()
         && Objects.nonNull(upPositionbox.getValue())) {
       int idInt = Integer.parseInt(upIdfield.getText());
       Employee lg = db.getEmployee(idInt).get();
       lg.setUsername(upUsernamefield.getText());
       lg.setPassword(upPasswordfield.getText());
       lg.setName(upNamefield.getText());
+      lg.setPhone(upPasswordfield.getText());
       lg.setType(upPositionbox.getValue());
       lg.getEmployeeAttributes().setCanFulfillAudioVisual(avBox.isSelected());
       lg.getEmployeeAttributes().setCanFulfillExternalTransport(externalTransportBox.isSelected());
@@ -130,7 +135,7 @@ public class UpdateEmployeeController implements Controller {
             "Successfully updated Employee.");
       } else {
         DialogHelper.showErrorAlert("Error.",
-            "Unable to  Employee");
+            "Unable to update Employee");
       }
     }
   }

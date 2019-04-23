@@ -8,7 +8,6 @@
 
 .form {
     -fx-background-color: #ffffff;
-    -fx-border-radius: 4px;
     -fx-effect: dropshadow(three-pass-box, rgba(110, 110, 110, 0.25), 10, 0, 0, 0);
     -fx-spacing: 36px;
     -fx-fill-width: false;
@@ -26,6 +25,7 @@
 }
 
 #requestbuttons {
+    -fx-alignment: CENTER;
     -fx-hgap: 40px;
     -fx-pref-width: 720px;
     -fx-pref-height: 60px;
@@ -47,13 +47,21 @@
     -fx-text-fill: #ffffff;
     -fx-font-size: 20px;
     -fx-text-alignment: center;
-    -fx-text-transform: uppercase;
 }
 
 .button:hover {
     -fx-background-color: #011E3C;
-    -fx-border-color: #f6bd38;
-    -fx-border-width: 0 0 10px 0;
+    /*-fx-border-color: #f6bd38;*/
+    /*-fx-border-width: 0 0 10px 0;*/
+}
+
+#map-button {
+    -fx-background-color: #0067B1;
+}
+
+#map-button:hover {
+    -fx-background-color: #004E86;
+    -fx-border-width: 0;
 }
 
 #map-button {
@@ -90,6 +98,8 @@
 }
 
 #table-button {
+    -fx-alignment: CENTER;
+    -fx-pref-width: 210px;
     -fx-padding: 10px 20px 10px 20px;
 }
 
@@ -109,6 +119,11 @@
     -fx-min-width: 200px;
     -fx-padding: 0px 10px 0px 10px;
 }
+
+/*.button .glyph-icon {
+    -fx-font-size: 3.5em;
+    -fx-fill: WHITE;
+}*/
 
 .jfx-text-field:focused {
     -fx-border-color: #0067b1;
@@ -145,15 +160,44 @@
 
 .logo {
     -fx-image: url("bwh-logo.png");
+    -fx-max-height: 50px;
 }
 
-#login {
-    -fx-background-image: url("0014.jpg");
-    -fx-background-size: cover;
+.main-toolbar {
+    -fx-background-color: #F1F1F1;
+    -fx-max-height: 50px;
 }
 
-#loginfail {
-    -fx-text-fill: red;
+.home-btn {
+    -fx-font-size: 1px;
+    -fx-text-fill: #012D5A;
+    -fx-content-display: BOTTOM;
+    -fx-pref-width: 200px;
+    -fx-background-radius: 0px;
+}
+
+.home-btn:hover {
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
+    -fx-content-display: BOTTOM;
+    -fx-border-width: 0px;
+}
+
+.service-btn {
+    -fx-font-size: 1px;
+    -fx-text-fill: #012D5A;
+    -fx-content-display: RIGHT;
+    -fx-min-width: 150px;
+    -fx-background-radius: 0px;
+    -fx-opacity: 0.9;
+}
+
+.service-btn:hover {
+    -fx-background-color: #004E86;
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+    -fx-border-width: 0px;
 }
 
 #loginform {
@@ -186,4 +230,35 @@
 #temp {
     -fx-font-weight: bold;
     -fx-font-size: 24px;
+}
+
+#navbox {
+    -fx-background-color: #f1f1f1;
+    -fx-background-radius: 0px;
+}
+
+#navbox:focused {
+    -jfx-focus-color: #f6bd38;
+}
+
+#navbtn {
+    -fx-background-color: #004E86;
+}
+
+#navbtn:hover {
+    -jfx-button-type: RAISED;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-background-color: #0067B1;
+}
+
+#gobtn {
+    -fx-background-color: #0067B1;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -jfx-button-type: RAISED;
+}
+
+#gobtn:hover {
+    -fx-background-color: #004E86;
 }
