@@ -16,6 +16,7 @@
 <?import javafx.scene.text.Text?>
 
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Rectangle?>
 <BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.NavigationController">
   <left>
     <StackPane style="-fx-background-color: rgba(1, 46, 90, 0.9);">
@@ -35,7 +36,7 @@
         <FuzzyWuzzyComboBox fx:id="fromComboBox" id="navbox" editable="true" onAction="#onFromComboAction" maxHeight="100.0" prefHeight="50.0" prefWidth="264.0" />
           </children>
           <VBox.margin>
-            <Insets right="20.0"/>
+            <Insets right="20.0" bottom="12.0"/>
           </VBox.margin>
         </HBox>
 
@@ -49,7 +50,7 @@
         <FuzzyWuzzyComboBox fx:id="toComboBox" id="navbox" editable="true" onAction="#onToComboAction" maxHeight="100.0" prefHeight="50.0" prefWidth="264.0" />
           </children>
           <VBox.margin>
-            <Insets right="20.0" />
+            <Insets right="20.0" bottom="12.0"/>
           </VBox.margin>
         </HBox>
 
@@ -61,13 +62,13 @@
             <Font name="System Bold" size="18.0" />
           </font>
         </JFXButton>
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Nearest">
+
+        <Rectangle fill="#f6bd38" strokeWidth="0.0" width="150.0" height="2.0"/>
+
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Go To Nearest..." fill="white">
           <font>
-            <Font size="30.0" />
+            <Font size="32.0"  />
           </font>
-          <VBox.margin>
-            <Insets bottom="20.0" />
-          </VBox.margin>
         </Text>
         <GridPane minHeight="91.0" prefWidth="323.0">
           <columnConstraints>
@@ -110,6 +111,9 @@
             <Insets bottom="20.0" />
           </VBox.margin>
         </GridPane>
+
+        <Rectangle fill="#f6bd38" strokeWidth="0.0" width="150.0" height="2.0"/>
+
         <FlowPane fx:id="buttonPane" columnHalignment="CENTER" prefWrapLength="200.0">
           <VBox.margin>
             <Insets bottom="5.0" />
@@ -124,6 +128,9 @@
             <Insets bottom="20.0" />
           </VBox.margin>
         </ScrollPane>
+
+        <Rectangle fill="#f6bd38" strokeWidth="0.0" width="150.0" height="2.0"/>
+
         <HBox prefHeight="48.0" prefWidth="323.0" alignment="BOTTOM_CENTER">
           <children>
             <JFXButton fx:id="aboutButton" onAction="#aboutOnAction" prefHeight="48.0" minWidth="154.0" id="small-button" text="About Page" textFill="WHITE">
