@@ -234,10 +234,18 @@ public class NavigationController implements Controller {
       }
 
       if (i != floors.size() - 1) {
-        Glyph arrow = new Glyph("FontAwesome", "ARROW_RIGHT");
-        arrow.size(12);
-        arrow.setStyle("-fx-text-fill: #f6bd38; -fx-fill: #f6bd38;");
-        Label label = new Label("", arrow);
+        Label label;
+
+        try {
+          Glyph arrow = new Glyph("FontAwesome", "ARROW_RIGHT");
+          arrow.size(12);
+          arrow = arrow.duplicate();
+          arrow.setStyle("-fx-text-fill: #f6bd38; -fx-fill: #f6bd38;");
+          label = new Label("", arrow);
+        } catch (IllegalArgumentException iac){
+            label = new Label(">");
+        }
+
         if (!buttonPane.getChildren().contains(label)) {
           buttonPane.getChildren().add(label);
         }
