@@ -109,8 +109,7 @@ public class SchedulingMapView extends MapView {
               // set the combobox to the selected node
               polygon.setOnMouseClicked(mouseEvent -> {
                     selectedNode.setValue(availableNode);
-                    polygon.setStrokeWidth(7);
-                    polygon.setFill(Color.rgb(0, 0, 255, 0.5));
+                    polygon.setStrokeWidth(8);
                     for (Polygon p : polygons) {
                       if (!p.equals(polygon)) {
                         p.setStrokeWidth(3);
@@ -118,10 +117,8 @@ public class SchedulingMapView extends MapView {
                     }
                   }
               );
-
             } else {
               polygon.setFill(Color.rgb(0, 255, 0, 0.5));
-
             }
           });
 
