@@ -185,6 +185,11 @@ public class MapView extends StackPane {
     gesturePane.setMinScale(0.1);
     gesturePane.reset();
 
+    gesturePane.setOnScroll(s -> {
+      zoomLabel();
+    });
+
+
     gesturePane.setOnMouseMoved(e -> {
       if (navigation) {
         Point2D pointOnMap = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
@@ -214,14 +219,8 @@ public class MapView extends StackPane {
         if (navigation) {
           Point2D pointOnMap = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
               .orElse(gesturePane.targetPointAtViewportCentre());
-          if (e.getButton() == PRIMARY && e.getClickCount() == 2) {
-            // increment of scale makes more sense exponentially instead of linearly
-            gesturePane.animate(Duration.millis(200))
-                .interpolateWith(Interpolator.EASE_BOTH)
-                .zoomBy(gesturePane.getCurrentScale(), pointOnMap);
-          }
-          if (e.getEventType() != MouseEvent.DRAG_DETECTED
-              && e.isStillSincePress()) {
+          zoomLabel();
+          if (e.isControlDown()) {
             int currentX = (int) pointOnMap.getX();
             int currentY = (int) pointOnMap.getY();
             double min = 9999;
@@ -689,8 +688,9 @@ public class MapView extends StackPane {
       if (lastNode.getFloorInt() == level) {
         Button button = new JFXButton("To Floor " + node.getFloor());
         button.setTranslateX(lastNode.getXcoord() + 10);
-        button.setTranslateY(lastNode.getYcoord() + 10);
+        button.setTranslateY(lastNode.getYcoord() + 15);
         button.getStyleClass().add("navlabel");
+
 
         button.setOnAction(event -> {
           if (event.getSource() == button) {
@@ -719,7 +719,7 @@ public class MapView extends StackPane {
       } else if (node.getFloorInt() == level) {
         Button button = new JFXButton("Back to Floor " + lastNode.getFloor());
         button.setTranslateX(node.getXcoord() + 10);
-        button.setTranslateY(node.getYcoord() + 10);
+        button.setTranslateY(node.getYcoord() + 15);
         button.getStyleClass().add("navlabel");
 
         button.setOnAction(event -> {
@@ -750,7 +750,7 @@ public class MapView extends StackPane {
 
   }
 
-  void panMapBetweenNodes(Node a, Node b) {
+  private void panMapBetweenNodes(Node a, Node b) {
     int midX = (a.getXcoord() + b.getXcoord()) / 2;
     int midY = (a.getYcoord() + b.getYcoord()) / 2;
     int distanceX = abs(a.getXcoord() - b.getXcoord()) + 1;
@@ -763,4 +763,22 @@ public class MapView extends StackPane {
     }
     gesturePane.centreOn(new Point2D(midX, midY));
   }
+
+  private void zoomLabel() {
+    if (buttonsGroup.getChildren() != null && labelsGroup.getChildren() != null) {
+      for (javafx.scene.Node b : buttonsGroup.getChildren()) {
+        if (gesturePane.getCurrentScale() < 1.2) {
+          b.setScaleX(1.2 / gesturePane.getCurrentScale());
+          b.setScaleY(1.2 / gesturePane.getCurrentScale());
+        }
+      }
+      for (javafx.scene.Node l : labelsGroup.getChildren()) {
+        if (gesturePane.getCurrentScale() < 1.2) {
+          l.setScaleX(1.2 / gesturePane.getCurrentScale());
+          l.setScaleY(1.2 / gesturePane.getCurrentScale());
+        }
+      }
+    }
+  }
+
 }
