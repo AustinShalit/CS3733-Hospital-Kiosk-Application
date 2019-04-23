@@ -47,6 +47,7 @@ import static javafx.scene.input.MouseButton.SECONDARY;
 public class MapView extends StackPane {
   private boolean navigation;
   private int level = 1;
+  public boolean fire ;
 
   @FXML
   GesturePane gesturePane;
@@ -250,9 +251,13 @@ public class MapView extends StackPane {
     resetButtonBackground(99);
     levelF1.setStyle("-fx-background-color: rgb(1,45,90)");
     onFloorSelectAction(new ActionEvent(levelF1, levelF1));
+
   }
 
   void resetButtonBackground(int level) {
+    if(fire){
+      zoomToCoord(1676,1277);
+    }
     if (level == 1) {
       levelL1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelL2.setStyle("-fx-background-color: rgb(0,103,177)");
@@ -618,7 +623,12 @@ public class MapView extends StackPane {
       }
     }
     panMapBetweenNodes(n, lastNodeOnFloor);
+  }
 
+  public void zoomToCoord(double x,double y){
+    //gesturePane.reset();
+    gesturePane.zoomTo(3 , new Point2D(x,y));
+    gesturePane.centreOn(new Point2D(x,y));
   }
 
   private void switchFloor(String s) throws IOException {

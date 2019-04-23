@@ -14,6 +14,7 @@ import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -65,8 +66,10 @@ public class FireAlarmController implements Controller{
         database.getNode("FEXIT00201").get());
 
     map.setPath(path);
-    map.zoomTo(database.getNode("FRETL00201").get());
+
     map.drawPath();
+    map.fire=true;
+
 
   }
 
