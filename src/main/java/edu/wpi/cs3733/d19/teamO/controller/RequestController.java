@@ -208,7 +208,7 @@ public class RequestController implements Controller {
   }
 
   @FXML
-  void dominosAction(){
+  void dominosAction() {
     Request request = new Request();
     try {
       request.run(0, 0, -1, -1, null, null, null);
