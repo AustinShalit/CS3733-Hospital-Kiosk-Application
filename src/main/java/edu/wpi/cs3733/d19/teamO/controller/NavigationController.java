@@ -39,45 +39,37 @@ import edu.wpi.cs3733.d19.teamO.entity.pathfinding.StepByStep;
 @FxmlController(url = "Navigation.fxml")
 @SuppressWarnings({"PMD.TooManyFields", "PMD.RedundantFieldInitializer",
     "PMD.AvoidInstantiatingObjectsInLoops", "PMD.TooManyMethods", "PMD.ExcessiveImports"})
-
 public class NavigationController implements Controller {
 
   @FXML
-  BorderPane root;
+  private BorderPane root;
   @FXML
-  VBox sidebar;
+  private VBox sidebar;
 
   @FXML
-  JFXButton restroomButton;
+  private JFXButton restroomButton;
   @FXML
-  JFXButton emergencyButton;
+  private JFXButton emergencyButton;
   @FXML
-  JFXButton elevatorButton;
+  private JFXButton elevatorButton;
   @FXML
-  JFXButton informationButton;
+  private JFXButton informationButton;
   @FXML
-  FuzzyWuzzyComboBox fromComboBox;
+  private FuzzyWuzzyComboBox fromComboBox;
   @FXML
-  FuzzyWuzzyComboBox toComboBox;
+  private FuzzyWuzzyComboBox toComboBox;
   @FXML
-  JFXButton goButton;
+  private JFXButton goButton;
   @FXML
-  MapView map;
+  private MapView map;
   @FXML
-  VBox instructionsContainer;
+  private VBox instructionsContainer;
   @FXML
-  JFXButton aboutButton;
+  private JFXButton aboutButton;
   @FXML
-  ScrollPane instructionPane;
+  private ScrollPane instructionPane;
   @FXML
-  FlowPane buttonPane;
-
-  StepByStep stepByStep;
-  boolean addRest = false;
-  boolean addWalk = false;
-  boolean addExit = false;
-  boolean addInfo = false;
-
+  private FlowPane buttonPane;
 
   @Inject
   private AppPreferences appPreferences;
@@ -109,17 +101,14 @@ public class NavigationController implements Controller {
     fromComboBox.refresh();
 
     map.setNodes(database.getAllNodes());
-    stepByStep = new StepByStep();
     validateGoButton();
     map.setNavigation(true);
-    map.nodeFromProperty().addListener((observable, oldValue, newValue) -> {
-      fromComboBox.setValue(String.format("%s -- FLOOR %s",
-          newValue.getLongName(), newValue.getFloor()));
-    });
-    map.nodeToProperty().addListener((observable, oldValue, newValue) -> {
-      toComboBox.setValue(String.format("%s -- FLOOR %s",
-          newValue.getLongName(), newValue.getFloor()));
-    });
+    map.nodeFromProperty().addListener((observable, oldValue, newValue)
+        -> fromComboBox.setValue(String.format("%s -- FLOOR %s",
+        newValue.getLongName(), newValue.getFloor())));
+    map.nodeToProperty().addListener((observable, oldValue, newValue)
+        -> toComboBox.setValue(String.format("%s -- FLOOR %s",
+        newValue.getLongName(), newValue.getFloor())));
     map.nodeClickedProperty().addListener((observable, oldValue, newValue) -> {
       if (fromComboBox.isFocused()) {
         fromComboBox.setValue(String.format("%s -- FLOOR %s",
@@ -255,7 +244,7 @@ public class NavigationController implements Controller {
 
     instructionsContainer.getChildren().setAll(new ArrayList<>());
     Label tempRef;
-    for (Pair<String, Node> curPair : stepByStep.getStepByStep(path)) {
+    for (Pair<String, Node> curPair : new StepByStep().getStepByStep(path)) {
       tempRef = new Label(curPair.getFirst());
       tempRef.setPrefWidth(400);
       tempRef.setOnMouseClicked(event -> {
