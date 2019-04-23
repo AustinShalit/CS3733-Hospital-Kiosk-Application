@@ -168,7 +168,6 @@ public class MainController implements Controller {
         -> String.format("%.1f°F to %.1f°F", liveWeather.getMinTemp(), liveWeather.getMaxTemp()),
         liveWeather.minTempProperty(), liveWeather.maxTempProperty()));
     description.textProperty().bind(liveWeather.descriptionProperty());
-    description.setStyle("-fx-font-size: 15px; -fx-font-style: bold");
 
     final Timeline timeline = new Timeline(new KeyFrame(Duration.millis(250), event
         -> timeLabel.setText(LocalDateTime.now().format(DATE_TIME_FORMATTER))));

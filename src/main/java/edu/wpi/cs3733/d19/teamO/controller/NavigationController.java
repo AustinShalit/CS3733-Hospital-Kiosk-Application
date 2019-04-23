@@ -14,8 +14,9 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPopup;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.controlsfx.glyphfont.Glyph;
 
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -33,13 +34,12 @@ import edu.wpi.cs3733.d19.teamO.component.FuzzyWuzzyComboBox;
 import edu.wpi.cs3733.d19.teamO.component.MapView;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
-import edu.wpi.cs3733.d19.teamO.entity.pathfinding.IGraphSearchAlgorithm;
+import edu.wpi.cs3733.d19.teamO.entity.pathfinding.GraphSearchAlgorithm;
 import edu.wpi.cs3733.d19.teamO.entity.pathfinding.StepByStep;
 
 @FxmlController(url = "Navigation.fxml")
 @SuppressWarnings({"PMD.TooManyFields", "PMD.RedundantFieldInitializer",
     "PMD.AvoidInstantiatingObjectsInLoops", "PMD.TooManyMethods", "PMD.ExcessiveImports"})
-
 public class NavigationController implements Controller {
 
   @FXML
@@ -71,13 +71,10 @@ public class NavigationController implements Controller {
   ScrollPane instructionPane;
   @FXML
   FlowPane buttonPane;
+  @FXML
+  JFXButton reverseButton;
 
-  StepByStep stepByStep;
-  boolean addRest = false;
-  boolean addWalk = false;
-  boolean addExit = false;
-  boolean addInfo = false;
-
+  private StepByStep stepByStep;
 
   @Inject
   private AppPreferences appPreferences;
@@ -87,7 +84,6 @@ public class NavigationController implements Controller {
   private AboutController.Factory aboutControllerFactory;
 
   private JFXPopup aboutPopup;
-
 
   @FXML
   void initialize() {
@@ -122,14 +118,12 @@ public class NavigationController implements Controller {
     stepByStep = new StepByStep();
     validateGoButton();
     map.setNavigation(true);
-    map.nodeFromProperty().addListener((observable, oldValue, newValue) -> {
-      fromComboBox.setValue(String.format("%s -- FLOOR %s",
-          newValue.getLongName(), newValue.getFloor()));
-    });
-    map.nodeToProperty().addListener((observable, oldValue, newValue) -> {
-      toComboBox.setValue(String.format("%s -- FLOOR %s",
-          newValue.getLongName(), newValue.getFloor()));
-    });
+    map.nodeFromProperty().addListener((observable, oldValue, newValue)
+        -> fromComboBox.setValue(String.format("%s -- FLOOR %s",
+        newValue.getLongName(), newValue.getFloor())));
+    map.nodeToProperty().addListener((observable, oldValue, newValue)
+        -> toComboBox.setValue(String.format("%s -- FLOOR %s",
+        newValue.getLongName(), newValue.getFloor())));
     map.nodeClickedProperty().addListener((observable, oldValue, newValue) -> {
       if (fromComboBox.isFocused()) {
         fromComboBox.setValue(String.format("%s -- FLOOR %s",
@@ -160,6 +154,9 @@ public class NavigationController implements Controller {
 
     instructionPane.setStyle("-fx-font-size: 15px; -fx-font-family: Palatino Linotype; "
         + "-fx-font-weight: BOLD");
+
+    reverseButton.disableProperty().bind(fromComboBox.valueProperty().isNull()
+        .or(toComboBox.valueProperty().isNull()));
   }
 
 
@@ -221,7 +218,8 @@ public class NavigationController implements Controller {
     }
 
 
-    IGraphSearchAlgorithm<Node> algorithm = appPreferences.getGraphSearchAlgorithm().getAlgorithm();
+    GraphSearchAlgorithm<Node> algorithm
+        = appPreferences.getGraphSearchAlgorithm().getSupplier().get();
     MutableGraph<Node> graph = GraphBuilder.undirected().allowsSelfLoops(false).build();
     database.getAllNodes().forEach(graph::addNode);
     database.getAllEdges().forEach(e -> graph.putEdge(e.getStartNode(), e.getEndNode()));
@@ -258,20 +256,11 @@ public class NavigationController implements Controller {
       }
 
       if (i != floors.size() - 1) {
-        Label label;
+        FontAwesomeIconView iconView = new FontAwesomeIconView(FontAwesomeIcon.ARROW_RIGHT);
+        iconView.setStyle("-fx-font-family:FontAwesome; -fx-fill: #f6bd38");
 
-        try {
-          Glyph arrow = new Glyph("FontAwesome", "ARROW_RIGHT");
-          arrow.size(12);
-          arrow = arrow.duplicate();
-          arrow.setStyle("-fx-text-fill: #f6bd38; -fx-fill: #f6bd38;");
-          label = new Label("", arrow);
-        } catch (IllegalArgumentException iac) {
-          label = new Label(">");
-        }
-
-        if (!buttonPane.getChildren().contains(label)) {
-          buttonPane.getChildren().add(label);
+        if (!buttonPane.getChildren().contains(iconView)) {
+          buttonPane.getChildren().add(iconView);
         }
       }
     }
@@ -346,5 +335,14 @@ public class NavigationController implements Controller {
     }
 
     return floorNodes;
+  }
+
+  @FXML
+  void reverseOnAction() throws IOException {
+    String flip = "";
+    flip = fromComboBox.getValue();
+    fromComboBox.setValue(toComboBox.getValue());
+    toComboBox.setValue(flip);
+    onGoButtonAction();
   }
 }
