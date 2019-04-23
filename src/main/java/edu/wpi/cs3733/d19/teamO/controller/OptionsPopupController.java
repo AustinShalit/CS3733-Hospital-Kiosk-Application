@@ -26,6 +26,8 @@ public class OptionsPopupController implements Controller {
   private MapEditController.Factory mapEditControllerFactory;
   @Inject
   private EmployeeController.Factory employeeControllerFactory;
+  @Inject
+  private FireAlarmController.Factory fireAlarmControllerFactory;
 
   private JFXPopup settingsPopup;
 
@@ -59,6 +61,12 @@ public class OptionsPopupController implements Controller {
   void mapAction(MouseEvent event) {
     event.consume();
     eventBus.post(new ChangeMainViewEvent(mapEditControllerFactory.create()));
+  }
+
+  @FXML
+  void fireAction(MouseEvent event) {
+    event.consume();
+    eventBus.post(new ChangeMainViewEvent(fireAlarmControllerFactory.create()));
   }
 
   @Override

@@ -30,4 +30,12 @@
       </StackPane>
     </graphic>
   </Label>
+  <Label onMouseClicked="#fireAction">
+    Fire Emergency
+    <graphic>
+      <StackPane>
+        <FontAwesomeIconView glyphName="FIRE" size="1.5em" />
+      </StackPane>
+    </graphic>
+  </Label>
 </JFXListView>
