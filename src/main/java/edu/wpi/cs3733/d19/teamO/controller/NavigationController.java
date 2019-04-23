@@ -23,8 +23,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.ColorAdjust;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
@@ -86,9 +84,6 @@ public class NavigationController implements Controller {
 
   private JFXPopup aboutPopup;
 
-  ImageView reverseIcon = new ImageView(new Image(getClass()
-      .getResourceAsStream("../controller/reverse_icon.png")));
-
   @FXML
   void initialize() {
     aboutPopup = new JFXPopup(aboutControllerFactory.create().root);
@@ -117,10 +112,6 @@ public class NavigationController implements Controller {
 
     toComboBox.refresh();
     fromComboBox.refresh();
-
-    reverseIcon.setFitHeight(30);
-    reverseIcon.setFitWidth(30);
-    reverseButton.setGraphic(reverseIcon);
 
     map.setNodes(database.getAllNodes());
     stepByStep = new StepByStep();
@@ -355,10 +346,11 @@ public class NavigationController implements Controller {
   }
 
   @FXML
-  void reverseOnAction() {
+  void reverseOnAction() throws IOException {
     String flip = "";
     flip = fromComboBox.getValue();
     fromComboBox.setValue(toComboBox.getValue());
     toComboBox.setValue(flip);
+    onGoButtonAction();
   }
 }
