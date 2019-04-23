@@ -14,7 +14,7 @@
       </StackPane>
     </graphic>
   </Label>
-  <Label onMouseClicked="#employeeAction">
+  <Label fx:id="editEmp" onMouseClicked="#employeeAction">
     Manage Employees
     <graphic>
       <StackPane>
@@ -22,7 +22,7 @@
       </StackPane>
     </graphic>
   </Label>
-  <Label onMouseClicked="#mapAction">
+  <Label fx:id="editMap" onMouseClicked="#mapAction">
     Edit Map
     <graphic>
       <StackPane>

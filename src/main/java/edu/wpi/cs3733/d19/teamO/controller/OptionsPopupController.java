@@ -10,13 +10,19 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 
+import edu.wpi.cs3733.d19.teamO.GlobalState;
 import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
+import edu.wpi.cs3733.d19.teamO.entity.Employee;
 
 @FxmlController(url = "OptionsPopup.fxml")
 public class OptionsPopupController implements Controller {
 
   @FXML
   JFXListView<Label> list;
+  @FXML
+  private Label editEmp;
+  @FXML
+  private Label editMap;
 
   @Inject
   private EventBus eventBus;
@@ -26,12 +32,30 @@ public class OptionsPopupController implements Controller {
   private MapEditController.Factory mapEditControllerFactory;
   @Inject
   private EmployeeController.Factory employeeControllerFactory;
+  @Inject
+  private GlobalState globalState;
 
   private JFXPopup settingsPopup;
 
   @FXML
   void initialize() {
     settingsPopup = new JFXPopup(settingsControllerFactory.create().root);
+    globalState.loggedInEmployeeProperty().addListener(((observable, oldValue, newValue) -> {
+      if (newValue != null) {
+        if(newValue.getEmployeeAttributes().getEmployeeType()
+            == Employee.EmployeeType.ADMIN &&
+            list.getItems().contains(editEmp) && list.getItems().contains(editMap)) {
+          System.out.println("Logged in");
+        } else if (newValue.getEmployeeAttributes().getEmployeeType()
+            == Employee.EmployeeType.ADMIN) {
+          list.getItems().add(editEmp);
+          list.getItems().add(editMap);
+        } else {
+          list.getItems().remove(editEmp);
+          list.getItems().remove(editMap);
+        }
+      }
+    }));
   }
 
   @FXML
