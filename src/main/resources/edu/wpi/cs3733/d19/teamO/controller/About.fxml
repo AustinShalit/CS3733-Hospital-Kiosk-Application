@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -8,185 +9,314 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@style/KioskStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.AboutController">
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #f8f8f8;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.AboutController">
    <center>
-      <HBox BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
-            <VBox HBox.hgrow="ALWAYS">
+            <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
                <children>
-                  <VBox VBox.vgrow="ALWAYS">
+                  <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
                      <children>
-                    <Text fx:id="aboutPage" strokeType="OUTSIDE" strokeWidth="0.0" text="About Page" textAlignment="CENTER" wrappingWidth="1470.2080078125">
-                      <font>
-                        <Font size="70.0" />
-                      </font>
-                    </Text>
-                    <Text fx:id="compSci" strokeType="OUTSIDE" strokeWidth="0.0" text="WPI Computer Science Department" textAlignment="CENTER" wrappingWidth="1532.0400390625">
-                      <font>
-                        <Font size="26.0" />
-                      </font>
-                    </Text>
-                    <Text fx:id="softEngCourse" strokeType="OUTSIDE" strokeWidth="0.0" text="CS3733-D19 Software Engineering" textAlignment="CENTER" wrappingWidth="1533.205078125">
-                      <font>
-                        <Font size="26.0" />
-                      </font>
-                    </Text>
-                    <Text fx:id="profWong" strokeType="OUTSIDE" strokeWidth="0.0" text="Professor Wilson Wong" textAlignment="CENTER" wrappingWidth="1533.205078125">
-                      <font>
-                        <Font size="26.0" />
-                      </font>
-                    </Text>
-                    <Text fx:id="teamMem" strokeType="OUTSIDE" strokeWidth="0.0" text="Team Onyx Owlmen:" textAlignment="CENTER" underline="true" wrappingWidth="1535.205078125">
-                      <font>
-                        <Font size="50.0" />
-                      </font>
-                    </Text>
-                  <Text fx:id="danD" strokeType="OUTSIDE" strokeWidth="0.0" text="Team Coach: Dan Duff" textAlignment="CENTER" wrappingWidth="1537.205078125">
-                    <font>
-                      <Font size="26.0" />
-                    </font>
-                  </Text>
-                     </children>
-                  </VBox>
-                  <HBox VBox.vgrow="ALWAYS">
-                     <children>
-                        <VBox HBox.hgrow="ALWAYS">
+                        <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
                            <children>
-                              <Text fx:id="assistLead1" strokeType="OUTSIDE" strokeWidth="0.0" text="Lead Software Engineer" textAlignment="CENTER" wrappingWidth="1536.275390625">
-                                 <font>
-                                    <Font size="26.0" />
-                                 </font>
-                              </Text>
-                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Austin Shalit" wrappingWidth="1534.705078125" />
+                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="About Page" textAlignment="CENTER" wrappingWidth="390.3580322265625">
+                            <font>
+                              <Font name="System Bold" size="70.0" />
+                            </font>
+                                 <VBox.margin>
+                                    <Insets top="30.0" />
+                                 </VBox.margin>
+                          </Text>
+                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="WPI Computer Science Department" textAlignment="CENTER" wrappingWidth="452.1900634765625">
+                            <font>
+                              <Font size="26.0" />
+                            </font>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                          </Text>
+                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CS3733-D19 Software Engineering" textAlignment="CENTER" wrappingWidth="450.0426330566406">
+                            <font>
+                              <Font size="26.0" />
+                            </font>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                          </Text>
+                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Professor Wilson Wong" textAlignment="CENTER" wrappingWidth="291.0463562011719">
+                            <font>
+                              <Font size="26.0" />
+                            </font>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                          </Text>
+                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Team Onyx Owlmen:" textAlignment="CENTER" underline="true" wrappingWidth="498.4166259765625">
+                            <font>
+                              <Font size="50.0" />
+                            </font>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                          </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Team Coach: Dan Duff" textAlignment="CENTER" wrappingWidth="283.452880859375">
+                          <font>
+                            <Font size="26.0" />
+                          </font>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                        </Text>
                            </children>
                         </VBox>
                      </children>
                   </HBox>
-                  <VBox VBox.vgrow="ALWAYS">
+                  <VBox alignment="CENTER" VBox.vgrow="ALWAYS">
                      <children>
-                  <Text fx:id="assistLead" strokeType="OUTSIDE" strokeWidth="0.0" text="Assistant Lead Software Engineers" textAlignment="CENTER" wrappingWidth="1539.275390625">
-                    <font>
-                      <Font size="26.0" />
-                    </font>
-                  </Text>
-                        <HBox VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER">
                            <children>
-                              <VBox HBox.hgrow="ALWAYS">
+                              <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ken Morton" />
+                                    <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@teamPics/austin.jpg" />
+                                       </image>
+                                    </ImageView>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Austin Shalit" wrappingWidth="79.3075180053711">
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                       <font>
+                                          <Font name="System Bold" size="17.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="37.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lead Engineer" textAlignment="CENTER" wrappingWidth="125.0" />
                                  </children>
                               </VBox>
-                              <VBox HBox.hgrow="ALWAYS">
+                              <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Dev Patel" />
+                                    <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@teamPics/IMG_20190423_180817_01.jpg" />
+                                       </image>
+                                    </ImageView>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Dev Patel">
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                       <font>
+                                          <Font name="System Bold" size="17.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="52.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Assistant Lead Engineer" textAlignment="CENTER" wrappingWidth="125.0" />
                                  </children>
                               </VBox>
-                              <VBox HBox.hgrow="ALWAYS">
+                              <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Jyan Claude Zarate" />
+                                    <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@teamPics/IMG_20190424_001855.jpg" />
+                                       </image>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </ImageView>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Jyan Zarate">
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                       <font>
+                                          <Font name="System Bold" size="17.0" />
+                                       </font>
+                                    </Text>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Assistant Lead Engineer and Product Owner" textAlignment="CENTER" wrappingWidth="150.0" />
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </VBox>
+                              <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@teamPics/headshot.jpg" />
+                                       </image>
+                                    </ImageView>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ken Morton">
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                       <font>
+                                          <Font name="System Bold" size="17.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="39.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Assistant Lead Engineer" textAlignment="CENTER" wrappingWidth="125.0" />
                                  </children>
                               </VBox>
                            </children>
                         </HBox>
                      </children>
                   </VBox>
-            <Text fx:id="softEng" strokeType="OUTSIDE" strokeWidth="0.0" text="Software Engineers" textAlignment="CENTER" wrappingWidth="1540.7421875">
-              <font>
-                <Font size="26.0" />
-              </font>
-            </Text>
-                  <HBox VBox.vgrow="ALWAYS">
+                  <VBox alignment="CENTER" VBox.vgrow="ALWAYS">
                      <children>
-                        <VBox>
+                        <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
                            <children>
-                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Jack Yan" />
+                              <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@teamPics/large_G18c_1b3e0003a0681e7f.jpg" />
+                                       </image>
+                                    </ImageView>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Jack Yan">
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                       <font>
+                                          <Font name="System Bold" size="17.0" />
+                                       </font>
+                                    </Text>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Software Engineer" />
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </VBox>
+                              <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@teamPics/Peter%20photo-page-001.jpg" />
+                                       </image>
+                                    </ImageView>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Peter Prygocki">
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                       <font>
+                                          <Font name="System Bold" size="17.0" />
+                                       </font>
+                                    </Text>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Software Engineer" />
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </VBox>
+                              <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@teamPics/Screen%20Shot%202019-04-24%20at%201.48.30%20AM.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Bailey Schmidt">
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                       <font>
+                                          <Font name="System Bold" size="17.0" />
+                                       </font>
+                                    </Text>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Software Engineer" />
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </VBox>
+                              <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@teamPics/file3-3.jpeg" />
+                                       </image>
+                                    </ImageView>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Amelia Nishimura">
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                       <font>
+                                          <Font name="System Bold" size="17.0" />
+                                       </font>
+                                    </Text>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Product Owner" />
+                                 </children>
+                              </VBox>
                            </children>
-                        </VBox>
-                        <VBox>
-                           <children>
-                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Peter Prygocki" />
-                           </children>
-                        </VBox>
-                        <VBox>
-                           <children>
-                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Bailey Schmidt" />
-                           </children>
-                        </VBox>
+                        </HBox>
                      </children>
-                  </HBox>
-                  <HBox VBox.vgrow="ALWAYS">
+                  </VBox>
+                  <VBox alignment="CENTER" VBox.vgrow="ALWAYS">
                      <children>
-                        <VBox HBox.hgrow="ALWAYS">
+                        <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Test Engineer">
-                                 <font>
-                                    <Font size="26.0" />
-                                 </font>
-                              </Text>
-                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sam Johnson" />
+                              <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@teamPics/WPCF0936.jpg" />
+                                       </image>
+                                    </ImageView>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sam Johnson">
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                       <font>
+                                          <Font name="System Bold" size="17.0" />
+                                       </font>
+                                    </Text>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Test Engineer" />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@teamPics/headshot%20(2).jpg" />
+                                       </image>
+                                    </ImageView>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Alexandria Nogueras">
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                       <font>
+                                          <Font name="System Bold" size="17.0" />
+                                       </font>
+                                    </Text>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Scrum Master" />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@teamPics/20190423_181008.jpg" />
+                                       </image> 
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </ImageView>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lynn Song">
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                       <font>
+                                          <Font name="System Bold" size="17.0" />
+                                       </font>
+                                    </Text>
+                                    <Text layoutX="93.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Documentation Analyst" />
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </VBox>
                            </children>
-                        </VBox>
-                        <VBox HBox.hgrow="ALWAYS">
-                           <children>
-                        <Text fx:id="projMan" strokeType="OUTSIDE" strokeWidth="0.0" text="Project Manager" textAlignment="CENTER" wrappingWidth="601.275390625">
-                          <font>
-                            <Font size="26.0" />
-                          </font>
-                        </Text>
-                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Amelia Nishimura" />
-                           </children>
-                        </VBox>
-                        <VBox HBox.hgrow="ALWAYS">
-                           <children>
-                        <Text fx:id="scrumMaster" strokeType="OUTSIDE" strokeWidth="0.0" text="Scrum Master" textAlignment="CENTER" wrappingWidth="599.58984375">
-                          <font>
-                            <Font size="26.0" />
-                          </font>
-                        </Text>
-                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Alexandria Nogueras" />
-                           </children>
-                        </VBox>
+                        </HBox>
                      </children>
-                  </HBox>
-                  <HBox VBox.vgrow="ALWAYS">
+                  </VBox>
+                  <VBox alignment="CENTER">
                      <children>
-                        <VBox HBox.hgrow="ALWAYS">
-                           <children>
-                        <Text fx:id="prodOwn" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Owner" textAlignment="CENTER" wrappingWidth="600.296875">
-                          <font>
-                            <Font size="26.0" />
-                          </font>
-                        </Text>
-                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Jyan Zarate" />
-                           </children>
-                        </VBox>
-                        <VBox HBox.hgrow="ALWAYS">
-                           <children>
-                        <Text fx:id="docAnalyst" strokeType="OUTSIDE" strokeWidth="0.0" text="Documentation Analyst: Lynn Song" textAlignment="CENTER" wrappingWidth="602.1298828125">
-                          <font>
-                            <Font size="26.0" />
-                          </font>
-                        </Text>
-                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lynn Song" />
-                           </children>
-                        </VBox>
-                     </children>
-                  </HBox>
-                  <VBox>
-                     <children>
-                    <Text fx:id="thankYou" strokeType="OUTSIDE" strokeWidth="0.0" text="Thank you Brigham and Women's Faulkner Hospital and the representative, Andrew Shinn, for your time and input. " textAlignment="CENTER" wrappingWidth="701.2578125">
+                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Thank you Brigham and Women's Faulkner Hospital and the representative, Andrew Shinn, for your time and input. " textAlignment="CENTER" wrappingWidth="701.2578125">
                       <font>
                         <Font size="26.0" />
                       </font>
