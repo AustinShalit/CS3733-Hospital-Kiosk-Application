@@ -16,65 +16,68 @@
 <BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.MainController">
   <top>
     <JFXToolbar fx:id="toolbar" styleClass="main-toolbar" StackPane.alignment="TOP_CENTER">
-      <left>
-        <StackPane minWidth="-Infinity" prefHeight="50.0" prefWidth="200.0">
+      <right>
+        <HBox alignment="CENTER">
           <children>
-            <JFXButton id="small-button" fx:id="loginbtn" onAction="#loginButtonAction" text="Login" textFill="WHITE" />
-          </children>
-        </StackPane>
-      </left>
-      <center>
-        <HBox alignment="CENTER" BorderPane.alignment="CENTER">
-          <children>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="logo">
+            <JFXButton id="small-button" fx:id="loginbtn" alignment="CENTER" onAction="#loginButtonAction" text="Login" textFill="WHITE">
               <HBox.margin>
-                <Insets right="20.0" />
+                <Insets right="10.0" />
               </HBox.margin>
-            </ImageView>
-            <Label fx:id="timeLabel" text="Label">
-              <HBox.margin>
-                <Insets right="20.0" top="10.0" />
-              </HBox.margin>
-              <font>
-                <Font name="Times New Roman Bold" size="14.0" />
-              </font>
-            </Label>
-            <ImageView fx:id="tempImage" fitHeight="67.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true">
-              <HBox.margin>
-                <Insets right="20.0" />
-              </HBox.margin>
-            </ImageView>
-            <VBox spacing="10.0">
-              <children>
-                <Label fx:id="weatherLabel" text="Label">
-                  <font>
-                    <Font name="Times New Roman Bold" size="14.0" />
-                  </font>
-                  <VBox.margin>
-                    <Insets top="10.0" />
-                  </VBox.margin>
-                </Label>
-                <Label fx:id="description" text="Label">
-                  <font>
-                    <Font name="Times New Roman Bold" size="14.0" />
-                  </font>
-                  <VBox.margin>
-                    <Insets top="10.0" />
-                  </VBox.margin>
-                </Label>
-              </children>
-              <padding>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-              </padding>
-            </VBox>
+            </JFXButton>
+            <StackPane fx:id="optionsBurger" prefHeight="50.0" prefWidth="75.0">
+              <FontAwesomeIconView fill="#404040" glyphName="COG" size="50" />
+            </StackPane>
           </children>
         </HBox>
-      </center>
-      <right>
-        <StackPane fx:id="optionsBurger" prefHeight="50.0" prefWidth="67.0">
-          <FontAwesomeIconView fill="#404040" glyphName="COG" size="50" />
-        </StackPane>
       </right>
+      <left>
+        <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+          <children>
+            <HBox alignment="CENTER" spacing="20.0">
+              <children>
+                <Label fx:id="timeLabel" text="Label">
+                  <HBox.margin>
+                    <Insets left="20.0" />
+                  </HBox.margin>
+                  <font>
+                    <Font name="Times New Roman Bold" size="16.0" />
+                  </font>
+                </Label>
+                <ImageView fx:id="tempImage" fitHeight="67.0" fitWidth="67.0" pickOnBounds="true" preserveRatio="true" />
+                <VBox spacing="4.0">
+                  <children>
+                    <Label fx:id="weatherLabel" text="Label">
+                      <font>
+                        <Font name="Times New Roman Bold" size="16.0" />
+                      </font>
+                      <VBox.margin>
+                        <Insets top="7.0" />
+                      </VBox.margin>
+                      <opaqueInsets>
+                        <Insets top="20.0" />
+                      </opaqueInsets>
+                    </Label>
+                    <Label fx:id="description" text="Label">
+                      <font>
+                        <Font name="Times New Roman Bold" size="14.0" />
+                      </font>
+                      <VBox.margin>
+                        <Insets />
+                      </VBox.margin>
+                    </Label>
+                  </children>
+                  <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                  </padding>
+                </VBox>
+              </children>
+            </HBox>
+          </children>
+        </VBox>
+      </left>
+      <center>
+        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="logo" BorderPane.alignment="CENTER" />
+      </center>
     </JFXToolbar>
   </top>
   <left>
