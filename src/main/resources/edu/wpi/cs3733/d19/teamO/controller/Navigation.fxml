@@ -94,7 +94,7 @@
                 </GridPane.margin>
               </JFXButton>
               <JFXButton fx:id="informationButton" id="navbtn" onAction="#nearestLocation" prefHeight="36.0" prefWidth="150.0" text="Information" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-              <JFXButton fx:id="emergencyButton" id="navbtn" onAction="#nearestLocation" prefHeight="36.0" prefWidth="150.0" text="Emerg. Dept." textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+              <JFXButton fx:id="emergencyButton" id="navbtn" onAction="#nearestLocation" prefHeight="36.0" prefWidth="150.0" text="Emerg. Dept." textFill="WHITE" textOverrun="CLIP" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
             </children>
             <VBox.margin>
               <Insets bottom="12.0" />
@@ -112,7 +112,7 @@
             <content>
               <VBox fx:id="instructionsContainer">
                 <padding>
-                  <Insets top="8.0" bottom="8.0" right="8.0" left="12.0" />
+                  <Insets bottom="8.0" left="12.0" right="8.0" top="8.0" />
                 </padding>
               </VBox>
             </content>
@@ -121,16 +121,16 @@
             </VBox.margin>
           </ScrollPane>
 
-          <Rectangle fill="#f6bd38" strokeWidth="0.0" width="150.0" height="2.0" />
+          <Rectangle fill="#f6bd38" height="2.0" strokeWidth="0.0" width="150.0" />
 
-          <HBox prefWidth="323.0" alignment="CENTER" spacing="20.0">
+          <HBox alignment="CENTER" prefWidth="323.0" spacing="20.0">
             <children>
-              <JFXButton fx:id="aboutButton" onAction="#aboutOnAction" prefHeight="48.0" minWidth="154.0" id="small-button" text="About Page" style="-jfx-button-type: RAISED;">
+              <JFXButton id="small-button" fx:id="aboutButton" minWidth="154.0" onAction="#aboutOnAction" prefHeight="48.0" style="-jfx-button-type: RAISED;" text="About Page">
                 <font>
                   <Font name="System Bold" size="18.0" />
                 </font>
               </JFXButton>
-              <JFXButton prefHeight="48.0" minWidth="150.0" text="Credit" id="small-button" style="-jfx-button-type: RAISED;" />
+              <JFXButton id="small-button" minWidth="150.0" prefHeight="48.0" style="-jfx-button-type: RAISED;" text="Credit" />
             </children>
             <VBox.margin>
               <Insets top="12.0" />
