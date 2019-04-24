@@ -23,33 +23,35 @@
 <BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.MapEditController">
   <left>
     <StackPane BorderPane.alignment="CENTER">
-      <VBox alignment="TOP_LEFT" prefWidth="323.0" maxWidth="295.0" style="-fx-spacing: 4; -fx-background-color: rgba(1, 46, 90, 0.9);">
+      <VBox alignment="TOP_LEFT" prefWidth="323.0" minWidth="323.0" style="-fx-spacing: 4.0; -fx-background-color: rgba(1, 46, 90, 0.9);">
         <padding>
-          <Insets bottom="16.0" left="24.0" right="16.0" top="32.0" />
+          <Insets bottom="16.0" left="16.0" right="16.0" top="32.0" />
         </padding>
         <children>
-          <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: BOLD" text="NodeID: ">
+          <Label fx:id="displayEdgeID" textFill="white" text="NodeID: " style="-fx-font-weight: BOLD">
             <font>
               <Font size="15.0" />
             </font>
-          </Text>
+          </Label>
           <JFXTextField fx:id="nodeIDField" editable="false" onKeyReleased="#validateButton" prefHeight="25.0" text="Auto-Generated" style="-jfx-focus-color: #f6bd38;">
             <VBox.margin>
-              <Insets left="4.0" bottom="4.0" />
+              <Insets left="4.0" bottom="8.0" />
             </VBox.margin>
           </JFXTextField>
 
+
+
           <!--<JFXTextField onKeyReleased="#validateButton" prefHeight="25.0" prefWidth="132.0" fx:id="nodeIDField" /> -->
-          <HBox spacing="4.0">
+          <HBox spacing="12.0">
             <VBox spacing="4.0">
               <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: BOLD" text="X-Coordinate">
                 <font>
                   <Font size="15.0" />
                 </font>
               </Text>
-              <JFXTextField onAction="#onEnter" onKeyReleased="#validateButton" prefHeight="25.0" fx:id="xcoordField" style="-jfx-focus-color: #f6bd38;">
+              <JFXTextField onAction="#onEnter" onKeyReleased="#validateButton" prefHeight="25.0" fx:id="xcoordField" style="-jfx-focus-color: #f6bd38; -fx-min-width: 0.0;">
                 <VBox.margin>
-                  <Insets left="4.0"/>
+                  <Insets left="4.0" />
                 </VBox.margin>
               </JFXTextField>
             </VBox>
@@ -60,12 +62,15 @@
                   <Font size="15.0" />
                 </font>
               </Text>
-              <JFXTextField fx:id="ycoordField" onAction="#onEnter" onKeyReleased="#validateButton" prefHeight="25.0" style="-jfx-focus-color: #f6bd38;">
+              <JFXTextField fx:id="ycoordField" onAction="#onEnter" onKeyReleased="#validateButton" prefHeight="25.0" style="-jfx-focus-color: #f6bd38; -fx-min-width: 0.0;">
                 <VBox.margin>
-                  <Insets left="4.0"/>
+                  <Insets left="4.0" />
                 </VBox.margin>
               </JFXTextField>
             </VBox>
+            <VBox.margin>
+              <Insets bottom="8.0" />
+            </VBox.margin>
           </HBox>
 
           <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: BOLD" text="Floor">
@@ -75,11 +80,9 @@
           </Text>
           <JFXTextField fx:id="floorField" onKeyReleased="#validateButton" prefHeight="25.0" style="-jfx-focus-color: #f6bd38;">
             <VBox.margin>
-              <Insets left="8.0" bottom="4.0" />
+              <Insets left="4.0" bottom="8.0" />
             </VBox.margin>
           </JFXTextField>
-
-          <Rectangle fill="#f6bd38" height="2.0" strokeWidth="0.0" width="150.0" />
 
           <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: BOLD" text="Building">
             <font>
@@ -88,7 +91,7 @@
           </Text>
           <JFXTextField fx:id="buildingField" onKeyReleased="#validateButton" prefHeight="25.0" style="-jfx-focus-color: #f6bd38;">
             <VBox.margin>
-              <Insets left="4.0" bottom="4.0" />
+              <Insets left="4.0" bottom="8.0" />
             </VBox.margin>
           </JFXTextField>
 
@@ -99,7 +102,7 @@
           </Text>
           <JFXComboBox fx:id="nodeTypeComboBox" focusColor="#f6bd38" onMouseExited="#validateButton" prefHeight="35.0" style="-jfx-focus-color: #f6bd38; -fx-background-color: white">
             <VBox.margin>
-              <Insets left="4.0" bottom="4.0" />
+              <Insets left="4.0" bottom="8.0" />
             </VBox.margin>
           </JFXComboBox>
 
@@ -110,7 +113,7 @@
           </Text>
           <JFXTextField fx:id="shortNameField" onKeyReleased="#validateButton" prefHeight="25.0" style="-jfx-focus-color: #f6bd38;">
             <VBox.margin>
-              <Insets left="4.0" bottom="4.0" />
+              <Insets left="4.0" bottom="8.0" />
             </VBox.margin>
           </JFXTextField>
 
@@ -119,66 +122,66 @@
               <Font size="15.0" />
             </font>
           </Text>
-          <JFXTextField fx:id="longNameField" onKeyReleased="#validateButton" prefHeight="25.0"  style="-jfx-focus-color: #f6bd38;">
+          <JFXTextField fx:id="longNameField" onKeyReleased="#validateButton" prefHeight="25.0" style="-jfx-focus-color: #f6bd38;">
             <VBox.margin>
-              <Insets left="4.0" bottom="4.0" />
+              <Insets left="4.0" bottom="8.0" />
             </VBox.margin>
           </JFXTextField>
 
-          <VBox alignment="CENTER">
+          <VBox alignment="CENTER" spacing="8.0">
             <Label fx:id="status" textFill="RED">
               <font>
                 <Font size="14.0" />
               </font>
             </Label>
 
-            <JFXButton id="map-button" fx:id="addButton" disable="true" onAction="#addNodeAction" prefHeight="40.0" prefWidth="225.0" ripplerFill="#9cd1ff" style="-fx-background-color: #0067B1;" text="Add" textFill="WHITE">
+            <JFXButton id="gobtn" fx:id="addButton" disable="true" onAction="#addNodeAction" prefHeight="40.0" prefWidth="225.0" ripplerFill="#9cd1ff" text="Add" textFill="WHITE">
               <font>
                 <Font name="System Bold" size="15.0" />
               </font>
             </JFXButton>
 
-            <JFXButton id="map-button" fx:id="deleteButton" disable="true" onAction="#deleteNodeAction" prefHeight="40.0" prefWidth="225.0" ripplerFill="#9cd1ff" style="-fx-background-color: #0067B1;" text="Delete" textFill="WHITE">
+            <JFXButton id="gobtn" fx:id="updateButton" disable="true" onAction="#updateNodeAction" prefHeight="40.0" prefWidth="225.0" ripplerFill="#9cd1ff" text="Update" textFill="WHITE">
               <font>
                 <Font name="System Bold" size="15.0" />
               </font>
             </JFXButton>
 
-            <JFXButton id="map-button" fx:id="updateButton" disable="true" onAction="#updateNodeAction" prefHeight="40.0" prefWidth="225.0" ripplerFill="#9cd1ff" style="-fx-background-color: #0067B1;" text="Update" textFill="WHITE">
+            <JFXButton id="gobtn" fx:id="connectButton" disable="true" onAction="#connectNodeAction" prefHeight="40.0" prefWidth="225.0" ripplerFill="#9cd1ff" text="Connect" textFill="WHITE">
               <font>
                 <Font name="System Bold" size="15.0" />
               </font>
             </JFXButton>
 
-            <JFXButton id="map-button" fx:id="connectButton" disable="true" onAction="#connectNodeAction" prefHeight="40.0" prefWidth="225.0" ripplerFill="#9cd1ff" style="-fx-background-color: #0067B1;" text="Connect" textFill="WHITE">
+            <JFXButton id="map-delete" fx:id="deleteButton" disable="true" onAction="#deleteNodeAction" prefHeight="40.0" prefWidth="225.0" ripplerFill="#780101" text="Delete Node" textFill="WHITE">
               <font>
                 <Font name="System Bold" size="15.0" />
               </font>
             </JFXButton>
 
-            <JFXButton id="map-delete" fx:id="edgeDeleteButton" onAction="#onEdgeDelete" prefHeight="40.0" prefWidth="225.0" ripplerFill="#780101" style="-fx-background-color: #5a0005;" stylesheets="@style/KioskStyle.css" text="Delete Edge" textFill="WHITE">
+            <JFXButton id="map-delete" fx:id="edgeDeleteButton" onAction="#onEdgeDelete" prefHeight="40.0" prefWidth="225.0" ripplerFill="#780101" text="Delete Edge" textFill="WHITE">
               <font>
                 <Font name="System Bold" size="15.0" />
               </font>
             </JFXButton>
 
-            <JFXButton fx:id="exportButton" onAction="#onExportButtonAction" prefHeight="40.0" prefWidth="175.0" style="-fx-background-color: #0067B1;" text="Export CSV Files" textFill="WHITE">
+            <Rectangle fill="#f6bd38" height="2.0" strokeWidth="0.0" width="150.0" />
+
+            <JFXButton fx:id="exportButton" id="navbtn" onAction="#onExportButtonAction" prefHeight="40.0" prefWidth="175.0" text="Export CSV Files" textFill="WHITE">
               <font>
                 <Font name="System Bold" size="15.0" />
               </font>
+              <VBox.margin>
+                <Insets top="12.0" />
+              </VBox.margin>
             </JFXButton>
           </VBox>
         </children>
       </VBox>
     </StackPane>
   </left>
-  <bottom>
-    <StackPane prefHeight="19.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-      <Label fx:id="displayEdgeID" />
-    </StackPane>
-  </bottom>
   <center>
-    <VBox BorderPane.alignment="CENTER">
+    <VBox BorderPane.alignment="CENTER" style="-fx-effect: dropshadow(three-pass-box, rgba(110, 110, 110, 0.25), 10, 0, 0, 0);">
       <JFXTabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" tabMinWidth="100.0" VBox.vgrow="ALWAYS">
         <Tab fx:id="mapTab" closable="false" text="Map">
           <MapView2 fx:id="map" style="-fx-background-color: WHITE;" GridPane.rowIndex="1" GridPane.rowSpan="4">
