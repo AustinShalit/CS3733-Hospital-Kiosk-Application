@@ -6,6 +6,7 @@ import java.util.Collections;
 
 import com.jfoenix.controls.JFXComboBox;
 
+import javafx.scene.input.KeyCode;
 import me.xdrop.fuzzywuzzy.FuzzySearch;
 
 import edu.wpi.cs3733.d19.teamO.controller.DialogHelper;
@@ -25,9 +26,11 @@ public class FuzzyWuzzyComboBox extends JFXComboBox<String> {
     this.setPromptText("Choose Location");
     this.setEditable(true);
     this.setOnKeyReleased(event -> {
-      refresh();
-      if (this.isFocused()) {
-        this.show();
+      if (event.getCode() != KeyCode.CONTROL) {
+        refresh();
+        if (this.isFocused()) {
+          this.show();
+        }
       }
     });
   }
