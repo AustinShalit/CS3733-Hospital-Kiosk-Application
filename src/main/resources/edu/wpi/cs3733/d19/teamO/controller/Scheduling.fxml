@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTabPane?>
@@ -9,23 +10,23 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <?import edu.wpi.cs3733.d19.teamO.component.SchedulingMapView?>
 
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.layout.StackPane?>
-<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.SchedulingController">
+<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.SchedulingController">
   <left>
-    <VBox alignment="TOP_CENTER" minWidth="323.0" style="-fx-background-color: rgba(1, 46, 90, 0.9);" spacing="16.0">
+    <VBox alignment="TOP_CENTER" minWidth="323.0" spacing="16.0" style="-fx-background-color: rgba(1, 46, 90, 0.9);">
       <padding>
         <Insets bottom="16.0" left="24.0" right="16.0" top="32.0" />
       </padding>
 
-      <VBox fx:id="form" alignment="CENTER_LEFT" prefHeight="83.0" prefWidth="323.0" stylesheets="@style/KioskStyle.css" spacing="8.0">
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date" fill="white" style="-fx-font-weight: BOLD">
+      <VBox fx:id="form" alignment="CENTER_LEFT" prefHeight="83.0" prefWidth="323.0" spacing="8.0" stylesheets="@style/KioskStyle.css">
+        <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: BOLD" text="Date">
           <font>
             <Font size="32.0" />
           </font>
@@ -38,7 +39,7 @@
       </VBox>
 
       <VBox alignment="CENTER_LEFT" spacing="8.0">
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Start Time" fill="white" style="-fx-font-weight: BOLD">
+        <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: BOLD" text="Start Time">
           <font>
             <Font size="32.0" />
           </font>
@@ -51,7 +52,7 @@
       </VBox>
 
       <VBox alignment="CENTER_LEFT" spacing="8.0">
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="End Time" fill="white" style="-fx-font-weight: BOLD">
+        <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: BOLD" text="End Time">
           <font>
             <Font size="32.0" />
           </font>
@@ -63,14 +64,14 @@
         </JFXTimePicker>
       </VBox>
 
-      <Rectangle fill="#f6bd38" strokeWidth="0.0" width="150.0" height="2.0">
+      <Rectangle fill="#f6bd38" height="2.0" strokeWidth="0.0" width="150.0">
         <VBox.margin>
           <Insets top="8.0" />
         </VBox.margin>
       </Rectangle>
 
       <VBox alignment="CENTER_LEFT" spacing="8.0">
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name" fill="white" style="-fx-font-weight: BOLD">
+        <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: BOLD" text="Name">
           <font>
             <Font size="32.0" />
           </font>
@@ -83,19 +84,24 @@
       </VBox>
 
       <VBox alignment="CENTER_LEFT" spacing="8.0">
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Room" fill="white" style="-fx-font-weight: BOLD">
+        <Text fill="white" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: BOLD" text="Room">
           <font>
             <Font size="32.0" />
           </font>
         </Text>
-        <JFXComboBox fx:id="roomComboBox" prefWidth="300.0" minHeight="50.0" style="-fx-text-fill: black; -fx-background-color: white; -jfx-focus-color: #f6bd38;">
+        <JFXComboBox fx:id="roomComboBox" minHeight="50.0" prefWidth="300.0" style="-fx-text-fill: black; -fx-background-color: white; -jfx-focus-color: #f6bd38;">
           <VBox.margin>
             <Insets left="8.0" />
           </VBox.margin>
         </JFXComboBox>
       </VBox>
+      <VBox>
+        <children>
+          <JFXCheckBox fx:id="remindBox" checkedColor="#f6bd38" style="-fx-text-fill: white; -fx-font-size: 32; -fx-font-weight: bold;" stylesheets="@style/KioskStyle.css" text="Reminder" unCheckedColor="#f6bd38" />
+        </children>
+      </VBox>
 
-      <JFXButton onAction="#onSubmitButtonAction" prefHeight="40.0" prefWidth="294.0" ripplerFill="#f6bd38" id="gobtn" text="GO" textFill="WHITE" stylesheets="@style/KioskStyle.css">
+      <JFXButton id="gobtn" onAction="#onSubmitButtonAction" prefHeight="40.0" prefWidth="294.0" ripplerFill="#f6bd38" stylesheets="@style/KioskStyle.css" text="GO" textFill="WHITE">
         <font>
           <Font name="System Bold" size="15.0" />
         </font>
@@ -107,11 +113,12 @@
   </left>
   <center>
     <StackPane style="-fx-effect: dropshadow(three-pass-box, rgba(110, 110, 110, 0.25), 10, 0, 0, 0);">
-      <JFXTabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER" style="-fx-background-color: #f1f1f1; ">
+      <JFXTabPane fx:id="tabPane" style="-fx-background-color: #f1f1f1; " tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <Tab closable="false" text="Map" style="-fx-background-color: #004E86;">
           <SchedulingMapView fx:id="schedulingMapView" style="-fx-background-color: WHITE;" />
         </Tab>
-        <Tab fx:id="calendarTab" closable="false" text="Calendar" style="-fx-background-color: #004E86;" />
+        <Tab fx:id="tableTab" closable="false" style="-fx-background-color: #004E86;" text="Table" />
+        <Tab fx:id="calendarTab" closable="false" style="-fx-background-color: #004E86;" text="Calendar" />
       </JFXTabPane>
       <BorderPane.margin>
         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

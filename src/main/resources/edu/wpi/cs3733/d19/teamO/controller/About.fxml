@@ -1,115 +1,359 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@style/KioskStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.AboutController">
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.AboutController">
   <center>
-    <VBox alignment="CENTER" stylesheets="@style/KioskStyle.css" BorderPane.alignment="CENTER">
+    <HBox alignment="CENTER" BorderPane.alignment="CENTER">
       <children>
-        <Text fx:id="aboutPage" strokeType="OUTSIDE" strokeWidth="0.0" text="About Page" textAlignment="CENTER" wrappingWidth="600.2080078125">
-          <font>
-            <Font size="70.0" />
-          </font>
-        </Text>
-        <Text fx:id="compSci" strokeType="OUTSIDE" strokeWidth="0.0" text="WPI Computer Science Department" textAlignment="CENTER" wrappingWidth="603.0400390625">
-          <font>
-            <Font size="26.0" />
-          </font>
-        </Text>
-        <Text fx:id="softEngCourse" strokeType="OUTSIDE" strokeWidth="0.0" text="CS3733-D19 Software Engineering" textAlignment="CENTER" wrappingWidth="600.205078125">
-          <font>
-            <Font size="26.0" />
-          </font>
-          <VBox.margin>
-            <Insets bottom="20.0" />
-          </VBox.margin>
-        </Text>
-        <Text fx:id="profWong" strokeType="OUTSIDE" strokeWidth="0.0" text="Professor Wilson Wong" textAlignment="CENTER" wrappingWidth="600.205078125">
-          <font>
-            <Font size="26.0" />
-          </font>
-          <VBox.margin>
-            <Insets bottom="20.0" />
-          </VBox.margin>
-        </Text>
-        <Text fx:id="teamMem" strokeType="OUTSIDE" strokeWidth="0.0" text="Team Onyx Owlmen:" textAlignment="CENTER" underline="true" wrappingWidth="600.205078125">
-          <font>
-            <Font size="50.0" />
-          </font>
-        </Text>
-        <VBox alignment="CENTER" maxHeight="340.0" maxWidth="870.0" stylesheets="@style/KioskStyle.css">
+        <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
           <children>
-            <Text fx:id="danD" strokeType="OUTSIDE" strokeWidth="0.0" text="Team Coach: Dan Duff" textAlignment="CENTER" wrappingWidth="599.205078125">
-              <font>
-                <Font size="26.0" />
-              </font>
-            </Text>
-            <Text fx:id="leadS" strokeType="OUTSIDE" strokeWidth="0.0" text="Lead Software Engineer: Austin Shalit" textAlignment="CENTER" wrappingWidth="601.275390625">
-              <font>
-                <Font size="26.0" />
-              </font>
-            </Text>
-            <Text fx:id="assistLead" strokeType="OUTSIDE" strokeWidth="0.0" text="Assistant Lead Software Engineers: Kenneth Morton, Dev Patel, Jyan Zarate" textAlignment="CENTER" wrappingWidth="870.275390625">
-              <font>
-                <Font size="26.0" />
-              </font>
-            </Text>
-            <Text fx:id="softEng" strokeType="OUTSIDE" strokeWidth="0.0" text="Software Engineers: Jack Yan, Bailey Schmidt, Peter Prygocki" textAlignment="CENTER" wrappingWidth="600.7421875">
-              <font>
-                <Font size="26.0" />
-              </font>
-            </Text>
-            <Text fx:id="projMan" strokeType="OUTSIDE" strokeWidth="0.0" text="Project Manager : Amelia Nishimura" textAlignment="CENTER" wrappingWidth="601.275390625">
-              <font>
-                <Font size="26.0" />
-              </font>
-            </Text>
-            <Text fx:id="scrumMaster" strokeType="OUTSIDE" strokeWidth="0.0" text="Scrum Master: Alexandria Nogueras" textAlignment="CENTER" wrappingWidth="599.58984375">
-              <font>
-                <Font size="26.0" />
-              </font>
-            </Text>
-            <Text fx:id="testEng" strokeType="OUTSIDE" strokeWidth="0.0" text="Test Engineer: Sam Johnson" textAlignment="CENTER" wrappingWidth="600.66796875">
-              <font>
-                <Font size="26.0" />
-              </font>
-            </Text>
-            <Text fx:id="prodOwn" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Owner: Jyan Zarate" textAlignment="CENTER" wrappingWidth="600.296875">
-              <font>
-                <Font size="26.0" />
-              </font>
-            </Text>
-            <Text fx:id="docAnalyst" strokeType="OUTSIDE" strokeWidth="0.0" text="Documentation Analyst: Lynn Song" textAlignment="CENTER" wrappingWidth="602.1298828125">
-              <font>
-                <Font size="26.0" />
-              </font>
+            <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
+              <children>
+                <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                  <children>
+                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="About Page" textAlignment="CENTER" wrappingWidth="390.3580322265625">
+                      <font>
+                        <Font name="System Bold" size="40.0" />
+                      </font>
+                      <VBox.margin>
+                        <Insets bottom="5.0" />
+                      </VBox.margin>
+                    </Text>
+                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="WPI Computer Science Department" textAlignment="CENTER" wrappingWidth="452.1900634765625">
+                      <font>
+                        <Font size="19.0" />
+                      </font>
+                      <VBox.margin>
+                        <Insets />
+                      </VBox.margin>
+                    </Text>
+                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="CS3733-D19 Software Engineering" textAlignment="CENTER" wrappingWidth="450.0426330566406">
+                      <font>
+                        <Font size="19.0" />
+                      </font>
+                      <VBox.margin>
+                        <Insets />
+                      </VBox.margin>
+                    </Text>
+                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Professor Wilson Wong" textAlignment="CENTER" wrappingWidth="291.0463562011719">
+                      <font>
+                        <Font size="19.0" />
+                      </font>
+                      <VBox.margin>
+                        <Insets />
+                      </VBox.margin>
+                    </Text>
+                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Team Onyx Owlmen" textAlignment="CENTER" wrappingWidth="498.4166259765625">
+                      <font>
+                        <Font size="35.0" />
+                      </font>
+                      <VBox.margin>
+                        <Insets />
+                      </VBox.margin>
+                    </Text>
+                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="2.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: #f6bd38; -fx-stroke-width: 0;" width="470.0" />
+                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Team Coach: Dan Duff" textAlignment="CENTER" wrappingWidth="283.452880859375">
+                      <font>
+                        <Font size="19.0" />
+                      </font>
+                      <VBox.margin>
+                        <Insets bottom="10.0" />
+                      </VBox.margin>
+                    </Text>
+                  </children>
+                </VBox>
+              </children>
+            </HBox>
+            <VBox alignment="CENTER" VBox.vgrow="ALWAYS">
+              <children>
+                <HBox alignment="CENTER">
+                  <children>
+                    <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                      <children>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                            <Image url="@teamPics/austin.jpg" />
+                          </image>
+                        </ImageView>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Austin Shalit" wrappingWidth="103.22563934326172">
+                          <VBox.margin>
+                            <Insets />
+                          </VBox.margin>
+                          <font>
+                            <Font name="Palatino Linotype" size="17.0" />
+                          </font>
+                        </Text>
+                        <Text fill="WHITE" layoutX="37.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lead Engineer" textAlignment="CENTER" wrappingWidth="125.0" />
+                      </children>
+                    </VBox>
+                    <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                      <children>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                            <Image url="@teamPics/IMG_20190423_180817_01.jpg" />
+                          </image>
+                        </ImageView>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Dev Patel">
+                          <VBox.margin>
+                            <Insets />
+                          </VBox.margin>
+                          <font>
+                            <Font name="Palatino Linotype" size="17.0" />
+                          </font>
+                        </Text>
+                        <Text fill="WHITE" layoutX="52.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Assistant Lead Engineer" textAlignment="CENTER" wrappingWidth="125.0" />
+                      </children>
+                    </VBox>
+                    <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                      <children>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                            <Image url="@teamPics/IMG_20190424_001855.jpg" />
+                          </image>
+                          <VBox.margin>
+                            <Insets />
+                          </VBox.margin>
+                        </ImageView>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Jyan Zarate">
+                          <VBox.margin>
+                            <Insets />
+                          </VBox.margin>
+                          <font>
+                            <Font name="Palatino Linotype" size="17.0" />
+                          </font>
+                        </Text>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Assistant Lead Engineer and Product Owner" textAlignment="CENTER" wrappingWidth="150.0" />
+                      </children>
+                      <HBox.margin>
+                        <Insets />
+                      </HBox.margin>
+                    </VBox>
+                    <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                      <children>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                            <Image url="@teamPics/headshot.jpg" />
+                          </image>
+                        </ImageView>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Ken Morton">
+                          <VBox.margin>
+                            <Insets />
+                          </VBox.margin>
+                          <font>
+                            <Font name="Palatino Linotype" size="17.0" />
+                          </font>
+                        </Text>
+                        <Text fill="WHITE" layoutX="39.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Assistant Lead Engineer" textAlignment="CENTER" wrappingWidth="125.0" />
+                      </children>
+                    </VBox>
+                  </children>
+                </HBox>
+              </children>
+            </VBox>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="2.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: #f6bd38; -fx-stroke-width: 0;" width="200.0">
               <VBox.margin>
-                <Insets bottom="20.0" />
+                <Insets bottom="10.0" top="10.0" />
               </VBox.margin>
-            </Text>
+            </Rectangle>
+            <VBox alignment="CENTER" VBox.vgrow="ALWAYS">
+              <children>
+                <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
+                  <children>
+                    <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                      <children>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                            <Image url="@teamPics/large_G18c_1b3e0003a0681e7f.jpg" />
+                          </image>
+                        </ImageView>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Jack Yan">
+                          <VBox.margin>
+                            <Insets />
+                          </VBox.margin>
+                          <font>
+                            <Font name="Palatino Linotype" size="17.0" />
+                          </font>
+                        </Text>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Software Engineer" />
+                      </children>
+                      <opaqueInsets>
+                        <Insets />
+                      </opaqueInsets>
+                    </VBox>
+                    <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                      <children>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                            <Image url="@teamPics/Peter%20photo-page-001.jpg" />
+                          </image>
+                        </ImageView>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Peter Prygocki">
+                          <VBox.margin>
+                            <Insets />
+                          </VBox.margin>
+                          <font>
+                            <Font name="Palatino Linotype" size="17.0" />
+                          </font>
+                        </Text>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Software Engineer" />
+                      </children>
+                      <opaqueInsets>
+                        <Insets />
+                      </opaqueInsets>
+                    </VBox>
+                    <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                      <children>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                            <Image url="@teamPics/Screen%20Shot%202019-04-24%20at%201.48.30%20AM.png" />
+                          </image>
+                        </ImageView>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Bailey Schmidt">
+                          <VBox.margin>
+                            <Insets />
+                          </VBox.margin>
+                          <font>
+                            <Font name="Palatino Linotype" size="17.0" />
+                          </font>
+                        </Text>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Software Engineer" />
+                      </children>
+                      <opaqueInsets>
+                        <Insets />
+                      </opaqueInsets>
+                    </VBox>
+                    <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                      <children>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                            <Image url="@teamPics/file3-3.jpeg" />
+                          </image>
+                        </ImageView>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Amelia Nishimura">
+                          <VBox.margin>
+                            <Insets />
+                          </VBox.margin>
+                          <font>
+                            <Font name="Palatino Linotype" size="17.0" />
+                          </font>
+                        </Text>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Owner" />
+                      </children>
+                    </VBox>
+                  </children>
+                </HBox>
+              </children>
+            </VBox>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="2.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: #f6bd38; -fx-stroke-width: 0;" width="200.0">
+              <VBox.margin>
+                <Insets bottom="10.0" top="10.0" />
+              </VBox.margin>
+            </Rectangle>
+            <VBox alignment="CENTER" VBox.vgrow="ALWAYS">
+              <children>
+                <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
+                  <children>
+                    <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                      <children>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                            <Image url="@teamPics/WPCF0936.jpg" />
+                          </image>
+                        </ImageView>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Sam Johnson">
+                          <VBox.margin>
+                            <Insets />
+                          </VBox.margin>
+                          <font>
+                            <Font name="Palatino Linotype" size="17.0" />
+                          </font>
+                        </Text>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Test Engineer" />
+                      </children>
+                    </VBox>
+                    <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                      <children>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                            <Image url="@teamPics/headshot%20(2).jpg" />
+                          </image>
+                        </ImageView>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Alexandria Nogueras">
+                          <VBox.margin>
+                            <Insets />
+                          </VBox.margin>
+                          <font>
+                            <Font name="Palatino Linotype" size="17.0" />
+                          </font>
+                        </Text>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Scrum Master" />
+                      </children>
+                      <HBox.margin>
+                        <Insets left="35.0" />
+                      </HBox.margin>
+                    </VBox>
+                    <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                      <children>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                            <Image url="@teamPics/20190423_181008.jpg" />
+                          </image>
+                          <VBox.margin>
+                            <Insets />
+                          </VBox.margin>
+                        </ImageView>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Lynn Song">
+                          <VBox.margin>
+                            <Insets />
+                          </VBox.margin>
+                          <font>
+                            <Font name="Palatino Linotype" size="17.0" />
+                          </font>
+                        </Text>
+                        <Text fill="WHITE" layoutX="93.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Documentation Analyst" />
+                      </children>
+                      <HBox.margin>
+                        <Insets />
+                      </HBox.margin>
+                    </VBox>
+                  </children>
+                </HBox>
+              </children>
+            </VBox>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="2.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: #f6bd38; -fx-stroke-width: 0;" width="200.0">
+              <VBox.margin>
+                <Insets bottom="10.0" top="10.0" />
+              </VBox.margin>
+            </Rectangle>
+            <VBox alignment="CENTER">
+              <children>
+                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Thank you Brigham and Women's Faulkner Hospital and the representative, Andrew Shinn, for your time and input. " textAlignment="CENTER" wrappingWidth="701.2578125">
+                  <font>
+                    <Font size="24.0" />
+                  </font>
+                </Text>
+                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="The Brigham &amp; Women’s Hospital maps and data used in this application are copyrighted and provided for the sole use of educational purposes." textAlignment="CENTER" wrappingWidth="670.93017578125">
+                  <VBox.margin>
+                    <Insets top="10.0" />
+                  </VBox.margin>
+                  <font>
+                    <Font size="18.0" />
+                  </font>
+                </Text>
+              </children>
+            </VBox>
           </children>
-          <VBox.margin>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-          </VBox.margin>
         </VBox>
-        <Text fx:id="thankYou" strokeType="OUTSIDE" strokeWidth="0.0" text="Thank you Brigham and Women's Faulkner Hospital and the representative, Andrew Shinn, for your time and input. " textAlignment="CENTER" wrappingWidth="701.2578125">
-          <font>
-            <Font size="26.0" />
-          </font>
-        </Text>
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="The Brigham &amp; Women’s Hospital maps and data used in this application are copyrighted and provided for the sole use of educational purposes." textAlignment="CENTER" wrappingWidth="670.93017578125">
-          <VBox.margin>
-            <Insets top="10.0" />
-          </VBox.margin>
-          <font>
-            <Font size="18.0" />
-          </font>
-        </Text>
       </children>
-    </VBox>
+    </HBox>
   </center>
 </BorderPane>
