@@ -31,7 +31,8 @@ import edu.wpi.cs3733.d19.teamO.entity.Node;
 
 import static java.lang.Math.abs;
 
-@SuppressWarnings({"PMD.TooManyFields", "PMD.TooManyMethods"})
+@SuppressWarnings({"PMD.TooManyFields", "PMD.TooManyMethods", "PMD.ExcessiveMethodLength",
+                    "PMD.NPathComplexity"})
 public class MapView2 extends StackPane {
   private boolean dragStatus;
   private String level = "1";
