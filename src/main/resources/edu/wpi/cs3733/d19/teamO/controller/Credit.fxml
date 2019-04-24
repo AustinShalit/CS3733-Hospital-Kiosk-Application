@@ -155,6 +155,21 @@
             <Insets />
           </VBox.margin>
         </Text>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="2.0" stroke="BLACK" strokeType="INSIDE" style="-fx-stroke-width: 0; -fx-fill: #f6bd38;" width="275.0">
+          <VBox.margin>
+            <Insets bottom="25.0" top="25.0" />
+          </VBox.margin>
+        </Rectangle>
+        <Text fx:id="api62" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Twilio" textAlignment="CENTER" wrappingWidth="899.13671875">
+          <font>
+            <Font name="Palatino Linotype" size="24.0" />
+          </font>
+        </Text>
+        <Text fx:id="api611" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="https://www.twilio.com" textAlignment="CENTER" wrappingWidth="899.13671875">
+          <font>
+            <Font name="Palatino Linotype" size="24.0" />
+          </font>
+        </Text>
       </children>
     </VBox>
   </left>
