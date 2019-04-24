@@ -37,6 +37,7 @@ import edu.wpi.cs3733.d19.teamO.entity.messaging.SmsSender;
 import static edu.wpi.cs3733.d19.teamO.controller.DialogHelper.showErrorAlert;
 import static edu.wpi.cs3733.d19.teamO.controller.DialogHelper.showInformationAlert;
 
+@SuppressWarnings({"PMD.ExcessiveImports", "PMD.TooManyFields"})
 @FxmlController(url = "Scheduling.fxml")
 public class SchedulingController implements Controller {
 
@@ -178,10 +179,11 @@ public class SchedulingController implements Controller {
       showErrorAlert("Error.", "Unable to submit scheduling request.");
     }
 
-    if(remindBox.isSelected()) {
+    if (remindBox.isSelected()) {
       SmsSender send = new SmsSender();
       send.sendSms(new SmsRequest("+1" + globalState.getLoggedInEmployee().getPhone(),
-          "Hey " + request.getWhoReserved() + ", this is a confirmation that you will be getting a reminder for your room reservation"));
+          "Hey " + request.getWhoReserved() + ", this is a confirmation that you will "
+              + "be getting a reminder for your room reservation"));
       SmsRemind smsRemind = new SmsRemind(request.getStartTime(),
           globalState.getLoggedInEmployee().getPhone(),
           request.getRoom(),

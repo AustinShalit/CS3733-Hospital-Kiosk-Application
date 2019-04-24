@@ -95,11 +95,11 @@
           </VBox.margin>
         </JFXComboBox>
       </VBox>
-         <VBox>
-            <children>
-               <JFXCheckBox fx:id="remindBox" checkedColor="#f6bd38" style="-fx-text-fill: white; -fx-font-size: 32; -fx-font-weight: bold;" stylesheets="@style/KioskStyle.css" text="Reminder" unCheckedColor="#f6bd38" />
-            </children>
-         </VBox>
+      <VBox>
+        <children>
+          <JFXCheckBox fx:id="remindBox" checkedColor="#f6bd38" style="-fx-text-fill: white; -fx-font-size: 32; -fx-font-weight: bold;" stylesheets="@style/KioskStyle.css" text="Reminder" unCheckedColor="#f6bd38" />
+        </children>
+      </VBox>
 
       <JFXButton id="gobtn" onAction="#onSubmitButtonAction" prefHeight="40.0" prefWidth="294.0" ripplerFill="#f6bd38" stylesheets="@style/KioskStyle.css" text="GO" textFill="WHITE">
         <font>
