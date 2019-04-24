@@ -38,6 +38,7 @@ public class SmsController implements Controller {
 
   @FXML
   void submitOnAction() {
+    info = db.getAllEmployee();
     if (!messageText.getText().isEmpty()) {
       for (Employee emp : info) {
         String phoneNumber = emp.getPhone();
