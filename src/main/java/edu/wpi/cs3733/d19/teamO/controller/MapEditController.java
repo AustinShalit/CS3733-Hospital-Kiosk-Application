@@ -193,6 +193,7 @@ public class MapEditController implements Controller {
 
   @FXML
   void deleteNodeAction() {
+    map.setCircle2Visibility(false);
     String delNodeID = nodeID;
     database.getEdgesFor(getNewNode(delNodeID)).forEach(database::deleteEdge);
     Optional<Node> opt = database.getNode(delNodeID);
@@ -209,7 +210,7 @@ public class MapEditController implements Controller {
   @FXML
   void updateNodeAction() {
     if (updateMode) {
-      map.setCircleVisibility(false);
+      map.setCircle2Visibility(false);
       String udNodeID = nodeID;
       //database.getEdgesFor(getNewNode(udNodeID)).forEach(database::deleteEdge);
       Optional<Node> opt = database.getNode(udNodeID);
@@ -312,7 +313,7 @@ public class MapEditController implements Controller {
       status.setText("ERROR: InvalidEdgeID");
     } else {
       Edge deleteEdge = opt.get();
-      map.setLineVisible(false);
+      map.setLineForEdge2Visibility(false);
       database.deleteEdge(deleteEdge);
       status.setText("Succeed!");
       map.setDatabaseEdge(database.getAllEdges());
