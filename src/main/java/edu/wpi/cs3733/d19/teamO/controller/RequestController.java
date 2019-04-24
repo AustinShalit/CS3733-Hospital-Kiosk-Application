@@ -27,6 +27,7 @@ import edu.wpi.cs3733.d19.teamO.controller.request.PrescriptionViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.ReligiousServiceViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.SanitationViewController;
 import edu.wpi.cs3733.d19.teamO.controller.request.SupportAnimalViewController;
+import edu.wpi.cs3733.d19.teamO.request.Request;
 
 @FxmlController(url = "ServiceRequest.fxml")
 @SuppressWarnings({"PMD.TooManyFields", "PMD.TooManyMethods"})
@@ -70,6 +71,8 @@ public class RequestController implements Controller {
 
   @FXML
   private JFXButton food;
+  @FXML
+  private JFXButton dominos;
 
   @Inject
   private InternalTransportationViewController.Factory internalTransportationControllerFactory;
@@ -114,6 +117,7 @@ public class RequestController implements Controller {
           animalSupport.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
           florist.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
           food.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
+          dominos.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
         });
   }
 
@@ -200,6 +204,17 @@ public class RequestController implements Controller {
           null);
     } catch (ServiceException exception) {
       System.out.println("Failed to run API");
+      exception.printStackTrace();
+    }
+  }
+
+  @FXML
+  void dominosAction() {
+    Request request = new Request();
+    try {
+      request.run(0, 0, -1, -1, null, null, null);
+    } catch (Exception exception) { //NOPMD
+      System.out.println("Failed to run dominos");
       exception.printStackTrace();
     }
   }
