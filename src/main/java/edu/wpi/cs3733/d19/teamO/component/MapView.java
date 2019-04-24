@@ -499,7 +499,7 @@ public class MapView extends StackPane {
           circle.setStroke(Color.BLACK);
           startAndEndNodes.getChildren().add(circle);
 
-          Label label = new Label("From " + node.getLongName());
+          Label label = new Label("Start: " + node.getLongName());
           label.setTranslateX(node.getXcoord() + 10);
           label.setTranslateY(node.getYcoord() - 9);
           label.getStyleClass().add("navlabel");
@@ -516,7 +516,7 @@ public class MapView extends StackPane {
         rectangle.setStroke(Color.BLACK);
         startAndEndNodes.getChildren().add(rectangle);
         if (lastNode.getFloorInt() == path.get(path.indexOf(lastNode) - 1).getFloorInt()) {
-          Label label2 = new Label("To " + lastNode.getLongName());
+          Label label2 = new Label("End: " + lastNode.getLongName());
           label2.setTranslateX(lastNode.getXcoord() + 10);
           label2.setTranslateY(lastNode.getYcoord() - 9);
           label2.getStyleClass().add("navlabel");
