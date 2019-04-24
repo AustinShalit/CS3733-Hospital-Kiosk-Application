@@ -108,6 +108,14 @@
             <FontAwesomeIconView fill="WHITE" glyphName="PAW" size="4em" />
           </graphic>
         </JFXButton>
+        <JFXButton fx:id="dominos" contentDisplay="RIGHT" graphicTextGap="20.0" onAction="#dominosAction" ripplerFill="#013c78" styleClass="service-btn" text="ORDER DOMINOS">
+          <font>
+            <Font name="Calibri" size="20.0" />
+          </font>
+          <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName="TAXI" size="4em" />
+          </graphic>
+        </JFXButton>
         <JFXButton fx:id="food" contentDisplay="RIGHT" graphicTextGap="20.0" onAction="#foodAction" ripplerFill="#013c78" styleClass="service-btn" text="FOOD REQUEST">
           <font>
             <Font name="Calibri" size="20.0" />
