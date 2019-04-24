@@ -30,7 +30,6 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import kotlin.Pair;
 
 import edu.wpi.cs3733.d19.teamO.AppPreferences;
@@ -39,7 +38,7 @@ import edu.wpi.cs3733.d19.teamO.component.MapView;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 import edu.wpi.cs3733.d19.teamO.entity.pathfinding.GraphSearchAlgorithm;
-import edu.wpi.cs3733.d19.teamO.entity.pathfinding.LED_Model;
+import edu.wpi.cs3733.d19.teamO.entity.pathfinding.LEDModel;
 import edu.wpi.cs3733.d19.teamO.entity.pathfinding.StepByStep;
 
 @FxmlController(url = "Navigation.fxml")
@@ -82,7 +81,7 @@ public class NavigationController implements Controller {
   JFXCheckBox rasPICheck;
 
   private StepByStep stepByStep;
-  private LED_Model led_model;
+  private LEDModel ledModel;
   private boolean rasPI = false;
 
   @Inject
@@ -167,7 +166,7 @@ public class NavigationController implements Controller {
     reverseButton.disableProperty().bind(fromComboBox.valueProperty().isNull()
         .or(toComboBox.valueProperty().isNull()));
 
-    led_model = new LED_Model();
+    ledModel = new LEDModel();
 
     rasPICheck.selectedProperty().addListener(new ChangeListener<Boolean>() {
       @Override
@@ -204,8 +203,8 @@ public class NavigationController implements Controller {
           map.setNodes(database.getAllNodes());
           try {
             map.setRasPI(false);
-          } catch (IOException e) {
-            e.printStackTrace();
+          } catch (IOException exception) {
+            exception.printStackTrace();
           }
         } else {
           rasPI = true;
@@ -215,7 +214,7 @@ public class NavigationController implements Controller {
           elevatorButton.setDisable(true);
           informationButton.setDisable(true);
 
-          Collection<Node> nodes = led_model.getAllNodes();
+          Collection<Node> nodes = ledModel.getAllNodes();
 
           toComboBox.setValue("");
           fromComboBox.setValue("");
@@ -230,11 +229,11 @@ public class NavigationController implements Controller {
           toComboBox.refresh();
           fromComboBox.refresh();
 
-          map.setNodes(led_model.getAllNodes());
+          map.setNodes(ledModel.getAllNodes());
           try {
             map.setRasPI(true);
-          } catch (IOException e) {
-            e.printStackTrace();
+          } catch (IOException exception) {
+            exception.printStackTrace();
           }
         }
       }
@@ -302,9 +301,9 @@ public class NavigationController implements Controller {
 
     List<Node> path;
 
-    if(rasPI == true) {
-      led_model.sendPathToPi(fromComboBox.getNodeValue(), toComboBox.getNodeValue());
-      path = led_model.getDisplayPath();
+    if (rasPI) {
+      ledModel.sendPathToPi(fromComboBox.getNodeValue(), toComboBox.getNodeValue());
+      path = ledModel.getDisplayPath();
     } else {
       GraphSearchAlgorithm<Node> algorithm
           = appPreferences.getGraphSearchAlgorithm().getSupplier().get();

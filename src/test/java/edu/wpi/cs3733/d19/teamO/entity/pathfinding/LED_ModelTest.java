@@ -9,7 +9,7 @@ class LED_ModelTest {
   @Test
   void sendPathToPi() {
 
-    LED_Model amazingModel = new LED_Model();
+    LEDModel amazingModel = new LEDModel();
 
     amazingModel.sendPathToPi(amazingModel.endHall, amazingModel.bottomExit);
 

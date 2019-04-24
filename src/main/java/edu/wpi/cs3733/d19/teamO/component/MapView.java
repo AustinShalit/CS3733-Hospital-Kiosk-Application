@@ -105,10 +105,15 @@ public class MapView extends StackPane {
     return rasPI;
   }
 
+  /**
+   * Sets the rasPI boolean and enables/disables buttons according to the set value.
+   * @param rasPI The value to set rasPI to.
+   * @throws IOException if onFloorSelectAction() throws an IOException
+   */
   public void setRasPI(boolean rasPI) throws IOException {
     this.rasPI = rasPI;
 
-    if(rasPI) {
+    if (rasPI) {
       levelL2.setDisable(true);
       levelG.setDisable(true);
       levelF2.setDisable(true);
