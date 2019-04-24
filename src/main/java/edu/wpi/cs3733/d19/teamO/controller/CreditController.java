@@ -5,7 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 
 @FxmlController(url = "Credit.fxml")
-public class CreditController implements Controller{
+public class CreditController implements Controller {
 
   @FXML
   BorderPane root;
