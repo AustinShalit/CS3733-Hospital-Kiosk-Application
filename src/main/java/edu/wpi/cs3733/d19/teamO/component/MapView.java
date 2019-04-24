@@ -576,8 +576,9 @@ public class MapView extends StackPane {
       }
       pixars_A_Bugs_Life(antline);
     }
-    nodeGroup.getChildren().addAll(startAndEndNodes);
+
     nodeGroup.getChildren().addAll(pathEdges);
+    nodeGroup.getChildren().addAll(startAndEndNodes);
     nodeGroup.getChildren().addAll(labelsGroup);
     nodeGroup.getChildren().addAll(buttonsGroup);
 
