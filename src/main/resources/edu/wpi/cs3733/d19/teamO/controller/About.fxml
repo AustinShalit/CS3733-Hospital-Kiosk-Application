@@ -22,10 +22,10 @@
                   <children>
                     <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="About Page" textAlignment="CENTER" wrappingWidth="390.3580322265625">
                       <font>
-                        <Font size="60.0" />
+                        <Font name="System Bold" size="40.0" />
                       </font>
                       <VBox.margin>
-                        <Insets bottom="10.0" top="30.0" />
+                        <Insets bottom="5.0" />
                       </VBox.margin>
                     </Text>
                     <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="WPI Computer Science Department" textAlignment="CENTER" wrappingWidth="452.1900634765625">
@@ -54,10 +54,10 @@
                     </Text>
                     <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Team Onyx Owlmen" textAlignment="CENTER" wrappingWidth="498.4166259765625">
                       <font>
-                        <Font size="50.0" />
+                        <Font size="35.0" />
                       </font>
                       <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets />
                       </VBox.margin>
                     </Text>
                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="2.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: #f6bd38; -fx-stroke-width: 0;" width="470.0" />
