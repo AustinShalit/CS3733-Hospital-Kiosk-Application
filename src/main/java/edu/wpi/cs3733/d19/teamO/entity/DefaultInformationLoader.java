@@ -67,7 +67,7 @@ public class DefaultInformationLoader {
         Employee.EmployeeType.ADMIN, "2038028974");
     Employee user2 = new Employee("staff", "staff", "StaffTest",
         Employee.EmployeeType.DEFAULT, "5087333883");
-    Employee user3 = new Employee("teamo", "won", "TeamOTest",
+    Employee user3 = new Employee("teamo", "won", "Ken",
         Employee.EmployeeType.DEFAULT, "8605027788");
 
     database.insertEmployee(user1);

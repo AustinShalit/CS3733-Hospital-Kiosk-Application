@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import com.google.inject.Inject;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTabPane;
@@ -24,10 +25,14 @@ import javafx.scene.control.Tab;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Callback;
 
+import edu.wpi.cs3733.d19.teamO.GlobalState;
 import edu.wpi.cs3733.d19.teamO.component.SchedulingMapView;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.SchedulingRequest;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
+import edu.wpi.cs3733.d19.teamO.entity.messaging.SmsRemind;
+import edu.wpi.cs3733.d19.teamO.entity.messaging.SmsRequest;
+import edu.wpi.cs3733.d19.teamO.entity.messaging.SmsSender;
 
 import static edu.wpi.cs3733.d19.teamO.controller.DialogHelper.showErrorAlert;
 import static edu.wpi.cs3733.d19.teamO.controller.DialogHelper.showInformationAlert;
@@ -44,6 +49,8 @@ public class SchedulingController implements Controller {
   @FXML
   private JFXDatePicker date;
   @FXML
+  private JFXCheckBox remindBox;
+  @FXML
   private JFXTimePicker startTime;
   @FXML
   private JFXTimePicker endTime;
@@ -58,7 +65,8 @@ public class SchedulingController implements Controller {
 
   @Inject
   private Database database;
-
+  @Inject
+  private GlobalState globalState;
   @Inject
   private SchedulingViewController.Factory schedulingViewControllerFactory;
   @Inject
@@ -143,6 +151,7 @@ public class SchedulingController implements Controller {
   @FXML
   void onSubmitButtonAction() {
     SchedulingRequest request = parseUserSchedulingRequestTest();
+
     if (Objects.isNull(request)) {
       return;
     }
@@ -167,6 +176,18 @@ public class SchedulingController implements Controller {
       updateMapViewNodeOverlay();
     } else {
       showErrorAlert("Error.", "Unable to submit scheduling request.");
+    }
+
+    if(remindBox.isSelected()) {
+      SmsSender send = new SmsSender();
+      send.sendSms(new SmsRequest("+1" + globalState.getLoggedInEmployee().getPhone(),
+          "Hey " + request.getWhoReserved() + ", this is a confirmation that you will be getting a reminder for your room reservation"));
+      SmsRemind smsRemind = new SmsRemind(request.getStartTime(),
+          globalState.getLoggedInEmployee().getPhone(),
+          request.getRoom(),
+          request.getWhoReserved());
+      Thread thread = new Thread(smsRemind);
+      thread.start();
     }
   }
 
