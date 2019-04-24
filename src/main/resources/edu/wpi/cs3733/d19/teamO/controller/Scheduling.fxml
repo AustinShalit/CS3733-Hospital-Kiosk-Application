@@ -111,7 +111,6 @@
         <Tab closable="false" text="Map" style="-fx-background-color: #004E86;">
           <SchedulingMapView fx:id="schedulingMapView" style="-fx-background-color: WHITE;" />
         </Tab>
-        <Tab fx:id="tableTab" closable="false" text="Table" style="-fx-background-color: #004E86;" />
         <Tab fx:id="calendarTab" closable="false" text="Calendar" style="-fx-background-color: #004E86;" />
       </JFXTabPane>
       <BorderPane.margin>
