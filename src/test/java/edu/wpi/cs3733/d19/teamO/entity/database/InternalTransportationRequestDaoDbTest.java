@@ -34,7 +34,7 @@ class InternalTransportationRequestDaoDbTest {
 
   private static final InternalTransportationRequest testITRequest1 =
       new InternalTransportationRequest(1, LocalDateTime.now(), LocalDateTime.now(), testNode1,
-          "Bob", InternalTransportationRequest.InternalTransportationRequestType.DELIVERY,
+          "Bob", InternalTransportationRequest.InternalTransportationRequestType.DISABLED,
           "This is a description", "Dev");
 
   private static final InternalTransportationRequest testITRequest2 =
@@ -126,7 +126,7 @@ class InternalTransportationRequestDaoDbTest {
         Node.NodeType.DEPT, "longname", "shortname");
     assertFalse(itrequestdao.update(new InternalTransportationRequest(987, LocalDateTime.now(),
         LocalDateTime.now(), newNode, "Jane",
-        InternalTransportationRequest.InternalTransportationRequestType.DELIVERY,
+        InternalTransportationRequest.InternalTransportationRequestType.DISABLED,
         "This request doesnt exist", "Jill")));
   }
 
