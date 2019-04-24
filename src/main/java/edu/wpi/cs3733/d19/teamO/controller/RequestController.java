@@ -117,6 +117,7 @@ public class RequestController implements Controller {
           animalSupport.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
           florist.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
           food.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
+          dominos.setPrefHeight(newValue.doubleValue() / menu.getChildren().size());
         });
   }
 
