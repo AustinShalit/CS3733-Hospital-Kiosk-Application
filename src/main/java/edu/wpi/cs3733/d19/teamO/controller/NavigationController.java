@@ -11,12 +11,15 @@ import com.google.common.graph.ImmutableGraph;
 import com.google.common.graph.MutableGraph;
 import com.google.inject.Inject;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXPopup;
 
 import org.apache.commons.collections.CollectionUtils;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -27,6 +30,7 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import kotlin.Pair;
 
 import edu.wpi.cs3733.d19.teamO.AppPreferences;
@@ -35,6 +39,7 @@ import edu.wpi.cs3733.d19.teamO.component.MapView;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
 import edu.wpi.cs3733.d19.teamO.entity.pathfinding.GraphSearchAlgorithm;
+import edu.wpi.cs3733.d19.teamO.entity.pathfinding.LED_Model;
 import edu.wpi.cs3733.d19.teamO.entity.pathfinding.StepByStep;
 
 @FxmlController(url = "Navigation.fxml")
@@ -73,8 +78,12 @@ public class NavigationController implements Controller {
   FlowPane buttonPane;
   @FXML
   JFXButton reverseButton;
+  @FXML
+  JFXCheckBox rasPICheck;
 
   private StepByStep stepByStep;
+  private LED_Model led_model;
+  private boolean rasPI = false;
 
   @Inject
   private AppPreferences appPreferences;
@@ -157,6 +166,80 @@ public class NavigationController implements Controller {
 
     reverseButton.disableProperty().bind(fromComboBox.valueProperty().isNull()
         .or(toComboBox.valueProperty().isNull()));
+
+    led_model = new LED_Model();
+
+    rasPICheck.selectedProperty().addListener(new ChangeListener<Boolean>() {
+      @Override
+      public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
+                          Boolean newValue) {
+        if (oldValue) {
+          rasPI = false;
+
+          restroomButton.setDisable(false);
+          emergencyButton.setDisable(false);
+          elevatorButton.setDisable(false);
+          informationButton.setDisable(false);
+
+          Collection<Node> nodes = database.getAllNodes();
+          CollectionUtils.filter(
+              nodes,
+              object -> ((Node) object).getNodeType() != Node.NodeType.HALL
+                  && !((Node) object).getFloor().equals("5")
+          );
+
+          toComboBox.setValue("");
+          fromComboBox.setValue("");
+
+          toComboBox.setNodes(nodes);
+          fromComboBox.setNodes(nodes);
+
+          toComboBox.setupAutoRefresh();
+          fromComboBox.setupAutoRefresh();
+
+
+          toComboBox.refresh();
+          fromComboBox.refresh();
+
+          map.setNodes(database.getAllNodes());
+          try {
+            map.setRasPI(false);
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+        } else {
+          rasPI = true;
+
+          restroomButton.setDisable(true);
+          emergencyButton.setDisable(true);
+          elevatorButton.setDisable(true);
+          informationButton.setDisable(true);
+
+          Collection<Node> nodes = led_model.getAllNodes();
+
+          toComboBox.setValue("");
+          fromComboBox.setValue("");
+
+          toComboBox.setNodes(nodes);
+          fromComboBox.setNodes(nodes);
+
+          toComboBox.setupAutoRefresh();
+          fromComboBox.setupAutoRefresh();
+
+
+          toComboBox.refresh();
+          fromComboBox.refresh();
+
+          map.setNodes(led_model.getAllNodes());
+          try {
+            map.setRasPI(true);
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+        }
+      }
+    });
+
   }
 
 
@@ -217,17 +300,26 @@ public class NavigationController implements Controller {
       return;
     }
 
+    List<Node> path;
 
-    GraphSearchAlgorithm<Node> algorithm
-        = appPreferences.getGraphSearchAlgorithm().getSupplier().get();
-    MutableGraph<Node> graph = GraphBuilder.undirected().allowsSelfLoops(false).build();
-    database.getAllNodes().forEach(graph::addNode);
-    database.getAllEdges().forEach(e -> graph.putEdge(e.getStartNode(), e.getEndNode()));
+    if(rasPI == true) {
+      led_model.sendPathToPi(fromComboBox.getNodeValue(), toComboBox.getNodeValue());
+      path = led_model.getDisplayPath();
+    } else {
+      GraphSearchAlgorithm<Node> algorithm
+          = appPreferences.getGraphSearchAlgorithm().getSupplier().get();
+      MutableGraph<Node> graph = GraphBuilder.undirected().allowsSelfLoops(false).build();
+      database.getAllNodes().forEach(graph::addNode);
+      database.getAllEdges().forEach(e -> graph.putEdge(e.getStartNode(), e.getEndNode()));
 
-    // the path
-    List<Node> path = algorithm.getPath(ImmutableGraph.copyOf(graph),
-        fromComboBox.getNodeValue(),
-        toComboBox.getNodeValue());
+      // the path
+      path = algorithm.getPath(ImmutableGraph.copyOf(graph),
+          fromComboBox.getNodeValue(),
+          toComboBox.getNodeValue());
+    }
+
+
+
 
     // set map
     map.setPath(path);

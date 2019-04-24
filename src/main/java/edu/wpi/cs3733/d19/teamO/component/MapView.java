@@ -78,6 +78,8 @@ public class MapView extends StackPane {
   @FXML
   Label coordY;
 
+  private boolean rasPI = false;
+
   private final SimpleObjectProperty<Node> nodeClicked = new SimpleObjectProperty<>();
   private final SimpleObjectProperty<Node> nodeFrom = new SimpleObjectProperty<>();
   private final SimpleObjectProperty<Node> nodeTo = new SimpleObjectProperty<>();
@@ -98,6 +100,33 @@ public class MapView extends StackPane {
   List<Node> path;
 
   List<Timeline> antz = new ArrayList<>();
+
+  public boolean isRasPI() {
+    return rasPI;
+  }
+
+  public void setRasPI(boolean rasPI) throws IOException {
+    this.rasPI = rasPI;
+
+    if(rasPI) {
+      levelL2.setDisable(true);
+      levelG.setDisable(true);
+      levelF2.setDisable(true);
+      levelF3.setDisable(true);
+      levelF4.setDisable(true);
+
+      onFloorSelectAction(new ActionEvent(levelF1, levelF1));
+    } else {
+      levelL2.setDisable(false);
+      levelG.setDisable(false);
+      levelF2.setDisable(false);
+      levelF3.setDisable(false);
+      levelF4.setDisable(false);
+
+      onFloorSelectAction(new ActionEvent(levelF1, levelF1));
+    }
+
+  }
 
   public void setNodes(Collection<Node> nodes) {
     this.nodes = nodes;

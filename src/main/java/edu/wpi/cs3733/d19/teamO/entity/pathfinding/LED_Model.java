@@ -49,6 +49,7 @@ public class LED_Model {
   private ArrayList<Node> allNodes;
   private ArrayList<Edge> allEdges;
   private MutableGraph<Node> graph;
+  private List<Node> displayPath;
 
   public LED_Model() {
     this.endHall = new Node("GHALL02801", 1270, 1830, "1",
@@ -131,7 +132,7 @@ public class LED_Model {
     allNodes.forEach(graph::addNode);
     allEdges.forEach(e -> graph.putEdge(e.getStartNode(), e.getEndNode()));
 
-
+    displayPath = new ArrayList<Node>();
 
     NetworkTableInstance instance = NetworkTableInstance.getDefault();
     instance.startClient("130.215.209.224", 1735); // ip address for wpi 130.215.173.94
@@ -150,6 +151,10 @@ public class LED_Model {
     System.out.println("Connection status after 5000ms: " + (instance.isConnected() ? "true" : "false"));
   }
 
+  public ArrayList<Node> getAllNodes() {
+    return allNodes;
+  }
+
   public void sendPathToPi(Node startNode, Node endNode) {
     System.out.println("MUST be done initializing by now");
     BreadthFirstSearchAlgorithm bfs = new BreadthFirstSearchAlgorithm();
@@ -161,9 +166,13 @@ public class LED_Model {
     NetworkTableInstance.getDefault().deleteAllEntries();
     NetworkTableInstance.getDefault().getEntry("/path").setDoubleArray(pins);
     //NetworkTableInstance.getDefault().getEntry("/path").setDoubleArray(new double[]{});
+
+    displayPath = path;
   }
 
-
+  public List<Node> getDisplayPath() {
+    return displayPath;
+  }
 
   public double[] getListPins(List<Node> nodes) {
     ArrayList<Double> pins = new ArrayList<>();

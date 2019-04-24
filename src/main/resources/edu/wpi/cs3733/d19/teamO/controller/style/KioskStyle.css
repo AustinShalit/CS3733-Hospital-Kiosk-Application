@@ -168,6 +168,18 @@
     -fx-max-height: 50px;
 }
 
+.jfx-check-box {
+    -fx-font-size: 20px;
+    -fx-text-fill: WHITE;
+    -fx-font-weight: BOLD;
+    -jfx-checked-color: #0067B1;
+    -jfx-unchecked-color: #0067B1;
+}
+
+.jfx-check-box .mark {
+    -fx-border-color: #F6BD38;
+}
+
 .home-btn {
     -fx-font-size: 1px;
     -fx-text-fill: #012D5A;
