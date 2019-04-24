@@ -8,15 +8,26 @@ import com.google.common.eventbus.EventBus;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXPopup;
+import com.jfoenix.controls.JFXTextField;
 import com.sun.javafx.application.PlatformImpl;
 
 import javafx.application.Application;
+import javafx.embed.swing.JFXPanel;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import edu.wpi.cs3733.d19.teamO.controller.ControllerModule;
+import edu.wpi.cs3733.d19.teamO.controller.IdleMonitor;
 import edu.wpi.cs3733.d19.teamO.controller.MainController;
 import edu.wpi.cs3733.d19.teamO.controller.NavigationController;
 import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;

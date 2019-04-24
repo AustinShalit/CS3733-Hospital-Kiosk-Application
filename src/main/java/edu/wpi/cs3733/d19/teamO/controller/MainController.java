@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d19.teamO.controller;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -16,6 +17,7 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -95,7 +97,7 @@ public class MainController implements Controller {
   private JFXPopup optionsPopup;
   private JFXPopup loginPopup;
   private JFXPopup settingsPopup;
-  private Timeline idleTimeline;
+  private IdleMonitor idleTime;
   // private static IdleLogoutCareTaker careTaker;
   // private static IdleLogoutOriginator originator;
 
@@ -182,60 +184,38 @@ public class MainController implements Controller {
     timeline.setCycleCount(Animation.INDEFINITE);
     timeline.play();
 
-    // Initialize idleTimeline value
-    //
-    idleTimeline = new Timeline(new KeyFrame(
-        Duration.millis((long)appPreferences.getAutoLogoutTime() * 1000),
-        ae -> loginButtonAction()));
-
     // Unused Memento stuff
         /*careTaker = new IdleLogoutCareTaker();
         originator = new IdleLogoutOriginator(idleTimeline, careTaker);*/
 
-    // Add event handlers to reset timeline on activity on any window
-    //
-    root.addEventHandler(MouseEvent.MOUSE_MOVED, ae -> resetTimeline());
-    root.addEventHandler(MouseEvent.MOUSE_CLICKED, ae -> resetTimeline());
-    root.addEventHandler(KeyEvent.KEY_PRESSED, ae -> resetTimeline());
+    idleTime = new IdleMonitor(new Duration(appPreferences.getAutoLogoutTime()*1000),
+        () -> loginButtonAction());
 
-
-  }
-
-  /**
-   * Reset the idleTimer if the user is logged in.
-   */
-  void resetTimeline() {
-    updateDuration();
-    if ("Logout".equals(loginbtn.getText())) {
-      this.idleTimeline.setDelay(new Duration(0));
-      this.idleTimeline.playFromStart();
+    idleTime.register(root, MouseEvent.ANY);
+    idleTime.register(root, KeyEvent.ANY);
+    ObservableList<javafx.scene.Node> Children = root.getChildren();
+    for (javafx.scene.Node n: Children){
+      idleTime.register(n, MouseEvent.ANY);
+      idleTime.register(n, KeyEvent.ANY);
     }
-  }
-
-  /**
-   * Update the duration of the idleTimer to the current autoLogoutTime.
-   */
-  private void updateDuration() {
-    Duration temp = new Duration(appPreferences.getAutoLogoutTime() * 1000);
-    this.idleTimeline.setDelay(temp);
   }
 
   @FXML
   void navigationButtonAction(ActionEvent event) {
     eventBus.post(new ChangeMainViewEvent(navigationControllerFactory.create()));
-    resetTimeline();
+    //resetTimeline();
   }
 
   @FXML
   void schedulingButtonAction(ActionEvent event) {
     eventBus.post(new ChangeMainViewEvent(schedulingControllerFactory.create()));
-    resetTimeline();
+    //resetTimeline();
   }
 
   @FXML
   void requestButtonAction(ActionEvent event) {
     eventBus.post(new ChangeMainViewEvent(requestControllerFactory.create()));
-    resetTimeline();
+    //resetTimeline();
   }
 
   @FXML
@@ -249,7 +229,7 @@ public class MainController implements Controller {
           Node.NodeType.WORKZONE, "not", "existed");
       SecurityRequest sr = new SecurityRequest(LocalDateTime.now(), node);
       database.insertSecurityRequest(sr);
-      resetTimeline();
+      //resetTimeline();
     }
   }
 
@@ -258,6 +238,7 @@ public class MainController implements Controller {
     loginController.setLoginFail("");
     if ("Logout".equals(loginbtn.getText())) {
       loginbtn.setText("Login");
+      idleTime.stopMonitoring();
       eventBus.post(new ChangeMainViewEvent(navigationControllerFactory.create(), false));
     } else {
       ColorAdjust colorAdjust = new ColorAdjust();
@@ -270,9 +251,8 @@ public class MainController implements Controller {
       loginPopup.setY(
           (root.getScene().getWindow().getHeight() - loginPopup.getHeight()) / 2
       );
+      idleTime.startMonitoring();
     }
-    idleTimeline.setDelay(new Duration(5000));
-    idleTimeline.play();
   }
 
   @Subscribe
