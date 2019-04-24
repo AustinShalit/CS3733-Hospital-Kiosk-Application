@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="497.0" prefWidth="600.0" stylesheets="@style/KioskStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <Text fx:id="credPage" strokeType="OUTSIDE" strokeWidth="0.0" text="Credit Page" textAlignment="CENTER" wrappingWidth="600.13671875" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="Palatino Linotype" size="35.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets bottom="50.0" top="10.0" />
+         </BorderPane.margin>
+      </Text>
+   </top>
+   <left>
+      <VBox prefHeight="489.0" prefWidth="607.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text fx:id="apiUsed" strokeType="OUTSIDE" strokeWidth="0.0" text="API's used: " textAlignment="CENTER" wrappingWidth="599.13671875">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="26.0" />
+               </font></Text>
+            <Text fx:id="api1" strokeType="OUTSIDE" strokeWidth="0.0" text="Team G Food Request API (B Term, 2017): https://ravana.dyn.wpi.edu/apilist/list" textAlignment="CENTER" wrappingWidth="599.833984375">
+               <font>
+                  <Font size="14.0" />
+               </font></Text>
+            <Text fx:id="api2" strokeType="OUTSIDE" strokeWidth="0.0" text="Team G Floral Request API (D Term, 2018): https://ravana.dyn.wpi.edu/apilist/list" textAlignment="CENTER" wrappingWidth="601.13671875">
+               <font>
+                  <Font size="14.0" />
+               </font></Text>
+            <Text fx:id="api3" strokeType="OUTSIDE" strokeWidth="0.0" text="Open Weather API (current weather data): https://openweathermap.org/api" textAlignment="CENTER" wrappingWidth="600.13671875">
+               <font>
+                  <Font size="14.0" />
+               </font></Text>
+            <Text fx:id="api4" strokeType="OUTSIDE" strokeWidth="0.0" text="Domino’s Pizza API" textAlignment="CENTER" wrappingWidth="601.13671875">
+               <font>
+                  <Font size="14.0" />
+               </font></Text>
+            <Text fx:id="api5" strokeType="OUTSIDE" strokeWidth="0.0" text="CalendarFX API" textAlignment="CENTER" wrappingWidth="601.13671875">
+               <font>
+                  <Font size="14.0" />
+               </font></Text>
+            <Text fx:id="api6" strokeType="OUTSIDE" strokeWidth="0.0" text="FontAwesome API" textAlignment="CENTER" wrappingWidth="601.13671875">
+               <font>
+                  <Font size="14.0" />
+               </font></Text>
+         </children>
+      </VBox>
+   </left>
+</BorderPane>

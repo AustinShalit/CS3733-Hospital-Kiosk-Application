@@ -61,7 +61,7 @@
                 <Font size="26.0" />
               </font>
             </Text>
-                  <ImageView id="austinPic" fitHeight="197.0" fitWidth="200.0">
+                  <ImageView fx:id="austinPic" fitHeight="197.0" fitWidth="200.0">
                      <image>
                         <Image url="@style/austin.JPG" />
                      </image>
@@ -71,7 +71,7 @@
                 <Font size="26.0" />
               </font>
             </Text>
-                  <ImageView id="kenPic" fitHeight="200.0" fitWidth="152.0">
+                  <ImageView fx:id="kenPic" fitHeight="200.0" fitWidth="152.0">
                      <image>
                         <Image url="@style/headshot.jpg" />
                      </image>
@@ -86,7 +86,7 @@
                 <Font size="26.0" />
               </font>
             </Text>
-                  <ImageView id="ameliaPic" fitHeight="200.0" fitWidth="150.0">
+                  <ImageView fx:id="ameliaPic" fitHeight="200.0" fitWidth="150.0">
                      <image>
                         <Image url="@style/file3-3.jpeg" />
                      </image>

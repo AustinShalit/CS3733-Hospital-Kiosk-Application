@@ -68,6 +68,8 @@ public class NavigationController implements Controller {
   @FXML
   JFXButton aboutButton;
   @FXML
+  JFXButton creditButton;
+  @FXML
   ScrollPane instructionPane;
   @FXML
   FlowPane buttonPane;
@@ -87,6 +89,8 @@ public class NavigationController implements Controller {
   private EventBus eventBus;
   @Inject
   private AboutController.Factory aboutControllerFactory;
+  @Inject
+  private CreditController.Factory creditControllerFactory;
 
 
   @FXML
@@ -285,6 +289,11 @@ public class NavigationController implements Controller {
   @FXML
   void aboutOnAction() {
     eventBus.post(new ChangeMainViewEvent(aboutControllerFactory.create()));
+  }
+
+  @FXML
+  void creditOnAction() {
+    eventBus.post(new ChangeMainViewEvent(creditControllerFactory.create()));
   }
 
   @FXML
