@@ -9,7 +9,6 @@ public class InternalTransportationRequest extends ServiceRequest {
   public enum InternalTransportationRequestType {
     STRETCHER("Stretcher"),
     DISABLED("Disabled"),
-    DELIVERY("Delivery"),
     OTHERS("Others");
 
     private static final Map<String,
