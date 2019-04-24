@@ -91,19 +91,19 @@
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   </rowConstraints>
                   <children>
-                    <JFXCheckBox fx:id="avBox" checkedColor="#004e86" text="Audio/Visual" />
-                    <JFXCheckBox fx:id="externalTransportBox" checkedColor="#004e86" text="External Transport" GridPane.rowIndex="1" />
-                    <JFXCheckBox fx:id="floristBox" checkedColor="#004e86" text="Florist" GridPane.rowIndex="2" />
-                    <JFXCheckBox fx:id="giftBox" checkedColor="#004e86" text="Gift" GridPane.rowIndex="3" />
-                    <JFXCheckBox fx:id="internalTransportBox" checkedColor="#004e86" text="Internal Transport" GridPane.rowIndex="4" />
-                    <JFXCheckBox fx:id="interpreterBox" checkedColor="#004e86" text="Interpreter" GridPane.rowIndex="5" />
-                    <JFXCheckBox fx:id="itSupportBox" checkedColor="#004e86" text="IT Support" GridPane.columnIndex="1" />
-                    <JFXCheckBox fx:id="patientInfoBox" checkedColor="#004e86" text="Patient Info" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                    <JFXCheckBox fx:id="prescriptionBox" checkedColor="#004e86" text="Prescription" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                    <JFXCheckBox fx:id="religiousBox" checkedColor="#004e86" text="Religious" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                    <JFXCheckBox fx:id="sanitationBox" checkedColor="#004e86" text="Sanitation" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                    <JFXCheckBox fx:id="securityBox" checkedColor="#004e86" text="Security" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                    <JFXCheckBox fx:id="supportAnimalBox" checkedColor="#004e86" text="Support Animal" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
+                    <JFXCheckBox fx:id="avBox" checkedColor="#004e86" style="-fx-text-fill: black;" text="Audio/Visual" />
+                    <JFXCheckBox fx:id="externalTransportBox" checkedColor="#004e86" style="-fx-text-fill: black;" text="External Transport" GridPane.rowIndex="1" />
+                    <JFXCheckBox fx:id="floristBox" checkedColor="#004e86" style="-fx-text-fill: black;" text="Florist" GridPane.rowIndex="2" />
+                    <JFXCheckBox fx:id="giftBox" checkedColor="#004e86" style="-fx-text-fill: black;" text="Gift" GridPane.rowIndex="3" />
+                    <JFXCheckBox fx:id="internalTransportBox" checkedColor="#004e86" style="-fx-text-fill: black;" text="Internal Transport" GridPane.rowIndex="4" />
+                    <JFXCheckBox fx:id="interpreterBox" checkedColor="#004e86" style="-fx-text-fill: black;" text="Interpreter" GridPane.rowIndex="5" />
+                    <JFXCheckBox fx:id="itSupportBox" checkedColor="#004e86" style="-fx-text-fill: black;" text="IT Support" GridPane.columnIndex="1" />
+                    <JFXCheckBox fx:id="patientInfoBox" checkedColor="#004e86" style="-fx-text-fill: black;" text="Patient Info" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                    <JFXCheckBox fx:id="prescriptionBox" checkedColor="#004e86" style="-fx-text-fill: black;" text="Prescription" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                    <JFXCheckBox fx:id="religiousBox" checkedColor="#004e86" style="-fx-text-fill: black;" text="Religious" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                    <JFXCheckBox fx:id="sanitationBox" checkedColor="#004e86" style="-fx-text-fill: black;" text="Sanitation" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                    <JFXCheckBox fx:id="securityBox" checkedColor="#004e86" style="-fx-text-fill: black;" text="Security" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                    <JFXCheckBox fx:id="supportAnimalBox" checkedColor="#004e86" style="-fx-text-fill: black;" text="Support Animal" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="CENTER" />
                   </children>
                 </GridPane>
               </children>
