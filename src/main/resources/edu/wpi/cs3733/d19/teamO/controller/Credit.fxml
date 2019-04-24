@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="900.0" styleClass="root" stylesheets="@style/KioskStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.CreditController">
+    <top>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Credit Page" textAlignment="CENTER" wrappingWidth="600.13671875" BorderPane.alignment="CENTER">
+            <font>
+                <Font name="Palatino Linotype" size="35.0" />
+            </font>
+            <BorderPane.margin>
+                <Insets bottom="50.0" top="10.0" />
+            </BorderPane.margin>
+        </Text>
+    </top>
+    <left>
+        <VBox prefHeight="720.0" prefWidth="839.0" BorderPane.alignment="CENTER">
+            <children>
+                <Text fx:id="apiUsed" strokeType="OUTSIDE" strokeWidth="0.0" text="API's used: " textAlignment="CENTER" wrappingWidth="897.13671875">
+                    <VBox.margin>
+                        <Insets bottom="20.0" />
+                    </VBox.margin>
+                    <font>
+                        <Font name="Palatino Linotype" size="28.0" />
+                    </font></Text>
+                <Text fx:id="api1" strokeType="OUTSIDE" strokeWidth="0.0" text="Team G Food Request API (B Term, 2017): https://ravana.dyn.wpi.edu/apilist/list" textAlignment="CENTER" wrappingWidth="899.833984375">
+                    <font>
+                        <Font name="Palatino Linotype" size="24.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="20.0" />
+                    </VBox.margin></Text>
+                <Text fx:id="api2" strokeType="OUTSIDE" strokeWidth="0.0" text="Team G Floral Request API (D Term, 2018): https://ravana.dyn.wpi.edu/apilist/list" textAlignment="CENTER" wrappingWidth="899.13671875">
+                    <font>
+                        <Font name="Palatino Linotype" size="24.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="20.0" />
+                    </VBox.margin></Text>
+                <Text fx:id="api3" strokeType="OUTSIDE" strokeWidth="0.0" text="Open Weather API (current weather data): https://openweathermap.org/api" textAlignment="CENTER" wrappingWidth="898.13671875">
+                    <font>
+                        <Font name="Palatino Linotype" size="24.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="20.0" />
+                    </VBox.margin></Text>
+                <Text fx:id="api4" strokeType="OUTSIDE" strokeWidth="0.0" text="Domino’s Pizza API" textAlignment="CENTER" wrappingWidth="899.13671875">
+                    <font>
+                        <Font name="Palatino Linotype" size="24.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="20.0" />
+                    </VBox.margin></Text>
+                <Text fx:id="api5" strokeType="OUTSIDE" strokeWidth="0.0" text="CalendarFX API" textAlignment="CENTER" wrappingWidth="894.13671875">
+                    <font>
+                        <Font name="Palatino Linotype" size="24.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="20.0" />
+                    </VBox.margin></Text>
+                <Text fx:id="api6" strokeType="OUTSIDE" strokeWidth="0.0" text="FontAwesome API" textAlignment="CENTER" wrappingWidth="899.13671875">
+                    <font>
+                        <Font name="Palatino Linotype" size="24.0" />
+                    </font></Text>
+            </children>
+        </VBox>
+    </left>
+</BorderPane>

@@ -140,7 +140,7 @@
                   <Font name="System Bold" size="18.0" />
                 </font>
               </JFXButton>
-              <JFXButton id="small-button" minWidth="150.0" prefHeight="48.0" style="-jfx-button-type: RAISED;" text="Credit" />
+              <JFXButton id="small-button" fx:id="creditButton" minWidth="150.0" onAction="#onCreditButtonAction" prefHeight="48.0" style="-jfx-button-type: RAISED;" text="Credit" />
             </children>
             <VBox.margin>
               <Insets top="12.0" />
