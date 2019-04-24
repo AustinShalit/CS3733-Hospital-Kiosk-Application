@@ -69,9 +69,12 @@ public class DefaultInformationLoader {
         Employee.EmployeeType.DEFAULT, "5087333883");
     Employee user3 = new Employee("teamo", "won", "Ken",
         Employee.EmployeeType.DEFAULT, "8605027788");
+    Employee dan = new Employee("dan", "dan", "Dan",
+        Employee.EmployeeType.ADMIN, "4018714240");
 
     database.insertEmployee(user1);
     database.insertEmployee(user2);
     database.insertEmployee(user3);
+    database.insertEmployee(dan);
   }
 }
