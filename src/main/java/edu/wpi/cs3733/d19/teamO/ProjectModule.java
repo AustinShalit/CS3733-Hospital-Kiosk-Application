@@ -9,5 +9,6 @@ public class ProjectModule extends AbstractModule {
     bind(EventBus.class).asEagerSingleton();
 
     bind(AppPreferences.class).asEagerSingleton();
+    bind(GlobalState.class).asEagerSingleton();
   }
 }
