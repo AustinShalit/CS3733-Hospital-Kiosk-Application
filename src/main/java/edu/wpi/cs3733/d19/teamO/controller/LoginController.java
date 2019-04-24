@@ -17,6 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 
+import edu.wpi.cs3733.d19.teamO.GlobalState;
 import edu.wpi.cs3733.d19.teamO.controller.event.ChangeMainViewEvent;
 import edu.wpi.cs3733.d19.teamO.entity.Employee;
 import edu.wpi.cs3733.d19.teamO.entity.database.Database;
@@ -47,6 +48,8 @@ public class LoginController implements Controller {
   private NavigationController.Factory navigationController;
   @Inject
   private Database db;
+  @Inject
+  private GlobalState globalState;
 
   private Set<Employee> info;
 
@@ -77,8 +80,10 @@ public class LoginController implements Controller {
     }
     boolean check = false;
     // checks every Employee info in set
+    Employee loggedInEmployee = null;
     for (Employee l : info) {
       if (l.loginEquals(employee)) {
+        loggedInEmployee = l;
         check = true;
       }
     }
@@ -88,6 +93,7 @@ public class LoginController implements Controller {
 
     // if info typed was right, you go to main window screen
     if (check) {
+      globalState.setLoggedInEmployee(loggedInEmployee);
       loginFail.setText("Login Success");
       eventBus.post(new ChangeMainViewEvent(navigationController.create()));
     } else {

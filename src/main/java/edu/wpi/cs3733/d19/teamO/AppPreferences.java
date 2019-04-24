@@ -7,7 +7,7 @@ import javafx.beans.property.Property;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
-import edu.wpi.cs3733.d19.teamO.entity.pathfinding.GraphSearchAlgorithm;
+import edu.wpi.cs3733.d19.teamO.entity.pathfinding.GraphSearchAlgorithmSupplier;
 import edu.wpi.cs3733.d19.teamO.entity.pathfinding.GraphSearchAlgorithms;
 import edu.wpi.cs3733.d19.teamO.entity.setting.Category;
 import edu.wpi.cs3733.d19.teamO.entity.setting.Group;
@@ -16,13 +16,12 @@ import edu.wpi.cs3733.d19.teamO.entity.setting.Setting;
 import edu.wpi.cs3733.d19.teamO.theme.Theme;
 import edu.wpi.cs3733.d19.teamO.theme.Themes;
 
-
 /**
  * Contains the user preferences for the app.
  */
 public final class AppPreferences {
 
-  private final Property<GraphSearchAlgorithm> graphSearchAlgorithm
+  private final Property<GraphSearchAlgorithmSupplier> graphSearchAlgorithm
       = new SimpleObjectProperty<>(this, "Graph Search Algorithm",
       GraphSearchAlgorithms.INITIAL_ALGORITHM);
   private final Property<Theme> theme
@@ -53,7 +52,7 @@ public final class AppPreferences {
     PreferencesUtils.read(autoLogoutTime, preferences);
 
     graphSearchAlgorithm.addListener(__ -> PreferencesUtils.save(graphSearchAlgorithm, preferences,
-        GraphSearchAlgorithm::getName));
+        GraphSearchAlgorithmSupplier::getName));
     theme.addListener(__ -> PreferencesUtils.save(theme, preferences, Theme::getName));
     autoLogoutTime.addListener(__ -> PreferencesUtils.save(autoLogoutTime, preferences));
   }
@@ -62,15 +61,15 @@ public final class AppPreferences {
     return settings;
   }
 
-  public GraphSearchAlgorithm getGraphSearchAlgorithm() {
+  public GraphSearchAlgorithmSupplier getGraphSearchAlgorithm() {
     return graphSearchAlgorithm.getValue();
   }
 
-  public Property<GraphSearchAlgorithm> graphSearchAlgorithmProperty() {
+  public Property<GraphSearchAlgorithmSupplier> graphSearchAlgorithmProperty() {
     return graphSearchAlgorithm;
   }
 
-  public void setGraphSearchAlgorithm(GraphSearchAlgorithm graphSearchAlgorithm) {
+  public void setGraphSearchAlgorithm(GraphSearchAlgorithmSupplier graphSearchAlgorithm) {
     this.graphSearchAlgorithm.setValue(graphSearchAlgorithm);
   }
 
