@@ -1,39 +1,52 @@
 package edu.wpi.cs3733.d19.teamO.entity.pathfinding;
 
+import java.util.Objects;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
-import edu.wpi.cs3733.d19.teamO.entity.Node;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Abstract class for uninformed graph search algorithms.
  */
-abstract class InformedGraphSearchAlgorithm implements IGraphSearchAlgorithm<Node> {
+abstract class InformedGraphSearchAlgorithm<T extends ComparableCost<T>>
+    extends GraphSearchAlgorithm<T> {
 
+  protected static class CostPair<T> implements Comparable<CostPair<T>> {
+    private final T item;
+    private final double cost;
 
-  /**
-   * Given a map of nodes and the goal, construct a path of nodes to follow.
-   *
-   * @param cameFrom A map of nodes
-   * @param goal     The goal
-   * @return The path
-   */
-  protected List<Node> buildPath(final Map<Node, Node> cameFrom, final Node goal) {
-    LinkedList<Node> path = new LinkedList<>(); // We want Queue interface
-    Node next = goal;
-    while (cameFrom.get(next) != null) {
-      path.push(next);
-      next = cameFrom.get(next);
+    CostPair(T item, double cost) {
+      this.item = item;
+      this.cost = cost;
     }
-    path.push(next);
-    return path;
-  }
 
-  public double euclideanDist(Node node1, Node node2) {
-    double dist = Math.sqrt(Math.pow(node2.getXcoord() - node1.getXcoord(), 2)
-        + Math.pow(node2.getYcoord() - node1.getYcoord(), 2));
-    return dist;
+    public T getItem() {
+      return item;
+    }
+
+    public double getCost() {
+      return cost;
+    }
+
+    @Override
+    public int compareTo(@NotNull CostPair<T> o) {
+      return Double.compare(cost, o.cost);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+      if (this == o) {
+        return true;
+      }
+      if (o == null || getClass() != o.getClass()) {
+        return false;
+      }
+      CostPair<?> costPair = (CostPair<?>) o;
+      return Objects.equals(item, costPair.item);
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hash(item);
+    }
   }
 }

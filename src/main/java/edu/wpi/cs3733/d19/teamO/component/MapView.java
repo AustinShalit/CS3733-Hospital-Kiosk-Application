@@ -42,11 +42,12 @@ import static java.lang.Math.abs;
 import static javafx.scene.input.MouseButton.PRIMARY;
 import static javafx.scene.input.MouseButton.SECONDARY;
 
-@SuppressWarnings({"PMD.TooManyFields", "PMD.ExcessiveImports", "PMD.TooManyMethods" ,
+@SuppressWarnings({"PMD.TooManyFields", "PMD.ExcessiveImports", "PMD.TooManyMethods",
     "PMD.CyclomaticComplexity", "PMD.GodClass", "PMD.AvoidDeeplyNestedIfStmts"})
 public class MapView extends StackPane {
   private boolean navigation;
   private int level = 1;
+  public boolean fire;
 
   @FXML
   GesturePane gesturePane;
@@ -80,8 +81,8 @@ public class MapView extends StackPane {
   private final SimpleObjectProperty<Node> nodeClicked = new SimpleObjectProperty<>();
   private final SimpleObjectProperty<Node> nodeFrom = new SimpleObjectProperty<>();
   private final SimpleObjectProperty<Node> nodeTo = new SimpleObjectProperty<>();
-  private  Collection<Node> nodes;
-  private  final ContextMenu contextMenu = new ContextMenu();
+  private Collection<Node> nodes;
+  private final ContextMenu contextMenu = new ContextMenu();
   MenuItem fromHere = new MenuItem("Directions from here");
   MenuItem toHere = new MenuItem("Directions to here");
 
@@ -165,8 +166,8 @@ public class MapView extends StackPane {
     contextMenu.getItems().addAll(fromHere, toHere);
     fromHere.setOnAction(a -> {
       for (Node n : nodes) {
-        if (n.getFloorInt() == level && n.getXcoord() ==  circle.getCenterX()
-            && n.getYcoord() ==  circle.getCenterY()
+        if (n.getFloorInt() == level && n.getXcoord() == circle.getCenterX()
+            && n.getYcoord() == circle.getCenterY()
             && !n.getNodeType().equals(Node.NodeType.HALL)) {
           nodeFrom.set(n);
         }
@@ -174,8 +175,8 @@ public class MapView extends StackPane {
     });
     toHere.setOnAction(a -> {
       for (Node n : nodes) {
-        if (n.getFloorInt() == level && n.getXcoord() ==  circle.getCenterX()
-            && n.getYcoord() ==  circle.getCenterY()
+        if (n.getFloorInt() == level && n.getXcoord() == circle.getCenterX()
+            && n.getYcoord() == circle.getCenterY()
             && !n.getNodeType().equals(Node.NodeType.HALL)) {
           nodeTo.set(n);
         }
@@ -183,6 +184,11 @@ public class MapView extends StackPane {
     });
     gesturePane.setMinScale(0.1);
     gesturePane.reset();
+
+    gesturePane.setOnScroll(s -> {
+      zoomLabel();
+    });
+
 
     gesturePane.setOnMouseMoved(e -> {
       if (navigation) {
@@ -213,12 +219,7 @@ public class MapView extends StackPane {
         if (navigation) {
           Point2D pointOnMap = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
               .orElse(gesturePane.targetPointAtViewportCentre());
-          if (e.getButton() == PRIMARY && e.getClickCount() == 2) {
-            // increment of scale makes more sense exponentially instead of linearly
-            gesturePane.animate(Duration.millis(200))
-                .interpolateWith(Interpolator.EASE_BOTH)
-                .zoomBy(gesturePane.getCurrentScale(), pointOnMap);
-          }
+          zoomLabel();
           if (e.isControlDown()) {
             int currentX = (int) pointOnMap.getX();
             int currentY = (int) pointOnMap.getY();
@@ -250,9 +251,13 @@ public class MapView extends StackPane {
     resetButtonBackground(99);
     levelF1.setStyle("-fx-background-color: rgb(1,45,90)");
     onFloorSelectAction(new ActionEvent(levelF1, levelF1));
+
   }
 
   void resetButtonBackground(int level) {
+    if (fire) {
+      zoomToCoord(1676, 1277);
+    }
     if (level == 1) {
       levelL1.setStyle("-fx-background-color: rgb(0,103,177)");
       levelL2.setStyle("-fx-background-color: rgb(0,103,177)");
@@ -545,8 +550,8 @@ public class MapView extends StackPane {
   }
 
   /**
-    Takes in a set of lines drawn by the path.
-    Removes old animations and adds new ones.
+   * Takes in a set of lines drawn by the path.
+   * Removes old animations and adds new ones.
    */
   public void pixars_A_Bugs_Life(List<Line> trail) {
     //Stops all old animations before they are removed
@@ -567,6 +572,7 @@ public class MapView extends StackPane {
 
   /**
    * adds an antimation on the line.
+   *
    * @param line line to be animated.
    * @return animated line.
    */
@@ -575,25 +581,25 @@ public class MapView extends StackPane {
     line.setStrokeWidth(3);
 
     final double maxOffset =
-            line.getStrokeDashArray().stream().reduce(0d, (a, b) -> a + b);
+        line.getStrokeDashArray().stream().reduce(0d, (a, b) -> a + b);
 
     Timeline timeline = new Timeline(
-            new KeyFrame(
-                    Duration.ZERO,
-                    new KeyValue(
-                            line.strokeDashOffsetProperty(),
-                            0,
-                            Interpolator.LINEAR
-                    )
-            ),
-            new KeyFrame(
-                    Duration.seconds(2),
-                    new KeyValue(
-                            line.strokeDashOffsetProperty(),
-                            maxOffset,
-                            Interpolator.LINEAR
-                    )
+        new KeyFrame(
+            Duration.ZERO,
+            new KeyValue(
+                line.strokeDashOffsetProperty(),
+                0,
+                Interpolator.LINEAR
             )
+        ),
+        new KeyFrame(
+            Duration.seconds(2),
+            new KeyValue(
+                line.strokeDashOffsetProperty(),
+                maxOffset,
+                Interpolator.LINEAR
+            )
+        )
     );
     timeline.setCycleCount(Timeline.INDEFINITE);
     return timeline;
@@ -601,6 +607,7 @@ public class MapView extends StackPane {
 
   /**
    * Zoom to the given node.
+   *
    * @param n The node need to zoom to.
    * @throws IOException throw if there is error.
    */
@@ -618,7 +625,18 @@ public class MapView extends StackPane {
       }
     }
     panMapBetweenNodes(n, lastNodeOnFloor);
+  }
 
+  /**
+   * Zoom to the given coordinates.
+   *
+   * @param x X Coord zooming to
+   * @param y Y Coord zooming to
+   */
+  public void zoomToCoord(double x, double y) {
+    //gesturePane.reset();
+    gesturePane.zoomTo(3, new Point2D(x, y));
+    gesturePane.centreOn(new Point2D(x, y));
   }
 
   private void switchFloor(String s) throws IOException {
@@ -670,8 +688,9 @@ public class MapView extends StackPane {
       if (lastNode.getFloorInt() == level) {
         Button button = new JFXButton("To Floor " + node.getFloor());
         button.setTranslateX(lastNode.getXcoord() + 10);
-        button.setTranslateY(lastNode.getYcoord() + 10);
+        button.setTranslateY(lastNode.getYcoord() + 15);
         button.getStyleClass().add("navlabel");
+
 
         button.setOnAction(event -> {
           if (event.getSource() == button) {
@@ -700,7 +719,7 @@ public class MapView extends StackPane {
       } else if (node.getFloorInt() == level) {
         Button button = new JFXButton("Back to Floor " + lastNode.getFloor());
         button.setTranslateX(node.getXcoord() + 10);
-        button.setTranslateY(node.getYcoord() + 10);
+        button.setTranslateY(node.getYcoord() + 15);
         button.getStyleClass().add("navlabel");
 
         button.setOnAction(event -> {
@@ -731,17 +750,35 @@ public class MapView extends StackPane {
 
   }
 
-  void panMapBetweenNodes(Node a, Node b) {
+  private void panMapBetweenNodes(Node a, Node b) {
     int midX = (a.getXcoord() + b.getXcoord()) / 2;
     int midY = (a.getYcoord() + b.getYcoord()) / 2;
     int distanceX = abs(a.getXcoord() - b.getXcoord()) + 1;
     int distanceY = abs(a.getYcoord() - b.getYcoord()) + 1;
 
-    if ( 750. / Math.max(distanceX , distanceY) < 2.5) {
+    if (750. / Math.max(distanceX, distanceY) < 2.5) {
       gesturePane.zoomTo(750. / Math.max(distanceX, distanceY), new Point2D(midX, midY));
     } else {
       gesturePane.zoomTo(2.5, new Point2D(midX, midY));
     }
-    gesturePane.centreOn(new Point2D(midX , midY));
+    gesturePane.centreOn(new Point2D(midX, midY));
   }
+
+  private void zoomLabel() {
+    if (buttonsGroup.getChildren() != null && labelsGroup.getChildren() != null) {
+      for (javafx.scene.Node b : buttonsGroup.getChildren()) {
+        if (gesturePane.getCurrentScale() < 1.2) {
+          b.setScaleX(1.2 / gesturePane.getCurrentScale());
+          b.setScaleY(1.2 / gesturePane.getCurrentScale());
+        }
+      }
+      for (javafx.scene.Node l : labelsGroup.getChildren()) {
+        if (gesturePane.getCurrentScale() < 1.2) {
+          l.setScaleX(1.2 / gesturePane.getCurrentScale());
+          l.setScaleY(1.2 / gesturePane.getCurrentScale());
+        }
+      }
+    }
+  }
+
 }
