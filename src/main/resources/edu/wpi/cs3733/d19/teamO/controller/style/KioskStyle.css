@@ -94,8 +94,20 @@
     -fx-padding: 10px 20px 10px 20px;
 }
 
+#map-delete {
+    -fx-background-color: #5a0005;
+    -jfx-button-type: RAISED;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
 #map-delete:hover {
-    -fx-border-width: 0;
+    -fx-background-color: #780101;
+}
+
+#map-delete:pressed {
+    -fx-scale-x: 1.00;
+    -fx-scale-y: 1.00;
 }
 
 .jfx-text-field {

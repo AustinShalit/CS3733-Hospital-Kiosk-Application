@@ -58,8 +58,6 @@ public class SchedulingController implements Controller {
   @FXML
   private JFXTabPane tabPane;
   @FXML
-  private Tab tableTab;
-  @FXML
   private Tab calendarTab;
   @FXML
   private SchedulingMapView schedulingMapView;
@@ -81,7 +79,6 @@ public class SchedulingController implements Controller {
 
     SchedulingViewController tableController = schedulingViewControllerFactory.create();
     tableController.setRequests(requests);
-    tableTab.setContent(tableController.getRoot());
 
     SchedulingCalendarController calendarController = schedulingCalendarControllerFactory.create();
     calendarController.setRequests(requests);
