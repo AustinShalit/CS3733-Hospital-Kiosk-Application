@@ -6,10 +6,11 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #f8f8f8;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.AboutController">
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #012D5A;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.AboutController">
    <center>
       <HBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
@@ -19,52 +20,53 @@
                      <children>
                         <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
                            <children>
-                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="About Page" textAlignment="CENTER" wrappingWidth="390.3580322265625">
+                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="About Page" textAlignment="CENTER" wrappingWidth="390.3580322265625">
                             <font>
-                              <Font name="System Bold" size="70.0" />
+                              <Font size="60.0" />
                             </font>
                                  <VBox.margin>
-                                    <Insets top="30.0" />
+                                    <Insets bottom="10.0" top="30.0" />
                                  </VBox.margin>
                           </Text>
-                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="WPI Computer Science Department" textAlignment="CENTER" wrappingWidth="452.1900634765625">
+                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="WPI Computer Science Department" textAlignment="CENTER" wrappingWidth="452.1900634765625">
                             <font>
-                              <Font size="26.0" />
-                            </font>
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                          </Text>
-                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CS3733-D19 Software Engineering" textAlignment="CENTER" wrappingWidth="450.0426330566406">
-                            <font>
-                              <Font size="26.0" />
+                              <Font size="19.0" />
                             </font>
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
                           </Text>
-                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Professor Wilson Wong" textAlignment="CENTER" wrappingWidth="291.0463562011719">
+                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="CS3733-D19 Software Engineering" textAlignment="CENTER" wrappingWidth="450.0426330566406">
                             <font>
-                              <Font size="26.0" />
+                              <Font size="19.0" />
                             </font>
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
                           </Text>
-                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Team Onyx Owlmen:" textAlignment="CENTER" underline="true" wrappingWidth="498.4166259765625">
+                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Professor Wilson Wong" textAlignment="CENTER" wrappingWidth="291.0463562011719">
+                            <font>
+                              <Font size="19.0" />
+                            </font>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                          </Text>
+                          <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Team Onyx Owlmen" textAlignment="CENTER" wrappingWidth="498.4166259765625">
                             <font>
                               <Font size="50.0" />
                             </font>
                                  <VBox.margin>
-                                    <Insets />
+                                    <Insets top="10.0" />
                                  </VBox.margin>
                           </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Team Coach: Dan Duff" textAlignment="CENTER" wrappingWidth="283.452880859375">
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="2.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: #f6bd38; -fx-stroke-width: 0;" width="470.0" />
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Team Coach: Dan Duff" textAlignment="CENTER" wrappingWidth="283.452880859375">
                           <font>
-                            <Font size="26.0" />
+                            <Font size="19.0" />
                           </font>
                                  <VBox.margin>
-                                    <Insets />
+                                    <Insets bottom="10.0" />
                                  </VBox.margin>
                         </Text>
                            </children>
@@ -82,15 +84,15 @@
                                           <Image url="@teamPics/austin.jpg" />
                                        </image>
                                     </ImageView>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Austin Shalit" wrappingWidth="79.3075180053711">
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Austin Shalit" wrappingWidth="103.22563934326172">
                                        <VBox.margin>
                                           <Insets />
                                        </VBox.margin>
                                        <font>
-                                          <Font name="System Bold" size="17.0" />
+                                          <Font name="Palatino Linotype" size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text layoutX="37.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lead Engineer" textAlignment="CENTER" wrappingWidth="125.0" />
+                                    <Text fill="WHITE" layoutX="37.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lead Engineer" textAlignment="CENTER" wrappingWidth="125.0" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
@@ -100,15 +102,15 @@
                                           <Image url="@teamPics/IMG_20190423_180817_01.jpg" />
                                        </image>
                                     </ImageView>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Dev Patel">
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Dev Patel">
                                        <VBox.margin>
                                           <Insets />
                                        </VBox.margin>
                                        <font>
-                                          <Font name="System Bold" size="17.0" />
+                                          <Font name="Palatino Linotype" size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text layoutX="52.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Assistant Lead Engineer" textAlignment="CENTER" wrappingWidth="125.0" />
+                                    <Text fill="WHITE" layoutX="52.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Assistant Lead Engineer" textAlignment="CENTER" wrappingWidth="125.0" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
@@ -121,15 +123,15 @@
                                           <Insets />
                                        </VBox.margin>
                                     </ImageView>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Jyan Zarate">
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Jyan Zarate">
                                        <VBox.margin>
                                           <Insets />
                                        </VBox.margin>
                                        <font>
-                                          <Font name="System Bold" size="17.0" />
+                                          <Font name="Palatino Linotype" size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Assistant Lead Engineer and Product Owner" textAlignment="CENTER" wrappingWidth="150.0" />
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Assistant Lead Engineer and Product Owner" textAlignment="CENTER" wrappingWidth="150.0" />
                                  </children>
                                  <HBox.margin>
                                     <Insets />
@@ -142,21 +144,26 @@
                                           <Image url="@teamPics/headshot.jpg" />
                                        </image>
                                     </ImageView>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ken Morton">
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Ken Morton">
                                        <VBox.margin>
                                           <Insets />
                                        </VBox.margin>
                                        <font>
-                                          <Font name="System Bold" size="17.0" />
+                                          <Font name="Palatino Linotype" size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text layoutX="39.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Assistant Lead Engineer" textAlignment="CENTER" wrappingWidth="125.0" />
+                                    <Text fill="WHITE" layoutX="39.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Assistant Lead Engineer" textAlignment="CENTER" wrappingWidth="125.0" />
                                  </children>
                               </VBox>
                            </children>
                         </HBox>
                      </children>
                   </VBox>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="2.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: #f6bd38; -fx-stroke-width: 0;" width="200.0">
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Rectangle>
                   <VBox alignment="CENTER" VBox.vgrow="ALWAYS">
                      <children>
                         <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
@@ -168,15 +175,15 @@
                                           <Image url="@teamPics/large_G18c_1b3e0003a0681e7f.jpg" />
                                        </image>
                                     </ImageView>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Jack Yan">
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Jack Yan">
                                        <VBox.margin>
                                           <Insets />
                                        </VBox.margin>
                                        <font>
-                                          <Font name="System Bold" size="17.0" />
+                                          <Font name="Palatino Linotype" size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Software Engineer" />
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Software Engineer" />
                                  </children>
                                  <opaqueInsets>
                                     <Insets />
@@ -189,15 +196,15 @@
                                           <Image url="@teamPics/Peter%20photo-page-001.jpg" />
                                        </image>
                                     </ImageView>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Peter Prygocki">
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Peter Prygocki">
                                        <VBox.margin>
                                           <Insets />
                                        </VBox.margin>
                                        <font>
-                                          <Font name="System Bold" size="17.0" />
+                                          <Font name="Palatino Linotype" size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Software Engineer" />
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Software Engineer" />
                                  </children>
                                  <opaqueInsets>
                                     <Insets />
@@ -210,15 +217,15 @@
                                           <Image url="@teamPics/Screen%20Shot%202019-04-24%20at%201.48.30%20AM.png" />
                                        </image>
                                     </ImageView>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Bailey Schmidt">
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Bailey Schmidt">
                                        <VBox.margin>
                                           <Insets />
                                        </VBox.margin>
                                        <font>
-                                          <Font name="System Bold" size="17.0" />
+                                          <Font name="Palatino Linotype" size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Software Engineer" />
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Software Engineer" />
                                  </children>
                                  <opaqueInsets>
                                     <Insets />
@@ -231,21 +238,26 @@
                                           <Image url="@teamPics/file3-3.jpeg" />
                                        </image>
                                     </ImageView>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Amelia Nishimura">
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Amelia Nishimura">
                                        <VBox.margin>
                                           <Insets />
                                        </VBox.margin>
                                        <font>
-                                          <Font name="System Bold" size="17.0" />
+                                          <Font name="Palatino Linotype" size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Product Owner" />
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Owner" />
                                  </children>
                               </VBox>
                            </children>
                         </HBox>
                      </children>
                   </VBox>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="2.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: #f6bd38; -fx-stroke-width: 0;" width="200.0">
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Rectangle>
                   <VBox alignment="CENTER" VBox.vgrow="ALWAYS">
                      <children>
                         <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
@@ -257,15 +269,15 @@
                                           <Image url="@teamPics/WPCF0936.jpg" />
                                        </image>
                                     </ImageView>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sam Johnson">
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Sam Johnson">
                                        <VBox.margin>
                                           <Insets />
                                        </VBox.margin>
                                        <font>
-                                          <Font name="System Bold" size="17.0" />
+                                          <Font name="Palatino Linotype" size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Test Engineer" />
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Test Engineer" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
@@ -275,16 +287,19 @@
                                           <Image url="@teamPics/headshot%20(2).jpg" />
                                        </image>
                                     </ImageView>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Alexandria Nogueras">
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Alexandria Nogueras">
                                        <VBox.margin>
                                           <Insets />
                                        </VBox.margin>
                                        <font>
-                                          <Font name="System Bold" size="17.0" />
+                                          <Font name="Palatino Linotype" size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Scrum Master" />
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Scrum Master" />
                                  </children>
+                                 <HBox.margin>
+                                    <Insets left="35.0" />
+                                 </HBox.margin>
                               </VBox>
                               <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
                                  <children>
@@ -296,15 +311,15 @@
                                           <Insets />
                                        </VBox.margin>
                                     </ImageView>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lynn Song">
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Lynn Song">
                                        <VBox.margin>
                                           <Insets />
                                        </VBox.margin>
                                        <font>
-                                          <Font name="System Bold" size="17.0" />
+                                          <Font name="Palatino Linotype" size="17.0" />
                                        </font>
                                     </Text>
-                                    <Text layoutX="93.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Documentation Analyst" />
+                                    <Text fill="WHITE" layoutX="93.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Documentation Analyst" />
                                  </children>
                                  <HBox.margin>
                                     <Insets />
@@ -314,14 +329,19 @@
                         </HBox>
                      </children>
                   </VBox>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="2.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: #f6bd38; -fx-stroke-width: 0;" width="200.0">
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Rectangle>
                   <VBox alignment="CENTER">
                      <children>
-                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Thank you Brigham and Women's Faulkner Hospital and the representative, Andrew Shinn, for your time and input. " textAlignment="CENTER" wrappingWidth="701.2578125">
+                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Thank you Brigham and Women's Faulkner Hospital and the representative, Andrew Shinn, for your time and input. " textAlignment="CENTER" wrappingWidth="701.2578125">
                       <font>
-                        <Font size="26.0" />
+                        <Font size="24.0" />
                       </font>
                     </Text>
-                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="The Brigham &amp; Women’s Hospital maps and data used in this application are copyrighted and provided for the sole use of educational purposes." textAlignment="CENTER" wrappingWidth="670.93017578125">
+                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="The Brigham &amp; Women’s Hospital maps and data used in this application are copyrighted and provided for the sole use of educational purposes." textAlignment="CENTER" wrappingWidth="670.93017578125">
                       <VBox.margin>
                         <Insets top="10.0" />
                       </VBox.margin>
