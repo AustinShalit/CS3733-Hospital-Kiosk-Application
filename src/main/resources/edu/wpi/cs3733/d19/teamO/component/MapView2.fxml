@@ -21,11 +21,13 @@
       <ImageView fx:id="backgroundImage" pickOnBounds="true" preserveRatio="true">
       </ImageView>
       <Pane onMouseMoved="#onMouseMove">
-        <Circle fx:id="circle" fill="#ff0100" radius="20.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
-        <Circle fx:id="circleDrag" fill="#004f87" onMouseDragged="#onMouseDrag" radius="20.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
-        <Group fx:id="nodeGroup" />
+        <Circle fx:id="circleDrag" fill="#004f87" onMouseDragged="#onMouseDrag" radius="16.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
         <Group fx:id="edges" />
         <Line fx:id="lineForEdge" visible="false" endX="100.0" startX="-100.0" strokeWidth="10" fill="#ff6400" />
+        <Line fx:id="lineForEdge2" visible="false" endX="100.0" startX="-100.0" strokeWidth="10" fill="#ff6400" />
+        <Group fx:id="nodeGroup" />
+        <Circle fx:id="circle" fill="#004f87" radius="12.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
+        <Circle fx:id="circle2" fill="#004f87" radius="12.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
       </Pane>
 
 
