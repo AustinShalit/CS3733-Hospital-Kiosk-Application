@@ -185,7 +185,7 @@ public class MainController implements Controller {
     // Initialize idleTimeline value
     //
     idleTimeline = new Timeline(new KeyFrame(
-        Duration.millis(appPreferences.getAutoLogoutTime() * 1000),
+        Duration.millis((long)appPreferences.getAutoLogoutTime() * 1000),
         ae -> loginButtonAction()));
 
     // Unused Memento stuff
@@ -197,15 +197,6 @@ public class MainController implements Controller {
     root.addEventHandler(MouseEvent.MOUSE_MOVED, ae -> resetTimeline());
     root.addEventHandler(MouseEvent.MOUSE_CLICKED, ae -> resetTimeline());
     root.addEventHandler(KeyEvent.KEY_PRESSED, ae -> resetTimeline());
-    menu.addEventHandler(MouseEvent.MOUSE_MOVED, ae -> resetTimeline());
-    menu.addEventHandler(MouseEvent.MOUSE_CLICKED, ae -> resetTimeline());
-    menu.addEventHandler(KeyEvent.KEY_PRESSED, ae -> resetTimeline());
-    optionsBurger.addEventHandler(MouseEvent.MOUSE_MOVED, ae -> resetTimeline());
-    optionsBurger.addEventHandler(MouseEvent.MOUSE_CLICKED, ae -> resetTimeline());
-    optionsBurger.addEventHandler(KeyEvent.KEY_PRESSED, ae -> resetTimeline());
-    toolbar.addEventHandler(MouseEvent.MOUSE_MOVED, ae -> resetTimeline());
-    toolbar.addEventHandler(MouseEvent.MOUSE_CLICKED, ae -> resetTimeline());
-    toolbar.addEventHandler(KeyEvent.KEY_PRESSED, ae -> resetTimeline());
 
 
   }
@@ -214,10 +205,10 @@ public class MainController implements Controller {
    * Reset the idleTimer if the user is logged in.
    */
   void resetTimeline() {
-    idleTimeline.pause();
     updateDuration();
     if ("Logout".equals(loginbtn.getText())) {
-      idleTimeline.playFromStart();
+      this.idleTimeline.setDelay(new Duration(0));
+      this.idleTimeline.playFromStart();
     }
   }
 
@@ -226,22 +217,25 @@ public class MainController implements Controller {
    */
   private void updateDuration() {
     Duration temp = new Duration(appPreferences.getAutoLogoutTime() * 1000);
-    idleTimeline.setDelay(temp);
+    this.idleTimeline.setDelay(temp);
   }
 
   @FXML
   void navigationButtonAction(ActionEvent event) {
     eventBus.post(new ChangeMainViewEvent(navigationControllerFactory.create()));
+    resetTimeline();
   }
 
   @FXML
   void schedulingButtonAction(ActionEvent event) {
     eventBus.post(new ChangeMainViewEvent(schedulingControllerFactory.create()));
+    resetTimeline();
   }
 
   @FXML
   void requestButtonAction(ActionEvent event) {
     eventBus.post(new ChangeMainViewEvent(requestControllerFactory.create()));
+    resetTimeline();
   }
 
   @FXML
@@ -255,6 +249,7 @@ public class MainController implements Controller {
           Node.NodeType.WORKZONE, "not", "existed");
       SecurityRequest sr = new SecurityRequest(LocalDateTime.now(), node);
       database.insertSecurityRequest(sr);
+      resetTimeline();
     }
   }
 
@@ -276,6 +271,8 @@ public class MainController implements Controller {
           (root.getScene().getWindow().getHeight() - loginPopup.getHeight()) / 2
       );
     }
+    idleTimeline.setDelay(new Duration(5000));
+    idleTimeline.play();
   }
 
   @Subscribe
