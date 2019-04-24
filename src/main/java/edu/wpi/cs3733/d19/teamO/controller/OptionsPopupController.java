@@ -8,7 +8,6 @@ import com.jfoenix.controls.JFXPopup;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
-import javafx.scene.effect.ColorAdjust;
 import javafx.scene.input.MouseEvent;
 
 import edu.wpi.cs3733.d19.teamO.GlobalState;
@@ -106,7 +105,7 @@ public class OptionsPopupController implements Controller {
   }
 
   @FXML
-  void emergencyAction (MouseEvent event) {
+  void emergencyAction(MouseEvent event) {
     event.consume();
     emergencyPopup.show(list,
         JFXPopup.PopupVPosition.TOP,

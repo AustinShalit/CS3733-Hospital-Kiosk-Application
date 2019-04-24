@@ -23,12 +23,12 @@
                 <Insets left="20.0" right="20.0" />
               </VBox.margin>
             </Label>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="5.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: #f6bd38;" width="600.0" />
-                  <Label style="-fx-text-fill: white; -fx-font-size: 25;" text="This message will be sent to all Employees">
-                     <VBox.margin>
-                        <Insets top="25.0" />
-                     </VBox.margin>
-                  </Label>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="5.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: #f6bd38;" width="600.0" />
+            <Label style="-fx-text-fill: white; -fx-font-size: 25;" text="This message will be sent to all Employees">
+              <VBox.margin>
+                <Insets top="25.0" />
+              </VBox.margin>
+            </Label>
           </children>
         </VBox>
         <GridPane prefHeight="30.0" prefWidth="563.0">
