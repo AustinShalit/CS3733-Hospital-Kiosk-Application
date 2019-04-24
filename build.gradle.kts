@@ -27,7 +27,6 @@ reckon {
 repositories {
     mavenCentral()
     jcenter()
-    maven("http://first.wpi.edu/FRC/roborio/maven/release")
 }
 allprojects {
     apply {
@@ -42,13 +41,13 @@ allprojects {
     repositories {
         mavenCentral()
         jcenter()
+        maven("http://first.wpi.edu/FRC/roborio/maven/release")
         maven {
             url = uri("https://ravana.dyn.wpi.edu/maven")
         }
     }
 
     dependencies {
-        implementation(group = "edu.wpi.first.ntcore", name = "ntcore-java", version = "2019.+")
         runtimeOnly(group = "edu.wpi.first.ntcore", name = "ntcore-jni", version = "2019.+", classifier = "osxx86-64")
         runtimeOnly(group = "edu.wpi.first.ntcore", name = "ntcore-jni", version = "2019.+", classifier = "windowsx86-64")
         runtimeOnly(group = "edu.wpi.first.ntcore", name = "ntcore-jni", version = "2019.+", classifier = "windowsx86")
@@ -77,6 +76,7 @@ allprojects {
         implementation(group = "systems.uom", name = "systems-common", version = "0.9")
         implementation(group = "edu.wpi.cs3733.d19.teamG", name = "TeamGFloral", version = "1.0.1")
         implementation(group = "edu.wpi.cs3733.d19.teamO", name = "DominosRequest", version = "1.0.1")
+        implementation(group = "edu.wpi.first.ntcore", name = "ntcore-java", version = "2019.1.1")
 
             compile(fileTree("libs"))
 
