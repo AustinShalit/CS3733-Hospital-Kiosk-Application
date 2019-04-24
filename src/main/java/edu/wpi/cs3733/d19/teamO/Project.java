@@ -84,6 +84,7 @@ public class Project extends Application {
     primaryStage.show();
     logger.config("Startup complete");
 
+
     Thread.setDefaultUncaughtExceptionHandler(this::onThreadException);
   }
 
