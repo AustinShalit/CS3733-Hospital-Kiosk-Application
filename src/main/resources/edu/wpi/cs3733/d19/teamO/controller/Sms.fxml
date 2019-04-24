@@ -9,17 +9,24 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.SmsController">
   <top>
-    <VBox styleClass="form" stylesheets="@style/KioskStyle.css" BorderPane.alignment="CENTER">
+    <VBox style="-fx-background-color: #012D5A;" styleClass="form" stylesheets="@style/KioskStyle.css" BorderPane.alignment="CENTER">
       <children>
         <VBox id="heading" alignment="CENTER" stylesheets="@style/KioskStyle.css">
           <children>
-            <Label style="-fx-font-size: 60;" text="Emergency Message">
+            <Label style="-fx-font-size: 60; -fx-font-weight: bold; -fx-text-fill: white;" text="Emergency Message">
               <VBox.margin>
                 <Insets left="20.0" right="20.0" />
+              </VBox.margin>
+            </Label>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="5.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: #f6bd38;" width="600.0" />
+            <Label style="-fx-text-fill: white; -fx-font-size: 25;" text="This message will be sent to all Employees">
+              <VBox.margin>
+                <Insets top="25.0" />
               </VBox.margin>
             </Label>
           </children>
@@ -38,7 +45,7 @@
                 <Insets right="10.0" />
               </GridPane.margin>
             </JFXTextField>
-            <Label text="Message:" GridPane.halignment="LEFT">
+            <Label style="-fx-text-fill: white;" text="Message:" GridPane.halignment="LEFT">
               <GridPane.margin>
                 <Insets left="10.0" />
               </GridPane.margin>
@@ -48,12 +55,12 @@
             </Label>
           </children>
           <VBox.margin>
-            <Insets top="40.0" />
+            <Insets top="15.0" />
           </VBox.margin>
         </GridPane>
         <VBox alignment="CENTER">
           <children>
-            <JFXButton id="small-button" fx:id="submitbtn" buttonType="RAISED" minHeight="80.0" minWidth="100.0" onAction="#submitOnAction" text="Send SMS">
+            <JFXButton id="small-button" fx:id="submitbtn" buttonType="RAISED" minHeight="80.0" minWidth="100.0" onAction="#submitOnAction" stylesheets="@style/KioskStyle.css" text="Send SMS">
               <font>
                 <Font size="28.0" />
               </font>

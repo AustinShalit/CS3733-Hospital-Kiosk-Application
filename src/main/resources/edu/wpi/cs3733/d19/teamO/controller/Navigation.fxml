@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -20,7 +21,7 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import com.jfoenix.controls.JFXCheckBox?>
-<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.NavigationController">
+<BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.NavigationController">
   <left>
     <StackPane style="-fx-background-color: rgba(1, 46, 90, 0.9);">
       <VBox fx:id="sidebar" alignment="TOP_CENTER" prefWidth="323.0" spacing="10.0">
@@ -28,7 +29,7 @@
           <Insets bottom="16.0" left="16.0" right="16.0" top="32.0" />
         </padding>
         <children>
-          <HBox prefHeight="100.0" spacing="4.0" alignment="CENTER_RIGHT">
+          <HBox alignment="CENTER_RIGHT" prefHeight="100.0" spacing="4.0">
             <children>
               <VBox spacing="20.0">
                 <children>
@@ -60,7 +61,7 @@
 
             <JFXButton id="swapbtn" fx:id="reverseButton" maxWidth="46.0" mnemonicParsing="false" onAction="#reverseOnAction" prefHeight="20.0" prefWidth="20.0">
               <graphic>
-                <FontAwesomeIconView glyphName="RANDOM" fill="#f6bd38" />
+                <FontAwesomeIconView fill="#f6bd38" glyphName="RANDOM" />
               </graphic>
             </JFXButton>
           </HBox>
@@ -135,14 +136,14 @@
 
           <Rectangle fill="#f6bd38" height="2.0" strokeWidth="0.0" width="150.0" />
 
-          <HBox alignment="CENTER" prefWidth="323.0" spacing="20.0">
+          <HBox alignment="BOTTOM_CENTER" prefWidth="323.0" spacing="20.0">
             <children>
               <JFXButton id="small-button" fx:id="aboutButton" minWidth="154.0" onAction="#onAboutButtonAction" prefHeight="48.0" style="-jfx-button-type: RAISED;" text="About Page">
                 <font>
                   <Font name="System Bold" size="18.0" />
                 </font>
               </JFXButton>
-              <JFXButton id="small-button" minWidth="150.0" prefHeight="48.0" style="-jfx-button-type: RAISED;" text="Credit" />
+              <JFXButton id="small-button" fx:id="creditButton" minWidth="150.0" onAction="#onCreditButtonAction" prefHeight="48.0" style="-jfx-button-type: RAISED;" text="Credit" />
             </children>
             <VBox.margin>
               <Insets top="12.0" />

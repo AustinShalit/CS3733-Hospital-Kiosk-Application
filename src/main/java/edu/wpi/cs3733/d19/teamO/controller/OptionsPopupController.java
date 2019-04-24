@@ -23,6 +23,8 @@ public class OptionsPopupController implements Controller {
   private Label editEmp;
   @FXML
   private Label editMap;
+  @FXML
+  private Label emergency;
 
   @Inject
   private EventBus eventBus;
@@ -35,28 +37,35 @@ public class OptionsPopupController implements Controller {
   @Inject
   private FireAlarmController.Factory fireAlarmControllerFactory;
   @Inject
+  private SmsController.Factory smsControllerFactory;
+  @Inject
   private GlobalState globalState;
 
   private JFXPopup settingsPopup;
+  private JFXPopup emergencyPopup;
 
   @FXML
   void initialize() {
     settingsPopup = new JFXPopup(settingsControllerFactory.create().root);
+    emergencyPopup = new JFXPopup(smsControllerFactory.create().root);
     globalState.loggedInEmployeeProperty().addListener((observable, oldValue, newValue) -> {
       if (newValue != null) {
         if (newValue.getEmployeeAttributes().getEmployeeType()
             == Employee.EmployeeType.ADMIN
             && list.getItems().contains(editEmp) && list.getItems().contains(editMap)) {
           System.out.println("Logged in");
+          list.setMaxHeight(300.0);
         } else if (newValue.getEmployeeAttributes().getEmployeeType()
             == Employee.EmployeeType.ADMIN) {
           list.getItems().add(editEmp);
           list.getItems().add(editMap);
-          list.setMaxHeight(162.0);
+          list.getItems().add(emergency);
+          list.setMaxHeight(300.0);
         } else {
           list.getItems().remove(editEmp);
           list.getItems().remove(editMap);
-          list.setMaxHeight(86.0);
+          list.getItems().remove(emergency);
+          list.setMaxHeight(80.0);
         }
       }
     });
@@ -73,8 +82,8 @@ public class OptionsPopupController implements Controller {
     settingsPopup.show(list,
         JFXPopup.PopupVPosition.TOP,
         JFXPopup.PopupHPosition.RIGHT,
-        -12,
-        15);
+        0,
+        0);
   }
 
   @FXML
@@ -93,6 +102,16 @@ public class OptionsPopupController implements Controller {
   void fireAction(MouseEvent event) {
     event.consume();
     eventBus.post(new ChangeMainViewEvent(fireAlarmControllerFactory.create()));
+  }
+
+  @FXML
+  void emergencyAction(MouseEvent event) {
+    event.consume();
+    emergencyPopup.show(list,
+        JFXPopup.PopupVPosition.TOP,
+        JFXPopup.PopupHPosition.RIGHT,
+        0,
+        0);
   }
 
   @Override

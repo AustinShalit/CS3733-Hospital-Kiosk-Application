@@ -72,6 +72,8 @@ public class NavigationController implements Controller {
   @FXML
   JFXButton aboutButton;
   @FXML
+  JFXButton creditButton;
+  @FXML
   ScrollPane instructionPane;
   @FXML
   FlowPane buttonPane;
@@ -79,6 +81,7 @@ public class NavigationController implements Controller {
   JFXButton reverseButton;
   @FXML
   JFXCheckBox rasPICheck;
+
 
   private StepByStep stepByStep;
   private LEDModel ledModel;
@@ -90,8 +93,12 @@ public class NavigationController implements Controller {
   private Database database;
   @Inject
   private AboutController.Factory aboutControllerFactory;
+  @Inject
+  private CreditController.Factory creditControllerFactory;
 
   private JFXPopup aboutPopup;
+  private JFXPopup creditPopup;
+
 
   @FXML
   @SuppressWarnings("PMD.ExcessiveMethodLength")
@@ -110,6 +117,14 @@ public class NavigationController implements Controller {
         object -> ((Node) object).getNodeType() != Node.NodeType.HALL
             && !((Node) object).getFloor().equals("5")
     );
+
+    creditPopup = new JFXPopup(creditControllerFactory.create().root);
+    creditPopup.setOnAutoHide(
+        event -> {
+          ColorAdjust reset = new ColorAdjust();
+          reset.setBrightness(0);
+          root.setEffect(reset);
+        });
 
     map.fire = false;
 
@@ -263,6 +278,20 @@ public class NavigationController implements Controller {
     );
     aboutPopup.setY(
         (getRoot().getScene().getHeight() - aboutPopup.getHeight()) / 2
+    );
+  }
+
+  @FXML
+  void onCreditButtonAction() {
+    ColorAdjust colorAdjust = new ColorAdjust();
+    colorAdjust.setBrightness(-0.2);
+    root.setEffect(colorAdjust);
+    creditPopup.show(getRoot());
+    creditPopup.setX(
+        (getRoot().getScene().getWidth() - creditPopup.getWidth()) / 2
+    );
+    creditPopup.setY(
+        (getRoot().getScene().getHeight() - creditPopup.getHeight()) / 2
     );
   }
 

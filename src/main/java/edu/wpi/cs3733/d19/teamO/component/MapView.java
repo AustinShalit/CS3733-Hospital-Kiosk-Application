@@ -254,7 +254,8 @@ public class MapView extends StackPane {
           Point2D pointOnMap = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
               .orElse(gesturePane.targetPointAtViewportCentre());
           zoomLabel();
-          if (e.isControlDown()) {
+          if (e.getEventType() != MouseEvent.DRAG_DETECTED
+              && e.isStillSincePress()) {
             int currentX = (int) pointOnMap.getX();
             int currentY = (int) pointOnMap.getY();
             double min = 9999;
