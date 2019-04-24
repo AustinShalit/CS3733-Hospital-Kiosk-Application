@@ -64,6 +64,15 @@
     -fx-border-width: 0;
 }
 
+#map-button {
+    -fx-background-color: #0067B1;
+}
+
+#map-button:hover {
+    -fx-background-color: #004E86;
+    -fx-border-width: 0;
+}
+
 #login-button {
     -fx-background-color: #0067B1;
     -fx-font-weight: bold;
@@ -169,6 +178,18 @@
 .main-toolbar {
     -fx-background-color: #F1F1F1;
     -fx-max-height: 50px;
+}
+
+.jfx-check-box {
+    -fx-font-size: 20px;
+    -fx-text-fill: WHITE;
+    -fx-font-weight: BOLD;
+    -jfx-checked-color: #0067B1;
+    -jfx-unchecked-color: #0067B1;
+}
+
+.jfx-check-box .mark {
+    -fx-border-color: #F6BD38;
 }
 
 .home-btn {

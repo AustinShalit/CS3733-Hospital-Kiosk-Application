@@ -19,6 +19,8 @@
 <?import edu.wpi.cs3733.d19.teamO.component.MapView?>
 <?import edu.wpi.cs3733.d19.teamO.component.FuzzyWuzzyComboBox?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import com.jfoenix.controls.JFXCheckBox?>
 <BorderPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.NavigationController">
   <left>
     <StackPane style="-fx-background-color: rgba(1, 46, 90, 0.9);">
@@ -63,6 +65,7 @@
               </graphic>
             </JFXButton>
           </HBox>
+          <JFXCheckBox fx:id="rasPICheck" text="Illuminate Path" />
 
           <JFXButton id="gobtn" fx:id="goButton" onAction="#onGoButtonAction" prefHeight="40.0" prefWidth="294.0" style="-fx-font-weight: BOLD;" text="GO" textFill="WHITE">
             <font>

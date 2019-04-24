@@ -24,6 +24,10 @@ reckon {
     snapshotFromProp()
 }
 
+repositories {
+    mavenCentral()
+    jcenter()
+}
 allprojects {
     apply {
         plugin("java")
@@ -37,12 +41,20 @@ allprojects {
     repositories {
         mavenCentral()
         jcenter()
+        maven("http://first.wpi.edu/FRC/roborio/maven/release")
         maven {
             url = uri("https://ravana.dyn.wpi.edu/maven")
         }
     }
 
     dependencies {
+        runtimeOnly(group = "edu.wpi.first.ntcore", name = "ntcore-jni", version = "2019.+", classifier = "osxx86-64")
+        runtimeOnly(group = "edu.wpi.first.ntcore", name = "ntcore-jni", version = "2019.+", classifier = "windowsx86-64")
+        runtimeOnly(group = "edu.wpi.first.ntcore", name = "ntcore-jni", version = "2019.+", classifier = "windowsx86")
+        runtimeOnly(group = "edu.wpi.first.ntcore", name = "ntcore-jni", version = "2019.+", classifier = "linuxx86-64")
+
+        implementation(group = "edu.wpi.first.wpiutil", name = "wpiutil-java", version = "2019.+")
+
         implementation(group = "javax.measure", name = "unit-api", version = "1.0")
         implementation(group = "com.calendarfx", name = "view", version = "8.5.0")
         implementation(group = "com.google.code.gson", name = "gson", version = "2.8.5")
@@ -60,13 +72,15 @@ allprojects {
         implementation(group = "org.controlsfx", name = "controlsfx", version = "8.40.14")
         implementation(group = "org.fxmisc.easybind", name = "easybind", version = "1.0.3")
         implementation(group = "me.xdrop", name = "fuzzywuzzy", version = "1.2.0")
+        implementation(group = "javax.measure", name = "unit-api", version = "1.0")
         implementation(group = "com.twilio.sdk", name = "twilio", version = "7.37.2")
         implementation(group = "si.uom", name = "si-units", version = "0.9")
         implementation(group = "systems.uom", name = "systems-common", version = "0.9")
         implementation(group = "edu.wpi.cs3733.d19.teamG", name = "TeamGFloral", version = "1.0.1")
         implementation(group = "edu.wpi.cs3733.d19.teamO", name = "DominosRequest", version = "1.0.3")
+        implementation(group = "edu.wpi.first.ntcore", name = "ntcore-java", version = "2019.1.1")
 
-        compile(fileTree("libs"))
+            compile(fileTree("libs"))
 
         fun derby(name: String, version: String = "10.14.2.0") =
                 create(group = "org.apache.derby", name = name, version = version)
