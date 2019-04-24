@@ -64,7 +64,7 @@
               </graphic>
             </JFXButton>
           </HBox>
-            <JFXCheckBox fx:id="rasPICheck" text="Illuminate Path" />
+          <JFXCheckBox fx:id="rasPICheck" text="Illuminate Path" />
 
           <JFXButton id="gobtn" fx:id="goButton" onAction="#onGoButtonAction" prefHeight="40.0" prefWidth="294.0" style="-fx-font-weight: BOLD;" text="GO" textFill="WHITE">
             <font>

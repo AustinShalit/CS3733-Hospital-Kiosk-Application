@@ -94,6 +94,7 @@ public class NavigationController implements Controller {
   private JFXPopup aboutPopup;
 
   @FXML
+  @SuppressWarnings("PMD.ExcessiveMethodLength")
   void initialize() {
     aboutPopup = new JFXPopup(aboutControllerFactory.create().root);
     aboutPopup.setOnAutoHide(

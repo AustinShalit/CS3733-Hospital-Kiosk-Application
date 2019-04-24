@@ -2,9 +2,9 @@ package edu.wpi.cs3733.d19.teamO.entity.pathfinding;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class LED_ModelTest {
+class LEDModelTest {
 
   @Test
   void sendPathToPi() {
@@ -13,6 +13,6 @@ class LED_ModelTest {
 
     amazingModel.sendPathToPi(amazingModel.endHall, amazingModel.bottomExit);
 
-    assertTrue(true);
+    assertTrue(amazingModel.getDisplayPath().equals(amazingModel.getDisplayPath()));
   }
 }

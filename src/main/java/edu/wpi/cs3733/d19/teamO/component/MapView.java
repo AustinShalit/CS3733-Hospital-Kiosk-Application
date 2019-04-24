@@ -78,7 +78,7 @@ public class MapView extends StackPane {
   @FXML
   Label coordY;
 
-  private boolean rasPI = false;
+  private boolean rasPI;
 
   private final SimpleObjectProperty<Node> nodeClicked = new SimpleObjectProperty<>();
   private final SimpleObjectProperty<Node> nodeFrom = new SimpleObjectProperty<>();

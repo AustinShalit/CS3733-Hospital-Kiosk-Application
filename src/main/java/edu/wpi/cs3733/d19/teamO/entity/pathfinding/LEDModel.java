@@ -13,44 +13,46 @@ import edu.wpi.cs3733.d19.teamO.entity.Node;
 import edu.wpi.first.networktables.ConnectionNotification;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
+@SuppressWarnings({"PMD.TooManyFields", "PMD.SingularField"})
 public class LEDModel {
-  public Node endHall;
-  private Node elevatorHallDoor;
-  private Node topElevator;
-  private Node topExit;
-  private Node topStair;
-  private Node bathroom;
-  private Node hallToRooms;
-  private Node hallNearRooms;
-  private Node shapiro;
-  private Node zinner;
-  private Node lowerElevator;
-  private Node bottomStair;
-  private Node bottomElevator;
-  public  Node bottomExit;
-  private Edge longHall;
-  private Edge toTopElev;
-  private Edge toTopElevHall;
-  private Edge toTopStair;
-  private Edge toBathroom;
-  private Edge toRoomHall;
-  private Edge toNearRooms;
-  private Edge toShapiro;
-  private Edge toZinner;
-  private Edge toLowerElev;
-  private Edge stairs;
-  private Edge elevator;
-  private Edge toBottomElev;
-  private Edge toBottomStair;
-  private Edge toBottomExit;
-  private ArrayList<Node> allNodes;
-  private ArrayList<Edge> allEdges;
-  private MutableGraph<Node> graph;
+  public final Node endHall;
+  private final Node elevatorHallDoor;
+  private final Node topElevator;
+  private final Node topExit;
+  private final Node topStair;
+  private final Node bathroom;
+  private final Node hallToRooms;
+  private final Node hallNearRooms;
+  private final Node shapiro;
+  private final Node zinner;
+  private final Node lowerElevator;
+  private final Node bottomStair;
+  private final Node bottomElevator;
+  public final Node bottomExit;
+  private final Edge longHall;
+  private final Edge toTopElev;
+  private final Edge toTopElevHall;
+  private final Edge toTopStair;
+  private final Edge toBathroom;
+  private final Edge toRoomHall;
+  private final Edge toNearRooms;
+  private final Edge toShapiro;
+  private final Edge toZinner;
+  private final Edge toLowerElev;
+  private final Edge stairs;
+  private final Edge elevator;
+  private final Edge toBottomElev;
+  //private Edge toBottomStair;
+  private final Edge toBottomExit;
+  private final List<Node> allNodes;
+  private final List<Edge> allEdges;
+  private final MutableGraph<Node> graph;
   private List<Node> displayPath;
 
   /**
    * Constructor for LEDModel class.
    */
+  @SuppressWarnings({"PMD.ExcessiveMethodLength", "PMD.AvoidUsingHardCodedIP"})
   public LEDModel() {
     this.endHall = new Node("GHALL02801", 1270, 1830, "1",
         "Shapiro", Node.NodeType.HALL, "Hallway MapNode 28 Floor 1", "Hall");
@@ -148,15 +150,22 @@ public class LEDModel {
 
     try {
       Thread.sleep(1000);
-    } catch (Exception exception) {
+    } catch (InterruptedException exception) {
+      exception.printStackTrace();
     }
-    System.out.println("Connection status after 5000ms: " + (instance.isConnected() ? "true" : "false"));
+    System.out.println("Connection status after 5000ms: "
+        + (instance.isConnected() ? "true" : "false"));
   }
 
-  public ArrayList<Node> getAllNodes() {
+  public List<Node> getAllNodes() {
     return allNodes;
   }
 
+  /**
+   * Sends path to RaspberryPi to light up.
+   * @param startNode The node the path starts at.
+   * @param endNode The node the path ends at.
+   */
   public void sendPathToPi(Node startNode, Node endNode) {
     System.out.println("MUST be done initializing by now");
     BreadthFirstSearchAlgorithm bfs = new BreadthFirstSearchAlgorithm();
@@ -176,16 +185,25 @@ public class LEDModel {
     return displayPath;
   }
 
+  /**
+   * Gets the list of pins.
+   * @param nodes The nodes in a path.
+   * @return A list of pins.
+   */
   public double[] getListPins(List<Node> nodes) {
     ArrayList<Double> pins = new ArrayList<>();
 
     ArrayList<Edge> edges = new ArrayList<>();
 
-    for (int i = 0; i < nodes.size() -1 ; i++) {
+    for (int i = 0; i < nodes.size() - 1 ; i++) {
       for (Edge edge: allEdges) {
-        if (nodes.get(i).equals(edge.getStartNode()) && nodes.get(i+1).equals(edge.getEndNode())) {
+        if (nodes.get(i).equals(edge.getStartNode())
+            && nodes.get(i + 1).equals(edge.getEndNode())) {
+
           edges.add(edge);
-        } else if (nodes.get(i).equals(edge.getEndNode()) && nodes.get(i+1).equals(edge.getStartNode())) {
+        } else if (nodes.get(i).equals(edge.getEndNode())
+            && nodes.get(i + 1).equals(edge.getStartNode())) {
+
           edges.add(edge);
         }
       }
@@ -201,7 +219,8 @@ public class LEDModel {
     return pins.stream().mapToDouble(i -> i).toArray();
   }
 
-  private double edgeToPin(Edge edge){
+  @SuppressWarnings("PMD.CyclomaticComplexity")
+  private double edgeToPin(Edge edge) {
 
     if (edge.equals(toTopStair)) {
       return 4;
