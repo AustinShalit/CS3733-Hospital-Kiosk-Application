@@ -18,14 +18,14 @@
       <center>
         <VBox styleClass="form" BorderPane.alignment="CENTER">
           <children>
-                  <Label id="heading" fx:id="titleLabel" alignment="CENTER" text="Employee Management">
-                     <font>
-                        <Font name="System Bold" size="36.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                  </Label>
+            <Label id="heading" fx:id="titleLabel" alignment="CENTER" text="Employee Management">
+              <font>
+                <Font name="System Bold" size="36.0" />
+              </font>
+              <VBox.margin>
+                <Insets top="10.0" />
+              </VBox.margin>
+            </Label>
             <TableView fx:id="employeeTableView" prefHeight="600.0" prefWidth="1350.0">
               <columns>
                 <TableColumn fx:id="nameCol" prefWidth="167.00003051757812" text="Name" />
@@ -34,9 +34,9 @@
                 <TableColumn fx:id="positionCol" prefWidth="239.0" text="Position" />
                 <TableColumn fx:id="phoneCol" prefWidth="278.0" text="Phone Number" />
               </columns>
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
+              <VBox.margin>
+                <Insets top="10.0" />
+              </VBox.margin>
             </TableView>
             <GridPane id="requestbuttons" prefWidth="1070.0">
               <columnConstraints>
@@ -55,14 +55,14 @@
                 <JFXButton id="table-button" fx:id="delEmpButton" onAction="#delEmpOnAction" text="Delete Employee" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowSpan="2" />
                 <JFXButton id="table-button" fx:id="updateEmpButton" onAction="#updateEmpOnAction" text="Update Employee" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowSpan="2" />
               </children>
-                     <VBox.margin>
-                        <Insets bottom="10.0" top="20.0" />
-                     </VBox.margin>
+              <VBox.margin>
+                <Insets bottom="10.0" top="20.0" />
+              </VBox.margin>
             </GridPane>
           </children>
-               <BorderPane.margin>
-                  <Insets bottom="10.0" left="80.0" right="10.0" top="10.0" />
-               </BorderPane.margin>
+          <BorderPane.margin>
+            <Insets bottom="10.0" left="80.0" right="10.0" top="10.0" />
+          </BorderPane.margin>
         </VBox>
       </center>
     </BorderPane>
