@@ -42,7 +42,6 @@ public class LEDModel {
   private final Edge stairs;
   private final Edge elevator;
   private final Edge toBottomElev;
-  //private Edge toBottomStair;
   private final Edge toBottomExit;
   private final List<Node> allNodes;
   private final List<Edge> allEdges;
