@@ -1,115 +1,209 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@style/KioskStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d19.teamO.controller.AboutController">
-  <center>
-    <VBox alignment="CENTER" stylesheets="@style/KioskStyle.css" BorderPane.alignment="CENTER">
-      <children>
-        <Text fx:id="aboutPage" strokeType="OUTSIDE" strokeWidth="0.0" text="About Page" textAlignment="CENTER" wrappingWidth="600.2080078125">
-          <font>
-            <Font size="70.0" />
-          </font>
-        </Text>
-        <Text fx:id="compSci" strokeType="OUTSIDE" strokeWidth="0.0" text="WPI Computer Science Department" textAlignment="CENTER" wrappingWidth="603.0400390625">
-          <font>
-            <Font size="26.0" />
-          </font>
-        </Text>
-        <Text fx:id="softEngCourse" strokeType="OUTSIDE" strokeWidth="0.0" text="CS3733-D19 Software Engineering" textAlignment="CENTER" wrappingWidth="600.205078125">
-          <font>
-            <Font size="26.0" />
-          </font>
-          <VBox.margin>
-            <Insets bottom="20.0" />
-          </VBox.margin>
-        </Text>
-        <Text fx:id="profWong" strokeType="OUTSIDE" strokeWidth="0.0" text="Professor Wilson Wong" textAlignment="CENTER" wrappingWidth="600.205078125">
-          <font>
-            <Font size="26.0" />
-          </font>
-          <VBox.margin>
-            <Insets bottom="20.0" />
-          </VBox.margin>
-        </Text>
-        <Text fx:id="teamMem" strokeType="OUTSIDE" strokeWidth="0.0" text="Team Onyx Owlmen:" textAlignment="CENTER" underline="true" wrappingWidth="600.205078125">
-          <font>
-            <Font size="50.0" />
-          </font>
-        </Text>
-        <VBox alignment="CENTER" maxHeight="340.0" maxWidth="870.0" stylesheets="@style/KioskStyle.css">
-          <children>
-            <Text fx:id="danD" strokeType="OUTSIDE" strokeWidth="0.0" text="Team Coach: Dan Duff" textAlignment="CENTER" wrappingWidth="599.205078125">
+   <center>
+      <HBox BorderPane.alignment="CENTER">
+         <children>
+            <VBox HBox.hgrow="ALWAYS">
+               <children>
+                  <VBox VBox.vgrow="ALWAYS">
+                     <children>
+                    <Text fx:id="aboutPage" strokeType="OUTSIDE" strokeWidth="0.0" text="About Page" textAlignment="CENTER" wrappingWidth="1470.2080078125">
+                      <font>
+                        <Font size="70.0" />
+                      </font>
+                    </Text>
+                    <Text fx:id="compSci" strokeType="OUTSIDE" strokeWidth="0.0" text="WPI Computer Science Department" textAlignment="CENTER" wrappingWidth="1532.0400390625">
+                      <font>
+                        <Font size="26.0" />
+                      </font>
+                    </Text>
+                    <Text fx:id="softEngCourse" strokeType="OUTSIDE" strokeWidth="0.0" text="CS3733-D19 Software Engineering" textAlignment="CENTER" wrappingWidth="1533.205078125">
+                      <font>
+                        <Font size="26.0" />
+                      </font>
+                    </Text>
+                    <Text fx:id="profWong" strokeType="OUTSIDE" strokeWidth="0.0" text="Professor Wilson Wong" textAlignment="CENTER" wrappingWidth="1533.205078125">
+                      <font>
+                        <Font size="26.0" />
+                      </font>
+                    </Text>
+                    <Text fx:id="teamMem" strokeType="OUTSIDE" strokeWidth="0.0" text="Team Onyx Owlmen:" textAlignment="CENTER" underline="true" wrappingWidth="1535.205078125">
+                      <font>
+                        <Font size="50.0" />
+                      </font>
+                    </Text>
+                  <Text fx:id="danD" strokeType="OUTSIDE" strokeWidth="0.0" text="Team Coach: Dan Duff" textAlignment="CENTER" wrappingWidth="1537.205078125">
+                    <font>
+                      <Font size="26.0" />
+                    </font>
+                  </Text>
+                     </children>
+                  </VBox>
+                  <HBox VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox HBox.hgrow="ALWAYS">
+                           <children>
+                              <Text fx:id="assistLead1" strokeType="OUTSIDE" strokeWidth="0.0" text="Lead Software Engineer" textAlignment="CENTER" wrappingWidth="1536.275390625">
+                                 <font>
+                                    <Font size="26.0" />
+                                 </font>
+                              </Text>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Austin Shalit" wrappingWidth="1534.705078125" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <VBox VBox.vgrow="ALWAYS">
+                     <children>
+                  <Text fx:id="assistLead" strokeType="OUTSIDE" strokeWidth="0.0" text="Assistant Lead Software Engineers" textAlignment="CENTER" wrappingWidth="1539.275390625">
+                    <font>
+                      <Font size="26.0" />
+                    </font>
+                  </Text>
+                        <HBox VBox.vgrow="ALWAYS">
+                           <children>
+                              <VBox HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ken Morton" />
+                                 </children>
+                              </VBox>
+                              <VBox HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Dev Patel" />
+                                 </children>
+                              </VBox>
+                              <VBox HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Jyan Claude Zarate" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+            <Text fx:id="softEng" strokeType="OUTSIDE" strokeWidth="0.0" text="Software Engineers" textAlignment="CENTER" wrappingWidth="1540.7421875">
               <font>
                 <Font size="26.0" />
               </font>
             </Text>
-            <Text fx:id="leadS" strokeType="OUTSIDE" strokeWidth="0.0" text="Lead Software Engineer: Austin Shalit" textAlignment="CENTER" wrappingWidth="601.275390625">
-              <font>
-                <Font size="26.0" />
-              </font>
-            </Text>
-            <Text fx:id="assistLead" strokeType="OUTSIDE" strokeWidth="0.0" text="Assistant Lead Software Engineers: Kenneth Morton, Dev Patel, Jyan Zarate" textAlignment="CENTER" wrappingWidth="870.275390625">
-              <font>
-                <Font size="26.0" />
-              </font>
-            </Text>
-            <Text fx:id="softEng" strokeType="OUTSIDE" strokeWidth="0.0" text="Software Engineers: Jack Yan, Bailey Schmidt, Peter Prygocki" textAlignment="CENTER" wrappingWidth="600.7421875">
-              <font>
-                <Font size="26.0" />
-              </font>
-            </Text>
-            <Text fx:id="projMan" strokeType="OUTSIDE" strokeWidth="0.0" text="Project Manager : Amelia Nishimura" textAlignment="CENTER" wrappingWidth="601.275390625">
-              <font>
-                <Font size="26.0" />
-              </font>
-            </Text>
-            <Text fx:id="scrumMaster" strokeType="OUTSIDE" strokeWidth="0.0" text="Scrum Master: Alexandria Nogueras" textAlignment="CENTER" wrappingWidth="599.58984375">
-              <font>
-                <Font size="26.0" />
-              </font>
-            </Text>
-            <Text fx:id="testEng" strokeType="OUTSIDE" strokeWidth="0.0" text="Test Engineer: Sam Johnson" textAlignment="CENTER" wrappingWidth="600.66796875">
-              <font>
-                <Font size="26.0" />
-              </font>
-            </Text>
-            <Text fx:id="prodOwn" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Owner: Jyan Zarate" textAlignment="CENTER" wrappingWidth="600.296875">
-              <font>
-                <Font size="26.0" />
-              </font>
-            </Text>
-            <Text fx:id="docAnalyst" strokeType="OUTSIDE" strokeWidth="0.0" text="Documentation Analyst: Lynn Song" textAlignment="CENTER" wrappingWidth="602.1298828125">
-              <font>
-                <Font size="26.0" />
-              </font>
-              <VBox.margin>
-                <Insets bottom="20.0" />
-              </VBox.margin>
-            </Text>
-          </children>
-          <VBox.margin>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-          </VBox.margin>
-        </VBox>
-        <Text fx:id="thankYou" strokeType="OUTSIDE" strokeWidth="0.0" text="Thank you Brigham and Women's Faulkner Hospital and the representative, Andrew Shinn, for your time and input. " textAlignment="CENTER" wrappingWidth="701.2578125">
-          <font>
-            <Font size="26.0" />
-          </font>
-        </Text>
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="The Brigham &amp; Women’s Hospital maps and data used in this application are copyrighted and provided for the sole use of educational purposes." textAlignment="CENTER" wrappingWidth="670.93017578125">
-          <VBox.margin>
-            <Insets top="10.0" />
-          </VBox.margin>
-          <font>
-            <Font size="18.0" />
-          </font>
-        </Text>
-      </children>
-    </VBox>
-  </center>
+                  <HBox VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox>
+                           <children>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Jack Yan" />
+                           </children>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Peter Prygocki" />
+                           </children>
+                        </VBox>
+                        <VBox>
+                           <children>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Bailey Schmidt" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox HBox.hgrow="ALWAYS">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Test Engineer">
+                                 <font>
+                                    <Font size="26.0" />
+                                 </font>
+                              </Text>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sam Johnson" />
+                           </children>
+                        </VBox>
+                        <VBox HBox.hgrow="ALWAYS">
+                           <children>
+                        <Text fx:id="projMan" strokeType="OUTSIDE" strokeWidth="0.0" text="Project Manager" textAlignment="CENTER" wrappingWidth="601.275390625">
+                          <font>
+                            <Font size="26.0" />
+                          </font>
+                        </Text>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Amelia Nishimura" />
+                           </children>
+                        </VBox>
+                        <VBox HBox.hgrow="ALWAYS">
+                           <children>
+                        <Text fx:id="scrumMaster" strokeType="OUTSIDE" strokeWidth="0.0" text="Scrum Master" textAlignment="CENTER" wrappingWidth="599.58984375">
+                          <font>
+                            <Font size="26.0" />
+                          </font>
+                        </Text>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Alexandria Nogueras" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox HBox.hgrow="ALWAYS">
+                           <children>
+                        <Text fx:id="prodOwn" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Owner" textAlignment="CENTER" wrappingWidth="600.296875">
+                          <font>
+                            <Font size="26.0" />
+                          </font>
+                        </Text>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Jyan Zarate" />
+                           </children>
+                        </VBox>
+                        <VBox HBox.hgrow="ALWAYS">
+                           <children>
+                        <Text fx:id="docAnalyst" strokeType="OUTSIDE" strokeWidth="0.0" text="Documentation Analyst: Lynn Song" textAlignment="CENTER" wrappingWidth="602.1298828125">
+                          <font>
+                            <Font size="26.0" />
+                          </font>
+                        </Text>
+                              <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Lynn Song" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <VBox>
+                     <children>
+                    <Text fx:id="thankYou" strokeType="OUTSIDE" strokeWidth="0.0" text="Thank you Brigham and Women's Faulkner Hospital and the representative, Andrew Shinn, for your time and input. " textAlignment="CENTER" wrappingWidth="701.2578125">
+                      <font>
+                        <Font size="26.0" />
+                      </font>
+                    </Text>
+                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="The Brigham &amp; Women’s Hospital maps and data used in this application are copyrighted and provided for the sole use of educational purposes." textAlignment="CENTER" wrappingWidth="670.93017578125">
+                      <VBox.margin>
+                        <Insets top="10.0" />
+                      </VBox.margin>
+                      <font>
+                        <Font size="18.0" />
+                      </font>
+                    </Text>
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </center>
 </BorderPane>
