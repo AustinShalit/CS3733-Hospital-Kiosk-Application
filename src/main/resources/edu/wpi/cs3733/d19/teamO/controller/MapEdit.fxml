@@ -33,7 +33,7 @@
               <Font size="15.0" />
             </font>
           </Label>
-          <JFXTextField fx:id="nodeIDField" editable="false" onKeyReleased="#validateButton" prefHeight="25.0" text="Auto-Generated" style="-jfx-focus-color: #f6bd38;">
+          <JFXTextField fx:id="nodeIDField" editable="false" onKeyReleased="#validateButton"  minHeight="35.0" text="Auto-Generated" style="-jfx-focus-color: #f6bd38;">
             <VBox.margin>
               <Insets left="4.0" bottom="8.0" />
             </VBox.margin>
@@ -49,7 +49,7 @@
                   <Font size="15.0" />
                 </font>
               </Text>
-              <JFXTextField onAction="#onEnter" onKeyReleased="#validateButton" prefHeight="25.0" fx:id="xcoordField" style="-jfx-focus-color: #f6bd38; -fx-min-width: 0.0;">
+              <JFXTextField onAction="#onEnter" onKeyReleased="#validateButton"  minHeight="35.0" fx:id="xcoordField" style="-jfx-focus-color: #f6bd38; -fx-min-width: 0.0;">
                 <VBox.margin>
                   <Insets left="4.0" />
                 </VBox.margin>
@@ -62,7 +62,7 @@
                   <Font size="15.0" />
                 </font>
               </Text>
-              <JFXTextField fx:id="ycoordField" onAction="#onEnter" onKeyReleased="#validateButton" prefHeight="25.0" style="-jfx-focus-color: #f6bd38; -fx-min-width: 0.0;">
+              <JFXTextField fx:id="ycoordField" onAction="#onEnter" onKeyReleased="#validateButton"  minHeight="35.0" style="-jfx-focus-color: #f6bd38; -fx-min-width: 0.0;">
                 <VBox.margin>
                   <Insets left="4.0" />
                 </VBox.margin>
@@ -78,7 +78,7 @@
               <Font size="15.0" />
             </font>
           </Text>
-          <JFXTextField fx:id="floorField" onKeyReleased="#validateButton" prefHeight="25.0" style="-jfx-focus-color: #f6bd38;">
+          <JFXTextField fx:id="floorField" onKeyReleased="#validateButton"  minHeight="35.0" style="-jfx-focus-color: #f6bd38;">
             <VBox.margin>
               <Insets left="4.0" bottom="8.0" />
             </VBox.margin>
@@ -89,7 +89,7 @@
               <Font size="15.0" />
             </font>
           </Text>
-          <JFXTextField fx:id="buildingField" onKeyReleased="#validateButton" prefHeight="25.0" style="-jfx-focus-color: #f6bd38;">
+          <JFXTextField fx:id="buildingField" onKeyReleased="#validateButton" minHeight="35.0" style="-jfx-focus-color: #f6bd38;">
             <VBox.margin>
               <Insets left="4.0" bottom="8.0" />
             </VBox.margin>
@@ -100,7 +100,7 @@
               <Font size="15.0" />
             </font>
           </Text>
-          <JFXComboBox fx:id="nodeTypeComboBox" focusColor="#f6bd38" onMouseExited="#validateButton" prefHeight="35.0" style="-jfx-focus-color: #f6bd38; -fx-background-color: white">
+          <JFXComboBox fx:id="nodeTypeComboBox" focusColor="#f6bd38" onMouseExited="#validateButton"  minHeight="35.0" style="-jfx-focus-color: #f6bd38; -fx-background-color: white">
             <VBox.margin>
               <Insets left="4.0" bottom="8.0" />
             </VBox.margin>
@@ -111,7 +111,7 @@
               <Font size="15.0" />
             </font>
           </Text>
-          <JFXTextField fx:id="shortNameField" onKeyReleased="#validateButton" prefHeight="25.0" style="-jfx-focus-color: #f6bd38;">
+          <JFXTextField fx:id="shortNameField" onKeyReleased="#validateButton" minHeight="35.0" style="-jfx-focus-color: #f6bd38;">
             <VBox.margin>
               <Insets left="4.0" bottom="8.0" />
             </VBox.margin>
@@ -122,7 +122,7 @@
               <Font size="15.0" />
             </font>
           </Text>
-          <JFXTextField fx:id="longNameField" onKeyReleased="#validateButton" prefHeight="25.0" style="-jfx-focus-color: #f6bd38;">
+          <JFXTextField fx:id="longNameField" onKeyReleased="#validateButton" minHeight="35.0" style="-jfx-focus-color: #f6bd38;">
             <VBox.margin>
               <Insets left="4.0" bottom="8.0" />
             </VBox.margin>
@@ -164,18 +164,18 @@
                 <Font name="System Bold" size="15.0" />
               </font>
               <VBox.margin>
-                <Insets bottom="12.0"/>
+                <Insets bottom="16.0"/>
               </VBox.margin>
             </JFXButton>
 
             <Rectangle fill="#f6bd38" height="2.0" strokeWidth="0.0" width="150.0" />
 
-            <JFXButton fx:id="exportButton" id="navbtn" onAction="#onExportButtonAction" prefHeight="40.0" prefWidth="175.0" text="Export CSV Files" textFill="WHITE">
+            <JFXButton fx:id="exportButton" id="navbtn" onAction="#onExportButtonAction" prefHeight="40.0" prefWidth="225.0" text="Export CSV Files" textFill="WHITE">
               <font>
                 <Font name="System Bold" size="15.0" />
               </font>
               <VBox.margin>
-                <Insets top="12.0" />
+                <Insets top="16.0" />
               </VBox.margin>
             </JFXButton>
           </VBox>
