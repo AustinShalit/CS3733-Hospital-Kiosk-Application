@@ -39,7 +39,7 @@
                           <Font size="32.0" />
                         </font>
                       </Text>
-                      <FuzzyWuzzyComboBox fx:id="fromComboBox" id="navbox" editable="true" onAction="#onFromComboAction" maxHeight="100.0" prefHeight="50.0" maxWidth="180.0" />
+                      <FuzzyWuzzyComboBox fx:id="fromComboBox" id="navbox" editable="true" onAction="#onFromComboAction" maxHeight="100.0" prefHeight="50.0" maxWidth="175.0" />
                     </children>
                   </HBox>
 
@@ -50,7 +50,7 @@
                           <Font size="32.0" />
                         </font>
                       </Text>
-                      <FuzzyWuzzyComboBox fx:id="toComboBox" id="navbox" editable="true" onAction="#onToComboAction" maxHeight="100.0" prefHeight="50.0" maxWidth="180.0" />
+                      <FuzzyWuzzyComboBox fx:id="toComboBox" id="navbox" editable="true" onAction="#onToComboAction" maxHeight="100.0" prefHeight="50.0" maxWidth="175.0" />
                     </children>
                   </HBox>
                 </children>
@@ -104,7 +104,7 @@
                 </GridPane.margin>
               </JFXButton>
               <JFXButton id="navbtn" fx:id="informationButton" onAction="#nearestLocation" prefHeight="36.0" prefWidth="150.0" text="Information" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-              <JFXButton id="navbtn" fx:id="emergencyButton" onAction="#nearestLocation" prefHeight="36.0" prefWidth="150.0" text="Emergency" textFill="WHITE" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+              <JFXButton id="navbtn" fx:id="emergencyButton" onAction="#nearestLocation" prefHeight="36.0" prefWidth="150.0" text="Emerg. Dept." textFill="WHITE" textOverrun="CLIP" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
             </children>
             <VBox.margin>
               <Insets bottom="12.0" />

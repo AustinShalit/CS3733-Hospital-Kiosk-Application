@@ -31,7 +31,8 @@ import edu.wpi.cs3733.d19.teamO.entity.Node;
 
 import static java.lang.Math.abs;
 
-@SuppressWarnings({"PMD.TooManyFields", "PMD.TooManyMethods"})
+@SuppressWarnings({"PMD.TooManyFields", "PMD.TooManyMethods", "PMD.ExcessiveMethodLength",
+                    "PMD.NPathComplexity"})
 public class MapView2 extends StackPane {
   private boolean dragStatus;
   private String level = "1";
@@ -82,9 +83,13 @@ public class MapView2 extends StackPane {
   @FXML
   private Circle circle;
   @FXML
+  private Circle circle2;
+  @FXML
   private Circle circleDrag;
   @FXML
   private Line lineForEdge;
+  @FXML
+  private Line lineForEdge2;
 
   private final SimpleObjectProperty<Node> selectedNode = new SimpleObjectProperty<>();
   private final SimpleObjectProperty<String> selectedEdge = new SimpleObjectProperty<>();
@@ -129,9 +134,60 @@ public class MapView2 extends StackPane {
 
   @FXML
   void initialize() throws IOException {
+
     gesturePane.setMinScale(0.1);
     gesturePane.reset();
+    gesturePane.setOnMouseMoved(e -> {
+      Point2D pointOnMap = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
+          .orElse(gesturePane.targetPointAtViewportCentre());
+      int currentX = (int) pointOnMap.getX();
+      int currentY = (int) pointOnMap.getY();
+      circle.setVisible(false);
+      lineForEdge.setVisible(false);
+      findCurrentNode(level);
+      for (Node n: currentNodes) {
+        if (abs(currentX - n.getXcoord()) < 10
+            && abs(currentY - n.getYcoord()) < 10) {
+          circle.setCenterX(n.getXcoord());
+          circle.setCenterY(n.getYcoord());
+          circle.setVisible(true);
+        }
+      }
 
+      findCurrentEdge(level);
+      for (Edge ed : currentEdges) {
+        int edgeX = ed.getStartNode().getXcoord() - ed.getEndNode().getXcoord();
+        int edgeY = ed.getStartNode().getYcoord() - ed.getEndNode().getYcoord();
+        double kk = 0;
+        double bb = 0;
+        double result = 0;
+        if (edgeX == 0) {
+          bb = currentX;
+          result = abs(currentX - bb);
+        } else {
+          kk = (double) edgeY / (double) edgeX;
+          bb = ed.getEndNode().getYcoord() - kk * ed.getEndNode().getXcoord();
+          result = abs(currentX * kk + bb - currentY);
+        }
+        if (result < 10
+            && currentX <= Math.max(ed.getStartNode().getXcoord(), ed.getEndNode().getXcoord())
+            + 2
+            && currentX >= Math.min(ed.getStartNode().getXcoord(), ed.getEndNode().getXcoord())
+            - 2 && currentY <= Math.max(ed.getStartNode().getYcoord(), ed.getEndNode()
+            .getYcoord()) + 2
+            && currentY >= Math.min(ed.getStartNode().getYcoord(),
+            ed.getEndNode().getYcoord()) - 2 ) {
+          lineForEdge.setStartX(ed.getStartNode().getXcoord());
+          lineForEdge.setStartY(ed.getStartNode().getYcoord());
+          lineForEdge.setEndX(ed.getEndNode().getXcoord());
+          lineForEdge.setEndY(ed.getEndNode().getYcoord());
+          lineForEdge.setVisible(true);
+        }
+      }
+
+
+
+    });
     gesturePane.setOnMouseClicked(e -> {
       Point2D pointOnMap = gesturePane.targetPointAt(new Point2D(e.getX(), e.getY()))
           .orElse(gesturePane.targetPointAtViewportCentre());
@@ -146,26 +202,29 @@ public class MapView2 extends StackPane {
       int currentY = (int) pointOnMap.getY();
       coordX.setText(Double.toString(currentX));
       coordY.setText(Double.toString(currentY));
-      circle.setCenterX(pointOnMap.getX());
-      circle.setCenterY(pointOnMap.getY());
 
       //  Node[] nodesArray = nodes.toArray(new Node[nodes.size()]);
 
       if (!dragStatus) {
-        circle.setVisible(true);
+        circle2.setVisible(false);
         Node emptyNode = new Node("Auto-Generated", currentX, currentY, level, "",
             null, "", "");
         selectedNode.set(emptyNode);
         findCurrentNode(level);
-        for (Node n : currentNodes) {
-          if (abs(n.getXcoord() - currentX) < 8 && abs(n.getYcoord() - currentY) < 8) {
+        for (Node n: currentNodes) {
+          if (abs(currentX - n.getXcoord()) < 10
+              && abs(currentY - n.getYcoord()) < 10) {
+            circle2.setCenterX(n.getXcoord());
+            circle2.setCenterY(n.getYcoord());
+            circle2.setVisible(true);
             selectedNode.set(n);
-            break;
           }
         }
         selectedEdge.set(" ");
         findCurrentEdge(level);
-        lineForEdge.setVisible(false);
+        lineForEdge2.setVisible(false);
+
+
         for (Edge ed : currentEdges) {
           int edgeX = ed.getStartNode().getXcoord() - ed.getEndNode().getXcoord();
           int edgeY = ed.getStartNode().getYcoord() - ed.getEndNode().getYcoord();
@@ -188,14 +247,13 @@ public class MapView2 extends StackPane {
               - 2 && currentY <= Math.max(ed.getStartNode().getYcoord(), ed.getEndNode()
               .getYcoord()) + 2
               && currentY >= Math.min(ed.getStartNode().getYcoord(),
-
               ed.getEndNode().getYcoord()) - 2 ) {
+            lineForEdge2.setStartX(ed.getStartNode().getXcoord());
+            lineForEdge2.setStartY(ed.getStartNode().getYcoord());
+            lineForEdge2.setEndX(ed.getEndNode().getXcoord());
+            lineForEdge2.setEndY(ed.getEndNode().getYcoord());
+            lineForEdge2.setVisible(true);
             selectedEdge.set(ed.getEdgeId());
-            lineForEdge.setStartX(ed.getStartNode().getXcoord());
-            lineForEdge.setStartY(ed.getStartNode().getYcoord());
-            lineForEdge.setEndX(ed.getEndNode().getXcoord());
-            lineForEdge.setEndY(ed.getEndNode().getYcoord());
-            lineForEdge.setVisible(true);
 
             break;
           }
@@ -273,6 +331,9 @@ public class MapView2 extends StackPane {
 
   }
 
+  public void setLineForEdge2Visibility(boolean bl) {
+    lineForEdge2.setVisible(bl);
+  }
 
   public void setNodes(Collection<Node> nodes) {
     this.nodes = nodes;
@@ -357,10 +418,6 @@ public class MapView2 extends StackPane {
     circleDrag.setCenterY(y);
   }
 
-  public void setLineVisible(boolean b) {
-    lineForEdge.setVisible(b);
-  }
-
   public void setDragStatus(boolean status) {
     dragStatus = status;
   }
@@ -427,7 +484,7 @@ public class MapView2 extends StackPane {
   public void addNodesToPane(final Collection<Node> n) {
     if (n != null) {
       for (Node node : n) {
-        Circle circle = new Circle(node.getXcoord(), node.getYcoord(), 5,
+        Circle circle = new Circle(node.getXcoord(), node.getYcoord(), 7,
             Color.color(0, 0.31, 0.53));
         circle.setStroke(Color.BLACK);
         nodeGroup.getChildren().add(circle);
@@ -504,8 +561,8 @@ public class MapView2 extends StackPane {
     return level;
   }
 
-  public void setCircleVisibility(boolean visibility) {
-    circle.setVisible(visibility);
+  public void setCircle2Visibility(boolean visibility) {
+    circle2.setVisible(visibility);
   }
 
   public void setCircleDragVisibility(boolean visibility) {

@@ -246,6 +246,7 @@ public class NavigationController implements Controller {
       button.setOnAction(event -> {
         try {
           map.zoomTo(node);
+          map.zoomLabel();
         } catch (IOException exception) {
           exception.printStackTrace();
         }
@@ -274,6 +275,7 @@ public class NavigationController implements Controller {
         if (Objects.nonNull(curPair.getSecond())) {
           try {
             map.zoomTo(curPair.getSecond());
+            map.zoomLabel();
           } catch (IOException exception) {
             exception.printStackTrace();
           }
@@ -284,6 +286,7 @@ public class NavigationController implements Controller {
 
     map.zoomTo(fromComboBox.getNodeValue());
     map.drawPath();
+    map.zoomLabel();
   }
 
   private void validateGoButton() {
