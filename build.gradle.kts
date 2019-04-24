@@ -52,6 +52,8 @@ allprojects {
         runtimeOnly(group = "edu.wpi.first.ntcore", name = "ntcore-jni", version = "2019.+", classifier = "windowsx86")
         runtimeOnly(group = "edu.wpi.first.ntcore", name = "ntcore-jni", version = "2019.+", classifier = "linuxx86-64")
 
+        implementation(group = "edu.wpi.first.wpiutil", name = "wpiutil-java", version = "2019.+")
+
         implementation(group = "com.calendarfx", name = "view", version = "8.5.0")
         implementation(group = "com.google.code.gson", name = "gson", version = "2.8.5")
         implementation(group = "com.google.guava", name = "guava", version = "27.1-jre")

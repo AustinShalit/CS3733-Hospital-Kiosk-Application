@@ -3,14 +3,17 @@ package edu.wpi.cs3733.d19.teamO.entity.pathfinding;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import com.google.common.graph.GraphBuilder;
 import com.google.common.graph.MutableGraph;
 
 
+import sun.nio.ch.Net;
 
 import edu.wpi.cs3733.d19.teamO.entity.Edge;
 import edu.wpi.cs3733.d19.teamO.entity.Node;
+import edu.wpi.first.networktables.ConnectionNotification;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class LED_Model {
@@ -94,7 +97,7 @@ public class LED_Model {
     allNodes.add(bottomElevator);
     allNodes.add(bottomExit);
 
-    this.longHall = new Edge("longHall", endHall, topExit);
+    this.longHall = new Edge("longHall", endHall, elevatorHallDoor);
     this.toTopElev = new Edge("toTopElev", elevatorHallDoor, topElevator);
     this.toTopElevHall = new Edge("toTopElevHall", elevatorHallDoor, topExit);
     this.toTopStair = new Edge("toTopStair", topExit, topStair);
@@ -105,7 +108,7 @@ public class LED_Model {
     this.toZinner = new Edge("toZinner", hallNearRooms, zinner);
     this.toLowerElev = new Edge("toLowerElev", hallToRooms, lowerElevator);
     this.stairs = new Edge("stairs", topStair, bottomStair);
-    this.elevator = new Edge("elevator", topElevator, bottomElevator);
+    this.elevator = new Edge("elevator", lowerElevator, bottomElevator);
     this.toBottomElev = new Edge("toBottomElev", bottomElevator, bottomStair);
     this.toBottomExit = new Edge("toBottomExit", bottomStair, bottomExit);
 
@@ -131,25 +134,33 @@ public class LED_Model {
 
 
     NetworkTableInstance instance = NetworkTableInstance.getDefault();
-    instance.startClient("130.215.173.94"); // ip address for wpi 130.215.173.94
+    instance.startClient("130.215.209.224", 1735); // ip address for wpi 130.215.173.94
+    instance.addConnectionListener(new Consumer<ConnectionNotification>() {
+      @Override
+      public void accept(ConnectionNotification connectionNotification) {
+        System.out.println("Connected: " + (connectionNotification.connected ? "true" : "false"));
+      }
+    }, true);
 
-
+    try {
+      Thread.sleep(1000);
+    } catch (Exception e) {
+      ;;
+    }
+    System.out.println("Connection status after 5000ms: " + (instance.isConnected() ? "true" : "false"));
   }
 
   public void sendPathToPi(Node startNode, Node endNode) {
-
+    System.out.println("MUST be done initializing by now");
     BreadthFirstSearchAlgorithm bfs = new BreadthFirstSearchAlgorithm();
 
     List<Node> path = bfs.getPath(graph, startNode, endNode);
 
     double [] pins = getListPins(path);
-
+    System.out.println(pins.length);
+    NetworkTableInstance.getDefault().deleteAllEntries();
     NetworkTableInstance.getDefault().getEntry("/path").setDoubleArray(pins);
-
-
-
-
-
+    //NetworkTableInstance.getDefault().getEntry("/path").setDoubleArray(new double[]{});
   }
 
 
@@ -159,9 +170,11 @@ public class LED_Model {
 
     ArrayList<Edge> edges = new ArrayList<>();
 
-    for (Node node: nodes) {
+    for (int i = 0; i < nodes.size() -1 ; i++) {
       for (Edge edge: allEdges) {
-        if (node.equals(edge.getStartNode()) || node.equals(edge.getEndNode())) {
+        if (nodes.get(i).equals(edge.getStartNode()) && nodes.get(i+1).equals(edge.getEndNode())) {
+          edges.add(edge);
+        } else if (nodes.get(i).equals(edge.getEndNode()) && nodes.get(i+1).equals(edge.getStartNode())) {
           edges.add(edge);
         }
       }
@@ -170,6 +183,7 @@ public class LED_Model {
 
     for (Edge edge: edges) {
       double pin = edgeToPin(edge);
+      pins.add(pin);
     }
 
 
@@ -186,7 +200,7 @@ public class LED_Model {
       return 16;
     } else if (edge.equals(toZinner)) {
       return 1;
-    } else if (edge.equals(toTopElev)) {
+    } else if (edge.equals(toTopElevHall)) {
       return 5;
     } else if (edge.equals(toRoomHall)) {
       return 23;
