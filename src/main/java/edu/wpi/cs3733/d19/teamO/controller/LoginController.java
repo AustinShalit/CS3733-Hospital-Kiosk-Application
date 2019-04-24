@@ -68,7 +68,7 @@ public class LoginController implements Controller {
 
   @FXML
   void loginButtonAction() {
-
+    info = db.getAllEmployee();
     username.requestFocus();
     // gets the user input
     Employee employee = parseUserLogin();
